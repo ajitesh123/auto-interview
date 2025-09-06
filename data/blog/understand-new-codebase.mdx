@@ -1,0 +1,83 @@
+---
+title: How to Understand New Codebase Quickly
+date: '2024-04-09'
+tags: ['software development', 'coding', 'best practices']
+draft: false
+summary: 'Techniques to help developers quickly understand and navigate new codebases, focusing on intentional learning and key entry points.'
+---
+
+# Introduction
+
+Reading codebase isn’t easy even if you’ve all the time in the world. But when do you ever have the luxury of time? This blog focuses on techniques that can help you learn codebase quickly.
+
+One of the critical pieces is to be intentional and determine what questions you want to understand in the code. Just reading through each line is neither effective nor a good use of time.
+
+<div className="relative aspect-video w-full">
+  <iframe
+    className="absolute left-0 top-0 h-full w-full"
+    src="https://www.youtube.com/embed/3O8lF3ZOBy0?si=wBptBmJtclFq9L1h"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  />
+</div>
+
+That’s why most of the guidance about understanding codebases focuses on finding the entry points that can help generate questions about the codebase:
+
+```
+- Start with the business context
+- Find a commit and just understand what all it took to make that changes
+- Understand critical files/folder in repo
+- Fix a bug
+```
+
+All this is good. But how to find the business context or first commit that you should pick? That’s what we will focus on in this blog.
+
+## 1. Purpose and overview of codebase
+
+That’s the first place to start. You need to understand the business context and purpose of this repo. What are some of the top 4–5 features that this codebase delivers and its high-level implementation logic. If you’re lucky there is a good Readme, some design docs, or a diagram. If not try to parse from website and Readme, Integration testing etc
+
+## 2. Understand file and folder structure
+
+Start with the source code files — the primary files whether the application or project code is written. The extension and naming convention vary for different programming languages:
+
+```
+- Python: main.py
+- Javascript: app.js
+- C: program.c
+- C++: main.cpp
+- Go: main.go
+- Rust: main.rs
+- Java: Main.java
+- C#: Program.cs
+```
+
+GitHub’s file view can be difficult to navigate and comprehend at first glance. Not every file and folder is critical. It’s okay to not look at static contents for content distribution, files starting with dot etc. They likely don’t contain the critical code logic.
+
+## 3. Commit Timeline
+
+One way to understand a repo and its complexity is to first create a miniature version of the project. I was speaking to one of my friends, a former CTO at a startup that offers push notification service, and he said that during onboarding they asked people to build a notification service. And once developers understand the basic workflow and limitations, they are given access to the prod codebase, which helps them understand the reason for complexities and constraints. I think for a long time a popular question in Google Interviews was building naive search on the web. That was pretty powerful in making new developers understand the working of a hugely simplified Google Search.
+
+You can take a similar approach and look at the first few commits of reasonable size (100–500 lines of code) and try to understand the critical feature implementation. How nice it would be to look at the first commit of Facebook timeline MVP! I’ve seen the first commit of some of the popular services at Google — Bigquery, K8S etc. It’s quite a revealing experience.
+
+## 4. Critical Files
+
+Not every file in your codebase is worth your time. As a thumb rule, there are two indicators of criticality of a file to business logic.
+
+First, how often files change? For example, if a file contains critical logic or core functionality, it will undergo frequent changes to support new tasks from costumes or address bugs.
+
+Second, the number of connections or dependencies: Critical utilities, libraries or core business logic are often connected to a significant portion of the codebase.
+
+There are exceptions to this role. Dependency management and certain other file formats might change a lot, but not the first place to focus on.
+
+## 5. Make Your First Commit
+
+That’s a critical milestone. While the learning continues, making the first commit gives you the assurance that you can now figure it out! Your first commit could be documentation improvements, minor bug fixes etc. And even if you struggle a bit, you now have a good set of tools and techniques up your sleeve :)
+
+# Conclusion
+
+While the best way to learn a codebase is through mentorship, these techniques can help you prepare and gain initial understanding. Tools like [Archie AI](https://www.getarchieai.com/) aim to accelerate this learning process and make it more enjoyable.
+
+[^1]: Disclaimer: The best way to learn a codebase is to find time with a lead developer, mentor, or other code writer. This guide is for situations where that's not immediately possible or to prepare for such discussions.

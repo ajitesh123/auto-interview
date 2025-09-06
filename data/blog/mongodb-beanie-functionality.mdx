@@ -1,0 +1,91 @@
+---
+title: 'Working with Beanie ODM for MongoDB'
+date: '2025-02-20'
+tags: ['mongodb', 'database', 'backend', 'tutorial', 'beanie']
+draft: false
+summary: 'A guide to using Beanie ODM for MongoDB with FastAPI'
+---
+
+# Introduction
+
+I was working on a Python project recently that was getting complex. We used Beanie to simplify the ODM aspect. The documentation required multiple iterations to figure out how to implement it correctly in my codebase. Here are a few things I learned that I'm sharing with you. As long as you follow these conventions, there are many benefits to using Beanie, which is what I hope this blog demonstrates.
+
+Some critical things to note:
+
+1. The Document class, although inherited from the Pydantic BaseModel class, has some additional features:
+
+- id is automatically added to the model (it's stored as \_id in the database and converted to id in the response)
+- Indexed fields are automatically added to the model
+
+2. When you inherit from MongoModel, you get the following features:
+
+- id is automatically added to the model
+- Indexed fields are automatically added to the model
+
+So when defining a schema for FastAPI model, you should inherit from MongoModel instead of BaseModel (Pydantic).
+
+3. For FastAPI responses to not return the alias (\_id), we need to use response_model_by_alias=False in addition to the new type of schema (inherited from MongoModel)
+
+4. One additional consideration is that when querying the database, you need to convert the string id to ObjectId and assign it to the \_id field. This has to be done manually.
+
+As long as you follow these conventions, you get the following features:
+
+- JSON serialization/deserialization: Data returned from the database is automatically converted to the FastAPI model (including id vs \_id)
+- Automatic index management
+- No complex handling of \_id and id in the code
+
+## Usage Guide
+
+### 1. Model Definition
+
+Models should inherit from `MongoModel` instead of Pydantic's `BaseModel`:
+
+```python
+from core.mongodb import MongoModel
+
+class User(MongoModel):
+    name: str
+    email: str
+
+    class Settings:
+        name = "users"  # MongoDB collection name
+```
+
+### 2. Schema Definition
+
+Response schemas should also inherit from `MongoModel`:
+
+```python
+class UserResponse(MongoModel):
+    name: str
+    email: str
+```
+
+### 3. FastAPI Integration
+
+When using with FastAPI endpoints, always set `response_model_by_alias=False`:
+
+```python
+@router.get(
+    "/user/{user_id}",
+    response_model=UserResponse,
+    response_model_by_alias=False  # Important!
+)
+async def get_user(user_id: str) -> UserResponse:
+    user = await User.get(user_id)
+    return user
+```
+
+### 4. Working with IDs
+
+When querying by ID, convert string IDs to MongoDB ObjectId:
+
+```python
+from bson import ObjectId
+
+# Querying by ID
+query = {"_id": ObjectId(id)}
+response = await User.get(query)
+```
+
+For more detailed information, check out the [Beanie documentation](https://beanie-odm.dev/tutorial/defining-a-document/), [MongoDB documentation](https://www.mongodb.com/docs/), and [FastAPI documentation](https://fastapi.tiangolo.com/).

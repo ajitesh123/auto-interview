@@ -1,0 +1,151 @@
+---
+title: 'How to Prepare for Product Manager Technical Interviews'
+date: '2022-08-03'
+tags: ['product management', 'interviews', 'technical interviews', 'career']
+draft: false
+summary: 'A comprehensive guide on preparing for technical interviews in Product Management roles, covering types of questions, preparation strategies, and interview tactics.'
+---
+
+To lead the product team effectively, Product Managers must have influence and credibility with engineers. While good technical knowledge/aptitude isn't the only factor in a good working relationship with engineers, it's a significant one. That's why many tech firms conduct technical interviews as part of the PM hiring process.
+
+For Google specifically, one of the job ladders on which promotion decisions are based is the level of technical complexity PMs deal with. It's expected that a Senior PM is seen as a technical peer, has knowledge of the full stack, and is a stakeholder in deciding the technical direction/architecture.
+
+Note: Technical aptitude requirement doesn't mean you need to have a CS degree. As Google's PM job listing aptly states in qualifications "Bachelor's degree in a technical field or equivalent practical experience". It's the technical skill that's important, not the degree.
+
+In this blog, I will share how you can prepare for the tech interview for Product Managers.
+
+## Why prepare for a technical interview?
+
+Technical interviews are an important part of the interview process at some tech firms including Google, Twilio, and most early-stage companies. In most cases, you don't have to be exceptional but at least get above a certain rating in this interview (a bit like an eliminator round).
+
+The range of possible questions in technical interviews is pretty large, so it's important to follow a focused approach to prepare. The good news is that no one is trying to trick you here, and they just expect you to know a few basic concepts. Plus, there are clear patterns in the kind of questions asked that we will go through in this blog.
+
+## Types of questions
+
+In most cases, a Software Developer conducts the technical interview. This interview tests your technical aptitude and gauges your ability to work closely with engineers to evaluate technical trade-offs, triage bugs, align on technical direction etc.
+
+While the range of questions that can be asked in a PM technical interview is pretty broad, there are some established patterns. Questions invariably belong to the following 4 categories:
+
+1. Behavioral questions
+2. Algorithm questions
+3. System design questions
+4. Technology 101 questions
+
+> **Note:** Technical know-how is helpful even in non-tech rounds. For example, even for questions such as "How would you estimate the bandwidth consumed by Youtube?", which isn't a technical question per se, one needs a high-level understanding of storage concepts (replication, compression, object storage etc.) to answer.
+
+## 1. Experience-based questions
+
+These questions are generally ice-breakers but can also consume the whole interview. In the case when the technical background of the interviewee isn't clear, the interviewer has to rely mostly on these questions.
+
+The intent here is to judge your technical contribution to the product (discussion with engineering or understanding of tech stack), which is a signal that PM can learn on the job to be a peer for engineers.
+
+Some example questions:
+
+- Tell me a time when you worked with an engineer. Walk me through the discussion you had.
+- Tell me about the project X mentioned in your resume. How trade-off decisions you had with engineering during the course of this project.
+- Talk about a technical challenge you've encountered at work and how did you solve it?
+- Questions related to specific skills mentioned in the resume — android programming, machine learning etc.
+
+## 2. System Design questions
+
+It's the most popular question for most PM tech interviews. Algorithm questions can be a bit more technical and experience-based questions a bit light for assessment. System design questions offer a good peek into the technical depth of the interview. Interviewers have the flexibility to go as deep as they want or stay generic.
+
+Some example questions:
+
+- Design a pastebin
+- Design a web crawler
+- Design a chat application
+- Design a social media application (Twitter timeline, Facebook search)
+- Design Uber
+- Design Mint.com
+
+I found GitHub articles to be really helpful for preparing for this interview. Here was my approach to answer system design questions:
+
+1. Clarify requirements (stick to &lt;=3 requirements)
+2. Discuss the system interface (API design) and data model
+3. Present the high-level design on a whiteboard consisting of client, server, type of storage (object, file), database, load balancer, type of connection
+4. Walk through how the requirements highlighted in step 1 would be met
+5. Ask interviewer of areas in which they would like to dig deeper
+
+> **Tip:** It's important to confirm the requirements, start broader, and slowly move into depth (and let the interviewer guide you to areas where they need more in-depth conversations).
+
+## 3. Algorithm questions
+
+Coding questions are rarely asked in PM interviews. Often, software engineers taking the interviews are advised not to ask the interviewee to code. That being said, asking algorithm questions is fair game, and it can lead you to writing code/pseudo-code. However, coding or code quality isn't the focus of the interview.
+
+Some example questions include:
+
+- Reverse a linked list
+- Count matching characters in a string
+- Determine the largest and smallest element of unsorted array
+- Given two non-empty array of integers, determine whether the second array is a subsequence of the first one
+
+To prepare for these questions, I referred to the "Cracking the Coding Interview" and my undergraduate course on Data Structures and Algorithms.
+
+## 4. Technology 101 questions
+
+Final type of questions are generic questions about how technology works. It's generally an ice breaker question but can be the focus of the interview. If your resume doesn't have technical projects and you've clearly stated that you don't have a CS background, interviewers have to rely on these questions to assess your technical strength.
+
+Common questions include:
+
+- What happens when you type Google.com on a browser?
+- How can you optimize a web page for faster loading time?
+- How does the internet work?
+- Explain the concept of cloud in simple terms.
+- How does Google home devices work?
+
+## Interview strategy
+
+One critical aspect of a tech interview for PM is how you steer the conversation. You have significant control on which area you can make the interviewer ask questions. However, once the category is clear (say algorithm), it's almost impossible to steer it towards another category (say system design). So how to influence this?
+
+The intent of the tech interview is not to make you uncomfortable but to assess that you can be an effective partner for engineering. It's understood that a PM doesn't have to code, and good PMs pick concepts fast on the job. Hence, the interviewer is comfortable sticking to the area (or questions category) you signal you've background knowledge. You can use the two-minute intro/resume walkthrough to showcase technical aspects of your experience you're comfortable with.
+
+Technology changes fast, and it's hard to be on top of all technical concepts. I work in Google Cloud, and I've seen even L6–7 engineers have a hard time answering outside of their domain. Hence, it's perfectly fine to be selective and a bit tactical in steering the conversation towards what you know!
+
+### Key points:
+
+<div className="mb-4 border-l-4 border-blue-500 bg-gray-100 p-4 dark:bg-gray-800">
+  <h4 className="mb-2 text-lg font-bold text-gray-900 dark:text-gray-100">Remember:</h4>
+  <ul className="list-disc pl-5 text-gray-800 dark:text-gray-300">
+    <li>The intent is to assess that you can be an effective partner for engineering</li>
+    <li>
+      It's understood that a PM doesn't have to code, and good PMs pick concepts fast on the job
+    </li>
+    <li>
+      Use the two-minute intro/resume walkthrough to showcase technical aspects of your experience
+      you're comfortable with
+    </li>
+    <li>
+      It's perfectly fine to be selective and a bit tactical in steering the conversation towards
+      what you know!
+    </li>
+  </ul>
+</div>
+
+<hr className="my-8 border-gray-200 dark:border-gray-700" />
+Note: I cover the technical interview in more details in my Product Management Interview Course.
+
+Here is a sample video from the course:
+
+<div className="relative aspect-video w-full">
+  <iframe
+    className="absolute left-0 top-0 h-full w-full"
+    src="https://www.youtube.com/embed/bpuWAMbxM2A"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  />
+</div>
+
+<div className="my-8 flex justify-center">
+  <a
+    href="https://pm-interview-prep1.teachable.com/"
+    className="rounded-lg bg-primary-500 px-20 py-4 text-lg"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span className="text-white">Get the Full Course →</span>
+  </a>
+</div>

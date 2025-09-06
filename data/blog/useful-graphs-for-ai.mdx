@@ -1,0 +1,93 @@
+---
+title: 'AI Wave in Graphs'
+date: '2024-11-21'
+tags: ['ai', 'cloud', 'technology']
+draft: false
+summary: 'A living document capturing AI trends in graphs'
+---
+
+This blog is a living document capturing AI trends in graphs. I planned to do this for myself, but I thought it might be useful for others.
+
+A related goal of this blog is to play with nice visulaiztions in react :)
+
+## Cloud and AI
+
+It was quite interesting to witness the AI trend during my time at Google Cloud. After the pandemic, we saw a slowdown in cloud spending as companies optimized costs. You could hear the same in Amazon and Microsoft earnings calls about AWS and Azure.
+
+Then came the recent surge, driven by AI. Initially, it was hard to tell whether it was a short spike because of a handful of players over-investing in AI. But the growth was visible across the stack—even in data movement into and within Google Cloud, which was the primary metric for the product I worked on.
+
+Now it's clearer than ever—after mobile and cloud, AI is shaping up to be the next big platform shift!
+
+<CloudRevenue />
+source: [Battery
+Ventures](https://www.battery.com/wp-content/uploads/2024/11/Battery-OpenCloud-Report-2024_vFINAL_v2.pdf)
+This chart from Battery Ventures nicely puts it together.
+
+## AI Wave in $$
+
+There has been strong investment in AI startups.
+
+But it's hard to say it's a bubble:
+
+- We already have few firms `>$100M ARR`
+- The market is big; covered in next graph
+- Even for OpenAI, if we ignore profitability, the usage, revenue and valuation numbers in recent fund raise match that of Google at IPO
+
+<InvestmentMetrics />
+
+## AI Market Size
+
+Cloud was changing how software is written and deployed - microservices, serverless, containerized applications etc. Primary impact was in enterprise space.
+
+Cloud-based software aggresively capture big portion of software market. This now is $400B market
+
+AI is now automating labor - writing code, drafting legal documents, handling customer support, etc. That is an order of magnitude larger market.
+
+Here are numbers from Sequoia Capital's presentation.
+
+<MarketComparison />
+source: [Sequoia Capital](https://www.sequoiacap.com/article/generative-ais-act-o1/)
+
+## LLM Market Share
+
+The LLM market has seen significant shifts between 2023 and 2024. While OpenAI remains the market leader, their share has decreased from 50% to 34%. This decline has been primarily absorbed by Anthropic and Google, who have gained 12% and 5% market share respectively.
+
+This redistribution suggests a maturing market where competition is intensifying. It's particularly interesting to see Anthropic's dramatic rise, doubling their market share in just one year. A major reason for this is that Anthropic has been able to offer superior performance for coding tasks.
+
+<LLMMarketShare />
+source: [Menlo Ventures](https://menlovc.com/2024-the-state-of-generative-ai-in-the-enterprise/)
+
+## Criteria for GenAI tools
+
+It's interesting insight for designing GenAI tools that buyers are now mature and not stuck on just performance and accuracy. That was one of the biggest challenges when I was building GenAI products at Google Cloud.
+
+Instead, the most important criteria now is "easily quantifiable ROI". Even if accuracy is lower, which can be the case for many complex tasks, as long as you can quantify ROI it's a good fit.
+
+This is especially helpful in selecting which market segment to build AI product in. Prioritize market segments where you can easily quantify ROI and customize for org/industry vs just high accuracy (which was the criteria to pick product investments in 2023. We mostly picked areas such as summarization, explanation, etc. where accuracy wasn't a big blocker).
+
+That's one of reason why every AI-based Sales-tech firm is showing have substantial ARR despite having similar offering on surface. Quantifying ROI is simple if it works.
+
+<CriteriaForGenAI />
+source: [Menlo Ventures](https://menlovc.com/2024-the-state-of-generative-ai-in-the-enterprise/)
+
+## Enterprise Spend Categories
+
+One other data points has been strong growth in vertical-specific AI tools or apps in general. This again represents a maturing market where companies are investing beyond just LLMs and related infrastructure.
+
+Don't know how much to read into this, as this is kind of obvious that large players have entrenched positions in foundation layers, and there is intense competition there. In contrast, there is more room to play for in AI apps space.
+
+<EnterpriseSpendCategories />
+source: [Menlo Ventures](https://menlovc.com/2024-the-state-of-generative-ai-in-the-enterprise/)
+
+## Enterprise spending Areas by Department
+
+I don't want to read too much into this except for the spending isn't inline with budget. I don't think 8% of eneterpise budget is for data science.
+
+What's you takeaway from this one?
+
+<EnterpriseSpendByDepartment />
+source: [Menlo Ventures](https://menlovc.com/2024-the-state-of-generative-ai-in-the-enterprise/)
+
+<hr className="my-8 border-gray-200 dark:border-gray-700" />
+More charts coming soon! If you have any suggestions, please let me know at
+ajitesh@getarchieai[dot]com
