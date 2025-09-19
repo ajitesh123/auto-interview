@@ -1,0 +1,359 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>{{Resume Title}}</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="container" role="document">
+
+    <header>
+
+      <div class="name">{{Name}}</div>
+
+      <div class="contact">
+
+        {{Location}} • {{Email}} • {{Phone Number}} • {{LinkedIn}}
+
+      </div>
+
+    </header>
+
+
+
+    <main class="sections">
+
+      <!-- Education -->
+
+      <section aria-labelledby="education">
+
+        <h2 id="education">{{Education}}</h2>
+
+
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Institution 1}}</div>
+
+              <div class="sub">{{Institution Location 1}}</div>
+
+            </div>
+
+            <div class="right">{{Graduation Date 1}}</div>
+
+          </div>
+
+          <div class="row-meta">{{Degree 1}} — {{Major/Concentration 1}} • {{GPA 1}}</div>
+
+        </div>
+
+
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Institution 2}}</div>
+
+              <div class="sub">{{Institution Location 2}}</div>
+
+            </div>
+
+            <div class="right">{{Graduation Date 2}}</div>
+
+          </div>
+
+          <div class="row-meta">{{Degree 2}} — {{Major/Concentration 2}} • {{GPA 2}}</div>
+
+        </div>
+
+
+
+        <!-- optional study abroad / high school placeholders -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Institution 3}}</div>
+
+              <div class="sub">{{Institution Location 3}}</div>
+
+            </div>
+
+            <div class="right">{{Graduation Date 3}}</div>
+
+          </div>
+
+          <div class="row-meta">{{Degree 3}} — {{Major/Concentration 3}} • {{GPA 3}}</div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Experience -->
+
+      <section aria-labelledby="experience">
+
+        <h2 id="experience">{{Experience}}</h2>
+
+
+
+        <!-- Experience entry 1 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Organisation 1}}</div>
+
+              <div class="position-title">{{Position Title 1}}</span></div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{Organisation Location 1}}</div>
+
+              <div class="date">{{StartDate1}} – {{EndDate1}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          <ul class="bullets">
+
+            <li>{{Bullet 1.1}}</li>
+
+            <li>{{Bullet 1.2}}</li>
+
+            <li>{{Bullet 1.3}}</li>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- Experience entry 2 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Organisation 2}}</div>
+
+              <div class="position-title">{{Position Title 2}}</span></div>
+
+            </div>
+
+
+
+            <div class="right">
+
+              <div class="location">{{Organisation Location 2}}</div>
+
+              <div class="date">{{StartDate2}} – {{EndDate2}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          <ul class="bullets">
+
+            <li>{{Bullet 2.1}}</li>
+
+            <li>{{Bullet 2.2}}</li>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- add more experience entries as needed using the same pattern -->
+
+      </section>
+
+
+
+      <!-- Leadership & Activities -->
+
+      <section aria-labelledby="leadership">
+
+        <h2 id="leadership">{{Leadership & Activities}}</h2>
+
+
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Organization / Club L}}</div>
+
+              <div class="position-title">{{Role L}}</span></div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{Organisation Location L}}</div>
+
+              <div class="date">{{StartDateL}} – {{EndDateL}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          <ul class="bullets">
+
+            <li>{{Leadership Bullet 1}}</li>
+
+            <li>{{Leadership Bullet 2}}</li>
+
+          </ul>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Projects (new) -->
+
+      <section aria-labelledby="projects">
+
+        <h2 id="projects">{{Projects}}</h2>
+
+
+
+        <div class="entry">
+
+          <ul class="bullets">
+
+            <li>{{Project 1}}</li>
+
+            <li>{{Project 2}}</li>
+
+          </ul>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Other (1) (new) -->
+
+      <section aria-labelledby="other1">
+
+        <h2 id="other1">{{Other (1)}}</h2>
+
+
+
+        <div class="entry">
+
+          <ul class="bullets">
+
+            <li>{{Other1 Bullet 1}}</li>
+
+            <li>{{Other1 Bullet 2}}</li>
+
+          </ul>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Skills & Interests -->
+
+      <section aria-labelledby="skills">
+
+        <h2 id="skills">{{Skills & Interests}}</h2>
+
+
+
+        <div class="skill-line">
+
+          <strong>{{Technical}}:</strong>
+
+          <span>{{Tech Skill 1}}</span><span>•</span>
+
+          <span>{{Tech Skill 2}}</span><span>•</span>
+
+          <span>{{Tech Skill 3}}</span><span>•</span>
+
+          <span>{{Tech Skill 4}}</span>
+
+        </div>
+
+
+
+        <div class="skill-line">
+
+          <strong>{{Languages}}:</strong>
+
+          <span>{{Language 1}}</span><span>•</span>
+
+          <span>{{Language 2}}</span>
+
+        </div>
+
+
+
+        <div class="skill-line">
+
+          <strong>{{Interests}}:</strong>
+
+          <span>{{Interest 1}}</span><span>•</span>
+
+          <span>{{Interest 2}}</span><span>•</span>
+
+          <span>{{Interest 3}}</span>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>

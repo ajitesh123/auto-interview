@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ResumeData } from '../../../../lib/resumeStore'
+import { ResumeData } from '../../../lib/resumeStore'
 
 interface TemplateSelectionPageProps {
   resumeData: ResumeData
@@ -12,13 +12,45 @@ interface TemplateSelectionPageProps {
 const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelectionPageProps) => {
   const [isGenerating, setIsGenerating] = useState(false)
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null)
+  const [showPreview, setShowPreview] = useState(false)
+  const [previewHTML, setPreviewHTML] = useState<string>('')
+
+  const handlePreview = async () => {
+    try {
+      // Generate HTML preview using the resume data
+      const response = await fetch('/api/resume/generate-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeId,
+          template: 'harvard',
+          data: resumeData,
+          preview: true, // Add preview flag
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to generate preview')
+      }
+
+      const html = await response.text()
+      setPreviewHTML(html)
+      setShowPreview(true)
+    } catch (error) {
+      console.error('Error generating preview:', error)
+      setDownloadMessage('Error generating preview. Please try again.')
+      setTimeout(() => setDownloadMessage(null), 5000)
+    }
+  }
 
   const handleDownload = async () => {
     setIsGenerating(true)
     setDownloadMessage(null)
 
     try {
-      // Generate PDF using the resume data
+      // Generate DOCX using the resume data
       const response = await fetch('/api/resume/generate-pdf', {
         method: 'POST',
         headers: {
@@ -32,7 +64,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
       })
 
       if (!response.ok) {
-        throw new Error('Failed to generate PDF')
+        throw new Error('Failed to generate DOCX')
       }
 
       // Create blob and download
@@ -40,7 +72,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${resumeData.contact.name.replace(/\s+/g, '_')}_Resume.pdf`
+      a.download = `${resumeData.contact.name.replace(/\s+/g, '_')}_Resume.docx`
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)
@@ -49,8 +81,8 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
       setDownloadMessage('Resume downloaded successfully!')
       setTimeout(() => setDownloadMessage(null), 3000)
     } catch (error) {
-      console.error('Error generating PDF:', error)
-      setDownloadMessage('Error generating PDF. Please try again.')
+      console.error('Error generating DOCX:', error)
+      setDownloadMessage('Error generating DOCX. Please try again.')
       setTimeout(() => setDownloadMessage(null), 5000)
     } finally {
       setIsGenerating(false)
@@ -271,6 +303,27 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           </button>
 
           <button
+            onClick={handlePreview}
+            className="flex items-center justify-center rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+            Preview Resume
+          </button>
+
+          <button
             onClick={handleDownload}
             disabled={isGenerating}
             className="flex items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700 px-8 py-3 font-semibold text-white transition-colors hover:from-pink-400 hover:to-pink-600 disabled:cursor-not-allowed disabled:opacity-50"
@@ -297,7 +350,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                Generating PDF...
+                Generating DOCX...
               </>
             ) : (
               <>
@@ -309,7 +362,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                Download Resume
+                Download DOCX Resume
               </>
             )}
           </button>
@@ -375,6 +428,56 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           </div>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="mx-4 max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-lg bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b p-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Resume Preview - Harvard Template
+              </h3>
+              <button
+                onClick={() => setShowPreview(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="max-h-[80vh] overflow-auto p-4">
+              <iframe
+                srcDoc={previewHTML}
+                className="h-[70vh] w-full border-0"
+                title="Resume Preview"
+              />
+            </div>
+            <div className="flex justify-end gap-2 border-t p-4">
+              <button
+                onClick={() => setShowPreview(false)}
+                className="rounded-lg bg-gray-200 px-4 py-2 text-gray-600 hover:bg-gray-300"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setShowPreview(false)
+                  handleDownload()
+                }}
+                className="rounded-lg bg-pink-600 px-4 py-2 text-white hover:bg-pink-700"
+              >
+                Download DOCX
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

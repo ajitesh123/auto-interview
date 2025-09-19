@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resumeStoreOperations, ResumeData } from '../../../../lib/resumeStore'
+import * as htmlDocx from 'html-docx-js'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { resumeId, template, data } = body
+    const { resumeId, template, data, preview } = body
 
     if (!resumeId || !template || !data) {
       return NextResponse.json(
@@ -16,19 +17,30 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // For now, we'll return a simple HTML representation
-    // In a real application, you would use a library like puppeteer or jsPDF
-    const htmlContent = generateResumeHTML(data, template)
+    // Load and fill the Harvard template
+    const filledHTML = await fillHarvardTemplate(data)
 
-    // Return HTML content for now (in production, convert to PDF)
-    return new NextResponse(htmlContent, {
+    // If preview is requested, return HTML
+    if (preview) {
+      return new NextResponse(filledHTML, {
+        headers: {
+          'Content-Type': 'text/html',
+        },
+      })
+    }
+
+    // Convert HTML to DOCX
+    const docxBuffer = htmlDocx.asBlob(filledHTML)
+
+    // Return DOCX content
+    return new NextResponse(docxBuffer, {
       headers: {
-        'Content-Type': 'text/html',
-        'Content-Disposition': 'attachment; filename="resume.html"',
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'Content-Disposition': 'attachment; filename="resume.docx"',
       },
     })
   } catch (error) {
-    console.error('Error generating PDF:', error)
+    console.error('Error generating DOCX:', error)
     return NextResponse.json(
       {
         success: false,
@@ -40,232 +52,154 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateResumeHTML(data: ResumeData, template: string) {
+async function fillHarvardTemplate(data: ResumeData): Promise<string> {
+  try {
+    // Load the Harvard template
+    const templateResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/templates/harvard/harvard-template.html`
+    )
+    if (!templateResponse.ok) {
+      throw new Error('Failed to load Harvard template')
+    }
+
+    let template = await templateResponse.text()
+
+    // Load template styles
+    const stylesResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/templates/harvard/style.css`
+    )
+    let styles = ''
+    if (stylesResponse.ok) {
+      styles = await stylesResponse.text()
+    }
+
+    // Replace placeholders with actual data
+    const replacements = getReplacements(data)
+
+    Object.entries(replacements).forEach(([placeholder, value]) => {
+      const regex = new RegExp(`{{${placeholder}}}`, 'g')
+      template = template.replace(regex, value)
+    })
+
+    // Inject styles
+    if (styles) {
+      template = template.replace('</head>', `<style>${styles}</style></head>`)
+    }
+
+    return template
+  } catch (error) {
+    console.error('Error filling template:', error)
+    throw error
+  }
+}
+
+function getReplacements(data: ResumeData): Record<string, string> {
   const { contact, education, experience, leadership, projects, other1, other2 } = data
 
-  return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${contact.name || 'Resume'} - Resume</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 20px;
-        }
-        .name {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .contact-info {
-            font-size: 14px;
-            color: #666;
-        }
-        .section {
-            margin-bottom: 25px;
-        }
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-        .entry {
-            margin-bottom: 15px;
-        }
-        .entry-title {
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .entry-subtitle {
-            font-style: italic;
-            color: #666;
-        }
-        .entry-dates {
-            font-size: 14px;
-            color: #666;
-        }
-        .entry-description {
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .skill-tag {
-            background-color: #f0f0f0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="name">${contact.name || 'Your Name'}</div>
-        <div class="contact-info">
-            ${contact.email ? `<div>${contact.email}</div>` : ''}
-            ${contact.phone ? `<div>${contact.phone}</div>` : ''}
-            ${contact.location ? `<div>${contact.location}</div>` : ''}
-            ${contact.linkedin ? `<div>LinkedIn: ${contact.linkedin}</div>` : ''}
-            ${contact.portfolio ? `<div>Portfolio: ${contact.portfolio}</div>` : ''}
-        </div>
-    </div>
+  return {
+    // Contact Information
+    'Resume Title': `${contact.name || 'Resume'} - Resume`,
+    Name: contact.name || '',
+    Email: contact.email || '',
+    'Phone Number': contact.phone || '',
+    Location: contact.location || '',
+    LinkedIn: contact.linkedin || '',
 
-    ${
-      education.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">Education</div>
-        ${education
-          .map(
-            (edu) => `
-            <div class="entry">
-                <div class="entry-title">${edu.degree}${edu.major ? ` in ${edu.major}` : ''}</div>
-                <div class="entry-subtitle">${edu.university}${edu.location ? `, ${edu.location}` : ''}</div>
-                <div class="entry-dates">
-                    ${edu.graduationMonth} ${edu.graduationYear}
-                    ${edu.gpa ? ` • GPA: ${edu.gpa}` : ''}
-                </div>
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
+    // Education Section
+    Education: 'Education',
+    'Institution 1': education[0]?.university || '',
+    'Institution Location 1': education[0]?.location || '',
+    'Graduation Date 1': `${education[0]?.graduationMonth || ''} ${education[0]?.graduationYear || ''}`,
+    'Degree 1': education[0]?.degree || '',
+    'Major/Concentration 1': education[0]?.major || '',
+    'GPA 1': education[0]?.gpa || '',
 
-    ${
-      experience.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">Experience</div>
-        ${experience
-          .map(
-            (exp) => `
-            <div class="entry">
-                <div class="entry-title">${exp.jobTitle}</div>
-                <div class="entry-subtitle">${exp.company}${exp.location ? `, ${exp.location}` : ''}</div>
-                <div class="entry-dates">
-                    ${exp.startMonth} ${exp.startYear} - ${exp.isCurrent ? 'Present' : `${exp.endMonth} ${exp.endYear}`}
-                </div>
-                ${exp.responsibilities ? `<div class="entry-description">${exp.responsibilities.replace(/\n/g, '<br>')}</div>` : ''}
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
+    'Institution 2': education[1]?.university || '',
+    'Institution Location 2': education[1]?.location || '',
+    'Graduation Date 2': `${education[1]?.graduationMonth || ''} ${education[1]?.graduationYear || ''}`,
+    'Degree 2': education[1]?.degree || '',
+    'Major/Concentration 2': education[1]?.major || '',
+    'GPA 2': education[1]?.gpa || '',
 
-    ${
-      leadership.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">Leadership & Activities</div>
-        ${leadership
-          .map(
-            (lead) => `
-            <div class="entry">
-                <div class="entry-title">${lead.title}</div>
-                <div class="entry-subtitle">${lead.organization}${lead.location ? `, ${lead.location}` : ''}</div>
-                <div class="entry-dates">
-                    ${lead.startMonth} ${lead.startYear} - ${lead.isCurrent ? 'Present' : `${lead.endMonth} ${lead.endYear}`}
-                </div>
-                ${lead.description ? `<div class="entry-description">${lead.description.replace(/\n/g, '<br>')}</div>` : ''}
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
+    'Institution 3': education[2]?.university || '',
+    'Institution Location 3': education[2]?.location || '',
+    'Graduation Date 3': `${education[2]?.graduationMonth || ''} ${education[2]?.graduationYear || ''}`,
+    'Degree 3': education[2]?.degree || '',
+    'Major/Concentration 3': education[2]?.major || '',
+    'GPA 3': education[2]?.gpa || '',
 
-    ${
-      projects.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">Projects</div>
-        ${projects
-          .map(
-            (proj) => `
-            <div class="entry">
-                <div class="entry-title">${proj.projectName}</div>
-                ${proj.technologies ? `<div class="entry-subtitle">Technologies: ${proj.technologies}</div>` : ''}
-                ${proj.link ? `<div class="entry-dates">Link: ${proj.link}</div>` : ''}
-                ${proj.description ? `<div class="entry-description">${proj.description.replace(/\n/g, '<br>')}</div>` : ''}
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
+    // Experience Section
+    Experience: 'Experience',
+    'Organisation 1': experience[0]?.company || '',
+    'Position Title 1': experience[0]?.jobTitle || '',
+    'Organisation Location 1': experience[0]?.location || '',
+    StartDate1: `${experience[0]?.startMonth || ''} ${experience[0]?.startYear || ''}`,
+    EndDate1: experience[0]?.isCurrent
+      ? 'Present'
+      : `${experience[0]?.endMonth || ''} ${experience[0]?.endYear || ''}`,
+    'Bullet 1.1': experience[0]?.responsibilities
+      ? experience[0].responsibilities.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
+      : '',
+    'Bullet 1.2': experience[0]?.responsibilities
+      ? experience[0].responsibilities.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
+      : '',
+    'Bullet 1.3': experience[0]?.responsibilities
+      ? experience[0].responsibilities.split('\n')[2]?.replace(/^[-•]\s*/, '') || ''
+      : '',
 
-    ${
-      other1.entries.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">${other1.sectionTitle}</div>
-        ${other1.entries
-          .map(
-            (entry) => `
-            <div class="entry">
-                <div class="entry-title">${entry.title}</div>
-                ${entry.subtitle ? `<div class="entry-subtitle">${entry.subtitle}</div>` : ''}
-                ${entry.startDate || entry.endDate ? `<div class="entry-dates">${entry.startDate}${entry.startDate && entry.endDate ? ' - ' : ''}${entry.endDate || (entry.isCurrent ? 'Present' : '')}</div>` : ''}
-                ${entry.description ? `<div class="entry-description">${entry.description.replace(/\n/g, '<br>')}</div>` : ''}
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
+    'Organisation 2': experience[1]?.company || '',
+    'Position Title 2': experience[1]?.jobTitle || '',
+    'Organisation Location 2': experience[1]?.location || '',
+    StartDate2: `${experience[1]?.startMonth || ''} ${experience[1]?.startYear || ''}`,
+    EndDate2: experience[1]?.isCurrent
+      ? 'Present'
+      : `${experience[1]?.endMonth || ''} ${experience[1]?.endYear || ''}`,
+    'Bullet 2.1': experience[1]?.responsibilities
+      ? experience[1].responsibilities.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
+      : '',
+    'Bullet 2.2': experience[1]?.responsibilities
+      ? experience[1].responsibilities.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
+      : '',
 
-    ${
-      other2.entries.length > 0
-        ? `
-    <div class="section">
-        <div class="section-title">${other2.sectionTitle}</div>
-        ${other2.entries
-          .map(
-            (entry) => `
-            <div class="entry">
-                <div class="entry-title">${entry.title}</div>
-                ${entry.subtitle ? `<div class="entry-subtitle">${entry.subtitle}</div>` : ''}
-                ${entry.startDate || entry.endDate ? `<div class="entry-dates">${entry.startDate}${entry.startDate && entry.endDate ? ' - ' : ''}${entry.endDate || (entry.isCurrent ? 'Present' : '')}</div>` : ''}
-                ${entry.description ? `<div class="entry-description">${entry.description.replace(/\n/g, '<br>')}</div>` : ''}
-            </div>
-        `
-          )
-          .join('')}
-    </div>
-    `
-        : ''
-    }
-</body>
-</html>
-  `
+    // Leadership Section
+    'Leadership & Activities': 'Leadership & Activities',
+    'Organization / Club L': leadership[0]?.organization || '',
+    'Role L': leadership[0]?.title || '',
+    'Organisation Location L': leadership[0]?.location || '',
+    StartDateL: `${leadership[0]?.startMonth || ''} ${leadership[0]?.startYear || ''}`,
+    EndDateL: leadership[0]?.isCurrent
+      ? 'Present'
+      : `${leadership[0]?.endMonth || ''} ${leadership[0]?.endYear || ''}`,
+    'Leadership Bullet 1': leadership[0]?.description
+      ? leadership[0].description.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
+      : '',
+    'Leadership Bullet 2': leadership[0]?.description
+      ? leadership[0].description.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
+      : '',
+
+    // Projects Section
+    Projects: 'Projects',
+    'Project 1': projects[0]?.projectName || '',
+    'Project 2': projects[1]?.projectName || '',
+
+    // Other Section
+    'Other (1)': other1.sectionTitle || 'Other',
+    'Other1 Bullet 1': other1.entries[0]?.title || '',
+    'Other1 Bullet 2': other1.entries[1]?.title || '',
+
+    // Skills Section
+    'Skills & Interests': 'Skills & Interests',
+    Technical: 'Technical',
+    'Tech Skill 1': projects[0]?.technologies?.split(',')[0]?.trim() || '',
+    'Tech Skill 2': projects[0]?.technologies?.split(',')[1]?.trim() || '',
+    'Tech Skill 3': projects[1]?.technologies?.split(',')[0]?.trim() || '',
+    'Tech Skill 4': projects[1]?.technologies?.split(',')[1]?.trim() || '',
+    Languages: 'Languages',
+    'Language 1': 'English',
+    'Language 2': 'Spanish',
+    Interests: 'Interests',
+    'Interest 1': 'Technology',
+    'Interest 2': 'Innovation',
+    'Interest 3': 'Leadership',
+  }
 }
