@@ -81,3 +81,52 @@ input:-webkit-autofill:focus {
     var(--tw-gradient-to)
   );
 }
+
+/* Ensure consistent font rendering across all environments */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix for consistent card heights */
+.card-container {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Ensure consistent spacing */
+.feature-card {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive text sizing */
+.responsive-text {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.responsive-heading {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Ensure consistent button styling */
+.btn-primary {
+  background: linear-gradient(to right, #ec4899, #be185d);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #f472b6, #ec4899);
+  transform: translateY(-1px);
+}
+
+/* Fix for consistent icon sizing */
+.icon-responsive {
+  width: clamp(1.5rem, 3vw, 2.5rem);
+  height: clamp(1.5rem, 3vw, 2.5rem);
+}

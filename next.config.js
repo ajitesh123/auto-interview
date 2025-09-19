@@ -76,27 +76,9 @@ module.exports = () => {
     experimental: {
       optimizePackageImports: ['framer-motion', 'recharts', '@headlessui/react'],
     },
-    // Reduce bundle size in development
-    webpack: (config, { dev, isServer }) => {
-      if (dev) {
-        config.optimization.splitChunks = {
-          chunks: 'all',
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-            },
-          },
-        }
-      }
-      
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      })
-
-      return config
+    // CSS optimization
+    compiler: {
+      removeConsole: process.env.NODE_ENV === 'production',
     },
     images: {
       remotePatterns: [
@@ -115,11 +97,32 @@ module.exports = () => {
         },
       ]
     },
-    webpack: (config, options) => {
+    webpack: (config, { dev, isServer }) => {
+      // SVG handling
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       })
+
+      // CSS optimization for production
+      if (!dev && !isServer) {
+        config.optimization.splitChunks = {
+          chunks: 'all',
+          cacheGroups: {
+            styles: {
+              name: 'styles',
+              test: /\.(css|scss)$/,
+              chunks: 'all',
+              enforce: true,
+            },
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        }
+      }
 
       return config
     },

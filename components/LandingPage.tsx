@@ -40,12 +40,12 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="flex h-screen">
+      <div className="flex flex-col lg:flex-row min-h-screen">
         {/* Left Sidebar Menu - Compact height */}
-        <div className="w-64 bg-gray-900 border-r border-gray-700 p-4 flex flex-col">
+        <div className="w-full lg:w-64 bg-gray-900 border-b lg:border-b-0 lg:border-r border-gray-700 p-4 flex flex-col lg:min-h-screen">
           <div className="mb-6">
-            <h1 className="text-xl font-bold text-white mb-2">Auto Interview</h1>
-            <p className="text-gray-400 text-sm">AI-powered career tools</p>
+            <h1 className="text-lg sm:text-xl font-bold text-white mb-2">Auto Interview</h1>
+            <p className="text-gray-400 text-xs sm:text-sm">AI-powered career tools</p>
           </div>
           
           <nav className="space-y-1 flex-1">
@@ -53,7 +53,7 @@ const LandingPage = () => {
               <button
                 key={item}
                 onClick={() => setActiveMenu(item)}
-                className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
+                className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-xs sm:text-sm ${
                   activeMenu === item
                     ? 'bg-gradient-to-r from-pink-500 to-pink-700 text-white'
                     : 'text-gray-400 hover:text-white hover:bg-gray-800'
@@ -66,25 +66,25 @@ const LandingPage = () => {
         </div>
 
         {/* Main Content Area - Full width */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-h-screen">
           {/* Top Navigation - Moved to right */}
-          <div className="flex justify-end items-center p-6 border-b border-gray-700">
-            <div className="flex items-center space-x-6">
+          <div className="flex justify-end items-center p-4 sm:p-6 border-b border-gray-700">
+            <div className="flex items-center space-x-4 sm:space-x-6">
               <Link
                 href="/blog"
-                className="text-gray-400 hover:text-white transition-colors font-medium"
+                className="text-gray-400 hover:text-white transition-colors font-medium text-sm sm:text-base"
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="text-gray-400 hover:text-white transition-colors font-medium"
+                className="text-gray-400 hover:text-white transition-colors font-medium text-sm sm:text-base"
               >
                 About
               </Link>
               <Link
                 href="https://app.toughtongueai.com/"
-                className="text-gray-400 hover:text-white transition-colors font-medium"
+                className="text-gray-400 hover:text-white transition-colors font-medium text-sm sm:text-base"
               >
                 Tough Tongue AI
               </Link>
@@ -93,7 +93,7 @@ const LandingPage = () => {
           </div>
           
           {/* Main Content - Full width */}
-          <div className="flex-1 w-full">
+          <div className="flex-1 w-full overflow-auto">
             {renderMainContent()}
           </div>
         </div>
