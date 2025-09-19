@@ -1,0 +1,9 @@
+{
+  "installCommand": "yarn install --no-frozen-lockfile",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}
