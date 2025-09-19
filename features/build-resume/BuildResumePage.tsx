@@ -2,22 +2,33 @@
 
 import { useState } from 'react'
 import ResumeBuilder from './components/ResumeBuilder'
+import ResumeUploadPage from './components/ResumeUploadPage'
+import { ResumeData } from '../../lib/resumeStore'
 
 const BuildResumePage = () => {
   const [hasResume, setHasResume] = useState<boolean | null>(null)
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [isUploading, setIsUploading] = useState(false)
+  const [parsedResumeData, setParsedResumeData] = useState<Partial<ResumeData> | null>(null)
+  const [showUploadPage, setShowUploadPage] = useState(false)
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setUploadedFile(file)
-      setHasResume(true)
-    }
+  const handleUploadResume = () => {
+    setShowUploadPage(true)
+  }
+
+  const handleUploadComplete = (parsedData: Partial<ResumeData>) => {
+    setParsedResumeData(parsedData)
+    setShowUploadPage(false)
+    setHasResume(false) // This will show the ResumeBuilder with pre-filled data
+  }
+
+  const handleBackFromUpload = () => {
+    setShowUploadPage(false)
   }
 
   const handleCreateNew = () => {
     setHasResume(false)
+    setParsedResumeData(null) // Clear any previously parsed data
   }
 
   const handleUpload = async () => {
@@ -53,7 +64,7 @@ const BuildResumePage = () => {
         <div className="mb-12 flex w-full max-w-6xl flex-col gap-6 sm:mb-16 sm:gap-8 lg:flex-row">
           {/* Upload Resume Card */}
           <button
-            onClick={() => setHasResume(true)}
+            onClick={handleUploadResume}
             className="group min-h-[300px] flex-1 cursor-pointer rounded-lg border border-gray-700 bg-gray-900 p-6 text-left transition-colors hover:border-pink-500 sm:min-h-[350px] sm:p-8"
             type="button"
           >
@@ -246,7 +257,7 @@ const BuildResumePage = () => {
             <input
               type="file"
               accept=".pdf,.doc,.docx"
-              onChange={handleFileUpload}
+              onChange={handleUpload}
               className="hidden"
               id="resume-upload"
             />
@@ -278,8 +289,15 @@ const BuildResumePage = () => {
     )
   }
 
-  // Create New Resume Flow
-  return <ResumeBuilder />
+  // Show Upload Page
+  if (showUploadPage) {
+    return (
+      <ResumeUploadPage onUploadComplete={handleUploadComplete} onBack={handleBackFromUpload} />
+    )
+  }
+
+  // Create New Resume Flow (with or without pre-filled data)
+  return <ResumeBuilder initialData={parsedResumeData || undefined} />
 }
 
 export default BuildResumePage

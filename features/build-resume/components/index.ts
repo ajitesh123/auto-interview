@@ -6,4 +6,5 @@ export { default as LeadershipActivitiesSection } from './LeadershipActivitiesSe
 export { default as ProjectsSection } from './ProjectsSection'
 export { default as CustomSection } from './CustomSection'
 export { default as TemplateSelectionPage } from './TemplateSelectionPage'
+export { default as ResumeUploadPage } from './ResumeUploadPage'
 export { default as ResumeBuilder } from './ResumeBuilder'

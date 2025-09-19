@@ -10,6 +10,7 @@ import ProjectsSection from './ProjectsSection'
 import CustomSection from './CustomSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
+import { ResumeData as ResumeDataType } from '../../../lib/resumeStore'
 
 // Define data types for all sections
 interface ContactData {
@@ -86,23 +87,27 @@ interface ResumeData {
   other2: { sectionTitle: string; entries: CustomEntry[] }
 }
 
-const ResumeBuilder = () => {
+interface ResumeBuilderProps {
+  initialData?: Partial<ResumeDataType>
+}
+
+const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
   const [currentSection, setCurrentSection] = useState(0)
-  const [resumeData, setResumeData] = useState<ResumeData>({
+  const [resumeData, setResumeData] = useState<ResumeDataType>({
     contact: {
-      name: '',
-      email: '',
-      phone: '',
-      linkedin: '',
-      portfolio: '',
-      location: '',
+      name: initialData?.contact?.name || '',
+      email: initialData?.contact?.email || '',
+      phone: initialData?.contact?.phone || '',
+      linkedin: initialData?.contact?.linkedin || '',
+      portfolio: initialData?.contact?.portfolio || '',
+      location: initialData?.contact?.location || '',
     },
-    education: [],
-    experience: [],
-    leadership: [],
-    projects: [],
-    other1: { sectionTitle: 'Other (1)', entries: [] },
-    other2: { sectionTitle: 'Other (2)', entries: [] },
+    education: initialData?.education || [],
+    experience: initialData?.experience || [],
+    leadership: initialData?.leadership || [],
+    projects: initialData?.projects || [],
+    other1: initialData?.other1 || { sectionTitle: 'Other (1)', entries: [] },
+    other2: initialData?.other2 || { sectionTitle: 'Other (2)', entries: [] },
   })
   const [savedResumeId, setSavedResumeId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
