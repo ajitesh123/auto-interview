@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import BulletPointsInput from './BulletPointsInput'
 
 interface CustomEntry {
   id: string
@@ -9,7 +10,7 @@ interface CustomEntry {
   startDate: string
   endDate: string
   isCurrent: boolean
-  description: string
+  bullets: string[]
 }
 
 interface CustomSectionProps {
@@ -59,7 +60,7 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
       startDate: '',
       endDate: '',
       isCurrent: false,
-      description: '',
+      bullets: [''],
     }
     const updatedEntries = [...customEntries, newEntry]
     setCustomEntries(updatedEntries)
@@ -70,25 +71,6 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
     const updatedEntries = customEntries.filter((entry) => entry.id !== id)
     setCustomEntries(updatedEntries)
     onChange({ sectionTitle: customTitle, entries: updatedEntries })
-  }
-
-  const formatDescription = (text: string) => {
-    // Simple markdown-like formatting for bullet points
-    return text.split('\n').map((line, index) => {
-      if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
-        return (
-          <div key={index} className="mb-2 flex items-start">
-            <span className="mr-2 mt-1 text-pink-400">•</span>
-            <span className="text-gray-300">{line.trim().substring(2)}</span>
-          </div>
-        )
-      }
-      return line.trim() ? (
-        <div key={index} className="mb-2 text-gray-300">
-          {line}
-        </div>
-      ) : null
-    })
   }
 
   return (
@@ -262,33 +244,13 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
               </div>
             </div>
 
-            {/* Description */}
-            <div className="space-y-2">
-              <label
-                htmlFor={`description-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
-              >
-                Description (Optional)
-              </label>
-              <div className="space-y-2">
-                <textarea
-                  id={`description-${entry.id}`}
-                  value={entry.description}
-                  onChange={(e) => handleEntryChange(entry.id, 'description', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  rows={4}
-                  placeholder="Add additional details, achievements, or context. Use bullet points by starting lines with '- ' or '• '"
-                />
-
-                {/* Preview */}
-                {entry.description && (
-                  <div className="mt-3 rounded-lg bg-gray-600 p-4">
-                    <h4 className="mb-2 text-sm font-medium text-white">Preview:</h4>
-                    <div className="text-sm">{formatDescription(entry.description)}</div>
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* Bullet Points */}
+            <BulletPointsInput
+              bullets={entry.bullets}
+              onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
+              placeholder="Add additional details, achievements, or context..."
+              maxBullets={15}
+            />
           </div>
         ))
       )}

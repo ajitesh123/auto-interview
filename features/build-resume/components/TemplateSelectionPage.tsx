@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ResumeData } from '../../../lib/resumeStore'
+import { generateDocx } from '../../../lib/docxGenerator'
 
 interface TemplateSelectionPageProps {
   resumeData: ResumeData
@@ -15,9 +16,13 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
   const [showPreview, setShowPreview] = useState(false)
   const [previewHTML, setPreviewHTML] = useState<string>('')
 
-  const handlePreview = async () => {
+  // Load preview automatically when component mounts
+  useEffect(() => {
+    loadPreview()
+  }, [])
+
+  const loadPreview = async () => {
     try {
-      // Generate HTML preview using the resume data
       const response = await fetch('/api/resume/generate-pdf', {
         method: 'POST',
         headers: {
@@ -27,7 +32,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           resumeId,
           template: 'harvard',
           data: resumeData,
-          preview: true, // Add preview flag
+          preview: true,
         }),
       })
 
@@ -37,6 +42,14 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
       const html = await response.text()
       setPreviewHTML(html)
+    } catch (error) {
+      console.error('Error generating preview:', error)
+    }
+  }
+
+  const handlePreview = async () => {
+    try {
+      await loadPreview()
       setShowPreview(true)
     } catch (error) {
       console.error('Error generating preview:', error)
@@ -50,33 +63,8 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
     setDownloadMessage(null)
 
     try {
-      // Generate DOCX using the resume data
-      const response = await fetch('/api/resume/generate-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          resumeId,
-          template: 'harvard',
-          data: resumeData,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to generate DOCX')
-      }
-
-      // Create blob and download
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `${resumeData.contact.name.replace(/\s+/g, '_')}_Resume.docx`
-      document.body.appendChild(a)
-      a.click()
-      window.URL.revokeObjectURL(url)
-      document.body.removeChild(a)
+      // Generate DOCX using client-side generation
+      await generateDocx(resumeData)
 
       setDownloadMessage('Resume downloaded successfully!')
       setTimeout(() => setDownloadMessage(null), 3000)
@@ -372,59 +360,14 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
         <div className="mt-12 rounded-lg border border-gray-700 bg-gray-800 p-6">
           <h3 className="mb-4 text-xl font-bold text-white">Resume Preview</h3>
           <div className="rounded-lg bg-white p-6 text-black">
-            <div className="mb-6 text-center">
-              <h2 className="text-2xl font-bold">{resumeData.contact.name || 'Your Name'}</h2>
-              <div className="text-gray-600">
-                {resumeData.contact.email && <div>{resumeData.contact.email}</div>}
-                {resumeData.contact.phone && <div>{resumeData.contact.phone}</div>}
-                {resumeData.contact.location && <div>{resumeData.contact.location}</div>}
-                {resumeData.contact.linkedin && <div>LinkedIn: {resumeData.contact.linkedin}</div>}
-                {resumeData.contact.portfolio && (
-                  <div>Portfolio: {resumeData.contact.portfolio}</div>
-                )}
-              </div>
-            </div>
-
-            {resumeData.education.length > 0 && (
-              <div className="mb-4">
-                <h3 className="border-b border-gray-300 pb-1 text-lg font-bold">Education</h3>
-                {resumeData.education.map((edu, index) => (
-                  <div key={index} className="mt-2">
-                    <div className="font-semibold">
-                      {edu.degree} in {edu.major}
-                    </div>
-                    <div className="text-gray-600">
-                      {edu.university}, {edu.location}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {edu.graduationMonth} {edu.graduationYear}
-                      {edu.gpa && ` • GPA: ${edu.gpa}`}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {resumeData.experience.length > 0 && (
-              <div className="mb-4">
-                <h3 className="border-b border-gray-300 pb-1 text-lg font-bold">Experience</h3>
-                {resumeData.experience.map((exp, index) => (
-                  <div key={index} className="mt-2">
-                    <div className="font-semibold">{exp.jobTitle}</div>
-                    <div className="text-gray-600">
-                      {exp.company}, {exp.location}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {exp.startMonth} {exp.startYear} -{' '}
-                      {exp.isCurrent ? 'Present' : `${exp.endMonth} ${exp.endYear}`}
-                    </div>
-                    {exp.responsibilities && (
-                      <div className="mt-1 whitespace-pre-line text-sm">{exp.responsibilities}</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+            <iframe
+              srcDoc={
+                previewHTML ||
+                '<div class="text-center text-gray-500 p-8">Click "Preview Resume" to see the Harvard template preview</div>'
+              }
+              className="h-[600px] w-full border-0"
+              title="Resume Preview"
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import BulletPointsInput from './BulletPointsInput'
 
 interface ExperienceEntry {
   id: string
@@ -12,7 +13,7 @@ interface ExperienceEntry {
   endMonth: string
   endYear: string
   isCurrent: boolean
-  responsibilities: string
+  bullets: string[]
 }
 
 interface ExperienceSectionProps {
@@ -35,7 +36,7 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
             endMonth: '',
             endYear: '',
             isCurrent: false,
-            responsibilities: '',
+            bullets: [''],
           },
         ]
   )
@@ -70,7 +71,7 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
       endMonth: '',
       endYear: '',
       isCurrent: false,
-      responsibilities: '',
+      bullets: [''],
     }
     const updatedEntries = [...experienceEntries, newEntry]
     setExperienceEntries(updatedEntries)
@@ -102,25 +103,6 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
 
   const currentYear = new Date().getFullYear()
   const years = Array.from({ length: 30 }, (_, i) => currentYear - i)
-
-  const formatResponsibilities = (text: string) => {
-    // Simple markdown-like formatting for bullet points
-    return text.split('\n').map((line, index) => {
-      if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
-        return (
-          <div key={index} className="mb-2 flex items-start">
-            <span className="mr-2 mt-1 text-pink-400">•</span>
-            <span className="text-gray-300">{line.trim().substring(2)}</span>
-          </div>
-        )
-      }
-      return line.trim() ? (
-        <div key={index} className="mb-2 text-gray-300">
-          {line}
-        </div>
-      ) : null
-    })
-  }
 
   return (
     <div className="space-y-6">
@@ -317,33 +299,13 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
             )}
           </div>
 
-          {/* Responsibilities/Achievements */}
-          <div className="space-y-2">
-            <label
-              htmlFor={`responsibilities-${entry.id}`}
-              className="block text-sm font-medium text-gray-300"
-            >
-              Responsibilities & Achievements
-            </label>
-            <div className="space-y-2">
-              <textarea
-                id={`responsibilities-${entry.id}`}
-                value={entry.responsibilities}
-                onChange={(e) => handleEntryChange(entry.id, 'responsibilities', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                rows={6}
-                placeholder="Describe your key responsibilities and achievements. Use bullet points by starting lines with '- ' or '• '"
-              />
-
-              {/* Preview */}
-              {entry.responsibilities && (
-                <div className="mt-3 rounded-lg bg-gray-600 p-4">
-                  <h4 className="mb-2 text-sm font-medium text-white">Preview:</h4>
-                  <div className="text-sm">{formatResponsibilities(entry.responsibilities)}</div>
-                </div>
-              )}
-            </div>
-          </div>
+          {/* Bullet Points */}
+          <BulletPointsInput
+            bullets={entry.bullets}
+            onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
+            placeholder="Describe your key responsibilities and achievements..."
+            maxBullets={15}
+          />
         </div>
       ))}
 

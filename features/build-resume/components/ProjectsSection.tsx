@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import BulletPointsInput from './BulletPointsInput'
 
 interface ProjectEntry {
   id: string
   projectName: string
-  technologies: string
-  description: string
+  bullets: string[]
   link: string
 }
 
@@ -32,8 +32,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
     const newEntry: ProjectEntry = {
       id: Date.now().toString(),
       projectName: '',
-      technologies: '',
-      description: '',
+      bullets: [''],
       link: '',
     }
     const updatedEntries = [...projectEntries, newEntry]
@@ -45,25 +44,6 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
     const updatedEntries = projectEntries.filter((entry) => entry.id !== id)
     setProjectEntries(updatedEntries)
     onChange(updatedEntries)
-  }
-
-  const formatDescription = (text: string) => {
-    // Simple markdown-like formatting for bullet points
-    return text.split('\n').map((line, index) => {
-      if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
-        return (
-          <div key={index} className="mb-2 flex items-start">
-            <span className="mr-2 mt-1 text-pink-400">•</span>
-            <span className="text-gray-300">{line.trim().substring(2)}</span>
-          </div>
-        )
-      }
-      return line.trim() ? (
-        <div key={index} className="mb-2 text-gray-300">
-          {line}
-        </div>
-      ) : null
-    })
   }
 
   return (
@@ -141,18 +121,6 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
                   placeholder="e.g., E-commerce Website, Mobile App, Data Analysis Tool"
                 />
               </div>
-
-              {/* Technologies Used */}
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Technologies Used</label>
-                <input
-                  type="text"
-                  value={entry.technologies}
-                  onChange={(e) => handleEntryChange(entry.id, 'technologies', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  placeholder="e.g., React, Node.js, Python, AWS"
-                />
-              </div>
             </div>
 
             {/* Project Link */}
@@ -169,27 +137,13 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
               />
             </div>
 
-            {/* Description */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-300">Project Description</label>
-              <div className="space-y-2">
-                <textarea
-                  value={entry.description}
-                  onChange={(e) => handleEntryChange(entry.id, 'description', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  rows={5}
-                  placeholder="Describe your project, key features, challenges solved, and technologies used. Use bullet points by starting lines with '- ' or '• '"
-                />
-
-                {/* Preview */}
-                {entry.description && (
-                  <div className="mt-3 rounded-lg bg-gray-600 p-4">
-                    <h4 className="mb-2 text-sm font-medium text-white">Preview:</h4>
-                    <div className="text-sm">{formatDescription(entry.description)}</div>
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* Bullet Points */}
+            <BulletPointsInput
+              bullets={entry.bullets}
+              onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
+              placeholder="Describe your project, key features, challenges solved, and technologies used..."
+              maxBullets={15}
+            />
 
             {/* Project Link Display */}
             {entry.link && (
@@ -263,7 +217,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
             <h4 className="mb-1 text-sm font-medium text-white">Projects Tips</h4>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>• Include personal projects, academic work, or professional projects</li>
-              <li>• Highlight technologies, frameworks, and tools used</li>
+              <li>• Mention technologies, frameworks, and tools used in the description</li>
               <li>• Describe the problem solved and your approach</li>
               <li>• Include links to GitHub, live demos, or portfolios</li>
               <li>• Quantify impact when possible (e.g., "Improved performance by 40%")</li>

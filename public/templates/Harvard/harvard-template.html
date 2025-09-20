@@ -24,7 +24,7 @@
 
       <div class="contact">
 
-        {{Location}} • {{Email}} • {{Phone Number}} • {{LinkedIn}}
+        {{Contact Info}}
 
       </div>
 
@@ -42,7 +42,7 @@
 
 
 
-        <div class="entry">
+        <div class="entry" id="education-1">
 
           <div class="row">
 
@@ -58,13 +58,13 @@
 
           </div>
 
-          <div class="row-meta">{{Degree 1}} — {{Major/Concentration 1}} • {{GPA 1}}</div>
+          <div class="row-meta">{{Education Meta 1}}</div>
 
         </div>
 
 
 
-        <div class="entry">
+        <div class="entry" id="education-2">
 
           <div class="row">
 
@@ -80,7 +80,7 @@
 
           </div>
 
-          <div class="row-meta">{{Degree 2}} — {{Major/Concentration 2}} • {{GPA 2}}</div>
+          <div class="row-meta">{{Education Meta 2}}</div>
 
         </div>
 
@@ -88,7 +88,7 @@
 
         <!-- optional study abroad / high school placeholders -->
 
-        <div class="entry">
+        <div class="entry" id="education-3">
 
           <div class="row">
 
@@ -104,7 +104,7 @@
 
           </div>
 
-          <div class="row-meta">{{Degree 3}} — {{Major/Concentration 3}} • {{GPA 3}}</div>
+          <div class="row-meta">{{Education Meta 3}}</div>
 
         </div>
 
@@ -138,7 +138,7 @@
 
               <div class="location">{{Organisation Location 1}}</div>
 
-              <div class="date">{{StartDate1}} – {{EndDate1}}</div>
+              <div class="date">{{Experience Date 1}}</div>
 
             </div>
 
@@ -146,15 +146,7 @@
 
 
 
-          <ul class="bullets">
-
-            <li>{{Bullet 1.1}}</li>
-
-            <li>{{Bullet 1.2}}</li>
-
-            <li>{{Bullet 1.3}}</li>
-
-          </ul>
+          {{Experience Bullets 1}}
 
         </div>
 
@@ -180,7 +172,7 @@
 
               <div class="location">{{Organisation Location 2}}</div>
 
-              <div class="date">{{StartDate2}} – {{EndDate2}}</div>
+              <div class="date">{{Experience Date 2}}</div>
 
             </div>
 
@@ -188,19 +180,53 @@
 
 
 
-          <ul class="bullets">
-
-            <li>{{Bullet 2.1}}</li>
-
-            <li>{{Bullet 2.2}}</li>
-
-          </ul>
+          {{Experience Bullets 2}}
 
         </div>
 
 
 
         <!-- add more experience entries as needed using the same pattern -->
+
+      </section>
+
+
+
+      <!-- Experience 3 -->
+
+      <section aria-labelledby="experience3">
+
+        <h2 id="experience3">{{Experience 3}}</h2>
+
+
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{Organisation 3}}</div>
+
+              <div class="position-title">{{Position Title 3}}</span></div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{Organisation Location 3}}</div>
+
+              <div class="date">{{Experience Date 3}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{Experience Bullets 3}}
+
+        </div>
 
       </section>
 
@@ -230,7 +256,11 @@
 
               <div class="location">{{Organisation Location L}}</div>
 
-              <div class="date">{{StartDateL}} – {{EndDateL}}</div>
+              <div class="date">
+                <span class="date-item" data-field="startL">{{StartDateL}}</span>
+                <span class="date-separator"> – </span>
+                <span class="date-item" data-field="endL">{{EndDateL}}</span>
+              </div>
 
             </div>
 
@@ -238,13 +268,7 @@
 
 
 
-          <ul class="bullets">
-
-            <li>{{Leadership Bullet 1}}</li>
-
-            <li>{{Leadership Bullet 2}}</li>
-
-          </ul>
+          {{Leadership Bullets}}
 
         </div>
 
@@ -262,13 +286,35 @@
 
         <div class="entry">
 
-          <ul class="bullets">
+          <div class="row">
 
-            <li>{{Project 1}}</li>
+            <div class="left">
 
-            <li>{{Project 2}}</li>
+              <div class="title">{{Project 1 Title}}</div>
 
-          </ul>
+            </div>
+
+          </div>
+
+          {{Project 1 Bullets}}
+
+        </div>
+
+
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="title">{{Project 2 Title}}</div>
+
+            </div>
+
+          </div>
+
+          {{Project 2 Bullets}}
 
         </div>
 
@@ -308,51 +354,133 @@
 
 
 
-        <div class="skill-line">
+        <div class="skill-line" id="technical-skills">{{Technical Skills}}</div>
 
-          <strong>{{Technical}}:</strong>
+        <div class="skill-line" id="languages-skills">{{Language Skills}}</div>
 
-          <span>{{Tech Skill 1}}</span><span>•</span>
-
-          <span>{{Tech Skill 2}}</span><span>•</span>
-
-          <span>{{Tech Skill 3}}</span><span>•</span>
-
-          <span>{{Tech Skill 4}}</span>
-
-        </div>
-
-
-
-        <div class="skill-line">
-
-          <strong>{{Languages}}:</strong>
-
-          <span>{{Language 1}}</span><span>•</span>
-
-          <span>{{Language 2}}</span>
-
-        </div>
-
-
-
-        <div class="skill-line">
-
-          <strong>{{Interests}}:</strong>
-
-          <span>{{Interest 1}}</span><span>•</span>
-
-          <span>{{Interest 2}}</span><span>•</span>
-
-          <span>{{Interest 3}}</span>
-
-        </div>
+        <div class="skill-line" id="interests-skills">{{Interest Skills}}</div>
 
       </section>
 
     </main>
 
   </div>
+
+  <script>
+    // Dynamic content management
+    document.addEventListener('DOMContentLoaded', function() {
+      // Helper function to check if a field has content
+      function hasContent(text) {
+        if (!text) return false;
+        const trimmed = text.trim();
+        return trimmed !== '' && 
+               !trimmed.includes('{{') && 
+               !trimmed.includes('}}') &&
+               trimmed !== 'undefined' &&
+               trimmed !== 'null';
+      }
+
+      // Hide empty bullet points
+      const bulletItems = document.querySelectorAll('.bullet-item');
+      bulletItems.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (!hasContent(text)) {
+          item.style.display = 'none';
+        }
+      });
+
+      // Manage contact info separators
+      const contactItems = document.querySelectorAll('.contact-item');
+      const contactSeparators = document.querySelectorAll('.contact-separator');
+      
+      contactItems.forEach((item, index) => {
+        if (!hasContent(item.textContent)) {
+          item.style.display = 'none';
+          // Hide the separator before this item
+          if (index > 0) {
+            contactSeparators[index - 1].style.display = 'none';
+          }
+        }
+      });
+
+      // Manage education meta separators
+      const educationEntries = ['1', '2', '3'];
+      educationEntries.forEach(num => {
+        const degree = document.querySelector(`[data-field="degree${num}"]`);
+        const major = document.querySelector(`[data-field="major${num}"]`);
+        const gpa = document.querySelector(`[data-field="gpa${num}"]`);
+        const separators = document.querySelectorAll(`[data-field="degree${num}"] + .meta-separator, [data-field="major${num}"] + .meta-separator`);
+
+        if (!hasContent(degree.textContent)) {
+          degree.style.display = 'none';
+        }
+        if (!hasContent(major.textContent)) {
+          major.style.display = 'none';
+          // Hide the separator before major
+          separators[0].style.display = 'none';
+        }
+        if (!hasContent(gpa.textContent)) {
+          gpa.style.display = 'none';
+          // Hide the separator before GPA
+          separators[1].style.display = 'none';
+        }
+      });
+
+      // Manage experience date separators
+      const experienceEntries = ['1', '2', '3', 'L'];
+      experienceEntries.forEach(num => {
+        const startDate = document.querySelector(`[data-field="start${num}"]`);
+        const endDate = document.querySelector(`[data-field="end${num}"]`);
+        const separator = document.querySelector(`[data-field="start${num}"] + .date-separator`);
+
+        if (!hasContent(startDate.textContent)) {
+          startDate.style.display = 'none';
+        }
+        if (!hasContent(endDate.textContent)) {
+          endDate.style.display = 'none';
+        }
+        if (!hasContent(startDate.textContent) || !hasContent(endDate.textContent)) {
+          separator.style.display = 'none';
+        }
+      });
+
+      // Manage skills sections
+      const technicalSkills = document.getElementById('technical-skills');
+      const languagesSkills = document.getElementById('languages-skills');
+      const interestsSkills = document.getElementById('interests-skills');
+
+      // Hide empty skill lines
+      const techSkillsText = technicalSkills.textContent || '';
+      if (!hasContent(techSkillsText)) {
+        technicalSkills.style.display = 'none';
+      }
+
+      const languagesText = languagesSkills.textContent || '';
+      if (!hasContent(languagesText)) {
+        languagesSkills.style.display = 'none';
+      }
+
+      const interestsText = interestsSkills.textContent || '';
+      if (!hasContent(interestsText)) {
+        interestsSkills.style.display = 'none';
+      }
+
+      // Hide empty education entries
+      const educationEntries = ['1', '2', '3'];
+      educationEntries.forEach(num => {
+        const element = document.getElementById(`education-${num}`);
+        const institution = document.querySelector(`[data-field="degree${num}"]`)?.textContent || '';
+        const degree = document.querySelector(`[data-field="degree${num}"]`)?.textContent || '';
+        const major = document.querySelector(`[data-field="major${num}"]`)?.textContent || '';
+        
+        // Check if any field has actual content
+        const hasAnyContent = hasContent(institution) || hasContent(degree) || hasContent(major);
+        if (!hasAnyContent) {
+          element.style.display = 'none';
+        }
+      });
+    });
+  </script>
 
 </body>
 

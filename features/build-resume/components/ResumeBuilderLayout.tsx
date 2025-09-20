@@ -21,7 +21,7 @@ const SECTIONS = [
   'Leadership & Activities',
   'Projects',
   'Other (1)',
-  'Other (2)',
+  'Skills and Interests',
 ]
 
 const ResumeBuilderLayout = ({

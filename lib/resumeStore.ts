@@ -31,7 +31,7 @@ export interface ExperienceEntry {
   endMonth: string
   endYear: string
   isCurrent: boolean
-  responsibilities: string
+  bullets: string[] // Changed from responsibilities to bullets array
 }
 
 export interface LeadershipEntry {
@@ -44,14 +44,13 @@ export interface LeadershipEntry {
   endMonth: string
   endYear: string
   isCurrent: boolean
-  description: string
+  bullets: string[] // Changed from description to bullets array
 }
 
 export interface ProjectEntry {
   id: string
   projectName: string
-  technologies: string
-  description: string
+  bullets: string[] // Changed from description to bullets array
   link: string
 }
 
@@ -62,7 +61,13 @@ export interface CustomEntry {
   startDate: string
   endDate: string
   isCurrent: boolean
-  description: string
+  bullets: string[] // Changed from description to bullets array
+}
+
+export interface SkillsData {
+  technical: string[]
+  languages: string[]
+  interests: string[]
 }
 
 export interface ResumeData {
@@ -72,7 +77,7 @@ export interface ResumeData {
   leadership: LeadershipEntry[]
   projects: ProjectEntry[]
   other1: { sectionTitle: string; entries: CustomEntry[] }
-  other2: { sectionTitle: string; entries: CustomEntry[] }
+  skills: SkillsData // Changed from other2 to skills
 }
 
 export interface StoredResumeData extends ResumeData {
@@ -190,12 +195,13 @@ export function validateResumeData(data: unknown): { isValid: boolean; errors: s
     if (!Array.isArray(other1.entries)) errors.push('Other1 entries must be an array')
   }
 
-  if (!resumeData.other2 || typeof resumeData.other2 !== 'object') {
-    errors.push('Other2 section is required')
+  if (!resumeData.skills || typeof resumeData.skills !== 'object') {
+    errors.push('Skills section is required')
   } else {
-    const other2 = resumeData.other2 as Record<string, unknown>
-    if (typeof other2.sectionTitle !== 'string') errors.push('Other2 sectionTitle must be a string')
-    if (!Array.isArray(other2.entries)) errors.push('Other2 entries must be an array')
+    const skills = resumeData.skills as Record<string, unknown>
+    if (!Array.isArray(skills.technical)) errors.push('Skills technical must be an array')
+    if (!Array.isArray(skills.languages)) errors.push('Skills languages must be an array')
+    if (!Array.isArray(skills.interests)) errors.push('Skills interests must be an array')
   }
 
   return { isValid: errors.length === 0, errors }

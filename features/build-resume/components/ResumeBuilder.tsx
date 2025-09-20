@@ -8,6 +8,7 @@ import ExperienceSection from './ExperienceSection'
 import LeadershipActivitiesSection from './LeadershipActivitiesSection'
 import ProjectsSection from './ProjectsSection'
 import CustomSection from './CustomSection'
+import SkillsSection from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
 import { ResumeData as ResumeDataType } from '../../../lib/resumeStore'
@@ -107,7 +108,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     leadership: initialData?.leadership || [],
     projects: initialData?.projects || [],
     other1: initialData?.other1 || { sectionTitle: 'Other (1)', entries: [] },
-    other2: initialData?.other2 || { sectionTitle: 'Other (2)', entries: [] },
+    skills: initialData?.skills || { technical: [''], languages: [''], interests: [''] },
   })
   const [savedResumeId, setSavedResumeId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -221,11 +222,9 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
         )
       case 6:
         return (
-          <CustomSection
-            sectionTitle="Other (2)"
-            sectionNumber={2}
-            data={resumeData.other2}
-            onChange={(data) => setResumeData({ ...resumeData, other2: data })}
+          <SkillsSection
+            data={resumeData.skills}
+            onChange={(data) => setResumeData({ ...resumeData, skills: data })}
           />
         )
       default:

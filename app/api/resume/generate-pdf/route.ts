@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resumeStoreOperations, ResumeData } from '../../../../lib/resumeStore'
-import * as htmlDocx from 'html-docx-js'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,23 +19,10 @@ export async function POST(request: NextRequest) {
     // Load and fill the Harvard template
     const filledHTML = await fillHarvardTemplate(data)
 
-    // If preview is requested, return HTML
-    if (preview) {
-      return new NextResponse(filledHTML, {
-        headers: {
-          'Content-Type': 'text/html',
-        },
-      })
-    }
-
-    // Convert HTML to DOCX
-    const docxBuffer = htmlDocx.asBlob(filledHTML)
-
-    // Return DOCX content
-    return new NextResponse(docxBuffer, {
+    // Return HTML for preview (DOCX generation is now handled client-side)
+    return new NextResponse(filledHTML, {
       headers: {
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'Content-Disposition': 'attachment; filename="resume.docx"',
+        'Content-Type': 'text/html',
       },
     })
   } catch (error) {
@@ -81,6 +67,9 @@ async function fillHarvardTemplate(data: ResumeData): Promise<string> {
       template = template.replace(regex, value)
     })
 
+    // Remove empty sections
+    template = removeEmptySections(template)
+
     // Inject styles
     if (styles) {
       template = template.replace('</head>', `<style>${styles}</style></head>`)
@@ -94,9 +83,108 @@ async function fillHarvardTemplate(data: ResumeData): Promise<string> {
 }
 
 function getReplacements(data: ResumeData): Record<string, string> {
-  const { contact, education, experience, leadership, projects, other1, other2 } = data
+  const { contact, education, experience, leadership, projects, other1, skills } = data
 
-  return {
+  // Helper function to get bullets from array - only return filled bullets
+  const getBullets = (bullets: string[], maxBullets: number = 15) => {
+    if (!bullets || bullets.length === 0) return []
+    const filteredBullets = bullets.filter((bullet) => bullet.trim().length > 0)
+    return filteredBullets.slice(0, maxBullets)
+  }
+
+  // Helper function to generate bullet HTML
+  const generateBulletsHTML = (bullets: string[], prefix: string = '') => {
+    const filteredBullets = getBullets(bullets)
+    if (filteredBullets.length === 0) return ''
+
+    return `<ul class="bullets">
+      ${filteredBullets.map((bullet) => `<li class="bullet-item">${bullet}</li>`).join('\n      ')}
+    </ul>`
+  }
+
+  // Helper function to check if a field has content
+  const hasContent = (value: any): boolean => {
+    if (!value) return false
+    if (typeof value === 'string') {
+      const trimmed = value.trim()
+      return trimmed !== '' && trimmed !== 'undefined' && trimmed !== 'null'
+    }
+    if (Array.isArray(value)) {
+      return value.some((item) => hasContent(item))
+    }
+    return Boolean(value)
+  }
+
+  // Helper function to create project title with link
+  const createProjectTitle = (project: any) => {
+    if (!project) return ''
+    if (project.link) {
+      return `<a href="${project.link}" target="_blank">${project.projectName || ''}</a>`
+    }
+    return project.projectName || ''
+  }
+
+  // Helper function to check if section has content
+  const hasSectionContent = (section: any) => {
+    if (Array.isArray(section)) {
+      return (
+        section.length > 0 &&
+        section.some((item) =>
+          Object.values(item).some((value) =>
+            typeof value === 'string'
+              ? value.trim().length > 0
+              : Array.isArray(value)
+                ? value.some((v) => v.trim().length > 0)
+                : value
+          )
+        )
+      )
+    }
+    if (section && typeof section === 'object') {
+      if (section.entries) {
+        return (
+          section.entries.length > 0 &&
+          section.entries.some((entry) =>
+            Object.values(entry).some((value) =>
+              typeof value === 'string'
+                ? value.trim().length > 0
+                : Array.isArray(value)
+                  ? value.some((v) => v.trim().length > 0)
+                  : value
+            )
+          )
+        )
+      }
+      if (section.technical || section.languages || section.interests) {
+        // Skills data structure
+        return Object.values(section).some((value) =>
+          Array.isArray(value)
+            ? value.some((v) => v.trim().length > 0)
+            : typeof value === 'string'
+              ? value.trim().length > 0
+              : value
+        )
+      }
+      return Object.values(section).some((value) =>
+        typeof value === 'string'
+          ? value.trim().length > 0
+          : Array.isArray(value)
+            ? value.some((v) => v.trim().length > 0)
+            : value
+      )
+    }
+    return false
+  }
+
+  // Build dynamic contact info
+  const contactParts: string[] = []
+  if (hasContent(contact.location)) contactParts.push(contact.location)
+  if (hasContent(contact.email)) contactParts.push(contact.email)
+  if (hasContent(contact.phone)) contactParts.push(contact.phone)
+  if (hasContent(contact.linkedin)) contactParts.push(contact.linkedin)
+  const contactInfo = contactParts.join(' • ')
+
+  const replacements: Record<string, string> = {
     // Contact Information
     'Resume Title': `${contact.name || 'Resume'} - Resume`,
     Name: contact.name || '',
@@ -104,32 +192,52 @@ function getReplacements(data: ResumeData): Record<string, string> {
     'Phone Number': contact.phone || '',
     Location: contact.location || '',
     LinkedIn: contact.linkedin || '',
+    'Contact Info': contactInfo, // Dynamic contact info with separators
 
-    // Education Section
-    Education: 'Education',
+    // Education Section (mapped to specific placeholders)
+    Education: hasSectionContent(education) ? 'Education' : '',
     'Institution 1': education[0]?.university || '',
     'Institution Location 1': education[0]?.location || '',
     'Graduation Date 1': `${education[0]?.graduationMonth || ''} ${education[0]?.graduationYear || ''}`,
     'Degree 1': education[0]?.degree || '',
     'Major/Concentration 1': education[0]?.major || '',
     'GPA 1': education[0]?.gpa || '',
-
+    'Education Meta 1': (() => {
+      const parts: string[] = []
+      if (hasContent(education[0]?.degree)) parts.push(education[0].degree)
+      if (hasContent(education[0]?.major)) parts.push(education[0].major)
+      if (hasContent(education[0]?.gpa)) parts.push(education[0].gpa)
+      return parts.join(' — ')
+    })(),
     'Institution 2': education[1]?.university || '',
     'Institution Location 2': education[1]?.location || '',
     'Graduation Date 2': `${education[1]?.graduationMonth || ''} ${education[1]?.graduationYear || ''}`,
     'Degree 2': education[1]?.degree || '',
     'Major/Concentration 2': education[1]?.major || '',
     'GPA 2': education[1]?.gpa || '',
-
+    'Education Meta 2': (() => {
+      const parts: string[] = []
+      if (hasContent(education[1]?.degree)) parts.push(education[1].degree)
+      if (hasContent(education[1]?.major)) parts.push(education[1].major)
+      if (hasContent(education[1]?.gpa)) parts.push(education[1].gpa)
+      return parts.join(' — ')
+    })(),
     'Institution 3': education[2]?.university || '',
     'Institution Location 3': education[2]?.location || '',
     'Graduation Date 3': `${education[2]?.graduationMonth || ''} ${education[2]?.graduationYear || ''}`,
     'Degree 3': education[2]?.degree || '',
     'Major/Concentration 3': education[2]?.major || '',
     'GPA 3': education[2]?.gpa || '',
+    'Education Meta 3': (() => {
+      const parts: string[] = []
+      if (hasContent(education[2]?.degree)) parts.push(education[2].degree)
+      if (hasContent(education[2]?.major)) parts.push(education[2].major)
+      if (hasContent(education[2]?.gpa)) parts.push(education[2].gpa)
+      return parts.join(' — ')
+    })(),
 
-    // Experience Section
-    Experience: 'Experience',
+    // Experience Section (mapped to specific placeholders)
+    Experience: hasSectionContent(experience) ? 'Experience' : '',
     'Organisation 1': experience[0]?.company || '',
     'Position Title 1': experience[0]?.jobTitle || '',
     'Organisation Location 1': experience[0]?.location || '',
@@ -137,16 +245,22 @@ function getReplacements(data: ResumeData): Record<string, string> {
     EndDate1: experience[0]?.isCurrent
       ? 'Present'
       : `${experience[0]?.endMonth || ''} ${experience[0]?.endYear || ''}`,
-    'Bullet 1.1': experience[0]?.responsibilities
-      ? experience[0].responsibilities.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
-      : '',
-    'Bullet 1.2': experience[0]?.responsibilities
-      ? experience[0].responsibilities.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
-      : '',
-    'Bullet 1.3': experience[0]?.responsibilities
-      ? experience[0].responsibilities.split('\n')[2]?.replace(/^[-•]\s*/, '') || ''
-      : '',
-
+    'Experience Date 1': (() => {
+      const startDate =
+        `${experience[0]?.startMonth || ''} ${experience[0]?.startYear || ''}`.trim()
+      const endDate = experience[0]?.isCurrent
+        ? 'Present'
+        : `${experience[0]?.endMonth || ''} ${experience[0]?.endYear || ''}`.trim()
+      if (hasContent(startDate) && hasContent(endDate)) {
+        return `${startDate} – ${endDate}`
+      } else if (hasContent(startDate)) {
+        return startDate
+      } else if (hasContent(endDate)) {
+        return endDate
+      }
+      return ''
+    })(),
+    'Experience Bullets 1': generateBulletsHTML(experience[0]?.bullets || []),
     'Organisation 2': experience[1]?.company || '',
     'Position Title 2': experience[1]?.jobTitle || '',
     'Organisation Location 2': experience[1]?.location || '',
@@ -154,15 +268,49 @@ function getReplacements(data: ResumeData): Record<string, string> {
     EndDate2: experience[1]?.isCurrent
       ? 'Present'
       : `${experience[1]?.endMonth || ''} ${experience[1]?.endYear || ''}`,
-    'Bullet 2.1': experience[1]?.responsibilities
-      ? experience[1].responsibilities.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
-      : '',
-    'Bullet 2.2': experience[1]?.responsibilities
-      ? experience[1].responsibilities.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
-      : '',
+    'Experience Date 2': (() => {
+      const startDate =
+        `${experience[1]?.startMonth || ''} ${experience[1]?.startYear || ''}`.trim()
+      const endDate = experience[1]?.isCurrent
+        ? 'Present'
+        : `${experience[1]?.endMonth || ''} ${experience[1]?.endYear || ''}`.trim()
+      if (hasContent(startDate) && hasContent(endDate)) {
+        return `${startDate} – ${endDate}`
+      } else if (hasContent(startDate)) {
+        return startDate
+      } else if (hasContent(endDate)) {
+        return endDate
+      }
+      return ''
+    })(),
+    'Experience Bullets 2': generateBulletsHTML(experience[1]?.bullets || []),
+    'Experience 3': hasSectionContent(experience[2]) ? 'Experience' : '',
+    'Organisation 3': experience[2]?.company || '',
+    'Position Title 3': experience[2]?.jobTitle || '',
+    'Organisation Location 3': experience[2]?.location || '',
+    StartDate3: `${experience[2]?.startMonth || ''} ${experience[2]?.startYear || ''}`,
+    EndDate3: experience[2]?.isCurrent
+      ? 'Present'
+      : `${experience[2]?.endMonth || ''} ${experience[2]?.endYear || ''}`,
+    'Experience Date 3': (() => {
+      const startDate =
+        `${experience[2]?.startMonth || ''} ${experience[2]?.startYear || ''}`.trim()
+      const endDate = experience[2]?.isCurrent
+        ? 'Present'
+        : `${experience[2]?.endMonth || ''} ${experience[2]?.endYear || ''}`.trim()
+      if (hasContent(startDate) && hasContent(endDate)) {
+        return `${startDate} – ${endDate}`
+      } else if (hasContent(startDate)) {
+        return startDate
+      } else if (hasContent(endDate)) {
+        return endDate
+      }
+      return ''
+    })(),
+    'Experience Bullets 3': generateBulletsHTML(experience[2]?.bullets || []),
 
-    // Leadership Section
-    'Leadership & Activities': 'Leadership & Activities',
+    // Leadership Section (mapped to specific placeholders)
+    'Leadership & Activities': hasSectionContent(leadership) ? 'Leadership & Activities' : '',
     'Organization / Club L': leadership[0]?.organization || '',
     'Role L': leadership[0]?.title || '',
     'Organisation Location L': leadership[0]?.location || '',
@@ -170,36 +318,79 @@ function getReplacements(data: ResumeData): Record<string, string> {
     EndDateL: leadership[0]?.isCurrent
       ? 'Present'
       : `${leadership[0]?.endMonth || ''} ${leadership[0]?.endYear || ''}`,
-    'Leadership Bullet 1': leadership[0]?.description
-      ? leadership[0].description.split('\n')[0]?.replace(/^[-•]\s*/, '') || ''
-      : '',
-    'Leadership Bullet 2': leadership[0]?.description
-      ? leadership[0].description.split('\n')[1]?.replace(/^[-•]\s*/, '') || ''
-      : '',
+    'Leadership Bullets': generateBulletsHTML(leadership[0]?.bullets || []),
 
-    // Projects Section
-    Projects: 'Projects',
-    'Project 1': projects[0]?.projectName || '',
-    'Project 2': projects[1]?.projectName || '',
+    // Projects Section (mapped to specific placeholders)
+    Projects: hasSectionContent(projects) ? 'Projects' : '',
+    'Project 1 Title': createProjectTitle(projects[0]),
+    'Project 1 Bullets': generateBulletsHTML(projects[0]?.bullets || []),
+    'Project 2 Title': createProjectTitle(projects[1]),
+    'Project 2 Bullets': generateBulletsHTML(projects[1]?.bullets || []),
 
-    // Other Section
-    'Other (1)': other1.sectionTitle || 'Other',
+    // Other Section (mapped to specific placeholders)
+    'Other (1)': hasSectionContent(other1) ? other1.sectionTitle || 'Other' : '',
     'Other1 Bullet 1': other1.entries[0]?.title || '',
     'Other1 Bullet 2': other1.entries[1]?.title || '',
+    'Other1 Bullet 3': other1.entries[2]?.title || '',
+    'Other1 Bullet 4': other1.entries[3]?.title || '',
+    'Other1 Bullet 5': other1.entries[4]?.title || '',
 
-    // Skills Section
-    'Skills & Interests': 'Skills & Interests',
-    Technical: 'Technical',
-    'Tech Skill 1': projects[0]?.technologies?.split(',')[0]?.trim() || '',
-    'Tech Skill 2': projects[0]?.technologies?.split(',')[1]?.trim() || '',
-    'Tech Skill 3': projects[1]?.technologies?.split(',')[0]?.trim() || '',
-    'Tech Skill 4': projects[1]?.technologies?.split(',')[1]?.trim() || '',
-    Languages: 'Languages',
-    'Language 1': 'English',
-    'Language 2': 'Spanish',
-    Interests: 'Interests',
-    'Interest 1': 'Technology',
-    'Interest 2': 'Innovation',
-    'Interest 3': 'Leadership',
+    // Skills Section (mapped to specific placeholders)
+    'Skills & Interests': hasSectionContent(skills) ? 'Skills & Interests' : '',
+    Technical: skills.technical.some((skill) => skill.trim() !== '') ? 'Technical' : '',
+    'Tech Skill 1': skills.technical[0] || '',
+    'Tech Skill 2': skills.technical[1] || '',
+    'Tech Skill 3': skills.technical[2] || '',
+    'Tech Skill 4': skills.technical[3] || '',
+    'Technical Skills': (() => {
+      const techSkills = skills.technical.filter((skill) => hasContent(skill))
+      return techSkills.length > 0 ? `Technical: ${techSkills.join(', ')}` : ''
+    })(),
+    Languages: skills.languages.some((skill) => skill.trim() !== '') ? 'Languages' : '',
+    'Language 1': skills.languages[0] || '',
+    'Language 2': skills.languages[1] || '',
+    'Language Skills': (() => {
+      const languages = skills.languages.filter((skill) => hasContent(skill))
+      return languages.length > 0 ? `Languages: ${languages.join(', ')}` : ''
+    })(),
+    Interests: skills.interests.some((skill) => skill.trim() !== '') ? 'Interests' : '',
+    'Interest 1': skills.interests[0] || '',
+    'Interest 2': skills.interests[1] || '',
+    'Interest 3': skills.interests[2] || '',
+    'Interest Skills': (() => {
+      const interests = skills.interests.filter((skill) => hasContent(skill))
+      return interests.length > 0 ? `Interests: ${interests.join(', ')}` : ''
+    })(),
   }
+
+  return replacements
+}
+
+function removeEmptySections(html: string): string {
+  // Remove sections that have empty headings or no content
+  const sectionRegex = /<section[^>]*>[\s\S]*?<\/section>/g
+  return html.replace(sectionRegex, (section) => {
+    // Check if the section has an empty heading (only whitespace or empty)
+    const headingMatch = section.match(/<h2[^>]*>(.*?)<\/h2>/)
+    if (headingMatch) {
+      const headingText = headingMatch[1].trim()
+      if (!headingText || headingText === '') {
+        return '' // Remove the entire section
+      }
+    }
+
+    // Also check for sections with only empty list items
+    const listItems = section.match(/<li[^>]*>(.*?)<\/li>/g)
+    if (listItems) {
+      const hasContent = listItems.some((item) => {
+        const content = item.replace(/<[^>]*>/g, '').trim()
+        return content.length > 0
+      })
+      if (!hasContent) {
+        return '' // Remove section with only empty list items
+      }
+    }
+
+    return section
+  })
 }
