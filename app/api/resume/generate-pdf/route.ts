@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resumeStoreOperations, ResumeData } from '../../../../lib/resumeStore'
+import fs from 'fs'
+import path from 'path'
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,8 +18,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Load and fill the Harvard template
-    const filledHTML = await fillHarvardTemplate(data)
+    // Load and fill the appropriate template
+    let filledHTML: string
+    if (template === 'lbs') {
+      filledHTML = await fillLBSTemplate(data)
+    } else {
+      filledHTML = await fillHarvardTemplate(data)
+    }
 
     // Return HTML for preview (DOCX generation is now handled client-side)
     return new NextResponse(filledHTML, {
@@ -141,10 +148,11 @@ function getReplacements(data: ResumeData): Record<string, string> {
       )
     }
     if (section && typeof section === 'object') {
-      if (section.entries) {
+      const sectionObj = section as Record<string, unknown>
+      if ('entries' in sectionObj && Array.isArray(sectionObj.entries)) {
         return (
-          section.entries.length > 0 &&
-          section.entries.some((entry) =>
+          sectionObj.entries.length > 0 &&
+          sectionObj.entries.some((entry) =>
             Object.values(entry).some((value) =>
               typeof value === 'string'
                 ? value.trim().length > 0
@@ -155,9 +163,9 @@ function getReplacements(data: ResumeData): Record<string, string> {
           )
         )
       }
-      if (section.technical || section.languages || section.interests) {
+      if ('technical' in sectionObj || 'languages' in sectionObj || 'interests' in sectionObj) {
         // Skills data structure
-        return Object.values(section).some((value) =>
+        return Object.values(sectionObj).some((value) =>
           Array.isArray(value)
             ? value.some((v) => v.trim().length > 0)
             : typeof value === 'string'
@@ -412,6 +420,186 @@ function removeEmptySections(html: string): string {
     if (!content || content === '') {
       return '' // Remove empty entries
     }
+    return entry
+  })
+
+  return processedHtml
+}
+
+// Function to fill LBS template
+async function fillLBSTemplate(data: ResumeData): Promise<string> {
+  try {
+    const templatePath = path.join(
+      process.cwd(),
+      'public',
+      'templates',
+      'Harvard',
+      'LBS',
+      'LBS-Template.html'
+    )
+    const template = fs.readFileSync(templatePath, 'utf-8')
+
+    const replacements = getLBSReplacements(data)
+
+    let filledTemplate = template
+    Object.entries(replacements).forEach(([placeholder, value]) => {
+      filledTemplate = filledTemplate.replace(new RegExp(`{{${placeholder}}}`, 'g'), value)
+    })
+
+    // Remove empty sections and entries
+    filledTemplate = removeEmptyLBSSections(filledTemplate)
+
+    return filledTemplate
+  } catch (error) {
+    console.error('Error filling LBS template:', error)
+    throw error
+  }
+}
+
+// Function to get LBS template replacements
+function getLBSReplacements(data: ResumeData): Record<string, string> {
+  const { contact, education, experience, leadership, skills } = data
+
+  // Helper function to generate bullets HTML
+  const generateBulletsHTML = (bullets: string[]): string => {
+    if (!bullets || bullets.length === 0) return ''
+    return bullets.map((bullet) => `<li>${bullet}</li>`).join('\n            ')
+  }
+
+  // Helper function to format date range
+  const formatDateRange = (
+    startMonth: string,
+    startYear: string,
+    endMonth: string,
+    endYear: string,
+    isCurrent: boolean
+  ): string => {
+    const start = startYear ? startYear : ''
+    const end = isCurrent ? 'Present' : endYear ? endYear : ''
+    return start && end ? `${start} - ${end}` : start || end
+  }
+
+  return {
+    // Contact Information
+    Name: contact.name || '',
+    Email: contact.email || '',
+    Phone: contact.phone || '',
+    LinkedIn: contact.linkedin || '',
+
+    // Education (up to 2 entries)
+    Education1_StartYear: education[0]?.graduationYear || '',
+    Education1_EndYear: education[0]?.graduationYear || '',
+    Education1_Institution: education[0]?.university || '',
+    Education1_Degree: education[0]?.degree || '',
+
+    Education2_StartYear: education[1]?.graduationYear || '',
+    Education2_EndYear: education[1]?.graduationYear || '',
+    Education2_Institution: education[1]?.university || '',
+    Education2_Degree: education[1]?.degree || '',
+    Education2_Honours: education[1]?.major || '',
+
+    // Experience (up to 3 entries)
+    Experience1_StartYear: experience[0]?.startYear || '',
+    Experience1_EndYear: experience[0]?.endYear || '',
+    Organisation1: experience[0]?.company || '',
+    Organisation1_Description: experience[0]?.location || '',
+    Role1: experience[0]?.jobTitle || '',
+    Experience1_Bullets: generateBulletsHTML(experience[0]?.bullets),
+
+    Experience2_StartYear: experience[1]?.startYear || '',
+    Experience2_EndYear: experience[1]?.endYear || '',
+    Organisation2: experience[1]?.company || '',
+    Organisation2_Description: experience[1]?.location || '',
+    Role2: experience[1]?.jobTitle || '',
+    Experience2_Bullets: generateBulletsHTML(experience[1]?.bullets),
+
+    Experience3_StartYear: experience[2]?.startYear || '',
+    Experience3_EndYear: experience[2]?.endYear || '',
+    Organisation3: experience[2]?.company || '',
+    Organisation3_Description: experience[2]?.location || '',
+    Role3: experience[2]?.jobTitle || '',
+    Experience3_Bullets: generateBulletsHTML(experience[2]?.bullets),
+
+    // Leadership & Activities (up to 2 entries)
+    Leadership1_StartYear: leadership[0]?.startYear || '',
+    Leadership1_EndYear: leadership[0]?.endYear || '',
+    Leadership1_Organisation: leadership[0]?.organization || '',
+    Leadership1_Location: leadership[0]?.location || '',
+    Leadership1_Role: leadership[0]?.title || '',
+    Leadership1_Bullets: generateBulletsHTML(leadership[0]?.bullets),
+
+    Leadership2_StartYear: leadership[1]?.startYear || '',
+    Leadership2_EndYear: leadership[1]?.endYear || '',
+    Leadership2_Organisation: leadership[1]?.organization || '',
+    Leadership2_Location: leadership[1]?.location || '',
+    Leadership2_Role: leadership[1]?.title || '',
+    Leadership2_Bullets: generateBulletsHTML(leadership[1]?.bullets),
+
+    // Projects (up to 2 entries)
+    Project1_Name: data.projects?.[0]?.projectName || '',
+    Project1_Bullets: generateBulletsHTML(data.projects?.[0]?.bullets),
+
+    Project2_Name: data.projects?.[1]?.projectName || '',
+    Project2_Bullets: generateBulletsHTML(data.projects?.[1]?.bullets),
+
+    // Skills
+    TechnicalSkills: skills.technical?.join(', ') || '',
+    Languages: skills.languages?.join(', ') || '',
+  }
+}
+
+// Function to remove empty sections from LBS template
+function removeEmptyLBSSections(html: string): string {
+  // Remove sections that have empty headings or no content
+  const sectionRegex =
+    /<div class="section-heading"[^>]*>[\s\S]*?<\/div>[\s\S]*?(?=<div class="section-heading"|$)/g
+  let processedHtml = html.replace(sectionRegex, (section) => {
+    // Check if the section has an empty heading (only whitespace or empty)
+    const headingMatch = section.match(/<div class="section-heading"[^>]*>(.*?)<\/div>/)
+    if (headingMatch) {
+      const headingText = headingMatch[1].trim()
+      if (!headingText || headingText === '') {
+        return '' // Remove the entire section
+      }
+    }
+
+    // Also check for sections with only empty list items
+    const listItems = section.match(/<li[^>]*>(.*?)<\/li>/g)
+    if (listItems) {
+      const hasContent = listItems.some((item) => {
+        const content = item.replace(/<[^>]*>/g, '').trim()
+        return content.length > 0
+      })
+      if (!hasContent) {
+        return '' // Remove section with only empty list items
+      }
+    }
+
+    return section
+  })
+
+  // Remove empty individual entries (like education-entry, experience-entry, etc.)
+  const entryRegex = /<div class="(education-entry|experience-entry)"[^>]*>[\s\S]*?<\/div>/g
+  processedHtml = processedHtml.replace(entryRegex, (entry) => {
+    // Check if the entry has any meaningful content
+    const content = entry.replace(/<[^>]*>/g, '').trim()
+    if (!content || content === '') {
+      return '' // Remove empty entries
+    }
+    return entry
+  })
+
+  // Remove entries that only contain empty placeholders
+  const emptyEntryRegex = /<div class="experience-entry"[^>]*>[\s\S]*?<\/div>/g
+  processedHtml = processedHtml.replace(emptyEntryRegex, (entry) => {
+    // Remove all HTML tags and check if only placeholders remain
+    const textContent = entry.replace(/<[^>]*>/g, '').trim()
+
+    // If the entry only contains empty placeholders (like {{Project1_Name}} with no actual content), remove it
+    if (textContent === '' || textContent.match(/^{{[^}]+}}$/)) {
+      return ''
+    }
+
     return entry
   })
 

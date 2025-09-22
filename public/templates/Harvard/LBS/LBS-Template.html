@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CV Template</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            padding: 40px;
+
+            line-height: 1.5;
+
+            color: #000;
+
+            font-size: 10px;
+
+        }
+
+
+
+        /* Header section */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        .name {
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .contact-info {
+
+            font-size: 10px;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        .contact-info a {
+
+            color: #000;
+
+            text-decoration: none;
+
+        }
+
+
+
+        /* Section headings */
+
+        .section-heading {
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            margin-top: 25px;
+
+            margin-bottom: 15px;
+
+            border-bottom: 1px solid #000;
+
+            padding-bottom: 3px;
+
+        }
+
+
+
+        /* Education entries */
+
+        .education-entry, .experience-entry {
+
+            margin-bottom: 15px;
+
+        }
+
+
+
+        .date-range {
+
+            font-weight: bold;
+
+            margin-bottom: 3px;
+
+        }
+
+        .experience-entry, .education-entry {
+
+            display: table;
+
+            width: 100%;
+
+            margin-bottom: 15px;
+
+        }
+
+        .date-range {
+
+            display: table-cell;
+
+            width: 20%;
+
+            vertical-align: top;
+
+            padding-right: 10px;
+
+        }
+
+        .company-description {
+
+            display: table-cell;
+
+            width: 80%;
+
+            vertical-align: top;
+
+        }
+
+
+
+        .degree-title, .company-name {
+
+            font-weight: bold;
+
+            margin-bottom: 3px;
+
+        }
+
+
+
+        .degree-details {
+
+            font-weight: normal;
+
+        }
+
+
+
+        /* Experience section */
+
+        .company-description {
+
+            font-style: italic;
+
+            font-size: 14px;
+
+            margin-bottom: 3px;
+
+        }
+
+
+
+        .job-title {
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        /* Bullet points */
+
+        ul {
+
+            margin: 8px 0;
+
+            padding-left: 20px;
+
+        }
+
+
+
+        li {
+
+            margin-bottom: 8px;
+
+            padding-left: 5px;
+
+        }
+
+
+
+        /* Additional Information section */
+
+        .additional-info ul {
+
+            margin-top: 8px;
+
+        }
+
+
+
+        .additional-info li {
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        /* Footer section */
+
+        .footer-info {
+
+            margin-top: 20px;
+
+        }
+
+
+
+        .footer-info p {
+
+            font-weight: bold;
+
+            margin: 5px 0;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header Section -->
+
+    <div class="header">
+
+        <div class="name">{{Name}}</div>
+
+        <div class="contact-info">
+
+            <div><a href="mailto:{{Email}}">{{Email}}</a></div>
+
+            <div>{{Phone}}</div>
+
+            <div><a href="{{LinkedIn}}">{{LinkedIn}}</a></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Education Section -->
+
+    <div class="section-heading">EDUCATION</div>
+
+    
+
+    <div class="education-entry">
+
+        <div class="date-range">{{Education1_StartYear}} – {{Education1_EndYear}}</div>
+
+        <div class="degree-title">{{Education1_Institution}}<br>{{Education1_Degree}}</div>
+
+    </div>
+
+
+
+    <div class="education-entry">
+
+        <div class="date-range">{{Education2_StartYear}} – {{Education2_EndYear}}</div>
+
+        <div class="degree-title">{{Education2_Institution}}<br>{{Education2_Degree}}, <span class="degree-details">{{Education2_Honours}}</span></div>
+
+    </div>
+
+
+
+    <!-- Business Experience Section -->
+
+    <div class="section-heading">BUSINESS EXPERIENCE</div>
+
+
+
+    <!-- First Experience -->
+
+    <div class="experience-entry">
+
+        <div class="date-range">{{Experience1_StartYear}} - {{Experience1_EndYear}}</div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Organisation1}}, {{Organisation1_Description}}</div>
+
+            <div class="job-title">{{Role1}}</div>
+
+            {{Experience1_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Second Experience -->
+
+    <div class="experience-entry">
+
+        <div class="date-range">{{Experience2_StartYear}} - {{Experience2_EndYear}}</div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Organisation2}}, {{Organisation2_Description}}</div>
+
+            <div class="job-title">{{Role2}}</div>
+
+            {{Experience2_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Third Experience -->
+
+    <div class="experience-entry">
+
+        <div class="date-range">{{Experience3_StartYear}} - {{Experience3_EndYear}}</div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Organisation3}}, {{Organisation3_Description}}</div>
+
+            <div class="job-title">{{Role3}}</div>
+
+            {{Experience3_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Leadership & Activities Section -->
+
+    <div class="section-heading">LEADERSHIP & ACTIVITIES</div>
+
+    <!-- First Leadership Entry -->
+
+    <div class="experience-entry">
+
+        <div class="date-range">{{Leadership1_StartYear}} - {{Leadership1_EndYear}}</div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Leadership1_Organisation}}, {{Leadership1_Location}}</div>
+
+            <div class="job-title">{{Leadership1_Role}}</div>
+
+            {{Leadership1_Bullets}}
+
+        </div>
+
+    </div>
+
+    <!-- Second Leadership Entry -->
+
+    <div class="experience-entry">
+
+        <div class="date-range">{{Leadership2_StartYear}} - {{Leadership2_EndYear}}</div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Leadership2_Organisation}}, {{Leadership2_Location}}</div>
+
+            <div class="job-title">{{Leadership2_Role}}</div>
+
+            {{Leadership2_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Projects Section -->
+
+    <div class="section-heading">PROJECTS</div>
+
+    <!-- First Project Entry -->
+
+    <div class="experience-entry">
+
+        <div class="date-range"></div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Project1_Name}}</div>
+
+            {{Project1_Bullets}}
+
+        </div>
+
+    </div>
+
+    <!-- Second Project Entry -->
+
+    <div class="experience-entry">
+
+        <div class="date-range"></div>
+
+        <div class="company-description">
+
+            <div class="company-name">{{Project2_Name}}</div>
+
+            {{Project2_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Footer Information -->
+
+    <div class="footer-info">
+
+        <p>Technical Skills: {{TechnicalSkills}}</p>
+
+        <p>Languages: {{Languages}}</p>
+
+    </div>
+
+</body>
+
+</html>

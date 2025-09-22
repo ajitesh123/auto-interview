@@ -15,13 +15,14 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null)
   const [showPreview, setShowPreview] = useState(false)
   const [previewHTML, setPreviewHTML] = useState<string>('')
+  const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs'>('harvard')
 
   // Load preview automatically when component mounts
   useEffect(() => {
     loadPreview()
   }, [])
 
-  const loadPreview = async () => {
+  const loadPreview = async (template: 'harvard' | 'lbs' = selectedTemplate) => {
     try {
       const response = await fetch('/api/resume/generate-pdf', {
         method: 'POST',
@@ -30,7 +31,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
         },
         body: JSON.stringify({
           resumeId,
-          template: 'harvard',
+          template,
           data: resumeData,
           preview: true,
         }),
@@ -45,6 +46,11 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
     } catch (error) {
       console.error('Error generating preview:', error)
     }
+  }
+
+  const handleTemplateSelect = async (template: 'harvard' | 'lbs') => {
+    setSelectedTemplate(template)
+    await loadPreview(template)
   }
 
   const handlePreview = async () => {
@@ -64,7 +70,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
     try {
       // Generate DOCX using client-side generation
-      await generateDocx(resumeData)
+      await generateDocx(resumeData, selectedTemplate)
 
       setDownloadMessage('Resume downloaded successfully!')
       setTimeout(() => setDownloadMessage(null), 3000)
@@ -114,9 +120,16 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
         </div>
 
         {/* Template Selection */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Harvard Template */}
-          <div className="rounded-lg border border-gray-700 bg-gray-800 p-6 transition-colors hover:border-pink-500">
+          <div
+            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+              selectedTemplate === 'harvard'
+                ? 'border-pink-500 bg-gray-700'
+                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+            }`}
+            onClick={() => handleTemplateSelect('harvard')}
+          >
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700">
                 <svg
@@ -133,7 +146,12 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-white">Harvard Template</h3>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                Harvard Template
+                {selectedTemplate === 'harvard' && (
+                  <span className="ml-2 text-pink-500">✓ Selected</span>
+                )}
+              </h3>
               <p className="mb-4 text-gray-300">
                 Clean, professional design perfect for academic and professional settings. Features
                 clear sections and elegant typography.
@@ -191,12 +209,19 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
             </div>
           </div>
 
-          {/* Coming Soon Templates */}
-          <div className="rounded-lg border border-gray-600 bg-gray-800 p-6 opacity-60">
+          {/* LBS Template */}
+          <div
+            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+              selectedTemplate === 'lbs'
+                ? 'border-pink-500 bg-gray-700'
+                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+            }`}
+            onClick={() => handleTemplateSelect('lbs')}
+          >
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gray-600">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-700">
                 <svg
-                  className="h-8 w-8 text-gray-400"
+                  className="h-8 w-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -205,13 +230,70 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-400">More Templates</h3>
-              <p className="mb-4 text-gray-500">Additional professional templates coming soon!</p>
-              <div className="text-sm text-gray-500">Modern, Creative, Executive styles</div>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                London Business School Template
+                {selectedTemplate === 'lbs' && (
+                  <span className="ml-2 text-blue-500">✓ Selected</span>
+                )}
+              </h3>
+              <p className="mb-4 text-gray-300">
+                Executive-style template with Times New Roman font, perfect for business school
+                applications and corporate roles.
+              </p>
+              <div className="space-y-2 text-sm text-gray-400">
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Executive format
+                </div>
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Times New Roman font
+                </div>
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Business-focused layout
+                </div>
+              </div>
             </div>
           </div>
 
@@ -363,7 +445,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
             <iframe
               srcDoc={
                 previewHTML ||
-                '<div class="text-center text-gray-500 p-8">Click "Preview Resume" to see the Harvard template preview</div>'
+                `<div class="text-center text-gray-500 p-8">Click "Preview Resume" to see the ${selectedTemplate === 'harvard' ? 'Harvard' : 'London Business School'} template preview</div>`
               }
               className="h-[600px] w-full border-0"
               title="Resume Preview"
@@ -378,7 +460,8 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           <div className="mx-4 max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-lg bg-white shadow-xl">
             <div className="flex items-center justify-between border-b p-4">
               <h3 className="text-lg font-semibold text-gray-900">
-                Resume Preview - Harvard Template
+                Resume Preview -{' '}
+                {selectedTemplate === 'harvard' ? 'Harvard' : 'London Business School'} Template
               </h3>
               <button
                 onClick={() => setShowPreview(false)}

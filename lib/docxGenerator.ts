@@ -54,7 +54,10 @@ function parseBoldText(text: string): TextRun[] {
   return runs
 }
 
-export async function generateDocx(resumeData: ResumeData): Promise<void> {
+export async function generateDocx(
+  resumeData: ResumeData,
+  template: 'harvard' | 'lbs' = 'harvard'
+): Promise<void> {
   try {
     const doc = new Document({
       sections: [
@@ -69,28 +72,27 @@ export async function generateDocx(resumeData: ResumeData): Promise<void> {
               },
             },
           },
-          children: [
-            // Header Section
-            ...createHeaderSection(resumeData.contact),
-
-            // Education Section
-            ...createEducationSection(resumeData.education),
-
-            // Experience Section
-            ...createExperienceSection(resumeData.experience),
-
-            // Leadership Section
-            ...createLeadershipSection(resumeData.leadership),
-
-            // Projects Section
-            ...createProjectsSection(resumeData.projects),
-
-            // Other Sections
-            ...createOtherSection(resumeData.other1),
-
-            // Skills Section
-            ...createSkillsSection(resumeData),
-          ],
+          children:
+            template === 'lbs'
+              ? [
+                  // LBS Template Structure
+                  ...createLBSHeaderSection(resumeData.contact),
+                  ...createLBSEducationSection(resumeData.education),
+                  ...createLBSExperienceSection(resumeData.experience),
+                  ...createLBSLeadershipSection(resumeData.leadership),
+                  ...createLBSProjectsSection(resumeData.projects),
+                  ...createLBSSkillsSection(resumeData.skills),
+                ]
+              : [
+                  // Harvard Template Structure
+                  ...createHeaderSection(resumeData.contact),
+                  ...createEducationSection(resumeData.education),
+                  ...createExperienceSection(resumeData.experience),
+                  ...createLeadershipSection(resumeData.leadership),
+                  ...createProjectsSection(resumeData.projects),
+                  ...createOtherSection(resumeData.other1),
+                  ...createSkillsSection(resumeData),
+                ],
         },
       ],
     })
@@ -619,4 +621,393 @@ function createSkillsSection(resumeData: ResumeData) {
         ]
       : []),
   ]
+}
+
+// LBS Template Functions
+
+function createLBSHeaderSection(contact: ResumeData['contact']): Paragraph[] {
+  return [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: contact.name || '',
+          bold: true,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 100 },
+    }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: contact.email || '',
+          size: 20, // 10pt
+          color: '0000FF',
+          font: 'Arial',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 50 },
+    }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: contact.phone || '',
+          size: 20, // 10pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 50 },
+    }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: contact.linkedin || '',
+          size: 20, // 10pt
+          color: '0000FF',
+          font: 'Arial',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 200 },
+    }),
+  ]
+}
+
+function createLBSEducationSection(education: ResumeData['education']): Paragraph[] {
+  if (!education || education.length === 0) return []
+
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'EDUCATION',
+          bold: true,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      spacing: { after: 100 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  education.slice(0, 2).forEach((edu) => {
+    if (edu.university || edu.degree) {
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `${edu.graduationYear || ''} – ${edu.graduationYear || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+            new TextRun({
+              text: `\t${edu.university || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `\t${edu.degree || ''}${edu.major ? `, ${edu.major}` : ''}`,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 100 },
+        })
+      )
+    }
+  })
+
+  return paragraphs
+}
+
+function createLBSExperienceSection(experience: ResumeData['experience']): Paragraph[] {
+  if (!experience || experience.length === 0) return []
+
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'BUSINESS EXPERIENCE',
+          bold: true,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      spacing: { after: 100 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  experience.slice(0, 3).forEach((exp) => {
+    if (exp.company || exp.jobTitle) {
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `${exp.startYear || ''} - ${exp.endYear || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+            new TextRun({
+              text: `\t${exp.company || ''}, ${exp.location || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `\t${exp.jobTitle || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        })
+      )
+
+      // Add bullet points
+      if (exp.bullets && exp.bullets.length > 0) {
+        exp.bullets.slice(0, 15).forEach((bullet) => {
+          if (bullet.trim()) {
+            paragraphs.push(
+              new Paragraph({
+                children: parseBoldText(bullet),
+                bullet: { level: 0 },
+                spacing: { after: 50 },
+              })
+            )
+          }
+        })
+      }
+    }
+  })
+
+  return paragraphs
+}
+
+function createLBSLeadershipSection(leadership: ResumeData['leadership']): Paragraph[] {
+  if (!leadership || leadership.length === 0) return []
+
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'LEADERSHIP & ACTIVITIES',
+          bold: true,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      spacing: { after: 100 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  leadership.slice(0, 2).forEach((lead) => {
+    if (lead.organization || lead.title) {
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `${lead.startYear || ''} - ${lead.endYear || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+            new TextRun({
+              text: `\t${lead.organization || ''}, ${lead.location || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `\t${lead.title || ''}`,
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        })
+      )
+
+      // Add bullet points
+      if (lead.bullets && lead.bullets.length > 0) {
+        lead.bullets.slice(0, 15).forEach((bullet) => {
+          if (bullet.trim()) {
+            paragraphs.push(
+              new Paragraph({
+                children: parseBoldText(bullet),
+                bullet: { level: 0 },
+                spacing: { after: 50 },
+              })
+            )
+          }
+        })
+      }
+    }
+  })
+
+  return paragraphs
+}
+
+function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
+  const paragraphs: Paragraph[] = []
+
+  if (skills.technical && skills.technical.length > 0) {
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: `Technical Skills: ${skills.technical.join(', ')}`,
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Times New Roman',
+          }),
+        ],
+        spacing: { after: 50 },
+      })
+    )
+  }
+
+  if (skills.languages && skills.languages.length > 0) {
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: `Languages: ${skills.languages.join(', ')}`,
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Times New Roman',
+          }),
+        ],
+        spacing: { after: 50 },
+      })
+    )
+  }
+
+  return paragraphs
+}
+
+function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[] {
+  if (!projects || projects.length === 0) return []
+
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'PROJECTS',
+          bold: true,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Arial',
+        }),
+      ],
+      spacing: { after: 100 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  projects.slice(0, 2).forEach((project) => {
+    if (project.projectName || project.bullets?.length) {
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: project.projectName || '',
+              bold: true,
+              size: 20, // 10pt
+              color: '000000',
+              font: 'Arial',
+            }),
+          ],
+          spacing: { after: 50 },
+        })
+      )
+
+      // Add bullet points if available
+      if (project.bullets && project.bullets.length > 0) {
+        project.bullets.forEach((bullet) => {
+          if (bullet.trim()) {
+            paragraphs.push(
+              new Paragraph({
+                children: parseBoldText(bullet),
+                bullet: { level: 0 },
+                spacing: { after: 50 },
+              })
+            )
+          }
+        })
+      }
+    }
+  })
+
+  return paragraphs
 }
