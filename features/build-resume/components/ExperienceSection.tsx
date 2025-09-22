@@ -41,7 +41,11 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
         ]
   )
 
-  const handleEntryChange = (id: string, field: keyof ExperienceEntry, value: string | boolean) => {
+  const handleEntryChange = (
+    id: string,
+    field: keyof ExperienceEntry,
+    value: string | boolean | string[]
+  ) => {
     const updatedEntries = experienceEntries.map((entry) => {
       if (entry.id === id) {
         const updatedEntry = { ...entry, [field]: value }

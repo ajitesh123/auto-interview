@@ -103,7 +103,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
   }
 
   // Helper function to check if a field has content
-  const hasContent = (value: any): boolean => {
+  const hasContent = (value: unknown): boolean => {
     if (!value) return false
     if (typeof value === 'string') {
       const trimmed = value.trim()
@@ -116,7 +116,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
   }
 
   // Helper function to create project title with link
-  const createProjectTitle = (project: any) => {
+  const createProjectTitle = (project: { link?: string; projectName?: string }) => {
     if (!project) return ''
     if (project.link) {
       return `<a href="${project.link}" target="_blank">${project.projectName || ''}</a>`
@@ -125,7 +125,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
   }
 
   // Helper function to check if section has content
-  const hasSectionContent = (section: any) => {
+  const hasSectionContent = (section: unknown) => {
     if (Array.isArray(section)) {
       return (
         section.length > 0 &&
@@ -320,6 +320,16 @@ function getReplacements(data: ResumeData): Record<string, string> {
       : `${leadership[0]?.endMonth || ''} ${leadership[0]?.endYear || ''}`,
     'Leadership Bullets': generateBulletsHTML(leadership[0]?.bullets || []),
 
+    // Second Leadership Entry
+    'Organization / Club L2': leadership[1]?.organization || '',
+    'Role L2': leadership[1]?.title || '',
+    'Organisation Location L2': leadership[1]?.location || '',
+    StartDateL2: `${leadership[1]?.startMonth || ''} ${leadership[1]?.startYear || ''}`,
+    EndDateL2: leadership[1]?.isCurrent
+      ? 'Present'
+      : `${leadership[1]?.endMonth || ''} ${leadership[1]?.endYear || ''}`,
+    'Leadership Bullets 2': generateBulletsHTML(leadership[1]?.bullets || []),
+
     // Projects Section (mapped to specific placeholders)
     Projects: hasSectionContent(projects) ? 'Projects' : '',
     'Project 1 Title': createProjectTitle(projects[0]),
@@ -369,7 +379,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
 function removeEmptySections(html: string): string {
   // Remove sections that have empty headings or no content
   const sectionRegex = /<section[^>]*>[\s\S]*?<\/section>/g
-  return html.replace(sectionRegex, (section) => {
+  let processedHtml = html.replace(sectionRegex, (section) => {
     // Check if the section has an empty heading (only whitespace or empty)
     const headingMatch = section.match(/<h2[^>]*>(.*?)<\/h2>/)
     if (headingMatch) {
@@ -393,4 +403,17 @@ function removeEmptySections(html: string): string {
 
     return section
   })
+
+  // Remove empty individual entries (like education-2, experience-2, leadership-2, etc.)
+  const entryRegex = /<div class="entry"[^>]*id="[^"]*"[^>]*>[\s\S]*?<\/div>/g
+  processedHtml = processedHtml.replace(entryRegex, (entry) => {
+    // Check if the entry has any meaningful content
+    const content = entry.replace(/<[^>]*>/g, '').trim()
+    if (!content || content === '') {
+      return '' // Remove empty entries
+    }
+    return entry
+  })
+
+  return processedHtml
 }

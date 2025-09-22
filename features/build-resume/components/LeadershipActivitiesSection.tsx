@@ -26,7 +26,11 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
     data && data.length > 0 ? data : []
   )
 
-  const handleEntryChange = (id: string, field: keyof LeadershipEntry, value: string | boolean) => {
+  const handleEntryChange = (
+    id: string,
+    field: keyof LeadershipEntry,
+    value: string | boolean | string[]
+  ) => {
     const updatedEntries = leadershipEntries.map((entry) => {
       if (entry.id === id) {
         const updatedEntry = { ...entry, [field]: value }
@@ -160,8 +164,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
             <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
               {/* Title */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Title/Role</label>
+                <label
+                  htmlFor={`title-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Title/Role
+                </label>
                 <input
+                  id={`title-${entry.id}`}
                   type="text"
                   value={entry.title}
                   onChange={(e) => handleEntryChange(entry.id, 'title', e.target.value)}
@@ -172,8 +182,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
 
               {/* Organization */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Organization</label>
+                <label
+                  htmlFor={`organization-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Organization
+                </label>
                 <input
+                  id={`organization-${entry.id}`}
                   type="text"
                   value={entry.organization}
                   onChange={(e) => handleEntryChange(entry.id, 'organization', e.target.value)}
@@ -184,8 +200,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
 
               {/* Location */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Location</label>
+                <label
+                  htmlFor={`location-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Location
+                </label>
                 <input
+                  id={`location-${entry.id}`}
                   type="text"
                   value={entry.location}
                   onChange={(e) => handleEntryChange(entry.id, 'location', e.target.value)}
@@ -213,8 +235,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
             {/* Date Range */}
             <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Start Month</label>
+                <label
+                  htmlFor={`startMonth-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Start Month
+                </label>
                 <select
+                  id={`startMonth-${entry.id}`}
                   value={entry.startMonth}
                   onChange={(e) => handleEntryChange(entry.id, 'startMonth', e.target.value)}
                   className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -229,8 +257,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Start Year</label>
+                <label
+                  htmlFor={`startYear-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Start Year
+                </label>
                 <select
+                  id={`startYear-${entry.id}`}
                   value={entry.startYear}
                   onChange={(e) => handleEntryChange(entry.id, 'startYear', e.target.value)}
                   className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -247,8 +281,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
               {!entry.isCurrent && (
                 <>
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">End Month</label>
+                    <label
+                      htmlFor={`endMonth-${entry.id}`}
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      End Month
+                    </label>
                     <select
+                      id={`endMonth-${entry.id}`}
                       value={entry.endMonth}
                       onChange={(e) => handleEntryChange(entry.id, 'endMonth', e.target.value)}
                       className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -263,8 +303,14 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">End Year</label>
+                    <label
+                      htmlFor={`endYear-${entry.id}`}
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      End Year
+                    </label>
                     <select
+                      id={`endYear-${entry.id}`}
                       value={entry.endYear}
                       onChange={(e) => handleEntryChange(entry.id, 'endYear', e.target.value)}
                       className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"

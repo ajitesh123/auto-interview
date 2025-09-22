@@ -7,8 +7,6 @@ import { ResumeData } from '../../lib/resumeStore'
 
 const BuildResumePage = () => {
   const [hasResume, setHasResume] = useState<boolean | null>(null)
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
-  const [isUploading, setIsUploading] = useState(false)
   const [parsedResumeData, setParsedResumeData] = useState<Partial<ResumeData> | null>(null)
   const [showUploadPage, setShowUploadPage] = useState(false)
 
@@ -26,24 +24,16 @@ const BuildResumePage = () => {
     setShowUploadPage(false)
   }
 
-  const handleCreateNew = () => {
+  const handleStartBuilding = () => {
     setHasResume(false)
     setParsedResumeData(null) // Clear any previously parsed data
   }
 
-  const handleUpload = async () => {
-    if (!uploadedFile) return
-
-    setIsUploading(true)
-    // TODO: Implement file upload logic
-    setTimeout(() => {
-      setIsUploading(false)
-      // Navigate to resume builder or show success message
-    }, 2000)
-  }
-
-  const handleStartBuilding = () => {
-    setHasResume(false)
+  // Show Upload Page FIRST - this takes priority
+  if (showUploadPage) {
+    return (
+      <ResumeUploadPage onUploadComplete={handleUploadComplete} onBack={handleBackFromUpload} />
+    )
   }
 
   if (hasResume === null) {
@@ -225,79 +215,13 @@ const BuildResumePage = () => {
     )
   }
 
-  // Upload Resume Flow
-  if (hasResume === true) {
-    return (
-      <div className="flex h-full w-full flex-col items-center justify-center px-8 py-12">
-        <div className="mb-8 max-w-2xl text-center">
-          <h1 className="mb-4 text-4xl font-bold text-white">Upload Your Resume</h1>
-          <p className="text-xl text-white">
-            Upload your existing resume to get started with our AI-powered optimization
-          </p>
-        </div>
-
-        <div className="w-full max-w-md rounded-lg border border-gray-700 bg-gray-900 p-8">
-          <div className="text-center">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-700">
-              <svg
-                className="h-8 w-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-            </div>
-
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleUpload}
-              className="hidden"
-              id="resume-upload"
-            />
-            <label
-              htmlFor="resume-upload"
-              className="mb-6 inline-flex cursor-pointer items-center rounded-lg border-2 border-dashed border-gray-600 px-6 py-3 transition-colors hover:border-pink-500"
-            >
-              <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-              {uploadedFile ? uploadedFile.name : 'Choose file or drag and drop'}
-            </label>
-
-            <button
-              onClick={handleUpload}
-              disabled={!uploadedFile || isUploading}
-              className="w-full rounded-lg bg-gradient-to-r from-pink-500 to-pink-700 px-6 py-3 font-semibold text-white transition-colors hover:from-pink-400 hover:to-pink-600 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {isUploading ? 'Uploading...' : 'Upload Resume'}
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Show Upload Page
-  if (showUploadPage) {
-    return (
-      <ResumeUploadPage onUploadComplete={handleUploadComplete} onBack={handleBackFromUpload} />
-    )
-  }
-
   // Create New Resume Flow (with or without pre-filled data)
-  return <ResumeBuilder initialData={parsedResumeData || undefined} />
+  if (hasResume === false) {
+    return <ResumeBuilder initialData={parsedResumeData || undefined} />
+  }
+
+  // This should never be reached, but just in case
+  return <ResumeBuilder initialData={undefined} />
 }
 
 export default BuildResumePage

@@ -20,7 +20,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
     data && data.length > 0 ? data : []
   )
 
-  const handleEntryChange = (id: string, field: keyof ProjectEntry, value: string) => {
+  const handleEntryChange = (id: string, field: keyof ProjectEntry, value: string | string[]) => {
     const updatedEntries = projectEntries.map((entry) =>
       entry.id === id ? { ...entry, [field]: value } : entry
     )
@@ -112,8 +112,14 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
             <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
               {/* Project Name */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Project Name</label>
+                <label
+                  htmlFor={`projectName-${entry.id}`}
+                  className="block text-sm font-medium text-gray-300"
+                >
+                  Project Name
+                </label>
                 <input
+                  id={`projectName-${entry.id}`}
                   type="text"
                   value={entry.projectName}
                   onChange={(e) => handleEntryChange(entry.id, 'projectName', e.target.value)}
@@ -125,10 +131,14 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
 
             {/* Project Link */}
             <div className="mb-4 space-y-2">
-              <label className="block text-sm font-medium text-gray-300">
+              <label
+                htmlFor={`projectLink-${entry.id}`}
+                className="block text-sm font-medium text-gray-300"
+              >
                 Project Link (Optional)
               </label>
               <input
+                id={`projectLink-${entry.id}`}
                 type="url"
                 value={entry.link}
                 onChange={(e) => handleEntryChange(entry.id, 'link', e.target.value)}

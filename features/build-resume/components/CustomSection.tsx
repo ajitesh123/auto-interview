@@ -34,7 +34,11 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
     onChange({ sectionTitle: title, entries: customEntries })
   }
 
-  const handleEntryChange = (id: string, field: keyof CustomEntry, value: string | boolean) => {
+  const handleEntryChange = (
+    id: string,
+    field: keyof CustomEntry,
+    value: string | boolean | string[]
+  ) => {
     const updatedEntries = customEntries.map((entry) => {
       if (entry.id === id) {
         const updatedEntry = { ...entry, [field]: value }
