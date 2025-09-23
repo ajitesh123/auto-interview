@@ -62,16 +62,18 @@ export async function POST(request: NextRequest) {
           console.log('Temporary file created:', tempFilePath)
 
           // Create PDF parser instance
-          const pdfParser = new PDFParser(null, 1)
+          const pdfParser = new PDFParser(null, true)
 
           // Set up event handlers
           const parsePromise = new Promise<string>((resolve, reject) => {
-            pdfParser.on('pdfParser_dataError', (errData: any) => {
-              console.error('PDF parsing error:', errData.parserError)
-              reject(new Error(errData.parserError))
+            pdfParser.on('pdfParser_dataError', (errData: Error | { parserError: Error }) => {
+              const errorMessage =
+                errData instanceof Error ? errData.message : errData.parserError.message
+              console.error('PDF parsing error:', errorMessage)
+              reject(new Error(errorMessage))
             })
 
-            pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
+            pdfParser.on('pdfParser_dataReady', (pdfData: unknown) => {
               try {
                 const textContent = pdfParser.getRawTextContent()
                 console.log('PDF parsing successful, text length:', textContent.length)
