@@ -50,18 +50,36 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
     setUploadMessage(null)
 
     try {
+      console.log('Uploading file:', { name: file.name, type: file.type, size: file.size })
       const formData = new FormData()
       formData.append('resume', file)
 
+      console.log('Sending request to upload-and-parse API...')
       const response = await fetch('/api/resume/upload-and-parse', {
         method: 'POST',
         body: formData,
       })
 
+      console.log('Response status:', response.status)
       const result = await response.json()
+      console.log('Response result:', result)
+
+      // Log detailed error information
+      if (!response.ok) {
+        console.log('Error response details:', {
+          status: response.status,
+          statusText: response.statusText,
+          result: result,
+        })
+      }
 
       if (!response.ok) {
-        throw new Error(result.message || 'Upload failed')
+        // Show more helpful error messages
+        if (result.suggestion) {
+          throw new Error(`${result.error}. ${result.suggestion}`)
+        } else {
+          throw new Error(result.error || 'Upload failed')
+        }
       }
 
       if (result.success) {
@@ -99,14 +117,22 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
     e.stopPropagation()
     setDragActive(false)
 
+    console.log('File dropped')
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      console.log('Dropped file:', e.dataTransfer.files[0])
       handleFileSelect(e.dataTransfer.files[0])
+    } else {
+      console.log('No file in drop event')
     }
   }
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('File input changed')
     if (e.target.files && e.target.files[0]) {
+      console.log('Selected file from input:', e.target.files[0])
       handleFileSelect(e.target.files[0])
+    } else {
+      console.log('No file selected')
     }
   }
 

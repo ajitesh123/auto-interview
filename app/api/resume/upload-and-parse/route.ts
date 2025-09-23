@@ -3,30 +3,125 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
+console.log('Gemini API Key configured:', !!process.env.GEMINI_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('=== UPLOAD-AND-PARSE API CALLED ===')
     const formData = await request.formData()
+    console.log('FormData received')
+
     const file = formData.get('resume') as File
+    console.log('File extracted from FormData:', file ? 'YES' : 'NO')
 
     if (!file) {
+      console.log('ERROR: No file uploaded')
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
     }
 
-    console.log(`Processing file: ${file.name}, type: ${file.type}`)
+    console.log(`Processing file: ${file.name}, type: ${file.type}, size: ${file.size}`)
+
+    // Check file type more thoroughly
+    const isPDF =
+      file.type === 'application/pdf' ||
+      file.type === 'application/x-pdf' ||
+      file.name.toLowerCase().endsWith('.pdf')
+
+    console.log('File type check:', {
+      type: file.type,
+      name: file.name,
+      isPDF: isPDF,
+      isWord:
+        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        file.type === 'application/msword',
+    })
 
     let textContent = ''
 
     // Extract text based on file type
-    if (file.type === 'application/pdf') {
+    if (isPDF) {
       try {
-        const pdfParse = (await import('pdf-parse')).default
+        console.log('Starting PDF parsing with pdf2json...')
+
+        // Use pdf2json for reliable PDF parsing
+        const PDFParser = (await import('pdf2json')).default
         const buffer = await file.arrayBuffer()
-        const pdfData = await pdfParse(Buffer.from(buffer))
-        textContent = pdfData.text
+        console.log('PDF buffer size:', buffer.byteLength)
+
+        // Create a temporary file for pdf2json
+        const fs = await import('fs')
+        const path = await import('path')
+        const os = await import('os')
+
+        const tempDir = os.tmpdir()
+        const tempFilePath = path.join(tempDir, `temp-resume-${Date.now()}.pdf`)
+
+        try {
+          // Write buffer to temporary file
+          fs.writeFileSync(tempFilePath, Buffer.from(buffer))
+          console.log('Temporary file created:', tempFilePath)
+
+          // Create PDF parser instance
+          const pdfParser = new PDFParser(null, 1)
+
+          // Set up event handlers
+          const parsePromise = new Promise<string>((resolve, reject) => {
+            pdfParser.on('pdfParser_dataError', (errData: any) => {
+              console.error('PDF parsing error:', errData.parserError)
+              reject(new Error(errData.parserError))
+            })
+
+            pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
+              try {
+                const textContent = pdfParser.getRawTextContent()
+                console.log('PDF parsing successful, text length:', textContent.length)
+                console.log('PDF text preview:', textContent.substring(0, 200))
+                resolve(textContent)
+              } catch (error) {
+                reject(error)
+              }
+            })
+          })
+
+          // Load and parse the PDF
+          pdfParser.loadPDF(tempFilePath)
+          textContent = await parsePromise
+
+          // Clean up temporary file
+          fs.unlinkSync(tempFilePath)
+          console.log('Temporary file cleaned up')
+        } catch (tempError) {
+          console.error('Temporary file approach failed:', tempError)
+
+          // Fallback: try pdf-parse
+          console.log('Trying fallback with pdf-parse...')
+          const pdfParse = (await import('pdf-parse')).default
+          const nodeBuffer = Buffer.from(buffer)
+
+          const pdfData = await pdfParse(nodeBuffer, {
+            max: 0,
+          })
+          textContent = pdfData.text
+          console.log('Fallback PDF parsing successful, text length:', textContent.length)
+        }
       } catch (error) {
-        console.error('Error parsing PDF:', error)
-        return NextResponse.json({ error: 'Error parsing PDF file' }, { status: 400 })
+        console.error('Error parsing PDF with pdf2json:', error)
+        console.error('PDF parsing error details:', {
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+          fileType: file.type,
+          fileSize: file.size,
+        })
+
+        return NextResponse.json(
+          {
+            error: 'Error parsing PDF file',
+            details: error instanceof Error ? error.message : String(error),
+            suggestion:
+              'Please try uploading a Word document (.docx) instead, or ensure the PDF is not password-protected.',
+          },
+          { status: 400 }
+        )
       }
     } else if (
       file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -41,8 +136,16 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Error parsing Word document' }, { status: 400 })
       }
     } else {
+      console.log('ERROR: Unsupported file type:', {
+        type: file.type,
+        name: file.name,
+        isPDF: isPDF,
+        isWord:
+          file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+          file.type === 'application/msword',
+      })
       return NextResponse.json(
-        { error: 'Unsupported file type. Please upload PDF or Word document.' },
+        { error: `Unsupported file type: ${file.type}. Please upload PDF or Word document.` },
         { status: 400 }
       )
     }
@@ -65,6 +168,7 @@ export async function POST(request: NextRequest) {
 }
 
 async function parseResumeWithGemini(resumeText: string) {
+  console.log('Starting Gemini parsing with text length:', resumeText.length)
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
   const prompt = `
@@ -156,17 +260,22 @@ Return ONLY the JSON object, no additional text or formatting.
 `
 
   try {
+    console.log('Sending prompt to Gemini...')
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
+    console.log('Gemini response received, length:', text.length)
 
     // Clean the response to extract just the JSON
     const jsonMatch = text.match(/\{[\s\S]*\}/)
     if (!jsonMatch) {
+      console.error('No JSON found in Gemini response:', text)
       throw new Error('No JSON found in response')
     }
 
+    console.log('Parsing JSON from Gemini response...')
     const parsedData = JSON.parse(jsonMatch[0])
+    console.log('JSON parsing successful')
 
     // Add unique IDs if not present
     if (parsedData.education) {
@@ -208,6 +317,10 @@ Return ONLY the JSON object, no additional text or formatting.
     return parsedData
   } catch (error) {
     console.error('Error with Gemini API:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    })
     throw new Error('Failed to parse resume with AI')
   }
 }

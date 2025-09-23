@@ -1016,6 +1016,28 @@ function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
     )
   }
 
+  // Only add Interests if there are interests to display
+  if (
+    skills.interests &&
+    skills.interests.length > 0 &&
+    skills.interests.some((interest) => interest.trim())
+  ) {
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: `Interests: ${skills.interests.join(', ')}`,
+            bold: true,
+            size: 20, // 10pt
+            color: '000000',
+            font: 'Arial',
+          }),
+        ],
+        spacing: { after: 50 },
+      })
+    )
+  }
+
   return paragraphs
 }
 

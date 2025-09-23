@@ -12,6 +12,7 @@ import { CoverLetterPage } from '../features/cover-letter'
 
 const LandingPage = () => {
   const [activeMenu, setActiveMenu] = useState('Build Resume')
+  const [buildResumeKey, setBuildResumeKey] = useState(0)
 
   const menuItems = [
     'Build Resume',
@@ -24,7 +25,7 @@ const LandingPage = () => {
   const renderMainContent = () => {
     switch (activeMenu) {
       case 'Build Resume':
-        return <BuildResumePage />
+        return <BuildResumePage key={buildResumeKey} />
       case 'Check Resume ATS Score':
         return <ATSScorePage />
       case 'Find Jobs':
@@ -34,7 +35,7 @@ const LandingPage = () => {
       case 'Generate Custom Cover Letter':
         return <CoverLetterPage />
       default:
-        return <BuildResumePage />
+        return <BuildResumePage key={buildResumeKey} />
     }
   }
 
@@ -52,7 +53,12 @@ const LandingPage = () => {
             {menuItems.map((item) => (
               <button
                 key={item}
-                onClick={() => setActiveMenu(item)}
+                onClick={() => {
+                  setActiveMenu(item)
+                  if (item === 'Build Resume') {
+                    setBuildResumeKey((prev) => prev + 1)
+                  }
+                }}
                 className={`w-full rounded-lg px-3 py-2 text-left text-xs transition-colors sm:text-sm ${
                   activeMenu === item
                     ? 'bg-gradient-to-r from-pink-500 to-pink-700 text-white'
@@ -71,7 +77,10 @@ const LandingPage = () => {
           <div className="flex items-center justify-end border-b border-gray-700 p-4 sm:p-6">
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
-                onClick={() => setActiveMenu('Build Resume')}
+                onClick={() => {
+                  setActiveMenu('Build Resume')
+                  setBuildResumeKey((prev) => prev + 1)
+                }}
                 className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
               >
                 Home

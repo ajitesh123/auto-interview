@@ -51,47 +51,15 @@ const BuildResumePage = () => {
         </div>
 
         {/* Main Action Cards */}
-        <div className="mb-12 flex w-full max-w-6xl flex-col gap-6 sm:mb-16 sm:gap-8 lg:flex-row">
-          {/* Upload Resume Card */}
-          <button
-            onClick={handleUploadResume}
-            className="group min-h-[300px] flex-1 cursor-pointer rounded-lg border border-gray-700 bg-gray-900 p-6 text-left transition-colors hover:border-pink-500 sm:min-h-[350px] sm:p-8"
-            type="button"
-          >
-            <div className="flex h-full flex-col justify-center text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-700 transition-colors group-hover:from-pink-400 group-hover:to-pink-600 sm:mb-6 sm:h-20 sm:w-20">
-                <svg
-                  className="h-8 w-8 text-white sm:h-10 sm:w-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-white sm:mb-4 sm:text-2xl">
-                Upload your resume
-              </h3>
-              <p className="text-sm leading-relaxed text-white sm:text-base md:text-lg">
-                Already have a resume? Upload it and we'll analyze it for ATS compatibility and help
-                you improve it.
-              </p>
-            </div>
-          </button>
-
-          {/* Create Resume Card */}
+        <div className="mb-12 flex w-full max-w-4xl flex-col items-center gap-6 sm:mb-16">
+          {/* Create Resume from Scratch - Main CTA */}
           <button
             onClick={handleStartBuilding}
-            className="group min-h-[300px] flex-1 cursor-pointer rounded-lg border border-gray-700 bg-gray-900 p-6 text-left transition-colors hover:border-pink-500 sm:min-h-[350px] sm:p-8"
+            className="group w-full max-w-xl cursor-pointer rounded-xl border-2 border-pink-700 bg-gradient-to-r from-pink-700 to-pink-900 p-6 text-center transition-all duration-300 hover:from-pink-600 hover:to-pink-800 hover:shadow-2xl hover:shadow-pink-700/25 sm:p-8"
             type="button"
           >
-            <div className="flex h-full flex-col justify-center text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-700 transition-colors group-hover:from-pink-400 group-hover:to-pink-600 sm:mb-6 sm:h-20 sm:w-20">
+            <div className="flex flex-col items-center">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 transition-colors group-hover:bg-white/30 sm:mb-6 sm:h-20 sm:w-20">
                 <svg
                   className="h-8 w-8 text-white sm:h-10 sm:w-10"
                   fill="none"
@@ -106,12 +74,51 @@ const BuildResumePage = () => {
                   />
                 </svg>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-white sm:mb-4 sm:text-2xl">
-                I want to make a resume
+              <h3 className="mb-3 text-xl font-bold text-white sm:mb-4 sm:text-2xl md:text-3xl">
+                Create resume from scratch
               </h3>
-              <p className="text-sm leading-relaxed text-white sm:text-base md:text-lg">
+              <p className="text-sm leading-relaxed text-white/90 sm:text-base md:text-lg">
                 Start from scratch with our guided resume builder. We'll help you create an
                 ATS-friendly resume step by step.
+              </p>
+            </div>
+          </button>
+
+          {/* OR Divider */}
+          <div className="flex items-center">
+            <div className="h-px w-16 bg-gray-600"></div>
+            <span className="mx-4 text-lg font-semibold text-gray-400">OR</span>
+            <div className="h-px w-16 bg-gray-600"></div>
+          </div>
+
+          {/* Upload Resume - Secondary Option */}
+          <button
+            onClick={handleUploadResume}
+            className="group w-full max-w-lg cursor-pointer rounded-lg border border-gray-600 bg-gray-800 p-6 text-center transition-colors hover:border-pink-500 hover:bg-gray-700 sm:p-8"
+            type="button"
+          >
+            <div className="flex flex-col items-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-700 transition-colors group-hover:bg-pink-600 sm:mb-6 sm:h-16 sm:w-16">
+                <svg
+                  className="h-6 w-6 text-white sm:h-8 sm:w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-3 text-lg font-bold text-white sm:mb-4 sm:text-xl">
+                Upload old resume
+              </h3>
+              <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
+                Already have a resume? Upload it and we'll analyze it for ATS compatibility and help
+                you improve it.
               </p>
             </div>
           </button>

@@ -17,10 +17,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
   const [previewHTML, setPreviewHTML] = useState<string>('')
   const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs'>('harvard')
 
-  // Load preview automatically when component mounts
-  useEffect(() => {
-    loadPreview()
-  }, [])
+  // Preview is now only loaded when user clicks "Preview Resume" button
 
   const loadPreview = async (template: 'harvard' | 'lbs' = selectedTemplate) => {
     try {
@@ -43,20 +40,20 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
       const html = await response.text()
       setPreviewHTML(html)
+      setShowPreview(true)
     } catch (error) {
       console.error('Error generating preview:', error)
     }
   }
 
-  const handleTemplateSelect = async (template: 'harvard' | 'lbs') => {
+  const handleTemplateSelect = (template: 'harvard' | 'lbs') => {
     setSelectedTemplate(template)
-    await loadPreview(template)
+    // Preview will be loaded when user clicks "Preview Resume" button
   }
 
   const handlePreview = async () => {
     try {
       await loadPreview()
-      setShowPreview(true)
     } catch (error) {
       console.error('Error generating preview:', error)
       setDownloadMessage('Error generating preview. Please try again.')
@@ -436,21 +433,6 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
               </>
             )}
           </button>
-        </div>
-
-        {/* Resume Preview */}
-        <div className="mt-12 rounded-lg border border-gray-700 bg-gray-800 p-6">
-          <h3 className="mb-4 text-xl font-bold text-white">Resume Preview</h3>
-          <div className="rounded-lg bg-white p-6 text-black">
-            <iframe
-              srcDoc={
-                previewHTML ||
-                `<div class="text-center text-gray-500 p-8">Click "Preview Resume" to see the ${selectedTemplate === 'harvard' ? 'Harvard' : 'London Business School'} template preview</div>`
-              }
-              className="h-[600px] w-full border-0"
-              title="Resume Preview"
-            />
-          </div>
         </div>
       </div>
 

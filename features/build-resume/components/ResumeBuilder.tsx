@@ -114,9 +114,67 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
   const [showTemplateSelection, setShowTemplateSelection] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<string[]>([])
+  const [skillsSectionSaved, setSkillsSectionSaved] = useState(false)
+
+  // Clear validation errors when user fixes the issues
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      const errors = validateCurrentSection()
+      if (errors.length === 0) {
+        setValidationErrors([])
+      }
+    }
+  }, [resumeData, currentSection, validationErrors.length])
+
+  // Validation functions
+  const validateContactSection = (): string[] => {
+    const errors: string[] = []
+    const { name, email, phone, location, linkedin } = resumeData.contact
+
+    if (!name.trim()) errors.push('Full Name is required')
+    if (!email.trim()) errors.push('Email Address is required')
+    if (!phone.trim()) errors.push('Phone Number is required')
+    if (!location.trim()) errors.push('Location is required')
+    if (!linkedin.trim()) errors.push('LinkedIn Profile is required')
+
+    return errors
+  }
+
+  const validateEducationSection = (): string[] => {
+    const errors: string[] = []
+
+    if (resumeData.education.length === 0) {
+      errors.push('At least one education entry is required')
+      return errors
+    }
+
+    resumeData.education.forEach((edu, index) => {
+      if (!edu.degree.trim()) errors.push(`Education ${index + 1}: Degree/Program is required`)
+      if (!edu.university.trim())
+        errors.push(`Education ${index + 1}: University/Institution is required`)
+      if (!edu.graduationMonth.trim())
+        errors.push(`Education ${index + 1}: Graduation Month is required`)
+      if (!edu.graduationYear.trim())
+        errors.push(`Education ${index + 1}: Graduation Year is required`)
+    })
+
+    return errors
+  }
+
+  const validateCurrentSection = (): string[] => {
+    switch (currentSection) {
+      case 0:
+        return validateContactSection()
+      case 1:
+        return validateEducationSection()
+      default:
+        return []
+    }
+  }
 
   // Save resume data to API
-  const saveResume = async () => {
+  const saveResume = async (): Promise<string | null> => {
     setIsSaving(true)
     setSaveMessage(null)
 
@@ -125,36 +183,70 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       if (savedResumeId) {
         // Update existing resume
         result = await resumeApi.updateResume(savedResumeId, resumeData)
+        if (result.success) {
+          setSaveMessage('Resume saved successfully!')
+          setTimeout(() => setSaveMessage(null), 3000)
+          // Mark skills section as saved if we're on the skills section (section 6)
+          if (currentSection === 6) {
+            setSkillsSectionSaved(true)
+          }
+          return savedResumeId
+        }
       } else {
         // Save new resume
         result = await resumeApi.saveResume(resumeData)
         if (result.success && result.data) {
           setSavedResumeId(result.data.id)
+          setSaveMessage('Resume saved successfully!')
+          setTimeout(() => setSaveMessage(null), 3000)
+          // Mark skills section as saved if we're on the skills section (section 6)
+          if (currentSection === 6) {
+            setSkillsSectionSaved(true)
+          }
+          return result.data.id
         }
       }
 
-      if (result.success) {
-        setSaveMessage('Resume saved successfully!')
-        setTimeout(() => setSaveMessage(null), 3000)
-      } else {
+      if (!result.success) {
         setSaveMessage(`Error: ${result.message}`)
         setTimeout(() => setSaveMessage(null), 5000)
       }
+      return null
     } catch (error) {
       setSaveMessage('Error saving resume. Please try again.')
       setTimeout(() => setSaveMessage(null), 5000)
+      return null
     } finally {
       setIsSaving(false)
     }
   }
 
   const handleNext = async () => {
+    // Validate current section before proceeding
+    const errors = validateCurrentSection()
+
+    if (errors.length > 0) {
+      setValidationErrors(errors)
+      return // Don't proceed if there are validation errors
+    }
+
+    // Clear validation errors if validation passes
+    setValidationErrors([])
+
     if (currentSection < 6) {
       setCurrentSection(currentSection + 1)
     } else {
+      // Handle completion - check if skills section has been saved
+      if (!skillsSectionSaved) {
+        setValidationErrors([
+          'Please save your progress on the Skills and Interests section before finishing your resume.',
+        ])
+        return
+      }
+
       // Handle completion - save and navigate to template selection
-      await saveResume()
-      if (savedResumeId) {
+      const resumeId = await saveResume()
+      if (resumeId) {
         setShowTemplateSelection(true)
       }
     }
@@ -172,6 +264,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
 
   const handleSectionChange = (section: number) => {
     setCurrentSection(section)
+    setValidationErrors([]) // Clear validation errors when changing sections
   }
 
   const renderCurrentSection = () => {
@@ -252,6 +345,8 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       onSave={saveResume}
       isSaving={isSaving}
       saveMessage={saveMessage}
+      validationErrors={validationErrors}
+      skillsSectionSaved={skillsSectionSaved}
     >
       {renderCurrentSection()}
     </ResumeBuilderLayout>

@@ -73,7 +73,7 @@ const ContactSection = ({ data, onChange }: ContactSectionProps) => {
         {/* Phone */}
         <div className="space-y-2">
           <label htmlFor="phone" className="block text-sm font-medium text-gray-300">
-            Phone Number
+            Phone Number *
           </label>
           <input
             type="tel"
@@ -81,14 +81,14 @@ const ContactSection = ({ data, onChange }: ContactSectionProps) => {
             value={contactData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
             className="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="+1 (555) 123-4567"
+            placeholder="e.g., +91-9999888877"
           />
         </div>
 
         {/* Location */}
         <div className="space-y-2">
           <label htmlFor="location" className="block text-sm font-medium text-gray-300">
-            Location
+            Location *
           </label>
           <input
             type="text"
@@ -96,14 +96,14 @@ const ContactSection = ({ data, onChange }: ContactSectionProps) => {
             value={contactData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
             className="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="City, State/Country"
+            placeholder="e.g., Bangalore, India"
           />
         </div>
 
         {/* LinkedIn */}
         <div className="space-y-2">
           <label htmlFor="linkedin" className="block text-sm font-medium text-gray-300">
-            LinkedIn Profile
+            LinkedIn Profile *
           </label>
           <input
             type="url"

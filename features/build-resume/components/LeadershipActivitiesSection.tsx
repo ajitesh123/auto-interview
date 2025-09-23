@@ -97,10 +97,7 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
   return (
     <div className="space-y-6">
       <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-white">Leadership & Activities</h2>
-        <p className="text-gray-300">
-          Add your leadership roles, volunteer work, and extracurricular activities
-        </p>
+        <h2 className="mb-2 text-3xl font-bold text-white">Positions of Responsibility</h2>
       </div>
 
       {leadershipEntries.length === 0 ? (
@@ -121,11 +118,11 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
             </svg>
           </div>
           <h3 className="mb-2 text-lg font-semibold text-white">
-            No Leadership & Activities Added Yet
+            No Positions of Responsibility Added Yet
           </h3>
           <p className="mb-4 text-gray-300">
-            Add your leadership roles, volunteer work, or extracurricular activities to strengthen
-            your resume.
+            Add information about any organisations or club/committees that you were part of and
+            have led, to make your resume better
           </p>
           <button
             onClick={addLeadershipEntry}
@@ -139,7 +136,7 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            Add Leadership & Activity
+            Add Position of Responsibility
           </button>
         </div>
       ) : (
@@ -147,7 +144,7 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
           <div key={entry.id} className="rounded-lg border border-gray-600 bg-gray-700 p-6">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">
-                Leadership & Activity {index + 1}
+                Position of Responsibility {index + 1}
               </h3>
               <button
                 onClick={() => removeLeadershipEntry(entry.id)}
@@ -189,7 +186,7 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
                   htmlFor={`organization-${entry.id}`}
                   className="block text-sm font-medium text-gray-300"
                 >
-                  Organization
+                  Organisation/Club
                 </label>
                 <input
                   id={`organization-${entry.id}`}
@@ -356,7 +353,7 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            Add Another Leadership & Activity
+            Add Another Position of Responsibility
           </button>
         </div>
       )}
@@ -378,7 +375,9 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
             />
           </svg>
           <div>
-            <h4 className="mb-1 text-sm font-medium text-white">Leadership & Activities Tips</h4>
+            <h4 className="mb-1 text-sm font-medium text-white">
+              Positions of Responsibility Tips
+            </h4>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>• Include student government, clubs, volunteer work, sports teams</li>
               <li>• Highlight leadership roles and responsibilities</li>
