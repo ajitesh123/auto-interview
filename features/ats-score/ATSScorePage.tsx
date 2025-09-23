@@ -160,7 +160,7 @@ const ATSScorePage = () => {
               <div className="text-center">
                 {/* Futuristic Upload Icon */}
                 <div className="relative mb-8">
-                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 shadow-2xl shadow-cyan-500/25">
+                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-700 shadow-2xl shadow-cyan-500/25">
                     <svg
                       className="h-12 w-12 text-white"
                       fill="none"
@@ -229,10 +229,10 @@ const ATSScorePage = () => {
                 <button
                   onClick={handleAnalyze}
                   disabled={!uploadedFile || isAnalyzing}
-                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 px-12 py-4 text-lg font-semibold text-white shadow-2xl shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-700 px-12 py-4 text-lg font-semibold text-white shadow-2xl shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
                   {isAnalyzing ? (
                     <div className="relative z-10 flex items-center">
@@ -456,7 +456,7 @@ const ATSScorePage = () => {
                 // Define category colors and icons
                 const categoryConfig = {
                   'content-quality': {
-                    color: 'from-red-500 to-pink-500',
+                    color: 'from-red-500 to-pink-700',
                     icon: '📝',
                     bgColor: 'from-red-900/20 to-pink-900/20',
                   },
@@ -508,7 +508,7 @@ const ATSScorePage = () => {
                         {/* Category Header */}
                         <div className="mb-8">
                           <div className="mb-4 flex items-center space-x-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 shadow-lg shadow-cyan-500/25">
+                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-700 shadow-lg shadow-cyan-500/25">
                               <span className="text-2xl">{config.icon}</span>
                             </div>
                             <div>
