@@ -8,6 +8,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { resumeId, template, data, preview } = body
 
+    console.log('Skills data received:', JSON.stringify(data.skills, null, 2))
+
     if (!resumeId || !template || !data) {
       return NextResponse.json(
         {
@@ -573,8 +575,21 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
     Project2_Bullets: generateBulletsHTML(data.projects?.[1]?.bullets),
 
     // Skills
-    TechnicalSkills: skills.technical?.join(', ') || '',
-    Languages: skills.languages?.join(', ') || '',
+    TechnicalSkills: (() => {
+      const techSkills = skills.technical?.filter((skill) => skill.trim()) || []
+      console.log('Technical skills processed:', techSkills)
+      return techSkills.join(', ')
+    })(),
+    Languages: (() => {
+      const languages = skills.languages?.filter((lang) => lang.trim()) || []
+      console.log('Languages processed:', languages)
+      return languages.join(', ')
+    })(),
+    Interests: (() => {
+      const interests = skills.interests?.filter((interest) => interest.trim()) || []
+      console.log('Interests processed:', interests)
+      return interests.join(', ')
+    })(),
   }
 }
 
@@ -628,6 +643,12 @@ function removeEmptyLBSSections(html: string): string {
   // Remove empty Languages section
   processedHtml = processedHtml.replace(
     /<div class="footer-info">\s*<p>Languages: <\/p>\s*<\/div>/g,
+    ''
+  )
+
+  // Remove empty Interests section
+  processedHtml = processedHtml.replace(
+    /<div class="footer-info">\s*<p>Interests: <\/p>\s*<\/div>/g,
     ''
   )
 

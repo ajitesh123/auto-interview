@@ -37,6 +37,8 @@
     "next-contentlayer2": "0.5.1",
     "next-themes": "^0.3.0",
     "pdf-parse": "^1.1.1",
+    "pdf-poppler": "^0.2.1",
+    "pdf2pic": "^3.2.0",
     "pliny": "0.2.1",
     "postcss": "^8.4.24",
     "prettier": "^3.3.3",

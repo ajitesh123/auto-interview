@@ -3,31 +3,55 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
+console.log('Gemini API Key configured:', !!process.env.GEMINI_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('=== UPLOAD-AND-PARSE API CALLED ===')
     const formData = await request.formData()
+    console.log('FormData received')
+
     const file = formData.get('resume') as File
+    console.log('File extracted from FormData:', file ? 'YES' : 'NO')
 
     if (!file) {
+      console.log('ERROR: No file uploaded')
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
     }
 
-    console.log(`Processing file: ${file.name}, type: ${file.type}`)
+    console.log(`Processing file: ${file.name}, type: ${file.type}, size: ${file.size}`)
+
+    // Check file type more thoroughly
+    const isPDF =
+      file.type === 'application/pdf' ||
+      file.type === 'application/x-pdf' ||
+      file.name.toLowerCase().endsWith('.pdf')
+
+    console.log('File type check:', {
+      type: file.type,
+      name: file.name,
+      isPDF: isPDF,
+      isWord:
+        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        file.type === 'application/msword',
+    })
 
     let textContent = ''
 
     // Extract text based on file type
-    if (file.type === 'application/pdf') {
-      try {
-        const pdfParse = (await import('pdf-parse')).default
-        const buffer = await file.arrayBuffer()
-        const pdfData = await pdfParse(Buffer.from(buffer))
-        textContent = pdfData.text
-      } catch (error) {
-        console.error('Error parsing PDF:', error)
-        return NextResponse.json({ error: 'Error parsing PDF file' }, { status: 400 })
-      }
+    if (isPDF) {
+      // Temporarily disable PDF parsing due to library issues
+      // TODO: Implement proper PDF parsing solution
+      console.log('PDF parsing temporarily disabled due to library issues')
+      return NextResponse.json(
+        {
+          error: 'PDF parsing is temporarily unavailable',
+          details:
+            'We are working on fixing PDF parsing. Please try uploading a Word document (.docx) instead.',
+          suggestion: 'Convert your PDF to Word format (.docx) and try uploading again.',
+        },
+        { status: 400 }
+      )
     } else if (
       file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ) {
@@ -41,8 +65,16 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Error parsing Word document' }, { status: 400 })
       }
     } else {
+      console.log('ERROR: Unsupported file type:', {
+        type: file.type,
+        name: file.name,
+        isPDF: isPDF,
+        isWord:
+          file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+          file.type === 'application/msword',
+      })
       return NextResponse.json(
-        { error: 'Unsupported file type. Please upload PDF or Word document.' },
+        { error: `Unsupported file type: ${file.type}. Please upload PDF or Word document.` },
         { status: 400 }
       )
     }
@@ -65,6 +97,7 @@ export async function POST(request: NextRequest) {
 }
 
 async function parseResumeWithGemini(resumeText: string) {
+  console.log('Starting Gemini parsing with text length:', resumeText.length)
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
   const prompt = `
@@ -156,17 +189,22 @@ Return ONLY the JSON object, no additional text or formatting.
 `
 
   try {
+    console.log('Sending prompt to Gemini...')
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
+    console.log('Gemini response received, length:', text.length)
 
     // Clean the response to extract just the JSON
     const jsonMatch = text.match(/\{[\s\S]*\}/)
     if (!jsonMatch) {
+      console.error('No JSON found in Gemini response:', text)
       throw new Error('No JSON found in response')
     }
 
+    console.log('Parsing JSON from Gemini response...')
     const parsedData = JSON.parse(jsonMatch[0])
+    console.log('JSON parsing successful')
 
     // Add unique IDs if not present
     if (parsedData.education) {
@@ -208,6 +246,10 @@ Return ONLY the JSON object, no additional text or formatting.
     return parsedData
   } catch (error) {
     console.error('Error with Gemini API:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    })
     throw new Error('Failed to parse resume with AI')
   }
 }

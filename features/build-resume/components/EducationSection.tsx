@@ -124,7 +124,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 htmlFor={`degree-${entry.id}`}
                 className="block text-sm font-medium text-gray-300"
               >
-                Degree/Program
+                Degree/Program *
               </label>
               <input
                 id={`degree-${entry.id}`}
@@ -160,7 +160,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 htmlFor={`university-${entry.id}`}
                 className="block text-sm font-medium text-gray-300"
               >
-                University/Institution
+                University/Institution *
               </label>
               <input
                 id={`university-${entry.id}`}
@@ -196,7 +196,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 htmlFor={`graduation-month-${entry.id}`}
                 className="block text-sm font-medium text-gray-300"
               >
-                Graduation Month
+                Graduation Month *
               </label>
               <select
                 id={`graduation-month-${entry.id}`}
@@ -219,7 +219,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 htmlFor={`graduation-year-${entry.id}`}
                 className="block text-sm font-medium text-gray-300"
               >
-                Graduation Year
+                Graduation Year *
               </label>
               <select
                 id={`graduation-year-${entry.id}`}
@@ -250,7 +250,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 value={entry.gpa}
                 onChange={(e) => handleEntryChange(entry.id, 'gpa', e.target.value)}
                 className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                placeholder="e.g., 3.8/4.0, 3.8"
+                placeholder="e.g., 8.5/10, 3.8/4.0"
               />
             </div>
           </div>
@@ -258,22 +258,24 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
       ))}
 
       {/* Add Education Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={addEducationEntry}
-          className="flex items-center rounded-lg border border-gray-600 bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
-        >
-          <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-            />
-          </svg>
-          Add Another Education Entry
-        </button>
-      </div>
+      {educationEntries.length < 4 && (
+        <div className="flex justify-center">
+          <button
+            onClick={addEducationEntry}
+            className="flex items-center rounded-lg border border-gray-600 bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
+          >
+            <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            Add Another Education Entry
+          </button>
+        </div>
+      )}
 
       {/* Help Text */}
       <div className="rounded-lg bg-gray-700 p-4">

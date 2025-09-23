@@ -50,18 +50,36 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
     setUploadMessage(null)
 
     try {
+      console.log('Uploading file:', { name: file.name, type: file.type, size: file.size })
       const formData = new FormData()
       formData.append('resume', file)
 
+      console.log('Sending request to upload-and-parse API...')
       const response = await fetch('/api/resume/upload-and-parse', {
         method: 'POST',
         body: formData,
       })
 
+      console.log('Response status:', response.status)
       const result = await response.json()
+      console.log('Response result:', result)
+
+      // Log detailed error information
+      if (!response.ok) {
+        console.log('Error response details:', {
+          status: response.status,
+          statusText: response.statusText,
+          result: result,
+        })
+      }
 
       if (!response.ok) {
-        throw new Error(result.message || 'Upload failed')
+        // Show more helpful error messages
+        if (result.suggestion) {
+          throw new Error(`${result.error}. ${result.suggestion}`)
+        } else {
+          throw new Error(result.error || 'Upload failed')
+        }
       }
 
       if (result.success) {
@@ -99,14 +117,22 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
     e.stopPropagation()
     setDragActive(false)
 
+    console.log('File dropped')
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      console.log('Dropped file:', e.dataTransfer.files[0])
       handleFileSelect(e.dataTransfer.files[0])
+    } else {
+      console.log('No file in drop event')
     }
   }
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('File input changed')
     if (e.target.files && e.target.files[0]) {
+      console.log('Selected file from input:', e.target.files[0])
       handleFileSelect(e.target.files[0])
+    } else {
+      console.log('No file selected')
     }
   }
 
@@ -181,12 +207,18 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
                 browse files
               </button>
             </p>
-            <p className="text-sm text-gray-500">Supports PDF, DOC, and DOCX files up to 10MB</p>
+            <p className="text-sm text-gray-500">Supports DOC and DOCX files up to 10MB</p>
+            <div className="mt-3 rounded-lg border border-yellow-700 bg-yellow-900 p-3">
+              <p className="text-sm text-yellow-200">
+                ⚠️ <strong>Note:</strong> PDF parsing is temporarily unavailable. Please convert
+                your PDF to Word format (.docx) and try again.
+              </p>
+            </div>
 
             <input
               ref={fileInputRef}
               type="file"
-              accept=".pdf,.doc,.docx"
+              accept=".doc,.docx"
               onChange={handleFileInputChange}
               className="hidden"
               disabled={isUploading}
@@ -211,13 +243,13 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
         <div className="mb-8 rounded-lg bg-gray-800 p-6">
           <h3 className="mb-4 text-lg font-semibold">Supported File Formats</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-red-600">
+            <div className="flex items-center space-x-3 opacity-50">
+              <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-600">
                 <span className="text-xs font-bold text-white">PDF</span>
               </div>
               <div>
                 <div className="font-medium">PDF Files</div>
-                <div className="text-sm text-gray-400">Most common format</div>
+                <div className="text-sm text-gray-400">Temporarily unavailable</div>
               </div>
             </div>
             <div className="flex items-center space-x-3">

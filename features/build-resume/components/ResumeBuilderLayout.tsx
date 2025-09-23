@@ -12,13 +12,15 @@ interface ResumeBuilderLayoutProps {
   isSaving?: boolean
   saveMessage?: string | null
   totalSections?: number
+  validationErrors?: string[]
+  skillsSectionSaved?: boolean
 }
 
 const SECTIONS = [
   'Contact',
   'Education',
   'Experience',
-  'Leadership & Activities',
+  'Positions of Responsibility',
   'Projects',
   'Other (1)',
   'Skills and Interests',
@@ -34,6 +36,8 @@ const ResumeBuilderLayout = ({
   isSaving = false,
   saveMessage = null,
   totalSections = SECTIONS.length,
+  validationErrors = [],
+  skillsSectionSaved = false,
 }: ResumeBuilderLayoutProps) => {
   const progress = ((currentSection + 1) / totalSections) * 100
 
@@ -85,6 +89,37 @@ const ResumeBuilderLayout = ({
 
       {/* Main Content */}
       <div className="mx-auto max-w-4xl px-4 py-8">
+        {/* Validation Errors */}
+        {validationErrors.length > 0 && (
+          <div className="mb-4 rounded-lg border border-red-700 bg-red-900 p-4">
+            <div className="flex items-start">
+              <svg
+                className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h4 className="mb-2 text-sm font-medium text-red-200">
+                  Please fill in all required fields:
+                </h4>
+                <ul className="space-y-1 text-sm text-red-300">
+                  {validationErrors.map((error, index) => (
+                    <li key={index}>• {error}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Save Message */}
         {saveMessage && (
           <div
@@ -198,25 +233,37 @@ const ResumeBuilderLayout = ({
                   </svg>
                 </button>
               ) : (
-                <button
-                  onClick={onNext}
-                  className="flex items-center rounded-lg bg-gradient-to-r from-green-500 to-green-700 px-6 py-3 font-semibold text-white transition-colors hover:from-green-400 hover:to-green-600"
-                >
-                  Finish Resume
-                  <svg
-                    className="ml-2 h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <div className="flex flex-col items-end space-y-2">
+                  {!skillsSectionSaved && (
+                    <p className="text-sm text-gray-400">
+                      Save your progress to finish your resume
+                    </p>
+                  )}
+                  <button
+                    onClick={onNext}
+                    disabled={!skillsSectionSaved}
+                    className={`flex items-center rounded-lg px-6 py-3 font-semibold text-white transition-colors ${
+                      skillsSectionSaved
+                        ? 'bg-gradient-to-r from-green-500 to-green-700 hover:from-green-400 hover:to-green-600'
+                        : 'cursor-not-allowed bg-gray-600 opacity-50'
+                    }`}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </button>
+                    Finish Resume
+                    <svg
+                      className="ml-2 h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </button>
+                </div>
               )}
             </div>
           </div>

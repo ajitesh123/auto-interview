@@ -109,15 +109,27 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
     return (
       <div className={`space-y-3 ${!isEnabled ? 'opacity-50' : ''}`}>
         <div className="flex items-center justify-between">
-          <label className="block text-sm font-medium text-gray-300">{title}</label>
+          <div className="flex items-center space-x-2">
+            <label className="block text-sm font-medium text-gray-300">{title}</label>
+            {!isEnabled && (
+              <span className="rounded-full bg-gray-600 px-2 py-1 text-xs text-gray-400">
+                Not included
+              </span>
+            )}
+            {isEnabled && (
+              <span className="rounded-full bg-green-600 px-2 py-1 text-xs text-green-100">
+                ✓ Included
+              </span>
+            )}
+          </div>
           <div className="flex items-center space-x-2">
             <input
               type="checkbox"
               checked={isEnabled}
               onChange={(e) => handleFieldToggle(field, e.target.checked)}
-              className="h-4 w-4 rounded border-gray-500 bg-gray-600 text-pink-500 focus:ring-pink-500"
+              className="h-5 w-5 rounded border-gray-500 bg-gray-600 text-pink-500 focus:ring-pink-500"
             />
-            <span className="text-xs text-gray-400">Include</span>
+            <span className="text-sm font-medium text-white">Include in Resume</span>
           </div>
         </div>
 
@@ -211,6 +223,12 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
           <p className="text-lg text-gray-300">
             Highlight your technical skills, languages, and interests
           </p>
+          <div className="mt-4 rounded-lg border border-blue-700 bg-blue-900 p-4">
+            <p className="text-sm text-blue-200">
+              💡 <strong>Tip:</strong> Check the "Include in Resume" box for each skill category you
+              want to appear in your final resume
+            </p>
+          </div>
         </div>
 
         <div className="rounded-lg border border-gray-700 bg-gray-800 p-8">
