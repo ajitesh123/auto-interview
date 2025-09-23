@@ -3,12 +3,11 @@
 import { useState } from 'react'
 
 interface CategoryScore {
-  formatStructure: number
-  keywordsSkills: number
   contentQuality: number
+  keywordsOptimization: number
+  formatStructure: number
   atsCompatibility: number
   contactInfo: number
-  experienceRelevance: number
 }
 
 interface Strength {

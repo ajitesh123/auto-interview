@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-const genAI = new GoogleGenerativeAI('AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI')
+const genAI = new GoogleGenerativeAI(
+  process.env.GOOGLE_GEMINI_API_KEY || 'AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI'
+)
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,86 +22,84 @@ export async function POST(request: NextRequest) {
     // Initialize Gemini model
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
-    const systemPrompt = `You are an expert ATS (Applicant Tracking System) analyst and resume optimization specialist. Your task is to analyze resumes with the same level of detail and professionalism as resumeworded.com.
+    // STEP 1: CONTENT ANALYSIS FOR SCORING
+    const contentAnalysisPrompt = `You are a world-class ATS expert analyzing this resume content for scoring purposes.
 
-CRITICAL REQUIREMENTS - READ THE RESUME CAREFULLY:
-1. READ and EXTRACT actual sentences/phrases from the uploaded resume PDF
-2. For each improvement, you MUST provide the EXACT text that appears in the resume
-3. Provide the EXACT replacement text that should be written instead
-4. Calculate SPECIFIC point values for each improvement
-5. Be very critical and identify real weaknesses in the uploaded resume
+ANALYZE THE RESUME AND PROVIDE DETAILED CONTENT ANALYSIS:
 
-ANALYSIS REQUIREMENTS:
-1. Provide a comprehensive ATS score out of 100
-2. Identify strengths with actual quotes from the resume
-3. Give specific, actionable improvement suggestions with EXACT text replacements from the resume
-4. Quote the actual sentences from the resume that need improvement
-5. Provide specific point values for each improvement
-
-SCORING CRITERIA (out of 100):
-- Format & Structure (20 points): Clean formatting, consistent styling, proper sections
-- Keywords & Skills (25 points): Relevant keywords, industry-specific terms, skill alignment
-- Content Quality (25 points): Quantifiable achievements, strong action verbs, clear descriptions
-- ATS Compatibility (15 points): Standard fonts, proper formatting, no graphics/tables
-- Contact Information (5 points): Complete contact details, professional email
-- Experience Relevance (10 points): Relevant experience, proper chronology
-
-RESPONSE FORMAT (JSON):
+RESPONSE FORMAT (JSON only):
 {
-  "overallScore": number,
-  "categoryScores": {
-    "formatStructure": number,
-    "keywordsSkills": number,
-    "contentQuality": number,
-    "atsCompatibility": number,
-    "contactInfo": number,
-    "experienceRelevance": number
-  },
-  "strengths": [
-    {
-      "category": "string",
-      "description": "string",
-      "impact": "string",
-      "exampleText": "exact quote from resume"
+  "contentAnalysis": {
+    "quantifiableAchievements": {
+      "count": number,
+      "examples": ["exact quotes from resume"],
+      "score": number
+    },
+    "actionVerbs": {
+      "strongVerbs": ["exact verbs found"],
+      "weakVerbs": ["exact weak verbs found"],
+      "score": number
+    },
+    "impactStatements": {
+      "count": number,
+      "examples": ["exact quotes from resume"],
+      "score": number
+    },
+    "industryKeywords": {
+      "count": number,
+      "examples": ["exact keywords found"],
+      "score": number
+    },
+    "skillsSection": {
+      "quality": "excellent|good|average|poor",
+      "organization": "excellent|good|average|poor",
+      "score": number
+    },
+    "workExperience": {
+      "relevance": "excellent|good|average|poor",
+      "progression": "excellent|good|average|poor",
+      "score": number
+    },
+    "education": {
+      "completeness": "excellent|good|average|poor",
+      "relevance": "excellent|good|average|poor",
+      "score": number
+    },
+    "contactInfo": {
+      "completeness": "excellent|good|average|poor",
+      "professionalism": "excellent|good|average|poor",
+      "score": number
+    },
+    "formatting": {
+      "atsFriendly": "excellent|good|average|poor",
+      "consistency": "excellent|good|average|poor",
+      "score": number
     }
-  ],
-  "improvements": [
-    {
-      "category": "string",
-      "priority": "high|medium|low",
-      "currentText": "EXACT sentence/phrase from the resume that needs improvement - MUST be from the uploaded resume",
-      "suggestedText": "EXACT replacement text that should be written instead",
-      "reason": "detailed explanation of why this change will improve the score",
-      "scoreImpact": "specific number like '5' or '8' - how many points this change will add"
-    }
-  ],
-  "summary": "string",
-  "recommendations": ["string"]
+  }
 }
 
-CRITICAL INSTRUCTIONS:
-- READ the resume PDF carefully and extract REAL sentences
-- For "currentText": Copy EXACT sentences from the resume that are weak/poor
-- For "suggestedText": Write EXACT improved versions
-- For "scoreImpact": Provide specific numbers (e.g., "5", "8", "12")
-- Be very critical - find actual problems in the uploaded resume
-- Don't make up examples - use real text from the resume
-- Focus on the most impactful changes that will boost the ATS score significantly`
+SCORING CRITERIA (BE EXTREMELY CRITICAL):
+- Quantifiable Achievements: 0-15 points (MUST have specific metrics, percentages, dollar amounts - deduct heavily for vague statements)
+- Action Verbs: 0-10 points (DEDUCT for weak verbs like "worked", "helped", "assisted", "responsible for")
+- Impact Statements: 0-10 points (MUST have business results, efficiency gains - deduct for generic statements)
+- Industry Keywords: 0-10 points (MUST have technical terms, job-specific terminology - deduct for generic terms)
+- Skills Section: 0-8 points (DEDUCT for poor organization, irrelevant skills, missing technical skills)
+- Work Experience: 0-6 points (DEDUCT for weak descriptions, irrelevant experience, poor progression)
+- Education: 0-4 points (DEDUCT for missing details, irrelevant information)
+- Contact Info: 0-3 points (DEDUCT for incomplete or unprofessional contact info)
+- Formatting: 0-8 points (DEDUCT for ATS-unfriendly formatting, inconsistency)
 
-    const prompt = `${systemPrompt}
+CRITICAL SCORING RULES:
+- START with 0 points for each category
+- ONLY award points for EXCELLENT content
+- DEDUCT heavily for weak verbs, missing metrics, poor formatting
+- Most resumes should score 20-45 points
+- Only exceptional resumes score 50+
+- Be EXTREMELY critical - most resumes have significant issues
+- Focus on actual content analysis, not generic assessment`
 
-ANALYSIS INSTRUCTIONS:
-1. Read the ENTIRE resume PDF carefully from start to finish
-2. Extract ALL weak sentences, phrases, and sections that need improvement
-3. Identify EVERY opportunity for better keywords, quantifiable achievements, and ATS optimization
-4. Provide at least 5-8 specific improvements with exact text replacements
-5. Be very critical and thorough - analyze every section of the resume
-6. Focus on the most impactful changes that will significantly boost the ATS score
-
-Please analyze this resume PDF comprehensively and provide detailed ATS analysis following the exact format specified above.`
-
-    const result = await model.generateContent([
-      prompt,
+    const contentAnalysisResult = await model.generateContent([
+      contentAnalysisPrompt,
       {
         inlineData: {
           data: base64,
@@ -108,96 +108,239 @@ Please analyze this resume PDF comprehensively and provide detailed ATS analysis
       },
     ])
 
-    const response = await result.response
-    const text = response.text()
+    const contentAnalysisResponse = await contentAnalysisResult.response
+    const contentAnalysisText = contentAnalysisResponse.text()
 
-    // Try to parse JSON response
+    // Parse content analysis results
+    let contentAnalysisData
+    try {
+      const jsonMatch = contentAnalysisText.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        contentAnalysisData = JSON.parse(jsonMatch[0])
+      } else {
+        throw new Error('No JSON found in content analysis response')
+      }
+    } catch (parseError) {
+      contentAnalysisData = {
+        contentAnalysis: {
+          quantifiableAchievements: { count: 0, examples: [], score: 1 },
+          actionVerbs: { strongVerbs: [], weakVerbs: ['worked', 'helped', 'assisted'], score: 1 },
+          impactStatements: { count: 0, examples: [], score: 1 },
+          industryKeywords: { count: 1, examples: ['software'], score: 2 },
+          skillsSection: { quality: 'poor', organization: 'poor', score: 1 },
+          workExperience: { relevance: 'poor', progression: 'poor', score: 1 },
+          education: { completeness: 'average', relevance: 'average', score: 2 },
+          contactInfo: { completeness: 'average', professionalism: 'average', score: 1 },
+          formatting: { atsFriendly: 'poor', consistency: 'poor', score: 2 },
+        },
+      }
+    }
+
+    // Calculate weighted scores based on actual content analysis (BE CRITICAL)
+    const analysis = contentAnalysisData.contentAnalysis
+
+    // Content Quality (40 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
+    const contentQuality = Math.max(
+      0,
+      analysis.quantifiableAchievements.score +
+        analysis.actionVerbs.score +
+        analysis.impactStatements.score
+    )
+
+    // Keywords & Optimization (25 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
+    const keywordsOptimization = Math.max(
+      0,
+      analysis.industryKeywords.score + analysis.skillsSection.score
+    )
+
+    // Format & Structure (20 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
+    const formatStructure = Math.max(0, analysis.formatting.score)
+
+    // Experience & Education (10 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
+    const experienceEducation = Math.max(
+      0,
+      analysis.workExperience.score + analysis.education.score
+    )
+
+    // Contact Info (5 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
+    const contactInfo = Math.max(0, analysis.contactInfo.score)
+
+    // Calculate overall score (BE CRITICAL - most resumes score 20-45)
+    const overallScore =
+      contentQuality + keywordsOptimization + formatStructure + experienceEducation + contactInfo
+
+    // Create scoring data
+    const scoringData = {
+      overallScore: Math.min(overallScore, 100), // Cap at 100
+      categoryScores: {
+        contentQuality: Math.min(contentQuality, 40),
+        keywordsOptimization: Math.min(keywordsOptimization, 25),
+        formatStructure: Math.min(formatStructure, 20),
+        experienceEducation: Math.min(experienceEducation, 10),
+        contactInfo: Math.min(contactInfo, 5),
+      },
+      detailedBreakdown: {
+        quantifiableAchievements: analysis.quantifiableAchievements.score,
+        actionVerbs: analysis.actionVerbs.score,
+        impactStatements: analysis.impactStatements.score,
+        relevanceClarity: 5,
+        industryKeywords: analysis.industryKeywords.score,
+        skillsSection: analysis.skillsSection.score,
+        jobRelevantTerms: 7,
+        atsFriendlyFormat: analysis.formatting.score,
+        sectionOrganization: 6,
+        consistency: 6,
+        workExperience: analysis.workExperience.score,
+        educationDetails: analysis.education.score,
+        completeContact: analysis.contactInfo.score,
+        professionalPresentation: 2,
+      },
+      summary: `Resume scored ${overallScore}/100 based on content analysis`,
+    }
+
+    // STEP 2: DETAILED ANALYSIS
+    const analysisPrompt = `You are a world-class ATS expert providing detailed improvement analysis. The resume has been scored at ${scoringData.overallScore}/100.
+
+DETAILED ANALYSIS REQUIREMENTS:
+1. READ the entire resume PDF word-by-word and analyze EVERY section critically
+2. Extract EXACT sentences/phrases from the uploaded resume that need improvement
+3. Provide EXACT replacement text with specific improvements
+4. Calculate specific point values for each improvement (2-15 points each based on impact)
+
+RESUMEWORDED-STYLE ANALYSIS CATEGORIES:
+- Quantification: Missing numbers, metrics, percentages, dollar amounts
+- Weak Verbs: Generic verbs like "worked", "helped", "assisted", "responsible for"
+- Impact Statements: Missing business results, efficiency gains, cost savings
+- Industry Keywords: Missing technical terms, job-specific terminology
+- Skills Section: Poorly organized, irrelevant, or missing skills
+- Experience Descriptions: Weak, vague, or irrelevant experience descriptions
+- Education: Missing key details, poor formatting, irrelevant information
+- Contact Info: Incomplete or unprofessional contact information
+- Formatting: ATS-unfriendly formatting, inconsistent styling
+- Buzzwords: Overused, vague terms without substance
+
+RESPONSE FORMAT (JSON):
+{
+  "strengths": [
+    {
+      "category": "string",
+      "description": "string", 
+      "impact": "string",
+      "exampleText": "exact quote from resume"
+    }
+  ],
+  "improvements": [
+    {
+      "category": "string (Quantification|Weak Verbs|Impact Statements|Industry Keywords|Skills Section|Experience Descriptions|Education|Contact Info|Formatting|Buzzwords)",
+      "priority": "high|medium|low",
+      "currentText": "EXACT sentence/phrase from the resume",
+      "suggestedText": "EXACT improved version", 
+      "reason": "detailed explanation",
+      "scoreImpact": "specific number (2-15 points)"
+    }
+  ],
+  "recommendations": ["specific actionable advice"]
+}
+
+CRITICAL INSTRUCTIONS:
+- Extract REAL problems from the actual resume text
+- Provide specific, actionable improvements
+- Focus on the biggest impact changes first (quantification, weak verbs, impact statements)
+- Be EXTREMELY critical and thorough - most resumes are poor quality
+- Most resumes have significant issues - don't be lenient
+- DEDUCT heavily for weak verbs, missing metrics, poor formatting
+- Only award points for EXCELLENT content
+- Be harsh but fair - help users understand why their resume needs improvement`
+
+    const analysisResult = await model.generateContent([
+      analysisPrompt,
+      {
+        inlineData: {
+          data: base64,
+          mimeType: file.type,
+        },
+      },
+    ])
+
+    const analysisResponse = await analysisResult.response
+    const analysisText = analysisResponse.text()
+
+    // Parse analysis results
     let analysisData
     try {
-      // Extract JSON from the response (sometimes Gemini includes extra text)
-      const jsonMatch = text.match(/\{[\s\S]*\}/)
+      const jsonMatch = analysisText.match(/\{[\s\S]*\}/)
       if (jsonMatch) {
         analysisData = JSON.parse(jsonMatch[0])
       } else {
-        throw new Error('No JSON found in response')
+        throw new Error('No JSON found in analysis response')
       }
     } catch (parseError) {
-      // Fallback if JSON parsing fails
       analysisData = {
-        overallScore: 75,
-        categoryScores: {
-          formatStructure: 15,
-          keywordsSkills: 18,
-          contentQuality: 20,
-          atsCompatibility: 12,
-          contactInfo: 5,
-          experienceRelevance: 5,
-        },
         strengths: [
           {
-            category: 'Content Quality',
-            description: 'Resume contains relevant work experience',
-            impact: 'Shows professional background',
-            exampleText: 'Software Engineer with 3 years of experience',
+            category: 'Basic Structure',
+            description: 'Resume has basic sections',
+            impact: 'Shows minimal organization',
+            exampleText: 'Contact information present',
           },
         ],
         improvements: [
           {
-            category: 'Content Quality',
+            category: 'Quantification',
             priority: 'high',
             currentText: 'Worked on various projects',
             suggestedText:
               'Led cross-functional teams to deliver 3+ high-impact projects, resulting in 25% efficiency improvement',
-            reason: 'Add quantifiable achievements and action verbs to demonstrate impact',
-            scoreImpact: '8',
+            reason:
+              'CRITICAL: Add specific metrics and quantifiable achievements to demonstrate impact',
+            scoreImpact: '15',
           },
           {
-            category: 'Keywords',
-            priority: 'medium',
-            currentText: 'Experienced in software development',
-            suggestedText:
-              'Expert in Python, JavaScript, React, Node.js, and cloud technologies (AWS, Azure)',
-            reason: 'Include specific technical skills and technologies that ATS systems look for',
-            scoreImpact: '6',
-          },
-          {
-            category: 'Achievements',
+            category: 'Weak Verbs',
             priority: 'high',
             currentText: 'Responsible for managing team',
             suggestedText:
               'Managed a team of 8 developers, increased productivity by 40% through agile methodologies',
-            reason: 'Quantify leadership impact and use specific metrics',
-            scoreImpact: '7',
+            reason:
+              'CRITICAL: Replace weak verbs with strong action verbs and add quantifiable results',
+            scoreImpact: '12',
           },
           {
-            category: 'Skills Section',
-            priority: 'medium',
-            currentText: 'Good communication skills',
-            suggestedText:
-              'Advanced communication skills with experience presenting to C-level executives and cross-functional teams',
-            reason: 'Be specific about communication context and level',
-            scoreImpact: '4',
-          },
-          {
-            category: 'Experience',
+            category: 'Impact Statements',
             priority: 'high',
             currentText: 'Helped with company growth',
             suggestedText:
               'Drove 30% revenue growth through strategic initiatives and process optimization',
-            reason: 'Use strong action verbs and quantify business impact',
-            scoreImpact: '9',
+            reason: 'CRITICAL: Add specific business impact and measurable results',
+            scoreImpact: '10',
+          },
+          {
+            category: 'Industry Keywords',
+            priority: 'medium',
+            currentText: 'Good communication skills',
+            suggestedText:
+              'Advanced communication skills with experience presenting to C-level executives and cross-functional teams',
+            reason: 'Add industry-specific keywords and technical terminology',
+            scoreImpact: '8',
           },
         ],
-        summary: 'Resume shows potential but needs optimization for ATS systems',
         recommendations: [
-          'Add more quantifiable achievements',
-          'Include industry-specific keywords',
-          'Improve formatting consistency',
+          'CRITICAL: Add quantifiable achievements with specific metrics (percentages, dollar amounts, timeframes)',
+          'CRITICAL: Replace weak verbs with strong action verbs (Led, Developed, Implemented, Optimized)',
+          'CRITICAL: Include industry-specific keywords and technical terms',
+          'CRITICAL: Add business impact statements with measurable results',
+          'Improve formatting consistency and ATS compatibility',
         ],
       }
     }
 
-    return NextResponse.json(analysisData)
+    // Combine scoring and analysis results
+    const finalResult = {
+      ...scoringData,
+      ...analysisData,
+    }
+
+    return NextResponse.json(finalResult)
   } catch (error) {
     console.error('ATS Analysis Error:', error)
     return NextResponse.json({ error: 'Failed to analyze resume' }, { status: 500 })
