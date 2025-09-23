@@ -207,18 +207,12 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
                 browse files
               </button>
             </p>
-            <p className="text-sm text-gray-500">Supports DOC and DOCX files up to 10MB</p>
-            <div className="mt-3 rounded-lg border border-yellow-700 bg-yellow-900 p-3">
-              <p className="text-sm text-yellow-200">
-                ⚠️ <strong>Note:</strong> PDF parsing is temporarily unavailable. Please convert
-                your PDF to Word format (.docx) and try again.
-              </p>
-            </div>
+            <p className="text-sm text-gray-500">Supports PDF, DOC, and DOCX files up to 10MB</p>
 
             <input
               ref={fileInputRef}
               type="file"
-              accept=".doc,.docx"
+              accept=".pdf,.doc,.docx"
               onChange={handleFileInputChange}
               className="hidden"
               disabled={isUploading}
@@ -243,13 +237,13 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
         <div className="mb-8 rounded-lg bg-gray-800 p-6">
           <h3 className="mb-4 text-lg font-semibold">Supported File Formats</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="flex items-center space-x-3 opacity-50">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-600">
+            <div className="flex items-center space-x-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded bg-red-600">
                 <span className="text-xs font-bold text-white">PDF</span>
               </div>
               <div>
                 <div className="font-medium">PDF Files</div>
-                <div className="text-sm text-gray-400">Temporarily unavailable</div>
+                <div className="text-sm text-gray-400">Most common format</div>
               </div>
             </div>
             <div className="flex items-center space-x-3">

@@ -40,18 +40,89 @@ export async function POST(request: NextRequest) {
 
     // Extract text based on file type
     if (isPDF) {
-      // Temporarily disable PDF parsing due to library issues
-      // TODO: Implement proper PDF parsing solution
-      console.log('PDF parsing temporarily disabled due to library issues')
-      return NextResponse.json(
-        {
-          error: 'PDF parsing is temporarily unavailable',
-          details:
-            'We are working on fixing PDF parsing. Please try uploading a Word document (.docx) instead.',
-          suggestion: 'Convert your PDF to Word format (.docx) and try uploading again.',
-        },
-        { status: 400 }
-      )
+      try {
+        console.log('Starting PDF parsing with pdf2json...')
+
+        // Use pdf2json for reliable PDF parsing
+        const PDFParser = (await import('pdf2json')).default
+        const buffer = await file.arrayBuffer()
+        console.log('PDF buffer size:', buffer.byteLength)
+
+        // Create a temporary file for pdf2json
+        const fs = await import('fs')
+        const path = await import('path')
+        const os = await import('os')
+
+        const tempDir = os.tmpdir()
+        const tempFilePath = path.join(tempDir, `temp-resume-${Date.now()}.pdf`)
+
+        try {
+          // Write buffer to temporary file
+          fs.writeFileSync(tempFilePath, Buffer.from(buffer))
+          console.log('Temporary file created:', tempFilePath)
+
+          // Create PDF parser instance
+          const pdfParser = new PDFParser(null, 1)
+
+          // Set up event handlers
+          const parsePromise = new Promise<string>((resolve, reject) => {
+            pdfParser.on('pdfParser_dataError', (errData: any) => {
+              console.error('PDF parsing error:', errData.parserError)
+              reject(new Error(errData.parserError))
+            })
+
+            pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
+              try {
+                const textContent = pdfParser.getRawTextContent()
+                console.log('PDF parsing successful, text length:', textContent.length)
+                console.log('PDF text preview:', textContent.substring(0, 200))
+                resolve(textContent)
+              } catch (error) {
+                reject(error)
+              }
+            })
+          })
+
+          // Load and parse the PDF
+          pdfParser.loadPDF(tempFilePath)
+          textContent = await parsePromise
+
+          // Clean up temporary file
+          fs.unlinkSync(tempFilePath)
+          console.log('Temporary file cleaned up')
+        } catch (tempError) {
+          console.error('Temporary file approach failed:', tempError)
+
+          // Fallback: try pdf-parse
+          console.log('Trying fallback with pdf-parse...')
+          const pdfParse = (await import('pdf-parse')).default
+          const nodeBuffer = Buffer.from(buffer)
+
+          const pdfData = await pdfParse(nodeBuffer, {
+            max: 0,
+          })
+          textContent = pdfData.text
+          console.log('Fallback PDF parsing successful, text length:', textContent.length)
+        }
+      } catch (error) {
+        console.error('Error parsing PDF with pdf2json:', error)
+        console.error('PDF parsing error details:', {
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+          fileType: file.type,
+          fileSize: file.size,
+        })
+
+        return NextResponse.json(
+          {
+            error: 'Error parsing PDF file',
+            details: error instanceof Error ? error.message : String(error),
+            suggestion:
+              'Please try uploading a Word document (.docx) instead, or ensure the PDF is not password-protected.',
+          },
+          { status: 400 }
+        )
+      }
     } else if (
       file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ) {
