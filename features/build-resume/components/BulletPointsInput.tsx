@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import BoldButton from './BoldButton'
 
 interface BulletPointsInputProps {
   bullets: string[]
@@ -17,11 +18,29 @@ const BulletPointsInput = ({
 }: BulletPointsInputProps) => {
   const [localBullets, setLocalBullets] = useState<string[]>(bullets.length > 0 ? bullets : [''])
 
+  // Create refs for all possible bullet inputs (up to maxBullets)
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+
   const handleBulletChange = (index: number, value: string) => {
     const newBullets = [...localBullets]
     newBullets[index] = value
     setLocalBullets(newBullets)
     onChange(newBullets.filter((bullet) => bullet.trim() !== ''))
+  }
+
+  const handleBoldText = (
+    index: number,
+    selectedText: string,
+    startPos: number,
+    endPos: number
+  ) => {
+    const currentBullet = localBullets[index]
+    const beforeSelection = currentBullet.substring(0, startPos)
+    const afterSelection = currentBullet.substring(endPos)
+    const boldedText = `**${selectedText}**`
+
+    const newBullet = beforeSelection + boldedText + afterSelection
+    handleBulletChange(index, newBullet)
   }
 
   const addBullet = () => {
@@ -49,6 +68,9 @@ const BulletPointsInput = ({
         <div key={index} className="flex items-start space-x-2">
           <div className="flex-1">
             <input
+              ref={(el) => {
+                inputRefs.current[index] = el
+              }}
               type="text"
               value={bullet}
               onChange={(e) => handleBulletChange(index, e.target.value)}
@@ -58,6 +80,13 @@ const BulletPointsInput = ({
           </div>
 
           <div className="flex space-x-1">
+            <BoldButton
+              inputRef={{ current: inputRefs.current[index] }}
+              onBold={(selectedText, startPos, endPos) =>
+                handleBoldText(index, selectedText, startPos, endPos)
+              }
+            />
+
             {index === localBullets.length - 1 && localBullets.length < maxBullets && (
               <button
                 type="button"
@@ -98,7 +127,9 @@ const BulletPointsInput = ({
       ))}
 
       <div className="text-xs text-gray-400">
-        Tip: Start each bullet point with an action verb for better impact
+        Tip: Start each bullet point with an action verb for better impact. Select text and click
+        the bold button (B) to make it bold, or use **text** syntax (e.g., **increased** sales by
+        20%)
       </div>
     </div>
   )

@@ -106,7 +106,10 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
   ]
 
   const currentYear = new Date().getFullYear()
-  const years = Array.from({ length: 30 }, (_, i) => currentYear - i)
+  const years = Array.from(
+    { length: currentYear - 1950 + (2030 - currentYear) + 1 },
+    (_, i) => 2030 - i
+  )
 
   return (
     <div className="space-y-6">

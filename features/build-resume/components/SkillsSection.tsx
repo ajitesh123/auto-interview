@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { SkillsData } from '../../../lib/resumeStore'
+import BoldButton from './BoldButton'
 
 interface SkillsSectionProps {
   data?: SkillsData
@@ -16,6 +17,13 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
       interests: [],
     }
   )
+
+  // Create refs for all possible skill inputs (up to 10 per category)
+  const inputRefs = useRef<Record<string, (HTMLInputElement | null)[]>>({
+    technical: [],
+    languages: [],
+    interests: [],
+  })
 
   const [enabledFields, setEnabledFields] = useState<Record<keyof SkillsData, boolean>>({
     technical: data?.technical?.some((skill) => skill.trim() !== '') || false,
@@ -65,9 +73,25 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
     currentSkills[index] = value
     const newSkillsData = { ...skillsData, [field]: currentSkills }
     setSkillsData(newSkillsData)
-    // Only call onChange with filtered skills (non-empty)
-    const filteredSkills = currentSkills.filter((skill) => skill.trim() !== '')
-    onChange({ ...newSkillsData, [field]: filteredSkills })
+    // Don't call onChange immediately to prevent focus loss
+    // onChange will be called when the user finishes typing (onBlur)
+  }
+
+  const handleBoldText = (
+    field: keyof SkillsData,
+    index: number,
+    selectedText: string,
+    startPos: number,
+    endPos: number
+  ) => {
+    const currentSkills = [...skillsData[field]]
+    const currentSkill = currentSkills[index]
+    const beforeSelection = currentSkill.substring(0, startPos)
+    const afterSelection = currentSkill.substring(endPos)
+    const boldedText = `**${selectedText}**`
+
+    const newSkill = beforeSelection + boldedText + afterSelection
+    updateSkill(field, index, newSkill)
   }
 
   const SkillInput = ({
@@ -102,14 +126,29 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
             {skills.map((skill, index) => (
               <div key={index} className="flex items-center space-x-2">
                 <input
+                  ref={(el) => {
+                    inputRefs.current[field][index] = el
+                  }}
                   type="text"
                   value={skill}
                   onChange={(e) => updateSkill(field, index, e.target.value)}
+                  onBlur={() => {
+                    // Call onChange when user finishes typing
+                    const filteredSkills = skillsData[field].filter((s) => s.trim() !== '')
+                    onChange({ ...skillsData, [field]: filteredSkills })
+                  }}
                   className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
                   placeholder={placeholder}
                 />
 
                 <div className="flex space-x-1">
+                  <BoldButton
+                    inputRef={{ current: inputRefs.current[field][index] }}
+                    onBold={(selectedText, startPos, endPos) =>
+                      handleBoldText(field, index, selectedText, startPos, endPos)
+                    }
+                  />
+
                   {index === skills.length - 1 && skills.length < 10 && (
                     <button
                       type="button"
@@ -223,6 +262,7 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
                   <li>• Interests: Show personality and passion areas relevant to your field</li>
                   <li>• Only include skills you're comfortable discussing in interviews</li>
                   <li>• Use checkboxes to include/exclude each category from your resume</li>
+                  <li>• Select text and click the bold button (B) to highlight important skills</li>
                 </ul>
               </div>
             </div>

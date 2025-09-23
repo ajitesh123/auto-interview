@@ -119,7 +119,7 @@ function createHeaderSection(contact: ResumeData['contact']) {
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 100 },
+      spacing: { after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -146,7 +146,7 @@ function createHeaderSection(contact: ResumeData['contact']) {
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 100 },
+      spacing: { after: 200 },
     }),
   ]
 }
@@ -165,7 +165,7 @@ function createEducationSection(education: ResumeData['education']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -251,7 +251,7 @@ function createExperienceSection(experience: ResumeData['experience']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -356,7 +356,7 @@ function createLeadershipSection(leadership: ResumeData['leadership']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -461,7 +461,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -517,7 +517,7 @@ function createOtherSection(other: ResumeData['other1']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -562,7 +562,7 @@ function createSkillsSection(resumeData: ResumeData) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 100 },
+      spacing: { before: 200, after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -638,7 +638,7 @@ function createLBSHeaderSection(contact: ResumeData['contact']): Paragraph[] {
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 100 },
+      spacing: { after: 200 },
     }),
     new Paragraph({
       children: [
@@ -693,7 +693,7 @@ function createLBSEducationSection(education: ResumeData['education']): Paragrap
           font: 'Arial',
         }),
       ],
-      spacing: { after: 100 },
+      spacing: { after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -705,13 +705,13 @@ function createLBSEducationSection(education: ResumeData['education']): Paragrap
     }),
   ]
 
-  education.slice(0, 2).forEach((edu) => {
+  education.slice(0, 4).forEach((edu) => {
     if (edu.university || edu.degree) {
       paragraphs.push(
         new Paragraph({
           children: [
             new TextRun({
-              text: `${edu.graduationYear || ''} – ${edu.graduationYear || ''}`,
+              text: `${edu.graduationYear || ''} – 2030`,
               bold: true,
               size: 20, // 10pt
               color: '000000',
@@ -726,6 +726,12 @@ function createLBSEducationSection(education: ResumeData['education']): Paragrap
             }),
           ],
           spacing: { after: 50 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         }),
         new Paragraph({
           children: [
@@ -736,7 +742,13 @@ function createLBSEducationSection(education: ResumeData['education']): Paragrap
               font: 'Arial',
             }),
           ],
-          spacing: { after: 100 },
+          spacing: { after: 250 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         })
       )
     }
@@ -759,7 +771,7 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
           font: 'Arial',
         }),
       ],
-      spacing: { after: 100 },
+      spacing: { after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -792,6 +804,12 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
             }),
           ],
           spacing: { after: 50 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         }),
         new Paragraph({
           children: [
@@ -804,22 +822,40 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
             }),
           ],
           spacing: { after: 50 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         })
       )
 
       // Add bullet points
       if (exp.bullets && exp.bullets.length > 0) {
-        exp.bullets.slice(0, 15).forEach((bullet) => {
+        exp.bullets.slice(0, 15).forEach((bullet, index) => {
           if (bullet.trim()) {
+            const isLastBullet = index === exp.bullets.slice(0, 15).length - 1
             paragraphs.push(
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: 50 },
+                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                indent: {
+                  left: 1440, // 1 inch indentation
+                },
               })
             )
           }
         })
+      } else {
+        // If no bullets, add spacing after the job title by adding an empty paragraph
+        paragraphs.push(
+          new Paragraph({
+            children: [],
+            spacing: { after: 100 },
+          })
+        )
       }
     }
   })
@@ -841,7 +877,7 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
           font: 'Arial',
         }),
       ],
-      spacing: { after: 100 },
+      spacing: { after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -874,6 +910,12 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
             }),
           ],
           spacing: { after: 50 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         }),
         new Paragraph({
           children: [
@@ -886,22 +928,40 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
             }),
           ],
           spacing: { after: 50 },
+          tabStops: [
+            {
+              type: TabStopType.LEFT,
+              position: 1440, // 1 inch
+            },
+          ],
         })
       )
 
       // Add bullet points
       if (lead.bullets && lead.bullets.length > 0) {
-        lead.bullets.slice(0, 15).forEach((bullet) => {
+        lead.bullets.slice(0, 15).forEach((bullet, index) => {
           if (bullet.trim()) {
+            const isLastBullet = index === lead.bullets.slice(0, 15).length - 1
             paragraphs.push(
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: 50 },
+                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                indent: {
+                  left: 1440, // 1 inch indentation
+                },
               })
             )
           }
         })
+      } else {
+        // If no bullets, add spacing after the title by adding an empty paragraph
+        paragraphs.push(
+          new Paragraph({
+            children: [],
+            spacing: { after: 100 },
+          })
+        )
       }
     }
   })
@@ -912,16 +972,21 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
 function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
   const paragraphs: Paragraph[] = []
 
-  if (skills.technical && skills.technical.length > 0) {
+  // Only add Technical Skills if there are skills to display
+  if (
+    skills.technical &&
+    skills.technical.length > 0 &&
+    skills.technical.some((skill) => skill.trim())
+  ) {
     paragraphs.push(
       new Paragraph({
         children: [
           new TextRun({
             text: `Technical Skills: ${skills.technical.join(', ')}`,
             bold: true,
-            size: 22, // 11pt
+            size: 20, // 10pt
             color: '000000',
-            font: 'Times New Roman',
+            font: 'Arial',
           }),
         ],
         spacing: { after: 50 },
@@ -929,16 +994,21 @@ function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
     )
   }
 
-  if (skills.languages && skills.languages.length > 0) {
+  // Only add Languages if there are languages to display
+  if (
+    skills.languages &&
+    skills.languages.length > 0 &&
+    skills.languages.some((lang) => lang.trim())
+  ) {
     paragraphs.push(
       new Paragraph({
         children: [
           new TextRun({
             text: `Languages: ${skills.languages.join(', ')}`,
             bold: true,
-            size: 22, // 11pt
+            size: 20, // 10pt
             color: '000000',
-            font: 'Times New Roman',
+            font: 'Arial',
           }),
         ],
         spacing: { after: 50 },
@@ -963,7 +1033,7 @@ function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[]
           font: 'Arial',
         }),
       ],
-      spacing: { after: 100 },
+      spacing: { after: 200 },
       border: {
         bottom: {
           color: '000000',
@@ -994,17 +1064,29 @@ function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[]
 
       // Add bullet points if available
       if (project.bullets && project.bullets.length > 0) {
-        project.bullets.forEach((bullet) => {
+        project.bullets.forEach((bullet, index) => {
           if (bullet.trim()) {
+            const isLastBullet = index === project.bullets.length - 1
             paragraphs.push(
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: 50 },
+                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                indent: {
+                  left: 1440, // 1 inch indentation
+                },
               })
             )
           }
         })
+      } else {
+        // If no bullets, add spacing after the project name by adding an empty paragraph
+        paragraphs.push(
+          new Paragraph({
+            children: [],
+            spacing: { after: 100 },
+          })
+        )
       }
     }
   })

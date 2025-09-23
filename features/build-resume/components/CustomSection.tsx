@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import BulletPointsInput from './BulletPointsInput'
+import BoldButton from './BoldButton'
 
 interface CustomEntry {
   id: string
@@ -49,6 +50,29 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
         }
 
         return updatedEntry
+      }
+      return entry
+    })
+    setCustomEntries(updatedEntries)
+    onChange({ sectionTitle: customTitle, entries: updatedEntries })
+  }
+
+  const handleBoldText = (
+    id: string,
+    field: 'title' | 'subtitle',
+    selectedText: string,
+    startPos: number,
+    endPos: number
+  ) => {
+    const updatedEntries = customEntries.map((entry) => {
+      if (entry.id === id) {
+        const currentText = entry[field]
+        const beforeSelection = currentText.substring(0, startPos)
+        const afterSelection = currentText.substring(endPos)
+        const boldedText = `**${selectedText}**`
+
+        const newText = beforeSelection + boldedText + afterSelection
+        return { ...entry, [field]: newText }
       }
       return entry
     })
@@ -168,14 +192,29 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                 >
                   Title
                 </label>
-                <input
-                  id={`title-${entry.id}`}
-                  type="text"
-                  value={entry.title}
-                  onChange={(e) => handleEntryChange(entry.id, 'title', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  placeholder="e.g., AWS Certified Solutions Architect, Fluent in Spanish"
-                />
+                <div className="flex items-center space-x-2">
+                  <input
+                    id={`title-${entry.id}`}
+                    type="text"
+                    value={entry.title}
+                    onChange={(e) => handleEntryChange(entry.id, 'title', e.target.value)}
+                    className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    placeholder="e.g., AWS Certified Solutions Architect, Fluent in Spanish"
+                    ref={(el) => {
+                      // Store ref for bold button
+                      if (el) {
+                        (
+                          el as HTMLInputElement & { boldButtonRef?: HTMLInputElement }
+                        ).boldButtonRef = el
+                      }
+                    }}
+                  />
+                  <BoldButton
+                    onBold={(selectedText, startPos, endPos) =>
+                      handleBoldText(entry.id, 'title', selectedText, startPos, endPos)
+                    }
+                  />
+                </div>
               </div>
 
               {/* Subtitle */}
@@ -186,14 +225,29 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                 >
                   Subtitle (Optional)
                 </label>
-                <input
-                  id={`subtitle-${entry.id}`}
-                  type="text"
-                  value={entry.subtitle}
-                  onChange={(e) => handleEntryChange(entry.id, 'subtitle', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  placeholder="e.g., Amazon Web Services, Native Speaker"
-                />
+                <div className="flex items-center space-x-2">
+                  <input
+                    id={`subtitle-${entry.id}`}
+                    type="text"
+                    value={entry.subtitle}
+                    onChange={(e) => handleEntryChange(entry.id, 'subtitle', e.target.value)}
+                    className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    placeholder="e.g., Amazon Web Services, Native Speaker"
+                    ref={(el) => {
+                      // Store ref for bold button
+                      if (el) {
+                        (
+                          el as HTMLInputElement & { boldButtonRef?: HTMLInputElement }
+                        ).boldButtonRef = el
+                      }
+                    }}
+                  />
+                  <BoldButton
+                    onBold={(selectedText, startPos, endPos) =>
+                      handleBoldText(entry.id, 'subtitle', selectedText, startPos, endPos)
+                    }
+                  />
+                </div>
               </div>
             </div>
 
@@ -304,6 +358,7 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
               <li>• Add descriptions to provide context and details</li>
               <li>• Use bullet points for easy scanning</li>
               <li>• Only include information that adds value to your application</li>
+              <li>• Select text and click the bold button (B) to highlight important words</li>
             </ul>
           </div>
         </div>
