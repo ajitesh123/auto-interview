@@ -7,66 +7,38 @@ interface Job {
   title: string
   company: string
   location: string
-  type: string
-  salary: string
-  description: string
-  matchScore: number
-  postedDate: string
+  link: string
+  postedTime: string
 }
 
 const FindJobsPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [location, setLocation] = useState('')
   const [company, setCompany] = useState('')
-  const [experience, setExperience] = useState('')
   const [jobs, setJobs] = useState<Job[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [searchError, setSearchError] = useState<string | null>(null)
-
-  // Mock job data - replace with actual API calls
-  const mockJobs: Job[] = [
-    {
-      id: '1',
-      title: 'Senior Product Manager',
-      company: 'Tech Corp',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      salary: '$120k - $150k',
-      description: 'Lead product strategy and development for our core platform...',
-      matchScore: 95,
-      postedDate: '2 days ago',
-    },
-    {
-      id: '2',
-      title: 'Product Manager - AI/ML',
-      company: 'AI Solutions Inc',
-      location: 'Remote',
-      type: 'Full-time',
-      salary: '$110k - $140k',
-      description: 'Drive AI product initiatives and work with cross-functional teams...',
-      matchScore: 88,
-      postedDate: '1 week ago',
-    },
-    {
-      id: '3',
-      title: 'Associate Product Manager',
-      company: 'StartupXYZ',
-      location: 'New York, NY',
-      type: 'Full-time',
-      salary: '$80k - $100k',
-      description: 'Support product development and work closely with engineering...',
-      matchScore: 82,
-      postedDate: '3 days ago',
-    },
-  ]
+  const [loadingProgress, setLoadingProgress] = useState(0)
 
   const handleSearch = async () => {
     setIsSearching(true)
     setJobs([]) // Clear previous results
     setSearchError(null) // Clear previous errors
+    setLoadingProgress(0)
+
+    // Start loading progress animation (40 seconds total for 200 jobs)
+    const progressInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval)
+          return 100
+        }
+        return prev + 2.5 // 100% in 40 seconds (100/40 = 2.5% per second)
+      })
+    }, 1000)
 
     try {
-      console.log('Searching for jobs with:', { searchQuery, location, company, experience })
+      console.log('Searching for LinkedIn jobs with:', { searchQuery, location, company })
 
       const response = await fetch('/api/jobs/scrape', {
         method: 'POST',
@@ -77,7 +49,8 @@ const FindJobsPage = () => {
           searchQuery,
           location,
           company,
-          experience,
+          experience: '', // Not used in current scraper
+          category: '', // Not used in current scraper
         }),
       })
 
@@ -97,16 +70,13 @@ const FindJobsPage = () => {
         }
       } else {
         console.error('Scraping failed:', result.error)
-        setSearchError('Failed to fetch jobs from the job portal. Please try again.')
-        // Fallback to mock data if scraping fails
-        setJobs(mockJobs)
+        setSearchError('Failed to fetch jobs from LinkedIn. Please try again.')
       }
     } catch (error) {
       console.error('Error searching for jobs:', error)
       setSearchError('An error occurred while searching for jobs. Please try again.')
-      // Fallback to mock data on error
-      setJobs(mockJobs)
     } finally {
+      clearInterval(progressInterval)
       setIsSearching(false)
     }
   }
@@ -125,8 +95,8 @@ const FindJobsPage = () => {
       {/* Search Section */}
       <div className="mx-auto mb-8 w-full max-w-4xl">
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
-          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-5">
-            <div>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
+            <div className="flex-1">
               <label className="mb-2 block text-sm font-medium text-white">Job Title</label>
               <input
                 type="text"
@@ -136,7 +106,7 @@ const FindJobsPage = () => {
                 className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
               />
             </div>
-            <div>
+            <div className="flex-1">
               <label className="mb-2 block text-sm font-medium text-white">Location</label>
               <input
                 type="text"
@@ -146,7 +116,7 @@ const FindJobsPage = () => {
                 className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
               />
             </div>
-            <div>
+            <div className="flex-1">
               <label className="mb-2 block text-sm font-medium text-white">Company</label>
               <input
                 type="text"
@@ -156,25 +126,11 @@ const FindJobsPage = () => {
                 className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
               />
             </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-white">
-                Min Experience (Years)
-              </label>
-              <input
-                type="number"
-                value={experience}
-                onChange={(e) => setExperience(e.target.value)}
-                placeholder="e.g. 3"
-                min="0"
-                max="20"
-                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
-              />
-            </div>
-            <div className="flex items-end">
+            <div className="flex-shrink-0">
               <button
                 onClick={handleSearch}
                 disabled={isSearching}
-                className="w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-6 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800 disabled:opacity-50"
+                className="w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-8 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800 disabled:opacity-50 lg:w-auto"
               >
                 {isSearching ? 'Searching...' : 'Search Jobs'}
               </button>
@@ -212,22 +168,22 @@ const FindJobsPage = () => {
         <div className="mx-auto w-full max-w-6xl">
           <div className="mb-6">
             <h2 className="mb-2 text-2xl font-bold text-white">Found {jobs.length} Jobs</h2>
-            <p className="text-gray-400">Sorted by match score</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {jobs.map((job) => (
               <div
                 key={job.id}
-                className="rounded-lg border border-gray-700 bg-gray-900 p-6 transition-colors hover:border-pink-700"
+                className="rounded-lg border border-gray-700 bg-gray-900 p-4 transition-colors hover:border-pink-700"
               >
-                <div className="mb-4 flex items-start justify-between">
+                <div className="flex h-full flex-col">
                   <div className="flex-1">
-                    <h3 className="mb-2 text-xl font-bold text-white">{job.title}</h3>
-                    <div className="mb-2 flex items-center space-x-4 text-gray-400">
-                      <span className="flex items-center">
+                    <h3 className="mb-2 line-clamp-2 text-lg font-bold text-white">{job.title}</h3>
+
+                    <div className="mb-3 space-y-2 text-sm text-gray-400">
+                      <div className="flex items-center">
                         <svg
-                          className="mr-1 h-4 w-4"
+                          className="mr-2 h-4 w-4 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -239,11 +195,12 @@ const FindJobsPage = () => {
                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                           />
                         </svg>
-                        {job.company}
-                      </span>
-                      <span className="flex items-center">
+                        <span className="truncate">{job.company}</span>
+                      </div>
+
+                      <div className="flex items-center">
                         <svg
-                          className="mr-1 h-4 w-4"
+                          className="mr-2 h-4 w-4 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -261,69 +218,81 @@ const FindJobsPage = () => {
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                           />
                         </svg>
-                        {job.location}
-                      </span>
-                      {job.experience && (
-                        <span className="flex items-center">
-                          <svg
-                            className="mr-1 h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                          {job.experience}
-                        </span>
-                      )}
-                      {job.salary && job.salary !== 'Not specified' && (
-                        <span className="flex items-center">
-                          <svg
-                            className="mr-1 h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                            />
-                          </svg>
-                          {job.salary}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mb-4 text-gray-300">{job.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500">
-                        Posted {job.postedTime || job.postedDate}
-                      </span>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-400">Match Score:</span>
-                        <span className="rounded bg-pink-700 px-2 py-1 text-sm font-semibold text-white">
-                          {job.matchScore}%
-                        </span>
+                        <span className="truncate">{job.location}</span>
+                      </div>
+
+                      <div className="flex items-center">
+                        <svg
+                          className="mr-2 h-4 w-4 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        <span className="truncate">{job.postedTime}</span>
                       </div>
                     </div>
                   </div>
-                  <a
-                    href={job.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-4 rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800"
-                  >
-                    Apply Now
-                  </a>
+
+                  <div className="mt-4">
+                    <a
+                      href={job.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 text-center font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800"
+                    >
+                      Apply Now
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Loading State with Progress Bar */}
+      {isSearching && (
+        <div className="py-12 text-center">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-pink-700/20 to-pink-900/20">
+            <svg
+              className="h-12 w-12 animate-spin text-pink-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
+          </div>
+          <h3 className="mb-4 text-xl font-semibold text-white">Searching the best jobs for you</h3>
+          <p className="mb-6 text-gray-400">Scraping LinkedIn for the best job opportunities...</p>
+
+          {/* Progress Bar */}
+          <div className="mx-auto max-w-md">
+            <div className="mb-2 flex justify-between text-sm text-gray-400">
+              <span>Progress</span>
+              <span>{Math.round(loadingProgress)}%</span>
+            </div>
+            <div className="h-2 w-full rounded-full bg-gray-700">
+              <div
+                className="h-2 rounded-full bg-gradient-to-r from-pink-700 to-pink-900 transition-all duration-1000 ease-out"
+                style={{ width: `${loadingProgress}%` }}
+              ></div>
+            </div>
+            <p className="mt-2 text-xs text-gray-500">
+              This may take up to 40 seconds to find the best matches
+            </p>
           </div>
         </div>
       )}

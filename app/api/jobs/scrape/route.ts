@@ -1,429 +1,493 @@
 import { NextRequest, NextResponse } from 'next/server'
-import puppeteer from 'puppeteer'
+import axios from 'axios'
+import * as cheerio from 'cheerio'
 
-export const maxDuration = 30 // Extend timeout to 30 seconds
+export const maxDuration = 60
 
-interface JobData {
+interface LinkedInJob {
+  id: string
   title: string
   company: string
-  experience: string
   location: string
   link: string
   postedTime: string
 }
 
-export async function POST(request: NextRequest) {
-  let browser: any = null
+// Helper function to validate posted time (accept any time format)
+const isValidPostedTime = (postedTime: string): boolean => {
+  if (!postedTime) return false
 
-  try {
-    console.log('Starting job scraping process...')
+  const timeStr = postedTime.toLowerCase().trim()
 
-    // Parse request body for search parameters
-    const { searchQuery, location, company, experience } = await request.json()
+  // Accept any non-empty string as valid time - be extremely permissive
+  return timeStr.length > 0
+}
 
-    // Launch Puppeteer browser
-    console.log('Launching browser...')
-    browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--disable-gpu',
-      ],
-    })
+// Helper function to sort jobs by recency (most recent first)
+const sortJobsByRecency = (jobs: LinkedInJob[]): LinkedInJob[] => {
+  return jobs.sort((a, b) => {
+    const aTime = a.postedTime.toLowerCase()
+    const bTime = b.postedTime.toLowerCase()
 
-    const page = await browser!.newPage()
+    // Minutes first (most recent)
+    if (aTime.includes('minute') && !bTime.includes('minute')) return -1
+    if (!aTime.includes('minute') && bTime.includes('minute')) return 1
 
-    // Set user agent to avoid bot detection
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
-    )
+    // Then hours
+    if (aTime.includes('hour') && !bTime.includes('hour')) return -1
+    if (!aTime.includes('hour') && bTime.includes('hour')) return 1
 
-    // Set viewport
-    await page.setViewport({ width: 1366, height: 768 })
+    // Then days (1 day ago, 2 days ago, etc.)
+    if (aTime.includes('day') && !bTime.includes('day')) return -1
+    if (!aTime.includes('day') && bTime.includes('day')) return 1
 
-    // Build search URL with parameters to get more results
-    let searchUrl = 'https://www.naukri.com/jobs-in-india'
+    // Then weeks
+    if (aTime.includes('week') && !bTime.includes('week')) return -1
+    if (!aTime.includes('week') && bTime.includes('week')) return 1
 
-    if (searchQuery) {
-      searchUrl = `https://www.naukri.com/${searchQuery.toLowerCase().replace(/\s+/g, '-')}-jobs`
+    // Then months
+    if (aTime.includes('month') && !bTime.includes('month')) return -1
+    if (!aTime.includes('month') && bTime.includes('month')) return 1
+
+    // Then years (least recent)
+    if (aTime.includes('year') && !bTime.includes('year')) return -1
+    if (!aTime.includes('year') && bTime.includes('year')) return 1
+
+    return 0
+  })
+}
+
+// Helper function to get geoId for different locations
+const getGeoId = (location: string): string => {
+  const locationLower = location.toLowerCase()
+
+  // Common geoIds for different countries/regions
+  if (
+    locationLower.includes('india') ||
+    locationLower.includes('mumbai') ||
+    locationLower.includes('bangalore') ||
+    locationLower.includes('delhi')
+  ) {
+    return '102713980' // India
+  }
+  if (
+    locationLower.includes('united states') ||
+    locationLower.includes('usa') ||
+    locationLower.includes('us')
+  ) {
+    return '103644278' // United States
+  }
+  if (
+    locationLower.includes('canada') ||
+    locationLower.includes('toronto') ||
+    locationLower.includes('vancouver')
+  ) {
+    return '101174742' // Canada
+  }
+  if (
+    locationLower.includes('united kingdom') ||
+    locationLower.includes('uk') ||
+    locationLower.includes('london')
+  ) {
+    return '101165590' // United Kingdom
+  }
+  if (
+    locationLower.includes('australia') ||
+    locationLower.includes('sydney') ||
+    locationLower.includes('melbourne')
+  ) {
+    return '101452733' // Australia
+  }
+  if (
+    locationLower.includes('germany') ||
+    locationLower.includes('berlin') ||
+    locationLower.includes('munich')
+  ) {
+    return '101282230' // Germany
+  }
+  if (locationLower.includes('france') || locationLower.includes('paris')) {
+    return '105015875' // France
+  }
+  if (locationLower.includes('singapore')) {
+    return '102454443' // Singapore
+  }
+  if (locationLower.includes('japan') || locationLower.includes('tokyo')) {
+    return '101355337' // Japan
+  }
+
+  // Default to global search if no specific location is found
+  return '92000000' // Global
+}
+
+// Helper function to build LinkedIn URL with correct parameters
+const buildLinkedInURL = (
+  searchQuery: string,
+  location: string,
+  company: string,
+  start: number
+): string => {
+  const baseURL = 'https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search'
+
+  // Encode parameters like LinkedIn expects (spaces become +)
+  const keywords = (searchQuery || '').replace(/\s+/g, '+')
+  const locationParam = (location || '').replace(/\s+/g, '+')
+  const companyParam = (company || '').replace(/\s+/g, '+')
+
+  // Build search query - include company in keywords if specified
+  let finalKeywords = keywords
+  if (companyParam) {
+    finalKeywords = keywords ? `${keywords}+${companyParam}` : companyParam
+  }
+
+  const params = new URLSearchParams({
+    keywords: finalKeywords,
+    location: locationParam || 'Global',
+    geoId: getGeoId(location),
+    trk: 'public_jobs_jobs-search-bar_search-submit',
+    start: start.toString(),
+  })
+
+  return `${baseURL}?${params.toString()}`
+}
+
+// Helper function to filter jobs based on user criteria
+const filterJobs = (
+  jobs: LinkedInJob[],
+  userLocation: string,
+  userCompany: string
+): LinkedInJob[] => {
+  console.log(
+    `Starting to filter ${jobs.length} jobs with location: "${userLocation}", company: "${userCompany}"`
+  )
+
+  return jobs.filter((job) => {
+    // Filter by company if specified (more flexible matching)
+    if (userCompany) {
+      const jobCompanyLower = job.company.toLowerCase().trim()
+      const userCompanyLower = userCompany.toLowerCase().trim()
+
+      // More flexible company matching
+      const companyMatches =
+        jobCompanyLower.includes(userCompanyLower) ||
+        userCompanyLower.includes(jobCompanyLower) ||
+        // Handle common company name variations
+        (userCompanyLower === 'google' &&
+          (jobCompanyLower.includes('google') || jobCompanyLower.includes('alphabet'))) ||
+        (userCompanyLower === 'microsoft' && jobCompanyLower.includes('microsoft')) ||
+        (userCompanyLower === 'amazon' && jobCompanyLower.includes('amazon')) ||
+        (userCompanyLower === 'apple' && jobCompanyLower.includes('apple')) ||
+        (userCompanyLower === 'meta' &&
+          (jobCompanyLower.includes('meta') || jobCompanyLower.includes('facebook'))) ||
+        (userCompanyLower === 'facebook' &&
+          (jobCompanyLower.includes('meta') || jobCompanyLower.includes('facebook')))
+
+      if (!companyMatches) {
+        return false
+      }
     }
 
-    // Add parameters to get more results
-    const urlParams = new URLSearchParams()
-    urlParams.append('k', searchQuery || '')
-    if (location) urlParams.append('l', location)
-    urlParams.append('experience', '0') // Start with 0 years to get more results
-    urlParams.append('sort', 'date') // Sort by date to get recent jobs
+    // Filter by location if specified
+    if (userLocation) {
+      const jobLocationLower = job.location.toLowerCase()
+      const userLocationLower = userLocation.toLowerCase()
 
-    if (urlParams.toString()) {
-      searchUrl += '?' + urlParams.toString()
-    }
-
-    console.log('Navigating to:', searchUrl)
-
-    // Navigate to the page
-    await page.goto(searchUrl, {
-      waitUntil: 'networkidle2',
-      timeout: 30000,
-    })
-
-    // Wait a bit for dynamic content to load
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
-    // Scroll down to load more jobs dynamically
-    console.log('Scrolling to load more jobs...')
-    await page.evaluate(() => {
-      return new Promise((resolve) => {
-        let totalHeight = 0
-        const distance = 100
-        const timer = setInterval(() => {
-          const scrollHeight = document.body.scrollHeight
-          window.scrollBy(0, distance)
-          totalHeight += distance
-
-          if (totalHeight >= scrollHeight) {
-            clearInterval(timer)
-            resolve(null)
-          }
-        }, 100)
-      })
-    })
-
-    // Wait a bit more for additional content to load
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    // Wait for job listings to load
-    try {
-      await page.waitForSelector('.cust-job-tuple', { timeout: 15000 })
-      console.log('Found job listings with .cust-job-tuple selector')
-    } catch (error) {
-      console.log('Primary selector not found, trying alternative selectors...')
-
-      // Try alternative selectors
-      const alternativeSelectors = [
-        '.jobTuple',
-        '.job-card',
-        '.job-item',
-        '[data-testid="job-card"]',
-        '.job-listing',
+      // For city-specific searches, be more strict
+      const citySearches = [
+        'bengaluru',
+        'bangalore',
+        'mumbai',
+        'delhi',
+        'hyderabad',
+        'chennai',
+        'pune',
+        'kolkata',
+        'gurgaon',
+        'noida',
+        'ahmedabad',
       ]
+      const isCitySearch = citySearches.some((city) => userLocationLower.includes(city))
 
-      let foundSelector = false
-      for (const selector of alternativeSelectors) {
-        try {
-          await page.waitForSelector(selector, { timeout: 5000 })
-          console.log(`Found jobs with selector: ${selector}`)
-          foundSelector = true
-          break
-        } catch (e) {
-          console.log(`Selector ${selector} not found`)
+      if (isCitySearch) {
+        // For city searches, only match if the job location contains the city name
+        if (!jobLocationLower.includes(userLocationLower)) {
+          console.log(
+            `Job filtered out due to city mismatch: "${job.location}" (user searched: "${userLocation}")`
+          )
+          return false
         }
-      }
-
-      if (!foundSelector) {
-        // If no selectors work, let's try to get the page content and see what's available
-        const pageContent = await page.content()
-        console.log('Page loaded but no job selectors found. Page title:', await page.title())
-
-        // Return mock data for now
-        return NextResponse.json({
-          success: true,
-          jobs: [
+      } else {
+        // For country/region searches, use the existing flexible matching
+        if (
+          !jobLocationLower.includes(userLocationLower) &&
+          !userLocationLower.includes(jobLocationLower)
+        ) {
+          // Additional check for country-level matching
+          const countryMatches = [
             {
-              id: 'mock-1',
-              title: 'Product Manager',
-              company: 'Tech Company',
-              experience: '3-5 years',
-              location: 'Bangalore',
-              link: 'https://www.naukri.com/job-details',
-              postedTime: '2 days ago',
-              matchScore: 95,
-              salary: 'Not specified',
-              description: 'Mock job description for testing',
+              user: 'india',
+              job: [
+                'india',
+                'mumbai',
+                'bangalore',
+                'bengaluru',
+                'delhi',
+                'hyderabad',
+                'chennai',
+                'pune',
+                'kolkata',
+                'gurgaon',
+                'noida',
+                'ahmedabad',
+                'kochi',
+                'indore',
+                'chandigarh',
+                'jaipur',
+                'lucknow',
+                'bhubaneswar',
+                'coimbatore',
+                'vadodara',
+                'nashik',
+                'rajkot',
+                'mysore',
+                'thiruvananthapuram',
+                'madurai',
+                'tiruchirappalli',
+                'karnataka',
+                'maharashtra',
+                'tamil nadu',
+                'telangana',
+                'gujarat',
+                'rajasthan',
+                'kerala',
+                'punjab',
+                'haryana',
+                'uttar pradesh',
+                'west bengal',
+                'odisha',
+                'andhra pradesh',
+                'bihar',
+                'assam',
+                'jammu',
+                'kashmir',
+                'himachal pradesh',
+                'uttarakhand',
+                'goa',
+                'manipur',
+                'meghalaya',
+                'mizoram',
+                'nagaland',
+                'sikkim',
+                'tripura',
+                'arunachal pradesh',
+                'chhattisgarh',
+                'jharkhand',
+                'madhya pradesh',
+              ],
             },
-          ],
-          total: 1,
-          searchParams: { searchQuery, location, company, experience },
-          note: 'Using mock data - could not find job listings on the page',
-        })
-      }
-    }
+            {
+              user: 'usa',
+              job: ['united states', 'usa', 'us', 'california', 'new york', 'texas', 'florida'],
+            },
+            {
+              user: 'united states',
+              job: ['united states', 'usa', 'us', 'california', 'new york', 'texas', 'florida'],
+            },
+            { user: 'canada', job: ['canada', 'toronto', 'vancouver', 'montreal', 'calgary'] },
+            { user: 'uk', job: ['united kingdom', 'uk', 'london', 'manchester', 'birmingham'] },
+            {
+              user: 'united kingdom',
+              job: ['united kingdom', 'uk', 'london', 'manchester', 'birmingham'],
+            },
+            { user: 'australia', job: ['australia', 'sydney', 'melbourne', 'brisbane', 'perth'] },
+            { user: 'germany', job: ['germany', 'berlin', 'munich', 'hamburg', 'frankfurt'] },
+            { user: 'france', job: ['france', 'paris', 'lyon', 'marseille'] },
+            { user: 'singapore', job: ['singapore'] },
+            { user: 'japan', job: ['japan', 'tokyo', 'osaka', 'kyoto'] },
+          ]
 
-    console.log('Page loaded, extracting job data...')
+          const foundMatch = countryMatches.find(
+            (match) =>
+              userLocationLower.includes(match.user) &&
+              match.job.some((jobLocation) => jobLocationLower.includes(jobLocation))
+          )
 
-    // First, let's see what's actually on the page
-    const pageTitle = await page.title()
-    console.log('Page title:', pageTitle)
-
-    // Check if we're on the right page
-    const currentUrl = page.url()
-    console.log('Current URL:', currentUrl)
-
-    // Extract job data
-    const jobs = await page.evaluate(() => {
-      const jobElements = document.querySelectorAll('.cust-job-tuple')
-      const jobData: JobData[] = []
-
-      console.log(`Found ${jobElements.length} job elements with .cust-job-tuple`)
-
-      // If no elements found, try other selectors
-      if (jobElements.length === 0) {
-        const altSelectors = ['.jobTuple', '.job-card', '.job-item', '[data-testid="job-card"]']
-        for (const selector of altSelectors) {
-          const elements = document.querySelectorAll(selector)
-          console.log(`Found ${elements.length} elements with selector: ${selector}`)
-          if (elements.length > 0) {
-            // Use the first working selector
-            return Array.from(elements)
-              .slice(0, 5)
-              .map((element, index) => ({
-                title: element.querySelector('a')?.textContent?.trim() || `Job ${index + 1}`,
-                company: element.querySelector('.comp-name')?.textContent?.trim() || 'Company',
-                experience:
-                  element.querySelector('.expwdth')?.textContent?.trim() || 'Not specified',
-                location: element.querySelector('.locWdth')?.textContent?.trim() || 'Location',
-                link: element.querySelector('a')?.getAttribute('href') || '#',
-                postedTime:
-                  element.querySelector('.job-post-day')?.textContent?.trim() || 'Recently',
-              }))
+          if (!foundMatch) {
+            console.log(
+              `Job filtered out due to location mismatch: "${job.location}" (user searched: "${userLocation}")`
+            )
+            return false
           }
         }
       }
-
-      jobElements.forEach((element, index) => {
-        try {
-          // Extract title - try multiple selectors
-          const titleElement =
-            element.querySelector('.title a') ||
-            element.querySelector('a[data-testid="job-title"]') ||
-            element.querySelector('.job-title a') ||
-            element.querySelector('a[title]')
-          const title =
-            titleElement?.textContent?.trim() || titleElement?.getAttribute('title') || ''
-
-          // Extract company name - try multiple selectors
-          const companyElement =
-            element.querySelector('.comp-name') ||
-            element.querySelector('[data-testid="company-name"]') ||
-            element.querySelector('.company-name') ||
-            element.querySelector('.comp-name a')
-          const company = companyElement?.textContent?.trim() || ''
-
-          // Extract experience - try multiple selectors
-          const expElement =
-            element.querySelector('.expwdth') ||
-            element.querySelector('[data-testid="experience"]') ||
-            element.querySelector('.experience') ||
-            element.querySelector('.exp')
-          const experience = expElement?.textContent?.trim() || ''
-
-          // Extract location - try multiple selectors
-          const locElement =
-            element.querySelector('.locWdth') ||
-            element.querySelector('[data-testid="location"]') ||
-            element.querySelector('.location') ||
-            element.querySelector('.loc')
-          const location = locElement?.textContent?.trim() || ''
-
-          // Extract link - try multiple approaches
-          const linkElement =
-            element.querySelector('.title a') ||
-            element.querySelector('a[data-testid="job-title"]') ||
-            element.querySelector('.job-title a') ||
-            element.querySelector('a[href*="/job/"]') ||
-            element.querySelector('a[href*="naukri.com"]') ||
-            element.querySelector('a')
-          let link = linkElement?.getAttribute('href') || ''
-
-          // Ensure we have a proper link
-          if (link && !link.startsWith('http')) {
-            link = link.startsWith('/')
-              ? `https://www.naukri.com${link}`
-              : `https://www.naukri.com/${link}`
-          }
-
-          // Extract posted time - try multiple selectors
-          const timeElement =
-            element.querySelector('.job-post-day') ||
-            element.querySelector('[data-testid="posted-date"]') ||
-            element.querySelector('.posted-date') ||
-            element.querySelector('.date')
-          const postedTime = timeElement?.textContent?.trim() || ''
-
-          console.log(`Job ${index + 1}:`, {
-            title,
-            company,
-            experience,
-            location,
-            postedTime,
-            link,
-          })
-
-          // Only add if we have at least title and company
-          if (title && company) {
-            jobData.push({
-              title,
-              company,
-              experience,
-              location,
-              link: link || 'https://www.naukri.com',
-              postedTime,
-            })
-          }
-        } catch (error) {
-          console.error('Error extracting job data:', error)
-        }
-      })
-
-      return jobData
-    })
-
-    console.log(`Successfully scraped ${jobs.length} jobs`)
-    console.log('Sample job data:', jobs.slice(0, 2)) // Log first 2 jobs for debugging
-
-    // Filter jobs based on search criteria
-    let filteredJobs = jobs
-
-    console.log('Before filtering:', filteredJobs.length, 'jobs')
-
-    if (location) {
-      filteredJobs = filteredJobs.filter((job) =>
-        job.location.toLowerCase().includes(location.toLowerCase())
-      )
-      console.log('After location filter:', filteredJobs.length, 'jobs')
     }
 
-    // Filter by company
-    if (company) {
-      filteredJobs = filteredJobs.filter((job) =>
-        job.company.toLowerCase().includes(company.toLowerCase())
-      )
-      console.log('After company filter:', filteredJobs.length, 'jobs')
+    return true
+  })
+}
+
+// Helper function to extract job data from HTML element
+const extractJobData = ($: cheerio.CheerioAPI, element: any): LinkedInJob | null => {
+  try {
+    // Use the correct selectors based on our testing
+    const title = $(element).find('h3.base-search-card__title').text().trim()
+    const company = $(element)
+      .find('h4.base-search-card__subtitle a.hidden-nested-link')
+      .text()
+      .trim()
+    const location = $(element).find('span.job-search-card__location').text().trim()
+    const link = $(element).find('a.base-card__full-link').attr('href')
+
+    // Try both time selectors (with and without --new suffix)
+    let postedTime = $(element).find('time.job-search-card__listdate--new').text().trim()
+    if (!postedTime) {
+      postedTime = $(element).find('time.job-search-card__listdate').text().trim()
     }
 
-    // Filter by experience (minimum years) - more flexible approach
-    if (experience && !isNaN(Number(experience))) {
-      const userExperience = Number(experience)
-      filteredJobs = filteredJobs.filter((job) => {
-        const expText = job.experience.toLowerCase()
-
-        // Extract years from experience string (e.g., "3-5 Yrs" -> 3, "5+ Yrs" -> 5)
-        const experienceMatch = job.experience.match(/(\d+)/)
-        if (experienceMatch) {
-          const jobMinExperience = Number(experienceMatch[1])
-          // Show jobs where user's experience is within or above the required range
-          // e.g., if user has 3 years, show jobs requiring 0-5 years
-          return jobMinExperience <= userExperience + 2 // Allow some flexibility
-        }
-
-        // If we can't parse experience, include the job
-        return true
-      })
-      console.log('After experience filter:', filteredJobs.length, 'jobs')
+    // Validate required fields
+    if (!title || !company || !location || !link || !postedTime) {
+      return null
     }
 
-    // Filter by date (jobs posted within 7 days for more results)
-    filteredJobs = filteredJobs.filter((job) => {
-      const postedTime = job.postedTime.toLowerCase()
-      return (
-        postedTime.includes('1 day') ||
-        postedTime.includes('today') ||
-        postedTime.includes('hours') ||
-        postedTime.includes('2 day') ||
-        postedTime.includes('3 day') ||
-        postedTime.includes('4 day') ||
-        postedTime.includes('5 day') ||
-        postedTime.includes('6 day') ||
-        postedTime.includes('7 day') ||
-        postedTime.includes('week')
-      )
-    })
-    console.log('After date filter (7 days):', filteredJobs.length, 'jobs')
-
-    console.log('Final filtered jobs:', filteredJobs.length)
-
-    // If we have very few results, be less restrictive with date filtering
-    if (filteredJobs.length < 20) {
-      console.log('Too few results, relaxing date filter...')
-      filteredJobs = jobs // Start with all scraped jobs again
-
-      // Reapply other filters but with relaxed date filter
-      if (location) {
-        filteredJobs = filteredJobs.filter((job) =>
-          job.location.toLowerCase().includes(location.toLowerCase())
-        )
-      }
-
-      if (company) {
-        filteredJobs = filteredJobs.filter((job) =>
-          job.company.toLowerCase().includes(company.toLowerCase())
-        )
-      }
-
-      if (experience && !isNaN(Number(experience))) {
-        const userExperience = Number(experience)
-        filteredJobs = filteredJobs.filter((job) => {
-          const experienceMatch = job.experience.match(/(\d+)/)
-          if (experienceMatch) {
-            const jobMinExperience = Number(experienceMatch[1])
-            return jobMinExperience <= userExperience + 2
-          }
-          return true
-        })
-      }
-
-      // More relaxed date filter - show jobs from last 30 days
-      filteredJobs = filteredJobs.filter((job) => {
-        const postedTime = job.postedTime.toLowerCase()
-        return (
-          postedTime.includes('day') ||
-          postedTime.includes('today') ||
-          postedTime.includes('hours') ||
-          postedTime.includes('week') ||
-          postedTime.includes('month')
-        )
-      })
-
-      console.log('After relaxed filtering:', filteredJobs.length, 'jobs')
+    // Validate posted time (accept any valid time format)
+    if (!isValidPostedTime(postedTime)) {
+      return null
     }
 
-    // Add match score (mock calculation for now)
-    const jobsWithScore = filteredJobs.map((job) => ({
-      ...job,
+    return {
       id: Math.random().toString(36).substr(2, 9),
-      matchScore: Math.floor(Math.random() * 20) + 80, // Random score between 80-100
-      salary: 'Not specified',
-      description: `Join ${job.company} as a ${job.title}. ${job.experience} experience required.`,
-    }))
+      title,
+      company,
+      location,
+      link: link.startsWith('http') ? link : `https://www.linkedin.com${link}`,
+      postedTime,
+    }
+  } catch (error) {
+    console.error('Error extracting job data:', error)
+    return null
+  }
+}
 
-    console.log('Returning response with', jobsWithScore.length, 'jobs')
+// Helper function to delay execution
+const delay = (ms: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { searchQuery, location, company, experience, category } = await request.json()
+
+    console.log('LinkedIn job search request received:', {
+      searchQuery,
+      location,
+      company,
+      experience,
+      category,
+    })
+
+    const allJobs: LinkedInJob[] = []
+    const maxJobs = 200 // Increased to 200 to get more results
+    const jobsPerPage = 25
+    const maxPages = Math.ceil(maxJobs / jobsPerPage) // This will be 8 pages max
+
+    // Set up axios with proper headers to mimic the working request
+    const axiosConfig = {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        Connection: 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        Referer:
+          'https://www.linkedin.com/jobs/search?keywords=software+engineer&location=United+States&geoId=103644278&trk=public_jobs_jobs-search-bar_search-submit',
+      },
+      timeout: 30000,
+    }
+
+    // Scrape jobs from multiple pages
+    for (let page = 0; page < maxPages; page++) {
+      const start = page * jobsPerPage
+      const url = buildLinkedInURL(searchQuery, location, company, start)
+
+      console.log(`Scraping page ${page + 1}, URL: ${url}`)
+
+      try {
+        const response = await axios.get(url, axiosConfig)
+        const $ = cheerio.load(response.data)
+
+        // Find all job listings
+        const jobElements = $('li')
+        let jobsFoundOnPage = 0
+
+        console.log(`Found ${jobElements.length} job elements on page ${page + 1}`)
+
+        jobElements.each((index, element) => {
+          if (allJobs.length >= maxJobs) return false // Stop if we have enough jobs
+
+          const jobData = extractJobData($, element)
+          if (jobData) {
+            allJobs.push(jobData)
+            jobsFoundOnPage++
+            console.log(`Added job: ${jobData.title} at ${jobData.company} (${jobData.postedTime})`)
+          }
+        })
+
+        console.log(
+          `Page ${page + 1}: Found ${jobsFoundOnPage} valid jobs (Total: ${allJobs.length})`
+        )
+
+        // If no jobs found on this page, we've reached the end
+        if (jobsFoundOnPage === 0) {
+          console.log('No more jobs found, stopping pagination')
+          break
+        }
+
+        // Add delay between requests (5 seconds)
+        if (page < maxPages - 1) {
+          console.log('Waiting 5 seconds before next request...')
+          await delay(5000)
+        }
+      } catch (error) {
+        console.error(`Error scraping page ${page + 1}:`, error)
+        // Continue to next page instead of failing completely
+        continue
+      }
+    }
+
+    // Apply additional filtering based on user criteria
+    const filteredJobs = filterJobs(allJobs, location, company)
+
+    // Sort jobs by recency (most recent first)
+    const sortedJobs = sortJobsByRecency(filteredJobs)
+
+    console.log(
+      `LinkedIn scraping completed. Total jobs found: ${allJobs.length}, After filtering: ${sortedJobs.length}`
+    )
+    console.log(`Filtering details - Location: "${location}", Company: "${company}"`)
+    if (allJobs.length > 0) {
+      console.log(
+        `Sample job locations before filtering:`,
+        allJobs.slice(0, 5).map((job) => job.location)
+      )
+    }
 
     return NextResponse.json({
       success: true,
-      jobs: jobsWithScore,
-      total: jobsWithScore.length,
-      searchParams: { searchQuery, location, company, experience },
+      jobs: sortedJobs,
+      total: sortedJobs.length,
+      searchParams: { searchQuery, location, company, experience, category },
+      note: `Found ${sortedJobs.length} LinkedIn jobs matching your criteria (sorted by most recent first)`,
     })
   } catch (error) {
-    console.error('Error scraping jobs:', error)
-
+    console.error('Error in LinkedIn job search:', error)
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Failed to scrape jobs',
+        error: 'Failed to scrape LinkedIn jobs. Please try again later.',
         jobs: [],
       },
       { status: 500 }
     )
-  } finally {
-    if (browser) {
-      await browser.close()
-      console.log('Browser closed')
-    }
   }
 }
