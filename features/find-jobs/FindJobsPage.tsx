@@ -17,9 +17,11 @@ interface Job {
 const FindJobsPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [location, setLocation] = useState('')
-  const [jobType, setJobType] = useState('all')
+  const [company, setCompany] = useState('')
+  const [experience, setExperience] = useState('')
   const [jobs, setJobs] = useState<Job[]>([])
   const [isSearching, setIsSearching] = useState(false)
+  const [searchError, setSearchError] = useState<string | null>(null)
 
   // Mock job data - replace with actual API calls
   const mockJobs: Job[] = [
@@ -60,11 +62,53 @@ const FindJobsPage = () => {
 
   const handleSearch = async () => {
     setIsSearching(true)
-    // TODO: Implement actual job search API
-    setTimeout(() => {
+    setJobs([]) // Clear previous results
+    setSearchError(null) // Clear previous errors
+
+    try {
+      console.log('Searching for jobs with:', { searchQuery, location, company, experience })
+
+      const response = await fetch('/api/jobs/scrape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchQuery,
+          location,
+          company,
+          experience,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch jobs')
+      }
+
+      const result = await response.json()
+
+      if (result.success) {
+        console.log(`Found ${result.jobs.length} jobs`)
+        setJobs(result.jobs)
+        if (result.jobs.length === 0) {
+          setSearchError(
+            'No jobs found matching your criteria. Try adjusting your search parameters.'
+          )
+        }
+      } else {
+        console.error('Scraping failed:', result.error)
+        setSearchError('Failed to fetch jobs from the job portal. Please try again.')
+        // Fallback to mock data if scraping fails
+        setJobs(mockJobs)
+      }
+    } catch (error) {
+      console.error('Error searching for jobs:', error)
+      setSearchError('An error occurred while searching for jobs. Please try again.')
+      // Fallback to mock data on error
       setJobs(mockJobs)
+    } finally {
       setIsSearching(false)
-    }, 1500)
+    }
   }
 
   return (
@@ -81,7 +125,7 @@ const FindJobsPage = () => {
       {/* Search Section */}
       <div className="mx-auto mb-8 w-full max-w-4xl">
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
-          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-5">
             <div>
               <label className="mb-2 block text-sm font-medium text-white">Job Title</label>
               <input
@@ -103,18 +147,28 @@ const FindJobsPage = () => {
               />
             </div>
             <div>
-              <label className="mb-2 block text-sm font-medium text-white">Job Type</label>
-              <select
-                value={jobType}
-                onChange={(e) => setJobType(e.target.value)}
+              <label className="mb-2 block text-sm font-medium text-white">Company</label>
+              <input
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                placeholder="e.g. Google, Microsoft"
                 className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
-              >
-                <option value="all">All Types</option>
-                <option value="full-time">Full-time</option>
-                <option value="part-time">Part-time</option>
-                <option value="contract">Contract</option>
-                <option value="remote">Remote</option>
-              </select>
+              />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-white">
+                Min Experience (Years)
+              </label>
+              <input
+                type="number"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                placeholder="e.g. 3"
+                min="0"
+                max="20"
+                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
+              />
             </div>
             <div className="flex items-end">
               <button
@@ -128,6 +182,30 @@ const FindJobsPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Error Message */}
+      {searchError && (
+        <div className="mx-auto mb-8 w-full max-w-4xl">
+          <div className="rounded-lg border border-red-500 bg-red-900/20 p-4">
+            <div className="flex items-center">
+              <svg
+                className="mr-3 h-5 w-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p className="text-red-300">{searchError}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Results Section */}
       {jobs.length > 0 && (
@@ -185,12 +263,48 @@ const FindJobsPage = () => {
                         </svg>
                         {job.location}
                       </span>
-                      <span>{job.type}</span>
-                      <span>{job.salary}</span>
+                      {job.experience && (
+                        <span className="flex items-center">
+                          <svg
+                            className="mr-1 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          {job.experience}
+                        </span>
+                      )}
+                      {job.salary && job.salary !== 'Not specified' && (
+                        <span className="flex items-center">
+                          <svg
+                            className="mr-1 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                            />
+                          </svg>
+                          {job.salary}
+                        </span>
+                      )}
                     </div>
                     <p className="mb-4 text-gray-300">{job.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500">Posted {job.postedDate}</span>
+                      <span className="text-sm text-gray-500">
+                        Posted {job.postedTime || job.postedDate}
+                      </span>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm text-gray-400">Match Score:</span>
                         <span className="rounded bg-pink-700 px-2 py-1 text-sm font-semibold text-white">
@@ -199,9 +313,14 @@ const FindJobsPage = () => {
                       </div>
                     </div>
                   </div>
-                  <button className="ml-4 rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800">
+                  <a
+                    href={job.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-4 rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800"
+                  >
                     Apply Now
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}

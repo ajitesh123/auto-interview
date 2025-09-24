@@ -42,6 +42,7 @@
     "postcss": "^8.4.24",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.9",
+    "puppeteer": "^24.22.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-tweet": "^3.2.1",
