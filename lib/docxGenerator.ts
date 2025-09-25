@@ -773,7 +773,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
         new Paragraph({
           children: [
             new TextRun({
-              text: proj.title || '',
+              text: proj.projectName || '',
               bold: true,
               size: 22,
               color: '000000',
@@ -783,7 +783,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
               text: '\t',
             }),
             new TextRun({
-              text: proj.duration || '',
+              text: '', // ProjectEntry doesn't have duration field
               size: 22,
               color: '000000',
               font: 'Calibri',
@@ -797,22 +797,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
           ],
           spacing: { after: 50 },
         }),
-        // Project description
-        ...(proj.description
-          ? [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: proj.description,
-                    size: 22,
-                    color: '000000',
-                    font: 'Calibri',
-                  }),
-                ],
-                spacing: { after: 50 },
-              }),
-            ]
-          : []),
+        // Project description removed - ProjectEntry doesn't have description field
         // Bullet points with proper Word bullets and bold formatting
         ...(proj.bullets || []).map(
           (bullet) =>
@@ -857,19 +842,19 @@ function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[]
   ]
 
   projects.slice(0, 2).forEach((proj) => {
-    if (proj.title) {
+    if (proj.projectName) {
       paragraphs.push(
         new Paragraph({
           children: [
             new TextRun({
-              text: proj.duration || '',
+              text: '', // ProjectEntry doesn't have duration field
               bold: true,
               size: 20, // 10pt
               color: '000000',
               font: 'Arial',
             }),
             new TextRun({
-              text: `\t${proj.title || ''}`,
+              text: `\t${proj.projectName || ''}`,
               bold: true,
               size: 20, // 10pt
               color: '000000',
