@@ -7,7 +7,7 @@ import MinimalFooter from './MinimalFooter'
 import { BuildResumePage } from '../features/build-resume'
 import { ATSScorePage } from '../features/ats-score'
 import { FindJobsPage } from '../features/find-jobs'
-import { AssessmentsPage } from '../features/assessments'
+// import { AssessmentsPage } from '../features/assessments' // Removed - now redirects to Tough Tongue AI
 import { CoverLetterPage } from '../features/cover-letter'
 
 const HomePage = () => {
@@ -78,6 +78,13 @@ const HomePage = () => {
 
   const handleFeatureClick = (featureId: string) => {
     console.log('Feature clicked:', featureId)
+
+    // Redirect to Tough Tongue AI for assessments
+    if (featureId === 'assessments') {
+      window.open('https://www.toughtongueai.com/', '_blank')
+      return
+    }
+
     setActivePage(featureId)
     if (featureId === 'build-resume') {
       setBuildResumeKey((prev) => prev + 1)
@@ -137,8 +144,7 @@ const HomePage = () => {
         return <ATSScorePage />
       case 'find-jobs':
         return <FindJobsPage />
-      case 'assessments':
-        return <AssessmentsPage />
+      // assessments case removed - now redirects to Tough Tongue AI
       case 'cover-letter':
         return <CoverLetterPage />
       default:
@@ -204,7 +210,7 @@ const HomePage = () => {
                 About
               </Link>
               <Link
-                href="https://app.toughtongueai.com/"
+                href="https://www.toughtongueai.com/"
                 className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
               >
                 Tough Tongue AI
