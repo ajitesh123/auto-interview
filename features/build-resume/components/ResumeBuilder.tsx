@@ -7,7 +7,7 @@ import EducationSection from './EducationSection'
 import ExperienceSection from './ExperienceSection'
 import LeadershipActivitiesSection from './LeadershipActivitiesSection'
 import ProjectsSection from './ProjectsSection'
-import CustomSection from './CustomSection'
+import CertificationsSection from './CertificationsSection'
 import SkillsSection from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
@@ -44,7 +44,7 @@ interface ExperienceEntry {
   endMonth: string
   endYear: string
   isCurrent: boolean
-  responsibilities: string
+  bullets: string[]
 }
 
 interface LeadershipEntry {
@@ -57,25 +57,18 @@ interface LeadershipEntry {
   endMonth: string
   endYear: string
   isCurrent: boolean
-  description: string
+  bullets: string[]
 }
 
 interface ProjectEntry {
   id: string
   projectName: string
-  technologies: string
-  description: string
+  bullets: string[]
   link: string
 }
 
-interface CustomEntry {
-  id: string
-  title: string
-  subtitle: string
-  startDate: string
-  endDate: string
-  isCurrent: boolean
-  description: string
+interface CertificationEntry {
+  bullets: string[]
 }
 
 interface ResumeData {
@@ -84,8 +77,8 @@ interface ResumeData {
   experience: ExperienceEntry[]
   leadership: LeadershipEntry[]
   projects: ProjectEntry[]
-  other1: { sectionTitle: string; entries: CustomEntry[] }
-  other2: { sectionTitle: string; entries: CustomEntry[] }
+  certifications: CertificationEntry
+  skills: { technical: string[]; languages: string[]; interests: string[] }
 }
 
 interface ResumeBuilderProps {
@@ -107,15 +100,14 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     experience: initialData?.experience || [],
     leadership: initialData?.leadership || [],
     projects: initialData?.projects || [],
-    other1: initialData?.other1 || { sectionTitle: 'Other (1)', entries: [] },
-    skills: initialData?.skills || { technical: [''], languages: [''], interests: [''] },
+    certifications: initialData?.certifications || { bullets: [] },
+    skills: initialData?.skills || { technical: [], languages: [], interests: [] },
   })
   const [savedResumeId, setSavedResumeId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
   const [showTemplateSelection, setShowTemplateSelection] = useState(false)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
-  const [skillsSectionSaved, setSkillsSectionSaved] = useState(false)
 
   // Clear validation errors when user fixes the issues
   useEffect(() => {
@@ -186,10 +178,6 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
         if (result.success) {
           setSaveMessage('Resume saved successfully!')
           setTimeout(() => setSaveMessage(null), 3000)
-          // Mark skills section as saved if we're on the skills section (section 6)
-          if (currentSection === 6) {
-            setSkillsSectionSaved(true)
-          }
           return savedResumeId
         }
       } else {
@@ -199,10 +187,6 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
           setSavedResumeId(result.data.id)
           setSaveMessage('Resume saved successfully!')
           setTimeout(() => setSaveMessage(null), 3000)
-          // Mark skills section as saved if we're on the skills section (section 6)
-          if (currentSection === 6) {
-            setSkillsSectionSaved(true)
-          }
           return result.data.id
         }
       }
@@ -210,11 +194,14 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       if (!result.success) {
         setSaveMessage(`Error: ${result.message}`)
         setTimeout(() => setSaveMessage(null), 5000)
+        console.error('Save resume failed:', result.message)
       }
       return null
     } catch (error) {
-      setSaveMessage('Error saving resume. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      setSaveMessage(`Error saving resume: ${errorMessage}`)
       setTimeout(() => setSaveMessage(null), 5000)
+      console.error('Save resume error:', error)
       return null
     } finally {
       setIsSaving(false)
@@ -236,18 +223,14 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     if (currentSection < 6) {
       setCurrentSection(currentSection + 1)
     } else {
-      // Handle completion - check if skills section has been saved
-      if (!skillsSectionSaved) {
-        setValidationErrors([
-          'Please save your progress on the Skills and Interests section before finishing your resume.',
-        ])
-        return
-      }
-
-      // Handle completion - save and navigate to template selection
+      // Handle completion - automatically save and navigate to template selection
       const resumeId = await saveResume()
       if (resumeId) {
         setShowTemplateSelection(true)
+      } else {
+        // If save failed, show error message and don't proceed to template selection
+        setSaveMessage('Failed to save resume. Please try again.')
+        setTimeout(() => setSaveMessage(null), 5000)
       }
     }
   }
@@ -306,11 +289,9 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
         )
       case 5:
         return (
-          <CustomSection
-            sectionTitle="Other (1)"
-            sectionNumber={1}
-            data={resumeData.other1}
-            onChange={(data) => setResumeData({ ...resumeData, other1: data })}
+          <CertificationsSection
+            data={resumeData.certifications}
+            onChange={(data) => setResumeData({ ...resumeData, certifications: data })}
           />
         )
       case 6:
@@ -325,8 +306,9 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     }
   }
 
-  // Show template selection if completed
+  // Show template selection if completed and we have a valid resume ID
   if (showTemplateSelection && savedResumeId) {
+    console.log('Showing template selection page with resume ID:', savedResumeId)
     return (
       <TemplateSelectionPage
         resumeData={resumeData}
@@ -346,7 +328,6 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       isSaving={isSaving}
       saveMessage={saveMessage}
       validationErrors={validationErrors}
-      skillsSectionSaved={skillsSectionSaved}
     >
       {renderCurrentSection()}
     </ResumeBuilderLayout>

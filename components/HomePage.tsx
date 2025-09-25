@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from './Link'
 import SearchButton from './SearchButton'
 import MinimalFooter from './MinimalFooter'
@@ -13,6 +13,30 @@ import { CoverLetterPage } from '../features/cover-letter'
 const HomePage = () => {
   const [activePage, setActivePage] = useState('home')
   const [buildResumeKey, setBuildResumeKey] = useState(0)
+
+  // Clear any body scroll locks that might be preventing clicks
+  useEffect(() => {
+    // Clear body scroll locks
+    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
+    document.documentElement.style.overflow = ''
+    document.documentElement.style.paddingRight = ''
+
+    // Ensure pointer events are enabled
+    document.body.style.pointerEvents = 'auto'
+    document.documentElement.style.pointerEvents = 'auto'
+
+    // Add a test click handler to see if clicks are working
+    const testClick = () => {
+      console.log('Test click detected - clicks are working!')
+    }
+
+    document.addEventListener('click', testClick)
+
+    return () => {
+      document.removeEventListener('click', testClick)
+    }
+  }, [])
 
   const features = [
     {
@@ -53,6 +77,7 @@ const HomePage = () => {
   ]
 
   const handleFeatureClick = (featureId: string) => {
+    console.log('Feature clicked:', featureId)
     setActivePage(featureId)
     if (featureId === 'build-resume') {
       setBuildResumeKey((prev) => prev + 1)

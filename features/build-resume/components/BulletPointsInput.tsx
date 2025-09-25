@@ -25,7 +25,9 @@ const BulletPointsInput = ({
     const newBullets = [...localBullets]
     newBullets[index] = value
     setLocalBullets(newBullets)
-    onChange(newBullets.filter((bullet) => bullet.trim() !== ''))
+    // Don't filter out empty bullets if they're the only bullets (for new entries)
+    const filteredBullets = newBullets.filter((bullet) => bullet.trim() !== '')
+    onChange(filteredBullets.length > 0 ? filteredBullets : newBullets)
   }
 
   const handleBoldText = (

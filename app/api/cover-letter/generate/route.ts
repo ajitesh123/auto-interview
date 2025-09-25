@@ -30,21 +30,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!process.env.GEMINI_API_KEY) {
-      console.log('Gemini API key not configured')
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Gemini API key not configured',
-        },
-        { status: 500 }
-      )
-    }
-
+    // Initialize Gemini AI with embedded API key
+    const GEMINI_API_KEY = 'AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI'
     console.log('Gemini API key is configured, proceeding with generation')
 
-    // Initialize Gemini AI
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
 
     // Extract key information from resume data
     const resumeText = `

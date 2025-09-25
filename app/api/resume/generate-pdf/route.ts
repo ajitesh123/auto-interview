@@ -51,7 +51,7 @@ async function fillHarvardTemplate(data: ResumeData): Promise<string> {
   try {
     // Load the Harvard template
     const templateResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/templates/harvard/harvard-template.html`
+      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'}/templates/harvard/harvard-template.html`
     )
     if (!templateResponse.ok) {
       throw new Error('Failed to load Harvard template')
@@ -92,7 +92,7 @@ async function fillHarvardTemplate(data: ResumeData): Promise<string> {
 }
 
 function getReplacements(data: ResumeData): Record<string, string> {
-  const { contact, education, experience, leadership, projects, other1, skills } = data
+  const { contact, education, experience, leadership, projects, certifications, skills } = data
 
   // Helper function to get bullets from array - only return filled bullets
   const getBullets = (bullets: string[], maxBullets: number = 15) => {
@@ -352,13 +352,12 @@ function getReplacements(data: ResumeData): Record<string, string> {
     'Project 2 Title': createProjectTitle(projects[1]),
     'Project 2 Bullets': generateBulletsHTML(projects[1]?.bullets || []),
 
-    // Other Section (mapped to specific placeholders)
-    'Other (1)': hasSectionContent(other1) ? other1.sectionTitle || 'Other' : '',
-    'Other1 Bullet 1': other1.entries[0]?.title || '',
-    'Other1 Bullet 2': other1.entries[1]?.title || '',
-    'Other1 Bullet 3': other1.entries[2]?.title || '',
-    'Other1 Bullet 4': other1.entries[3]?.title || '',
-    'Other1 Bullet 5': other1.entries[4]?.title || '',
+    // Certifications Section (mapped to specific placeholders)
+    Certifications:
+      certifications.bullets && certifications.bullets.some((bullet) => bullet.trim())
+        ? 'Certifications'
+        : '',
+    Certifications_Bullets: generateBulletsHTML(certifications.bullets || []),
 
     // Skills Section (mapped to specific placeholders)
     'Skills & Interests': hasSectionContent(skills) ? 'Skills & Interests' : '',
@@ -454,7 +453,7 @@ async function fillLBSTemplate(data: ResumeData): Promise<string> {
     })
 
     // Remove empty sections and entries
-    filledTemplate = removeEmptyLBSSections(filledTemplate)
+    filledTemplate = removeEmptyLBSSections(filledTemplate, data)
 
     return filledTemplate
   } catch (error) {
@@ -465,7 +464,7 @@ async function fillLBSTemplate(data: ResumeData): Promise<string> {
 
 // Function to get LBS template replacements
 function getLBSReplacements(data: ResumeData): Record<string, string> {
-  const { contact, education, experience, leadership, skills } = data
+  const { contact, education, experience, leadership, projects, certifications, skills } = data
 
   // Helper function to parse text with bold formatting for HTML
   function parseBoldTextHTML(text: string): string {
@@ -491,6 +490,33 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
     return start && end ? `${start} - ${end}` : start || end
   }
 
+  // Helper function to format education completion date
+  const formatEducationCompletionDate = (
+    graduationMonth: string,
+    graduationYear: string
+  ): string => {
+    if (!graduationYear) return ''
+
+    // Convert month name to number
+    const monthMap: { [key: string]: string } = {
+      January: '01',
+      February: '02',
+      March: '03',
+      April: '04',
+      May: '05',
+      June: '06',
+      July: '07',
+      August: '08',
+      September: '09',
+      October: '10',
+      November: '11',
+      December: '12',
+    }
+
+    const monthNumber = monthMap[graduationMonth] || '01'
+    return `${monthNumber}/${graduationYear}`
+  }
+
   return {
     // Contact Information
     Name: contact.name || '',
@@ -498,34 +524,34 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
     Phone: contact.phone || '',
     LinkedIn: contact.linkedin || '',
 
-    // Education (up to 4 entries) - Add later year (till 2030)
-    Education1_StartYear: education[0]?.graduationYear || '',
-    Education1_EndYear: education[0]?.graduationYear
-      ? `${education[0].graduationYear} – 2030`
-      : '2030',
+    // Education (up to 4 entries) - Use completion date only
+    Education1_CompletionDate: formatEducationCompletionDate(
+      education[0]?.graduationMonth || '',
+      education[0]?.graduationYear || ''
+    ),
     Education1_Institution: education[0]?.university || '',
     Education1_Degree: education[0]?.degree || '',
 
-    Education2_StartYear: education[1]?.graduationYear || '',
-    Education2_EndYear: education[1]?.graduationYear
-      ? `${education[1].graduationYear} – 2030`
-      : '2030',
+    Education2_CompletionDate: formatEducationCompletionDate(
+      education[1]?.graduationMonth || '',
+      education[1]?.graduationYear || ''
+    ),
     Education2_Institution: education[1]?.university || '',
     Education2_Degree: education[1]?.degree || '',
     Education2_Honours: education[1]?.major || '',
 
-    Education3_StartYear: education[2]?.graduationYear || '',
-    Education3_EndYear: education[2]?.graduationYear
-      ? `${education[2].graduationYear} – 2030`
-      : '2030',
+    Education3_CompletionDate: formatEducationCompletionDate(
+      education[2]?.graduationMonth || '',
+      education[2]?.graduationYear || ''
+    ),
     Education3_Institution: education[2]?.university || '',
     Education3_Degree: education[2]?.degree || '',
     Education3_Honours: education[2]?.major || '',
 
-    Education4_StartYear: education[3]?.graduationYear || '',
-    Education4_EndYear: education[3]?.graduationYear
-      ? `${education[3].graduationYear} – 2030`
-      : '2030',
+    Education4_CompletionDate: formatEducationCompletionDate(
+      education[3]?.graduationMonth || '',
+      education[3]?.graduationYear || ''
+    ),
     Education4_Institution: education[3]?.university || '',
     Education4_Degree: education[3]?.degree || '',
     Education4_Honours: education[3]?.major || '',
@@ -590,25 +616,48 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
       console.log('Interests processed:', interests)
       return interests.join(', ')
     })(),
+
+    // Certifications
+    Certifications: (() => {
+      const certifications = data.certifications?.bullets?.filter((cert) => cert.trim()) || []
+      console.log('Certifications processed:', certifications)
+      return certifications.join(', ')
+    })(),
+
+    // Certifications Bullets for LBS template
+    Certifications_Bullets: (() => {
+      const certifications = data.certifications?.bullets?.filter((cert) => cert.trim()) || []
+      return generateBulletsHTML(certifications)
+    })(),
   }
 }
 
 // Function to remove empty sections from LBS template
-function removeEmptyLBSSections(html: string): string {
+function removeEmptyLBSSections(html: string, data: ResumeData): string {
   console.log('Starting removeEmptyLBSSections with HTML length:', html.length)
-
-  // Remove entries that contain only empty placeholders or empty content
-  // This handles cases where placeholders are replaced with empty strings
 
   let processedHtml = html
 
-  // Remove education entries that have empty content
+  // Remove education entries that have empty content - based on new MM/YYYY format
+  // Pattern 1: Remove entries with empty completion date and empty degree title
   processedHtml = processedHtml.replace(
-    /<div class="education-entry">\s*<div class="date-range">\s*–\s*<\/div>\s*<div class="degree-title">\s*<br>\s*, <span class="degree-details"><\/span><\/div>\s*<\/div>/g,
+    /<div class="education-entry">\s*<div class="date-range"><\/div>\s*<div class="degree-title">\s*<br>\s*, <span class="degree-details"><\/span><\/div>\s*<\/div>/g,
     ''
   )
 
-  // Remove leadership entries that have empty content
+  // Pattern 2: Remove entries with empty degree title (just <br>, <span></span>)
+  processedHtml = processedHtml.replace(
+    /<div class="education-entry">[\s\S]*?<div class="degree-title">\s*<br>\s*, <span class="degree-details"><\/span><\/div>[\s\S]*?<\/div>/g,
+    ''
+  )
+
+  // Pattern 3: Remove entries that still contain placeholder patterns
+  processedHtml = processedHtml.replace(
+    /<div class="education-entry">[\s\S]*?{{Education[34]_[^}]+}}[\s\S]*?<\/div>/g,
+    ''
+  )
+
+  // Remove experience entries that have empty content
   processedHtml = processedHtml.replace(
     /<div class="experience-entry">\s*<div class="date-range">\s*-\s*<\/div>\s*<div class="company-description">\s*<div class="company-name">, <\/div>\s*<div class="job-title"><\/div>\s*<\/div>\s*<\/div>/g,
     ''
@@ -620,11 +669,7 @@ function removeEmptyLBSSections(html: string): string {
     ''
   )
 
-  // Also remove entries that still contain placeholder patterns (in case they weren't replaced)
-  processedHtml = processedHtml.replace(
-    /<div class="education-entry">[\s\S]*?{{Education[34]_[^}]+}}[\s\S]*?<\/div>/g,
-    ''
-  )
+  // Remove entries that still contain placeholder patterns
   processedHtml = processedHtml.replace(
     /<div class="experience-entry">[\s\S]*?{{Leadership2_[^}]+}}[\s\S]*?<\/div>/g,
     ''
@@ -634,24 +679,52 @@ function removeEmptyLBSSections(html: string): string {
     ''
   )
 
-  // Remove empty Technical Skills section
+  // Remove the entire Projects section if no projects exist
+  // Check if there are any projects in the data
+  const hasProjects =
+    data.projects &&
+    data.projects.length > 0 &&
+    data.projects.some((project) => project.projectName && project.projectName.trim() !== '')
+
+  if (!hasProjects) {
+    // Remove the entire Projects section including the heading
+    processedHtml = processedHtml.replace(
+      /<!-- Projects Section -->[\s\S]*?<!-- Certifications Section -->/g,
+      '<!-- Certifications Section -->'
+    )
+  }
+
+  // Remove the entire Certifications section if no certifications exist
+  const hasCertifications =
+    data.certifications &&
+    data.certifications.bullets &&
+    data.certifications.bullets.some((bullet) => bullet.trim() !== '')
+
+  if (!hasCertifications) {
+    // Remove the entire Certifications section including the heading
+    processedHtml = processedHtml.replace(
+      /<!-- Certifications Section -->[\s\S]*?<!-- Footer Information -->/g,
+      '<!-- Footer Information -->'
+    )
+  }
+
+  // Remove empty footer sections
   processedHtml = processedHtml.replace(
-    /<div class="footer-info">\s*<p>Technical Skills: <\/p>\s*<\/div>/g,
+    /<p><span class="footer-label">Technical Skills:<\/span> <\/p>/g,
+    ''
+  )
+  processedHtml = processedHtml.replace(
+    /<p><span class="footer-label">Languages:<\/span> <\/p>/g,
+    ''
+  )
+  processedHtml = processedHtml.replace(
+    /<p><span class="footer-label">Interests:<\/span> <\/p>/g,
     ''
   )
 
-  // Remove empty Languages section
-  processedHtml = processedHtml.replace(
-    /<div class="footer-info">\s*<p>Languages: <\/p>\s*<\/div>/g,
-    ''
-  )
+  // Remove empty footer-info div if all content is removed
+  processedHtml = processedHtml.replace(/<div class="footer-info">\s*<\/div>/g, '')
 
-  // Remove empty Interests section
-  processedHtml = processedHtml.replace(
-    /<div class="footer-info">\s*<p>Interests: <\/p>\s*<\/div>/g,
-    ''
-  )
-
-  console.log('Finished removeEmptyLBSSections')
+  console.log('Finished removeEmptyLBSSections with HTML length:', processedHtml.length)
   return processedHtml
 }

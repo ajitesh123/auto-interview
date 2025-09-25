@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ResumeData } from '../../../lib/resumeStore'
-import { generateDocx } from '../../../lib/docxGenerator'
+import { generateDOCX } from '../../../lib/docxGenerator'
 
 interface TemplateSelectionPageProps {
   resumeData: ResumeData
@@ -17,10 +17,14 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
   const [previewHTML, setPreviewHTML] = useState<string>('')
   const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs'>('harvard')
 
+  // Debug log to track when component is rendered
+  console.log('TemplateSelectionPage rendered with resumeId:', resumeId)
+
   // Preview is now only loaded when user clicks "Preview Resume" button
 
   const loadPreview = async (template: 'harvard' | 'lbs' = selectedTemplate) => {
     try {
+      console.log('Loading preview with resumeId:', resumeId, 'template:', template)
       const response = await fetch('/api/resume/generate-pdf', {
         method: 'POST',
         headers: {
@@ -35,7 +39,9 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
       })
 
       if (!response.ok) {
-        throw new Error('Failed to generate preview')
+        const errorText = await response.text()
+        console.error('Preview generation failed:', response.status, errorText)
+        throw new Error(`Failed to generate preview: ${response.status} ${errorText}`)
       }
 
       const html = await response.text()
@@ -43,6 +49,10 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
       setShowPreview(true)
     } catch (error) {
       console.error('Error generating preview:', error)
+      setDownloadMessage(
+        `Error generating preview: ${error instanceof Error ? error.message : 'Unknown error'}`
+      )
+      setTimeout(() => setDownloadMessage(null), 5000)
     }
   }
 
@@ -67,7 +77,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
     try {
       // Generate DOCX using client-side generation
-      await generateDocx(resumeData, selectedTemplate)
+      await generateDOCX(resumeData, selectedTemplate)
 
       setDownloadMessage('Resume downloaded successfully!')
       setTimeout(() => setDownloadMessage(null), 3000)

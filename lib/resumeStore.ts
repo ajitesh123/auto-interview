@@ -54,14 +54,8 @@ export interface ProjectEntry {
   link: string
 }
 
-export interface CustomEntry {
-  id: string
-  title: string
-  subtitle: string
-  startDate: string
-  endDate: string
-  isCurrent: boolean
-  bullets: string[] // Changed from description to bullets array
+export interface CertificationEntry {
+  bullets: string[]
 }
 
 export interface SkillsData {
@@ -76,7 +70,7 @@ export interface ResumeData {
   experience: ExperienceEntry[]
   leadership: LeadershipEntry[]
   projects: ProjectEntry[]
-  other1: { sectionTitle: string; entries: CustomEntry[] }
+  certifications: CertificationEntry
   skills: SkillsData // Changed from other2 to skills
 }
 
@@ -186,13 +180,13 @@ export function validateResumeData(data: unknown): { isValid: boolean; errors: s
   if (!Array.isArray(resumeData.leadership)) errors.push('Leadership must be an array')
   if (!Array.isArray(resumeData.projects)) errors.push('Projects must be an array')
 
-  // Validate other sections
-  if (!resumeData.other1 || typeof resumeData.other1 !== 'object') {
-    errors.push('Other1 section is required')
+  // Validate certifications section
+  if (!resumeData.certifications || typeof resumeData.certifications !== 'object') {
+    errors.push('Certifications section is required')
   } else {
-    const other1 = resumeData.other1 as Record<string, unknown>
-    if (typeof other1.sectionTitle !== 'string') errors.push('Other1 sectionTitle must be a string')
-    if (!Array.isArray(other1.entries)) errors.push('Other1 entries must be an array')
+    const certifications = resumeData.certifications as Record<string, unknown>
+    if (!Array.isArray(certifications.bullets))
+      errors.push('Certifications bullets must be an array')
   }
 
   if (!resumeData.skills || typeof resumeData.skills !== 'object') {

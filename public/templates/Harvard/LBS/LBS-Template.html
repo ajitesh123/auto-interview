@@ -22,11 +22,11 @@
 
             padding: 40px;
 
-            line-height: 1.5;
+            line-height: 1.2;
 
             color: #000;
 
-            font-size: 10px;
+            font-size: 11pt;
 
         }
 
@@ -46,11 +46,11 @@
 
         .name {
 
-            font-size: 11px;
+            font-size: 11pt;
 
             font-weight: bold;
 
-            margin-bottom: 5px;
+            margin-bottom: 8px;
 
         }
 
@@ -58,7 +58,7 @@
 
         .contact-info {
 
-            font-size: 10px;
+            font-size: 10pt;
 
             line-height: 1.4;
 
@@ -80,13 +80,13 @@
 
         .section-heading {
 
-            font-size: 11px;
+            font-size: 11pt;
 
             font-weight: bold;
 
-            margin-top: 25px;
+            margin-top: 20px;
 
-            margin-bottom: 15px;
+            margin-bottom: 10px;
 
             border-bottom: 1px solid #000;
 
@@ -104,7 +104,7 @@
 
             width: 100%;
 
-            margin-bottom: 15px;
+            margin-bottom: 10px;
 
         }
 
@@ -112,15 +112,15 @@
 
             display: table-cell;
 
-            width: 20%;
+            width: 12%;
 
             vertical-align: top;
 
-            padding-right: 10px;
+            padding-right: 2px;
 
             font-weight: bold;
 
-            font-size: 10px;
+            font-size: 10pt;
 
         }
 
@@ -128,13 +128,13 @@
 
             display: table-cell;
 
-            width: 80%;
+            width: 88%;
 
             vertical-align: top;
 
             font-style: normal;
 
-            font-size: 10px;
+            font-size: 10pt;
 
         }
 
@@ -144,7 +144,7 @@
 
             font-weight: bold;
 
-            font-size: 10px;
+            font-size: 10pt;
 
             margin-bottom: 3px;
 
@@ -156,7 +156,7 @@
 
             font-weight: normal;
 
-            font-size: 10px;
+            font-size: 10pt;
 
         }
 
@@ -166,7 +166,7 @@
 
             font-weight: bold;
 
-            font-size: 10px;
+            font-size: 10pt;
 
             margin-bottom: 8px;
 
@@ -182,7 +182,7 @@
 
             padding-left: 20px;
 
-            font-size: 10px;
+            font-size: 10pt;
 
         }
 
@@ -190,11 +190,11 @@
 
         li {
 
-            margin-bottom: 8px;
+            margin-bottom: 4px;
 
             padding-left: 5px;
 
-            font-size: 10px;
+            font-size: 10pt;
 
         }
 
@@ -230,11 +230,17 @@
 
         .footer-info p {
 
-            font-weight: bold;
+            font-weight: normal;
 
-            font-size: 10px;
+            font-size: 10pt;
 
             margin: 5px 0;
+
+        }
+
+        .footer-label {
+
+            font-weight: bold;
 
         }
 
@@ -272,7 +278,7 @@
 
     <div class="education-entry">
 
-        <div class="date-range">{{Education1_StartYear}} – {{Education1_EndYear}}</div>
+        <div class="date-range">{{Education1_CompletionDate}}</div>
 
         <div class="degree-title">{{Education1_Institution}}<br>{{Education1_Degree}}</div>
 
@@ -282,7 +288,7 @@
 
     <div class="education-entry">
 
-        <div class="date-range">{{Education2_StartYear}} – {{Education2_EndYear}}</div>
+        <div class="date-range">{{Education2_CompletionDate}}</div>
 
         <div class="degree-title">{{Education2_Institution}}<br>{{Education2_Degree}}, <span class="degree-details">{{Education2_Honours}}</span></div>
 
@@ -292,7 +298,7 @@
 
     <div class="education-entry">
 
-        <div class="date-range">{{Education3_StartYear}} – {{Education3_EndYear}}</div>
+        <div class="date-range">{{Education3_CompletionDate}}</div>
 
         <div class="degree-title">{{Education3_Institution}}<br>{{Education3_Degree}}, <span class="degree-details">{{Education3_Honours}}</span></div>
 
@@ -302,7 +308,7 @@
 
     <div class="education-entry">
 
-        <div class="date-range">{{Education4_StartYear}} – {{Education4_EndYear}}</div>
+        <div class="date-range">{{Education4_CompletionDate}}</div>
 
         <div class="degree-title">{{Education4_Institution}}<br>{{Education4_Degree}}, <span class="degree-details">{{Education4_Honours}}</span></div>
 
@@ -456,17 +462,38 @@
 
 
 
+    <!-- Certifications Section -->
+
+    <div class="section-heading">CERTIFICATIONS</div>
+
+    <!-- Certifications Bullets -->
+
+    <div class="experience-entry">
+
+        <div class="date-range"></div>
+
+        <div class="company-description">
+
+            {{Certifications_Bullets}}
+
+        </div>
+
+    </div>
+
+
+
     <!-- Footer Information -->
 
     <div class="footer-info">
 
-        <p>Technical Skills: {{TechnicalSkills}}</p>
+        <p><span class="footer-label">Technical Skills:</span> {{TechnicalSkills}}</p>
 
-        <p>Languages: {{Languages}}</p>
+        <p><span class="footer-label">Languages:</span> {{Languages}}</p>
 
-        <p>Interests: {{Interests}}</p>
+        <p><span class="footer-label">Interests:</span> {{Interests}}</p>
 
     </div>
+
 
 </body>
 

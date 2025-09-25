@@ -106,6 +106,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       {/* Main body content */}
       <body className="bg-black pl-[calc(100vw-100%)] text-white antialiased">
+        {/* Clear body scroll locks on page load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined') {
+                // Clear any body scroll locks that might be preventing clicks
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                document.documentElement.style.overflow = '';
+                document.documentElement.style.paddingRight = '';
+              }
+            `,
+          }}
+        />
         {/* Theme provider wrapper for dark/light mode */}
         <ThemeProviders>
           {/* Analytics component for tracking - disabled in development */}

@@ -13,7 +13,6 @@ interface ResumeBuilderLayoutProps {
   saveMessage?: string | null
   totalSections?: number
   validationErrors?: string[]
-  skillsSectionSaved?: boolean
 }
 
 const SECTIONS = [
@@ -22,7 +21,7 @@ const SECTIONS = [
   'Experience',
   'Positions of Responsibility',
   'Projects',
-  'Other (1)',
+  'Certifications',
   'Skills and Interests',
 ]
 
@@ -37,7 +36,6 @@ const ResumeBuilderLayout = ({
   saveMessage = null,
   totalSections = SECTIONS.length,
   validationErrors = [],
-  skillsSectionSaved = false,
 }: ResumeBuilderLayoutProps) => {
   const progress = ((currentSection + 1) / totalSections) * 100
 
@@ -233,37 +231,25 @@ const ResumeBuilderLayout = ({
                   </svg>
                 </button>
               ) : (
-                <div className="flex flex-col items-end space-y-2">
-                  {!skillsSectionSaved && (
-                    <p className="text-sm text-gray-400">
-                      Save your progress to finish your resume
-                    </p>
-                  )}
-                  <button
-                    onClick={onNext}
-                    disabled={!skillsSectionSaved}
-                    className={`flex items-center rounded-lg px-6 py-3 font-semibold text-white transition-colors ${
-                      skillsSectionSaved
-                        ? 'bg-gradient-to-r from-green-500 to-green-700 hover:from-green-400 hover:to-green-600'
-                        : 'cursor-not-allowed bg-gray-600 opacity-50'
-                    }`}
+                <button
+                  onClick={onNext}
+                  className="flex items-center rounded-lg bg-gradient-to-r from-green-500 to-green-700 px-6 py-3 font-semibold text-white transition-colors hover:from-green-400 hover:to-green-600"
+                >
+                  Finish Resume
+                  <svg
+                    className="ml-2 h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    Finish Resume
-                    <svg
-                      className="ml-2 h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </button>
               )}
             </div>
           </div>
