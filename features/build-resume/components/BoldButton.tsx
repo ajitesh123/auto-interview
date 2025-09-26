@@ -61,7 +61,7 @@ const BoldButton = ({ onBold, disabled = false, inputRef }: BoldButtonProps) => 
       type="button"
       onClick={handleBoldClick}
       disabled={disabled}
-      className="flex h-12 w-12 items-center justify-center rounded-lg border border-gray-500 bg-gray-600 text-gray-300 transition-colors hover:bg-gray-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex h-12 w-12 items-center justify-center rounded-lg border border-chatgpt-border bg-chatgpt-card text-chatgpt-textSecondary transition-colors hover:bg-chatgpt-input hover:text-chatgpt-text disabled:cursor-not-allowed disabled:opacity-50"
       title="Bold selected text (select text first, then click this button)"
     >
       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

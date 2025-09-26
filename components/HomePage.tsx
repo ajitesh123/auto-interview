@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from './Link'
 import SearchButton from './SearchButton'
 import MinimalFooter from './MinimalFooter'
+import Logo from './Logo'
 import { BuildResumePage } from '../features/build-resume'
 import { ATSScorePage } from '../features/ats-score'
 import { FindJobsPage } from '../features/find-jobs'
@@ -43,45 +44,35 @@ const HomePage = () => {
       id: 'build-resume',
       title: 'Create Resume',
       description: 'Build professional resumes with AI-powered templates',
-      icon: '📄',
-      gradient: 'from-blue-500 to-cyan-500',
     },
     {
       id: 'ats-score',
       title: 'Check Resume ATS Score',
       description: 'Optimize your resume for Applicant Tracking Systems',
-      icon: '🎯',
-      gradient: 'from-purple-500 to-pink-500',
     },
     {
       id: 'find-jobs',
       title: 'Find Relevant Jobs',
       description: 'Discover job opportunities tailored to your skills',
-      icon: '🔍',
-      gradient: 'from-green-500 to-emerald-500',
     },
     {
       id: 'assessments',
-      title: 'Take Assessments',
-      description: 'Practice with AI-powered assessments',
-      icon: '🧠',
-      gradient: 'from-orange-500 to-red-500',
+      title: 'Practice Interview',
+      description: 'Practice with AI-powered interview simulations',
     },
     {
       id: 'cover-letter',
       title: 'Generate Custom Cover Letter',
       description: 'Create personalized cover letters',
-      icon: '✍️',
-      gradient: 'from-indigo-500 to-purple-500',
     },
   ]
 
   const handleFeatureClick = (featureId: string) => {
     console.log('Feature clicked:', featureId)
 
-    // Redirect to Tough Tongue AI for assessments
+    // Redirect to Tough Tongue AI app for practice interviews
     if (featureId === 'assessments') {
-      window.open('https://www.toughtongueai.com/', '_blank')
+      window.open('https://app.toughtongueai.com/', '_blank')
       return
     }
 
@@ -93,18 +84,16 @@ const HomePage = () => {
 
   const renderHomePage = () => {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
-        <div className="relative overflow-hidden">
-          <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-cyan-600/10"></div>
-
-          <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-matte-black">
+        <div className="relative">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  Auto Interview
+                <span className="animate-pulse-glow bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
+                  Auto Interview AI
                 </span>
               </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300 sm:text-xl">
+              <p className="mx-auto mt-6 max-w-2xl text-lg text-chatgpt-textSecondary sm:text-xl">
                 AI-powered career tools to help you land your dream job.
               </p>
             </div>
@@ -113,20 +102,27 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">Choose Your Career Tool</h2>
+            <h2 className="text-3xl font-bold text-chatgpt-text sm:text-4xl">
+              Choose Your Career Tool
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {features.map((feature) => (
+            {features.map((feature, index) => (
               <div
                 key={feature.id}
                 onClick={() => handleFeatureClick(feature.id)}
-                className="group relative cursor-pointer overflow-hidden rounded-2xl bg-gray-800/50 p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="group relative animate-slide-up cursor-pointer rounded-xl border border-matte-gray bg-matte-dark p-8 transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-gray-400 hover:bg-matte-light hover:shadow-xl hover:shadow-gray-500/20"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="relative z-10">
-                  <div className="mb-4 text-4xl">{feature.icon}</div>
-                  <h3 className="mb-3 text-xl font-bold text-white">{feature.title}</h3>
-                  <p className="text-sm text-gray-400">{feature.description}</p>
+                <div className="text-center">
+                  <div className="mx-auto mb-6 h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-500 group-hover:w-20"></div>
+                  <h3 className="text-xl font-semibold text-chatgpt-text transition-colors duration-300 group-hover:text-chatgpt-textSecondary">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-4 text-sm text-chatgpt-textSecondary transition-colors duration-300 group-hover:text-chatgpt-text">
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -153,65 +149,76 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-matte-black text-white">
       <div className="flex min-h-screen flex-col lg:flex-row">
-        <div className="flex w-full flex-col border-b border-gray-700 bg-gray-900 p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
+        <div className="flex w-full flex-col border-b border-matte-gray bg-matte-dark p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
           <div className="mb-6">
-            <h1 className="mb-2 text-lg font-bold text-white sm:text-xl">Auto Interview</h1>
-            <p className="text-xs text-gray-400 sm:text-sm">AI-powered career tools</p>
+            <div className="mb-2 flex items-center">
+              <Logo width={40} height={40} className="mr-1" />
+              <h1 className="text-lg font-bold text-chatgpt-text sm:text-xl">Auto Interview AI</h1>
+            </div>
+            <p className="text-xs text-chatgpt-textSecondary sm:text-sm">AI-powered career tools</p>
           </div>
 
           <nav className="flex-1 space-y-1">
             <button
               onClick={() => setActivePage('home')}
-              className={`w-full rounded-lg px-3 py-2 text-left text-xs transition-colors sm:text-sm ${
+              className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20 sm:text-sm ${
                 activePage === 'home'
-                  ? 'bg-gradient-to-r from-pink-700 to-pink-900 text-white'
-                  : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                  ? 'bg-matte-gray/20 text-white'
+                  : 'text-gray-400 hover:bg-matte-gray hover:text-white'
               }`}
+              style={{ animationDelay: '0.1s' }}
             >
-              Home
+              {activePage === 'home' && (
+                <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400 transition-all duration-300"></div>
+              )}
+              <span className="relative z-10">Home</span>
             </button>
-            {features.map((feature) => (
+            {features.map((feature, index) => (
               <button
                 key={feature.id}
                 onClick={() => handleFeatureClick(feature.id)}
-                className={`w-full rounded-lg px-3 py-2 text-left text-xs transition-colors sm:text-sm ${
+                className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20 sm:text-sm ${
                   activePage === feature.id
-                    ? 'bg-gradient-to-r from-pink-700 to-pink-900 text-white'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                    ? 'bg-matte-gray/20 text-white'
+                    : 'text-gray-400 hover:bg-matte-gray hover:text-white'
                 }`}
+                style={{ animationDelay: `${(index + 1) * 0.05}s` }}
               >
-                {feature.title}
+                {activePage === feature.id && (
+                  <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400 transition-all duration-300"></div>
+                )}
+                <span className="relative z-10">{feature.title}</span>
               </button>
             ))}
           </nav>
         </div>
 
         <div className="flex min-h-screen flex-1 flex-col">
-          <div className="flex items-center justify-end border-b border-gray-700 p-4 sm:p-6">
+          <div className="flex items-center justify-end border-b border-matte-gray p-4 sm:p-6">
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
                 onClick={() => setActivePage('home')}
-                className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
+                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
               >
                 Home
               </button>
               <Link
                 href="/blog"
-                className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
+                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
+                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
               >
                 About
               </Link>
               <Link
-                href="https://www.toughtongueai.com/"
-                className="text-sm font-medium text-gray-400 transition-colors hover:text-white sm:text-base"
+                href="https://app.toughtongueai.com/"
+                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
               >
                 Tough Tongue AI
               </Link>

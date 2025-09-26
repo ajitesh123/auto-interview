@@ -1,9 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Auto Interview',
+  title: 'Auto Interview AI',
   author: 'Ajitesh Abhishek',
-  headerTitle: 'Auto Interview - AI-Powered Career Tools',
-  description: 'AI-powered career tools for resume building, ATS optimization, job search, and interview preparation',
+  headerTitle: 'Auto Interview AI',
+  description:
+    'AI-powered career tools for resume building, ATS optimization, job search, and interview preparation',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.thepmcareer.com',

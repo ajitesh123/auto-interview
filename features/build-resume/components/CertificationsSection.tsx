@@ -30,8 +30,8 @@ const CertificationsSection = ({ data, onChange }: CertificationsSectionProps) =
       </div>
 
       {bullets.length === 0 ? (
-        <div className="rounded-lg border border-gray-600 bg-gray-700 py-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-700">
+        <div className="rounded-lg border border-matte-gray bg-matte-dark py-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-accent-500 to-accent-600">
             <svg
               className="h-8 w-8 text-white"
               fill="none"
@@ -53,7 +53,7 @@ const CertificationsSection = ({ data, onChange }: CertificationsSectionProps) =
           </p>
           <button
             onClick={() => handleBulletsChange([''])}
-            className="mx-auto flex items-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700 px-6 py-3 font-semibold text-white transition-colors hover:from-pink-400 hover:to-pink-600"
+            className="mx-auto flex items-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-6 py-3 font-semibold text-white transition-colors hover:from-accent-400 hover:to-accent-500"
           >
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -67,7 +67,7 @@ const CertificationsSection = ({ data, onChange }: CertificationsSectionProps) =
           </button>
         </div>
       ) : (
-        <div className="rounded-lg border border-gray-600 bg-gray-700 p-6">
+        <div className="rounded-lg border border-matte-gray bg-matte-dark p-6">
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-white">Certifications</h3>
             <p className="text-sm text-gray-300">
@@ -85,10 +85,10 @@ const CertificationsSection = ({ data, onChange }: CertificationsSectionProps) =
       )}
 
       {/* Help Text */}
-      <div className="rounded-lg bg-gray-700 p-4">
+      <div className="rounded-lg bg-matte-dark p-4">
         <div className="flex items-start">
           <svg
-            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-pink-500"
+            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-accent-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

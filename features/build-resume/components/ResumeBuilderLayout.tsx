@@ -40,23 +40,23 @@ const ResumeBuilderLayout = ({
   const progress = ((currentSection + 1) / totalSections) * 100
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
       {/* Header with Progress Bar */}
-      <div className="sticky top-0 z-50 border-b border-gray-700 bg-gray-800">
+      <div className="sticky top-0 z-50 border-b border-chatgpt-border bg-chatgpt-card">
         <div className="mx-auto max-w-4xl px-4 py-4">
           {/* Progress Bar */}
           <div className="mb-4">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-sm font-medium text-chatgpt-textSecondary">
                 Section {currentSection + 1} of {totalSections}
               </span>
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-sm font-medium text-chatgpt-textSecondary">
                 {Math.round(progress)}% Complete
               </span>
             </div>
-            <div className="h-2 w-full rounded-full bg-gray-700">
+            <div className="h-2 w-full rounded-full bg-chatgpt-border">
               <div
-                className="h-2 rounded-full bg-gradient-to-r from-pink-500 to-pink-700 transition-all duration-300 ease-in-out"
+                className="h-2 rounded-full bg-chatgpt-accent transition-all duration-300 ease-in-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -71,10 +71,10 @@ const ResumeBuilderLayout = ({
                   onClick={() => onSectionChange(index)}
                   className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
                     index === currentSection
-                      ? 'bg-pink-600 text-white'
+                      ? 'bg-accent-500 text-white'
                       : index < currentSection
-                        ? 'bg-gray-600 text-gray-200 hover:bg-gray-500'
-                        : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                        ? 'bg-matte-gray text-gray-200 hover:bg-matte-light'
+                        : 'bg-matte-dark text-gray-400 hover:bg-matte-gray'
                   }`}
                 >
                   {section}
@@ -152,17 +152,19 @@ const ResumeBuilderLayout = ({
           </div>
         )}
 
-        <div className="rounded-lg border border-gray-700 bg-gray-800 p-6">{children}</div>
+        <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-6">
+          {children}
+        </div>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="sticky bottom-0 border-t border-gray-700 bg-gray-800">
+      <div className="sticky bottom-0 border-t border-chatgpt-border bg-chatgpt-card">
         <div className="mx-auto max-w-4xl px-4 py-4">
           <div className="flex justify-between">
             <button
               onClick={onPrevious}
               disabled={currentSection === 0}
-              className="flex items-center rounded-lg bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center rounded-lg bg-chatgpt-input px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-border disabled:cursor-not-allowed disabled:opacity-50"
             >
               <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -179,7 +181,7 @@ const ResumeBuilderLayout = ({
               <button
                 onClick={onSave}
                 disabled={isSaving}
-                className="flex items-center rounded-lg bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center rounded-lg bg-chatgpt-input px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-border disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSaving ? (
                   <>
@@ -213,7 +215,7 @@ const ResumeBuilderLayout = ({
               {currentSection < totalSections - 1 ? (
                 <button
                   onClick={onNext}
-                  className="flex items-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700 px-6 py-3 font-semibold text-white transition-colors hover:from-pink-400 hover:to-pink-600"
+                  className="flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
                 >
                   Next
                   <svg
@@ -233,7 +235,7 @@ const ResumeBuilderLayout = ({
               ) : (
                 <button
                   onClick={onNext}
-                  className="flex items-center rounded-lg bg-gradient-to-r from-green-500 to-green-700 px-6 py-3 font-semibold text-white transition-colors hover:from-green-400 hover:to-green-600"
+                  className="flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
                 >
                   Finish Resume
                   <svg

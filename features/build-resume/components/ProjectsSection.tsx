@@ -49,13 +49,15 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
   return (
     <div className="space-y-6">
       <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-white">Projects</h2>
-        <p className="text-gray-300">Add your personal, academic, or professional projects</p>
+        <h2 className="mb-2 text-3xl font-bold text-chatgpt-text">Projects</h2>
+        <p className="text-chatgpt-textSecondary">
+          Add your personal, academic, or professional projects
+        </p>
       </div>
 
       {projectEntries.length === 0 ? (
-        <div className="rounded-lg border border-gray-600 bg-gray-700 py-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-700">
+        <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card py-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-chatgpt-accent">
             <svg
               className="h-8 w-8 text-white"
               fill="none"
@@ -70,13 +72,13 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
               />
             </svg>
           </div>
-          <h3 className="mb-2 text-lg font-semibold text-white">No Projects Added Yet</h3>
-          <p className="mb-4 text-gray-300">
+          <h3 className="mb-2 text-lg font-semibold text-chatgpt-text">No Projects Added Yet</h3>
+          <p className="mb-4 text-chatgpt-textSecondary">
             Showcase your technical skills and creativity by adding your projects.
           </p>
           <button
             onClick={addProjectEntry}
-            className="mx-auto flex items-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700 px-6 py-3 font-semibold text-white transition-colors hover:from-pink-400 hover:to-pink-600"
+            className="mx-auto flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
           >
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -91,9 +93,12 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
         </div>
       ) : (
         projectEntries.map((entry, index) => (
-          <div key={entry.id} className="rounded-lg border border-gray-600 bg-gray-700 p-6">
+          <div
+            key={entry.id}
+            className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-6"
+          >
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-white">Project {index + 1}</h3>
+              <h3 className="text-lg font-semibold text-chatgpt-text">Project {index + 1}</h3>
               <button
                 onClick={() => removeProjectEntry(entry.id)}
                 className="text-red-400 transition-colors hover:text-red-300"
@@ -114,7 +119,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
               <div className="space-y-2">
                 <label
                   htmlFor={`projectName-${entry.id}`}
-                  className="block text-sm font-medium text-gray-300"
+                  className="block text-sm font-medium text-chatgpt-textSecondary"
                 >
                   Project Name
                 </label>
@@ -123,7 +128,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
                   type="text"
                   value={entry.projectName}
                   onChange={(e) => handleEntryChange(entry.id, 'projectName', e.target.value)}
-                  className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                   placeholder="e.g., E-commerce Website, Mobile App, Data Analysis Tool"
                 />
               </div>
@@ -157,10 +162,10 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
 
             {/* Project Link Display */}
             {entry.link && (
-              <div className="mt-4 rounded-lg bg-gray-600 p-3">
+              <div className="mt-4 rounded-lg border border-chatgpt-border bg-chatgpt-card p-3">
                 <div className="flex items-center">
                   <svg
-                    className="mr-2 h-4 w-4 text-pink-400"
+                    className="mr-2 h-4 w-4 text-chatgpt-accent"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -176,7 +181,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
                     href={entry.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="break-all text-sm text-pink-400 transition-colors hover:text-pink-300"
+                    className="break-all text-sm text-chatgpt-accent transition-colors hover:text-chatgpt-green/80"
                   >
                     {entry.link}
                   </a>
@@ -192,7 +197,7 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
         <div className="flex justify-center">
           <button
             onClick={addProjectEntry}
-            className="flex items-center rounded-lg border border-gray-600 bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
+            className="flex items-center rounded-lg border border-chatgpt-border bg-chatgpt-card px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-input"
           >
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -208,10 +213,10 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
       )}
 
       {/* Help Text */}
-      <div className="rounded-lg bg-gray-700 p-4">
+      <div className="rounded-lg bg-chatgpt-card p-4">
         <div className="flex items-start">
           <svg
-            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-pink-500"
+            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-chatgpt-accent"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -224,8 +229,8 @@ const ProjectsSection = ({ data, onChange }: ProjectsSectionProps) => {
             />
           </svg>
           <div>
-            <h4 className="mb-1 text-sm font-medium text-white">Projects Tips</h4>
-            <ul className="space-y-1 text-sm text-gray-300">
+            <h4 className="mb-1 text-sm font-medium text-chatgpt-text">Projects Tips</h4>
+            <ul className="space-y-1 text-sm text-chatgpt-textSecondary">
               <li>• Include personal projects, academic work, or professional projects</li>
               <li>• Mention technologies, frameworks, and tools used in the description</li>
               <li>• Describe the problem solved and your approach</li>

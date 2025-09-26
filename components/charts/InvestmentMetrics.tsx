@@ -184,7 +184,7 @@ function InvestmentMetricsChart() {
               Based on GPU Accelerator Market
             </p>
           </div>
-          <div className="text-4xl font-bold text-blue-600 dark:text-blue-400">$300B</div>
+          <div className="text-4xl font-bold text-gray-600 dark:text-gray-400">$300B</div>
         </div>
       </div>
     </div>

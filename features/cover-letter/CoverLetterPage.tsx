@@ -185,10 +185,12 @@ const CoverLetterPage = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-8 py-12">
+    <div className="flex h-full w-full flex-col bg-matte-black px-8 py-12">
       {/* Header */}
       <div className="mx-auto mb-8 max-w-4xl text-center">
-        <h1 className="mb-6 text-5xl font-bold text-white">Generate Custom Cover Letter</h1>
+        <h1 className="mb-6 bg-gradient-to-r from-accent-400 via-accent-500 to-accent-600 bg-clip-text text-5xl font-bold text-transparent">
+          Generate Custom Cover Letter
+        </h1>
         <p className="text-xl leading-relaxed text-white">
           Create personalized cover letters that match your resume and job requirements using AI.
         </p>
@@ -199,7 +201,7 @@ const CoverLetterPage = () => {
           {/* Input Section */}
           <div className="space-y-6">
             {/* Job Information */}
-            <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
+            <div className="rounded-lg border border-matte-gray bg-matte-dark p-6">
               <h3 className="mb-4 text-xl font-bold text-white">Job Information</h3>
 
               <div className="space-y-4">
@@ -210,7 +212,7 @@ const CoverLetterPage = () => {
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                     placeholder="e.g. Product Manager"
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-500 focus:outline-none"
+                    className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
                   />
                 </div>
 
@@ -223,7 +225,7 @@ const CoverLetterPage = () => {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder="e.g. Google"
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-500 focus:outline-none"
+                    className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
                   />
                 </div>
 
@@ -243,13 +245,13 @@ const CoverLetterPage = () => {
             </div>
 
             {/* Resume Upload */}
-            <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
+            <div className="rounded-lg border border-matte-gray bg-matte-dark p-6">
               <h3 className="mb-4 text-xl font-bold text-white">Upload Resume *</h3>
 
               <div className="space-y-4">
                 <div
                   onClick={openFileDialog}
-                  className="cursor-pointer rounded-lg border-2 border-dashed border-gray-600 p-8 text-center transition-colors hover:border-pink-500"
+                  className="cursor-pointer rounded-lg border-2 border-dashed border-matte-gray p-8 text-center transition-colors hover:border-accent-500"
                 >
                   {resumeFile ? (
                     <div>
@@ -308,14 +310,14 @@ const CoverLetterPage = () => {
             <button
               onClick={handleGenerate}
               disabled={!jobTitle || !company || !jobDescription || !resumeFile || isGenerating}
-              className="w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-6 py-3 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-6 py-3 font-semibold text-white transition-colors hover:from-accent-400 hover:to-accent-500 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isGenerating ? 'Generating Cover Letter...' : 'Generate Cover Letter'}
             </button>
           </div>
 
           {/* Output Section */}
-          <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
+          <div className="rounded-lg border border-matte-gray bg-matte-dark p-6">
             <h3 className="mb-4 text-xl font-bold text-white">Generated Cover Letter</h3>
 
             {generatedLetter ? (
@@ -336,19 +338,19 @@ const CoverLetterPage = () => {
                 <div className="flex space-x-3">
                   <button
                     onClick={handleCopyToClipboard}
-                    className="flex-1 rounded-lg bg-gray-700 px-4 py-2 text-white transition-colors hover:bg-gray-600"
+                    className="flex-1 rounded-lg bg-matte-gray px-4 py-2 text-white transition-colors hover:bg-matte-light"
                   >
                     Copy to Clipboard
                   </button>
                   <button
                     onClick={handleDownload}
-                    className="flex-1 rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 text-white transition-colors hover:from-pink-600 hover:to-pink-800"
+                    className="flex-1 rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-4 py-2 text-white transition-colors hover:from-accent-400 hover:to-accent-500"
                   >
                     Download DOCX
                   </button>
                   <button
                     onClick={() => setGeneratedLetter('')}
-                    className="flex-1 rounded-lg bg-gray-700 px-4 py-2 text-white transition-colors hover:bg-gray-600"
+                    className="flex-1 rounded-lg bg-matte-gray px-4 py-2 text-white transition-colors hover:bg-matte-light"
                   >
                     Regenerate
                   </button>

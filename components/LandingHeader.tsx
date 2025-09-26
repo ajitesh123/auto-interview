@@ -1,14 +1,17 @@
 import Link from './Link'
 import SearchButton from './SearchButton'
+import Logo from './Logo'
 
 const LandingHeader = () => {
   return (
-    <header className="flex w-full items-center justify-between border-b border-gray-800 bg-black px-8 py-6">
+    <header className="flex w-full items-center justify-between border-b border-matte-gray bg-matte-black px-8 py-6">
       {/* Logo */}
-      <Link href="/" aria-label="Auto Interview">
+      <Link href="/" aria-label="Auto Interview AI">
         <div className="flex items-center">
-          <div className="mr-3 h-8 w-8 rounded-lg bg-pink-500"></div>
-          <span className="text-2xl font-bold text-white">Auto Interview</span>
+          <div className="mr-1 h-12 w-12">
+            <Logo width={48} height={48} />
+          </div>
+          <span className="text-2xl font-bold text-chatgpt-text">Auto Interview AI</span>
         </div>
       </Link>
 
@@ -24,7 +27,7 @@ const LandingHeader = () => {
           About
         </Link>
         <Link
-          href="https://www.toughtongueai.com/"
+          href="https://app.toughtongueai.com/"
           className="font-medium text-gray-400 transition-colors hover:text-white"
         >
           Tough Tongue AI

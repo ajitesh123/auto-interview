@@ -96,7 +96,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning // Suppress hydration warnings for client/server mismatch
     >
       {/* Favicon and PWA configurations */}
-      <link rel="icon" type="image/svg+xml" href={`${basePath}/static/images/logo.svg`} />
+      <link rel="icon" type="image/png" sizes="32x32" href={`${basePath}/static/images/logo.png`} />
+      <link rel="icon" type="image/png" sizes="16x16" href={`${basePath}/static/images/logo.png`} />
+      <link rel="shortcut icon" href={`${basePath}/static/images/logo.png`} />
+      <link rel="apple-touch-icon" href={`${basePath}/static/images/logo.png`} />
 
       {/* Theme and display configurations */}
       <meta name="msapplication-TileColor" content="#000000" />

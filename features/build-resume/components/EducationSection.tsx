@@ -97,7 +97,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
       </div>
 
       {educationEntries.map((entry, index) => (
-        <div key={entry.id} className="rounded-lg border border-gray-600 bg-gray-700 p-6">
+        <div key={entry.id} className="rounded-lg border border-matte-gray bg-matte-dark p-6">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-lg font-semibold text-white">Education Entry {index + 1}</h3>
             {educationEntries.length > 1 && (
@@ -122,7 +122,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`degree-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 Degree/Program *
               </label>
@@ -131,7 +131,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 type="text"
                 value={entry.degree}
                 onChange={(e) => handleEntryChange(entry.id, 'degree', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                 placeholder="e.g., Bachelor of Science, Master of Arts"
               />
             </div>
@@ -140,7 +140,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`major-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 Major/Field of Study
               </label>
@@ -149,7 +149,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 type="text"
                 value={entry.major}
                 onChange={(e) => handleEntryChange(entry.id, 'major', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                 placeholder="e.g., Computer Science, Business Administration"
               />
             </div>
@@ -158,7 +158,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`university-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 University/Institution *
               </label>
@@ -167,7 +167,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 type="text"
                 value={entry.university}
                 onChange={(e) => handleEntryChange(entry.id, 'university', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                 placeholder="e.g., Stanford University, MIT"
               />
             </div>
@@ -176,7 +176,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`location-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 Location
               </label>
@@ -185,7 +185,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 type="text"
                 value={entry.location}
                 onChange={(e) => handleEntryChange(entry.id, 'location', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                 placeholder="e.g., Stanford, CA"
               />
             </div>
@@ -194,7 +194,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`graduation-month-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 Graduation Month *
               </label>
@@ -202,7 +202,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 id={`graduation-month-${entry.id}`}
                 value={entry.graduationMonth}
                 onChange={(e) => handleEntryChange(entry.id, 'graduationMonth', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
               >
                 <option value="">Select Month</option>
                 {months.map((month) => (
@@ -217,7 +217,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2">
               <label
                 htmlFor={`graduation-year-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 Graduation Year *
               </label>
@@ -225,7 +225,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 id={`graduation-year-${entry.id}`}
                 value={entry.graduationYear}
                 onChange={(e) => handleEntryChange(entry.id, 'graduationYear', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
               >
                 <option value="">Select Year</option>
                 {years.map((year) => (
@@ -240,7 +240,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             <div className="space-y-2 md:col-span-2">
               <label
                 htmlFor={`gpa-${entry.id}`}
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-chatgpt-textSecondary"
               >
                 GPA (Optional)
               </label>
@@ -249,7 +249,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                 type="text"
                 value={entry.gpa}
                 onChange={(e) => handleEntryChange(entry.id, 'gpa', e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                 placeholder="e.g., 8.5/10, 3.8/4.0"
               />
             </div>
@@ -262,7 +262,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
         <div className="flex justify-center">
           <button
             onClick={addEducationEntry}
-            className="flex items-center rounded-lg border border-gray-600 bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
+            className="flex items-center rounded-lg border border-chatgpt-border bg-chatgpt-card px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-input"
           >
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -278,10 +278,10 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
       )}
 
       {/* Help Text */}
-      <div className="rounded-lg bg-gray-700 p-4">
+      <div className="rounded-lg bg-chatgpt-card p-4">
         <div className="flex items-start">
           <svg
-            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-pink-500"
+            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-chatgpt-accent"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -294,8 +294,8 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             />
           </svg>
           <div>
-            <h4 className="mb-1 text-sm font-medium text-white">Education Tips</h4>
-            <ul className="space-y-1 text-sm text-gray-300">
+            <h4 className="mb-1 text-sm font-medium text-chatgpt-text">Education Tips</h4>
+            <ul className="space-y-1 text-sm text-chatgpt-textSecondary">
               <li>• List your most recent education first</li>
               <li>• Include relevant coursework or academic achievements</li>
               <li>• Only include GPA if it's 3.5 or higher</li>

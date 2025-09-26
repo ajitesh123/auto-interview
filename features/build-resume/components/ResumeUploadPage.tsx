@@ -141,7 +141,7 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-matte-black text-white">
       <div className="mx-auto max-w-4xl px-4 py-8">
         {/* Header */}
         <div className="mb-8 text-center">

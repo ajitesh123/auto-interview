@@ -170,13 +170,13 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           <div
             className={`cursor-pointer rounded-lg border p-6 transition-colors ${
               selectedTemplate === 'harvard'
-                ? 'border-pink-500 bg-gray-700'
-                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+                ? 'border-accent-500 bg-matte-dark'
+                : 'border-matte-gray bg-matte-dark hover:border-accent-500'
             }`}
             onClick={() => handleTemplateSelect('harvard')}
           >
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-pink-700">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600">
                 <svg
                   className="h-8 w-8 text-white"
                   fill="none"
@@ -194,7 +194,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
               <h3 className="mb-2 text-xl font-bold text-white">
                 Harvard Template
                 {selectedTemplate === 'harvard' && (
-                  <span className="ml-2 text-pink-500">✓ Selected</span>
+                  <span className="ml-2 text-accent-500">✓ Selected</span>
                 )}
               </h3>
               <p className="mb-4 text-gray-300">
@@ -258,13 +258,13 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
           <div
             className={`cursor-pointer rounded-lg border p-6 transition-colors ${
               selectedTemplate === 'lbs'
-                ? 'border-pink-500 bg-gray-700'
-                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+                ? 'border-accent-500 bg-matte-dark'
+                : 'border-matte-gray bg-matte-dark hover:border-accent-500'
             }`}
             onClick={() => handleTemplateSelect('lbs')}
           >
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-700">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600">
                 <svg
                   className="h-8 w-8 text-white"
                   fill="none"
@@ -282,7 +282,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
               <h3 className="mb-2 text-xl font-bold text-white">
                 London Business School Template
                 {selectedTemplate === 'lbs' && (
-                  <span className="ml-2 text-blue-500">✓ Selected</span>
+                  <span className="ml-2 text-accent-500">✓ Selected</span>
                 )}
               </h3>
               <p className="mb-4 text-gray-300">
@@ -618,7 +618,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                   setShowPreview(false)
                   handleDownload()
                 }}
-                className="rounded-lg bg-pink-600 px-4 py-2 text-white hover:bg-pink-700"
+                className="rounded-lg bg-accent-500 px-4 py-2 text-white hover:bg-accent-600"
               >
                 Download DOCX
               </button>

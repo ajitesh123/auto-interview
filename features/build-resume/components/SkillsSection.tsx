@@ -110,14 +110,14 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
       <div className={`space-y-3 ${!isEnabled ? 'opacity-50' : ''}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <label className="block text-sm font-medium text-gray-300">{title}</label>
+            <label className="block text-sm font-medium text-chatgpt-textSecondary">{title}</label>
             {!isEnabled && (
-              <span className="rounded-full bg-gray-600 px-2 py-1 text-xs text-gray-400">
+              <span className="rounded-full bg-chatgpt-input px-2 py-1 text-xs text-chatgpt-textSecondary">
                 Not included
               </span>
             )}
             {isEnabled && (
-              <span className="rounded-full bg-green-600 px-2 py-1 text-xs text-green-100">
+              <span className="rounded-full bg-chatgpt-accent px-2 py-1 text-xs text-chatgpt-text">
                 ✓ Included
               </span>
             )}
@@ -127,9 +127,9 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
               type="checkbox"
               checked={isEnabled}
               onChange={(e) => handleFieldToggle(field, e.target.checked)}
-              className="h-5 w-5 rounded border-gray-500 bg-gray-600 text-pink-500 focus:ring-pink-500"
+              className="h-5 w-5 rounded border-chatgpt-border bg-chatgpt-input text-chatgpt-accent focus:ring-chatgpt-accent"
             />
-            <span className="text-sm font-medium text-white">Include in Resume</span>
+            <span className="text-sm font-medium text-chatgpt-text">Include in Resume</span>
           </div>
         </div>
 
@@ -149,7 +149,7 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
                     const filteredSkills = skillsData[field].filter((s) => s.trim() !== '')
                     onChange({ ...skillsData, [field]: filteredSkills })
                   }}
-                  className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="flex-1 rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
                   placeholder={placeholder}
                 />
 
@@ -165,7 +165,7 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
                     <button
                       type="button"
                       onClick={() => addSkill(field)}
-                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-gray-500 bg-gray-600 text-gray-300 transition-colors hover:bg-gray-500 hover:text-white"
+                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-chatgpt-border bg-chatgpt-card text-chatgpt-textSecondary transition-colors hover:bg-chatgpt-input hover:text-chatgpt-text"
                       title="Add skill"
                     >
                       <svg
@@ -216,22 +216,22 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
       <div className="mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-white">Skills and Interests</h1>
-          <p className="text-lg text-gray-300">
+          <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Skills and Interests</h1>
+          <p className="text-lg text-chatgpt-textSecondary">
             Highlight your technical skills, languages, and interests
           </p>
-          <div className="mt-4 rounded-lg border border-blue-700 bg-blue-900 p-4">
-            <p className="text-sm text-blue-200">
+          <div className="mt-4 rounded-lg border border-chatgpt-accent/30 bg-chatgpt-accent/10 p-4">
+            <p className="text-sm text-chatgpt-accent">
               💡 <strong>Tip:</strong> Check the "Include in Resume" box for each skill category you
               want to appear in your final resume
             </p>
           </div>
         </div>
 
-        <div className="rounded-lg border border-gray-700 bg-gray-800 p-8">
+        <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
           <div className="space-y-8">
             <SkillInput
               field="technical"
@@ -253,10 +253,10 @@ const SkillsSection = ({ data, onChange }: SkillsSectionProps) => {
           </div>
 
           {/* Tips */}
-          <div className="mt-8 rounded-lg bg-gray-700 p-6">
+          <div className="mt-8 rounded-lg bg-matte-dark p-6">
             <div className="flex items-start space-x-3">
               <svg
-                className="mt-1 h-6 w-6 text-pink-500"
+                className="mt-1 h-6 w-6 text-accent-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

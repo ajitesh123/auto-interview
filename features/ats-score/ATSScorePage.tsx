@@ -109,16 +109,16 @@ const ATSScorePage = () => {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black px-8 py-12">
+    <div className="relative min-h-screen w-full overflow-hidden bg-matte-black px-8 py-12">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-0 h-96 w-96 animate-pulse rounded-full bg-cyan-500/5 blur-3xl"></div>
+        <div className="absolute left-1/4 top-0 h-96 w-96 animate-pulse rounded-full bg-accent-500/5 blur-3xl"></div>
         <div
-          className="absolute bottom-0 right-1/4 h-96 w-96 animate-pulse rounded-full bg-purple-500/5 blur-3xl"
+          className="absolute bottom-0 right-1/4 h-96 w-96 animate-pulse rounded-full bg-accent-600/5 blur-3xl"
           style={{ animationDelay: '1s' }}
         ></div>
         <div
-          className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 transform animate-pulse rounded-full bg-blue-500/5 blur-3xl"
+          className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 transform animate-pulse rounded-full bg-accent-400/5 blur-3xl"
           style={{ animationDelay: '2s' }}
         ></div>
       </div>
@@ -127,7 +127,7 @@ const ATSScorePage = () => {
         {/* Header */}
         <div className="mb-16 text-center">
           <div className="mb-6 inline-block">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-400 to-purple-500 shadow-2xl shadow-cyan-500/25">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-600 shadow-2xl shadow-accent-500/25">
               <svg
                 className="h-8 w-8 text-white"
                 fill="none"
@@ -143,26 +143,26 @@ const ATSScorePage = () => {
               </svg>
             </div>
           </div>
-          <h1 className="mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-6xl font-bold tracking-tight text-transparent">
+          <h1 className="mb-6 bg-gradient-to-r from-accent-400 via-accent-500 to-accent-600 bg-clip-text text-6xl font-bold tracking-tight text-transparent">
             ATS Resume Analyzer
           </h1>
           <p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-400">
             Advanced AI-powered resume analysis with{' '}
-            <span className="font-semibold text-cyan-400">quantum-level precision</span> for maximum
-            ATS compatibility
+            <span className="font-semibold text-accent-400">quantum-level precision</span> for
+            maximum ATS compatibility
           </p>
         </div>
 
         {/* Upload Section */}
         {!analysisResults && (
-          <div className="mx-auto mb-8 w-full max-w-3xl">
-            <div className="rounded-3xl border border-gray-800/50 bg-gray-900/50 p-12 shadow-2xl shadow-black/50 backdrop-blur-xl">
+          <div className="mx-auto mb-8 w-full max-w-md">
+            <div className="rounded-lg border border-matte-gray bg-matte-dark p-8 shadow-lg shadow-gray-500/20">
               <div className="text-center">
                 {/* Futuristic Upload Icon */}
-                <div className="relative mb-8">
-                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-700 shadow-2xl shadow-cyan-500/25">
+                <div className="relative mb-6">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-600 shadow-lg shadow-accent-500/25">
                     <svg
-                      className="h-12 w-12 text-white"
+                      className="h-8 w-8 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -176,16 +176,14 @@ const ATSScorePage = () => {
                     </svg>
                   </div>
                   {/* Animated rings */}
-                  <div className="absolute inset-0 mx-auto h-24 w-24 animate-ping rounded-3xl border-2 border-cyan-400/30"></div>
-                  <div className="absolute inset-2 mx-auto h-20 w-20 animate-pulse rounded-2xl border border-purple-400/20"></div>
+                  <div className="absolute inset-0 mx-auto h-16 w-16 animate-ping rounded-2xl border-2 border-accent-400/30"></div>
+                  <div className="absolute inset-2 mx-auto h-12 w-12 animate-pulse rounded-xl border border-accent-500/20"></div>
                 </div>
 
-                <h3 className="mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-3xl font-bold text-transparent">
-                  Upload Your Resume
-                </h3>
-                <p className="mb-8 text-lg leading-relaxed text-gray-400">
+                <h3 className="mb-3 text-xl font-bold text-white">Upload Your Resume</h3>
+                <p className="mb-6 text-sm leading-relaxed text-gray-400">
                   Drop your PDF resume for{' '}
-                  <span className="font-semibold text-cyan-400">advanced AI analysis</span> and
+                  <span className="font-semibold text-accent-400">advanced AI analysis</span> and
                   optimization
                 </p>
 
@@ -195,7 +193,7 @@ const ATSScorePage = () => {
                   </div>
                 )}
 
-                <div className="mb-8">
+                <div className="mb-6">
                   <input
                     type="file"
                     accept=".pdf"
@@ -205,10 +203,10 @@ const ATSScorePage = () => {
                   />
                   <label
                     htmlFor="resume-upload"
-                    className="group inline-flex cursor-pointer items-center rounded-2xl border-2 border-dashed border-gray-700 bg-gray-800/30 px-8 py-4 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400 hover:bg-gray-800/50"
+                    className="group inline-flex cursor-pointer items-center rounded-lg border border-dashed border-matte-gray bg-matte-light px-6 py-3 transition-all duration-300 hover:border-gray-400 hover:bg-matte-gray"
                   >
                     <svg
-                      className="mr-3 h-6 w-6 text-gray-400 transition-colors group-hover:text-cyan-400"
+                      className="mr-3 h-5 w-5 text-gray-400 transition-colors group-hover:text-accent-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -220,7 +218,7 @@ const ATSScorePage = () => {
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
                     </svg>
-                    <span className="text-gray-300 transition-colors group-hover:text-white">
+                    <span className="text-sm text-gray-300 transition-colors group-hover:text-white">
                       {uploadedFile ? uploadedFile.name : 'Choose PDF file or drag & drop'}
                     </span>
                   </label>
@@ -229,10 +227,10 @@ const ATSScorePage = () => {
                 <button
                   onClick={handleAnalyze}
                   disabled={!uploadedFile || isAnalyzing}
-                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-700 px-12 py-4 text-lg font-semibold text-white shadow-2xl shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-all duration-300 hover:shadow-accent-500/40 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent-400 to-accent-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
                   {isAnalyzing ? (
                     <div className="relative z-10 flex items-center">
@@ -240,11 +238,11 @@ const ATSScorePage = () => {
                       <div className="relative mr-4">
                         <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
                         <div
-                          className="absolute inset-0 h-6 w-6 animate-spin rounded-full border-2 border-cyan-300 border-t-transparent"
+                          className="absolute inset-0 h-6 w-6 animate-spin rounded-full border-2 border-accent-300 border-t-transparent"
                           style={{ animationDelay: '0.15s', animationDuration: '0.6s' }}
                         ></div>
                         <div
-                          className="absolute inset-1 h-4 w-4 animate-spin rounded-full border border-purple-300 border-t-transparent"
+                          className="absolute inset-1 h-4 w-4 animate-spin rounded-full border border-accent-400 border-t-transparent"
                           style={{ animationDelay: '0.3s', animationDuration: '0.4s' }}
                         ></div>
                       </div>

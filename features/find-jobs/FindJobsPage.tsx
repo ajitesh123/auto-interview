@@ -82,10 +82,12 @@ const FindJobsPage = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-8 py-12">
+    <div className="flex h-full w-full flex-col bg-matte-black px-8 py-12">
       {/* Header */}
       <div className="mx-auto mb-8 max-w-4xl text-center">
-        <h1 className="mb-6 text-5xl font-bold text-white">Find Jobs</h1>
+        <h1 className="mb-6 bg-gradient-to-r from-accent-400 via-accent-500 to-accent-600 bg-clip-text text-5xl font-bold text-transparent">
+          Find Jobs
+        </h1>
         <p className="text-xl leading-relaxed text-white">
           Discover job opportunities tailored to your skills and experience with AI-powered
           matching.
@@ -94,7 +96,7 @@ const FindJobsPage = () => {
 
       {/* Search Section */}
       <div className="mx-auto mb-8 w-full max-w-4xl">
-        <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
+        <div className="rounded-lg border border-matte-gray bg-matte-dark p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
             <div className="flex-1">
               <label className="mb-2 block text-sm font-medium text-white">Job Title</label>
@@ -103,7 +105,7 @@ const FindJobsPage = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="e.g. Product Manager"
-                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
+                className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
               />
             </div>
             <div className="flex-1">
@@ -113,7 +115,7 @@ const FindJobsPage = () => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. San Francisco, CA"
-                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
+                className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
               />
             </div>
             <div className="flex-1">
@@ -123,14 +125,14 @@ const FindJobsPage = () => {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="e.g. Google, Microsoft"
-                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-700 focus:outline-none"
+                className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
               />
             </div>
             <div className="flex-shrink-0">
               <button
                 onClick={handleSearch}
                 disabled={isSearching}
-                className="w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-8 py-2 font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800 disabled:opacity-50 lg:w-auto"
+                className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-2 font-semibold text-white transition-colors hover:from-accent-400 hover:to-accent-500 disabled:opacity-50 lg:w-auto"
               >
                 {isSearching ? 'Searching...' : 'Search Jobs'}
               </button>
@@ -174,7 +176,7 @@ const FindJobsPage = () => {
             {jobs.map((job) => (
               <div
                 key={job.id}
-                className="rounded-lg border border-gray-700 bg-gray-900 p-4 transition-colors hover:border-pink-700"
+                className="rounded-lg border border-matte-gray bg-matte-dark p-4 transition-colors hover:border-gray-400"
               >
                 <div className="flex h-full flex-col">
                   <div className="flex-1">
@@ -286,7 +288,7 @@ const FindJobsPage = () => {
             </div>
             <div className="h-2 w-full rounded-full bg-gray-700">
               <div
-                className="h-2 rounded-full bg-gradient-to-r from-pink-700 to-pink-900 transition-all duration-1000 ease-out"
+                className="h-2 rounded-full bg-gradient-to-r from-accent-500 to-accent-600 transition-all duration-1000 ease-out"
                 style={{ width: `${loadingProgress}%` }}
               ></div>
             </div>
@@ -300,9 +302,9 @@ const FindJobsPage = () => {
       {/* Empty State */}
       {jobs.length === 0 && !isSearching && (
         <div className="py-12 text-center">
-          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-pink-700/20 to-pink-900/20">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-accent-500/20 to-accent-600/20">
             <svg
-              className="h-12 w-12 text-pink-700"
+              className="h-12 w-12 text-accent-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

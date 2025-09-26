@@ -62,7 +62,7 @@ const BulletPointsInput = ({
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-medium text-gray-300">
+      <label className="block text-sm font-medium text-chatgpt-textSecondary">
         Bullet Points ({localBullets.filter((bullet) => bullet.trim() !== '').length}/{maxBullets})
       </label>
 
@@ -76,7 +76,7 @@ const BulletPointsInput = ({
               type="text"
               value={bullet}
               onChange={(e) => handleBulletChange(index, e.target.value)}
-              className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
               placeholder={placeholder}
             />
           </div>
@@ -93,7 +93,7 @@ const BulletPointsInput = ({
               <button
                 type="button"
                 onClick={addBullet}
-                className="flex h-12 w-12 items-center justify-center rounded-lg border border-gray-500 bg-gray-600 text-gray-300 transition-colors hover:bg-gray-500 hover:text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-lg border border-chatgpt-border bg-chatgpt-card text-chatgpt-textSecondary transition-colors hover:bg-chatgpt-input hover:text-chatgpt-text"
                 title="Add bullet point"
               >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@ const BulletPointsInput = ({
         </div>
       ))}
 
-      <div className="text-xs text-gray-400">
+      <div className="text-xs text-chatgpt-textSecondary">
         Tip: Start each bullet point with an action verb for better impact. Select text and click
         the bold button (B) to make it bold, or use **text** syntax (e.g., **increased** sales by
         20%)
