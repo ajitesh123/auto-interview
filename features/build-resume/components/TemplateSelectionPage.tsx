@@ -15,14 +15,16 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null)
   const [showPreview, setShowPreview] = useState(false)
   const [previewHTML, setPreviewHTML] = useState<string>('')
-  const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs'>('harvard')
+  const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs' | 'stanford'>(
+    'harvard'
+  )
 
   // Debug log to track when component is rendered
   console.log('TemplateSelectionPage rendered with resumeId:', resumeId)
 
   // Preview is now only loaded when user clicks "Preview Resume" button
 
-  const loadPreview = async (template: 'harvard' | 'lbs' = selectedTemplate) => {
+  const loadPreview = async (template: 'harvard' | 'lbs' | 'stanford' = selectedTemplate) => {
     try {
       console.log('Loading preview with resumeId:', resumeId, 'template:', template)
       const response = await fetch('/api/resume/generate-pdf', {
@@ -56,14 +58,50 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
     }
   }
 
-  const handleTemplateSelect = (template: 'harvard' | 'lbs') => {
+  const handleTemplateSelect = (template: 'harvard' | 'lbs' | 'stanford') => {
     setSelectedTemplate(template)
     // Preview will be loaded when user clicks "Preview Resume" button
   }
 
   const handlePreview = async () => {
     try {
-      await loadPreview()
+      const response = await fetch('/api/resume/generate-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeId,
+          template: selectedTemplate,
+          data: resumeData,
+          preview: true,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Preview generation failed:', response.status, errorText)
+        throw new Error(`Failed to generate preview: ${response.status} ${errorText}`)
+      }
+
+      const html = await response.text()
+
+      // Use popup modal for Harvard template only, new tab for LBS and Stanford
+      if (selectedTemplate === 'harvard') {
+        setPreviewHTML(html)
+        setShowPreview(true)
+      } else {
+        // LBS and Stanford templates - open in new window
+        const newWindow = window.open('', '_blank', 'width=800,height=600')
+        if (newWindow) {
+          newWindow.document.write(html)
+          newWindow.document.close()
+        } else {
+          // Fallback to modal if popup blocked
+          setPreviewHTML(html)
+          setShowPreview(true)
+        }
+      }
     } catch (error) {
       console.error('Error generating preview:', error)
       setDownloadMessage('Error generating preview. Please try again.')
@@ -127,7 +165,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
         </div>
 
         {/* Template Selection */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Harvard Template */}
           <div
             className={`cursor-pointer rounded-lg border p-6 transition-colors ${
@@ -304,6 +342,94 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
             </div>
           </div>
 
+          {/* Stanford Template */}
+          <div
+            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+              selectedTemplate === 'stanford'
+                ? 'border-pink-500 bg-gray-700'
+                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+            }`}
+            onClick={() => handleTemplateSelect('stanford')}
+          >
+            <div className="text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-700">
+                <svg
+                  className="h-8 w-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                Stanford Template
+                {selectedTemplate === 'stanford' && (
+                  <span className="ml-2 text-red-500">✓ Selected</span>
+                )}
+              </h3>
+              <p className="mb-4 text-gray-300">
+                Academic-style template with Times New Roman font, perfect for graduate school
+                applications and research positions.
+              </p>
+              <div className="space-y-2 text-sm text-gray-400">
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Academic format
+                </div>
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Times New Roman font
+                </div>
+                <div className="flex items-center">
+                  <svg
+                    className="mr-2 h-4 w-4 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Research-focused layout
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-lg border border-gray-600 bg-gray-800 p-6 opacity-60">
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gray-600">
@@ -453,7 +579,12 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
             <div className="flex items-center justify-between border-b p-4">
               <h3 className="text-lg font-semibold text-gray-900">
                 Resume Preview -{' '}
-                {selectedTemplate === 'harvard' ? 'Harvard' : 'London Business School'} Template
+                {selectedTemplate === 'harvard'
+                  ? 'Harvard'
+                  : selectedTemplate === 'lbs'
+                    ? 'London Business School'
+                    : 'Stanford'}{' '}
+                Template
               </h3>
               <button
                 onClick={() => setShowPreview(false)}
@@ -470,10 +601,9 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
               </button>
             </div>
             <div className="max-h-[80vh] overflow-auto p-4">
-              <iframe
-                srcDoc={previewHTML}
-                className="h-[70vh] w-full border-0"
-                title="Resume Preview"
+              <div
+                className="h-[70vh] w-full border-0 bg-white"
+                dangerouslySetInnerHTML={{ __html: previewHTML }}
               />
             </div>
             <div className="flex justify-end gap-2 border-t p-4">

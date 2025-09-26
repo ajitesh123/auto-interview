@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Initialize Gemini AI with embedded API key
-    const GEMINI_API_KEY = 'AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI'
+    const GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
     console.log('Gemini API key is configured, proceeding with generation')
 
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
@@ -109,7 +109,7 @@ Interests: ${resumeData.skills?.interests?.join(', ') || 'Not provided'}
 `
 
     console.log('Creating Gemini model...')
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
     const prompt = `
 You are an expert career coach and professional writer. Your task is to create a compelling, personalized cover letter based on the provided resume information and job details.

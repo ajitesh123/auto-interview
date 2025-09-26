@@ -13,13 +13,22 @@ import { ResumeData } from '../lib/resumeStore'
 
 export async function generateDOCX(
   resumeData: ResumeData,
-  template: 'harvard' | 'lbs' = 'harvard'
+  template: 'harvard' | 'lbs' | 'stanford' = 'harvard'
 ) {
   try {
     const doc = new Document({
       sections: [
         {
-          properties: {},
+          properties: {
+            page: {
+              margin: {
+                top: 400, // 0.2 inches
+                right: 400, // 0.2 inches
+                bottom: 400, // 0.2 inches
+                left: 400, // 0.2 inches
+              },
+            },
+          },
           children:
             template === 'lbs'
               ? [
@@ -32,16 +41,27 @@ export async function generateDOCX(
                   ...createLBSCertificationsSection(resumeData.certifications),
                   ...createLBSSkillsSection(resumeData.skills),
                 ]
-              : [
-                  // Harvard Template Structure
-                  ...createHeaderSection(resumeData.contact),
-                  ...createEducationSection(resumeData.education),
-                  ...createExperienceSection(resumeData.experience),
-                  ...createLeadershipSection(resumeData.leadership),
-                  ...createProjectsSection(resumeData.projects),
-                  ...createCertificationsSection(resumeData.certifications),
-                  ...createSkillsSection(resumeData),
-                ],
+              : template === 'stanford'
+                ? [
+                    // Stanford Template Structure
+                    ...createStanfordHeaderSection(resumeData.contact),
+                    ...createStanfordExperienceSection(resumeData.experience),
+                    ...createStanfordEducationSection(resumeData.education),
+                    ...createStanfordLeadershipSection(resumeData.leadership),
+                    ...createStanfordProjectsSection(resumeData.projects),
+                    ...createStanfordCertificationsSection(resumeData.certifications),
+                    ...createStanfordSkillsSection(resumeData.skills),
+                  ]
+                : [
+                    // Harvard Template Structure
+                    ...createHeaderSection(resumeData.contact),
+                    ...createEducationSection(resumeData.education),
+                    ...createExperienceSection(resumeData.experience),
+                    ...createLeadershipSection(resumeData.leadership),
+                    ...createProjectsSection(resumeData.projects),
+                    ...createCertificationsSection(resumeData.certifications),
+                    ...createSkillsSection(resumeData),
+                  ],
         },
       ],
     })
@@ -1232,4 +1252,555 @@ function formatEducationCompletionDate(graduationMonth?: string, graduationYear?
 
   const monthNumber = monthMap[graduationMonth] || graduationMonth
   return `${monthNumber}/${graduationYear}`
+}
+
+// Stanford Template Functions
+function createStanfordHeaderSection(contact: ResumeData['contact']): Paragraph[] {
+  return [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: contact.name || '',
+          bold: true,
+          size: 28, // 14pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 100 },
+    }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: `${contact.location || ''} • ${contact.phone || ''} • ${contact.email || ''} • ${contact.linkedin || ''}`,
+          size: 22, // 11pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 200 },
+    }),
+  ]
+}
+
+function createStanfordExperienceSection(experience: ResumeData['experience']): Paragraph[] {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Experience',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Add up to 4 experience entries
+  for (let i = 0; i < Math.min(4, experience.length); i++) {
+    const exp = experience[i]
+    if (!exp.company) continue
+
+    // Organization and location line (same row)
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: exp.company || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${exp.location || ''}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 20, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // Job title and date line (same row)
+    const endDate = exp.isCurrent ? 'Present' : `${exp.endMonth || ''} ${exp.endYear || ''}`
+    const dateRange = `${exp.startMonth || ''} ${exp.startYear || ''}– ${endDate}`
+
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: exp.jobTitle || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${dateRange}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 50, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // Bullet points (up to 15, dynamic - no blank bullets)
+    exp.bullets
+      ?.filter((bullet) => bullet.trim())
+      .slice(0, 15)
+      .forEach((bullet, index) => {
+        paragraphs.push(
+          new Paragraph({
+            children: parseBoldText(bullet),
+            bullet: { level: 0 },
+            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            indent: { left: 400 },
+          })
+        )
+      })
+
+    // No spacing between experience entries
+  }
+
+  return paragraphs
+}
+
+function createStanfordEducationSection(education: ResumeData['education']): Paragraph[] {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Education',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Add up to 4 education entries
+  for (let i = 0; i < Math.min(4, education.length); i++) {
+    const edu = education[i]
+    if (!edu.university) continue
+
+    // Institute and location line (same row)
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: edu.university || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${edu.location || ''}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 20, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // Degree info and graduation year line (same row)
+    const degreeInfo = `${edu.degree || ''}, ${edu.major || ''}, ${edu.gpa || ''}`
+    const graduationDate = `${edu.graduationMonth || ''} ${edu.graduationYear || ''}`
+
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: degreeInfo,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${graduationDate}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 50, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // No spacing between education entries
+  }
+
+  return paragraphs
+}
+
+function createStanfordLeadershipSection(leadership: ResumeData['leadership']): Paragraph[] {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Positions of Responsibility',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Add up to 2 leadership entries
+  for (let i = 0; i < Math.min(2, leadership.length); i++) {
+    const lead = leadership[i]
+    if (!lead.organization) continue
+
+    // Organization and location line (same row)
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: lead.organization || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${lead.location || ''}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 20, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // Title and date line (same row)
+    const endDate = lead.isCurrent ? 'Present' : `${lead.endMonth || ''} ${lead.endYear || ''}`
+    const dateRange = `${lead.startMonth || ''} ${lead.startYear || ''}– ${endDate}`
+
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: lead.title || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: `\t\t${dateRange}`,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 50, line: 276 }, // 1.15 line spacing
+        tabStops: [
+          {
+            type: TabStopType.RIGHT,
+            position: 7000, // 3.5 inches
+          },
+        ],
+      })
+    )
+
+    // Bullet points (up to 15, dynamic - no blank bullets)
+    lead.bullets
+      ?.filter((bullet) => bullet.trim())
+      .slice(0, 15)
+      .forEach((bullet, index) => {
+        paragraphs.push(
+          new Paragraph({
+            children: parseBoldText(bullet),
+            bullet: { level: 0 },
+            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            indent: { left: 400 },
+          })
+        )
+      })
+
+    // No spacing between leadership entries
+  }
+
+  return paragraphs
+}
+
+function createStanfordProjectsSection(projects: ResumeData['projects']): Paragraph[] {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Projects',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Add up to 2 project entries
+  for (let i = 0; i < Math.min(2, projects.length); i++) {
+    const project = projects[i]
+    if (!project.projectName) continue
+
+    // Project name
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: project.projectName || '',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 100, line: 276 }, // 1.15 line spacing
+      })
+    )
+
+    // Bullet points (up to 15, dynamic - no blank bullets)
+    project.bullets
+      ?.filter((bullet) => bullet.trim())
+      .slice(0, 15)
+      .forEach((bullet, index) => {
+        paragraphs.push(
+          new Paragraph({
+            children: parseBoldText(bullet),
+            bullet: { level: 0 },
+            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            indent: { left: 400 },
+          })
+        )
+      })
+
+    // No spacing between project entries
+  }
+
+  return paragraphs
+}
+
+function createStanfordCertificationsSection(
+  certifications: ResumeData['certifications']
+): Paragraph[] {
+  if (!certifications.bullets.length || certifications.bullets.every((bullet) => !bullet.trim()))
+    return []
+
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Certifications',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Add up to 15 certification bullets (dynamic - no blank bullets)
+  certifications.bullets
+    .filter((bullet) => bullet.trim())
+    .slice(0, 15)
+    .forEach((bullet, index) => {
+      paragraphs.push(
+        new Paragraph({
+          children: parseBoldText(bullet),
+          bullet: { level: 0 },
+          spacing: { after: 50, line: 276 }, // 1.15 line spacing
+          indent: { left: 400 },
+        })
+      )
+    })
+
+  return paragraphs
+}
+
+function createStanfordSkillsSection(skills: ResumeData['skills']): Paragraph[] {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: 'Skills & Interests',
+          size: 24, // 12pt
+          color: '000000',
+          font: 'Calibri',
+        }),
+      ],
+      spacing: { before: 200, after: 50 },
+      border: {
+        bottom: {
+          color: '000000',
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+    }),
+  ]
+
+  // Technical Skills
+  if (skills.technical && skills.technical.length > 0) {
+    const techSkills = skills.technical.filter((skill) => skill.trim()).join(', ')
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: 'Technical Skills: ',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: techSkills,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 100 },
+      })
+    )
+  }
+
+  // Languages
+  if (skills.languages && skills.languages.length > 0) {
+    const languages = skills.languages.filter((lang) => lang.trim()).join(', ')
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: 'Languages: ',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: languages,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 100 },
+      })
+    )
+  }
+
+  // Interests
+  if (skills.interests && skills.interests.length > 0) {
+    const interests = skills.interests.filter((interest) => interest.trim()).join(', ')
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: 'Interests: ',
+            bold: true,
+            size: 22, // 11pt
+            color: '000000',
+            font: 'Calibri',
+          }),
+          new TextRun({
+            text: interests,
+            size: 22,
+            color: '000000',
+            font: 'Calibri',
+          }),
+        ],
+        spacing: { after: 100 },
+      })
+    )
+  }
+
+  return paragraphs
 }

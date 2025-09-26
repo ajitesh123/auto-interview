@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // Initialize Gemini AI with embedded API key
-const GEMINI_API_KEY = 'AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI'
+const GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
 console.log('Gemini API Key configured:', !!GEMINI_API_KEY)
 
@@ -172,7 +172,9 @@ export async function POST(request: NextRequest) {
 
 async function parseResumeWithGemini(resumeText: string) {
   console.log('Starting Gemini parsing with text length:', resumeText.length)
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+
+  // Use the new model (gemini-2.5-flash)
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
   const prompt = `
 You are an expert resume parser. Parse the following resume text and extract information into the exact JSON structure provided below.
@@ -324,6 +326,29 @@ Return ONLY the JSON object, no additional text or formatting.
       message: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,
     })
-    throw new Error('Failed to parse resume with AI')
+
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('404') || error.message.includes('not found')) {
+        throw new Error(
+          'Gemini API access issue: Please check that your API key has access to Gemini models and billing is set up.'
+        )
+      } else if (error.message.includes('API_KEY_INVALID')) {
+        throw new Error('Invalid API key: Please check your Gemini API key.')
+      } else if (error.message.includes('QUOTA_EXCEEDED') || error.message.includes('quota')) {
+        throw new Error(
+          'API quota exceeded: You have reached your free tier limit. Please wait or upgrade your plan. Error: ' +
+            error.message
+        )
+      } else if (error.message.includes('PERMISSION_DENIED')) {
+        throw new Error('Permission denied: Please check your API key permissions.')
+      } else if (error.message.includes('429')) {
+        throw new Error('Rate limit exceeded: Please wait a moment before trying again.')
+      }
+    }
+
+    throw new Error(
+      'Failed to parse resume with AI: ' + (error instanceof Error ? error.message : String(error))
+    )
   }
 }

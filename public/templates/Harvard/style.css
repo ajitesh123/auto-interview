@@ -179,6 +179,19 @@ section h2 {
   }
 }
 
+/* Hide empty fields completely */
+.position-title:empty,
+.location:empty,
+.date:empty,
+.sub:empty {
+  display: none !important;
+}
+
+/* Hide empty right column when all fields are empty */
+.right:empty {
+  display: none !important;
+}
+
 /* Mobile: stack date under title */
 @media (max-width: 600px) {
   .row {

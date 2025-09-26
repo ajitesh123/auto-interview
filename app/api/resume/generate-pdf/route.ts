@@ -24,6 +24,8 @@ export async function POST(request: NextRequest) {
     let filledHTML: string
     if (template === 'lbs') {
       filledHTML = await fillLBSTemplate(data)
+    } else if (template === 'stanford') {
+      filledHTML = await fillStanfordTemplate(data)
     } else {
       filledHTML = await fillHarvardTemplate(data)
     }
@@ -49,24 +51,13 @@ export async function POST(request: NextRequest) {
 
 async function fillHarvardTemplate(data: ResumeData): Promise<string> {
   try {
-    // Load the Harvard template
-    const templateResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'}/templates/harvard/harvard-template.html`
-    )
-    if (!templateResponse.ok) {
-      throw new Error('Failed to load Harvard template')
-    }
+    // Load the Harvard template from file system
+    const templatePath = path.join(process.cwd(), 'public/templates/Harvard/harvard-template.html')
+    let template = fs.readFileSync(templatePath, 'utf-8')
 
-    let template = await templateResponse.text()
-
-    // Load template styles
-    const stylesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/templates/harvard/style.css`
-    )
-    let styles = ''
-    if (stylesResponse.ok) {
-      styles = await stylesResponse.text()
-    }
+    // Load template styles from file system
+    const stylesPath = path.join(process.cwd(), 'public/templates/Harvard/style.css')
+    const styles = fs.readFileSync(stylesPath, 'utf-8')
 
     // Replace placeholders with actual data
     const replacements = getReplacements(data)
@@ -111,9 +102,20 @@ function getReplacements(data: ResumeData): Record<string, string> {
     const filteredBullets = getBullets(bullets)
     if (filteredBullets.length === 0) return ''
 
-    return `<ul class="bullets">
-      ${filteredBullets.map((bullet) => `<li class="bullet-item">${parseBoldTextHTML(bullet)}</li>`).join('\n      ')}
-    </ul>`
+    const listItems = filteredBullets
+      .map((bullet) => `<li class="bullet-item">${parseBoldTextHTML(bullet)}</li>`)
+      .join('\n            ')
+    return `<ul class="bullets">\n            ${listItems}\n          </ul>`
+  }
+
+  // Helper function to generate bullet HTML for Harvard template (without ul wrapper)
+  const generateBulletsHTMLForHarvard = (bullets: string[]) => {
+    const filteredBullets = getBullets(bullets)
+    if (filteredBullets.length === 0) return ''
+
+    return filteredBullets
+      .map((bullet) => `<li class="bullet-item">${parseBoldTextHTML(bullet)}</li>`)
+      .join('\n            ')
   }
 
   // Helper function to check if a field has content
@@ -141,18 +143,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
   // Helper function to check if section has content
   const hasSectionContent = (section: unknown) => {
     if (Array.isArray(section)) {
-      return (
-        section.length > 0 &&
-        section.some((item) =>
-          Object.values(item).some((value) =>
-            typeof value === 'string'
-              ? value.trim().length > 0
-              : Array.isArray(value)
-                ? value.some((v) => v.trim().length > 0)
-                : value
-          )
-        )
-      )
+      return section.length > 0
     }
     if (section && typeof section === 'object') {
       const sectionObj = section as Record<string, unknown>
@@ -345,45 +336,39 @@ function getReplacements(data: ResumeData): Record<string, string> {
       : `${leadership[1]?.endMonth || ''} ${leadership[1]?.endYear || ''}`,
     'Leadership Bullets 2': generateBulletsHTML(leadership[1]?.bullets || []),
 
-    // Projects Section (mapped to specific placeholders)
+    // Projects Section (using template placeholders)
     Projects: hasSectionContent(projects) ? 'Projects' : '',
-    'Project 1 Title': createProjectTitle(projects[0]),
+    'Project 1 Title': projects[0]?.projectName || '',
     'Project 1 Bullets': generateBulletsHTML(projects[0]?.bullets || []),
-    'Project 2 Title': createProjectTitle(projects[1]),
+    'Project 2 Title': projects[1]?.projectName || '',
     'Project 2 Bullets': generateBulletsHTML(projects[1]?.bullets || []),
 
-    // Certifications Section (mapped to specific placeholders)
+    // Certifications Section (using template placeholders)
     Certifications:
       certifications.bullets && certifications.bullets.some((bullet) => bullet.trim())
         ? 'Certifications'
         : '',
     Certifications_Bullets: generateBulletsHTML(certifications.bullets || []),
 
-    // Skills Section (mapped to specific placeholders)
+    // Skills Section (using template placeholders)
     'Skills & Interests': hasSectionContent(skills) ? 'Skills & Interests' : '',
-    Technical: skills.technical.some((skill) => skill.trim() !== '') ? 'Technical' : '',
-    'Tech Skill 1': skills.technical[0] || '',
-    'Tech Skill 2': skills.technical[1] || '',
-    'Tech Skill 3': skills.technical[2] || '',
-    'Tech Skill 4': skills.technical[3] || '',
     'Technical Skills': (() => {
       const techSkills = skills.technical.filter((skill) => hasContent(skill))
-      return techSkills.length > 0 ? `Technical: ${techSkills.join(', ')}` : ''
+      return techSkills.length > 0
+        ? `<strong>Technical Skills:</strong> ${techSkills.join(', ')}`
+        : ''
     })(),
-    Languages: skills.languages.some((skill) => skill.trim() !== '') ? 'Languages' : '',
-    'Language 1': skills.languages[0] || '',
-    'Language 2': skills.languages[1] || '',
     'Language Skills': (() => {
-      const languages = skills.languages.filter((skill) => hasContent(skill))
-      return languages.length > 0 ? `Languages: ${languages.join(', ')}` : ''
+      const languageSkills = skills.languages.filter((skill) => hasContent(skill))
+      return languageSkills.length > 0
+        ? `<strong>Languages:</strong> ${languageSkills.join(', ')}`
+        : ''
     })(),
-    Interests: skills.interests.some((skill) => skill.trim() !== '') ? 'Interests' : '',
-    'Interest 1': skills.interests[0] || '',
-    'Interest 2': skills.interests[1] || '',
-    'Interest 3': skills.interests[2] || '',
     'Interest Skills': (() => {
-      const interests = skills.interests.filter((skill) => hasContent(skill))
-      return interests.length > 0 ? `Interests: ${interests.join(', ')}` : ''
+      const interestSkills = skills.interests.filter((skill) => hasContent(skill))
+      return interestSkills.length > 0
+        ? `<strong>Interests:</strong> ${interestSkills.join(', ')}`
+        : ''
     })(),
   }
 
@@ -727,4 +712,245 @@ function removeEmptyLBSSections(html: string, data: ResumeData): string {
 
   console.log('Finished removeEmptyLBSSections with HTML length:', processedHtml.length)
   return processedHtml
+}
+
+async function fillStanfordTemplate(data: ResumeData): Promise<string> {
+  console.log('Filling Stanford template with data:', JSON.stringify(data, null, 2))
+
+  // Load the Stanford template
+  const templatePath = path.join(
+    process.cwd(),
+    'public/templates/Harvard/Stanford/Stanford-template.html'
+  )
+  const templateHTML = fs.readFileSync(templatePath, 'utf-8')
+
+  // Get Stanford-specific replacements
+  const replacements = getStanfordReplacements(data)
+
+  // Apply replacements
+  let filledHTML = templateHTML
+  Object.entries(replacements).forEach(([placeholder, value]) => {
+    const regex = new RegExp(`{{${placeholder}}}`, 'g')
+    filledHTML = filledHTML.replace(regex, value || '')
+  })
+
+  // Remove empty sections
+  filledHTML = removeEmptyStanfordSections(filledHTML, data)
+
+  console.log('Stanford template filled successfully')
+  return filledHTML
+}
+
+function getStanfordReplacements(data: ResumeData): Record<string, string> {
+  const { contact, education, experience, leadership, projects, certifications, skills } = data
+
+  // Helper function to format dates
+  const formatDate = (month: string, year: string) => {
+    if (!month || !year) return ''
+    return `${month} ${year}`
+  }
+
+  // Helper function to generate bullets HTML
+  const generateBulletsHTML = (bullets: string[]) => {
+    if (!bullets || bullets.length === 0) return ''
+    return bullets
+      .filter((bullet) => bullet.trim())
+      .map((bullet) => `<li>${bullet}</li>`)
+      .join('')
+  }
+
+  return {
+    // Header
+    NAME: contact.name || '',
+    Location: contact.location || '',
+    Phone: contact.phone || '',
+    Email: contact.email || '',
+    LinkedIn: contact.linkedin || '',
+
+    // Experience (4 entries)
+    Organization1: experience[0]?.company || '',
+    Location1: experience[0]?.location || '',
+    JobTitle1: experience[0]?.jobTitle || '',
+    StartMonthYear1: formatDate(experience[0]?.startMonth, experience[0]?.startYear),
+    EndMonthYear1: experience[0]?.isCurrent
+      ? 'Present'
+      : formatDate(experience[0]?.endMonth, experience[0]?.endYear),
+    'bullet1.1': experience[0]?.bullets?.[0] || '',
+    'bullet1.2': experience[0]?.bullets?.[1] || '',
+    'bullet1.3': experience[0]?.bullets?.[2] || '',
+    'bullet1.4': experience[0]?.bullets?.[3] || '',
+    'bullet1.5': experience[0]?.bullets?.[4] || '',
+    'bullet1.6': experience[0]?.bullets?.[5] || '',
+    'bullet1.7': experience[0]?.bullets?.[6] || '',
+    'bullet1.8': experience[0]?.bullets?.[7] || '',
+    'bullet1.9': experience[0]?.bullets?.[8] || '',
+    'bullet1.10': experience[0]?.bullets?.[9] || '',
+    'bullet1.11': experience[0]?.bullets?.[10] || '',
+    'bullet1.12': experience[0]?.bullets?.[11] || '',
+    'bullet1.13': experience[0]?.bullets?.[12] || '',
+    'bullet1.14': experience[0]?.bullets?.[13] || '',
+    'bullet1.15': experience[0]?.bullets?.[14] || '',
+
+    Organization2: experience[1]?.company || '',
+    Location2: experience[1]?.location || '',
+    JobTitle2: experience[1]?.jobTitle || '',
+    StartMonthYear2: formatDate(experience[1]?.startMonth, experience[1]?.startYear),
+    EndMonthYear2: experience[1]?.isCurrent
+      ? 'Present'
+      : formatDate(experience[1]?.endMonth, experience[1]?.endYear),
+    'bullet2.1': experience[1]?.bullets?.[0] || '',
+    'bullet2.2': experience[1]?.bullets?.[1] || '',
+    'bullet2.3': experience[1]?.bullets?.[2] || '',
+    'bullet2.4': experience[1]?.bullets?.[3] || '',
+    'bullet2.5': experience[1]?.bullets?.[4] || '',
+    'bullet2.6': experience[1]?.bullets?.[5] || '',
+    'bullet2.7': experience[1]?.bullets?.[6] || '',
+    'bullet2.8': experience[1]?.bullets?.[7] || '',
+    'bullet2.9': experience[1]?.bullets?.[8] || '',
+    'bullet2.10': experience[1]?.bullets?.[9] || '',
+    'bullet2.11': experience[1]?.bullets?.[10] || '',
+    'bullet2.12': experience[1]?.bullets?.[11] || '',
+    'bullet2.13': experience[1]?.bullets?.[12] || '',
+    'bullet2.14': experience[1]?.bullets?.[13] || '',
+    'bullet2.15': experience[1]?.bullets?.[14] || '',
+
+    Organization3: experience[2]?.company || '',
+    Location3: experience[2]?.location || '',
+    JobTitle3: experience[2]?.jobTitle || '',
+    StartMonthYear3: formatDate(experience[2]?.startMonth, experience[2]?.startYear),
+    EndMonthYear3: experience[2]?.isCurrent
+      ? 'Present'
+      : formatDate(experience[2]?.endMonth, experience[2]?.endYear),
+    'bullet3.1': experience[2]?.bullets?.[0] || '',
+    'bullet3.2': experience[2]?.bullets?.[1] || '',
+    'bullet3.3': experience[2]?.bullets?.[2] || '',
+    'bullet3.4': experience[2]?.bullets?.[3] || '',
+    'bullet3.5': experience[2]?.bullets?.[4] || '',
+    'bullet3.6': experience[2]?.bullets?.[5] || '',
+    'bullet3.7': experience[2]?.bullets?.[6] || '',
+    'bullet3.8': experience[2]?.bullets?.[7] || '',
+    'bullet3.9': experience[2]?.bullets?.[8] || '',
+    'bullet3.10': experience[2]?.bullets?.[9] || '',
+    'bullet3.11': experience[2]?.bullets?.[10] || '',
+    'bullet3.12': experience[2]?.bullets?.[11] || '',
+    'bullet3.13': experience[2]?.bullets?.[12] || '',
+    'bullet3.14': experience[2]?.bullets?.[13] || '',
+    'bullet3.15': experience[2]?.bullets?.[14] || '',
+
+    Organization4: experience[3]?.company || '',
+    Location4: experience[3]?.location || '',
+    JobTitle4: experience[3]?.jobTitle || '',
+    StartMonthYear4: formatDate(experience[3]?.startMonth, experience[3]?.startYear),
+    EndMonthYear4: experience[3]?.isCurrent
+      ? 'Present'
+      : formatDate(experience[3]?.endMonth, experience[3]?.endYear),
+    'bullet4.1': experience[3]?.bullets?.[0] || '',
+    'bullet4.2': experience[3]?.bullets?.[1] || '',
+    'bullet4.3': experience[3]?.bullets?.[2] || '',
+    'bullet4.4': experience[3]?.bullets?.[3] || '',
+    'bullet4.5': experience[3]?.bullets?.[4] || '',
+    'bullet4.6': experience[3]?.bullets?.[5] || '',
+    'bullet4.7': experience[3]?.bullets?.[6] || '',
+    'bullet4.8': experience[3]?.bullets?.[7] || '',
+    'bullet4.9': experience[3]?.bullets?.[8] || '',
+    'bullet4.10': experience[3]?.bullets?.[9] || '',
+    'bullet4.11': experience[3]?.bullets?.[10] || '',
+    'bullet4.12': experience[3]?.bullets?.[11] || '',
+    'bullet4.13': experience[3]?.bullets?.[12] || '',
+    'bullet4.14': experience[3]?.bullets?.[13] || '',
+    'bullet4.15': experience[3]?.bullets?.[14] || '',
+
+    // Education (4 entries)
+    Institute1: education[0]?.university || '',
+    EduLocation1: education[0]?.location || '',
+    Degree1: education[0]?.degree || '',
+    Major1: education[0]?.major || '',
+    GPA1: education[0]?.gpa || '',
+    YearofGraduation1: formatDate(education[0]?.graduationMonth, education[0]?.graduationYear),
+
+    Institute2: education[1]?.university || '',
+    EduLocation2: education[1]?.location || '',
+    Degree2: education[1]?.degree || '',
+    Major2: education[1]?.major || '',
+    GPA2: education[1]?.gpa || '',
+    YearofGraduation2: formatDate(education[1]?.graduationMonth, education[1]?.graduationYear),
+
+    Institute3: education[2]?.university || '',
+    EduLocation3: education[2]?.location || '',
+    Degree3: education[2]?.degree || '',
+    Major3: education[2]?.major || '',
+    GPA3: education[2]?.gpa || '',
+    YearofGraduation3: formatDate(education[2]?.graduationMonth, education[2]?.graduationYear),
+
+    Institute4: education[3]?.university || '',
+    EduLocation4: education[3]?.location || '',
+    Degree4: education[3]?.degree || '',
+    Major4: education[3]?.major || '',
+    GPA4: education[3]?.gpa || '',
+    YearofGraduation4: formatDate(education[3]?.graduationMonth, education[3]?.graduationYear),
+
+    // Leadership (2 entries)
+    Organization_Name1: leadership[0]?.organization || '',
+    LeadLocation1: leadership[0]?.location || '',
+    Title1: leadership[0]?.title || '',
+    LeadStartMonthYear1: formatDate(leadership[0]?.startMonth, leadership[0]?.startYear),
+    LeadEndMonthYear1: leadership[0]?.isCurrent
+      ? 'Present'
+      : formatDate(leadership[0]?.endMonth, leadership[0]?.endYear),
+    LeadBullet1: leadership[0]?.bullets?.[0] || '',
+    LeadBullet2: leadership[0]?.bullets?.[1] || '',
+
+    Organization_Name2: leadership[1]?.organization || '',
+    LeadLocation2: leadership[1]?.location || '',
+    Title2: leadership[1]?.title || '',
+    LeadStartMonthYear2: formatDate(leadership[1]?.startMonth, leadership[1]?.startYear),
+    LeadEndMonthYear2: leadership[1]?.isCurrent
+      ? 'Present'
+      : formatDate(leadership[1]?.endMonth, leadership[1]?.endYear),
+    LeadBullet3: leadership[1]?.bullets?.[0] || '',
+    LeadBullet4: leadership[1]?.bullets?.[1] || '',
+
+    // Projects (2 entries)
+    Project_Name1: projects[0]?.projectName || '',
+    ProjBullet1: projects[0]?.bullets?.[0] || '',
+    ProjBullet2: projects[0]?.bullets?.[1] || '',
+
+    Project_Name2: projects[1]?.projectName || '',
+    ProjBullet3: projects[1]?.bullets?.[0] || '',
+    ProjBullet4: projects[1]?.bullets?.[1] || '',
+
+    // Certifications (6 entries)
+    Certification1: certifications?.bullets?.[0] || '',
+    Certification2: certifications?.bullets?.[1] || '',
+    Certification3: certifications?.bullets?.[2] || '',
+    Certification4: certifications?.bullets?.[3] || '',
+    Certification5: certifications?.bullets?.[4] || '',
+    Certification6: certifications?.bullets?.[5] || '',
+
+    // Skills (up to 6 each, with proper comma separation)
+    Skill1: skills.technical?.[0] ? skills.technical[0] + (skills.technical[1] ? ', ' : '') : '',
+    Skill2: skills.technical?.[1] ? skills.technical[1] + (skills.technical[2] ? ', ' : '') : '',
+    Skill3: skills.technical?.[2] ? skills.technical[2] + (skills.technical[3] ? ', ' : '') : '',
+    Skill4: skills.technical?.[3] ? skills.technical[3] + (skills.technical[4] ? ', ' : '') : '',
+    Skill5: skills.technical?.[4] ? skills.technical[4] + (skills.technical[5] ? ', ' : '') : '',
+    Skill6: skills.technical?.[5] || '',
+    Language1: skills.languages?.[0] ? skills.languages[0] + (skills.languages[1] ? ', ' : '') : '',
+    Language2: skills.languages?.[1] ? skills.languages[1] + (skills.languages[2] ? ', ' : '') : '',
+    Language3: skills.languages?.[2] ? skills.languages[2] + (skills.languages[3] ? ', ' : '') : '',
+    Language4: skills.languages?.[3] ? skills.languages[3] + (skills.languages[4] ? ', ' : '') : '',
+    Language5: skills.languages?.[4] ? skills.languages[4] + (skills.languages[5] ? ', ' : '') : '',
+    Language6: skills.languages?.[5] || '',
+    Interest1: skills.interests?.[0] ? skills.interests[0] + (skills.interests[1] ? ', ' : '') : '',
+    Interest2: skills.interests?.[1] ? skills.interests[1] + (skills.interests[2] ? ', ' : '') : '',
+    Interest3: skills.interests?.[2] ? skills.interests[2] + (skills.interests[3] ? ', ' : '') : '',
+    Interest4: skills.interests?.[3] ? skills.interests[3] + (skills.interests[4] ? ', ' : '') : '',
+    Interest5: skills.interests?.[4] ? skills.interests[4] + (skills.interests[5] ? ', ' : '') : '',
+    Interest6: skills.interests?.[5] || '',
+  }
+}
+
+function removeEmptyStanfordSections(html: string, data: ResumeData): string {
+  // Disable server-side dynamic content removal for now to ensure all content shows up
+  // The client-side JavaScript will handle hiding empty content
+  return html
 }

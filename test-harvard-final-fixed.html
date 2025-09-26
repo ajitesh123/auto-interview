@@ -1,0 +1,572 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>John Doe - Resume</title>
+
+  <link rel="stylesheet" href="style.css">
+
+<style>/* Base & sizing: everything at 11pt as requested */
+:root {
+  --text-color: #000;
+  --muted: #333;
+  --max-width: 800px;
+  --page-pad: 24px;
+  --font-sans: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 11pt; /* entire document uses 11pt */
+  color: var(--text-color);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background: #fff;
+  padding: var(--page-pad);
+  box-sizing: border-box;
+}
+
+/* Header: centered and black */
+header {
+  text-align: center;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 11pt; /* same size, bolded */
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.contact {
+  color: var(--muted);
+  font-size: 11pt;
+}
+
+/* Layout for sections */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Section headings centered, black, 11pt (placeholders used in HTML) */
+section h2 {
+  margin: 0 0 8px 0;
+  font-size: 11pt;
+  color: var(--text-color);
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+
+/* Entry block: keeps title/date row & content under it */
+.entry {
+  width: 100%;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+/* Top row: left title, right date */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.left {
+  flex: 1 1 70%;
+}
+
+.right {
+  flex: 0 0 30%;
+  text-align: right;
+  color: var(--muted);
+  font-size: 11pt;
+  min-width: 90px;
+}
+
+/* Titles and subs */
+.institution {
+  font-weight: 600;
+  font-size: 11pt;
+  color: var(--text-color);
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 11pt;
+  margin-top: 2px;
+}
+
+/* Position title inline with sub */
+.position-title {
+  font-weight: 600;
+  font-size: 11pt;
+  color: var(--text-color);
+}
+
+/* Small meta row (degree, coursework etc.) */
+.row-meta {
+  margin-top: 6px;
+  font-size: 11pt;
+  color: var(--muted);
+}
+
+/* BULLETS: full width of container (not constrained to left column) */
+.bullets {
+  margin: 8px 0 12px 18px;
+  padding-left: 0;
+  list-style: disc;
+  list-style-position: inside;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: var(--text-color);
+  line-height: 1.35;
+}
+
+/* Skills & interests as straight inline lines (no boxes) */
+.skill-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11pt;
+  color: var(--text-color);
+  margin: 6px 0;
+}
+
+.skill-line strong {
+  min-width: 90px;
+  font-weight: 600;
+  display: inline-block;
+  font-size: 11pt;
+}
+
+/* small separators used between inline skill items */
+.skill-line span {
+  font-size: 11pt;
+  color: var(--muted);
+}
+
+/* Footer */
+.footer-note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 10pt;
+  text-align: center;
+}
+
+/* Print friendly */
+@media print {
+  body {
+    background: white;
+  }
+  .container {
+    padding: 16px;
+  }
+  header {
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+/* Hide empty fields completely */
+.position-title:empty,
+.location:empty,
+.date:empty,
+.sub:empty {
+  display: none !important;
+}
+
+/* Hide empty right column when all fields are empty */
+.right:empty {
+  display: none !important;
+}
+
+/* Mobile: stack date under title */
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+  }
+  .right {
+    text-align: left;
+    margin-top: 6px;
+  }
+  .skill-line strong {
+    min-width: 70px;
+  }
+}
+</style></head>
+
+<body>
+
+  <div class="container" role="document">
+
+    <header>
+
+      <div class="name">John Doe</div>
+
+      <div class="contact">
+
+        New York, NY • john@example.com • +1-234-567-8900
+
+      </div>
+
+    </header>
+
+
+
+    <main class="sections">
+
+      <!-- Education -->
+
+      <section aria-labelledby="education">
+
+        <h2 id="education">Education</h2>
+
+
+
+        <div class="entry" id="education-1">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">Harvard University</div>
+
+              <div class="sub">MBA — Business Administration — 3.8</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">Cambridge, MA</div>
+
+              <div class="date"> 2023</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        
+
+              <div class="sub"></div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location"></div>
+
+              <div class="date"> </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- optional study abroad / high school placeholders -->
+
+        
+
+              <div class="sub"></div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location"></div>
+
+              <div class="date"> </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Experience -->
+
+      <section aria-labelledby="experience">
+
+        <h2 id="experience">Experience</h2>
+
+
+
+        <!-- Experience entry 1 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{ProjOrganisation 1}}</div>
+
+              <div class="position-title">{{ProjPosition Title 1}}</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{ProjOrganisation Location 1}}</div>
+
+              <div class="date">{{ProjExperience Date 1}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{ProjExperience Bullets 1}}
+
+        </div>
+
+
+
+        <!-- Experience entry 2 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{ProjOrganisation 2}}</div>
+
+              <div class="position-title">{{ProjPosition Title 2}}</div>
+
+            </div>
+
+
+
+            <div class="right">
+
+              <div class="location">{{ProjOrganisation Location 2}}</div>
+
+              <div class="date">{{ProjExperience Date 2}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{ProjExperience Bullets 2}}
+
+        </div>
+
+
+
+        <!-- add more experience entries as needed using the same pattern -->
+
+      </section>
+
+
+
+      <!-- Experience 3 -->
+
+      
+
+
+
+      <!-- Leadership & Activities -->
+
+      
+
+
+
+      <!-- Projects (new) -->
+
+      <section aria-labelledby="projects">
+
+        <h2 id="projects">Projects</h2>
+
+
+
+        <!-- Project entry 1 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{ProjOrganisation 1}}</div>
+
+              <div class="position-title">{{ProjPosition Title 1}}</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{ProjOrganisation Location 1}}</div>
+
+              <div class="date">{{ProjExperience Date 1}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{ProjExperience Bullets 1}}
+
+        </div>
+
+
+
+        <!-- Project entry 2 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{ProjOrganisation 2}}</div>
+
+              <div class="position-title">{{ProjPosition Title 2}}</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{ProjOrganisation Location 2}}</div>
+
+              <div class="date">{{ProjExperience Date 2}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{ProjExperience Bullets 2}}
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Certifications -->
+
+      <section aria-labelledby="certifications">
+
+        <h2 id="certifications">Certifications</h2>
+
+
+
+        <!-- Certification entry 1 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{CertOrganisation 1}}</div>
+
+              <div class="position-title">{{CertPosition Title 1}}</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{CertOrganisation Location 1}}</div>
+
+              <div class="date">{{CertExperience Date 1}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{CertExperience Bullets 1}}
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Skills & Interests -->
+
+      <section aria-labelledby="skills">
+
+        <h2 id="skills">Skills & Interests</h2>
+
+
+
+        <!-- Skills entry 1 -->
+
+        <div class="entry">
+
+          <div class="row">
+
+            <div class="left">
+
+              <div class="institution">{{SkillsOrganisation 1}}</div>
+
+              <div class="position-title">{{SkillsPosition Title 1}}</div>
+
+            </div>
+
+            <div class="right">
+
+              <div class="location">{{SkillsOrganisation Location 1}}</div>
+
+              <div class="date">{{SkillsExperience Date 1}}</div>
+
+            </div>
+
+          </div>
+
+
+
+          {{SkillsExperience Bullets 1}}
+
+        </div>
+
+      </section>
+
+
+
+      <!-- End of sections -->

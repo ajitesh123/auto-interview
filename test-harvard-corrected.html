@@ -8,11 +8,218 @@
 
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>{{Resume Title}}</title>
+  <title>John Doe - Resume</title>
 
   <link rel="stylesheet" href="style.css">
 
-</head>
+<style>/* Base & sizing: everything at 11pt as requested */
+:root {
+  --text-color: #000;
+  --muted: #333;
+  --max-width: 800px;
+  --page-pad: 24px;
+  --font-sans: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 11pt; /* entire document uses 11pt */
+  color: var(--text-color);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background: #fff;
+  padding: var(--page-pad);
+  box-sizing: border-box;
+}
+
+/* Header: centered and black */
+header {
+  text-align: center;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 11pt; /* same size, bolded */
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.contact {
+  color: var(--muted);
+  font-size: 11pt;
+}
+
+/* Layout for sections */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Section headings centered, black, 11pt (placeholders used in HTML) */
+section h2 {
+  margin: 0 0 8px 0;
+  font-size: 11pt;
+  color: var(--text-color);
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+
+/* Entry block: keeps title/date row & content under it */
+.entry {
+  width: 100%;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+/* Top row: left title, right date */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.left {
+  flex: 1 1 70%;
+}
+
+.right {
+  flex: 0 0 30%;
+  text-align: right;
+  color: var(--muted);
+  font-size: 11pt;
+  min-width: 90px;
+}
+
+/* Titles and subs */
+.institution {
+  font-weight: 600;
+  font-size: 11pt;
+  color: var(--text-color);
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 11pt;
+  margin-top: 2px;
+}
+
+/* Position title inline with sub */
+.position-title {
+  font-weight: 600;
+  font-size: 11pt;
+  color: var(--text-color);
+}
+
+/* Small meta row (degree, coursework etc.) */
+.row-meta {
+  margin-top: 6px;
+  font-size: 11pt;
+  color: var(--muted);
+}
+
+/* BULLETS: full width of container (not constrained to left column) */
+.bullets {
+  margin: 8px 0 12px 18px;
+  padding-left: 0;
+  list-style: disc;
+  list-style-position: inside;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: var(--text-color);
+  line-height: 1.35;
+}
+
+/* Skills & interests as straight inline lines (no boxes) */
+.skill-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11pt;
+  color: var(--text-color);
+  margin: 6px 0;
+}
+
+.skill-line strong {
+  min-width: 90px;
+  font-weight: 600;
+  display: inline-block;
+  font-size: 11pt;
+}
+
+/* small separators used between inline skill items */
+.skill-line span {
+  font-size: 11pt;
+  color: var(--muted);
+}
+
+/* Footer */
+.footer-note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 10pt;
+  text-align: center;
+}
+
+/* Print friendly */
+@media print {
+  body {
+    background: white;
+  }
+  .container {
+    padding: 16px;
+  }
+  header {
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+/* Hide empty fields completely */
+.position-title:empty,
+.location:empty,
+.date:empty,
+.sub:empty {
+  display: none !important;
+}
+
+/* Hide empty right column when all fields are empty */
+.right:empty {
+  display: none !important;
+}
+
+/* Mobile: stack date under title */
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+  }
+  .right {
+    text-align: left;
+    margin-top: 6px;
+  }
+  .skill-line strong {
+    min-width: 70px;
+  }
+}
+</style></head>
 
 <body>
 
@@ -20,11 +227,11 @@
 
     <header>
 
-      <div class="name">{{Name}}</div>
+      <div class="name">John Doe</div>
 
       <div class="contact">
 
-        {{Contact Info}}
+        New York, NY • john@example.com • +1-234-567-8900
 
       </div>
 
@@ -38,7 +245,7 @@
 
       <section aria-labelledby="education">
 
-        <h2 id="education">{{Education}}</h2>
+        <h2 id="education">Education</h2>
 
 
 
@@ -48,17 +255,17 @@
 
             <div class="left">
 
-              <div class="institution">{{Institution 1}}</div>
+              <div class="institution">Harvard University</div>
 
-              <div class="sub">{{Education Meta 1}}</div>
+              <div class="sub">MBA — Business Administration — 3.8</div>
 
             </div>
 
             <div class="right">
 
-              <div class="location">{{Institution Location 1}}</div>
+              <div class="location">Cambridge, MA</div>
 
-              <div class="date">{{Graduation Date 1}}</div>
+              <div class="date"> 2023</div>
 
             </div>
 
@@ -68,23 +275,17 @@
 
 
 
-        <div class="entry" id="education-2">
+        
 
-          <div class="row">
-
-            <div class="left">
-
-              <div class="institution">{{Institution 2}}</div>
-
-              <div class="sub">{{Education Meta 2}}</div>
+              <div class="sub"></div>
 
             </div>
 
             <div class="right">
 
-              <div class="location">{{Institution Location 2}}</div>
+              <div class="location"></div>
 
-              <div class="date">{{Graduation Date 2}}</div>
+              <div class="date"> </div>
 
             </div>
 
@@ -96,23 +297,17 @@
 
         <!-- optional study abroad / high school placeholders -->
 
-        <div class="entry" id="education-3">
+        
 
-          <div class="row">
-
-            <div class="left">
-
-              <div class="institution">{{Institution 3}}</div>
-
-              <div class="sub">{{Education Meta 3}}</div>
+              <div class="sub"></div>
 
             </div>
 
             <div class="right">
 
-              <div class="location">{{Institution Location 3}}</div>
+              <div class="location"></div>
 
-              <div class="date">{{Graduation Date 3}}</div>
+              <div class="date"> </div>
 
             </div>
 
@@ -128,7 +323,7 @@
 
       <section aria-labelledby="experience">
 
-        <h2 id="experience">{{Experience}}</h2>
+        <h2 id="experience">Experience</h2>
 
 
 
@@ -140,17 +335,17 @@
 
             <div class="left">
 
-              <div class="institution">{{Organisation 1}}</div>
+              <div class="institution">IndiaMART Intermesh Ltd.</div>
 
-              <div class="position-title">{{Position Title 1}}</div>
+              <div class="position-title">Product Manager</div>
 
             </div>
 
             <div class="right">
 
-              <div class="location">{{Organisation Location 1}}</div>
+              <div class="location">Mumbai, India</div>
 
-              <div class="date">{{Experience Date 1}}</div>
+              <div class="date">2022 – 2023</div>
 
             </div>
 
@@ -158,7 +353,8 @@
 
 
 
-          {{Experience Bullets 1}}
+          <li class="bullet-item">Led product development for B2B marketplace</li>
+            <li class="bullet-item">Increased user engagement by 25%</li>
 
         </div>
 
@@ -172,9 +368,9 @@
 
             <div class="left">
 
-              <div class="institution">{{Organisation 2}}</div>
+              <div class="institution">ZS Associates</div>
 
-              <div class="position-title">{{Position Title 2}}</div>
+              <div class="position-title">Senior Consultant</div>
 
             </div>
 
@@ -182,9 +378,9 @@
 
             <div class="right">
 
-              <div class="location">{{Organisation Location 2}}</div>
+              <div class="location">Pune, India</div>
 
-              <div class="date">{{Experience Date 2}}</div>
+              <div class="date">2020 – 2022</div>
 
             </div>
 
@@ -192,7 +388,8 @@
 
 
 
-          {{Experience Bullets 2}}
+          <li class="bullet-item">Managed client relationships</li>
+            <li class="bullet-item">Delivered data-driven insights</li>
 
         </div>
 
@@ -206,119 +403,13 @@
 
       <!-- Experience 3 -->
 
-      <section aria-labelledby="experience3">
-
-        <h2 id="experience3">{{Experience 3}}</h2>
-
-
-
-        <div class="entry">
-
-          <div class="row">
-
-            <div class="left">
-
-              <div class="institution">{{Organisation 3}}</div>
-
-              <div class="position-title">{{Position Title 3}}</div>
-
-            </div>
-
-            <div class="right">
-
-              <div class="location">{{Organisation Location 3}}</div>
-
-              <div class="date">{{Experience Date 3}}</div>
-
-            </div>
-
-          </div>
-
-
-
-          {{Experience Bullets 3}}
-
-        </div>
-
-      </section>
+      
 
 
 
       <!-- Leadership & Activities -->
 
-      <section aria-labelledby="leadership">
-
-        <h2 id="leadership">{{Leadership & Activities}}</h2>
-
-
-
-        <div class="entry" id="leadership-1">
-
-          <div class="row">
-
-            <div class="left">
-
-              <div class="institution">{{Organization / Club L}}</div>
-
-              <div class="position-title">{{Role L}}</div>
-
-            </div>
-
-            <div class="right">
-
-              <div class="location">{{Organisation Location L}}</div>
-
-              <div class="date">
-                <span class="date-item" data-field="startL">{{StartDateL}}</span>
-                <span class="date-separator"> – </span>
-                <span class="date-item" data-field="endL">{{EndDateL}}</span>
-              </div>
-
-            </div>
-
-          </div>
-
-
-
-          {{Leadership Bullets}}
-
-        </div>
-
-
-
-        <div class="entry" id="leadership-2">
-
-          <div class="row">
-
-            <div class="left">
-
-              <div class="institution">{{Organization / Club L2}}</div>
-
-              <div class="position-title">{{Role L2}}</div>
-
-            </div>
-
-            <div class="right">
-
-              <div class="location">{{Organisation Location L2}}</div>
-
-              <div class="date">
-                <span class="date-item" data-field="startL2">{{StartDateL2}}</span>
-                <span class="date-separator"> – </span>
-                <span class="date-item" data-field="endL2">{{EndDateL2}}</span>
-              </div>
-
-            </div>
-
-          </div>
-
-
-
-          {{Leadership Bullets 2}}
-
-        </div>
-
-      </section>
+      
 
 
 
@@ -326,7 +417,7 @@
 
       <section aria-labelledby="projects">
 
-        <h2 id="projects">{{Projects}}</h2>
+        <h2 id="projects">Projects</h2>
 
 
 
@@ -336,14 +427,15 @@
 
             <div class="left">
 
-              <div class="institution">{{Project 1 Title}}</div>
+              <div class="institution">Paytm Loyalty</div>
 
             </div>
 
           </div>
 
           <ul class="bullets">
-            {{Project 1 Bullets}}
+            <li class="bullet-item">Developed loyalty program</li>
+            <li class="bullet-item">Increased customer retention</li>
           </ul>
 
         </div>
@@ -356,14 +448,15 @@
 
             <div class="left">
 
-              <div class="institution">{{Project 2 Title}}</div>
+              <div class="institution">Calendar Controller AI</div>
 
             </div>
 
           </div>
 
           <ul class="bullets">
-            {{Project 2 Bullets}}
+            <li class="bullet-item">Built AI-powered calendar</li>
+            <li class="bullet-item">Improved scheduling efficiency</li>
           </ul>
 
         </div>
@@ -376,14 +469,15 @@
 
       <section aria-labelledby="certifications">
 
-        <h2 id="certifications">{{Certifications}}</h2>
+        <h2 id="certifications">Certifications</h2>
 
 
 
         <div class="entry">
 
           <ul class="bullets">
-            {{Certifications_Bullets}}
+            <li class="bullet-item">alfnefnelf sefefepnfgpeigfnsrignrgpn</li>
+            <li class="bullet-item">Test certification 2</li>
           </ul>
 
         </div>
@@ -396,15 +490,15 @@
 
       <section aria-labelledby="skills">
 
-        <h2 id="skills">{{Skills & Interests}}</h2>
+        <h2 id="skills">Skills & Interests</h2>
 
 
 
-        <div class="skill-line" id="technical-skills">{{Technical Skills}}</div>
+        <div class="skill-line" id="technical-skills"><strong>Technical Skills:</strong> Python, JavaScript, React</div>
 
-        <div class="skill-line" id="languages-skills">{{Language Skills}}</div>
+        <div class="skill-line" id="languages-skills"><strong>Languages:</strong> English, Hindi</div>
 
-        <div class="skill-line" id="interests-skills">{{Interest Skills}}</div>
+        <div class="skill-line" id="interests-skills"><strong>Interests:</strong> Technology, Innovation</div>
 
       </section>
 

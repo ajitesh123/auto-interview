@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Template - Stanford Style</title>
+    <style>
+        /* A4 page setup */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.15;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            background: white;
+        }
+
+        /* Container for A4 sizing */
+        .cv-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 8mm 12mm;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                margin: 0;
+            }
+            .cv-container {
+                margin: 0;
+                padding: 8mm 12mm;
+                page-break-after: always;
+            }
+        }
+
+        /* Header section */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 14pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            margin-bottom: 15px;
+        }
+
+        /* Section headings */
+        .section-heading {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 12pt;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            text-decoration: none;
+            font-weight: normal;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2px;
+        }
+
+        /* Organization and job entries */
+        .entry {
+            margin-bottom: 6px;
+        }
+
+        .organization-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .organization-name {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+
+        .location {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: normal;
+            margin-left: auto;
+        }
+
+        .job-title-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .job-title {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+
+        .date-range {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: normal;
+            margin-left: auto;
+        }
+
+        /* Education entries */
+        .education-entry {
+            margin-bottom: 6px;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .institute-name {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+
+        .education-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .degree-info {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: normal;
+        }
+
+        .graduation-year {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            margin-left: auto;
+        }
+
+        /* Bullet points */
+        ul {
+            margin: 2px 0 4px 0;
+            padding-left: 25px;
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-bottom: 2px;
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+        }
+
+        /* Projects section */
+        .project-entry {
+            margin-bottom: 6px;
+        }
+
+        .project-name {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        /* Skills section */
+        .skills-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 2px;
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+        }
+
+        .skill-category {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+
+        /* Remove default link styling for clean look */
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="name">{{NAME}}</div>
+            <div class="contact-info">
+                {{Location}} • {{Phone}} • {{Email}} • {{LinkedIn}}
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="section-heading">Experience</div>
+
+        <!-- Experience Entry 1 -->
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization1}}</span>
+                <span class="location">{{Location1}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{JobTitle1}}</span>
+                <span class="date-range">{{StartMonthYear1}}– {{EndMonthYear1}}</span>
+            </div>
+            <ul>
+                <li>{{bullet1.1}}</li>
+                <li>{{bullet1.2}}</li>
+                <li>{{bullet1.3}}</li>
+                <li>{{bullet1.4}}</li>
+                <li>{{bullet1.5}}</li>
+                <li>{{bullet1.6}}</li>
+                <li>{{bullet1.7}}</li>
+                <li>{{bullet1.8}}</li>
+                <li>{{bullet1.9}}</li>
+                <li>{{bullet1.10}}</li>
+                <li>{{bullet1.11}}</li>
+                <li>{{bullet1.12}}</li>
+                <li>{{bullet1.13}}</li>
+                <li>{{bullet1.14}}</li>
+                <li>{{bullet1.15}}</li>
+            </ul>
+        </div>
+
+        <!-- Experience Entry 2 -->
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization2}}</span>
+                <span class="location">{{Location2}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{JobTitle2}}</span>
+                <span class="date-range">{{StartMonthYear2}}– {{EndMonthYear2}}</span>
+            </div>
+            <ul>
+                <li>{{bullet2.1}}</li>
+                <li>{{bullet2.2}}</li>
+                <li>{{bullet2.3}}</li>
+                <li>{{bullet2.4}}</li>
+                <li>{{bullet2.5}}</li>
+                <li>{{bullet2.6}}</li>
+                <li>{{bullet2.7}}</li>
+                <li>{{bullet2.8}}</li>
+                <li>{{bullet2.9}}</li>
+                <li>{{bullet2.10}}</li>
+                <li>{{bullet2.11}}</li>
+                <li>{{bullet2.12}}</li>
+                <li>{{bullet2.13}}</li>
+                <li>{{bullet2.14}}</li>
+                <li>{{bullet2.15}}</li>
+            </ul>
+        </div>
+
+        <!-- Experience Entry 3 -->
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization3}}</span>
+                <span class="location">{{Location3}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{JobTitle3}}</span>
+                <span class="date-range">{{StartMonthYear3}}– {{EndMonthYear3}}</span>
+            </div>
+            <ul>
+                <li>{{bullet3.1}}</li>
+                <li>{{bullet3.2}}</li>
+                <li>{{bullet3.3}}</li>
+                <li>{{bullet3.4}}</li>
+                <li>{{bullet3.5}}</li>
+                <li>{{bullet3.6}}</li>
+                <li>{{bullet3.7}}</li>
+                <li>{{bullet3.8}}</li>
+                <li>{{bullet3.9}}</li>
+                <li>{{bullet3.10}}</li>
+                <li>{{bullet3.11}}</li>
+                <li>{{bullet3.12}}</li>
+                <li>{{bullet3.13}}</li>
+                <li>{{bullet3.14}}</li>
+                <li>{{bullet3.15}}</li>
+            </ul>
+        </div>
+
+        <!-- Experience Entry 4 -->
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization4}}</span>
+                <span class="location">{{Location4}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{JobTitle4}}</span>
+                <span class="date-range">{{StartMonthYear4}}– {{EndMonthYear4}}</span>
+            </div>
+            <ul>
+                <li>{{bullet4.1}}</li>
+                <li>{{bullet4.2}}</li>
+                <li>{{bullet4.3}}</li>
+                <li>{{bullet4.4}}</li>
+                <li>{{bullet4.5}}</li>
+                <li>{{bullet4.6}}</li>
+                <li>{{bullet4.7}}</li>
+                <li>{{bullet4.8}}</li>
+                <li>{{bullet4.9}}</li>
+                <li>{{bullet4.10}}</li>
+                <li>{{bullet4.11}}</li>
+                <li>{{bullet4.12}}</li>
+                <li>{{bullet4.13}}</li>
+                <li>{{bullet4.14}}</li>
+                <li>{{bullet4.15}}</li>
+            </ul>
+        </div>
+
+        <!-- Education Section -->
+        <div class="section-heading">Education</div>
+
+        <!-- Education Entry 1 -->
+        <div class="education-entry">
+            <div class="education-header">
+                <span class="institute-name">{{Institute1}}</span>
+                <span class="location">{{EduLocation1}}</span>
+            </div>
+            <div class="education-details">
+                <span class="degree-info">{{Degree1}}, {{Major1}}, {{GPA1}}</span>
+                <span class="graduation-year">{{YearofGraduation1}}</span>
+            </div>
+        </div>
+
+        <!-- Education Entry 2 -->
+        <div class="education-entry">
+            <div class="education-header">
+                <span class="institute-name">{{Institute2}}</span>
+                <span class="location">{{EduLocation2}}</span>
+            </div>
+            <div class="education-details">
+                <span class="degree-info">{{Degree2}}, {{Major2}}, {{GPA2}}</span>
+                <span class="graduation-year">{{YearofGraduation2}}</span>
+            </div>
+        </div>
+
+        <!-- Education Entry 3 -->
+        <div class="education-entry">
+            <div class="education-header">
+                <span class="institute-name">{{Institute3}}</span>
+                <span class="location">{{EduLocation3}}</span>
+            </div>
+            <div class="education-details">
+                <span class="degree-info">{{Degree3}}, {{Major3}}, {{GPA3}}</span>
+                <span class="graduation-year">{{YearofGraduation3}}</span>
+            </div>
+        </div>
+
+        <!-- Education Entry 4 -->
+        <div class="education-entry">
+            <div class="education-header">
+                <span class="institute-name">{{Institute4}}</span>
+                <span class="location">{{EduLocation4}}</span>
+            </div>
+            <div class="education-details">
+                <span class="degree-info">{{Degree4}}, {{Major4}}, {{GPA4}}</span>
+                <span class="graduation-year">{{YearofGraduation4}}</span>
+            </div>
+        </div>
+
+        <!-- Positions of Responsibility Section -->
+        <div class="section-heading">Positions of Responsibility</div>
+
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization_Name1}}</span>
+                <span class="location">{{LeadLocation1}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{Title1}}</span>
+                <span class="date-range">{{LeadStartMonthYear1}}– {{LeadEndMonthYear1}}</span>
+            </div>
+            <ul>
+                <li>{{LeadBullet1}}</li>
+                <li>{{LeadBullet2}}</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <div class="organization-line">
+                <span class="organization-name">{{Organization_Name2}}</span>
+                <span class="location">{{LeadLocation2}}</span>
+            </div>
+            <div class="job-title-line">
+                <span class="job-title">{{Title2}}</span>
+                <span class="date-range">{{LeadStartMonthYear2}}– {{LeadEndMonthYear2}}</span>
+            </div>
+            <ul>
+                <li>{{LeadBullet3}}</li>
+                <li>{{LeadBullet4}}</li>
+            </ul>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section-heading">Projects</div>
+
+        <div class="project-entry">
+            <div class="project-name">{{Project_Name1}}</div>
+            <ul>
+                <li>{{ProjBullet1}}</li>
+                <li>{{ProjBullet2}}</li>
+            </ul>
+        </div>
+
+        <div class="project-entry">
+            <div class="project-name">{{Project_Name2}}</div>
+            <ul>
+                <li>{{ProjBullet3}}</li>
+                <li>{{ProjBullet4}}</li>
+            </ul>
+        </div>
+
+        <!-- Certifications Section -->
+        <div class="section-heading">Certifications</div>
+        <ul>
+            <li>{{Certification1}}</li>
+            <li>{{Certification2}}</li>
+            <li>{{Certification3}}</li>
+            <li>{{Certification4}}</li>
+            <li>{{Certification5}}</li>
+            <li>{{Certification6}}</li>
+        </ul>
+
+        <!-- Skills & Interests Section -->
+        <div class="section-heading">Skills & Interests</div>
+          <ul class="skills-list">
+             <li><span class="skill-category">Technical Skills:</span> {{Skill1}}{{Skill2}}{{Skill3}}{{Skill4}}{{Skill5}}{{Skill6}}</li>
+             <li><span class="skill-category">Languages:</span> {{Language1}}{{Language2}}{{Language3}}{{Language4}}{{Language5}}{{Language6}}</li>
+             <li><span class="skill-category">Interests:</span> {{Interest1}}{{Interest2}}{{Interest3}}{{Interest4}}{{Interest5}}{{Interest6}}</li>
+          </ul>
+    </div>
+
+    <script>
+        // Simple dynamic content management for Stanford template
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Stanford template loaded - hiding empty placeholders');
+            
+            // Hide empty bullet points
+            const allBullets = document.querySelectorAll('li');
+            allBullets.forEach(function(bullet) {
+                const text = bullet.textContent || '';
+                if (text.trim() === '') {
+                    bullet.style.display = 'none';
+                }
+            });
+            
+            // Hide empty experience entries (only if organization name is empty)
+            const experienceEntries = document.querySelectorAll('.entry');
+            experienceEntries.forEach(function(entry) {
+                const orgName = entry.querySelector('.organization-name');
+                if (orgName && orgName.textContent.trim() === '') {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            // Hide empty education entries (only if institute name is empty)
+            const educationEntries = document.querySelectorAll('.education-entry');
+            educationEntries.forEach(function(entry) {
+                const instituteName = entry.querySelector('.institute-name');
+                if (instituteName && instituteName.textContent.trim() === '') {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            // Hide empty project entries (only if project name is empty)
+            const projectEntries = document.querySelectorAll('.project-entry');
+            projectEntries.forEach(function(entry) {
+                const projectName = entry.querySelector('.project-name');
+                if (projectName && projectName.textContent.trim() === '') {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            // Hide empty leadership entries (only if organization name is empty)
+            const leadershipEntries = document.querySelectorAll('.leadership-entry');
+            leadershipEntries.forEach(function(entry) {
+                const orgName = entry.querySelector('.organization-name');
+                if (orgName && orgName.textContent.trim() === '') {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            // Clean up empty skill lines
+            const skillLines = document.querySelectorAll('.skills-list li');
+            skillLines.forEach(function(item) {
+                const text = item.textContent || '';
+                const categorySpan = item.querySelector('.skill-category');
+                const categoryText = categorySpan ? categorySpan.textContent : '';
+                const contentText = text.replace(categoryText, '').trim();
+                
+                if (contentText === '') {
+                    item.style.display = 'none';
+                }
+            });
+            
+            console.log('Empty placeholders hidden successfully');
+        });
+    </script>
+</body>
+</html>

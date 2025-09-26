@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // Initialize Gemini AI with embedded API key
-const GOOGLE_GEMINI_API_KEY = 'AIzaSyDnn9BLN2OEbLndFac3jdMZKgrKYrxr1tI'
+const GOOGLE_GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
 const genAI = new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY)
 
 export async function POST(request: NextRequest) {
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const base64 = buffer.toString('base64')
 
     // Initialize Gemini model
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
     // STEP 1: CONTENT ANALYSIS FOR SCORING
     const contentAnalysisPrompt = `You are a world-class ATS expert analyzing this resume content for scoring purposes.
