@@ -247,7 +247,7 @@ const FindJobsPage = () => {
                       href={job.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full rounded-lg bg-gradient-to-r from-pink-700 to-pink-900 px-4 py-2 text-center font-semibold text-white transition-colors hover:from-pink-600 hover:to-pink-800"
+                      className="block w-full rounded-lg bg-gradient-to-r from-accent-600 to-accent-700 px-4 py-2 text-center font-semibold text-white transition-colors hover:from-accent-500 hover:to-accent-600"
                     >
                       Apply Now
                     </a>
@@ -262,9 +262,9 @@ const FindJobsPage = () => {
       {/* Loading State with Progress Bar */}
       {isSearching && (
         <div className="py-12 text-center">
-          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-pink-700/20 to-pink-900/20">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-accent-500/20 to-accent-600/20">
             <svg
-              className="h-12 w-12 animate-spin text-pink-700"
+              className="h-12 w-12 animate-spin text-accent-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -313,7 +313,7 @@ const FindJobsPage = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"
+                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
               />
             </svg>
           </div>

@@ -13,7 +13,7 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src * https://api-gateway.umami.dev;
   font-src 'self' https://fonts.gstatic.com;
-  frame-src giscus.app www.loom.com www.youtube.com open.spotify.com www.toughtongueai.com
+  frame-src giscus.app www.loom.com www.youtube.com open.spotify.com app.toughtongueai.com
 `
 
 const securityHeaders = [
@@ -51,7 +51,7 @@ const securityHeaders = [
   {
     key: 'Permissions-Policy',
     value:
-      'microphone=(), camera=(), geolocation=(), microphone=(self "https://www.toughtongueai.com")',
+      'microphone=(), camera=(), geolocation=(), microphone=(self "https://app.toughtongueai.com")',
   },
 ]
 

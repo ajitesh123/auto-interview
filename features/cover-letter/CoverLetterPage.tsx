@@ -238,7 +238,7 @@ const CoverLetterPage = () => {
                     onChange={(e) => setJobDescription(e.target.value)}
                     placeholder="Paste the complete job description here..."
                     rows={6}
-                    className="w-full resize-none rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-pink-500 focus:outline-none"
+                    className="w-full resize-none rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-accent-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -358,9 +358,9 @@ const CoverLetterPage = () => {
               </div>
             ) : (
               <div className="py-12 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-pink-500/20 to-pink-700/20">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-accent-500/20 to-accent-600/20">
                   <svg
-                    className="h-8 w-8 text-pink-500"
+                    className="h-8 w-8 text-accent-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
