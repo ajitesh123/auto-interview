@@ -1,13 +1,15 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Auto Interview AI',
+  title: 'Auto Interview AI – Complete Job Preparation Platform',
   author: 'Ajitesh Abhishek',
   headerTitle: 'Auto Interview AI',
   description:
-    'AI-powered career tools for resume building, ATS optimization, job search, and interview preparation',
+    'Auto Interview AI is the one-stop job prep platform — resume builder, ATS score checker, AI mock interviews, job search and cover letter generator.',
+  keywords:
+    'job preparation, resume builder, ATS checker, mock interviews, job search, cover letter generator',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://www.thepmcareer.com',
+  siteUrl: 'https://www.autointerviewai.com',
   siteRepo: 'https://github.com/ajitesh123/tailwind-css-starter-blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.svg`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,

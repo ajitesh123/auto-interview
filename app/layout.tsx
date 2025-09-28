@@ -37,12 +37,13 @@ export const metadata: Metadata = {
     template: `%s | ${siteMetadata.title}`, // Format: [Page Name] | [Site Title]
   },
   description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
 
   // Open Graph metadata for social media sharing
   openGraph: {
     title: siteMetadata.title,
     description: siteMetadata.description,
-    url: './',
+    url: siteMetadata.siteUrl,
     siteName: siteMetadata.title,
     images: [siteMetadata.socialBanner],
     locale: 'en_US',
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
 
   // Alternative formats and canonical URL
   alternates: {
-    canonical: './',
+    canonical: siteMetadata.siteUrl,
     types: {
       'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
     },
@@ -73,6 +74,7 @@ export const metadata: Metadata = {
   // Twitter card metadata
   twitter: {
     title: siteMetadata.title,
+    description: siteMetadata.description,
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
   },
@@ -107,8 +109,71 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
 
+      {/* Google Search Console Verification */}
+      <meta name="google-site-verification" content="eTOb6OL-8x8-f47xo-azolhMsoPH_N0QoOgNPX-lCoM" />
+
+      {/* Bing Webmaster Tools Verification */}
+      <meta name="msvalidate.01" content="DCE0AC8E258C8B66E1E4F10414746DCF" />
+
       {/* Main body content */}
       <body className="bg-black pl-[calc(100vw-100%)] text-white antialiased">
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Auto Interview AI',
+              url: 'https://www.autointerviewai.com/',
+              description:
+                'Auto Interview AI is the one-stop platform for job preparation: resume builder, ATS checker, mock interviews, job search, and cover letter generator.',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://www.autointerviewai.com/?q={search_term_string}',
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
+
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Auto Interview AI',
+              url: 'https://www.autointerviewai.com/',
+              logo: 'https://www.autointerviewai.com/static/images/logo.png',
+              sameAs: [
+                'https://www.linkedin.com/in/ajiteshnandan/',
+                'https://x.com/ajiteshleo',
+                'https://github.com/ajitesh123',
+              ],
+            }),
+          }}
+        />
+
+        {/* SoftwareApplication Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              name: 'Auto Interview AI',
+              operatingSystem: 'Web',
+              applicationCategory: 'BusinessApplication',
+              url: 'https://www.autointerviewai.com/',
+              image: 'https://www.autointerviewai.com/static/images/twitter-card.png',
+              description:
+                'AI-driven mock interviews, resume builder, ATS checker, job search and cover letter generator.',
+            }),
+          }}
+        />
+
         {/* Clear body scroll locks on page load */}
         <script
           dangerouslySetInnerHTML={{
