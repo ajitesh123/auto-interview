@@ -7,6 +7,11 @@ import {
   BorderStyle,
   TabStopType,
   TabStopPosition,
+  Table,
+  TableRow,
+  TableCell,
+  WidthType,
+  IPropertiesOptions,
 } from 'docx'
 import { saveAs } from 'file-saver'
 import { ResumeData } from '../lib/resumeStore'
@@ -42,7 +47,7 @@ export async function generateDOCX(
                   ...createLBSSkillsSection(resumeData.skills),
                 ]
               : template === 'stanford'
-                ? [
+                ? ([
                     // Stanford Template Structure
                     ...createStanfordHeaderSection(resumeData.contact),
                     ...createStanfordExperienceSection(resumeData.experience),
@@ -51,7 +56,7 @@ export async function generateDOCX(
                     ...createStanfordProjectsSection(resumeData.projects),
                     ...createStanfordCertificationsSection(resumeData.certifications),
                     ...createStanfordSkillsSection(resumeData.skills),
-                  ]
+                  ] as any)
                 : [
                     // Harvard Template Structure
                     ...createHeaderSection(resumeData.contact),
@@ -88,7 +93,7 @@ function createHeaderSection(contact: ResumeData['contact']) {
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 200 },
+      spacing: { after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -115,7 +120,7 @@ function createHeaderSection(contact: ResumeData['contact']) {
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 400 },
+      spacing: { after: 75 },
     }),
   ]
 }
@@ -171,7 +176,7 @@ function createEducationSection(education: ResumeData['education']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -183,77 +188,136 @@ function createEducationSection(education: ResumeData['education']) {
     }),
     ...education
       .map((edu) => [
-        // University name and location row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: edu.university || '',
-              bold: true,
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+        // Create table for proper 2x2 structure
+        new Table({
+          width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+          },
+          borders: {
+            top: { style: BorderStyle.NONE },
+            bottom: { style: BorderStyle.NONE },
+            left: { style: BorderStyle.NONE },
+            right: { style: BorderStyle.NONE },
+            insideHorizontal: { style: BorderStyle.NONE },
+            insideVertical: { style: BorderStyle.NONE },
+          },
+          rows: [
+            // Row 1: University name and location
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: edu.university || '',
+                          bold: true,
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: edu.location || '',
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: edu.location || '',
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+            // Row 2: Degree, Major, GPA and date
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: [edu.degree || '', edu.major || '', edu.gpa || '']
+                            .filter(Boolean)
+                            .join(', '),
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: `${edu.graduationMonth || ''} ${edu.graduationYear || ''}`,
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
           ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
         }),
-        // Degree and date row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: `${edu.degree || ''} in ${edu.major || ''}`,
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: `${edu.graduationMonth || ''} ${edu.graduationYear || ''}`,
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-          ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
-        }),
-        // GPA row
-        ...(edu.gpa
-          ? [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: `GPA: ${edu.gpa}`,
-                    size: 22,
-                    color: '000000',
-                    font: 'Calibri',
-                  }),
-                ],
-                spacing: { after: 100 },
-              }),
-            ]
-          : []),
       ])
       .flat(),
   ]
@@ -262,7 +326,7 @@ function createEducationSection(education: ResumeData['education']) {
 function createLBSEducationSection(education: ResumeData['education']) {
   if (!education.length) return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -326,7 +390,7 @@ function createLBSEducationSection(education: ResumeData['education']) {
               font: 'Arial',
             }),
           ],
-          spacing: { after: 250 },
+          spacing: { after: 100 },
           tabStops: [
             {
               type: TabStopType.LEFT,
@@ -338,7 +402,7 @@ function createLBSEducationSection(education: ResumeData['education']) {
     }
   })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createExperienceSection(experience: ResumeData['experience']) {
@@ -355,7 +419,7 @@ function createExperienceSection(experience: ResumeData['experience']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -367,67 +431,141 @@ function createExperienceSection(experience: ResumeData['experience']) {
     }),
     ...experience
       .map((exp) => [
-        // Company name and location row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: exp.company || '',
-              bold: true,
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+        // Create table for proper 2x2 structure
+        new Table({
+          width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+          },
+          borders: {
+            top: { style: BorderStyle.NONE },
+            bottom: { style: BorderStyle.NONE },
+            left: { style: BorderStyle.NONE },
+            right: { style: BorderStyle.NONE },
+            insideHorizontal: { style: BorderStyle.NONE },
+            insideVertical: { style: BorderStyle.NONE },
+          },
+          rows: [
+            // Row 1: Company name and location
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: exp.company || '',
+                          bold: true,
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: exp.location || '',
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: exp.location || '',
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+            // Row 2: Job title and date
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: exp.jobTitle || '',
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: (() => {
+                            const startDate = [exp.startMonth || '', exp.startYear || '']
+                              .filter(Boolean)
+                              .join(' ')
+                            const endDate = exp.isCurrent
+                              ? 'Present'
+                              : [exp.endMonth || '', exp.endYear || ''].filter(Boolean).join(' ')
+                            return [startDate, endDate].filter(Boolean).join(' – ')
+                          })(),
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
           ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
-        }),
-        // Job title and date row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: exp.jobTitle || '',
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: [
-                exp.startMonth || '',
-                exp.startYear || '',
-                exp.endMonth || '',
-                exp.endYear || '',
-              ]
-                .filter(Boolean)
-                .join(' '),
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-          ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
         }),
         // Bullet points with proper Word bullets and bold formatting
         ...(exp.bullets || []).map(
@@ -435,7 +573,7 @@ function createExperienceSection(experience: ResumeData['experience']) {
             new Paragraph({
               children: parseBoldText(bullet),
               indent: { left: 400 },
-              spacing: { after: 50 },
+              spacing: { after: 25 },
               bullet: {
                 level: 0,
               },
@@ -449,7 +587,7 @@ function createExperienceSection(experience: ResumeData['experience']) {
 function createLBSExperienceSection(experience: ResumeData['experience']): Paragraph[] {
   if (!experience || experience.length === 0) return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -478,7 +616,7 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
         new Paragraph({
           children: [
             new TextRun({
-              text: `${exp.startYear || ''} - ${exp.endYear || ''}`,
+              text: `${exp.startYear || ''} - ${exp.isCurrent ? 'Present' : exp.endYear || ''}`,
               bold: true,
               size: 20, // 10pt
               color: '000000',
@@ -529,7 +667,7 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                spacing: { after: isLastBullet ? 150 : 25 }, // More spacing after last bullet
                 indent: {
                   left: 1440, // 1 inch indentation
                 },
@@ -549,7 +687,7 @@ function createLBSExperienceSection(experience: ResumeData['experience']): Parag
     }
   })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createLeadershipSection(leadership: ResumeData['leadership']) {
@@ -566,7 +704,7 @@ function createLeadershipSection(leadership: ResumeData['leadership']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -578,67 +716,141 @@ function createLeadershipSection(leadership: ResumeData['leadership']) {
     }),
     ...leadership
       .map((lead) => [
-        // Organization name and location row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: lead.organization || '',
-              bold: true,
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+        // Create table for proper 2x2 structure
+        new Table({
+          width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+          },
+          borders: {
+            top: { style: BorderStyle.NONE },
+            bottom: { style: BorderStyle.NONE },
+            left: { style: BorderStyle.NONE },
+            right: { style: BorderStyle.NONE },
+            insideHorizontal: { style: BorderStyle.NONE },
+            insideVertical: { style: BorderStyle.NONE },
+          },
+          rows: [
+            // Row 1: Organization name and location
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: lead.organization || '',
+                          bold: true,
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: lead.location || '',
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: lead.location || '',
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
+            // Row 2: Title and date
+            new TableRow({
+              children: [
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: lead.title || '',
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.LEFT,
+                    }),
+                  ],
+                  width: {
+                    size: 70,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+                new TableCell({
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: (() => {
+                            const startDate = [lead.startMonth || '', lead.startYear || '']
+                              .filter(Boolean)
+                              .join(' ')
+                            const endDate = lead.isCurrent
+                              ? 'Present'
+                              : [lead.endMonth || '', lead.endYear || ''].filter(Boolean).join(' ')
+                            return [startDate, endDate].filter(Boolean).join(' – ')
+                          })(),
+                          size: 22,
+                          color: '000000',
+                          font: 'Calibri',
+                        }),
+                      ],
+                      alignment: AlignmentType.RIGHT,
+                    }),
+                  ],
+                  width: {
+                    size: 30,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  borders: {
+                    top: { style: BorderStyle.NONE },
+                    bottom: { style: BorderStyle.NONE },
+                    left: { style: BorderStyle.NONE },
+                    right: { style: BorderStyle.NONE },
+                  },
+                }),
+              ],
             }),
           ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
-        }),
-        // Title and date row
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: lead.title || '',
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-            new TextRun({
-              text: '\t',
-            }),
-            new TextRun({
-              text: [
-                lead.startMonth || '',
-                lead.startYear || '',
-                lead.endMonth || '',
-                lead.endYear || '',
-              ]
-                .filter(Boolean)
-                .join(' '),
-              size: 22,
-              color: '000000',
-              font: 'Calibri',
-            }),
-          ],
-          tabStops: [
-            {
-              type: TabStopType.RIGHT,
-              position: TabStopPosition.MAX,
-            },
-          ],
-          spacing: { after: 50 },
         }),
         // Bullet points with proper Word bullets and bold formatting
         ...(lead.bullets || []).map(
@@ -646,7 +858,7 @@ function createLeadershipSection(leadership: ResumeData['leadership']) {
             new Paragraph({
               children: parseBoldText(bullet),
               indent: { left: 400 },
-              spacing: { after: 50 },
+              spacing: { after: 25 },
               bullet: {
                 level: 0,
               },
@@ -660,7 +872,7 @@ function createLeadershipSection(leadership: ResumeData['leadership']) {
 function createLBSLeadershipSection(leadership: ResumeData['leadership']): Paragraph[] {
   if (!leadership || leadership.length === 0) return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -689,7 +901,7 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
         new Paragraph({
           children: [
             new TextRun({
-              text: `${lead.startYear || ''} - ${lead.endYear || ''}`,
+              text: `${lead.startYear || ''} - ${lead.isCurrent ? 'Present' : lead.endYear || ''}`,
               bold: true,
               size: 20, // 10pt
               color: '000000',
@@ -740,7 +952,7 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                spacing: { after: isLastBullet ? 150 : 25 }, // More spacing after last bullet
                 indent: {
                   left: 1440, // 1 inch indentation
                 },
@@ -760,7 +972,7 @@ function createLBSLeadershipSection(leadership: ResumeData['leadership']): Parag
     }
   })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createProjectsSection(projects: ResumeData['projects']) {
@@ -777,7 +989,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -824,7 +1036,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
             new Paragraph({
               children: parseBoldText(bullet),
               indent: { left: 400 },
-              spacing: { after: 50 },
+              spacing: { after: 25 },
               bullet: {
                 level: 0,
               },
@@ -838,7 +1050,7 @@ function createProjectsSection(projects: ResumeData['projects']) {
 function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[] {
   if (!projects || projects.length === 0) return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -900,7 +1112,7 @@ function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[]
               new Paragraph({
                 children: parseBoldText(bullet),
                 bullet: { level: 0 },
-                spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+                spacing: { after: isLastBullet ? 150 : 25 }, // More spacing after last bullet
                 indent: {
                   left: 1440, // 1 inch indentation
                 },
@@ -920,7 +1132,7 @@ function createLBSProjectsSection(projects: ResumeData['projects']): Paragraph[]
     }
   })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createCertificationsSection(certifications: ResumeData['certifications']) {
@@ -938,7 +1150,7 @@ function createCertificationsSection(certifications: ResumeData['certifications'
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -955,7 +1167,7 @@ function createCertificationsSection(certifications: ResumeData['certifications'
           new Paragraph({
             children: parseBoldText(bullet),
             indent: { left: 400 },
-            spacing: { before: 100, after: 100 },
+            spacing: { before: 75, after: 100 },
             bullet: { level: 0 },
           })
       ),
@@ -966,7 +1178,7 @@ function createLBSCertificationsSection(certifications: ResumeData['certificatio
   if (!certifications.bullets.length || certifications.bullets.every((bullet) => !bullet.trim()))
     return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1035,7 +1247,7 @@ function createLBSCertificationsSection(certifications: ResumeData['certificatio
         new Paragraph({
           children: parseBoldText(bullet),
           bullet: { level: 0 },
-          spacing: { after: isLastBullet ? 150 : 50 }, // More spacing after last bullet
+          spacing: { after: isLastBullet ? 150 : 25 }, // More spacing after last bullet
           indent: {
             left: 1440, // 1 inch indentation to match other sections
           },
@@ -1043,7 +1255,7 @@ function createLBSCertificationsSection(certifications: ResumeData['certificatio
       )
     })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createSkillsSection(resumeData: ResumeData) {
@@ -1063,7 +1275,7 @@ function createSkillsSection(resumeData: ResumeData) {
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 200 },
+      spacing: { before: 75, after: 100 },
       border: {
         bottom: {
           color: '000000',
@@ -1084,7 +1296,7 @@ function createSkillsSection(resumeData: ResumeData) {
                 font: 'Calibri',
               }),
             ],
-            spacing: { after: 100 },
+            spacing: { after: 150 },
           }),
         ]
       : []),
@@ -1099,7 +1311,7 @@ function createSkillsSection(resumeData: ResumeData) {
                 font: 'Calibri',
               }),
             ],
-            spacing: { after: 100 },
+            spacing: { after: 150 },
           }),
         ]
       : []),
@@ -1114,7 +1326,7 @@ function createSkillsSection(resumeData: ResumeData) {
                 font: 'Calibri',
               }),
             ],
-            spacing: { after: 100 },
+            spacing: { after: 150 },
           }),
         ]
       : []),
@@ -1126,7 +1338,7 @@ function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
     return []
   }
 
-  const paragraphs: Paragraph[] = []
+  const paragraphs: (Paragraph | Table)[] = []
 
   // Technical Skills
   if (skills.technical.length) {
@@ -1200,7 +1412,7 @@ function createLBSSkillsSection(skills: ResumeData['skills']): Paragraph[] {
     )
   }
 
-  return paragraphs
+  return paragraphs as any
 }
 
 // Helper function to parse bold text (text with **bold** markers)
@@ -1285,8 +1497,10 @@ function createStanfordHeaderSection(contact: ResumeData['contact']): Paragraph[
   ]
 }
 
-function createStanfordExperienceSection(experience: ResumeData['experience']): Paragraph[] {
-  const paragraphs: Paragraph[] = [
+function createStanfordExperienceSection(
+  experience: ResumeData['experience']
+): (Paragraph | Table)[] {
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1296,7 +1510,7 @@ function createStanfordExperienceSection(experience: ResumeData['experience']): 
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1313,61 +1527,136 @@ function createStanfordExperienceSection(experience: ResumeData['experience']): 
     const exp = experience[i]
     if (!exp.company) continue
 
-    // Organization and location line (same row)
-    paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: exp.company || '',
-            bold: true,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
-          }),
-          new TextRun({
-            text: `\t\t${exp.location || ''}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
-          }),
-        ],
-        spacing: { after: 20, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
-        ],
-      })
-    )
-
-    // Job title and date line (same row)
+    // Create table for proper 2x2 structure
     const endDate = exp.isCurrent ? 'Present' : `${exp.endMonth || ''} ${exp.endYear || ''}`
     const dateRange = `${exp.startMonth || ''} ${exp.startYear || ''}– ${endDate}`
 
     paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: exp.jobTitle || '',
-            bold: true,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
+      new Table({
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: { style: BorderStyle.NONE },
+          bottom: { style: BorderStyle.NONE },
+          left: { style: BorderStyle.NONE },
+          right: { style: BorderStyle.NONE },
+          insideHorizontal: { style: BorderStyle.NONE },
+          insideVertical: { style: BorderStyle.NONE },
+        },
+        rows: [
+          // Row 1: Company name and location
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: exp.company || '',
+                        bold: true,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: exp.location || '',
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-          new TextRun({
-            text: `\t\t${dateRange}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
+          // Row 2: Job title and date
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: exp.jobTitle || '',
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: dateRange,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-        ],
-        spacing: { after: 50, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
         ],
       })
     )
@@ -1381,7 +1670,7 @@ function createStanfordExperienceSection(experience: ResumeData['experience']): 
           new Paragraph({
             children: parseBoldText(bullet),
             bullet: { level: 0 },
-            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            spacing: { after: 25, line: 276 }, // 1.15 line spacing
             indent: { left: 400 },
           })
         )
@@ -1390,11 +1679,11 @@ function createStanfordExperienceSection(experience: ResumeData['experience']): 
     // No spacing between experience entries
   }
 
-  return paragraphs
+  return paragraphs as any
 }
 
-function createStanfordEducationSection(education: ResumeData['education']): Paragraph[] {
-  const paragraphs: Paragraph[] = [
+function createStanfordEducationSection(education: ResumeData['education']): (Paragraph | Table)[] {
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1404,7 +1693,7 @@ function createStanfordEducationSection(education: ResumeData['education']): Par
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1421,72 +1710,147 @@ function createStanfordEducationSection(education: ResumeData['education']): Par
     const edu = education[i]
     if (!edu.university) continue
 
-    // Institute and location line (same row)
+    // Create table for proper 2x2 structure
     paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: edu.university || '',
-            bold: true,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
+      new Table({
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: { style: BorderStyle.NONE },
+          bottom: { style: BorderStyle.NONE },
+          left: { style: BorderStyle.NONE },
+          right: { style: BorderStyle.NONE },
+          insideHorizontal: { style: BorderStyle.NONE },
+          insideVertical: { style: BorderStyle.NONE },
+        },
+        rows: [
+          // Row 1: University name and location
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: edu.university || '',
+                        bold: true,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: edu.location || '',
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-          new TextRun({
-            text: `\t\t${edu.location || ''}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
+          // Row 2: Degree, Major, GPA and date
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: [edu.degree || '', edu.major || '', edu.gpa || '']
+                          .filter(Boolean)
+                          .join(', '),
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: `${edu.graduationMonth || ''} ${edu.graduationYear || ''}`,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-        ],
-        spacing: { after: 20, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
         ],
       })
     )
-
-    // Degree info and graduation year line (same row)
-    const degreeInfo = `${edu.degree || ''}, ${edu.major || ''}, ${edu.gpa || ''}`
-    const graduationDate = `${edu.graduationMonth || ''} ${edu.graduationYear || ''}`
-
-    paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: degreeInfo,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
-          }),
-          new TextRun({
-            text: `\t\t${graduationDate}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
-          }),
-        ],
-        spacing: { after: 50, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
-        ],
-      })
-    )
-
-    // No spacing between education entries
   }
 
-  return paragraphs
+  return paragraphs as any
 }
 
-function createStanfordLeadershipSection(leadership: ResumeData['leadership']): Paragraph[] {
-  const paragraphs: Paragraph[] = [
+function createStanfordLeadershipSection(
+  leadership: ResumeData['leadership']
+): (Paragraph | Table)[] {
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1496,7 +1860,7 @@ function createStanfordLeadershipSection(leadership: ResumeData['leadership']): 
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1513,61 +1877,136 @@ function createStanfordLeadershipSection(leadership: ResumeData['leadership']): 
     const lead = leadership[i]
     if (!lead.organization) continue
 
-    // Organization and location line (same row)
-    paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: lead.organization || '',
-            bold: true,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
-          }),
-          new TextRun({
-            text: `\t\t${lead.location || ''}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
-          }),
-        ],
-        spacing: { after: 20, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
-        ],
-      })
-    )
-
-    // Title and date line (same row)
+    // Create table for proper 2x2 structure
     const endDate = lead.isCurrent ? 'Present' : `${lead.endMonth || ''} ${lead.endYear || ''}`
     const dateRange = `${lead.startMonth || ''} ${lead.startYear || ''}– ${endDate}`
 
     paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: lead.title || '',
-            bold: true,
-            size: 22, // 11pt
-            color: '000000',
-            font: 'Calibri',
+      new Table({
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: { style: BorderStyle.NONE },
+          bottom: { style: BorderStyle.NONE },
+          left: { style: BorderStyle.NONE },
+          right: { style: BorderStyle.NONE },
+          insideHorizontal: { style: BorderStyle.NONE },
+          insideVertical: { style: BorderStyle.NONE },
+        },
+        rows: [
+          // Row 1: Organization name and location
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: lead.organization || '',
+                        bold: true,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: lead.location || '',
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-          new TextRun({
-            text: `\t\t${dateRange}`,
-            size: 22,
-            color: '000000',
-            font: 'Calibri',
+          // Row 2: Title and date
+          new TableRow({
+            children: [
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: lead.title || '',
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.LEFT,
+                  }),
+                ],
+                width: {
+                  size: 70,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: dateRange,
+                        size: 22,
+                        color: '000000',
+                        font: 'Calibri',
+                      }),
+                    ],
+                    alignment: AlignmentType.RIGHT,
+                  }),
+                ],
+                width: {
+                  size: 30,
+                  type: WidthType.PERCENTAGE,
+                },
+                borders: {
+                  top: { style: BorderStyle.NONE },
+                  bottom: { style: BorderStyle.NONE },
+                  left: { style: BorderStyle.NONE },
+                  right: { style: BorderStyle.NONE },
+                },
+              }),
+            ],
           }),
-        ],
-        spacing: { after: 50, line: 276 }, // 1.15 line spacing
-        tabStops: [
-          {
-            type: TabStopType.RIGHT,
-            position: 7000, // 3.5 inches
-          },
         ],
       })
     )
@@ -1581,7 +2020,7 @@ function createStanfordLeadershipSection(leadership: ResumeData['leadership']): 
           new Paragraph({
             children: parseBoldText(bullet),
             bullet: { level: 0 },
-            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            spacing: { after: 25, line: 276 }, // 1.15 line spacing
             indent: { left: 400 },
           })
         )
@@ -1590,11 +2029,22 @@ function createStanfordLeadershipSection(leadership: ResumeData['leadership']): 
     // No spacing between leadership entries
   }
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createStanfordProjectsSection(projects: ResumeData['projects']): Paragraph[] {
-  const paragraphs: Paragraph[] = [
+  // Check if there are any projects with content
+  const hasProjects = projects.some(
+    (project) =>
+      project.projectName &&
+      project.projectName.trim() &&
+      project.bullets &&
+      project.bullets.some((bullet) => bullet.trim())
+  )
+
+  if (!hasProjects) return []
+
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1604,7 +2054,7 @@ function createStanfordProjectsSection(projects: ResumeData['projects']): Paragr
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1646,7 +2096,7 @@ function createStanfordProjectsSection(projects: ResumeData['projects']): Paragr
           new Paragraph({
             children: parseBoldText(bullet),
             bullet: { level: 0 },
-            spacing: { after: 50, line: 276 }, // 1.15 line spacing
+            spacing: { after: 25, line: 276 }, // 1.15 line spacing
             indent: { left: 400 },
           })
         )
@@ -1655,7 +2105,7 @@ function createStanfordProjectsSection(projects: ResumeData['projects']): Paragr
     // No spacing between project entries
   }
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createStanfordCertificationsSection(
@@ -1664,7 +2114,7 @@ function createStanfordCertificationsSection(
   if (!certifications.bullets.length || certifications.bullets.every((bullet) => !bullet.trim()))
     return []
 
-  const paragraphs: Paragraph[] = [
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1674,7 +2124,7 @@ function createStanfordCertificationsSection(
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1701,11 +2151,18 @@ function createStanfordCertificationsSection(
       )
     })
 
-  return paragraphs
+  return paragraphs as any
 }
 
 function createStanfordSkillsSection(skills: ResumeData['skills']): Paragraph[] {
-  const paragraphs: Paragraph[] = [
+  // Check if there are any skills with content
+  const hasTechnicalSkills = skills.technical && skills.technical.some((skill) => skill.trim())
+  const hasLanguages = skills.languages && skills.languages.some((lang) => lang.trim())
+  const hasInterests = skills.interests && skills.interests.some((interest) => interest.trim())
+
+  if (!hasTechnicalSkills && !hasLanguages && !hasInterests) return []
+
+  const paragraphs: (Paragraph | Table)[] = [
     new Paragraph({
       children: [
         new TextRun({
@@ -1715,7 +2172,7 @@ function createStanfordSkillsSection(skills: ResumeData['skills']): Paragraph[] 
           font: 'Calibri',
         }),
       ],
-      spacing: { before: 200, after: 50 },
+      spacing: { before: 100, after: 25 },
       border: {
         bottom: {
           color: '000000',
@@ -1802,5 +2259,5 @@ function createStanfordSkillsSection(skills: ResumeData['skills']): Paragraph[] 
     )
   }
 
-  return paragraphs
+  return paragraphs as any
 }

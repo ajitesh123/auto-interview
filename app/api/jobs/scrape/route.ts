@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import { GoogleGenerativeAI } from '@google/generative-ai'
+
+// Initialize Gemini AI with embedded API key
+const GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
 
 export const maxDuration = 60
 
@@ -55,6 +60,127 @@ const sortJobsByRecency = (jobs: LinkedInJob[]): LinkedInJob[] => {
 
     return 0
   })
+}
+
+// Location normalization map - maps variations to standard names
+const LOCATION_NORMALIZATION_MAP: Record<string, string[]> = {
+  // Indian cities with common variations
+  bengaluru: ['bangalore', 'bengaluru', 'bangaluru'],
+  mumbai: ['mumbai', 'bombay'],
+  delhi: ['delhi', 'new delhi', 'nct of delhi'],
+  hyderabad: ['hyderabad', 'secunderabad'],
+  chennai: ['chennai', 'madras'],
+  pune: ['pune', 'punekar'],
+  kolkata: ['kolkata', 'calcutta'],
+  gurgaon: ['gurgaon', 'gurugram'],
+  noida: ['noida', 'new okhla industrial development authority'],
+  ahmedabad: ['ahmedabad', 'amdavad'],
+  kochi: ['kochi', 'cochin'],
+  indore: ['indore'],
+  chandigarh: ['chandigarh'],
+  jaipur: ['jaipur'],
+  lucknow: ['lucknow'],
+  bhubaneswar: ['bhubaneswar', 'bhubaneshwar'],
+  coimbatore: ['coimbatore'],
+  vadodara: ['vadodara', 'baroda'],
+  nashik: ['nashik', 'nasik'],
+  rajkot: ['rajkot'],
+  mysore: ['mysore', 'mysuru'],
+  thiruvananthapuram: ['thiruvananthapuram', 'trivandrum'],
+  madurai: ['madurai'],
+  tiruchirappalli: ['tiruchirappalli', 'trichy'],
+
+  // International cities
+  'san francisco': ['san francisco', 'sf', 'bay area'],
+  'new york': ['new york', 'nyc', 'new york city'],
+  'los angeles': ['los angeles', 'la'],
+  chicago: ['chicago'],
+  houston: ['houston'],
+  phoenix: ['phoenix'],
+  philadelphia: ['philadelphia', 'philly'],
+  'san antonio': ['san antonio'],
+  'san diego': ['san diego'],
+  dallas: ['dallas'],
+  austin: ['austin'],
+  seattle: ['seattle'],
+  denver: ['denver'],
+  boston: ['boston'],
+  atlanta: ['atlanta'],
+  miami: ['miami'],
+  'las vegas': ['las vegas', 'vegas'],
+  toronto: ['toronto'],
+  vancouver: ['vancouver'],
+  montreal: ['montreal'],
+  calgary: ['calgary'],
+  london: ['london'],
+  manchester: ['manchester'],
+  birmingham: ['birmingham'],
+  sydney: ['sydney'],
+  melbourne: ['melbourne'],
+  brisbane: ['brisbane'],
+  perth: ['perth'],
+  berlin: ['berlin'],
+  munich: ['munich', 'münchen'],
+  hamburg: ['hamburg'],
+  frankfurt: ['frankfurt'],
+  paris: ['paris'],
+  lyon: ['lyon'],
+  marseille: ['marseille'],
+  singapore: ['singapore'],
+  tokyo: ['tokyo'],
+  osaka: ['osaka'],
+  kyoto: ['kyoto'],
+}
+
+// Helper function to normalize location names
+const normalizeLocation = (location: string): string => {
+  const locationLower = location.toLowerCase().trim()
+
+  // Find the standard name for this location
+  for (const [standardName, variations] of Object.entries(LOCATION_NORMALIZATION_MAP)) {
+    if (variations.some((variation) => locationLower.includes(variation))) {
+      return standardName
+    }
+  }
+
+  // If no normalization found, return the original location
+  return locationLower
+}
+
+// Helper function to check if two locations match (fuzzy + normalized)
+const locationsMatch = (userLocation: string, jobLocation: string): boolean => {
+  // Handle empty strings - if either is empty, no match
+  if (!userLocation || !jobLocation || userLocation.trim() === '' || jobLocation.trim() === '') {
+    return false
+  }
+
+  const userNormalized = normalizeLocation(userLocation)
+  const jobNormalized = normalizeLocation(jobLocation)
+
+  // Direct match after normalization
+  if (userNormalized === jobNormalized) {
+    return true
+  }
+
+  // Check if either location contains the other (for cases like "Bengaluru, Karnataka, India")
+  if (userNormalized.includes(jobNormalized) || jobNormalized.includes(userNormalized)) {
+    return true
+  }
+
+  // Check if any variation of the user location matches the job location
+  const userVariations = LOCATION_NORMALIZATION_MAP[userNormalized] || [userNormalized]
+  const jobVariations = LOCATION_NORMALIZATION_MAP[jobNormalized] || [jobNormalized]
+
+  // Check if any user variation matches any job variation
+  for (const userVar of userVariations) {
+    for (const jobVar of jobVariations) {
+      if (userVar.includes(jobVar) || jobVar.includes(userVar)) {
+        return true
+      }
+    }
+  }
+
+  return false
 }
 
 // Helper function to get geoId for different locations
@@ -186,138 +312,17 @@ const filterJobs = (
       }
     }
 
-    // Filter by location if specified
+    // Filter by location if specified - using new fuzzy + normalized matching
     if (userLocation) {
       const jobLocationLower = job.location.toLowerCase()
       const userLocationLower = userLocation.toLowerCase()
 
-      // For city-specific searches, be more strict
-      const citySearches = [
-        'bengaluru',
-        'bangalore',
-        'mumbai',
-        'delhi',
-        'hyderabad',
-        'chennai',
-        'pune',
-        'kolkata',
-        'gurgaon',
-        'noida',
-        'ahmedabad',
-      ]
-      const isCitySearch = citySearches.some((city) => userLocationLower.includes(city))
-
-      if (isCitySearch) {
-        // For city searches, only match if the job location contains the city name
-        if (!jobLocationLower.includes(userLocationLower)) {
-          console.log(
-            `Job filtered out due to city mismatch: "${job.location}" (user searched: "${userLocation}")`
-          )
-          return false
-        }
-      } else {
-        // For country/region searches, use the existing flexible matching
-        if (
-          !jobLocationLower.includes(userLocationLower) &&
-          !userLocationLower.includes(jobLocationLower)
-        ) {
-          // Additional check for country-level matching
-          const countryMatches = [
-            {
-              user: 'india',
-              job: [
-                'india',
-                'mumbai',
-                'bangalore',
-                'bengaluru',
-                'delhi',
-                'hyderabad',
-                'chennai',
-                'pune',
-                'kolkata',
-                'gurgaon',
-                'noida',
-                'ahmedabad',
-                'kochi',
-                'indore',
-                'chandigarh',
-                'jaipur',
-                'lucknow',
-                'bhubaneswar',
-                'coimbatore',
-                'vadodara',
-                'nashik',
-                'rajkot',
-                'mysore',
-                'thiruvananthapuram',
-                'madurai',
-                'tiruchirappalli',
-                'karnataka',
-                'maharashtra',
-                'tamil nadu',
-                'telangana',
-                'gujarat',
-                'rajasthan',
-                'kerala',
-                'punjab',
-                'haryana',
-                'uttar pradesh',
-                'west bengal',
-                'odisha',
-                'andhra pradesh',
-                'bihar',
-                'assam',
-                'jammu',
-                'kashmir',
-                'himachal pradesh',
-                'uttarakhand',
-                'goa',
-                'manipur',
-                'meghalaya',
-                'mizoram',
-                'nagaland',
-                'sikkim',
-                'tripura',
-                'arunachal pradesh',
-                'chhattisgarh',
-                'jharkhand',
-                'madhya pradesh',
-              ],
-            },
-            {
-              user: 'usa',
-              job: ['united states', 'usa', 'us', 'california', 'new york', 'texas', 'florida'],
-            },
-            {
-              user: 'united states',
-              job: ['united states', 'usa', 'us', 'california', 'new york', 'texas', 'florida'],
-            },
-            { user: 'canada', job: ['canada', 'toronto', 'vancouver', 'montreal', 'calgary'] },
-            { user: 'uk', job: ['united kingdom', 'uk', 'london', 'manchester', 'birmingham'] },
-            {
-              user: 'united kingdom',
-              job: ['united kingdom', 'uk', 'london', 'manchester', 'birmingham'],
-            },
-            { user: 'australia', job: ['australia', 'sydney', 'melbourne', 'brisbane', 'perth'] },
-            { user: 'germany', job: ['germany', 'berlin', 'munich', 'hamburg', 'frankfurt'] },
-            { user: 'france', job: ['france', 'paris', 'lyon', 'marseille'] },
-            { user: 'singapore', job: ['singapore'] },
-            { user: 'japan', job: ['japan', 'tokyo', 'osaka', 'kyoto'] },
-          ]
-
-          const foundMatch = countryMatches.find(
-            (match) =>
-              userLocationLower.includes(match.user) &&
-              match.job.some((jobLocation) => jobLocationLower.includes(jobLocation))
-          )
-
-          if (!foundMatch) {
-            console.log(
-              `Job filtered out due to location mismatch: "${job.location}" (user searched: "${userLocation}")`
-            )
-            return false
-          }
-        }
+      // Use our new fuzzy + normalized location matching
+      if (!locationsMatch(userLocationLower, jobLocationLower)) {
+        console.log(
+          `Job filtered out due to location mismatch: "${job.location}" (user searched: "${userLocation}")`
+        )
+        return false
       }
     }
 
@@ -367,6 +372,114 @@ const extractJobData = ($: cheerio.CheerioAPI, element: any): LinkedInJob | null
   }
 }
 
+// Helper function to enhance search query using AI
+const enhanceSearchQuery = async (
+  userQuery: string,
+  location: string
+): Promise<{
+  enhanced_query: string
+  domain_keywords: string[]
+  exclude_keywords: string[]
+}> => {
+  try {
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+
+    const prompt = `
+    Enhance this job search query to find more relevant results and filter out irrelevant ones:
+    
+    User Query: "${userQuery}"
+    Location: "${location}"
+    
+    Return a JSON response with:
+    1. enhanced_query: The best single LinkedIn search term that will find the most relevant jobs
+    2. domain_keywords: Array of keywords that should appear in job titles/descriptions for relevance
+    3. exclude_keywords: Array of keywords that indicate irrelevant jobs (to filter out)
+    
+    IMPORTANT FILTERING RULES:
+    - For "equity research": ONLY include jobs with "equity", "research", "analyst", "investment", "financial", "portfolio", "securities", "capital markets"
+    - EXCLUDE: "business analyst", "data analyst", "academic", "counselor", "counsellor", "teacher", "education", "hr", "marketing", "sales", "operations", "project manager", "software", "developer", "engineer"
+    - For "product manager": ONLY include jobs with "product", "pm", "product owner", "product lead"
+    - EXCLUDE: "project manager", "program manager", "marketing manager", "sales manager", "operations manager"
+    
+    Be VERY strict with filtering. Better to show fewer but highly relevant jobs than many irrelevant ones.
+    
+    Return only valid JSON, no other text.
+    `
+
+    const result = await model.generateContent(prompt)
+    const response = await result.response
+    const text = response.text()
+
+    // Parse the JSON response (handle markdown code blocks)
+    let jsonText = text.trim()
+    if (jsonText.startsWith('```json')) {
+      jsonText = jsonText.replace(/^```json\s*/, '').replace(/\s*```$/, '')
+    } else if (jsonText.startsWith('```')) {
+      jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '')
+    }
+
+    const enhancedData = JSON.parse(jsonText)
+
+    console.log('AI Query Enhancement Result:', enhancedData)
+
+    return {
+      enhanced_query: enhancedData.enhanced_query || userQuery,
+      domain_keywords: enhancedData.domain_keywords || [],
+      exclude_keywords: enhancedData.exclude_keywords || [],
+    }
+  } catch (error) {
+    console.error('Error enhancing search query with AI:', error)
+    // Fallback to original query if AI fails
+    return {
+      enhanced_query: userQuery,
+      domain_keywords: [],
+      exclude_keywords: [],
+    }
+  }
+}
+
+// Helper function to check if a job is relevant based on AI keywords
+const isJobRelevant = (
+  job: LinkedInJob,
+  domainKeywords: string[],
+  excludeKeywords: string[]
+): boolean => {
+  if (domainKeywords.length === 0 && excludeKeywords.length === 0) {
+    return true // No filtering if AI didn't provide keywords
+  }
+
+  const jobText = `${job.title} ${job.company}`.toLowerCase()
+
+  // STRICT: Check if job contains any exclude keywords (immediate rejection)
+  const hasExcludeKeyword = excludeKeywords.some((keyword) =>
+    jobText.includes(keyword.toLowerCase())
+  )
+
+  if (hasExcludeKeyword) {
+    console.log(`🚫 FILTERED: Job excluded by keyword: "${job.title}" at "${job.company}"`)
+    return false
+  }
+
+  // STRICT: If we have domain keywords, job MUST contain at least one
+  if (domainKeywords.length > 0) {
+    const hasDomainKeyword = domainKeywords.some((keyword) =>
+      jobText.includes(keyword.toLowerCase())
+    )
+
+    if (!hasDomainKeyword) {
+      console.log(`🚫 FILTERED: Job lacks domain keywords: "${job.title}" at "${job.company}"`)
+      console.log(`🔍 Job text: "${jobText}"`)
+      console.log(`🔍 Required keywords: [${domainKeywords.join(', ')}]`)
+      return false
+    }
+
+    console.log(`✅ PASSED: Job matches domain: "${job.title}" at "${job.company}"`)
+    return true
+  }
+
+  return true
+}
+
 // Helper function to delay execution
 const delay = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -383,6 +496,22 @@ export async function POST(request: NextRequest) {
       experience,
       category,
     })
+
+    // Step 1: Enhance search query using AI
+    console.log('🤖 Enhancing search query with AI...')
+    const aiEnhancement = await enhanceSearchQuery(searchQuery, location)
+    const enhancedQuery = aiEnhancement.enhanced_query
+    const domainKeywords = aiEnhancement.domain_keywords
+    const excludeKeywords = aiEnhancement.exclude_keywords
+
+    console.log('AI Enhancement Results:', {
+      originalQuery: searchQuery,
+      enhancedQuery,
+      domainKeywords,
+      excludeKeywords,
+    })
+
+    console.log('🔍 DEBUG: Starting job scraping with enhanced query...')
 
     const allJobs: LinkedInJob[] = []
     const maxJobs = 200 // Increased to 200 to get more results
@@ -405,10 +534,10 @@ export async function POST(request: NextRequest) {
       timeout: 30000,
     }
 
-    // Scrape jobs from multiple pages
+    // Scrape jobs from multiple pages using AI-enhanced query
     for (let page = 0; page < maxPages; page++) {
       const start = page * jobsPerPage
-      const url = buildLinkedInURL(searchQuery, location, company, start)
+      const url = buildLinkedInURL(enhancedQuery, location, company, start)
 
       console.log(`Scraping page ${page + 1}, URL: ${url}`)
 
@@ -437,6 +566,14 @@ export async function POST(request: NextRequest) {
           `Page ${page + 1}: Found ${jobsFoundOnPage} valid jobs (Total: ${allJobs.length})`
         )
 
+        // Debug: Log first few jobs found
+        if (jobsFoundOnPage > 0) {
+          console.log('🔍 DEBUG: Sample jobs found on this page:')
+          allJobs.slice(-jobsFoundOnPage).forEach((job, idx) => {
+            console.log(`  ${idx + 1}. ${job.title} at ${job.company} (${job.location})`)
+          })
+        }
+
         // If no jobs found on this page, we've reached the end
         if (jobsFoundOnPage === 0) {
           console.log('No more jobs found, stopping pagination')
@@ -455,11 +592,43 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Apply additional filtering based on user criteria
+    // Apply additional filtering based on user criteria and AI relevance
     const filteredJobs = filterJobs(allJobs, location, company)
 
+    // Apply AI-based relevance filtering
+    const aiFilteredJobs = filteredJobs.filter((job) =>
+      isJobRelevant(job, domainKeywords, excludeKeywords)
+    )
+
+    console.log(`AI Filtering Results: ${filteredJobs.length} → ${aiFilteredJobs.length} jobs`)
+    if (domainKeywords.length > 0 || excludeKeywords.length > 0) {
+      console.log('AI Filtering Applied:', {
+        domainKeywords,
+        excludeKeywords,
+        jobsFiltered: filteredJobs.length - aiFilteredJobs.length,
+      })
+
+      // Debug: Show which jobs were filtered out
+      if (filteredJobs.length > aiFilteredJobs.length) {
+        console.log('🔍 DEBUG: Jobs filtered out by AI:')
+        const filteredOut = filteredJobs.filter((job) => !aiFilteredJobs.includes(job))
+        filteredOut.slice(0, 5).forEach((job, idx) => {
+          console.log(`  ${idx + 1}. ${job.title} at ${job.company} (${job.location})`)
+        })
+        if (filteredOut.length > 5) {
+          console.log(`  ... and ${filteredOut.length - 5} more jobs filtered out`)
+        }
+      }
+    }
+
     // Sort jobs by recency (most recent first)
-    const sortedJobs = sortJobsByRecency(filteredJobs)
+    let sortedJobs = sortJobsByRecency(aiFilteredJobs)
+
+    // FALLBACK: If AI filtering results in no jobs, use regular filtering
+    if (sortedJobs.length === 0 && filteredJobs.length > 0) {
+      console.log('🚨 FALLBACK: AI filtering resulted in 0 jobs, using regular filtering instead')
+      sortedJobs = sortJobsByRecency(filteredJobs)
+    }
 
     console.log(
       `LinkedIn scraping completed. Total jobs found: ${allJobs.length}, After filtering: ${sortedJobs.length}`
@@ -477,7 +646,14 @@ export async function POST(request: NextRequest) {
       jobs: sortedJobs,
       total: sortedJobs.length,
       searchParams: { searchQuery, location, company, experience, category },
-      note: `Found ${sortedJobs.length} LinkedIn jobs matching your criteria (sorted by most recent first)`,
+      aiEnhancement: {
+        originalQuery: searchQuery,
+        enhancedQuery,
+        domainKeywords,
+        excludeKeywords,
+        jobsFiltered: filteredJobs.length - aiFilteredJobs.length,
+      },
+      note: `Found ${sortedJobs.length} LinkedIn jobs matching your criteria (AI-enhanced search, sorted by most recent first)`,
     })
   } catch (error) {
     console.error('Error in LinkedIn job search:', error)

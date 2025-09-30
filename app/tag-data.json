@@ -1,1 +1,21 @@
-{"product-management":2,"career":3,"maang":1,"tech-companies":1,"leadership":2,"mba":2,"education":1,"usa":1,"personal":1,"kellogg":1,"achievement":1}
+{
+  "product-management": 2,
+  "career": 6,
+  "leadership": 2,
+  "personal": 1,
+  "mba": 2,
+  "kellogg": 1,
+  "achievement": 1,
+  "interview": 1,
+  "ai": 1,
+  "practice": 1,
+  "resume": 1,
+  "ats": 1,
+  "job-search": 2,
+  "networking": 1,
+  "strategy": 1,
+  "education": 1,
+  "usa": 1,
+  "maang": 1,
+  "tech-companies": 1
+}

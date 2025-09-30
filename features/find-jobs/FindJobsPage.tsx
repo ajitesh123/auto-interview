@@ -60,13 +60,25 @@ const FindJobsPage = () => {
 
       const result = await response.json()
 
+      console.log('🔍 Frontend received API response:', {
+        success: result.success,
+        total: result.total,
+        jobsLength: result.jobs?.length,
+        note: result.note,
+        aiEnhancement: result.aiEnhancement,
+      })
+
       if (result.success) {
         console.log(`Found ${result.jobs.length} jobs`)
         setJobs(result.jobs)
         if (result.jobs.length === 0) {
+          console.log('🚨 No jobs found - setting error message')
           setSearchError(
             'No jobs found matching your criteria. Try adjusting your search parameters.'
           )
+        } else {
+          console.log('✅ Jobs found - clearing any previous errors')
+          setSearchError(null)
         }
       } else {
         console.error('Scraping failed:', result.error)

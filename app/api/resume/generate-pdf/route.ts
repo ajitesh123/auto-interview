@@ -70,10 +70,12 @@ async function fillHarvardTemplate(data: ResumeData): Promise<string> {
     // Remove empty sections
     template = removeEmptySections(template)
 
-    // Inject styles
-    if (styles) {
-      template = template.replace('</head>', `<style>${styles}</style></head>`)
-    }
+    // Replace the CSS link with inline styles and add cache-busting
+    const timestamp = Date.now()
+    template = template.replace(
+      '<link rel="stylesheet" href="style.css">',
+      `<style>${styles}</style><!-- Cache bust: ${timestamp} -->`
+    )
 
     return template
   } catch (error) {

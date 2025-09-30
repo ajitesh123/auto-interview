@@ -73,6 +73,33 @@ section h2 {
   box-sizing: border-box;
 }
 
+/* NEW: Table-based layout for better alignment */
+.section-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+
+.section-table td {
+  padding: 0;
+  vertical-align: top;
+  font-size: 11pt;
+}
+
+.left-content {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-color);
+  width: 70%;
+}
+
+.right-content {
+  text-align: right;
+  color: var(--muted);
+  font-size: 11pt;
+  width: 30%;
+}
+
 /* Top row: left title, right date */
 .row {
   display: flex;
@@ -192,6 +219,11 @@ section h2 {
   display: none !important;
 }
 
+/* Hide empty table cells */
+.section-table td:empty {
+  display: none !important;
+}
+
 /* Mobile: stack date under title */
 @media (max-width: 600px) {
   .row {
@@ -203,5 +235,19 @@ section h2 {
   }
   .skill-line strong {
     min-width: 70px;
+  }
+
+  /* Mobile table adjustments */
+  .section-table {
+    display: block;
+  }
+  .section-table tr {
+    display: block;
+    margin-bottom: 4px;
+  }
+  .section-table td {
+    display: block;
+    width: 100% !important;
+    text-align: left !important;
   }
 }
