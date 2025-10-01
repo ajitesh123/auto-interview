@@ -33,8 +33,92 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
+  // FAQ Schema for PM Interview Guide
+  const faqSchema =
+    slug === 'product-manager-interview-guide-2025'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'How long should I prepare for a PM interview?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Aim for 6–8 weeks with focused weekly goals: product sense, behavioral stories, estimations, and 6–8 mock interviews. Use AI mocks for extra practice.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What frameworks should I use for product questions?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'CIRCLES for product sense, STAR for behavioral, and Impact vs Effort or MoSCoW for prioritization.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Where can I practice mock PM interviews?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: "Practice with peers, hire a coach, or use AI platforms like Tough Tongue AI's PM collection to simulate interviewer prompts and get feedback.",
+              },
+            },
+            {
+              '@type': 'Question',
+              name: "How do I handle questions I don't know the answer to?",
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Be honest, ask clarifying questions, break down the problem, and show your thought process. Interviewers care more about how you think than having perfect answers.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What should I ask the interviewer?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Ask about team dynamics, product challenges, success metrics, growth opportunities, and company culture. Show genuine interest in the role.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: "What's the difference between a PM and TPM?",
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Product Managers focus on user experience, business strategy, and stakeholder management. Technical Product Managers focus on system architecture, API design, and technical feasibility while still managing product strategy.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do you answer behavioral questions in PM interviews?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Use the STAR method: Situation (set context), Task (explain responsibility), Action (describe what you did), Result (share outcome). Prepare 8-10 stories covering different scenarios.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What are the most common PM interview questions?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Top questions include: "Design a feature for [product]", "How would you improve [product]", "Tell me about a time you failed", "How would you prioritize features", and "What metrics would you track".',
+              },
+            },
+          ],
+        }
+      : null
+
   return (
     <SectionContainer>
+      {/* FAQ Schema for PM Interview Guide */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
       <ScrollTopAndComment />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
