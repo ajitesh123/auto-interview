@@ -41,6 +41,80 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-matte-black text-white">
+      {/* Hidden SEO Content - Visible to Search Engines */}
+      <div className="sr-only">
+        <h1>Auto Interview AI - Complete Job Preparation Platform</h1>
+        <h2>AI Resume Builder</h2>
+        <p>
+          Build professional, ATS-friendly resumes with our free AI resume builder. Create resumes
+          from scratch or upload existing ones for optimization.
+        </p>
+
+        <h2>ATS Score Checker</h2>
+        <p>
+          Analyze your resume's ATS compatibility with our free AI-powered checker. Get detailed
+          scoring and improvement suggestions.
+        </p>
+
+        <h2>AI Job Search</h2>
+        <p>
+          Find your next job opportunity with our AI-powered job search tool. Search LinkedIn jobs
+          by title, location, and company.
+        </p>
+
+        <h2>Cover Letter Generator</h2>
+        <p>
+          Generate personalized cover letters tailored to specific job postings with our free AI
+          cover letter generator.
+        </p>
+
+        <h2>Skill Assessments</h2>
+        <p>
+          Practice with comprehensive skill assessments and mock interviews across multiple
+          categories including product management, technical skills, and behavioral interviews.
+        </p>
+
+        <h2>Mock Interview Practice</h2>
+        <p>
+          Practice with AI-powered mock interviews to boost your confidence and performance in real
+          interviews.
+        </p>
+
+        <h3>Key Features:</h3>
+        <ul>
+          <li>Free AI resume builder with ATS-friendly templates</li>
+          <li>Instant ATS compatibility scoring and analysis</li>
+          <li>AI-powered job search with LinkedIn integration</li>
+          <li>Personalized cover letter generation</li>
+          <li>Comprehensive skill assessments</li>
+          <li>Mock interview practice sessions</li>
+          <li>Professional resume templates</li>
+          <li>Resume optimization suggestions</li>
+          <li>Job application tracking</li>
+          <li>Career preparation tools</li>
+        </ul>
+
+        <h3>Benefits:</h3>
+        <ul>
+          <li>Increase job application success rate</li>
+          <li>Improve resume ATS compatibility</li>
+          <li>Find relevant job opportunities faster</li>
+          <li>Create personalized cover letters</li>
+          <li>Practice interview skills</li>
+          <li>Boost career confidence</li>
+        </ul>
+
+        <h3>How It Works:</h3>
+        <ol>
+          <li>Upload your resume or create one from scratch</li>
+          <li>Get instant ATS score analysis and improvement suggestions</li>
+          <li>Search for relevant job opportunities</li>
+          <li>Generate personalized cover letters for each application</li>
+          <li>Practice with skill assessments and mock interviews</li>
+          <li>Apply with confidence using optimized materials</li>
+        </ol>
+      </div>
+
       <div className="flex min-h-screen flex-col lg:flex-row">
         {/* Left Sidebar Menu - Compact height */}
         <div className="flex w-full flex-col border-b border-matte-gray bg-matte-dark p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
