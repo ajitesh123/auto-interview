@@ -14,7 +14,8 @@ export default function Page() {
           <div className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">About Auto Interview AI</h1>
             <p className="text-lg text-chatgpt-textSecondary">
-              AI-powered career tools to help you land your dream job
+              Auto Interview AI (Autointerviewai) - AI-powered career tools to help you land your
+              dream job
             </p>
           </div>
 
@@ -23,10 +24,10 @@ export default function Page() {
             <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
               <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Our Mission</h2>
               <p className="leading-relaxed text-chatgpt-textSecondary">
-                Auto Interview AI is dedicated to democratizing career success through AI-powered
-                tools. We believe everyone deserves access to professional-grade resume building,
-                interview preparation, and job search assistance, regardless of their background or
-                experience level.
+                Auto Interview AI (Autointerviewai) is dedicated to democratizing career success
+                through AI-powered tools. We believe everyone deserves access to professional-grade
+                resume building, interview preparation, and job search assistance, regardless of
+                their background or experience level.
               </p>
             </div>
 

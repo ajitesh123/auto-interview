@@ -125,9 +125,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'Auto Interview AI',
+              alternateName: [
+                'Autointerviewai',
+                'Auto Interview AI Platform',
+                'AI Interview Practice',
+              ],
               url: 'https://www.autointerviewai.com/',
               description:
-                'Auto Interview AI is the one-stop platform for job preparation: resume builder, ATS checker, mock interviews, job search, and cover letter generator.',
+                'Auto Interview AI (Autointerviewai) is the one-stop platform for job preparation: resume builder, ATS checker, mock interviews, job search, and cover letter generator.',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: 'https://www.autointerviewai.com/?q={search_term_string}',
@@ -145,6 +150,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Auto Interview AI',
+              alternateName: ['Autointerviewai', 'Auto Interview AI Platform'],
               url: 'https://www.autointerviewai.com/',
               logo: 'https://www.autointerviewai.com/static/images/logo.png',
               sameAs: [
@@ -164,12 +170,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'SoftwareApplication',
               name: 'Auto Interview AI',
+              alternateName: ['Autointerviewai', 'AI Interview Practice Platform'],
               operatingSystem: 'Web',
               applicationCategory: 'BusinessApplication',
               url: 'https://www.autointerviewai.com/',
               image: 'https://www.autointerviewai.com/static/images/twitter-card.png',
               description:
-                'AI-driven mock interviews, resume builder, ATS checker, job search and cover letter generator.',
+                'Auto Interview AI (Autointerviewai) - AI-driven mock interviews, resume builder, ATS checker, job search and cover letter generator.',
             }),
           }}
         />

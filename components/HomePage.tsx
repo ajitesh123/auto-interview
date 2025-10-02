@@ -94,7 +94,8 @@ const HomePage = () => {
                 </span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-chatgpt-textSecondary sm:text-xl">
-                AI-powered career tools to help you land your dream job.
+                Auto Interview AI (Autointerviewai) - AI-powered career tools to help you land your
+                dream job.
               </p>
             </div>
           </div>

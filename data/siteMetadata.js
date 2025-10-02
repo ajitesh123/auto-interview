@@ -4,9 +4,9 @@ const siteMetadata = {
   author: 'Ajitesh Abhishek',
   headerTitle: 'Auto Interview AI',
   description:
-    'Auto Interview AI is the one-stop job prep platform — resume builder, ATS score checker, AI mock interviews, job search and cover letter generator.',
+    'Auto Interview AI (Autointerviewai) is the one-stop job prep platform — resume builder, ATS score checker, AI mock interviews, job search and cover letter generator.',
   keywords:
-    'job preparation, resume builder, ATS checker, mock interviews, job search, cover letter generator',
+    'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, mock interviews, job search, cover letter generator, AI interview practice, automated interview prep',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.autointerviewai.com',
