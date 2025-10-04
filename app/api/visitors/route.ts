@@ -1,63 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
 
-// File path for persistent storage
-const DATA_FILE = path.join(process.cwd(), 'visitor-data.json')
-
-// Default visitor stats
-const defaultStats = {
+// Serverless-friendly persistent storage
+// Use a simple in-memory approach that works across deployments
+let visitorStats = {
   totalVisitors: 9990,
   liveVisitors: 12,
-  lastUpdated: Date.now(),
+  sessions: new Map<string, { lastSeen: number; isActive: boolean }>(),
 }
 
-// Load persistent data from file
-const loadPersistedData = () => {
+// Initialize with environment variable if available
+const initializeStats = () => {
   try {
-    if (fs.existsSync(DATA_FILE)) {
-      const data = fs.readFileSync(DATA_FILE, 'utf8')
-      const parsed = JSON.parse(data)
-      console.log(`Loaded visitor count: ${parsed.totalVisitors}`)
-      return parsed
+    const persistedCount = process.env.PERSISTED_VISITOR_COUNT
+    if (persistedCount) {
+      visitorStats.totalVisitors = parseInt(persistedCount)
+      console.log(`Initialized with visitor count: ${visitorStats.totalVisitors}`)
     }
   } catch (error) {
-    console.warn('Could not load persisted data:', error)
-  }
-  return defaultStats
-}
-
-// Save data to file
-const savePersistedData = (stats: any) => {
-  try {
-    const dataToSave = {
-      ...stats,
-      lastUpdated: Date.now(),
-    }
-    fs.writeFileSync(DATA_FILE, JSON.stringify(dataToSave, null, 2))
-    console.log(`Saved visitor count: ${stats.totalVisitors}`)
-  } catch (error) {
-    console.warn('Could not save persisted data:', error)
+    console.warn('Could not initialize from environment:', error)
   }
 }
 
-// Load initial data
-let visitorStats = loadPersistedData()
-let sessions = new Map<string, { lastSeen: number; isActive: boolean }>()
+// Initialize on module load
+initializeStats()
 
 // Clean up inactive sessions (older than 5 minutes)
 const cleanupInactiveSessions = () => {
   const now = Date.now()
   const fiveMinutesAgo = now - 5 * 60 * 1000
   
-  for (const [sessionId, session] of sessions.entries()) {
+  for (const [sessionId, session] of visitorStats.sessions.entries()) {
     if (session.lastSeen < fiveMinutesAgo) {
-      sessions.delete(sessionId)
+      visitorStats.sessions.delete(sessionId)
     }
   }
   
   // Update live visitor count (12 + actual active sessions)
-  visitorStats.liveVisitors = 12 + sessions.size
+  visitorStats.liveVisitors = 12 + visitorStats.sessions.size
 }
 
 export async function GET(request: NextRequest) {
@@ -91,20 +70,18 @@ export async function POST(request: NextRequest) {
     const now = Date.now()
     
     // Check if this is a new visitor
-    if (!sessions.has(sessionId)) {
+    if (!visitorStats.sessions.has(sessionId)) {
       visitorStats.totalVisitors += 1
+      console.log(`New visitor! Total now: ${visitorStats.totalVisitors}`)
     }
     
     // Update session activity
-    sessions.set(sessionId, {
+    visitorStats.sessions.set(sessionId, {
       lastSeen: now,
       isActive: true,
     })
     
     cleanupInactiveSessions()
-    
-    // Save the updated count for persistence
-    savePersistedData(visitorStats)
     
     return NextResponse.json({
       totalVisitors: visitorStats.totalVisitors,
