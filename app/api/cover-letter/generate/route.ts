@@ -1,11 +1,76 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
+// Type definitions for resume data
+interface Education {
+  degree?: string
+  institution?: string
+  specialization?: string
+  graduationMonth?: string
+  graduationYear?: string
+  gpa?: string
+}
+
+interface Experience {
+  company?: string
+  position?: string
+  duration?: string
+  location?: string
+  bullets?: string[]
+}
+
+interface Leadership {
+  organization?: string
+  position?: string
+  duration?: string
+  location?: string
+  bullets?: string[]
+}
+
+interface Project {
+  title?: string
+  duration?: string
+  link?: string
+  bullets?: string[]
+}
+
+interface Skills {
+  technical?: string[]
+  languages?: string[]
+  interests?: string[]
+}
+
+interface Contact {
+  name?: string
+  email?: string
+  phone?: string
+  location?: string
+}
+
+interface ResumeData {
+  contact?: Contact
+  education?: Education[]
+  experience?: Experience[]
+  leadership?: Leadership[]
+  projects?: Project[]
+  skills?: Skills
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log('Cover letter generation request received')
 
-    const { jobTitle, company, jobDescription, resumeData } = await request.json()
+    const {
+      jobTitle,
+      company,
+      jobDescription,
+      resumeData,
+    }: {
+      jobTitle: string
+      company: string
+      jobDescription: string
+      resumeData: ResumeData
+    } = await request.json()
     console.log('Request data:', {
       jobTitle,
       company,
@@ -47,7 +112,7 @@ Education:
 ${
   resumeData.education
     ?.map(
-      (edu: any, index: number) => `
+      (edu: Education, index: number) => `
 ${index + 1}. Degree: ${edu.degree || 'Not provided'}
    Institution: ${edu.institution || 'Not provided'}
    Specialization: ${edu.specialization || 'Not provided'}
@@ -62,7 +127,7 @@ Experience:
 ${
   resumeData.experience
     ?.map(
-      (exp: any, index: number) => `
+      (exp: Experience, index: number) => `
 ${index + 1}. Company: ${exp.company || 'Not provided'}
    Position: ${exp.position || 'Not provided'}
    Duration: ${exp.duration || 'Not provided'}
@@ -77,7 +142,7 @@ Leadership and Activities:
 ${
   resumeData.leadership
     ?.map(
-      (lead: any, index: number) => `
+      (lead: Leadership, index: number) => `
 ${index + 1}. Organization: ${lead.organization || 'Not provided'}
    Position: ${lead.position || 'Not provided'}
    Duration: ${lead.duration || 'Not provided'}
@@ -92,7 +157,7 @@ Projects:
 ${
   resumeData.projects
     ?.map(
-      (proj: any, index: number) => `
+      (proj: Project, index: number) => `
 ${index + 1}. Title: ${proj.title || 'Not provided'}
    Duration: ${proj.duration || 'Not provided'}
    Link: ${proj.link || 'Not provided'}
