@@ -1,7 +1,7 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
   title: 'Auto Interview AI – Complete Job Preparation Platform',
-  author: 'Ajitesh Abhishek',
+  author: 'Auto Interview AI',
   headerTitle: 'Auto Interview AI',
   description:
     'Auto Interview AI (Autointerviewai) is the complete job preparation platform — free AI resume builder, ATS score checker, job search, cover letter generator, and skill assessments. Everything you need to land your dream job.',

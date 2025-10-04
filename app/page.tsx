@@ -11,7 +11,7 @@ export const metadata: Metadata = genPageMetadata({
   keywords:
     'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, job search, cover letter generator, interview practice, career tools, free resume builder, ATS score, job application tools, AI interview practice, automated interview prep, resume optimization, job matching, skill assessment, mock interview',
   openGraph: {
-    title: 'Auto Interview AI - Complete Job Preparation Platform | Free AI Tools',
+    title: 'Auto Interview AI - Complete Job Preparation Platform | AI-Powered Career Tools',
     description:
       'Complete AI-powered job preparation platform. Build resumes, check ATS scores, search jobs, generate cover letters, and practice interviews - all free.',
     type: 'website',
@@ -26,7 +26,7 @@ export const metadata: Metadata = genPageMetadata({
     ],
   },
   twitter: {
-    title: 'Auto Interview AI - Complete Job Preparation Platform | Free AI Tools',
+    title: 'Auto Interview AI - Complete Job Preparation Platform | AI-Powered Career Tools',
     description:
       'Complete AI-powered job preparation platform. Build resumes, check ATS scores, search jobs, generate cover letters, and practice interviews - all free.',
     images: ['https://www.autointerviewai.com/static/images/twitter-card.png'],
