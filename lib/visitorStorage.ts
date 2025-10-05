@@ -2,14 +2,14 @@ interface VisitorStats {
   totalVisitors: number
   liveVisitors: number
   actualLiveVisitors: number // Real live visitors count
-  sessions: Record<string, { lastSeen: number; isActive: boolean }>
+  sessions: Record<string, { lastSeen: number; isActive: boolean; userAgent?: string }>
   lastUpdated: number
 }
 
 // In-memory storage for Vercel deployment
 let visitorStats: VisitorStats = {
   totalVisitors: 10010, // Start from 10010 as requested
-  liveVisitors: 12, // Minimum 12 live visitors to appear busy (display number)
+  liveVisitors: 0, // Real live visitors count
   actualLiveVisitors: 0, // Real live visitors count
   sessions: {},
   lastUpdated: Date.now(),
@@ -21,6 +21,40 @@ const EXTERNAL_STORAGE_KEY = process.env.VISITOR_STATS_KEY || 'your-api-key'
 
 // Check if we're in development (local) or production (Vercel)
 const isDevelopment = process.env.NODE_ENV === 'development'
+
+// Bot detection patterns
+const BOT_PATTERNS = [
+  /bot/i,
+  /crawler/i,
+  /spider/i,
+  /scraper/i,
+  /curl/i,
+  /wget/i,
+  /python/i,
+  /java/i,
+  /go-http/i,
+  /okhttp/i,
+  /axios/i,
+  /fetch/i,
+  /node/i,
+  /postman/i,
+  /insomnia/i,
+  /vercel/i,
+  /netlify/i,
+  /github/i,
+  /git/i,
+  /uptime/i,
+  /monitor/i,
+  /ping/i,
+  /health/i,
+  /test/i,
+]
+
+// Check if user agent indicates a bot/crawler
+const isBot = (userAgent: string): boolean => {
+  if (!userAgent || userAgent.length < 10) return true
+  return BOT_PATTERNS.some((pattern) => pattern.test(userAgent))
+}
 
 // For development: file-based storage
 let fs: any = null
@@ -68,12 +102,14 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
         }
       }
 
+      // Ensure minimum of 12 live visitors for display when there are real visitors
+      const displayLiveCount = actualActiveCount > 0 ? Math.max(12, actualActiveCount) : 0
+
       return {
         ...stats,
         sessions: activeSessions,
         actualLiveVisitors: actualActiveCount, // Real count
-        // Add 12 to actual live count to make it appear busier
-        liveVisitors: Math.max(12, actualActiveCount + 12), // Display count
+        liveVisitors: displayLiveCount, // Display count with minimum
         lastUpdated: now,
       }
     } catch (error) {
@@ -124,7 +160,14 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
 
     visitorStats.sessions = activeSessions
     visitorStats.actualLiveVisitors = actualActiveCount // Real count
-    visitorStats.liveVisitors = Math.max(12, actualActiveCount + 12) // Display count
+
+    // Ensure minimum of 12 live visitors for display when there are real visitors
+    if (actualActiveCount > 0) {
+      visitorStats.liveVisitors = Math.max(12, actualActiveCount)
+    } else {
+      visitorStats.liveVisitors = 0 // Show 0 when no real visitors
+    }
+
     visitorStats.lastUpdated = now
 
     return visitorStats
@@ -170,9 +213,18 @@ export const saveVisitorStats = async (stats: VisitorStats): Promise<void> => {
 }
 
 // Update visitor stats
-export const updateVisitorStats = async (sessionId: string): Promise<VisitorStats> => {
+export const updateVisitorStats = async (
+  sessionId: string,
+  userAgent?: string
+): Promise<VisitorStats> => {
   const stats = await loadVisitorStats()
   const now = Date.now()
+
+  // Check if this is a bot/crawler and reject if so
+  if (userAgent && isBot(userAgent)) {
+    console.log(`Bot detected and rejected: ${userAgent}`)
+    return stats // Return current stats without updating
+  }
 
   // Check if this is a new visitor
   if (!stats.sessions[sessionId]) {
@@ -186,11 +238,15 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
   stats.sessions[sessionId] = {
     lastSeen: now,
     isActive: true,
+    userAgent: userAgent || 'Unknown',
   }
 
   // Clean up inactive sessions and update live count
   const fiveMinutesAgo = now - 5 * 60 * 1000
-  const activeSessions: Record<string, { lastSeen: number; isActive: boolean }> = {}
+  const activeSessions: Record<
+    string,
+    { lastSeen: number; isActive: boolean; userAgent?: string }
+  > = {}
   let actualActiveCount = 0
 
   for (const [id, session] of Object.entries(stats.sessions)) {
@@ -202,8 +258,14 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
 
   stats.sessions = activeSessions
   stats.actualLiveVisitors = actualActiveCount // Real count
-  // Add 12 to actual live count to make it appear busier
-  stats.liveVisitors = Math.max(12, actualActiveCount + 12) // Display count
+
+  // Ensure minimum of 12 live visitors for display when there are real visitors
+  if (actualActiveCount > 0) {
+    stats.liveVisitors = Math.max(12, actualActiveCount)
+  } else {
+    stats.liveVisitors = 0 // Show 0 when no real visitors
+  }
+
   stats.lastUpdated = now
 
   await saveVisitorStats(stats)

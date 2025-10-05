@@ -83,8 +83,8 @@ const VisitorCounter = () => {
     // Track visitor on initial load
     trackVisitor()
 
-    // Update stats every 10 seconds for more responsive live count
-    const interval = setInterval(fetchVisitorStats, 10000)
+    // Update stats every 30 seconds to reduce API calls
+    const interval = setInterval(fetchVisitorStats, 30000)
 
     return () => clearInterval(interval)
   }, [prevTotal])

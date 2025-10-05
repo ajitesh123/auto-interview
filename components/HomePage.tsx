@@ -16,30 +16,7 @@ const HomePage = () => {
   const [activePage, setActivePage] = useState('home')
   const [buildResumeKey, setBuildResumeKey] = useState(0)
 
-  // Track visitor on homepage load
-  useEffect(() => {
-    const trackVisitor = async () => {
-      try {
-        // Generate a session ID based on user agent and timestamp
-        const sessionId = `${navigator.userAgent.slice(0, 50)}-${Date.now()}`
-        
-        await fetch('/api/visitors', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ sessionId }),
-        })
-      } catch (error) {
-        console.error('Failed to track visitor:', error)
-      }
-    }
-
-    // Only track on homepage
-    if (activePage === 'home') {
-      trackVisitor()
-    }
-  }, [activePage])
+  // Visitor tracking is now handled by VisitorCounter component
 
   // Clear any body scroll locks that might be preventing clicks
   useEffect(() => {
@@ -112,14 +89,14 @@ const HomePage = () => {
     return (
       <div className="min-h-screen bg-matte-black">
         <div className="relative">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
             <div className="text-center">
               <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-6xl xl:text-7xl">
                 <span className="animate-pulse-glow bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
                   Auto Interview AI
                 </span>
               </h1>
-              <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-chatgpt-textSecondary sm:text-xl">
+              <p className="mx-auto mt-4 max-w-2xl text-base text-chatgpt-textSecondary sm:mt-6 sm:text-lg sm:text-xl">
                 Auto Interview AI (Autointerviewai) - AI-powered career tools to help you land your
                 dream job.
               </p>
@@ -132,14 +109,14 @@ const HomePage = () => {
           <VisitorCounter />
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
-          <div className="mb-4 sm:mb-6 text-center">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <div className="mb-4 text-center sm:mb-6">
             <h2 className="text-2xl font-bold text-chatgpt-text sm:text-3xl lg:text-4xl">
               Choose Your Career Tool
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-5">
             {features.map((feature, index) => (
               <div
                 key={feature.id}
@@ -152,15 +129,15 @@ const HomePage = () => {
                 }}
                 role="button"
                 tabIndex={0}
-                className="group relative animate-slide-up cursor-pointer rounded-xl border border-matte-gray bg-matte-dark p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-gray-400 hover:bg-matte-light hover:shadow-xl hover:shadow-gray-500/20"
+                className="group relative animate-slide-up cursor-pointer rounded-xl border border-matte-gray bg-matte-dark p-4 transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-gray-400 hover:bg-matte-light hover:shadow-xl hover:shadow-gray-500/20 sm:p-6 lg:p-8"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="text-center">
-                  <div className="mx-auto mb-4 sm:mb-6 h-1 w-12 sm:w-16 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-500 group-hover:w-16 sm:group-hover:w-20"></div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-chatgpt-text transition-colors duration-300 group-hover:text-chatgpt-textSecondary">
+                  <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-500 group-hover:w-16 sm:mb-6 sm:w-16 sm:group-hover:w-20"></div>
+                  <h3 className="text-lg font-semibold text-chatgpt-text transition-colors duration-300 group-hover:text-chatgpt-textSecondary sm:text-xl">
                     {feature.title}
                   </h3>
-                  <p className="mt-2 sm:mt-4 text-xs sm:text-sm text-chatgpt-textSecondary transition-colors duration-300 group-hover:text-chatgpt-text">
+                  <p className="mt-2 text-xs text-chatgpt-textSecondary transition-colors duration-300 group-hover:text-chatgpt-text sm:mt-4 sm:text-sm">
                     {feature.description}
                   </p>
                 </div>

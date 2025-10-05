@@ -24,7 +24,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Session ID is required' }, { status: 400 })
     }
 
-    const stats = await updateVisitorStats(sessionId)
+    // Get user agent from request headers
+    const userAgent = request.headers.get('user-agent') || ''
+
+    const stats = await updateVisitorStats(sessionId, userAgent)
 
     return NextResponse.json({
       totalVisitors: stats.totalVisitors,
