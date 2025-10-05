@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 interface GitHubCalendarProps {
   username: string
 }
@@ -48,9 +50,11 @@ export default function GitHubCalendar({ username }: GitHubCalendarProps) {
       </div>
 
       <div className="calendar overflow-x-auto rounded-xl bg-[#151922] p-4">
-        <img
+        <Image
           src={`https://ghchart.rshah.org/${colorScheme}/${username}`}
           alt={`${username}'s Github contribution graph`}
+          width={720}
+          height={128}
           className="w-full min-w-[720px] transition-opacity duration-200 hover:opacity-90"
         />
       </div>

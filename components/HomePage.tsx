@@ -144,6 +144,14 @@ const HomePage = () => {
               <div
                 key={feature.id}
                 onClick={() => handleFeatureClick(feature.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleFeatureClick(feature.id)
+                  }
+                }}
+                role="button"
+                tabIndex={0}
                 className="group relative animate-slide-up cursor-pointer rounded-xl border border-matte-gray bg-matte-dark p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:-translate-y-2 hover:scale-105 hover:border-gray-400 hover:bg-matte-light hover:shadow-xl hover:shadow-gray-500/20"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

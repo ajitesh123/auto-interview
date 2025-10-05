@@ -331,20 +331,26 @@ const filterJobs = (
 }
 
 // Helper function to extract job data from HTML element
-const extractJobData = ($: cheerio.CheerioAPI, element: any): LinkedInJob | null => {
+const extractJobData = ($: cheerio.CheerioAPI, element: unknown): LinkedInJob | null => {
   try {
     // Use the correct selectors based on our testing
+    // @ts-ignore - cheerio element type compatibility
     const title = $(element).find('h3.base-search-card__title').text().trim()
+    // @ts-ignore - cheerio element type compatibility
     const company = $(element)
       .find('h4.base-search-card__subtitle a.hidden-nested-link')
       .text()
       .trim()
+    // @ts-ignore - cheerio element type compatibility
     const location = $(element).find('span.job-search-card__location').text().trim()
+    // @ts-ignore - cheerio element type compatibility
     const link = $(element).find('a.base-card__full-link').attr('href')
 
     // Try both time selectors (with and without --new suffix)
+    // @ts-ignore - cheerio element type compatibility
     let postedTime = $(element).find('time.job-search-card__listdate--new').text().trim()
     if (!postedTime) {
+      // @ts-ignore - cheerio element type compatibility
       postedTime = $(element).find('time.job-search-card__listdate').text().trim()
     }
 
