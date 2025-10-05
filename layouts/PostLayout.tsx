@@ -9,6 +9,9 @@ import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import LandingHeader from '@/components/LandingHeader'
+import Footer from '@/components/Footer'
+import SocialShareButtons from '@/components/SocialShareButtons'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -108,8 +111,49 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // Article Schema for ATS Resume Checker
+  const articleSchema =
+    slug === 'best-ats-resume-checker-2025'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: title,
+          description:
+            'Discover the 3 best ATS resume checkers in 2025. Compare Resume Worded, Enhancv, and AutoInterviewAI with detailed reviews, pricing, and features to boost your interview rate by 300%.',
+          author: {
+            '@type': 'Organization',
+            name: 'AutoInterviewAI',
+            url: 'https://autointerviewai.com',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'AutoInterviewAI',
+            url: 'https://autointerviewai.com',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://autointerviewai.com/static/images/logo.svg',
+            },
+          },
+          datePublished: date,
+          dateModified: date,
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${siteMetadata.siteUrl}/${path}`,
+          },
+          articleSection: 'Career Tools',
+          keywords:
+            'ATS resume checker, resume optimization, job search, Resume Worded, Enhancv, AutoInterviewAI, applicant tracking system, resume scanner, career tools, interview preparation',
+          wordCount: 4500,
+          timeRequired: 'PT15M',
+          inLanguage: 'en-US',
+          isAccessibleForFree: true,
+        }
+      : null
+
   return (
-    <SectionContainer>
+    <div className="min-h-screen bg-matte-black">
+      <LandingHeader />
+
       {/* FAQ Schema for PM Interview Guide */}
       {faqSchema && (
         <script
@@ -119,134 +163,143 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           }}
         />
       )}
+
+      {/* Article Schema for ATS Resume Checker */}
+      {articleSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleSchema),
+          }}
+        />
+      )}
+
       <ScrollTopAndComment />
-      <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
-              <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </dd>
-                </div>
-              </dl>
+
+      <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+        <article className="rounded-lg border border-matte-gray bg-matte-black p-8">
+          {/* Article Header */}
+          <header className="mb-8 border-b border-matte-gray pb-8">
+            <div className="space-y-4 text-center">
               <div>
-                <PageTitle>{title}</PageTitle>
+                <time dateTime={date} className="text-sm font-medium text-accent-400">
+                  {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                </time>
+              </div>
+              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">{title}</h1>
+              <div className="flex flex-wrap justify-center gap-2">
+                {tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-matte-gray px-3 py-1 text-xs font-medium text-gray-300 transition-colors hover:bg-accent-600 hover:text-white"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
-            <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-              <dt className="sr-only">Authors</dt>
-              <dd>
-                <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-                  {authorDetails.map((author) => (
-                    <li className="flex items-center space-x-2" key={author.name}>
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width={38}
-                          height={38}
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
+
+          {/* Social Sharing Buttons */}
+          <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
+
+          {/* Article Content */}
+          <div className="prose prose-invert max-w-none pb-8">{children}</div>
+
+          {/* Article Footer */}
+          <footer className="border-t border-matte-gray pt-8">
+            {/* Author Info */}
+            <div className="mb-8">
+              <h3 className="mb-4 text-lg font-semibold text-white">About the Author</h3>
+              <div className="flex flex-wrap gap-6">
+                {authorDetails.map((author) => (
+                  <div key={author.name} className="flex items-center space-x-3">
+                    {author.avatar && (
+                      <Image
+                        src={author.avatar}
+                        width={48}
+                        height={48}
+                        alt="avatar"
+                        className="h-12 w-12 rounded-full"
+                      />
+                    )}
+                    <div>
+                      <div className="font-medium text-white">{author.name}</div>
+                      {author.twitter && (
+                        <Link
+                          href={author.twitter}
+                          className="text-accent-400 hover:text-accent-300"
+                        >
+                          {author.twitter
+                            .replace('https://twitter.com/', '@')
+                            .replace('https://x.com/', '@')}
+                        </Link>
                       )}
-                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
-                        <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
-                        <dt className="sr-only">Twitter</dt>
-                        <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter
-                                .replace('https://twitter.com/', '@')
-                                .replace('https://x.com/', '@')}
-                            </Link>
-                          )}
-                        </dd>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </dl>
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
-              <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(path)} rel="nofollow">
-                  Discuss on Twitter
-                </Link>
-                {` • `}
-                <Link href={editUrl(filePath)}>View on GitHub</Link>
-              </div>
-              {siteMetadata.comments && (
-                <div
-                  className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
-                  id="comment"
-                >
-                  <Comments slug={slug} />
-                </div>
-              )}
-            </div>
-            <footer>
-              <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation */}
+            {(next || prev) && (
+              <div className="mb-8 grid gap-4 sm:grid-cols-2">
+                {prev && prev.path && (
+                  <div className="rounded-lg border border-matte-gray p-4">
+                    <h4 className="text-sm font-medium text-gray-400">Previous Article</h4>
+                    <Link
+                      href={`/${prev.path}`}
+                      className="text-white transition-colors hover:text-accent-400"
+                    >
+                      {prev.title}
+                    </Link>
+                  </div>
                 )}
-                {(next || prev) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {prev && prev.path && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                          Previous Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${prev.path}`}>{prev.title}</Link>
-                        </div>
-                      </div>
-                    )}
-                    {next && next.path && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                          Next Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${next.path}`}>{next.title}</Link>
-                        </div>
-                      </div>
-                    )}
+                {next && next.path && (
+                  <div className="rounded-lg border border-matte-gray p-4">
+                    <h4 className="text-sm font-medium text-gray-400">Next Article</h4>
+                    <Link
+                      href={`/${next.path}`}
+                      className="text-white transition-colors hover:text-accent-400"
+                    >
+                      {next.title}
+                    </Link>
                   </div>
                 )}
               </div>
-              <div className="pt-4 xl:pt-8">
-                <Link
-                  href={`/${basePath}`}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  aria-label="Back to the blog"
-                >
-                  &larr; Back to the blog
-                </Link>
+            )}
+
+            {/* Back to Blog */}
+            <div className="flex justify-center">
+              <Link
+                href={`/${basePath}`}
+                className="inline-flex items-center rounded-lg bg-matte-gray px-6 py-3 text-white transition-colors hover:bg-accent-600"
+                aria-label="Back to the blog"
+              >
+                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+                Back to Blog
+              </Link>
+            </div>
+
+            {/* Comments */}
+            {siteMetadata.comments && (
+              <div className="mt-8 border-t border-matte-gray pt-8" id="comment">
+                <h3 className="mb-4 text-lg font-semibold text-white">Comments</h3>
+                <Comments slug={slug} />
               </div>
-            </footer>
-          </div>
-        </div>
-      </article>
-    </SectionContainer>
+            )}
+          </footer>
+        </article>
+      </main>
+
+      <Footer />
+    </div>
   )
 }
