@@ -13,7 +13,7 @@ const VISITOR_DATA_FILE = path.join(process.cwd(), 'lib', 'visitor-stats.json')
 // Default stats
 const defaultStats: VisitorStats = {
   totalVisitors: 10010, // Start from 10010 as requested
-  liveVisitors: 0,
+  liveVisitors: 12, // Minimum 12 live visitors to appear busy
   sessions: {},
   lastUpdated: Date.now(),
 }
@@ -40,19 +40,20 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
     const fiveMinutesAgo = now - 5 * 60 * 1000
 
     const activeSessions: Record<string, { lastSeen: number; isActive: boolean }> = {}
-    let activeCount = 0
+    let actualActiveCount = 0
 
     for (const [sessionId, session] of Object.entries(stats.sessions)) {
       if (session.lastSeen >= fiveMinutesAgo) {
         activeSessions[sessionId] = session
-        if (session.isActive) activeCount++
+        if (session.isActive) actualActiveCount++
       }
     }
 
     return {
       ...stats,
       sessions: activeSessions,
-      liveVisitors: activeCount,
+      // Add 12 to actual live count to make it appear busier
+      liveVisitors: Math.max(12, actualActiveCount + 12),
       lastUpdated: now,
     }
   } catch (error) {
@@ -93,17 +94,18 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
   // Clean up inactive sessions and update live count
   const fiveMinutesAgo = now - 5 * 60 * 1000
   const activeSessions: Record<string, { lastSeen: number; isActive: boolean }> = {}
-  let activeCount = 0
+  let actualActiveCount = 0
 
   for (const [id, session] of Object.entries(stats.sessions)) {
     if (session.lastSeen >= fiveMinutesAgo) {
       activeSessions[id] = session
-      if (session.isActive) activeCount++
+      if (session.isActive) actualActiveCount++
     }
   }
 
   stats.sessions = activeSessions
-  stats.liveVisitors = activeCount
+  // Add 12 to actual live count to make it appear busier
+  stats.liveVisitors = Math.max(12, actualActiveCount + 12)
   stats.lastUpdated = now
 
   await saveVisitorStats(stats)

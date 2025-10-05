@@ -8,7 +8,7 @@ interface VisitorStats {
 }
 
 const VisitorCounter = () => {
-  const [stats, setStats] = useState<VisitorStats>({ totalVisitors: 10010, liveVisitors: 0 })
+  const [stats, setStats] = useState<VisitorStats>({ totalVisitors: 10010, liveVisitors: 12 })
   const [isLoading, setIsLoading] = useState(false) // Start as not loading since we have default values
   const [showIncrement, setShowIncrement] = useState(false)
   const [prevTotal, setPrevTotal] = useState(10010)
