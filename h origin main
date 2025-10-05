@@ -1,0 +1,5 @@
+[33m06e4915[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Fix deployment issues: TypeScript errors, blog schema, ESLint warnings
+[33m943dd46[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix Next.js 15 async params error in blog pagination page
+[33m756fe4d[m Fix Next.js 15 async params error in blog page component
+[33mf109eb9[m Fix TypeScript warnings in cover-letter API - replace any types with proper interfaces
+[33maaa132e[m Fix visitor count API TypeScript error - change let to const
