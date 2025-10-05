@@ -5,10 +5,15 @@ import { useState, useEffect } from 'react'
 interface VisitorStats {
   totalVisitors: number
   liveVisitors: number
+  actualLiveVisitors?: number // Real live visitors count
 }
 
 const VisitorCounter = () => {
-  const [stats, setStats] = useState<VisitorStats>({ totalVisitors: 10010, liveVisitors: 12 })
+  const [stats, setStats] = useState<VisitorStats>({
+    totalVisitors: 10010,
+    liveVisitors: 12,
+    actualLiveVisitors: 0,
+  })
   const [isLoading, setIsLoading] = useState(false) // Start as not loading since we have default values
   const [showIncrement, setShowIncrement] = useState(false)
   const [prevTotal, setPrevTotal] = useState(10010)
@@ -30,17 +35,18 @@ const VisitorCounter = () => {
 
         if (response.ok) {
           const data = await response.json()
+          console.log('Tracked visitor, received stats:', data) // Debug logging
+
+          // Always update stats to ensure live visitors are current
+          setStats(data)
 
           // Check if total visitors increased
           if (data.totalVisitors > prevTotal) {
-            setStats(data)
             setShowIncrement(true)
             setPrevTotal(data.totalVisitors)
 
             // Hide increment animation after 2 seconds
             setTimeout(() => setShowIncrement(false), 2000)
-          } else {
-            setStats(data)
           }
         }
       } catch (error) {
@@ -61,6 +67,7 @@ const VisitorCounter = () => {
 
           if (response.ok) {
             const data = await response.json()
+            console.log('Fetched visitor stats:', data) // Debug logging
             setStats(data)
           } else {
             console.warn('API response not ok:', response.status)
@@ -76,8 +83,8 @@ const VisitorCounter = () => {
     // Track visitor on initial load
     trackVisitor()
 
-    // Update stats every 30 seconds
-    const interval = setInterval(fetchVisitorStats, 30000)
+    // Update stats every 10 seconds for more responsive live count
+    const interval = setInterval(fetchVisitorStats, 10000)
 
     return () => clearInterval(interval)
   }, [prevTotal])
@@ -158,7 +165,7 @@ const VisitorCounter = () => {
               <div className="flex items-center space-x-1">
                 <span className="text-xs font-medium text-gray-300/80">Live:</span>
                 <span className="bg-gradient-to-r from-red-400 to-pink-500 bg-clip-text text-lg font-bold text-transparent">
-                  {formatNumber(stats.liveVisitors)}
+                  {formatNumber(stats.actualLiveVisitors || stats.liveVisitors)}
                 </span>
               </div>
             </div>

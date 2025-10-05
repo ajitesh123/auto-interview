@@ -1,6 +1,7 @@
 interface VisitorStats {
   totalVisitors: number
   liveVisitors: number
+  actualLiveVisitors: number // Real live visitors count
   sessions: Record<string, { lastSeen: number; isActive: boolean }>
   lastUpdated: number
 }
@@ -8,7 +9,8 @@ interface VisitorStats {
 // In-memory storage for Vercel deployment
 let visitorStats: VisitorStats = {
   totalVisitors: 10010, // Start from 10010 as requested
-  liveVisitors: 12, // Minimum 12 live visitors to appear busy
+  liveVisitors: 12, // Minimum 12 live visitors to appear busy (display number)
+  actualLiveVisitors: 0, // Real live visitors count
   sessions: {},
   lastUpdated: Date.now(),
 }
@@ -69,8 +71,9 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
       return {
         ...stats,
         sessions: activeSessions,
+        actualLiveVisitors: actualActiveCount, // Real count
         // Add 12 to actual live count to make it appear busier
-        liveVisitors: Math.max(12, actualActiveCount + 12),
+        liveVisitors: Math.max(12, actualActiveCount + 12), // Display count
         lastUpdated: now,
       }
     } catch (error) {
@@ -96,8 +99,11 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
           const externalStats = await response.json()
           if (externalStats.record) {
             visitorStats = externalStats.record
+            console.log('Loaded from external storage:', visitorStats)
           }
         }
+      } else {
+        console.log('Using in-memory storage (no external storage configured)')
       }
     } catch (error) {
       console.warn('Failed to load from external storage, using in-memory:', error)
@@ -117,7 +123,8 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
     }
 
     visitorStats.sessions = activeSessions
-    visitorStats.liveVisitors = Math.max(12, actualActiveCount + 12)
+    visitorStats.actualLiveVisitors = actualActiveCount // Real count
+    visitorStats.liveVisitors = Math.max(12, actualActiveCount + 12) // Display count
     visitorStats.lastUpdated = now
 
     return visitorStats
@@ -171,6 +178,8 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
   if (!stats.sessions[sessionId]) {
     stats.totalVisitors += 1
     console.log(`New visitor! Total now: ${stats.totalVisitors}`)
+  } else {
+    console.log(`Returning visitor: ${sessionId}`)
   }
 
   // Update session activity
@@ -192,8 +201,9 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
   }
 
   stats.sessions = activeSessions
+  stats.actualLiveVisitors = actualActiveCount // Real count
   // Add 12 to actual live count to make it appear busier
-  stats.liveVisitors = Math.max(12, actualActiveCount + 12)
+  stats.liveVisitors = Math.max(12, actualActiveCount + 12) // Display count
   stats.lastUpdated = now
 
   await saveVisitorStats(stats)
@@ -203,6 +213,7 @@ export const updateVisitorStats = async (sessionId: string): Promise<VisitorStat
     visitorStats = { ...stats }
   }
 
+  console.log('Final visitor stats:', stats)
   return stats
 }
 

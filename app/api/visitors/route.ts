@@ -8,6 +8,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       totalVisitors: stats.totalVisitors,
       liveVisitors: stats.liveVisitors,
+      actualLiveVisitors: stats.actualLiveVisitors, // For debugging
     })
   } catch (error) {
     console.error('Error fetching visitor stats:', error)
@@ -28,6 +29,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       totalVisitors: stats.totalVisitors,
       liveVisitors: stats.liveVisitors,
+      actualLiveVisitors: stats.actualLiveVisitors, // For debugging
     })
   } catch (error) {
     console.error('Error updating visitor stats:', error)
