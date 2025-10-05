@@ -1,7 +1,8 @@
 {
   "totalVisitors": 10010,
-  "liveVisitors": 0,
-  "actualLiveVisitors": 0,
+  "liveVisitors": 15,
+  "actualLiveVisitors": 15,
   "sessions": {},
-  "lastUpdated": 1759688299000
+  "lastUpdated": 1759688299000,
+  "lastVisitorAdded": 1759688299000
 }

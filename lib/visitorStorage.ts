@@ -2,17 +2,19 @@ interface VisitorStats {
   totalVisitors: number
   liveVisitors: number
   actualLiveVisitors: number // Real live visitors count
-  sessions: Record<string, { lastSeen: number; isActive: boolean; userAgent?: string }>
+  sessions: Record<string, { lastSeen: number; isActive: boolean }>
   lastUpdated: number
+  lastVisitorAdded: number // Track when last visitor was added
 }
 
 // In-memory storage for Vercel deployment
 let visitorStats: VisitorStats = {
   totalVisitors: 10010, // Start from 10010 as requested
-  liveVisitors: 0, // Real live visitors count
+  liveVisitors: 15, // Random live visitors count
   actualLiveVisitors: 0, // Real live visitors count
   sessions: {},
   lastUpdated: Date.now(),
+  lastVisitorAdded: Date.now(),
 }
 
 // External storage URL (you can use any JSON storage service)
@@ -22,38 +24,15 @@ const EXTERNAL_STORAGE_KEY = process.env.VISITOR_STATS_KEY || 'your-api-key'
 // Check if we're in development (local) or production (Vercel)
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-// Bot detection patterns
-const BOT_PATTERNS = [
-  /bot/i,
-  /crawler/i,
-  /spider/i,
-  /scraper/i,
-  /curl/i,
-  /wget/i,
-  /python/i,
-  /java/i,
-  /go-http/i,
-  /okhttp/i,
-  /axios/i,
-  /fetch/i,
-  /node/i,
-  /postman/i,
-  /insomnia/i,
-  /vercel/i,
-  /netlify/i,
-  /github/i,
-  /git/i,
-  /uptime/i,
-  /monitor/i,
-  /ping/i,
-  /health/i,
-  /test/i,
-]
+// Generate random live visitor count between 12-25
+const getRandomLiveCount = (): number => {
+  return Math.floor(Math.random() * (25 - 12 + 1)) + 12
+}
 
-// Check if user agent indicates a bot/crawler
-const isBot = (userAgent: string): boolean => {
-  if (!userAgent || userAgent.length < 10) return true
-  return BOT_PATTERNS.some((pattern) => pattern.test(userAgent))
+// Check if we should add a new visitor (every 30 seconds)
+const shouldAddVisitor = (lastVisitorAdded: number): boolean => {
+  const now = Date.now()
+  return now - lastVisitorAdded >= 30000 // 30 seconds
 }
 
 // For development: file-based storage
@@ -88,30 +67,21 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
       const data = await fs.readFile(VISITOR_DATA_FILE, 'utf-8')
       const stats = JSON.parse(data) as VisitorStats
 
-      // Clean up old sessions (older than 5 minutes)
       const now = Date.now()
-      const fiveMinutesAgo = now - 5 * 60 * 1000
 
-      const activeSessions: Record<string, { lastSeen: number; isActive: boolean }> = {}
-      let actualActiveCount = 0
-
-      for (const [sessionId, session] of Object.entries(stats.sessions)) {
-        if (session.lastSeen >= fiveMinutesAgo) {
-          activeSessions[sessionId] = session
-          if (session.isActive) actualActiveCount++
-        }
+      // Check if we should add a new visitor (every 30 seconds)
+      if (shouldAddVisitor(stats.lastVisitorAdded)) {
+        stats.totalVisitors += 1
+        stats.lastVisitorAdded = now
+        console.log(`Simulated new visitor! Total now: ${stats.totalVisitors}`)
       }
 
-      // Ensure minimum of 12 live visitors for display when there are real visitors
-      const displayLiveCount = actualActiveCount > 0 ? Math.max(12, actualActiveCount) : 0
+      // Generate random live visitor count between 12-25
+      stats.liveVisitors = getRandomLiveCount()
+      stats.actualLiveVisitors = stats.liveVisitors // For debugging
+      stats.lastUpdated = now
 
-      return {
-        ...stats,
-        sessions: activeSessions,
-        actualLiveVisitors: actualActiveCount, // Real count
-        liveVisitors: displayLiveCount, // Display count with minimum
-        lastUpdated: now,
-      }
+      return stats
     } catch (error) {
       console.log('Creating new visitor stats file...')
       await saveVisitorStats(visitorStats)
@@ -146,28 +116,17 @@ export const loadVisitorStats = async (): Promise<VisitorStats> => {
     }
 
     const now = Date.now()
-    const fiveMinutesAgo = now - 5 * 60 * 1000
 
-    const activeSessions: Record<string, { lastSeen: number; isActive: boolean }> = {}
-    let actualActiveCount = 0
-
-    for (const [sessionId, session] of Object.entries(visitorStats.sessions)) {
-      if (session.lastSeen >= fiveMinutesAgo) {
-        activeSessions[sessionId] = session
-        if (session.isActive) actualActiveCount++
-      }
+    // Check if we should add a new visitor (every 30 seconds)
+    if (shouldAddVisitor(visitorStats.lastVisitorAdded)) {
+      visitorStats.totalVisitors += 1
+      visitorStats.lastVisitorAdded = now
+      console.log(`Simulated new visitor! Total now: ${visitorStats.totalVisitors}`)
     }
 
-    visitorStats.sessions = activeSessions
-    visitorStats.actualLiveVisitors = actualActiveCount // Real count
-
-    // Ensure minimum of 12 live visitors for display when there are real visitors
-    if (actualActiveCount > 0) {
-      visitorStats.liveVisitors = Math.max(12, actualActiveCount)
-    } else {
-      visitorStats.liveVisitors = 0 // Show 0 when no real visitors
-    }
-
+    // Generate random live visitor count between 12-25
+    visitorStats.liveVisitors = getRandomLiveCount()
+    visitorStats.actualLiveVisitors = visitorStats.liveVisitors // For debugging
     visitorStats.lastUpdated = now
 
     return visitorStats
@@ -212,70 +171,16 @@ export const saveVisitorStats = async (stats: VisitorStats): Promise<void> => {
   }
 }
 
-// Update visitor stats
+// Update visitor stats (simplified - just return current stats)
 export const updateVisitorStats = async (
   sessionId: string,
   userAgent?: string
 ): Promise<VisitorStats> => {
   const stats = await loadVisitorStats()
-  const now = Date.now()
 
-  // Check if this is a bot/crawler and reject if so
-  if (userAgent && isBot(userAgent)) {
-    console.log(`Bot detected and rejected: ${userAgent}`)
-    return stats // Return current stats without updating
-  }
+  // Just return the current stats without any real tracking
+  console.log('Visitor tracking request received, returning simulated stats')
 
-  // Check if this is a new visitor
-  if (!stats.sessions[sessionId]) {
-    stats.totalVisitors += 1
-    console.log(`New visitor! Total now: ${stats.totalVisitors}`)
-  } else {
-    console.log(`Returning visitor: ${sessionId}`)
-  }
-
-  // Update session activity
-  stats.sessions[sessionId] = {
-    lastSeen: now,
-    isActive: true,
-    userAgent: userAgent || 'Unknown',
-  }
-
-  // Clean up inactive sessions and update live count
-  const fiveMinutesAgo = now - 5 * 60 * 1000
-  const activeSessions: Record<
-    string,
-    { lastSeen: number; isActive: boolean; userAgent?: string }
-  > = {}
-  let actualActiveCount = 0
-
-  for (const [id, session] of Object.entries(stats.sessions)) {
-    if (session.lastSeen >= fiveMinutesAgo) {
-      activeSessions[id] = session
-      if (session.isActive) actualActiveCount++
-    }
-  }
-
-  stats.sessions = activeSessions
-  stats.actualLiveVisitors = actualActiveCount // Real count
-
-  // Ensure minimum of 12 live visitors for display when there are real visitors
-  if (actualActiveCount > 0) {
-    stats.liveVisitors = Math.max(12, actualActiveCount)
-  } else {
-    stats.liveVisitors = 0 // Show 0 when no real visitors
-  }
-
-  stats.lastUpdated = now
-
-  await saveVisitorStats(stats)
-
-  // Update in-memory storage for production
-  if (!isDevelopment) {
-    visitorStats = { ...stats }
-  }
-
-  console.log('Final visitor stats:', stats)
   return stats
 }
 
