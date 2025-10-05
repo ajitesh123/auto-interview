@@ -32,7 +32,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   // Generate page numbers to display
   const getPageNumbers = () => {
-    const pages = []
+    const pages: (number | string)[] = []
     const maxVisiblePages = 5
 
     if (totalPages <= maxVisiblePages) {
