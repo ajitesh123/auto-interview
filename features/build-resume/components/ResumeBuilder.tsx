@@ -11,7 +11,7 @@ import CertificationsSection from './CertificationsSection'
 import SkillsSection from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
-import { ResumeData as ResumeDataType } from '../../../lib/resumeStore'
+import { ResumeData as ResumeDataType, SkillsData } from '../../../lib/resumeStore'
 
 // Define data types for all sections
 interface ContactData {
@@ -282,7 +282,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     setResumeData((prev) => ({ ...prev, projects: data }))
   }, [])
 
-  const handleCertificationsChange = useCallback((data: CertificationEntry[]) => {
+  const handleCertificationsChange = useCallback((data: CertificationEntry) => {
     setResumeData((prev) => ({ ...prev, certifications: data }))
   }, [])
 
