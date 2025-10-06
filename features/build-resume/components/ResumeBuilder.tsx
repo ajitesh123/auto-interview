@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import ResumeBuilderLayout from './ResumeBuilderLayout'
 import ContactSection from './ContactSection'
 import EducationSection from './EducationSection'
@@ -8,7 +8,7 @@ import ExperienceSection from './ExperienceSection'
 import LeadershipActivitiesSection from './LeadershipActivitiesSection'
 import ProjectsSection from './ProjectsSection'
 import CertificationsSection from './CertificationsSection'
-import SkillsSection from './SkillsSection'
+import SkillsSection, { SkillsSectionRef } from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
 import { ResumeData as ResumeDataType } from '../../../lib/resumeStore'
@@ -108,6 +108,11 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
   const [showTemplateSelection, setShowTemplateSelection] = useState(false)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const [isResumeSaved, setIsResumeSaved] = useState(false)
+
+  // Refs for sections that need to be saved manually
+  const skillsSectionRef = useRef<SkillsSectionRef>(null)
 
   // Clear validation errors when user fixes the issues
   useEffect(() => {
@@ -171,6 +176,11 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     setSaveMessage(null)
 
     try {
+      // Save data from all sections that have unsaved changes
+      if (skillsSectionRef.current?.hasUnsavedChanges) {
+        skillsSectionRef.current.saveData()
+      }
+
       let result
       if (savedResumeId) {
         // Update existing resume
@@ -178,6 +188,8 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
         if (result.success) {
           setSaveMessage('Resume saved successfully!')
           setTimeout(() => setSaveMessage(null), 3000)
+          setIsResumeSaved(true)
+          setHasUnsavedChanges(false)
           return savedResumeId
         }
       } else {
@@ -187,6 +199,8 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
           setSavedResumeId(result.data.id)
           setSaveMessage('Resume saved successfully!')
           setTimeout(() => setSaveMessage(null), 3000)
+          setIsResumeSaved(true)
+          setHasUnsavedChanges(false)
           return result.data.id
         }
       }
@@ -250,55 +264,65 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
     setValidationErrors([]) // Clear validation errors when changing sections
   }
 
+  // Memoized onChange handlers to prevent unnecessary re-renders
+  const handleContactChange = useCallback((data: ContactData) => {
+    setResumeData((prev) => ({ ...prev, contact: data }))
+  }, [])
+
+  const handleEducationChange = useCallback((data: EducationEntry[]) => {
+    setResumeData((prev) => ({ ...prev, education: data }))
+  }, [])
+
+  const handleExperienceChange = useCallback((data: ExperienceEntry[]) => {
+    setResumeData((prev) => ({ ...prev, experience: data }))
+  }, [])
+
+  const handleLeadershipChange = useCallback((data: LeadershipEntry[]) => {
+    setResumeData((prev) => ({ ...prev, leadership: data }))
+  }, [])
+
+  const handleProjectsChange = useCallback((data: ProjectEntry[]) => {
+    setResumeData((prev) => ({ ...prev, projects: data }))
+  }, [])
+
+  const handleCertificationsChange = useCallback((data: CertificationEntry[]) => {
+    setResumeData((prev) => ({ ...prev, certifications: data }))
+  }, [])
+
+  const handleSkillsChange = useCallback((data: SkillsData) => {
+    setResumeData((prev) => ({ ...prev, skills: data }))
+  }, [])
+
   const renderCurrentSection = () => {
     switch (currentSection) {
       case 0:
-        return (
-          <ContactSection
-            data={resumeData.contact}
-            onChange={(data) => setResumeData({ ...resumeData, contact: data })}
-          />
-        )
+        return <ContactSection data={resumeData.contact} onChange={handleContactChange} />
       case 1:
-        return (
-          <EducationSection
-            data={resumeData.education}
-            onChange={(data) => setResumeData({ ...resumeData, education: data })}
-          />
-        )
+        return <EducationSection data={resumeData.education} onChange={handleEducationChange} />
       case 2:
-        return (
-          <ExperienceSection
-            data={resumeData.experience}
-            onChange={(data) => setResumeData({ ...resumeData, experience: data })}
-          />
-        )
+        return <ExperienceSection data={resumeData.experience} onChange={handleExperienceChange} />
       case 3:
         return (
           <LeadershipActivitiesSection
             data={resumeData.leadership}
-            onChange={(data) => setResumeData({ ...resumeData, leadership: data })}
+            onChange={handleLeadershipChange}
           />
         )
       case 4:
-        return (
-          <ProjectsSection
-            data={resumeData.projects}
-            onChange={(data) => setResumeData({ ...resumeData, projects: data })}
-          />
-        )
+        return <ProjectsSection data={resumeData.projects} onChange={handleProjectsChange} />
       case 5:
         return (
           <CertificationsSection
             data={resumeData.certifications}
-            onChange={(data) => setResumeData({ ...resumeData, certifications: data })}
+            onChange={handleCertificationsChange}
           />
         )
       case 6:
         return (
           <SkillsSection
+            ref={skillsSectionRef}
             data={resumeData.skills}
-            onChange={(data) => setResumeData({ ...resumeData, skills: data })}
+            onChange={handleSkillsChange}
           />
         )
       default:
@@ -328,6 +352,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       isSaving={isSaving}
       saveMessage={saveMessage}
       validationErrors={validationErrors}
+      isResumeSaved={isResumeSaved}
     >
       {renderCurrentSection()}
     </ResumeBuilderLayout>

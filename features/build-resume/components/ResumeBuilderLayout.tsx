@@ -12,6 +12,7 @@ interface ResumeBuilderLayoutProps {
   isSaving?: boolean
   saveMessage?: string | null
   totalSections?: number
+  isResumeSaved?: boolean
   validationErrors?: string[]
 }
 
@@ -35,6 +36,7 @@ const ResumeBuilderLayout = ({
   isSaving = false,
   saveMessage = null,
   totalSections = SECTIONS.length,
+  isResumeSaved = false,
   validationErrors = [],
 }: ResumeBuilderLayoutProps) => {
   const progress = ((currentSection + 1) / totalSections) * 100
@@ -157,6 +159,39 @@ const ResumeBuilderLayout = ({
         </div>
       </div>
 
+      {/* Validation Errors above navigation */}
+      {validationErrors.length > 0 && (
+        <div className="mx-auto max-w-4xl px-4 py-4">
+          <div className="rounded-lg border border-red-700 bg-red-900 p-4">
+            <div className="flex items-start">
+              <svg
+                className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h4 className="mb-2 text-sm font-medium text-red-200">
+                  Please fill in all required fields:
+                </h4>
+                <ul className="space-y-1 text-sm text-red-300">
+                  {validationErrors.map((error, index) => (
+                    <li key={index}>• {error}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navigation Buttons */}
       <div className="sticky bottom-0 border-t border-chatgpt-border bg-chatgpt-card">
         <div className="mx-auto max-w-4xl px-4 py-4">
@@ -235,7 +270,13 @@ const ResumeBuilderLayout = ({
               ) : (
                 <button
                   onClick={onNext}
-                  className="flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
+                  disabled={!isResumeSaved}
+                  className={`flex items-center rounded-lg px-6 py-3 font-semibold text-chatgpt-text transition-colors ${
+                    isResumeSaved
+                      ? 'bg-chatgpt-accent hover:bg-chatgpt-green/80'
+                      : 'cursor-not-allowed bg-chatgpt-input opacity-50'
+                  }`}
+                  title={!isResumeSaved ? 'Please click "Save Progress" to view templates' : ''}
                 >
                   Finish Resume
                   <svg
@@ -255,6 +296,16 @@ const ResumeBuilderLayout = ({
               )}
             </div>
           </div>
+
+          {/* Hint message for unsaved resume */}
+          {currentSection === totalSections - 1 && !isResumeSaved && (
+            <div className="mt-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3">
+              <p className="text-sm text-yellow-400">
+                💡 <strong>Hint:</strong> Please click "Save Progress" to view resume templates and
+                finish your resume.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
