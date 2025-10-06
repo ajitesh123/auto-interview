@@ -277,57 +277,59 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
           </div>
         </div>
 
-        <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-          <div className="space-y-8">
-            <SkillInput
-              field="technical"
-              title="Technical Skills"
-              placeholder="e.g., JavaScript, React, Python, AWS"
-            />
+        <div className="flex flex-col gap-6 xl:flex-row xl:gap-8">
+          {/* Main Content - Left Side */}
+          <div className="flex-1">
+            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
+              <div className="space-y-8">
+                <SkillInput
+                  field="technical"
+                  title="Technical Skills"
+                  placeholder="e.g., JavaScript, React, Python, AWS"
+                />
 
-            <SkillInput
-              field="languages"
-              title="Languages"
-              placeholder="e.g., English (Native), Spanish (Fluent), French (Conversational)"
-            />
+                <SkillInput
+                  field="languages"
+                  title="Languages"
+                  placeholder="e.g., English (Native), Spanish (Fluent), French (Conversational)"
+                />
 
-            <SkillInput
-              field="interests"
-              title="Interests"
-              placeholder="e.g., Technology, Innovation, Leadership, Photography"
-            />
+                <SkillInput
+                  field="interests"
+                  title="Interests"
+                  placeholder="e.g., Technology, Innovation, Leadership, Photography"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Tips */}
-          <div className="mt-8 rounded-lg bg-matte-dark p-6">
-            <div className="flex items-start space-x-3">
-              <svg
-                className="mt-1 h-6 w-6 text-accent-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <div>
-                <h4 className="mb-1 text-sm font-medium text-white">Skills Tips</h4>
-                <ul className="space-y-1 text-sm text-gray-300">
-                  <li>
-                    • Technical: List programming languages, frameworks, tools, and technologies
-                  </li>
-                  <li>
-                    • Languages: Include proficiency levels (Native, Fluent, Conversational, Basic)
-                  </li>
-                  <li>• Interests: Show personality and passion areas relevant to your field</li>
-                  <li>• Only include skills you're comfortable discussing in interviews</li>
-                  <li>• Use checkboxes to include/exclude each category from your resume</li>
-                  <li>• Select text and click the bold button (B) to highlight important skills</li>
-                </ul>
+          {/* Tips Section - Right Side */}
+          <div className="w-full xl:w-72 xl:flex-shrink-0">
+            <div className="sticky top-6 rounded-lg bg-matte-dark p-3">
+              <div className="flex items-start space-x-3">
+                <svg
+                  className="mt-1 h-6 w-6 text-accent-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-white">Skills Tips</h4>
+                  <ul className="space-y-1 text-xs text-gray-300">
+                    <li>• Technical: Languages, frameworks, tools</li>
+                    <li>• Languages: Include proficiency levels</li>
+                    <li>• Interests: Show relevant passions</li>
+                    <li>• Only include interview-ready skills</li>
+                    <li>• Use checkboxes to include/exclude</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

@@ -10,13 +10,13 @@ interface VisitorStats {
 
 const VisitorCounter = () => {
   const [stats, setStats] = useState<VisitorStats>({
-    totalVisitors: 10010,
+    totalVisitors: 10118,
     liveVisitors: 12,
     actualLiveVisitors: 0,
   })
   const [isLoading, setIsLoading] = useState(false) // Start as not loading since we have default values
   const [showIncrement, setShowIncrement] = useState(false)
-  const [prevTotal, setPrevTotal] = useState(10010)
+  const [prevTotal, setPrevTotal] = useState(10118)
 
   useEffect(() => {
     const trackVisitor = async () => {

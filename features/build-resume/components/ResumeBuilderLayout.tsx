@@ -45,14 +45,14 @@ const ResumeBuilderLayout = ({
     <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
       {/* Header with Progress Bar */}
       <div className="sticky top-0 z-50 border-b border-chatgpt-border bg-chatgpt-card">
-        <div className="mx-auto max-w-4xl px-4 py-4">
+        <div className="mx-auto max-w-6xl px-4 py-4">
           {/* Progress Bar */}
           <div className="mb-4">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-chatgpt-textSecondary">
+              <span className="text-base font-semibold text-chatgpt-textSecondary">
                 Section {currentSection + 1} of {totalSections}
               </span>
-              <span className="text-sm font-medium text-chatgpt-textSecondary">
+              <span className="text-base font-semibold text-chatgpt-textSecondary">
                 {Math.round(progress)}% Complete
               </span>
             </div>
@@ -71,7 +71,7 @@ const ResumeBuilderLayout = ({
                 <button
                   key={index}
                   onClick={() => onSectionChange(index)}
-                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  className={`rounded-md px-4 py-2 text-sm font-semibold transition-colors ${
                     index === currentSection
                       ? 'bg-accent-500 text-white'
                       : index < currentSection
@@ -88,7 +88,7 @@ const ResumeBuilderLayout = ({
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-4xl px-4 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Validation Errors */}
         {validationErrors.length > 0 && (
           <div className="mb-4 rounded-lg border border-red-700 bg-red-900 p-4">

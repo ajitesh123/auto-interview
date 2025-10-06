@@ -9,7 +9,7 @@ interface VisitorStats {
 
 // In-memory storage for Vercel deployment
 let visitorStats: VisitorStats = {
-  totalVisitors: 10010, // Start from 10010 as requested
+  totalVisitors: 10118, // Updated to current count
   liveVisitors: 15, // Random live visitors count
   actualLiveVisitors: 0, // Real live visitors count
   sessions: {},
