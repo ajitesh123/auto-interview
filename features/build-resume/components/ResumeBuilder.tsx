@@ -8,7 +8,7 @@ import ExperienceSection from './ExperienceSection'
 import LeadershipActivitiesSection from './LeadershipActivitiesSection'
 import ProjectsSection from './ProjectsSection'
 import CertificationsSection from './CertificationsSection'
-import SkillsSection, { SkillsSectionRef } from './SkillsSection'
+import SkillsSection from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
 import { resumeApi } from '../../../lib/resumeApi'
 import { ResumeData as ResumeDataType } from '../../../lib/resumeStore'
@@ -111,8 +111,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [isResumeSaved, setIsResumeSaved] = useState(false)
 
-  // Refs for sections that need to be saved manually
-  const skillsSectionRef = useRef<SkillsSectionRef>(null)
+  // Note: SkillsSection now handles its own state management
 
   // Clear validation errors when user fixes the issues
   useEffect(() => {
@@ -177,9 +176,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
 
     try {
       // Save data from all sections that have unsaved changes
-      if (skillsSectionRef.current?.hasUnsavedChanges) {
-        skillsSectionRef.current.saveData()
-      }
+      // Note: SkillsSection now saves data automatically on change
 
       let result
       if (savedResumeId) {
@@ -318,13 +315,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
           />
         )
       case 6:
-        return (
-          <SkillsSection
-            ref={skillsSectionRef}
-            data={resumeData.skills}
-            onChange={handleSkillsChange}
-          />
-        )
+        return <SkillsSection data={resumeData.skills} onChange={handleSkillsChange} />
       default:
         return null
     }
