@@ -223,8 +223,12 @@ const ATSScorePage = () => {
           <div className="mx-auto mb-8 w-full max-w-md">
             <div className="rounded-lg border border-matte-gray bg-matte-dark p-8 shadow-lg shadow-gray-500/20">
               <div className="text-center">
-                {/* Futuristic Upload Icon */}
-                <div className="relative mb-6">
+                {/* Futuristic Upload Icon - clickable */}
+                <label
+                  htmlFor="resume-upload"
+                  className="relative mb-6 block cursor-pointer"
+                  aria-label="Upload your resume"
+                >
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-600 shadow-lg shadow-accent-500/25">
                     <svg
                       className="h-8 w-8 text-white"
@@ -241,11 +245,16 @@ const ATSScorePage = () => {
                     </svg>
                   </div>
                   {/* Animated rings */}
-                  <div className="absolute inset-0 mx-auto h-16 w-16 animate-ping rounded-2xl border-2 border-accent-400/30"></div>
-                  <div className="absolute inset-2 mx-auto h-12 w-12 animate-pulse rounded-xl border border-accent-500/20"></div>
-                </div>
+                  <div className="pointer-events-none absolute inset-0 mx-auto h-16 w-16 animate-ping rounded-2xl border-2 border-accent-400/30"></div>
+                  <div className="pointer-events-none absolute inset-2 mx-auto h-12 w-12 animate-pulse rounded-xl border border-accent-500/20"></div>
+                </label>
 
-                <h3 className="mb-3 text-xl font-bold text-white">Upload Your Resume</h3>
+                <label
+                  htmlFor="resume-upload"
+                  className="mb-3 block cursor-pointer text-xl font-bold text-white"
+                >
+                  Upload Your Resume
+                </label>
                 <p className="mb-6 text-sm leading-relaxed text-gray-400">
                   Drop your PDF resume for{' '}
                   <span className="font-semibold text-accent-400">advanced AI analysis</span> and
@@ -322,12 +331,15 @@ const ATSScorePage = () => {
                 {isAnalyzing && (
                   <div className="mt-8 text-left">
                     <p className="mb-3 text-sm text-gray-300">Running deep ATS analysis…</p>
-                    <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700/40">
+                    <div className="relative h-3 w-full overflow-hidden rounded-full border border-accent-500/30 bg-gray-700/40">
                       <div
-                        className="h-3 rounded-full bg-gradient-to-r from-accent-500 to-accent-400 transition-[width] duration-300 ease-linear"
-                        style={{ width: `${Math.max(0.5, progress)}%` }}
+                        className="h-full w-full origin-left rounded-full bg-gradient-to-r from-accent-500 to-accent-400 transition-transform duration-300 ease-linear"
+                        style={{ transform: `scaleX(${Math.max(0.005, progress / 100)})` }}
+                        role="progressbar"
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-valuenow={Math.floor(progress)}
                       ></div>
-                      {/* progress bar foreground only; removed overlay to ensure visibility */}
                     </div>
                     <div className="mt-2 text-left text-xs text-gray-400">
                       {Math.min(100, Math.floor(progress))}%

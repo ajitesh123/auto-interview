@@ -10,13 +10,13 @@ interface VisitorStats {
 
 const VisitorCounter = () => {
   const [stats, setStats] = useState<VisitorStats>({
-    totalVisitors: 10118,
+    totalVisitors: 11534,
     liveVisitors: 12,
     actualLiveVisitors: 0,
   })
   const [isLoading, setIsLoading] = useState(false) // Start as not loading since we have default values
   const [showIncrement, setShowIncrement] = useState(false)
-  const [prevTotal, setPrevTotal] = useState(10118)
+  const [prevTotal, setPrevTotal] = useState(11534)
 
   useEffect(() => {
     const trackVisitor = async () => {
@@ -83,7 +83,7 @@ const VisitorCounter = () => {
     // Track visitor on initial load
     trackVisitor()
 
-    // Update stats every 60 seconds to minimize API calls
+    // Update stats every 60 seconds to reflect 5-minute auto increments when applicable
     const interval = setInterval(fetchVisitorStats, 60000)
 
     return () => clearInterval(interval)

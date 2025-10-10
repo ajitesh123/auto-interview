@@ -122,26 +122,30 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
         <div className="flex min-h-screen flex-1 flex-col lg:min-w-0">
           <div className="flex items-center justify-between border-b border-matte-gray p-4 sm:p-6">
-            {/* Back to Home Button */}
-            <Link
-              href="/"
-              className="flex items-center space-x-2 rounded-lg bg-matte-gray/20 px-3 py-2 text-sm font-medium text-chatgpt-textSecondary transition-all duration-300 hover:scale-105 hover:bg-matte-gray/40 hover:text-chatgpt-text sm:px-4 sm:py-2 sm:text-base"
-            >
-              <svg
-                className="h-4 w-4 sm:h-5 sm:w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {/* Back to Home Button - hide on home route */}
+            {pathname !== '/' ? (
+              <Link
+                href="/"
+                className="flex items-center space-x-2 rounded-lg bg-matte-gray/20 px-3 py-2 text-sm font-medium text-chatgpt-textSecondary transition-all duration-300 hover:scale-105 hover:bg-matte-gray/40 hover:text-chatgpt-text sm:px-4 sm:py-2 sm:text-base"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
-              <span>Back to Home</span>
-            </Link>
+                <svg
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+                <span>Back to Home</span>
+              </Link>
+            ) : (
+              <div />
+            )}
 
             {/* Top Navigation */}
             <div className="flex items-center space-x-4 sm:space-x-6">
