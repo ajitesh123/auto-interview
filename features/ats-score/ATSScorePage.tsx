@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface CategoryScore {
   contentQuality: number
@@ -40,6 +40,64 @@ const ATSScorePage = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [progress, setProgress] = useState<number>(0)
+  const [selectedTips, setSelectedTips] = useState<Array<{ title: string; body: string }>>([])
+
+  // Static tips list provided by user
+  const resumeTips: Array<{ title: string; body: string }> = [
+    {
+      title: 'Focus on achievements',
+      body: 'Describe your accomplishments using action verbs and quantifiable results (e.g., "Increased sales by 15%")',
+    },
+    {
+      title: 'Use keywords',
+      body: 'Scan the job description and incorporate relevant keywords to help pass ATS screening',
+    },
+    {
+      title: 'Be concise',
+      body: 'Keep bullet points short and action‑oriented; aim for fewer than 30 words each',
+    },
+    {
+      title: 'Add summary only if needed',
+      body: 'Include a professional summary only when it adds clear value to your application',
+    },
+    {
+      title: 'Maintain a consistent format',
+      body: 'Use consistent layout, fonts and spacing throughout the document',
+    },
+    {
+      title: 'Choose a simple design',
+      body: 'Avoid complex tables, text boxes, or unusual graphics that can confuse ATS software',
+    },
+    {
+      title: 'Ensure professional links',
+      body: 'Verify your LinkedIn and portfolio links are correct, up‑to‑date and professional',
+    },
+    {
+      title: 'Check for errors',
+      body: 'Proofread to catch grammatical or spelling errors and formatting inconsistencies',
+    },
+  ]
+
+  // Progress updater: runs while analyzing and fills to 100% in ~100s
+  useEffect(() => {
+    if (!isAnalyzing) return
+
+    const startTime = Date.now()
+    const totalMs = 100_000
+
+    setProgress(0)
+
+    const tick = () => {
+      const elapsed = Date.now() - startTime
+      const pct = Math.min(100, (elapsed / totalMs) * 100)
+      setProgress(pct)
+      if (pct < 100) raf = requestAnimationFrame(tick)
+    }
+
+    let raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [isAnalyzing])
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -60,20 +118,27 @@ const ATSScorePage = () => {
     setIsAnalyzing(true)
     setError(null)
 
+    // Pick 3 random tips for this run
+    const shuffled = [...resumeTips].sort(() => Math.random() - 0.5)
+    setSelectedTips(shuffled.slice(0, 3))
+
     try {
       const formData = new FormData()
       formData.append('file', uploadedFile)
 
-      const response = await fetch('/api/ats/analyze', {
+      const analysisPromise = fetch('/api/ats/analyze', {
         method: 'POST',
         body: formData,
+      }).then(async (response) => {
+        if (!response.ok) throw new Error('Failed to analyze resume')
+        return response.json()
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to analyze resume')
-      }
+      // Ensure a minimum 100s display time for the loading bar
+      const minDelay = new Promise((resolve) => setTimeout(resolve, 100_000))
 
-      const data = await response.json()
+      const data = await Promise.all([analysisPromise, minDelay]).then(([d]) => d)
+      setProgress(100)
       setAnalysisResults(data)
     } catch (err) {
       setError('Failed to analyze resume. Please try again.')
@@ -109,7 +174,7 @@ const ATSScorePage = () => {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-matte-black px-8 py-12">
+    <div className="relative w-full overflow-hidden px-8 py-12">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute left-1/4 top-0 h-96 w-96 animate-pulse rounded-full bg-accent-500/5 blur-3xl"></div>
@@ -252,6 +317,36 @@ const ATSScorePage = () => {
                     <span className="relative z-10">Analyze Resume</span>
                   )}
                 </button>
+
+                {/* Loading section with progress bar and tips */}
+                {isAnalyzing && (
+                  <div className="mt-8 text-left">
+                    <p className="mb-3 text-sm text-gray-300">Running deep ATS analysis…</p>
+                    <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700/40">
+                      <div
+                        className="h-3 rounded-full bg-gradient-to-r from-accent-500 to-accent-400 transition-[width] duration-300 ease-linear"
+                        style={{ width: `${Math.max(0.5, progress)}%` }}
+                      ></div>
+                      {/* progress bar foreground only; removed overlay to ensure visibility */}
+                    </div>
+                    <div className="mt-2 text-left text-xs text-gray-400">
+                      {Math.min(100, Math.floor(progress))}%
+                    </div>
+
+                    {/* Tips */}
+                    <div className="mt-6 rounded-xl border border-matte-gray/60 bg-matte-light/30 p-4 text-left">
+                      <h4 className="mb-3 text-sm font-semibold text-white">Key resume tips</h4>
+                      <ul className="list-disc space-y-2 pl-5">
+                        {selectedTips.map((tip, idx) => (
+                          <li key={idx} className="text-sm leading-relaxed text-gray-200">
+                            <span className="font-semibold text-accent-300">{tip.title}:</span>{' '}
+                            {tip.body}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

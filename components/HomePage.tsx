@@ -47,47 +47,48 @@ const HomePage = () => {
       id: 'build-resume',
       title: 'Create Resume',
       description: 'Build professional resumes with AI-powered templates',
+      href: '/build-resume',
     },
     {
       id: 'ats-score',
       title: 'Check Resume ATS Score',
       description: 'Optimize your resume for Applicant Tracking Systems',
+      href: '/ats-score',
     },
     {
       id: 'find-jobs',
       title: 'Find Relevant Jobs',
       description: 'Discover job opportunities tailored to your skills',
+      href: '/find-jobs',
     },
     {
       id: 'assessments',
       title: 'Practice Interview',
       description: 'Practice with AI-powered interview simulations',
+      href: 'https://app.toughtongueai.com/',
+      external: true,
     },
     {
       id: 'cover-letter',
       title: 'Generate Custom Cover Letter',
       description: 'Create personalized cover letters',
+      href: '/cover-letter',
     },
   ]
 
-  const handleFeatureClick = (featureId: string) => {
-    console.log('Feature clicked:', featureId)
+  const handleFeatureClick = (feature: any) => {
+    console.log('Feature clicked:', feature.id)
 
-    // Redirect to Tough Tongue AI app for practice interviews
-    if (featureId === 'assessments') {
-      window.open('https://app.toughtongueai.com/', '_blank')
-      return
-    }
-
-    setActivePage(featureId)
-    if (featureId === 'build-resume') {
-      setBuildResumeKey((prev) => prev + 1)
+    if (feature.external) {
+      window.open(feature.href, '_blank')
+    } else {
+      window.location.href = feature.href
     }
   }
 
   const renderHomePage = () => {
     return (
-      <div className="min-h-screen bg-matte-black">
+      <div className="min-h-screen">
         <div className="relative">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
             <div className="text-center">
@@ -120,11 +121,11 @@ const HomePage = () => {
             {features.map((feature, index) => (
               <div
                 key={feature.id}
-                onClick={() => handleFeatureClick(feature.id)}
+                onClick={() => handleFeatureClick(feature)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    handleFeatureClick(feature.id)
+                    handleFeatureClick(feature)
                   }
                 }}
                 role="button"
@@ -165,90 +166,7 @@ const HomePage = () => {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-matte-black text-white">
-      <div className="flex min-h-screen flex-col lg:flex-row">
-        <div className="flex w-full flex-col border-b border-matte-gray bg-matte-dark p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
-          <div className="mb-6">
-            <div className="mb-2 flex items-center">
-              <Logo width={40} height={40} className="mr-1" />
-              <h1 className="text-lg font-bold text-chatgpt-text sm:text-xl">Auto Interview AI</h1>
-            </div>
-            <p className="text-xs text-chatgpt-textSecondary sm:text-sm">AI-powered career tools</p>
-          </div>
-
-          <nav className="flex-1 space-y-1">
-            <button
-              onClick={() => setActivePage('home')}
-              className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20 sm:text-sm ${
-                activePage === 'home'
-                  ? 'bg-matte-gray/20 text-white'
-                  : 'text-gray-400 hover:bg-matte-gray hover:text-white'
-              }`}
-              style={{ animationDelay: '0.1s' }}
-            >
-              {activePage === 'home' && (
-                <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400 transition-all duration-300"></div>
-              )}
-              <span className="relative z-10">Home</span>
-            </button>
-            {features.map((feature, index) => (
-              <button
-                key={feature.id}
-                onClick={() => handleFeatureClick(feature.id)}
-                className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20 sm:text-sm ${
-                  activePage === feature.id
-                    ? 'bg-matte-gray/20 text-white'
-                    : 'text-gray-400 hover:bg-matte-gray hover:text-white'
-                }`}
-                style={{ animationDelay: `${(index + 1) * 0.05}s` }}
-              >
-                {activePage === feature.id && (
-                  <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400 transition-all duration-300"></div>
-                )}
-                <span className="relative z-10">{feature.title}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        <div className="flex min-h-screen flex-1 flex-col">
-          <div className="flex items-center justify-end border-b border-matte-gray p-4 sm:p-6">
-            <div className="flex items-center space-x-4 sm:space-x-6">
-              <button
-                onClick={() => setActivePage('home')}
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
-              >
-                Home
-              </button>
-              <Link
-                href="/blog"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
-              >
-                Blog
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
-              >
-                About
-              </Link>
-              <Link
-                href="https://app.toughtongueai.com/"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
-              >
-                Tough Tongue AI
-              </Link>
-              <SearchButton />
-            </div>
-          </div>
-
-          <div className="w-full flex-1 overflow-auto">{renderMainContent()}</div>
-        </div>
-      </div>
-      <MinimalFooter />
-    </div>
-  )
+  return <div className="w-full flex-1 overflow-auto">{renderMainContent()}</div>
 }
 
 export default HomePage

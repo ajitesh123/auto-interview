@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { genPageMetadata } from './seo'
 import HomePage from '@/components/HomePage'
 import SEOFeatures from '@/components/SEOFeatures'
+import AppLayout from '@/components/AppLayout'
 
 export const metadata: Metadata = genPageMetadata({
   title:
@@ -40,7 +41,9 @@ export default function Page() {
   return (
     <>
       <SEOFeatures />
-      <HomePage />
+      <AppLayout>
+        <HomePage />
+      </AppLayout>
     </>
   )
 }

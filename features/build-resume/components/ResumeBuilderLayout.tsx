@@ -42,7 +42,7 @@ const ResumeBuilderLayout = ({
   const progress = ((currentSection + 1) / totalSections) * 100
 
   return (
-    <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
+    <div className="w-full bg-chatgpt-dark text-chatgpt-text">
       {/* Header with Progress Bar */}
       <div className="sticky top-0 z-50 border-b border-chatgpt-border bg-chatgpt-card">
         <div className="mx-auto max-w-6xl px-4 py-4">

@@ -1,5 +1,8 @@
-// Shared in-memory store for resume data
+// File-based persistent store for resume data
 // In a real application, this would be replaced with a database connection
+
+import fs from 'fs'
+import path from 'path'
 
 export interface ContactData {
   name: string
@@ -80,8 +83,38 @@ export interface StoredResumeData extends ResumeData {
   updatedAt: string
 }
 
-// In-memory store
-const resumeStore = new Map<string, StoredResumeData>()
+// File-based persistent storage
+const STORAGE_DIR = path.join(process.cwd(), 'data', 'resumes')
+const STORAGE_FILE = path.join(STORAGE_DIR, 'resumes.json')
+
+// Ensure storage directory exists
+if (!fs.existsSync(STORAGE_DIR)) {
+  fs.mkdirSync(STORAGE_DIR, { recursive: true })
+}
+
+// Load data from file on startup
+let resumeStore = new Map<string, StoredResumeData>()
+
+try {
+  if (fs.existsSync(STORAGE_FILE)) {
+    const data = fs.readFileSync(STORAGE_FILE, 'utf8')
+    const parsedData = JSON.parse(data)
+    resumeStore = new Map(Object.entries(parsedData))
+  }
+} catch (error) {
+  console.error('Error loading resume data:', error)
+  resumeStore = new Map<string, StoredResumeData>()
+}
+
+// Helper function to save data to file
+const saveToFile = () => {
+  try {
+    const data = Object.fromEntries(resumeStore)
+    fs.writeFileSync(STORAGE_FILE, JSON.stringify(data, null, 2))
+  } catch (error) {
+    console.error('Error saving resume data:', error)
+  }
+}
 
 // Store operations
 export const resumeStoreOperations = {
@@ -98,6 +131,7 @@ export const resumeStoreOperations = {
     }
 
     resumeStore.set(resumeId, storedData)
+    saveToFile()
     return { id: resumeId, createdAt: now }
   },
 
@@ -125,12 +159,17 @@ export const resumeStoreOperations = {
     }
 
     resumeStore.set(id, updatedData)
+    saveToFile()
     return true
   },
 
   // Delete a resume
   delete: (id: string): boolean => {
-    return resumeStore.delete(id)
+    const result = resumeStore.delete(id)
+    if (result) {
+      saveToFile()
+    }
+    return result
   },
 
   // Get resume count

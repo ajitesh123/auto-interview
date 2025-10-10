@@ -185,7 +185,7 @@ const CoverLetterPage = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col bg-matte-black px-8 py-12">
+    <div className="flex h-full w-full flex-col px-8 py-12">
       {/* Header */}
       <div className="mx-auto mb-8 max-w-4xl text-center">
         <h1 className="mb-6 bg-gradient-to-r from-accent-400 via-accent-500 to-accent-600 bg-clip-text text-5xl font-bold text-transparent">

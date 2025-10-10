@@ -262,7 +262,7 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
+    <div className="w-full bg-chatgpt-dark text-chatgpt-text">
       <div className="mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Skills and Interests</h1>
