@@ -174,7 +174,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               operatingSystem: 'Web',
               applicationCategory: 'BusinessApplication',
               url: 'https://www.autointerviewai.com/',
-              image: 'https://www.autointerviewai.com/static/images/twitter-card.png',
+              image: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
               description:
                 'Auto Interview AI (Autointerviewai) - AI-driven mock interviews, resume builder, ATS checker, job search and cover letter generator.',
             }),

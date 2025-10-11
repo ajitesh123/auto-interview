@@ -12,7 +12,7 @@ const siteMetadata = {
   siteUrl: 'https://www.autointerviewai.com',
   siteRepo: 'https://github.com/ajitesh123/tailwind-css-starter-blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.svg`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
+  socialBanner: `${process.env.BASE_PATH || ''}/static/images/Auto-interview-thumbnail.png`,
   email: 'ajiteshleo@gmail.com',
   github: 'https://github.com/ajitesh123',
   x: 'https://x.com/ajiteshleo',

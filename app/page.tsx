@@ -19,7 +19,7 @@ export const metadata: Metadata = genPageMetadata({
     url: '/',
     images: [
       {
-        url: 'https://www.autointerviewai.com/static/images/twitter-card.png',
+        url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
         width: 1200,
         height: 630,
         alt: 'Auto Interview AI - Complete Job Preparation Platform',
@@ -30,7 +30,7 @@ export const metadata: Metadata = genPageMetadata({
     title: 'Auto Interview AI - Complete Job Preparation Platform | AI-Powered Career Tools',
     description:
       'Complete AI-powered job preparation platform. Build resumes, check ATS scores, search jobs, generate cover letters, and practice interviews - all free.',
-    images: ['https://www.autointerviewai.com/static/images/twitter-card.png'],
+    images: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
   },
   alternates: {
     canonical: 'https://www.autointerviewai.com',
