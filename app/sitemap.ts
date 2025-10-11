@@ -26,11 +26,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
+  // Helper function to determine route priority
+  const getRoutePriority = (route: string) => {
+    if (route === '') return 1.0
+    // Feature pages are core business value - high priority
+    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter'].includes(route)) return 0.95
+    return 0.8
+  }
+
   // Static pages
   const routes = [
     '',
     'blog',
     'about',
+    'build-resume',
+    'ats-score',
+    'find-jobs',
+    'cover-letter',
     'privacy-policy',
     'terms-conditions',
     'refund-policy',
@@ -41,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split('T')[0],
     changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1.0 : 0.8,
+    priority: getRoutePriority(route),
   }))
 
   // Tags pages - add all tag pages to sitemap
