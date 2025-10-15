@@ -49,8 +49,8 @@ const LandingHeader = () => {
 
       {/* Mobile Layout - Logo + Feature Tools */}
       <div className="sm:hidden">
-        {/* Logo */}
-        <div className="mb-4">
+        {/* Logo + Title Row */}
+        <div className="mb-4 flex items-center justify-between">
           <Link href="/" aria-label="Auto Interview AI">
             <div className="flex items-center">
               <div className="mr-2 h-10 w-10">
@@ -59,6 +59,7 @@ const LandingHeader = () => {
               <span className="text-xl font-bold text-chatgpt-text">Auto Interview AI</span>
             </div>
           </Link>
+          <SearchButton />
         </div>
 
         {/* Feature Tools - Similar to Final Round AI */}
@@ -78,17 +79,20 @@ const LandingHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link href="/blog" className="text-sm text-gray-400 hover:text-white">
-              Blog
-            </Link>
-            <Link href="/about" className="text-sm text-gray-400 hover:text-white">
-              About
-            </Link>
-          </div>
-          <SearchButton />
+        {/* Mobile Menu Links */}
+        <div className="flex items-center space-x-4">
+          <Link href="/blog" className="text-sm text-gray-400 hover:text-white">
+            Blog
+          </Link>
+          <Link href="/about" className="text-sm text-gray-400 hover:text-white">
+            About
+          </Link>
+          <Link
+            href="https://app.toughtongueai.com/"
+            className="text-sm text-gray-400 hover:text-white"
+          >
+            Tough Tongue AI
+          </Link>
         </div>
       </div>
     </header>
