@@ -181,6 +181,81 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
+        {/* Person Schema for E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Ajitesh Abhishek',
+              jobTitle: 'AI & Career Tools Developer',
+              description:
+                'Creator of Auto Interview AI - helping job seekers with AI-powered resume building, ATS optimization, interview preparation, and job search tools.',
+              url: 'https://www.autointerviewai.com/about',
+              image: 'https://www.autointerviewai.com/static/images/avatar.png',
+              sameAs: [
+                'https://www.linkedin.com/in/ajiteshnandan/',
+                'https://github.com/ajitesh123',
+                'https://x.com/ajiteshleo',
+              ],
+              knowsAbout: [
+                'Artificial Intelligence',
+                'Resume Optimization',
+                'Applicant Tracking Systems',
+                'Job Search Strategies',
+                'Interview Preparation',
+                'Career Development',
+                'Natural Language Processing',
+                'Machine Learning',
+              ],
+            }),
+          }}
+        />
+
+        {/* BreadcrumbList Schema for Site Navigation */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://www.autointerviewai.com/',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Resume Builder',
+                  item: 'https://www.autointerviewai.com/build-resume',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: 'ATS Score Checker',
+                  item: 'https://www.autointerviewai.com/ats-score',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 4,
+                  name: 'Job Search',
+                  item: 'https://www.autointerviewai.com/find-jobs',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 5,
+                  name: 'Cover Letter Generator',
+                  item: 'https://www.autointerviewai.com/cover-letter',
+                },
+              ],
+            }),
+          }}
+        />
+
         {/* Clear body scroll locks on page load */}
         <script
           dangerouslySetInnerHTML={{

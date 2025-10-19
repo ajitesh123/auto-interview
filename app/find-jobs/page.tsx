@@ -3,6 +3,7 @@ import { genPageMetadata } from '../seo'
 import { FindJobsPage } from '@/features/find-jobs'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
+import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'AI Job Search Tool | Find Jobs on LinkedIn | Auto Interview AI',
@@ -180,6 +181,20 @@ export default function FindJobs() {
       />
 
       <AppLayout>
+        {/* TL;DR Summary - Answer-first format for 2025 SEO/AEO */}
+        <TLDRSummary
+          title="AI-Powered Job Search Tool"
+          summary="Find relevant jobs on LinkedIn instantly with AI-powered matching. Search by title, location, and company to discover opportunities that match your skills and goals."
+          keyPoints={[
+            'Average job search takes 3-6 months - accelerate yours with AI matching',
+            '70% of jobs are hidden/unadvertised - access millions on LinkedIn',
+            'Smart filtering by location, company, remote options, and job title',
+            'Direct application links to all current openings - apply in one click',
+            '10-15 quality applications per week recommended - focus on relevance',
+            '100% free job search - no signup, no limits, no registration required',
+          ]}
+        />
+
         <FindJobsPage />
         <RelatedTools currentPage="/find-jobs" />
       </AppLayout>

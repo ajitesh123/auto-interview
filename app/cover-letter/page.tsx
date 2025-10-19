@@ -3,6 +3,7 @@ import { genPageMetadata } from '../seo'
 import { CoverLetterPage } from '@/features/cover-letter'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
+import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'Free AI Cover Letter Generator | Custom Cover Letters | Auto Interview AI',
@@ -188,6 +189,20 @@ export default function CoverLetter() {
       />
 
       <AppLayout>
+        {/* TL;DR Summary - Answer-first format for 2025 SEO/AEO */}
+        <TLDRSummary
+          title="Free AI Cover Letter Generator"
+          summary="Create personalized, job-specific cover letters in seconds with AI. Upload your resume, paste the job description, and download a custom cover letter in DOCX format."
+          keyPoints={[
+            '83% of hiring managers read cover letters - increase interview chances by 30-40%',
+            '100% free AI generator - unlimited cover letters, no signup required',
+            'Personalized for each job - AI analyzes resume + job description',
+            'Download in editable DOCX format - customize before submitting',
+            'Generated in seconds - save hours of writing for each application',
+            'Perfect for all career levels - entry-level to executive positions',
+          ]}
+        />
+
         <CoverLetterPage />
         <RelatedTools currentPage="/cover-letter" />
       </AppLayout>

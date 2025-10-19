@@ -3,6 +3,7 @@ import { genPageMetadata } from '../seo'
 import { ATSScorePage } from '@/features/ats-score'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
+import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'Free ATS Resume Score Checker | Check ATS Compatibility | Auto Interview AI',
@@ -176,6 +177,20 @@ export default function ATSScore() {
       />
 
       <AppLayout>
+        {/* TL;DR Summary - Answer-first format for 2025 SEO/AEO */}
+        <TLDRSummary
+          title="Free ATS Resume Score Checker"
+          summary="Check your resume's ATS compatibility instantly with our free AI-powered score checker. Get detailed scoring, keyword analysis, and improvement suggestions in seconds."
+          keyPoints={[
+            '99.7% of Fortune 500 companies use ATS software - is your resume ready?',
+            'Score of 75+ recommended, 80+ excellent - check yours for free now',
+            'Only 25% of resumes pass ATS screening - improve your odds by 300%',
+            'Instant analysis of formatting, keywords, structure, and compatibility',
+            'Upload PDF or DOCX - get detailed report with specific improvements',
+            'Completely free, unlimited checks - no signup or registration required',
+          ]}
+        />
+
         <ATSScorePage />
         <RelatedTools currentPage="/ats-score" />
       </AppLayout>

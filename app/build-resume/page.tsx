@@ -3,6 +3,7 @@ import { genPageMetadata } from '../seo'
 import { BuildResumePage } from '@/features/build-resume'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
+import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'Free AI Resume Builder | ATS-Friendly Templates | Auto Interview AI',
@@ -166,6 +167,20 @@ export default function BuildResume() {
       />
 
       <AppLayout>
+        {/* TL;DR Summary - Answer-first format for 2025 SEO/AEO */}
+        <TLDRSummary
+          title="Free AI Resume Builder"
+          summary="Build professional, ATS-optimized resumes in 10-15 minutes with our free AI-powered resume builder. 100% free, no signup required, download in PDF or DOCX instantly."
+          keyPoints={[
+            '75% of resumes rejected by ATS - our templates ensure yours passes',
+            '100% free forever - no hidden costs, premium tiers, or limitations',
+            'AI-powered suggestions improve your content and optimize keywords',
+            'ATS-friendly templates (Harvard, Modern, Professional) proven to work',
+            'Upload existing resume or start from scratch with guided process',
+            'Download in PDF or DOCX format - no signup or registration needed',
+          ]}
+        />
+
         <BuildResumePage />
         <RelatedTools currentPage="/build-resume" />
       </AppLayout>

@@ -84,6 +84,12 @@ const SEOFeatures = () => {
                 'Free AI-powered resume builder that creates professional, ATS-friendly resumes from scratch or by uploading existing resumes',
               url: 'https://www.autointerviewai.com',
               applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
               featureList: [
                 'AI-powered resume building',
                 'ATS-friendly templates',
@@ -101,6 +107,12 @@ const SEOFeatures = () => {
                 'Free AI-powered ATS resume compatibility checker that analyzes resumes and provides detailed scoring and improvement suggestions',
               url: 'https://www.autointerviewai.com',
               applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
               featureList: [
                 'Instant ATS compatibility scoring',
                 'Detailed category breakdown',
@@ -118,6 +130,12 @@ const SEOFeatures = () => {
                 'AI-powered job search tool that finds and matches job opportunities from LinkedIn based on preferences and qualifications',
               url: 'https://www.autointerviewai.com',
               applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
               featureList: [
                 'AI-powered job matching',
                 'LinkedIn job search',
@@ -135,6 +153,12 @@ const SEOFeatures = () => {
                 'Free AI-powered cover letter generator that creates personalized cover letters tailored to specific job postings and companies',
               url: 'https://www.autointerviewai.com',
               applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
               featureList: [
                 'AI-powered cover letter generation',
                 'Job-specific customization',
@@ -152,6 +176,12 @@ const SEOFeatures = () => {
                 'Comprehensive skill assessment and mock interview platform for practice across product management, technical skills, behavioral interviews, and more',
               url: 'https://www.autointerviewai.com',
               applicationCategory: 'EducationalApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
               featureList: [
                 'Product Management assessments',
                 'Technical interview practice',
