@@ -273,3 +273,45 @@ input:-webkit-autofill:focus {
 .prose code::after {
   content: none !important;
 }
+
+/* SEO-only content - Hidden from users but accessible to crawlers */
+.seo-only-content {
+  /* Multiple techniques to ensure invisibility to users */
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  z-index: -1 !important;
+  
+  /* Critical: Keep content accessible to crawlers and screen readers */
+  display: block !important;
+  /* Don't use display: none as it hides from crawlers */
+}
+
+/* Ensure the content is still structured for SEO */
+.seo-only-content h1,
+.seo-only-content h2,
+.seo-only-content h3,
+.seo-only-content h4,
+.seo-only-content h5,
+.seo-only-content h6 {
+  /* Maintain semantic structure */
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.seo-only-content p,
+.seo-only-content ul,
+.seo-only-content ol,
+.seo-only-content li {
+  /* Keep content readable by crawlers */
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}

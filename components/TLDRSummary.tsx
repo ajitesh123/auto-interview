@@ -12,14 +12,21 @@ interface TLDRSummaryProps {
 
 export default function TLDRSummary({ title, summary, keyPoints }: TLDRSummaryProps) {
   return (
-    <div className="mb-8 rounded-lg border border-purple-500 bg-gray-900/50 p-6">
-      <h2 className="mb-3 text-xl font-bold text-purple-400">TL;DR: {title}</h2>
-      <p className="mb-4 text-base leading-relaxed text-gray-200">{summary}</p>
-      <ul className="space-y-2">
+    <div 
+      className="seo-only-content"
+      aria-hidden="false"
+      role="complementary"
+      aria-label="SEO optimized summary for search engines and AI crawlers"
+      data-seo-content="true"
+      data-crawler-target="search-engines"
+    >
+      <h2>TL;DR: {title}</h2>
+      <p>{summary}</p>
+      <ul>
         {keyPoints.map((point, index) => (
-          <li key={index} className="flex items-start">
-            <span className="mr-2 mt-1 text-purple-400">✓</span>
-            <span className="text-sm text-gray-300">{point}</span>
+          <li key={index}>
+            <span>✓</span>
+            <span>{point}</span>
           </li>
         ))}
       </ul>
