@@ -1,3 +1,4 @@
+// Next.js configuration - Updated Oct 2025
 const { withContentlayer } = require('next-contentlayer2')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
