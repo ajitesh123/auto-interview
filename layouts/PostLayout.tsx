@@ -12,6 +12,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import LandingHeader from '@/components/LandingHeader'
 import Footer from '@/components/Footer'
 import SocialShareButtons from '@/components/SocialShareButtons'
+import TableOfContents from '@/components/TableOfContents'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -33,8 +34,70 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags } = content
+  const { filePath, path, slug, date, title, tags, summary, images } = content
   const basePath = path.split('/')[0]
+
+  // Generic Article Schema for ALL blog posts (Google SEO requirement)
+  const genericArticleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: summary || title,
+    author: authorDetails?.map((author) => ({
+      '@type': 'Person',
+      name: author.name,
+      url: author.twitter || author.linkedin || author.github,
+    })) || [{
+      '@type': 'Organization',
+      name: 'Auto Interview AI',
+      url: 'https://www.autointerviewai.com',
+    }],
+    publisher: {
+      '@type': 'Organization',
+      name: 'Auto Interview AI',
+      url: 'https://www.autointerviewai.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.autointerviewai.com/static/images/logo.png',
+      },
+    },
+    datePublished: date,
+    dateModified: date,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteMetadata.siteUrl}/${path}`,
+    },
+    image: images && images.length > 0 ? images[0] : `${siteMetadata.siteUrl}/static/images/Auto-interview-thumbnail.png`,
+    keywords: tags?.join(', ') || '',
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+  }
+
+  // BreadcrumbList Schema for navigation (Google SEO requirement)
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteMetadata.siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${siteMetadata.siteUrl}/blog`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: title,
+        item: `${siteMetadata.siteUrl}/${path}`,
+      },
+    ],
+  }
 
   // FAQ Schema for PM Interview Guide
   const faqSchema =
@@ -225,9 +288,93 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // HowTo Schema for Job Search Guide 2025 - Google SEO requirement
+  const howToSchema =
+    slug === 'job-search-guide-2025'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: 'How to Successfully Search for a Job in 2025',
+          description: 'A comprehensive step-by-step guide to navigating the modern job market in 2025, covering AI screening, remote work trends, networking tactics, and skills-based hiring.',
+          totalTime: 'P3M', // 3 months
+          estimatedCost: {
+            '@type': 'MonetaryAmount',
+            currency: 'USD',
+            value: '0',
+          },
+          step: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Define Your Target',
+              text: 'Identify your ideal role and industry, research company cultures and values, understand salary expectations, and set realistic timelines.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#building-your-job-search-strategy`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Optimize Your Online Presence',
+              text: 'Update LinkedIn profile with keywords, create a professional portfolio, clean up social media presence, and build a personal brand.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#optimize-your-online-presence`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Leverage Multiple Channels',
+              text: 'Use job boards and company websites, attend professional networking events, participate in industry conferences and meetups, and get referrals from your network.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#leverage-multiple-channels`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 4,
+              name: 'Network Effectively',
+              text: 'Engage with industry content on LinkedIn, join professional groups and forums, share valuable insights and articles, and connect with industry professionals both online and in-person.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#effective-networking-strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 5,
+              name: 'Optimize Your Applications',
+              text: 'Tailor each resume to the specific job, use ATS-friendly formatting, include quantifiable achievements, and write personalized cover letters.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#application-optimization`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 6,
+              name: 'Prepare for Interviews',
+              text: 'Study the company thoroughly, understand the role requirements, prepare specific examples using the STAR method, and practice common questions.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#interview-preparation`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 7,
+              name: 'Leverage Technology',
+              text: 'Use AI tools for resume optimization and interview practice, set up job alerts, use application tracking systems, and automate follow-up emails.',
+              url: `${siteMetadata.siteUrl}/blog/job-search-guide-2025#leveraging-technology`,
+            },
+          ],
+        }
+      : null
+
   return (
     <div className="min-h-screen bg-matte-black">
       <LandingHeader />
+
+      {/* Generic Article Schema for ALL blog posts - Google SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(genericArticleSchema),
+        }}
+      />
+
+      {/* BreadcrumbList Schema for navigation - Google SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
 
       {/* FAQ Schema for PM Interview Guide */}
       {faqSchema && (
@@ -259,19 +406,33 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         />
       )}
 
+      {/* HowTo Schema for Job Search Guide 2025 - Google SEO */}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToSchema),
+          }}
+        />
+      )}
+
       <ScrollTopAndComment />
 
-      <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <article className="rounded-lg border border-matte-gray bg-matte-black p-8">
-          {/* Article Header */}
-          <header className="mb-8 border-b border-matte-gray pb-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="lg:flex lg:gap-8">
+          {/* Main Content */}
+          <main className="flex-1 lg:max-w-4xl">
+            {/* Semantic HTML5 article element for better SEO */}
+            <article className="rounded-lg border border-matte-gray bg-matte-black p-8" itemScope itemType="https://schema.org/Article">
+              {/* Article Header */}
+              <header className="mb-8 border-b border-matte-gray pb-8">
             <div className="space-y-4 text-center">
               <div>
-                <time dateTime={date} className="text-sm font-medium text-accent-400">
+                <time dateTime={date} className="text-sm font-medium text-accent-400" itemProp="datePublished">
                   {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                 </time>
               </div>
-              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">{title}</h1>
+              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl" itemProp="headline">{title}</h1>
               <div className="flex flex-wrap justify-center gap-2">
                 {tags?.map((tag) => (
                   <span
@@ -288,41 +449,88 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           {/* Social Sharing Buttons */}
           <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
 
-          {/* Article Content */}
-          <div className="prose prose-invert max-w-none pb-8">{children}</div>
+          {/* Article Content - Semantic HTML5 section */}
+          <section className="prose prose-invert max-w-none pb-8" itemProp="articleBody">{children}</section>
 
           {/* Article Footer */}
           <footer className="border-t border-matte-gray pt-8">
-            {/* Author Info */}
-            <div className="mb-8">
+            {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
+            <aside className="mb-8 rounded-lg bg-matte-gray/30 p-6">
               <h3 className="mb-4 text-lg font-semibold text-white">About the Author</h3>
               <div className="flex flex-wrap gap-6">
                 {authorDetails.map((author) => (
-                  <div key={author.name} className="flex items-center space-x-3">
+                  <div key={author.name} className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                     {author.avatar && (
                       <Image
                         src={author.avatar}
-                        width={48}
-                        height={48}
-                        alt="avatar"
-                        className="h-12 w-12 rounded-full"
+                        width={64}
+                        height={64}
+                        alt={`${author.name} - Career Expert`}
+                        className="h-16 w-16 rounded-full"
                       />
                     )}
-                    <div>
-                      <div className="font-medium text-white">{author.name}</div>
-                      {author.twitter && (
-                        <Link
-                          href={author.twitter}
-                          className="text-accent-400 hover:text-accent-300"
-                        >
-                          {author.twitter
-                            .replace('https://twitter.com/', '@')
-                            .replace('https://x.com/', '@')}
-                        </Link>
+                    <div className="flex-1">
+                      <div className="mb-2 font-semibold text-white" itemProp="author" itemScope itemType="https://schema.org/Person">
+                        <span itemProp="name">{author.name}</span>
+                      </div>
+                      {author.occupation && (
+                        <div className="mb-2 text-sm text-gray-300">{author.occupation}</div>
                       )}
+                      <p className="mb-3 text-sm leading-relaxed text-gray-300">
+                        {author.name} is an AI & Career Tools Developer specializing in resume optimization, 
+                        ATS systems, and interview preparation. Creator of Auto Interview AI, helping thousands 
+                        of job seekers land their dream jobs through AI-powered career tools and expert guidance.
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        {author.twitter && (
+                          <Link
+                            href={author.twitter}
+                            className="text-sm text-accent-400 hover:text-accent-300"
+                            rel="author"
+                          >
+                            Follow on X
+                          </Link>
+                        )}
+                        {author.linkedin && (
+                          <Link
+                            href={author.linkedin}
+                            className="text-sm text-accent-400 hover:text-accent-300"
+                            rel="author"
+                          >
+                            LinkedIn
+                          </Link>
+                        )}
+                        <Link
+                          href="/about"
+                          className="text-sm text-accent-400 hover:text-accent-300"
+                        >
+                          More Articles
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 ))}
+              </div>
+            </aside>
+
+            {/* Trust Signals for E-E-A-T */}
+            <div className="mb-8 rounded-lg border border-matte-gray/50 bg-matte-black p-6">
+              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
+                Why Trust Auto Interview AI?
+              </h4>
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="text-sm">
+                  <div className="mb-1 font-medium text-white">✓ Expert-Verified Content</div>
+                  <div className="text-gray-400">Written by career professionals with real-world experience</div>
+                </div>
+                <div className="text-sm">
+                  <div className="mb-1 font-medium text-white">✓ Data-Driven Insights</div>
+                  <div className="text-gray-400">Based on industry research and proven strategies</div>
+                </div>
+                <div className="text-sm">
+                  <div className="mb-1 font-medium text-white">✓ Regularly Updated</div>
+                  <div className="text-gray-400">Content reviewed and updated for 2025 job market</div>
+                </div>
               </div>
             </div>
 
@@ -383,6 +591,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </footer>
         </article>
       </main>
+
+      {/* Sidebar with Table of Contents - Google SEO: Internal linking and better UX */}
+      <aside className="hidden lg:block lg:w-80">
+        <TableOfContents />
+      </aside>
+    </div>
+  </div>
 
       <Footer />
     </div>

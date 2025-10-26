@@ -21,6 +21,22 @@ export function genPageMetadata({
     title,
     description: description || siteMetadata.description,
     keywords: keywords || siteMetadata.keywords,
+    // Canonical tag to prevent duplicate content - Google SEO requirement
+    alternates: {
+      canonical: rest.canonical || './',
+    },
+    // Robots meta tag for proper indexing
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: `${title} | ${siteMetadata.title}`,
       description: description || siteMetadata.description,

@@ -7,14 +7,15 @@ const POSTS_PER_PAGE = 10
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = siteMetadata.siteUrl
 
-  // Blog posts
+  // Blog posts - Optimized for Google SEO
   const blogRoutes = allBlogs
     .filter((post) => !post.draft)
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod || post.date,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
+      // High-priority blog posts get better ranking
+      changeFrequency: 'monthly' as const, // More realistic than weekly for evergreen content
+      priority: 0.8, // Blog posts are important content - increased from 0.7
     }))
 
   // Blog pagination pages
@@ -22,19 +23,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogPaginationRoutes = Array.from({ length: totalPages }, (_, i) => ({
     url: `${siteUrl}/blog/page/${i + 1}`,
     lastModified: new Date().toISOString().split('T')[0],
-    changeFrequency: 'daily' as const,
-    priority: 0.6,
+    changeFrequency: 'weekly' as const, // More realistic than daily
+    priority: i === 0 ? 0.9 : 0.5, // First page (blog index) is more important
   }))
 
-  // Helper function to determine route priority
+  // Helper function to determine route priority - Google SEO optimization
   const getRoutePriority = (route: string) => {
-    if (route === '') return 1.0
-    // Feature pages are core business value - high priority
+    if (route === '') return 1.0 // Homepage - highest priority
+    // Feature pages are core business value - very high priority
     if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter'].includes(route)) return 0.95
-    return 0.8
+    if (route === 'blog') return 0.9 // Blog index is important
+    if (route === 'about') return 0.85 // About page for E-E-A-T
+    // Policy pages - lower priority but still important for trust
+    if (['privacy-policy', 'terms-conditions'].includes(route)) return 0.6
+    return 0.7 // Default for other pages
   }
 
-  // Static pages
+  // Helper function to determine change frequency
+  const getChangeFrequency = (route: string) => {
+    if (route === '') return 'daily' as const // Homepage changes frequently
+    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter'].includes(route)) return 'weekly' as const
+    if (route === 'blog') return 'daily' as const // Blog index updates with new posts
+    return 'monthly' as const // Static pages change less frequently
+  }
+
+  // Static pages - Optimized for Google SEO with proper priorities and frequencies
   const routes = [
     '',
     'blog',
@@ -52,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split('T')[0],
-    changeFrequency: 'monthly' as const,
+    changeFrequency: getChangeFrequency(route),
     priority: getRoutePriority(route),
   }))
 
