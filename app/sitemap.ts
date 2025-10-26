@@ -61,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'refund-policy',
     'shipping-policy',
     'contact-policy',
-    'tough-tongue-ai',
+    // 'tough-tongue-ai' removed - redirects to external domain, causes indexing issues
   ].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split('T')[0],

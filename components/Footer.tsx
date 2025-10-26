@@ -48,12 +48,14 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/tough-tongue-ai" 
+                  <a 
+                    href="https://app.toughtongueai.com" 
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
                   >
-                    AI Mock Interviews
-                  </Link>
+                    AI Mock Interviews ↗
+                  </a>
                 </li>
               </ul>
             </div>
