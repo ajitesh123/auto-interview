@@ -150,6 +150,81 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // FAQ Schema for Job Search Guide
+  const jobSearchFaqSchema =
+    slug === 'how-to-find-jobs-complete-guide'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'What is the most effective way to find a job?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'The most effective way to find a job is through employee referrals and strategic networking, which deliver a 60-70% success rate compared to just 1-2% for mass online applications. Build genuine relationships with people in your target companies, attend industry events, and leverage informational interviews to access the hidden job market where 70-80% of jobs are filled.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How long does it take to find a job?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Most job seekers take 3-6 months to find a new position with consistent daily effort. However, this varies significantly based on your industry, experience level, location, and job search strategy. Senior-level positions may take 6-12 months, while entry-level roles might be secured in 1-3 months.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How many jobs should I apply to per day?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Apply to 5-10 highly targeted positions per day rather than mass-applying to 50+ jobs. Quality beats quantity—tailored applications with customized resumes and cover letters generate 300% better response rates than generic applications.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I optimize my resume for ATS systems?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'To optimize your resume for ATS: Use standard formatting with .docx or simple PDF format, mirror exact keywords from job descriptions, include both acronyms and full terms, use standard section headings, avoid tables and text boxes, quantify achievements with specific metrics, and use common fonts like Arial or Calibri.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is an ATS and why does it matter?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'An Applicant Tracking System (ATS) is software that screens and ranks resumes before human recruiters see them. 70% of companies use ATS, meaning your resume must pass automated screening to reach hiring managers. Resumes that aren\'t ATS-optimized are automatically rejected, regardless of qualifications.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What are the best job search websites?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'The best job search websites are: LinkedIn for networking and professional roles (40-50% success rate), Indeed for broad search across industries (20-30% success rate), Glassdoor for company research and salary data, ZipRecruiter for AI-powered matching, Google for Jobs for aggregated listings, AngelList for startup and tech roles, and FlexJobs for pre-screened remote positions.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How important is a LinkedIn presence for job searching?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'LinkedIn presence is critical for modern job searching. 87% of recruiters use LinkedIn to find candidates, and profiles with complete information are 40 times more likely to receive opportunities. LinkedIn enables direct access to hiring managers, visibility in recruiter searches, networking with professionals, and demonstrating expertise through content.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What are informational interviews and how do I request them?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Informational interviews are 15-30 minute conversations with professionals to learn about their role, company, or industry—not to ask for jobs directly. Request them by identifying people in target roles through LinkedIn, sending personalized messages explaining why you\'re reaching out, being specific about what you want to learn, and offering flexibility in scheduling.',
+              },
+            },
+          ],
+        }
+      : null
+
   return (
     <div className="min-h-screen bg-matte-black">
       <LandingHeader />
@@ -170,6 +245,16 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(articleSchema),
+          }}
+        />
+      )}
+
+      {/* FAQ Schema for Job Search Guide */}
+      {jobSearchFaqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jobSearchFaqSchema),
           }}
         />
       )}
