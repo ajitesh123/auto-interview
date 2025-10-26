@@ -356,6 +356,186 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // FAQ Schema for Communication Skills Blog - Google SEO requirement
+  const communicationFaqSchema =
+    slug === 'master-communication-skills-speak-english-fluently'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'How can I improve my communication skills?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Improve communication skills by practicing the CLEAR Framework daily: Clarity (simplify messages), Listening (engage actively), Empathy (understand perspectives), Adaptability (adjust to audiences), and Repetition (consistent practice). Start with 15 minutes daily focused practice and record yourself to track progress.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I speak English fluently?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Achieve English fluency in 3-12 months by: 1) Building vocabulary foundation (1,000 most common words first), 2) Practicing pronunciation with the Mirror Method, 3) Speaking 15-30 minutes daily (even to yourself), 4) Using spaced repetition for phrases, and 5) Practicing with AI tools or conversation partners.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What are the 7 C\'s of effective communication?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'While traditional models list Clear, Concise, Concrete, Correct, Coherent, Complete, and Courteous, the CLEAR Framework (Clarity, Listening, Empathy, Adaptability, Repetition) is more actionable for modern learners and includes active listening—the foundation of all communication.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How long does it take to improve communication skills?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Noticeable improvement in 2-4 weeks with daily practice. Significant transformation in 3-6 months with structured training (15-30 minutes daily). Communication skills are like fitness—consistent effort produces continuous improvement. The 7-Day Speaking Challenge provides immediate progress in one week.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I learn English by myself?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. Self-taught English learners succeed by: 1) Using structured frameworks (like the Mirror Method for pronunciation), 2) Practicing with AI tools (Tough Tongue AI, ELSA Speak), 3) Consuming English content daily (podcasts, YouTube), 4) Joining online language exchange communities, and 5) Setting specific, measurable goals. Consistency matters more than formal classes.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What\'s the fastest way to improve English pronunciation?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'The Mirror Method: 1) Observe native speakers\' mouth movements, 2) Isolate difficult sounds and practice alone, 3) Integrate sounds into words, 4) Apply in full sentences, 5) Record and compare. Practice 10 minutes daily for 30 days focusing on your 3 most difficult sounds. Results visible within 2 weeks.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How can I practice speaking English alone?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Practice alone by: 1) Narrating your day aloud, 2) Recording voice memos explaining topics you know, 3) Shadowing technique (repeat after native speakers), 4) Using AI conversation tools like Tough Tongue AI, 5) Reading aloud for 10 minutes daily, 6) Thinking in English instead of translating. Talking to yourself is highly effective practice.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What are the most important communication skills for the workplace?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Top workplace communication skills: 1) Active listening (L.I.S.T.E.N. Framework), 2) Clear, concise messaging (avoid jargon), 3) Adaptability (adjust for different audiences), 4) Emotional intelligence (reading the room), 5) Conflict resolution (using SBI method), 6) Written communication clarity, 7) Nonverbal awareness. Employers prioritize these in hiring decisions.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I overcome fear of speaking English?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Overcome speaking fear by: 1) Starting with low-stakes practice (AI tools, talking to yourself), 2) Accepting imperfection (fluency before accuracy), 3) Preparing 5-10 conversation starters in advance, 4) Using the 7-Day Speaking Challenge to build gradual confidence, 5) Celebrating small wins, 6) Remembering that native speakers make mistakes too. Fear decreases with repetition.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What\'s the difference between fluency and accuracy in English?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Fluency = smooth, natural flow of speech without long pauses. Accuracy = grammatical correctness. Prioritize fluency first—communicate your ideas even with small errors. Accuracy improves naturally with practice. Native speakers value understanding over perfect grammar. The Mirror Method and conversation practice build fluency; grammar study builds accuracy.',
+              },
+            },
+          ],
+        }
+      : null
+
+  // HowTo Schema for Communication Skills Blog - Google SEO requirement
+  const communicationHowToSchema =
+    slug === 'master-communication-skills-speak-english-fluently'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: 'How to Master Communication Skills and Speak English Fluently',
+          description: 'A complete guide to improving communication skills and achieving English fluency using proven frameworks, daily exercises, and AI-powered practice methods.',
+          totalTime: 'P6M', // 6 months
+          estimatedCost: {
+            '@type': 'MonetaryAmount',
+            currency: 'USD',
+            value: '0-50',
+          },
+          tool: [
+            {
+              '@type': 'HowToTool',
+              name: 'Tough Tongue AI',
+            },
+            {
+              '@type': 'HowToTool',
+              name: 'Mirror for pronunciation practice',
+            },
+            {
+              '@type': 'HowToTool',
+              name: 'Recording device or smartphone',
+            },
+          ],
+          step: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Master the CLEAR Framework',
+              text: 'Learn and practice Clarity (simplify messages), Listening (engage actively), Empathy (understand perspectives), Adaptability (adjust to audiences), and Repetition (consistent practice). Apply one element daily for 5 days.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#the-clear-framework-your-communication-blueprint`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Build Vocabulary Foundation',
+              text: 'Focus on the 1,000 most common English words which cover 80% of conversations. Learn phrases in context, not isolated words. Create a phrase journal and use new phrases within 24 hours.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#how-do-i-speak-english-fluently`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Practice the Mirror Method',
+              text: 'Improve pronunciation by: 1) Observing native speakers, 2) Isolating difficult sounds, 3) Integrating into words, 4) Applying in sentences, 5) Recording and comparing. Practice 10 minutes daily focusing on 3 difficult sounds.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#the-mirror-method-master-your-pronunciation`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 4,
+              name: 'Develop Active Listening Skills',
+              text: 'Apply the L.I.S.T.E.N. Framework: Look at speaker, Inquire with questions, Suspend judgment, Take notes appropriately, Empathize with emotions, Nod and provide feedback. Practice in every conversation.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#active-listening-the-foundation-of-great-communication`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 5,
+              name: 'Complete the 7-Day Speaking Challenge',
+              text: 'Progressive daily exercises: Day 1 (Clarity), Day 2 (Listening), Day 3 (Empathy), Day 4 (Adaptability), Day 5 (Pronunciation), Day 6 (Live Conversation), Day 7 (Integration). Spend 20-30 minutes per day.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#the-7-day-speaking-challenge`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 6,
+              name: 'Leverage AI Tools for Practice',
+              text: 'Use AI-powered platforms like Tough Tongue AI for realistic conversation practice, ELSA Speak for pronunciation, and ChatGPT for grammar. Practice 15-30 minutes daily with immediate feedback.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#how-ai-tools-accelerate-your-learning`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 7,
+              name: 'Self-Assess and Adjust',
+              text: 'Complete communication and fluency self-assessments monthly. Identify 3 lowest-scoring areas and focus practice on those. Track progress and celebrate improvements.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#self-assessment-where-are-you-now`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 8,
+              name: 'Follow Action Plan',
+              text: 'Right Now: Complete self-assessment, choose one framework. This Week: 15-20 min daily practice. This Month: Build consistency, increase difficulty. 3 Months: Achieve conversational fluency.',
+              url: `${siteMetadata.siteUrl}/blog/master-communication-skills-speak-english-fluently#your-action-plan-steps-to-master-communication`,
+            },
+          ],
+        }
+      : null
+
   return (
     <div className="min-h-screen bg-matte-black">
       <LandingHeader />
@@ -412,6 +592,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(howToSchema),
+          }}
+        />
+      )}
+
+      {/* FAQ Schema for Communication Skills Blog - Google SEO */}
+      {communicationFaqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(communicationFaqSchema),
+          }}
+        />
+      )}
+
+      {/* HowTo Schema for Communication Skills Blog - Google SEO */}
+      {communicationHowToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(communicationHowToSchema),
           }}
         />
       )}
