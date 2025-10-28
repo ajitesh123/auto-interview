@@ -536,6 +536,186 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // FAQ Schema for Interview Freeze Blog - Google SEO requirement
+  const interviewFreezeFaqSchema =
+    slug === 'why-freeze-interviews-after-mock-practice'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'How many mock interviews do I actually need?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Research suggests quality matters more than quantity. One study found that 25+ mock interviews improved confidence but didn\'t guarantee real interview success if they lacked stress simulation. Focus on 8-12 progressively stressful mock interviews rather than 30+ comfortable ones.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I really train my brain to handle interview stress?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. Stress inoculation training has been proven effective for PTSD, performance anxiety, and pre-deployment military stress. Your nervous system can adapt to high-pressure scenarios through repeated exposure, raising your stress threshold over time.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What if I still freeze during the real interview despite preparation?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Have a recovery protocol ready. Practice this exact script: "That\'s a great question. Let me take a moment to organize my thoughts... [breathe for 3-5 seconds] ... Here\'s what I\'d highlight..." This buys you time to let your amygdala calm and your prefrontal cortex reboot.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Should I mention my anxiety to the interviewer?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Generally no. Naming anxiety can sometimes reduce it (a technique called "affect labeling"), but it risks appearing unprofessional. Instead, use internal labeling: mentally say "This is adrenaline, not failure" to reactivate your rational brain.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I find someone to do brutal mock interviews with me?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Look for: Former hiring managers (they understand what harsh interviews feel like), Professional mock interview services that offer "stress testing", Peers who are also preparing and willing to trade brutal feedback, Career coaches who specialize in performance psychology, not just content.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is it normal to feel worse after implementing stress training?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. Stress inoculation initially feels worse because you\'re confronting discomfort you previously avoided. This is called the "valley before the peak"—performance dips before it improves. Expect 2-3 weeks of increased anxiety before your nervous system adapts.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Can AI interview tools replace human mock interviewers?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Not entirely. AI excels at content feedback and unlimited practice but can\'t replicate the social threat response that human interviewers trigger. Use AI for volume and skill-building; use humans for stress inoculation.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is the single most important thing I can do to close the practice-performance gap?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Practice under adversity. Stop doing comfortable mock interviews with supportive partners. Find the harshest, most unresponsive mock interviewer possible and practice recovering from failure in real-time. This trains the exact skills that traditional practice ignores.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Why do I freeze in interviews even though I practiced?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Your brain creates state-dependent memory during practice under low-stress conditions, which gets stored separately from high-stress memories. During real interviews, cortisol levels spike 200-300% higher than mock interviews, triggering an amygdala hijack that shuts down your prefrontal cortex (thinking brain) and blocks access to practiced answers. This is a neurological response, not a preparation failure.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is amygdala hijack during interviews?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Amygdala hijack occurs when your brain\'s threat-detection system (amygdala) perceives social rejection or evaluation as a survival threat. It releases adrenaline and cortisol, shuts down non-essential cognitive functions including memory retrieval and complex reasoning, and redirects resources to fight-or-flight responses. This causes blank mind, verbal stumbling, time distortion, and physical symptoms like sweating and shaking.',
+              },
+            },
+          ],
+        }
+      : null
+
+  // HowTo Schema for Interview Freeze Blog - Google SEO requirement
+  const interviewFreezeHowToSchema =
+    slug === 'why-freeze-interviews-after-mock-practice'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: 'How to Stop Freezing in Real Interviews After Mock Practice',
+          description: 'A comprehensive guide to bridging the practice-performance gap in job interviews using stress inoculation training, neuroscience-based recovery protocols, and evidence-based strategies.',
+          totalTime: 'P6W', // 6 weeks
+          estimatedCost: {
+            '@type': 'MonetaryAmount',
+            currency: 'USD',
+            value: '0-100',
+          },
+          step: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Understand the Neuroscience of Interview Freeze',
+              text: 'Learn why your brain treats interview rejection as a survival threat, activating the amygdala hijack and releasing cortisol that impairs memory, verbal fluency, and reasoning. Understand that social rejection activates the same brain regions as physical pain.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#the-neuroscience`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Identify Your Personal Stress Triggers',
+              text: 'Map out your specific stress symptoms during interviews: Do you experience blank mind, verbal stumbling, rapid heartbeat, or time distortion? Understanding your patterns helps you prepare targeted recovery protocols.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#amygdala-hijack`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Practice the 4-7-8 Breathing Method',
+              text: 'Master controlled breathing to deactivate the amygdala hijack: Inhale through nose for 4 seconds, hold breath for 7 seconds, exhale through mouth for 8 seconds, repeat 3-4 times. This activates your parasympathetic nervous system and overrides fight-or-flight.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 4,
+              name: 'Replicate Physiological Stress in Practice',
+              text: 'Before mock interviews, do 30 jumping jacks or sprint in place to elevate heart rate to 120+ bpm. Practice with visible timers and stand during interviews. This trains your brain to function while your body is in a stress state.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 5,
+              name: 'Internalize Story Points, Not Scripts',
+              text: 'Replace word-for-word memorization with flexible story frameworks: context (3-4 words), challenge (1 sentence), action (2-3 bullet points), result (1 metric). This conceptual framework survives stress because you can reconstruct it in real-time.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 6,
+              name: 'Practice Recovery Protocols',
+              text: 'Rehearse this exact script for when you blank: "That\'s a great question. Let me take a moment to organize my thoughts... [pause 3-5 seconds, breathe] ... Here\'s what I\'d highlight..." Practice intentional failure moments in mock interviews.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 7,
+              name: 'Seek Brutal Mock Interviewers',
+              text: 'Find mock interviewers who maintain blank faces, ask impossible questions, interrupt you mid-answer, and express skepticism. Practice under adversity builds resilience that comfortable practice never achieves.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 8,
+              name: 'Add Real Consequences to Practice',
+              text: 'Create authentic stakes: bet $20 on your performance, record and publicly share mock interviews, or apply to practice jobs you don\'t care about. Real consequences activate your stress response during practice.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 9,
+              name: 'Implement the Interview Resilience Framework',
+              text: 'Follow the 6-week plan: Foundation (Weeks 1-2), Stress Exposure (Weeks 3-4), Inoculation (Weeks 5-6), Live Practice (Ongoing). Measure success by stress recovery time, not perfect answers.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#framework`,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 10,
+              name: 'Combine AI and Human Practice',
+              text: 'Use AI tools for unlimited content practice and volume, brutal human mock interviews for stress inoculation, and real interviews at companies you don\'t care about for authentic stakes exposure.',
+              url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#coaching-limits`,
+            },
+          ],
+        }
+      : null
+
   return (
     <div className="min-h-screen bg-matte-black">
       <LandingHeader />
@@ -612,6 +792,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(communicationHowToSchema),
+          }}
+        />
+      )}
+
+      {/* FAQ Schema for Interview Freeze Blog - Google SEO */}
+      {interviewFreezeFaqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(interviewFreezeFaqSchema),
+          }}
+        />
+      )}
+
+      {/* HowTo Schema for Interview Freeze Blog - Google SEO */}
+      {interviewFreezeHowToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(interviewFreezeHowToSchema),
           }}
         />
       )}
