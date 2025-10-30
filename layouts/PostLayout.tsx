@@ -627,6 +627,97 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // FAQ Schema for "Blanked on Tell Me About Yourself" Blog - Google SEO requirement
+  const tellMeAboutYourselfFaqSchema =
+    slug === 'blanked-on-tell-me-about-yourself-recovery-script'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'What do I do if I completely blank on "Tell me about yourself"?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Use the immediate recovery script: "That\'s a great question—give me just a moment to organize my thoughts" [pause 3-5 seconds, deep breath] "Sure. I\'m currently working as [role] at [company]...". This buys you 5-10 seconds for your prefrontal cortex to reboot.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Why do I know my introduction perfectly at home but freeze in the actual interview?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Your brain stores information in state-dependent memory. Practice under low stress creates memories your brain can\'t access under high stress. The information is there, but cortisol blocks retrieval pathways. Solution: Practice under realistic stress conditions (after physical exercise, with harsh evaluators, surprise timing).',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How long should my "Tell me about yourself" answer be?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: '90-120 seconds maximum. Under 60 seconds is too brief (shows lack of preparation); over 2 minutes loses the interviewer\'s attention. Practice with a timer to calibrate.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is it unprofessional to ask for a moment to think?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'No. Research shows interviewers interpret intentional pauses as thoughtfulness, not incompetence. Saying "Let me take a moment to give you a thoughtful answer" demonstrates professionalism and composure under pressure.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What causes interview freeze?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Interview freeze is caused by amygdala hijack—your brain\'s threat detector floods your system with cortisol and adrenaline, shutting down non-essential cognitive functions like memory retrieval and complex reasoning. The amygdala can\'t distinguish between a job interview and actual life-threatening danger.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I bring notes to reference if I blank?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Most interviews allow you to bring a portfolio, notepad, or resume. Have your 3-4 story points (Present-Past-Future keywords) written at the top of a visible page. A quick glance can reactivate your memory without obviously reading.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How many times should I practice before I\'m confident?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Research suggests quality over quantity: 25-30 practice repetitions using stress conditions (physical stress, surprise timing, harsh feedback) is more effective than 100 comfortable repetitions. Confidence comes from knowing you can recover from mistakes, not from never making them.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is "Tell me about yourself" really that important?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. 49% of employers make hiring decisions within the first 5 minutes. Your opening answer sets the tone for everything that follows. A strong start creates positive momentum; a weak start is difficult to recover from.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is the Present-Past-Future formula?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'The Present-Past-Future formula is: Present (30-40 seconds: current role + key achievement) → Past (30-40 seconds: relevant experience + connecting thread) → Future (20-30 seconds: why this role interests you). Total time: 90-120 seconds maximum.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What if I freeze and then forget what job I\'m interviewing for?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'This is panic-level anxiety. Use emergency protocol: "I apologize—I need a brief moment to compose myself" → 5-4-3-2-1 grounding (mentally note 5 things you see) → Box breathing (4-4-4-4) → If still frozen, request brief bathroom break to check your notes and reset.',
+              },
+            },
+          ],
+        }
+      : null
+
   // HowTo Schema for Interview Freeze Blog - Google SEO requirement
   const interviewFreezeHowToSchema =
     slug === 'why-freeze-interviews-after-mock-practice'
@@ -802,6 +893,16 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(interviewFreezeFaqSchema),
+          }}
+        />
+      )}
+
+      {/* FAQ Schema for Blanked on Tell Me About Yourself Blog - Google SEO */}
+      {tellMeAboutYourselfFaqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(tellMeAboutYourselfFaqSchema),
           }}
         />
       )}
