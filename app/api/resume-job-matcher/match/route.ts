@@ -309,7 +309,7 @@ Remember: Return ONLY the JSON object, starting with { and ending with }. No mar
         // Try to fix common JSON issues and parse again
         try {
           // Try to fix unescaped quotes, etc.
-          let fixedJson = jsonString
+          const fixedJson = jsonString
             .replace(/,\s*}/g, '}') // Remove trailing commas before }
             .replace(/,\s*]/g, ']') // Remove trailing commas before ]
 

@@ -410,7 +410,7 @@ Return ONLY valid JSON (no markdown):
       const k = kw.toLowerCase()
       const list = [k, ...((aliases && aliases[kw]) || [])]
       const found = list.some((term) =>
-        new RegExp(`(^|\W)${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=$|\W)`, 'i').test(
+        new RegExp(`(^|\\W)${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=$|\\W)`, 'i').test(
           normalized
         )
       )
