@@ -55,10 +55,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex min-h-screen flex-col lg:flex-row">
         <div className="flex w-full flex-col border-b border-matte-gray bg-matte-dark p-4 lg:min-h-screen lg:w-64 lg:max-w-64 lg:flex-shrink-0 lg:border-b-0 lg:border-r">
           <div className="mb-6">
-            <div className="mb-2 flex items-center">
+            <Link href="/" className="mb-2 flex items-center transition-opacity hover:opacity-80">
               <Logo width={40} height={40} className="mr-1" />
               <h1 className="text-lg font-bold text-chatgpt-text sm:text-xl">Auto Interview AI</h1>
-            </div>
+            </Link>
             <p className="text-xs text-chatgpt-textSecondary sm:text-sm">AI-powered career tools</p>
           </div>
 

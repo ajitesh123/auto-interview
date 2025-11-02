@@ -1,348 +1,520 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import crypto from 'crypto'
+import { segmentResume } from '@/lib/ats/segment'
+import { scoreResume } from '@/lib/ats/score'
+import { analyzeKeywords } from '@/lib/keywordAnalyzer'
 
-// Initialize Gemini AI with embedded API key
-const GOOGLE_GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
-const genAI = new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY)
+// Initialize Gemini AI with env key (used only for suggestions)
+const GOOGLE_GEMINI_API_KEY =
+  process.env.GEMINI_API_KEY || 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
+const genAI = GOOGLE_GEMINI_API_KEY ? new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY) : null
+
+// Simple in-memory cache (best-effort)
+const cache = new Map<string, any>()
+
+async function extractTextFromFile(file: File): Promise<{ text: string; mime: string }> {
+  const bytes = await file.arrayBuffer()
+  const buffer = Buffer.from(bytes)
+  const mime = file.type || 'application/octet-stream'
+
+  const isPDF =
+    mime === 'application/pdf' ||
+    mime === 'application/x-pdf' ||
+    file.name.toLowerCase().endsWith('.pdf')
+
+  if (isPDF) {
+    // Try simpler parser first
+    try {
+      const pdfParse = (await import('pdf-parse')).default
+      const res = await pdfParse(buffer, { max: 0 })
+      if (res && typeof res.text === 'string' && res.text.trim().length > 0) {
+        return { text: res.text, mime }
+      }
+    } catch (e) {
+      console.error('pdf-parse failed, will try pdf2json:', e)
+    }
+
+    // Fallback to pdf2json
+    try {
+      const PDFParser = (await import('pdf2json')).default
+      const fs = await import('fs')
+      const path = await import('path')
+      const os = await import('os')
+      const tempDir = os.tmpdir()
+      const tempFilePath = path.join(tempDir, `ats-resume-${Date.now()}.pdf`)
+      fs.writeFileSync(tempFilePath, buffer)
+      const pdfParser = new PDFParser(null, true)
+      const text: string = await new Promise((resolve, reject) => {
+        pdfParser.on('pdfParser_dataError', (e: any) => {
+          reject(new Error(e?.parserError?.message || 'PDF parse error'))
+        })
+        pdfParser.on('pdfParser_dataReady', () => {
+          try {
+            const t = pdfParser.getRawTextContent()
+            resolve(t)
+          } catch (err) {
+            reject(err)
+          }
+        })
+        pdfParser.loadPDF(tempFilePath)
+      })
+      fs.unlinkSync(tempFilePath)
+      return { text, mime }
+    } catch (e) {
+      console.error('pdf2json failed:', e)
+      // last resort
+      return { text: buffer.toString('utf-8'), mime }
+    }
+  }
+
+  if (
+    mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    mime === 'application/msword' ||
+    file.name.toLowerCase().endsWith('.docx')
+  ) {
+    try {
+      const mammoth = await import('mammoth')
+      const result = await mammoth.extractRawText({ buffer })
+      return { text: result.value || '', mime }
+    } catch (e) {
+      console.error('mammoth failed:', e)
+      return { text: buffer.toString('utf-8'), mime }
+    }
+  }
+
+  return { text: buffer.toString('utf-8'), mime }
+}
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
+    const jobDesc = (formData.get('job') as string) || ''
 
     if (!file) {
-      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
+      return NextResponse.json(
+        { errorCode: 'NO_FILE', message: 'No file uploaded' },
+        { status: 400 }
+      )
     }
 
-    // Convert file to base64
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    const base64 = buffer.toString('base64')
-
-    // Initialize Gemini model
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
-
-    // STEP 1: CONTENT ANALYSIS FOR SCORING
-    const contentAnalysisPrompt = `You are a world-class ATS expert analyzing this resume content for scoring purposes.
-
-ANALYZE THE RESUME AND PROVIDE DETAILED CONTENT ANALYSIS:
-
-RESPONSE FORMAT (JSON only):
-{
-  "contentAnalysis": {
-    "quantifiableAchievements": {
-      "count": number,
-      "examples": ["exact quotes from resume"],
-      "score": number
-    },
-    "actionVerbs": {
-      "strongVerbs": ["exact verbs found"],
-      "weakVerbs": ["exact weak verbs found"],
-      "score": number
-    },
-    "impactStatements": {
-      "count": number,
-      "examples": ["exact quotes from resume"],
-      "score": number
-    },
-    "industryKeywords": {
-      "count": number,
-      "examples": ["exact keywords found"],
-      "score": number
-    },
-    "skillsSection": {
-      "quality": "excellent|good|average|poor",
-      "organization": "excellent|good|average|poor",
-      "score": number
-    },
-    "workExperience": {
-      "relevance": "excellent|good|average|poor",
-      "progression": "excellent|good|average|poor",
-      "score": number
-    },
-    "education": {
-      "completeness": "excellent|good|average|poor",
-      "relevance": "excellent|good|average|poor",
-      "score": number
-    },
-    "contactInfo": {
-      "completeness": "excellent|good|average|poor",
-      "professionalism": "excellent|good|average|poor",
-      "score": number
-    },
-    "formatting": {
-      "atsFriendly": "excellent|good|average|poor",
-      "consistency": "excellent|good|average|poor",
-      "score": number
-    }
-  }
-}
-
-SCORING CRITERIA (BE EXTREMELY CRITICAL):
-- Quantifiable Achievements: 0-15 points (MUST have specific metrics, percentages, dollar amounts - deduct heavily for vague statements)
-- Action Verbs: 0-10 points (DEDUCT for weak verbs like "worked", "helped", "assisted", "responsible for")
-- Impact Statements: 0-10 points (MUST have business results, efficiency gains - deduct for generic statements)
-- Industry Keywords: 0-10 points (MUST have technical terms, job-specific terminology - deduct for generic terms)
-- Skills Section: 0-8 points (DEDUCT for poor organization, irrelevant skills, missing technical skills)
-- Work Experience: 0-6 points (DEDUCT for weak descriptions, irrelevant experience, poor progression)
-- Education: 0-4 points (DEDUCT for missing details, irrelevant information)
-- Contact Info: 0-3 points (DEDUCT for incomplete or unprofessional contact info)
-- Formatting: 0-8 points (DEDUCT for ATS-unfriendly formatting, inconsistency)
-
-CRITICAL SCORING RULES:
-- START with 0 points for each category
-- ONLY award points for EXCELLENT content
-- DEDUCT heavily for weak verbs, missing metrics, poor formatting
-- Most resumes should score 20-45 points
-- Only exceptional resumes score 50+
-- Be EXTREMELY critical - most resumes have significant issues
-- Focus on actual content analysis, not generic assessment`
-
-    const contentAnalysisResult = await model.generateContent([
-      contentAnalysisPrompt,
-      {
-        inlineData: {
-          data: base64,
-          mimeType: file.type,
+    // Extract text, segment, score deterministically
+    const { text, mime } = await extractTextFromFile(file)
+    if (!text || typeof text !== 'string' || text.trim().length < 16) {
+      console.error('ATS Analysis Error: Empty or unparsable text.')
+      return NextResponse.json(
+        {
+          errorCode: 'EMPTY_TEXT',
+          message:
+            'Failed to extract text from your resume. Please upload a valid PDF or DOCX with actual content.',
         },
-      },
-    ])
+        { status: 400 }
+      )
+    }
 
-    const contentAnalysisResponse = await contentAnalysisResult.response
-    const contentAnalysisText = contentAnalysisResponse.text()
+    const hash = crypto.createHash('sha256').update(text).digest('hex')
+    const hit = cache.get(
+      hash + (jobDesc ? `:${crypto.createHash('sha1').update(jobDesc).digest('hex')}` : '')
+    )
+    if (hit) return NextResponse.json(hit)
 
-    // Parse content analysis results
-    let contentAnalysisData
+    const parsed = segmentResume(text)
+
+    // Optional: derive JD keywords and semantic match using Gemini
+    let jdKeywords: string[] = []
+    let semanticMatch = 0
+    if (genAI && jobDesc && jobDesc.trim().length > 20) {
+      // Extract keywords from provided JD
+      try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+        const prompt = `Extract a concise list (max 25) of critical job skills/keywords/tools from the following job description. Output JSON only: {"keywords": ["kw1","kw2",...]}. JD: ${jobDesc.slice(0, 12000)}`
+        const res = await (model as any).generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0, topP: 0, topK: 1, maxOutputTokens: 800 },
+        })
+        const out = await (res as any).response.text()
+        const m = out.match(/\{[\s\S]*\}/)
+        if (m) {
+          const obj = JSON.parse(m[0])
+          if (Array.isArray(obj.keywords)) jdKeywords = obj.keywords.slice(0, 25)
+        }
+      } catch (e) {
+        console.warn('JD keyword extraction failed (non-blocking):', e)
+      }
+      // Semantic similarity via embeddings
+      try {
+        // @ts-ignore
+        const embedModel = genAI.getGenerativeModel({ model: 'text-embedding-004' })
+        // @ts-ignore
+        const rEmb = await (embedModel as any).embedContent({ content: text.slice(0, 45000) })
+        // @ts-ignore
+        const jEmb = await (embedModel as any).embedContent({ content: jobDesc.slice(0, 45000) })
+        const a: number[] =
+          rEmb?.embedding?.values || rEmb?.data?.embedding || rEmb?.embedding?.embedding || []
+        const b: number[] =
+          jEmb?.embedding?.values || jEmb?.data?.embedding || jEmb?.embedding?.embedding || []
+        if (a.length > 0 && b.length > 0) {
+          const dot = a.reduce((s, v, i) => s + v * (b[i] || 0), 0)
+          const magA = Math.sqrt(a.reduce((s, v) => s + v * v, 0))
+          const magB = Math.sqrt(b.reduce((s, v) => s + v * v, 0))
+          const cos = magA && magB ? dot / (magA * magB) : 0
+          semanticMatch = Math.round(Math.max(0, Math.min(1, cos)) * 100)
+        }
+      } catch (e) {
+        console.warn('Embedding similarity failed (non-blocking):', e)
+      }
+    } else if (genAI && (!jobDesc || jobDesc.trim().length === 0)) {
+      // Infer target role and generate industry-standard keywords from resume content
+      try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+        const prompt = `Infer the most likely target role(s) from the following resume text and return a concise list (max 25) of industry-standard keywords/skills/tools for that role, not just words from the resume. Output JSON only: {"keywords": ["kw1","kw2",...]}. Resume: ${text.slice(0, 14000)}`
+        const res = await (model as any).generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0, topP: 0, topK: 1, maxOutputTokens: 800 },
+        })
+        const out = await (res as any).response.text()
+        const m = out.match(/\{[\s\S]*\}/)
+        if (m) {
+          const obj = JSON.parse(m[0])
+          if (Array.isArray(obj.keywords)) jdKeywords = obj.keywords.slice(0, 25)
+        }
+      } catch (e) {
+        console.warn('Resume-based keyword inference failed (non-blocking):', e)
+      }
+    }
+
+    // Fallback keyword extraction if Gemini didn't return any
+    if (!jdKeywords || jdKeywords.length === 0) {
+      const seed = new Set<string>()
+      // Use skills section
+      parsed.skills.slice(0, 50).forEach((s) => seed.add(s.toLowerCase()))
+      // Common tech/business terms
+      const fallbackList = [
+        'python',
+        'javascript',
+        'react',
+        'node',
+        'typescript',
+        'java',
+        'kotlin',
+        'swift',
+        'c++',
+        'c#',
+        'sql',
+        'nosql',
+        'postgres',
+        'mysql',
+        'mongodb',
+        'aws',
+        'gcp',
+        'azure',
+        'docker',
+        'kubernetes',
+        'terraform',
+        'git',
+        'jira',
+        'confluence',
+        'figma',
+        'excel',
+        'tableau',
+        'power bi',
+        'salesforce',
+        'ga4',
+        'seo',
+        'sem',
+        'agile',
+        'scrum',
+        'kanban',
+      ]
+      fallbackList.forEach((k) => seed.add(k))
+      jdKeywords = Array.from(seed).slice(0, 25)
+    }
+
+    // Expand keywords to aliases via Gemini to improve matching (synonyms/short-hands)
+    let aliases: Record<string, string[]> = {}
+    if (genAI && jdKeywords.length > 0) {
+      try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+        const prompt = `For the following keywords, provide up to 3 synonyms/aliases/abbreviations each that commonly appear in resumes. Return ONLY JSON of the form {"aliases": {"keyword":["syn1","syn2"]}}. Keywords: ${jdKeywords.join(', ').slice(0, 1000)}`
+        const res = await (model as any).generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0, topP: 0, topK: 1, maxOutputTokens: 600 },
+        })
+        const out = await (res as any).response.text()
+        const m = out.match(/\{[\s\S]*\}/)
+        if (m) {
+          const obj = JSON.parse(m[0])
+          if (obj && obj.aliases && typeof obj.aliases === 'object') aliases = obj.aliases
+        }
+      } catch (e) {
+        console.warn('Keyword alias expansion failed (non-blocking):', e)
+      }
+    }
+
+    let scoring
     try {
-      const jsonMatch = contentAnalysisText.match(/\{[\s\S]*\}/)
-      if (jsonMatch) {
-        contentAnalysisData = JSON.parse(jsonMatch[0])
-      } else {
-        throw new Error('No JSON found in content analysis response')
-      }
-    } catch (parseError) {
-      contentAnalysisData = {
-        contentAnalysis: {
-          quantifiableAchievements: { count: 0, examples: [], score: 1 },
-          actionVerbs: { strongVerbs: [], weakVerbs: ['worked', 'helped', 'assisted'], score: 1 },
-          impactStatements: { count: 0, examples: [], score: 1 },
-          industryKeywords: { count: 1, examples: ['software'], score: 2 },
-          skillsSection: { quality: 'poor', organization: 'poor', score: 1 },
-          workExperience: { relevance: 'poor', progression: 'poor', score: 1 },
-          education: { completeness: 'average', relevance: 'average', score: 2 },
-          contactInfo: { completeness: 'average', professionalism: 'average', score: 1 },
-          formatting: { atsFriendly: 'poor', consistency: 'poor', score: 2 },
-        },
+      scoring = scoreResume(parsed, {
+        mime,
+        fileSize: (file as any).size,
+        level: 'mid',
+        keywords: jdKeywords,
+        aliases,
+        semanticMatch,
+      })
+    } catch (e: any) {
+      console.error('Scoring failed:', e)
+      const msg =
+        typeof e?.message === 'string' ? e.message : 'Resume scoring failed. Please try again.'
+      return NextResponse.json({ errorCode: 'SCORE_FAIL', message: msg }, { status: 500 })
+    }
+
+    // Gemini-powered keyword optimization score (authoritative override)
+    let geminiKW: any = null
+    try {
+      console.log('[API] Calling Gemini keyword analyzer...')
+      geminiKW = await analyzeKeywords(text, jobDesc || '', jdKeywords)
+      const oldKW = scoring.breakdown.keywordOptimization || 0
+      const newKW = Math.max(0, Math.min(25, geminiKW.score25))
+      const delta = newKW - oldKW
+      console.log(`[API] Keyword score override: ${oldKW} -> ${newKW} (delta: ${delta})`)
+      scoring.breakdown.keywordOptimization = newKW
+      scoring.overallScore = Math.max(0, Math.min(100, scoring.overallScore + delta))
+    } catch (e) {
+      console.error('[API] Gemini keyword analyzer failed:', e)
+      // Don't silently fail - log but continue with existing score
+    }
+
+    // Optional suggestions via Gemini
+    let suggestions: any = { strengths: [], improvements: [], recommendations: [] }
+    if (genAI) {
+      try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+        const prompt = `You are an ATS resume editor. Given the following parsed resume JSON, produce JSON with fields: strengths[], improvements[], recommendations[]. Output JSON only.
+Parsed: ${JSON.stringify({ contact: parsed.contact, summary: parsed.summary, experience: parsed.experience.slice(0, 8), skills: parsed.skills.slice(0, 50) }).slice(0, 14000)}`
+        const result = await (model as any).generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0, topP: 0, topK: 1, maxOutputTokens: 1600 },
+        })
+        const resp = await (result as any).response
+        const out = resp.text()
+        const match = out.match(/\{[\s\S]*\}/)
+        if (match) suggestions = JSON.parse(match[0])
+      } catch (e) {
+        console.warn('Gemini suggestions failed (non-blocking):', e)
+        suggestions = { strengths: [], improvements: [], recommendations: [] }
       }
     }
 
-    // Calculate weighted scores based on actual content analysis (BE CRITICAL)
-    const analysis = contentAnalysisData.contentAnalysis
+    // Enhance ALL improvements with Gemini for better, contextual suggestions
+    if (genAI && scoring.improvements.length > 0) {
+      try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+        const improvementsToEnhance = scoring.improvements.slice(0, 8) // Process up to 8 improvements
 
-    // Content Quality (40 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
-    const contentQuality = Math.max(
-      0,
-      analysis.quantifiableAchievements.score +
-        analysis.actionVerbs.score +
-        analysis.impactStatements.score
-    )
+        const prompt = `You are an expert ATS resume editor and career coach. For each resume bullet point below, provide a significantly improved version that:
+1. Uses strong action verbs (led, achieved, increased, developed, etc.)
+2. Includes specific metrics and quantifiable results (%, $, numbers, time saved)
+3. Shows business impact and outcomes
+4. Is concise but impactful (ideally 1-2 lines)
+5. Maintains the original context and experience
 
-    // Keywords & Optimization (25 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
-    const keywordsOptimization = Math.max(
-      0,
-      analysis.industryKeywords.score + analysis.skillsSection.score
-    )
+Current resume bullets with issues:
+${improvementsToEnhance.map((imp, idx) => `${idx + 1}. [${imp.category} - ${imp.priority} priority] "${imp.currentText}"\n   Issue: ${imp.reason}`).join('\n\n')}
 
-    // Format & Structure (20 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
-    const formatStructure = Math.max(0, analysis.formatting.score)
-
-    // Experience & Education (10 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
-    const experienceEducation = Math.max(
-      0,
-      analysis.workExperience.score + analysis.education.score
-    )
-
-    // Contact Info (5 points total) - START WITH 0, ONLY AWARD FOR EXCELLENCE
-    const contactInfo = Math.max(0, analysis.contactInfo.score)
-
-    // Calculate overall score (BE CRITICAL - most resumes score 20-45)
-    const overallScore =
-      contentQuality + keywordsOptimization + formatStructure + experienceEducation + contactInfo
-
-    // Create scoring data
-    const scoringData = {
-      overallScore: Math.min(overallScore, 100), // Cap at 100
-      categoryScores: {
-        contentQuality: Math.min(contentQuality, 40),
-        keywordsOptimization: Math.min(keywordsOptimization, 25),
-        formatStructure: Math.min(formatStructure, 20),
-        experienceEducation: Math.min(experienceEducation, 10),
-        contactInfo: Math.min(contactInfo, 5),
-      },
-      detailedBreakdown: {
-        quantifiableAchievements: analysis.quantifiableAchievements.score,
-        actionVerbs: analysis.actionVerbs.score,
-        impactStatements: analysis.impactStatements.score,
-        relevanceClarity: 5,
-        industryKeywords: analysis.industryKeywords.score,
-        skillsSection: analysis.skillsSection.score,
-        jobRelevantTerms: 7,
-        atsFriendlyFormat: analysis.formatting.score,
-        sectionOrganization: 6,
-        consistency: 6,
-        workExperience: analysis.workExperience.score,
-        educationDetails: analysis.education.score,
-        completeContact: analysis.contactInfo.score,
-        professionalPresentation: 2,
-      },
-      summary: `Resume scored ${overallScore}/100 based on content analysis`,
-    }
-
-    // STEP 2: DETAILED ANALYSIS
-    const analysisPrompt = `You are a world-class ATS expert providing detailed improvement analysis. The resume has been scored at ${scoringData.overallScore}/100.
-
-DETAILED ANALYSIS REQUIREMENTS:
-1. READ the entire resume PDF word-by-word and analyze EVERY section critically
-2. Extract EXACT sentences/phrases from the uploaded resume that need improvement
-3. Provide EXACT replacement text with specific improvements
-4. Calculate specific point values for each improvement (2-15 points each based on impact)
-
-RESUMEWORDED-STYLE ANALYSIS CATEGORIES:
-- Quantification: Missing numbers, metrics, percentages, dollar amounts
-- Weak Verbs: Generic verbs like "worked", "helped", "assisted", "responsible for"
-- Impact Statements: Missing business results, efficiency gains, cost savings
-- Industry Keywords: Missing technical terms, job-specific terminology
-- Skills Section: Poorly organized, irrelevant, or missing skills
-- Experience Descriptions: Weak, vague, or irrelevant experience descriptions
-- Education: Missing key details, poor formatting, irrelevant information
-- Contact Info: Incomplete or unprofessional contact information
-- Formatting: ATS-unfriendly formatting, inconsistent styling
-- Buzzwords: Overused, vague terms without substance
-
-RESPONSE FORMAT (JSON):
+Return ONLY valid JSON (no markdown):
 {
-  "strengths": [
-    {
-      "category": "string",
-      "description": "string", 
-      "impact": "string",
-      "exampleText": "exact quote from resume"
-    }
-  ],
   "improvements": [
-    {
-      "category": "string (Quantification|Weak Verbs|Impact Statements|Industry Keywords|Skills Section|Experience Descriptions|Education|Contact Info|Formatting|Buzzwords)",
-      "priority": "high|medium|low",
-      "currentText": "EXACT sentence/phrase from the resume",
-      "suggestedText": "EXACT improved version", 
-      "reason": "detailed explanation",
-      "scoreImpact": "specific number (2-15 points)"
+    {"index": 0, "suggestedText": "Improved version with metrics and strong verbs", "reason": "Brief explanation of why this is better"},
+    {"index": 1, "suggestedText": "Improved version", "reason": "Explanation"}
+  ]
+}`
+
+        const result = await model.generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.3, topP: 0.8, topK: 40, maxOutputTokens: 3000 },
+        })
+        const resp = await result.response
+        const out = resp.text()
+        const match = out.match(/\{[\s\S]*\}/)
+        if (match) {
+          const geminiData = JSON.parse(match[0])
+          if (geminiData.improvements && Array.isArray(geminiData.improvements)) {
+            geminiData.improvements.forEach((s: any) => {
+              if (s.index >= 0 && s.index < improvementsToEnhance.length && s.suggestedText) {
+                const target = improvementsToEnhance[s.index]
+                const idx = scoring.improvements.findIndex(
+                  (imp) =>
+                    imp.currentText === target.currentText && imp.category === target.category
+                )
+                if (idx >= 0) {
+                  scoring.improvements[idx].suggestedText = s.suggestedText
+                  if (s.reason && s.reason.trim().length > 0) {
+                    scoring.improvements[idx].reason = s.reason
+                  }
+                }
+              }
+            })
+          }
+        }
+      } catch (err) {
+        console.warn('Gemini improvement rewrite failed (non-blocking):', err)
+      }
     }
-  ],
-  "recommendations": ["specific actionable advice"]
-}
 
-CRITICAL INSTRUCTIONS:
-- Extract REAL problems from the actual resume text
-- Provide specific, actionable improvements
-- Focus on the biggest impact changes first (quantification, weak verbs, impact statements)
-- Be EXTREMELY critical and thorough - most resumes are poor quality
-- Most resumes have significant issues - don't be lenient
-- DEDUCT heavily for weak verbs, missing metrics, poor formatting
-- Only award points for EXCELLENT content
-- Be harsh but fair - help users understand why their resume needs improvement`
+    // Add category-specific improvements based on low scores
+    if (scoring.breakdown.formatCompatibility < 15) {
+      scoring.improvements.push({
+        category: 'Format & Structure',
+        priority: 'high',
+        currentText: 'Resume may have format compatibility issues',
+        suggestedText:
+          'Convert to a clean, single-column PDF format. Remove tables, text boxes, and embedded images. Use standard section headers (Experience, Education, Skills).',
+        reason:
+          'ATS systems parse simple, clean formats best. Complex layouts can cause parsing errors and reduce your visibility.',
+        scoreImpact: '6',
+      })
+    }
 
-    const analysisResult = await model.generateContent([
-      analysisPrompt,
-      {
-        inlineData: {
-          data: base64,
-          mimeType: file.type,
-        },
-      },
-    ])
+    if (scoring.breakdown.sectionCompleteness < 10) {
+      scoring.improvements.push({
+        category: 'Section Completeness',
+        priority: 'medium',
+        currentText: 'Some resume sections may be incomplete',
+        suggestedText:
+          'Ensure all sections are complete: Contact info (name, email, phone, LinkedIn), Professional Summary, Work Experience (with dates and bullets), Education (degree, school, dates), Skills section.',
+        reason:
+          'Complete sections help ATS systems categorize and score your resume more accurately.',
+        scoreImpact: '5',
+      })
+    }
 
-    const analysisResponse = await analysisResult.response
-    const analysisText = analysisResponse.text()
-
-    // Parse analysis results
-    let analysisData
+    // Ensure suggestedText fallback always present
     try {
-      const jsonMatch = analysisText.match(/\{[\s\S]*\}/)
-      if (jsonMatch) {
-        analysisData = JSON.parse(jsonMatch[0])
-      } else {
-        throw new Error('No JSON found in analysis response')
-      }
-    } catch (parseError) {
-      analysisData = {
-        strengths: [
-          {
-            category: 'Basic Structure',
-            description: 'Resume has basic sections',
-            impact: 'Shows minimal organization',
-            exampleText: 'Contact information present',
-          },
-        ],
-        improvements: [
-          {
-            category: 'Quantification',
-            priority: 'high',
-            currentText: 'Worked on various projects',
-            suggestedText:
-              'Led cross-functional teams to deliver 3+ high-impact projects, resulting in 25% efficiency improvement',
-            reason:
-              'CRITICAL: Add specific metrics and quantifiable achievements to demonstrate impact',
-            scoreImpact: '15',
-          },
-          {
-            category: 'Weak Verbs',
-            priority: 'high',
-            currentText: 'Responsible for managing team',
-            suggestedText:
-              'Managed a team of 8 developers, increased productivity by 40% through agile methodologies',
-            reason:
-              'CRITICAL: Replace weak verbs with strong action verbs and add quantifiable results',
-            scoreImpact: '12',
-          },
-          {
-            category: 'Impact Statements',
-            priority: 'high',
-            currentText: 'Helped with company growth',
-            suggestedText:
-              'Drove 30% revenue growth through strategic initiatives and process optimization',
-            reason: 'CRITICAL: Add specific business impact and measurable results',
-            scoreImpact: '10',
-          },
-          {
-            category: 'Industry Keywords',
-            priority: 'medium',
-            currentText: 'Good communication skills',
-            suggestedText:
-              'Advanced communication skills with experience presenting to C-level executives and cross-functional teams',
-            reason: 'Add industry-specific keywords and technical terminology',
-            scoreImpact: '8',
-          },
-        ],
-        recommendations: [
-          'CRITICAL: Add quantifiable achievements with specific metrics (percentages, dollar amounts, timeframes)',
-          'CRITICAL: Replace weak verbs with strong action verbs (Led, Developed, Implemented, Optimized)',
-          'CRITICAL: Include industry-specific keywords and technical terms',
-          'CRITICAL: Add business impact statements with measurable results',
-          'Improve formatting consistency and ATS compatibility',
-        ],
-      }
+      scoring.improvements = scoring.improvements.map((imp) => ({
+        ...imp,
+        suggestedText:
+          imp.suggestedText && imp.suggestedText.trim()
+            ? imp.suggestedText
+            : 'See common improvement examples.',
+      }))
+    } catch (e) {
+      console.error('Improvements post-processing failed:', e)
     }
 
-    // Combine scoring and analysis results
-    const finalResult = {
-      ...scoringData,
-      ...analysisData,
+    // Compute keyword analysis for transparency (needed for keyword improvements)
+    const normalized = parsed.rawText.toLowerCase()
+    const matched: string[] = []
+    const missing: string[] = []
+    for (const kw of jdKeywords) {
+      const k = kw.toLowerCase()
+      const list = [k, ...((aliases && aliases[kw]) || [])]
+      const found = list.some((term) =>
+        new RegExp(`(^|\W)${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=$|\W)`, 'i').test(
+          normalized
+        )
+      )
+      if (found) matched.push(kw)
+      else missing.push(kw)
     }
+    const matchRate = jdKeywords.length ? Math.round((matched.length / jdKeywords.length) * 100) : 0
+
+    // Add keyword improvements if keyword score is low
+    if (scoring.breakdown.keywordOptimization < 15 && missing.length > 0) {
+      const missingKeywords = missing.slice(0, 5)
+      scoring.improvements.push({
+        category: 'Keywords',
+        priority: 'high',
+        currentText: `Missing critical keywords: ${missingKeywords.join(', ')}`,
+        suggestedText: `Add these keywords naturally throughout your resume: ${missingKeywords.join(', ')}. Incorporate them in your experience bullets, skills section, and summary.`,
+        reason: `ATS systems prioritize resumes with job-relevant keywords. Adding these ${missingKeywords.length} keywords can significantly improve your ranking.`,
+        scoreImpact: '8',
+      })
+    }
+
+    // Convert Gemini recommendation objects to strings
+    const formatGeminiRecommendation = (rec: any): string => {
+      if (typeof rec === 'string') return rec
+      if (typeof rec !== 'object' || !rec) return ''
+
+      // Format: "Issue: description. Action: what to do. Example: example"
+      const parts: string[] = []
+      if (rec.issue) parts.push(rec.issue)
+      if (rec.action) parts.push(`Action: ${rec.action}`)
+      if (rec.example) parts.push(`Example: ${rec.example}`)
+      if (rec.examples && Array.isArray(rec.examples) && rec.examples.length > 0) {
+        parts.push(`Example: ${rec.examples[0]}`)
+      }
+
+      return parts.length > 0 ? parts.join('. ') : JSON.stringify(rec)
+    }
+
+    const geminiRecommendations = (geminiKW?.raw?.recommendations || [])
+      .map(formatGeminiRecommendation)
+      .filter((r: string) => r.trim().length > 0)
+    const suggestionsRecommendations = (suggestions.recommendations || [])
+      .map((r: any) => (typeof r === 'string' ? r : formatGeminiRecommendation(r)))
+      .filter((r: string) => r.trim().length > 0)
+
+    // Recalculate overall score from breakdown to ensure consistency
+    // The overall score should equal the sum of all breakdown values
+    const recalculatedOverallScore = Math.min(
+      100,
+      Math.max(
+        0,
+        scoring.breakdown.formatCompatibility +
+          scoring.breakdown.keywordOptimization +
+          scoring.breakdown.impactAndMetrics +
+          scoring.breakdown.actionVerbs +
+          scoring.breakdown.sectionCompleteness
+      )
+    )
+
+    // Final fallback: ensure we always have at least one improvement
+    const finalImprovements =
+      scoring.improvements && scoring.improvements.length > 0
+        ? scoring.improvements
+        : [
+            {
+              category: 'Resume Optimization',
+              priority: 'medium' as const,
+              currentText: 'Your resume is strong, but can always be optimized further',
+              suggestedText:
+                'Consider tailoring your resume for specific job descriptions by adding relevant keywords, quantifying achievements with specific metrics, and using strong action verbs.',
+              reason:
+                'Continuous optimization helps improve ATS matching and makes your resume stand out to recruiters.',
+              scoreImpact: '5',
+            },
+          ]
+
+    const finalResult = {
+      version: scoring.version,
+      hash,
+      overallScore: recalculatedOverallScore,
+      breakdown: scoring.breakdown,
+      breakdownMax: scoring.breakdownMax,
+      priorityIssues: scoring.priorityIssues,
+      lineByLine: scoring.lineByLine,
+      strengths: [...scoring.strengths, ...(suggestions.strengths || [])],
+      improvements: finalImprovements,
+      recommendations: [
+        ...scoring.recommendations,
+        ...suggestionsRecommendations,
+        ...geminiRecommendations,
+      ],
+      keywordAnalysis: { matched, missing, matchRate, keywordsUsed: jdKeywords, aliases },
+      geminiKeywordAnalysis: geminiKW?.raw || null,
+      parseCoverage: scoring.parseCoverage || 0,
+    }
+    cache.set(
+      hash + (jobDesc ? `:${crypto.createHash('sha1').update(jobDesc).digest('hex')}` : ''),
+      finalResult
+    )
 
     return NextResponse.json(finalResult)
-  } catch (error) {
-    console.error('ATS Analysis Error:', error)
-    return NextResponse.json({ error: 'Failed to analyze resume' }, { status: 500 })
+  } catch (error: any) {
+    console.error('ATS Analysis Error (outer):', error)
+    const message = typeof error?.message === 'string' ? error.message : 'Failed to analyze resume'
+    return NextResponse.json({ errorCode: 'UNKNOWN', message }, { status: 500 })
   }
 }

@@ -1,13 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface CategoryScore {
-  contentQuality: number
-  keywordsOptimization: number
-  formatStructure: number
-  atsCompatibility: number
-  contactInfo: number
+  formatCompatibility: number
+  keywordOptimization: number
+  impactAndMetrics: number
+  actionVerbs: number
+  sectionCompleteness: number
 }
 
 interface Strength {
@@ -28,14 +29,25 @@ interface Improvement {
 
 interface AnalysisResults {
   overallScore: number
-  categoryScores: CategoryScore
+  breakdown: CategoryScore
   strengths: Strength[]
   improvements: Improvement[]
-  summary: string
   recommendations: string[]
+  priorityIssues?: Array<{ level: 'critical' | 'high' | 'medium'; message: string }>
+  breakdownMax: CategoryScore
+  lineByLine?: Array<{
+    section?: 'summary' | 'experience' | 'skills' | 'education'
+    index: number
+    text: string
+    issues: Array<{ type: string; detail: string }>
+    score: number
+    potentialScore: number
+  }>
+  parseCoverage: number
 }
 
 const ATSScorePage = () => {
+  const router = useRouter()
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(null)
@@ -79,12 +91,12 @@ const ATSScorePage = () => {
     },
   ]
 
-  // Progress updater: runs while analyzing and fills to 100% in ~100s
+  // Progress updater: simple progress during analysis
   useEffect(() => {
     if (!isAnalyzing) return
 
     const startTime = Date.now()
-    const totalMs = 100_000
+    const totalMs = 3_000
 
     setProgress(0)
 
@@ -130,18 +142,26 @@ const ATSScorePage = () => {
         method: 'POST',
         body: formData,
       }).then(async (response) => {
-        if (!response.ok) throw new Error('Failed to analyze resume')
+        if (!response.ok) {
+          let serverErr = 'Failed to analyze resume'
+          try {
+            const data = await response.json()
+            if (data?.message) serverErr = data.message
+            if (data?.errorCode) serverErr += ` [${data.errorCode}]`
+          } catch (_) {
+            // ignore JSON parse errors
+          }
+          throw new Error(serverErr)
+        }
         return response.json()
       })
 
-      // Ensure a minimum 100s display time for the loading bar
-      const minDelay = new Promise((resolve) => setTimeout(resolve, 100_000))
-
-      const data = await Promise.all([analysisPromise, minDelay]).then(([d]) => d)
+      const data = await analysisPromise
       setProgress(100)
       setAnalysisResults(data)
     } catch (err) {
-      setError('Failed to analyze resume. Please try again.')
+      const msg = err instanceof Error ? err.message : 'Failed to analyze resume. Please try again.'
+      setError(msg)
       console.error('Analysis error:', err)
     } finally {
       setIsAnalyzing(false)
@@ -298,34 +318,57 @@ const ATSScorePage = () => {
                   </label>
                 </div>
 
-                <button
-                  onClick={handleAnalyze}
-                  disabled={!uploadedFile || isAnalyzing}
-                  className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-all duration-300 hover:shadow-accent-500/40 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-400 to-accent-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <div className="mb-4 flex flex-col gap-3">
+                  <button
+                    onClick={handleAnalyze}
+                    disabled={!uploadedFile || isAnalyzing}
+                    className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-all duration-300 hover:shadow-accent-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {/* Animated background */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent-400 to-accent-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
-                  {isAnalyzing ? (
-                    <div className="relative z-10 flex items-center">
-                      {/* Cursor-style loading animation */}
-                      <div className="relative mr-4">
-                        <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                        <div
-                          className="absolute inset-0 h-6 w-6 animate-spin rounded-full border-2 border-accent-300 border-t-transparent"
-                          style={{ animationDelay: '0.15s', animationDuration: '0.6s' }}
-                        ></div>
-                        <div
-                          className="absolute inset-1 h-4 w-4 animate-spin rounded-full border border-accent-400 border-t-transparent"
-                          style={{ animationDelay: '0.3s', animationDuration: '0.4s' }}
-                        ></div>
+                    {isAnalyzing ? (
+                      <div className="relative z-10 flex items-center">
+                        {/* Cursor-style loading animation */}
+                        <div className="relative mr-4">
+                          <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                          <div
+                            className="absolute inset-0 h-6 w-6 animate-spin rounded-full border-2 border-accent-300 border-t-transparent"
+                            style={{ animationDelay: '0.15s', animationDuration: '0.6s' }}
+                          ></div>
+                          <div
+                            className="absolute inset-1 h-4 w-4 animate-spin rounded-full border border-accent-400 border-t-transparent"
+                            style={{ animationDelay: '0.3s', animationDuration: '0.4s' }}
+                          ></div>
+                        </div>
+                        <span className="relative z-10">Analyzing Resume...</span>
                       </div>
-                      <span className="relative z-10">Analyzing Resume...</span>
-                    </div>
-                  ) : (
-                    <span className="relative z-10">Analyze Resume</span>
-                  )}
-                </button>
+                    ) : (
+                      <span className="relative z-10">Analyze Resume</span>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => router.push('/resume-job-matcher')}
+                    className="group relative overflow-hidden rounded-lg border-2 border-purple-500 bg-purple-600/20 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-300 hover:bg-purple-600/30 hover:shadow-purple-500/40"
+                  >
+                    <span className="relative z-10 flex items-center justify-center">
+                      <svg
+                        className="mr-2 h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      Make Resume According to Job
+                    </span>
+                  </button>
+                </div>
 
                 {/* Loading section with progress bar and tips */}
                 {isAnalyzing && (
@@ -367,6 +410,38 @@ const ATSScorePage = () => {
         {/* Results Section */}
         {analysisResults && (
           <div className="space-y-12">
+            {/* Parse Coverage */}
+            <div className="rounded-3xl border border-blue-700/50 bg-blue-900/30 p-8 shadow-lg">
+              <div className="mb-2 flex items-center justify-between">
+                <h3 className="text-lg font-bold text-blue-300">ATS Parse Coverage</h3>
+                {(analysisResults.parseCoverage ?? 0) >= 85 && (
+                  <span className="inline-block rounded-full bg-green-600 px-3 py-1 text-xs text-white">
+                    Excellent
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="flex-1">
+                  <div className="h-4 w-full overflow-hidden rounded-full bg-blue-900/60">
+                    <div
+                      className="h-4 rounded-full bg-gradient-to-r from-blue-400 to-green-400 transition-all duration-1000 ease-out"
+                      style={{ width: `${analysisResults.parseCoverage ?? 0}%` }}
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <span className="text-xl font-bold text-blue-400">
+                    {analysisResults.parseCoverage ?? 0}%
+                  </span>
+                </div>
+              </div>
+              <p className="mt-2 text-xs text-blue-200">
+                Percent of your resume that can be reliably parsed by modern ATS.{' '}
+                {(analysisResults.parseCoverage ?? 0) < 70
+                  ? 'Consider improving formatting, using standard sections, and avoiding images/tables.'
+                  : ''}
+              </p>
+            </div>
             {/* Overall Score */}
             <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-12 shadow-2xl shadow-black/50 backdrop-blur-xl">
               <div className="text-center">
@@ -396,9 +471,11 @@ const ATSScorePage = () => {
                   </div>
                 </div>
 
-                <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-400">
-                  {analysisResults.summary}
-                </p>
+                {'summary' in analysisResults && (analysisResults as any).summary && (
+                  <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-400">
+                    {(analysisResults as any).summary}
+                  </p>
+                )}
 
                 {/* Potential Score Improvement */}
                 {analysisResults.improvements.length > 0 && (
@@ -429,13 +506,31 @@ const ATSScorePage = () => {
               </div>
             </div>
 
+            {/* Make Resume According to Job Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => router.push('/resume-job-matcher')}
+                className="group flex items-center gap-2 rounded-lg border-2 border-purple-500 bg-purple-600/20 px-8 py-4 font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:bg-purple-600/30 hover:shadow-purple-500/40"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Make Resume According to Job
+              </button>
+            </div>
+
             {/* Category Scores */}
             <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
               <h3 className="mb-10 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-center text-3xl font-bold text-transparent">
                 Category Breakdown
               </h3>
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(analysisResults.categoryScores).map(([category, score]) => (
+                {Object.entries(analysisResults.breakdown).map(([category, score]) => (
                   <div
                     key={category}
                     className="group rounded-2xl border border-gray-700/50 bg-gray-800/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gray-600/50"
@@ -444,21 +539,35 @@ const ATSScorePage = () => {
                       <h4 className="text-lg font-semibold capitalize text-white transition-colors group-hover:text-gray-200">
                         {category.replace(/([A-Z])/g, ' $1').trim()}
                       </h4>
-                      <span className={`text-2xl font-bold ${getScoreColor(score)} drop-shadow-lg`}>
-                        {score}
+                      <span
+                        className={`text-2xl font-bold ${getScoreColor(score as number)} drop-shadow-lg`}
+                      >
+                        {score as number}
                       </span>
                     </div>
                     <div className="relative">
                       <div className="h-3 w-full overflow-hidden rounded-full bg-gray-700/50">
-                        <div
-                          className={`h-3 rounded-full ${getScoreBgColor(score)} shadow-lg transition-all duration-1000 ease-out`}
-                          style={{ width: `${score}%` }}
-                        ></div>
+                        {(() => {
+                          const scoreNum = score as number
+                          const maxNum =
+                            analysisResults.breakdownMax[category as keyof CategoryScore]
+                          const percentage = maxNum > 0 ? (scoreNum / maxNum) * 100 : 0
+                          return (
+                            <div
+                              className={`h-3 rounded-full ${getScoreBgColor(scoreNum)} shadow-lg transition-all duration-1000 ease-out`}
+                              style={{ width: `${percentage}%` }}
+                            ></div>
+                          )
+                        })()}
                       </div>
                       {/* Glowing effect */}
                       <div
-                        className={`absolute inset-0 ${getScoreColor(score)} opacity-20 blur-sm`}
+                        className={`absolute inset-0 ${getScoreColor(score as number)} opacity-20 blur-sm`}
                       ></div>
+                      <div className="mt-2 text-right text-xs text-gray-400">
+                        {score as number} /{' '}
+                        {analysisResults.breakdownMax[category as keyof CategoryScore]}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -523,14 +632,25 @@ const ATSScorePage = () => {
                     <p className="text-lg text-cyan-400">
                       Potential Score:{' '}
                       <span className="font-bold text-cyan-300">
-                        {Math.min(
-                          analysisResults.overallScore +
-                            analysisResults.improvements.reduce((total, improvement) => {
+                        {(() => {
+                          // Calculate potential score more realistically
+                          // Only add up to the difference from 100, to avoid suggesting over 100
+                          const currentScore = analysisResults.overallScore
+                          const maxPossibleIncrease = 100 - currentScore
+                          const totalImprovementPoints = analysisResults.improvements.reduce(
+                            (total, improvement) => {
                               const points = parseInt(improvement.scoreImpact) || 0
                               return total + points
-                            }, 0),
-                          100
-                        )}
+                            },
+                            0
+                          )
+                          // Cap at the maximum achievable increase
+                          const realisticIncrease = Math.min(
+                            totalImprovementPoints,
+                            maxPossibleIncrease
+                          )
+                          return Math.min(100, currentScore + realisticIncrease)
+                        })()}
                         /100
                       </span>
                     </p>
@@ -765,26 +885,50 @@ const ATSScorePage = () => {
               })()}
             </div>
 
-            {/* Recommendations */}
-            <div className="rounded-lg border border-gray-700 bg-gray-900 p-8">
-              <h3 className="mb-6 text-2xl font-bold text-white">Quick Recommendations</h3>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {analysisResults.recommendations.map((recommendation, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-3 rounded-lg bg-gray-800 p-4"
-                  >
-                    <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-500">
-                      <span className="text-sm text-white">{index + 1}</span>
+            {/* Line-by-line deterministic feedback */}
+            {analysisResults.lineByLine && analysisResults.lineByLine.length > 0 && (
+              <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
+                <h3 className="mb-6 text-2xl font-bold text-white">Line-by-Line Feedback</h3>
+                <div className="space-y-4">
+                  {analysisResults.lineByLine.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-xl border border-gray-700/50 bg-gray-800/40 p-4"
+                    >
+                      <div className="mb-2 flex items-center justify-between">
+                        <div className="text-sm text-gray-300">
+                          {item.section || 'experience'} • #{item.index + 1}
+                        </div>
+                        <div className="text-xs text-gray-400">Score {item.score}/10</div>
+                      </div>
+                      <div className="mb-3 italic text-gray-200">"{item.text}"</div>
+                      <ul className="ml-5 list-disc text-sm text-gray-300">
+                        {item.issues.map((iss, i) => (
+                          <li key={i}>{iss.detail}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-gray-300">{recommendation}</p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-wrap justify-center gap-4">
+              <button
+                onClick={() => router.push('/resume-job-matcher')}
+                className="flex items-center gap-2 rounded-lg border-2 border-purple-500 bg-purple-600/20 px-6 py-3 font-semibold text-white transition-colors hover:bg-purple-600/30 hover:shadow-lg hover:shadow-purple-500/25"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Make Resume According to Job
+              </button>
               <button
                 onClick={() => {
                   setAnalysisResults(null)
