@@ -76,6 +76,120 @@ async function extractTextFromFile(file: File): Promise<{ text: string; mime: st
   return { text: buffer.toString('utf-8'), mime }
 }
 
+// Helper function to clean and normalize text for AI processing
+function cleanTextForAI(text: string): string {
+  return text
+    .replace(/[\r\n]+/g, ' ') // Replace newlines with spaces
+    .replace(/\s+/g, ' ') // Normalize multiple spaces
+    .replace(/[""]/g, '"') // Normalize quotes
+    .replace(/['']/g, "'") // Normalize apostrophes
+    .trim()
+}
+
+// Helper function to repair incomplete JSON
+function repairIncompleteJSON(jsonString: string): string {
+  let repaired = jsonString.trim()
+
+  // Count open and close braces/brackets
+  const openBraces = (repaired.match(/\{/g) || []).length
+  const closeBraces = (repaired.match(/\}/g) || []).length
+  const openBrackets = (repaired.match(/\[/g) || []).length
+  const closeBrackets = (repaired.match(/\]/g) || []).length
+
+  // If JSON is incomplete, try to repair it
+  if (openBraces > closeBraces || openBrackets > closeBrackets) {
+    console.log('[Resume-Job-Matcher] Detected incomplete JSON, attempting repair...')
+
+    // Remove trailing incomplete strings/values
+    repaired = repaired.replace(/,?\s*"[^"]*$/, '') // Remove incomplete string at end
+    repaired = repaired.replace(/,?\s*$/, '') // Remove trailing comma/whitespace
+
+    // Close any open strings
+    const quoteCount = (repaired.match(/"/g) || []).length
+    if (quoteCount % 2 !== 0) {
+      repaired += '"'
+    }
+
+    // Close open arrays
+    for (let i = 0; i < openBrackets - closeBrackets; i++) {
+      repaired += ']'
+    }
+
+    // Close open objects
+    for (let i = 0; i < openBraces - closeBraces; i++) {
+      repaired += '}'
+    }
+
+    console.log('[Resume-Job-Matcher] Repaired JSON structure')
+  }
+
+  return repaired
+}
+
+// Helper function to extract and clean JSON from AI response
+function extractAndCleanJSON(response: string): string | null {
+  let jsonString: string | null = null
+
+  // Method 1: Try to find JSON in markdown code blocks
+  const markdownMatch = response.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/)
+  if (markdownMatch && markdownMatch[1]) {
+    jsonString = markdownMatch[1]
+    console.log('[Resume-Job-Matcher] Found JSON in markdown code block')
+  }
+
+  // Method 2: Try to find JSON object with balanced braces
+  if (!jsonString) {
+    let openBraces = 0
+    let startIdx = -1
+    let endIdx = -1
+
+    for (let i = 0; i < response.length; i++) {
+      if (response[i] === '{') {
+        if (openBraces === 0) startIdx = i
+        openBraces++
+      } else if (response[i] === '}') {
+        openBraces--
+        if (openBraces === 0 && startIdx !== -1) {
+          endIdx = i
+          break
+        }
+      }
+    }
+
+    if (startIdx !== -1 && endIdx !== -1) {
+      jsonString = response.substring(startIdx, endIdx + 1)
+      console.log('[Resume-Job-Matcher] Found JSON using balanced braces')
+    }
+  }
+
+  // Method 3: Extract from start to last possible closing brace (for truncated responses)
+  if (!jsonString) {
+    const startIdx = response.indexOf('{')
+    const lastBrace = response.lastIndexOf('}')
+    if (startIdx !== -1 && lastBrace > startIdx) {
+      jsonString = response.substring(startIdx, lastBrace + 1)
+      console.log('[Resume-Job-Matcher] Extracted JSON from truncated response')
+    }
+  }
+
+  if (!jsonString) return null
+
+  // Repair incomplete JSON (handles truncated responses)
+  jsonString = repairIncompleteJSON(jsonString)
+
+  // Clean up the JSON string
+  jsonString = jsonString
+    .trim()
+    // Remove trailing commas before closing braces/brackets
+    .replace(/,(\s*[}\]])/g, '$1')
+    // Fix unescaped newlines in strings
+    .replace(/\n/g, ' ')
+    // Fix multiple spaces
+    .replace(/\s+/g, ' ')
+
+  return jsonString
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
@@ -119,6 +233,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Clean the input texts
+    const cleanedJobDesc = cleanTextForAI(jobDescription.slice(0, 20000))
+    const cleanedResume = cleanTextForAI(resumeText.slice(0, 20000))
+
     // Use Gemini to analyze the match
     // Try multiple model names in case one doesn't work
     const modelNames = [
@@ -157,7 +275,15 @@ export async function POST(request: NextRequest) {
     try {
       const prompt = `You are an expert ATS resume analyzer. Analyze how well a resume matches a job description. 
 
-CRITICAL: You must return ONLY valid JSON. Do not include any markdown formatting, code blocks, explanations, or text before or after the JSON. Start your response with { and end with }.
+CRITICAL INSTRUCTIONS:
+1. Return ONLY a valid JSON object
+2. Start with { and end with }
+3. Do NOT use markdown code blocks
+4. Do NOT include any explanatory text
+5. Ensure all strings are properly quoted
+6. Do NOT use trailing commas
+7. Keep recommendations concise (max 3 items, each action under 150 chars)
+
 
 Required JSON structure (return exactly this format):
 {
@@ -188,16 +314,16 @@ Categorize keywords into:
 Analyze semantic matches (e.g., "JavaScript" matches "JS", "React dev", "Node.js"). Be generous with matches. Count implicit matches where skills are demonstrated through experience.
 
 JOB DESCRIPTION:
-${jobDescription.slice(0, 28000)}
+${cleanedJobDesc}
 
 RESUME TEXT:
-${resumeText.slice(0, 28000)}
+${cleanedResume}
 
 Remember: Return ONLY the JSON object, starting with { and ending with }. No markdown, no code blocks, no explanations.`
 
       console.log('[Resume-Job-Matcher] Calling Gemini API...')
-      console.log('[Resume-Job-Matcher] Job description length:', jobDescription.length)
-      console.log('[Resume-Job-Matcher] Resume text length:', resumeText.length)
+      console.log('[Resume-Job-Matcher] Job description length:', cleanedJobDesc.length)
+      console.log('[Resume-Job-Matcher] Resume text length:', cleanedResume.length)
 
       const result = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
@@ -205,26 +331,27 @@ Remember: Return ONLY the JSON object, starting with { and ending with }. No mar
           temperature: 0.1, // Lower temperature for more deterministic JSON output
           topP: 0.8,
           topK: 40,
-          maxOutputTokens: 4096,
+          maxOutputTokens: 8192,
         },
       })
 
       const response = await result.response
 
-      // Check for response blocks/safety issues
+      // Check for response issues
+      let wasTruncated = false
       if (response.candidates && response.candidates.length > 0) {
         const candidate = response.candidates[0]
         if (candidate.finishReason) {
           console.log('[Resume-Job-Matcher] Finish reason:', candidate.finishReason)
-          if (candidate.finishReason !== 'STOP') {
+          if (candidate.finishReason === 'MAX_TOKENS') {
+            wasTruncated = true
+            console.warn('[Resume-Job-Matcher] Response truncated due to MAX_TOKENS')
+          } else if (candidate.finishReason !== 'STOP') {
             console.warn(
               '[Resume-Job-Matcher] Response may be incomplete. Finish reason:',
               candidate.finishReason
             )
           }
-        }
-        if (candidate.safetyRatings) {
-          console.log('[Resume-Job-Matcher] Safety ratings:', candidate.safetyRatings)
         }
       }
 
