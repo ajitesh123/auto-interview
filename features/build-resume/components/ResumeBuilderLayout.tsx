@@ -14,6 +14,7 @@ interface ResumeBuilderLayoutProps {
   totalSections?: number
   isResumeSaved?: boolean
   validationErrors?: string[]
+  previewPanel?: ReactNode
 }
 
 const SECTIONS = [
@@ -38,6 +39,7 @@ const ResumeBuilderLayout = ({
   totalSections = SECTIONS.length,
   isResumeSaved = false,
   validationErrors = [],
+  previewPanel,
 }: ResumeBuilderLayoutProps) => {
   const progress = ((currentSection + 1) / totalSections) * 100
 
@@ -88,74 +90,92 @@ const ResumeBuilderLayout = ({
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-6xl px-4 py-8">
-        {/* Validation Errors */}
-        {validationErrors.length > 0 && (
-          <div className="mb-4 rounded-lg border border-red-700 bg-red-900 p-4">
-            <div className="flex items-start">
-              <svg
-                className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-red-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <div>
-                <h4 className="mb-2 text-sm font-medium text-red-200">
-                  Please fill in all required fields:
-                </h4>
-                <ul className="space-y-1 text-sm text-red-300">
-                  {validationErrors.map((error, index) => (
-                    <li key={index}>• {error}</li>
-                  ))}
-                </ul>
+      <div className="mx-auto max-w-[1600px] px-4 py-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px]">
+          {/* Left Column - Form Content */}
+          <div className="min-w-0">
+            {/* Validation Errors */}
+            {validationErrors.length > 0 && (
+              <div className="mb-4 rounded-lg border border-red-700 bg-red-900 p-4">
+                <div className="flex items-start">
+                  <svg
+                    className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-red-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-red-200">
+                      Please fill in all required fields:
+                    </h4>
+                    <ul className="space-y-1 text-sm text-red-300">
+                      {validationErrors.map((error, index) => (
+                        <li key={index}>• {error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
+            )}
+
+            {/* Save Message */}
+            {saveMessage && (
+              <div
+                className={`mb-4 rounded-lg p-4 ${
+                  saveMessage.includes('Error')
+                    ? 'border border-red-700 bg-red-900 text-red-200'
+                    : 'border border-green-700 bg-green-900 text-green-200'
+                }`}
+              >
+                <div className="flex items-center">
+                  {saveMessage.includes('Error') ? (
+                    <svg
+                      className="mr-2 h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="mr-2 h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                  {saveMessage}
+                </div>
+              </div>
+            )}
+
+            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-6">
+              {children}
             </div>
           </div>
-        )}
 
-        {/* Save Message */}
-        {saveMessage && (
-          <div
-            className={`mb-4 rounded-lg p-4 ${
-              saveMessage.includes('Error')
-                ? 'border border-red-700 bg-red-900 text-red-200'
-                : 'border border-green-700 bg-green-900 text-green-200'
-            }`}
-          >
-            <div className="flex items-center">
-              {saveMessage.includes('Error') ? (
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              ) : (
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              )}
-              {saveMessage}
-            </div>
-          </div>
-        )}
-
-        <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-6">
-          {children}
+          {/* Right Column - Preview Panel */}
+          {previewPanel && <div className="hidden lg:block">{previewPanel}</div>}
         </div>
       </div>
 

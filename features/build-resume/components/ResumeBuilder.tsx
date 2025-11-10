@@ -10,8 +10,10 @@ import ProjectsSection from './ProjectsSection'
 import CertificationsSection from './CertificationsSection'
 import SkillsSection from './SkillsSection'
 import TemplateSelectionPage from './TemplateSelectionPage'
+import PreviewPanel from './PreviewPanel'
 import { resumeApi } from '../../../lib/resumeApi'
 import { ResumeData as ResumeDataType, SkillsData } from '../../../lib/resumeStore'
+import { useDebounce } from '../hooks/useDebounce'
 
 // Define data types for all sections
 interface ContactData {
@@ -83,9 +85,10 @@ interface ResumeData {
 
 interface ResumeBuilderProps {
   initialData?: Partial<ResumeDataType>
+  initialTemplate?: 'harvard' | 'lbs' | 'stanford'
 }
 
-const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
+const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => {
   const [currentSection, setCurrentSection] = useState(0)
   const [resumeData, setResumeData] = useState<ResumeDataType>({
     contact: {
@@ -110,6 +113,12 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
   const [validationErrors, setValidationErrors] = useState<string[]>([])
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [isResumeSaved, setIsResumeSaved] = useState(false)
+
+  // Get selected template (default to harvard if not provided)
+  const selectedTemplate = initialTemplate || 'harvard'
+
+  // Debounce resume data for preview (800ms delay to avoid too many API calls)
+  const debouncedResumeData = useDebounce(resumeData, 800)
 
   // Note: SkillsSection now handles its own state management
 
@@ -329,9 +338,19 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
         resumeData={resumeData}
         resumeId={savedResumeId}
         onBack={handleBackToBuilder}
+        initialTemplate={initialTemplate}
       />
     )
   }
+
+  // Create preview panel
+  const previewPanel = (
+    <PreviewPanel
+      resumeData={debouncedResumeData}
+      template={selectedTemplate}
+      resumeId={savedResumeId}
+    />
+  )
 
   return (
     <ResumeBuilderLayout
@@ -344,6 +363,7 @@ const ResumeBuilder = ({ initialData }: ResumeBuilderProps) => {
       saveMessage={saveMessage}
       validationErrors={validationErrors}
       isResumeSaved={isResumeSaved}
+      previewPanel={previewPanel}
     >
       {renderCurrentSection()}
     </ResumeBuilderLayout>

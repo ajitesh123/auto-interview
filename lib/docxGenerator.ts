@@ -22,10 +22,30 @@ export async function generateDOCX(
 ) {
   try {
     const doc = new Document({
+      // Set default styles: 1.15 line spacing across the document
+      styles: {
+        default: {
+          document: {
+            paragraph: {
+              spacing: {
+                line: 276, // 1.15 * 240 twips (240 = single line)
+              },
+            },
+          },
+        },
+      },
       sections: [
         {
           properties: {
             page: {
+              size: {
+                // US Letter size: 21.59 cm x 27.94 cm (8.5" x 11")
+                // Dimensions in twips (twentieths of a point)
+                // 8.5 inches = 8.5 * 72 points * 20 twips = 12,240 twips
+                // 11 inches = 11 * 72 points * 20 twips = 15,840 twips
+                width: 12240, // 8.5 inches in twips
+                height: 15840, // 11 inches in twips
+              },
               margin: {
                 top: 400, // 0.2 inches
                 right: 400, // 0.2 inches

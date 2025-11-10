@@ -2,9 +2,12 @@
 :root {
   --text-color: #000;
   --muted: #333;
-  --max-width: 800px;
-  --page-pad: 24px;
-  --font-sans: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Match US Letter printable width in pixels (8.5in @ 96dpi = 816px) */
+  --max-width: 816px;
+  /* Match DOCX effective margins (~0.2in ≈ 19.2px); use 20px for clarity */
+  --page-pad: 20px;
+  /* Prefer Calibri to match DOCX output; fall back to common sans-serifs */
+  --font-sans: 'Calibri', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 html,
@@ -16,6 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 11pt; /* entire document uses 11pt */
+  line-height: 1.15; /* match DOCX line spacing */
   color: var(--text-color);
 }
 
@@ -150,15 +154,22 @@ section h2 {
 
 /* BULLETS: full width of container (not constrained to left column) */
 .bullets {
-  margin: 8px 0 12px 18px;
-  padding-left: 0;
-  list-style: disc;
-  list-style-position: inside;
+  margin: 8px 0 12px 0;
+  /* Use outside bullets with hanging indent so wrapped lines align under text, not the bullet */
+  list-style: disc outside;
+  /* Provide sufficient left padding to create a proper hanging indent similar to Word */
+  padding-left: 22px; /* ~0.23in to closely match DOCX indent ~0.278in with available width */
   width: 100%;
   box-sizing: border-box;
   font-size: 11pt;
   color: var(--text-color);
   line-height: 1.35;
+}
+
+/* Ensure bullet items do not add extra indent and maintain hanging indent */
+.bullets li {
+  padding-left: 0;
+  text-indent: 0;
 }
 
 /* Skills & interests as straight inline lines (no boxes) */

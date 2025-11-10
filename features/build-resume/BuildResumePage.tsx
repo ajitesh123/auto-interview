@@ -3,12 +3,17 @@
 import { useState } from 'react'
 import ResumeBuilder from './components/ResumeBuilder'
 import ResumeUploadPage from './components/ResumeUploadPage'
+import InitialTemplateSelection from './components/InitialTemplateSelection'
 import { ResumeData } from '../../lib/resumeStore'
 
 const BuildResumePage = () => {
   const [hasResume, setHasResume] = useState<boolean | null>(null)
   const [parsedResumeData, setParsedResumeData] = useState<Partial<ResumeData> | null>(null)
   const [showUploadPage, setShowUploadPage] = useState(false)
+  const [showTemplateSelection, setShowTemplateSelection] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs' | 'stanford' | null>(
+    null
+  )
 
   const handleUploadResume = () => {
     setShowUploadPage(true)
@@ -25,6 +30,12 @@ const BuildResumePage = () => {
   }
 
   const handleStartBuilding = () => {
+    setShowTemplateSelection(true)
+  }
+
+  const handleTemplateSelected = (template: 'harvard' | 'lbs' | 'stanford') => {
+    setSelectedTemplate(template)
+    setShowTemplateSelection(false)
     setHasResume(false)
     setParsedResumeData(null) // Clear any previously parsed data
   }
@@ -34,6 +45,11 @@ const BuildResumePage = () => {
     return (
       <ResumeUploadPage onUploadComplete={handleUploadComplete} onBack={handleBackFromUpload} />
     )
+  }
+
+  // Show Template Selection when user clicks "Create from scratch"
+  if (showTemplateSelection) {
+    return <InitialTemplateSelection onSelect={handleTemplateSelected} />
   }
 
   if (hasResume === null) {
@@ -129,11 +145,16 @@ const BuildResumePage = () => {
 
   // Create New Resume Flow (with or without pre-filled data)
   if (hasResume === false) {
-    return <ResumeBuilder initialData={parsedResumeData || undefined} />
+    return (
+      <ResumeBuilder
+        initialData={parsedResumeData || undefined}
+        initialTemplate={selectedTemplate || undefined}
+      />
+    )
   }
 
   // This should never be reached, but just in case
-  return <ResumeBuilder initialData={undefined} />
+  return <ResumeBuilder initialData={undefined} initialTemplate={undefined} />
 }
 
 export default BuildResumePage

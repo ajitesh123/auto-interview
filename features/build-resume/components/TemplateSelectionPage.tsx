@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { ResumeData } from '../../../lib/resumeStore'
 import { generateDOCX } from '../../../lib/docxGenerator'
 
@@ -8,15 +9,21 @@ interface TemplateSelectionPageProps {
   resumeData: ResumeData
   resumeId: string
   onBack: () => void
+  initialTemplate?: 'harvard' | 'lbs' | 'stanford'
 }
 
-const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelectionPageProps) => {
+const TemplateSelectionPage = ({
+  resumeData,
+  resumeId,
+  onBack,
+  initialTemplate,
+}: TemplateSelectionPageProps) => {
   const [isGenerating, setIsGenerating] = useState(false)
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null)
   const [showPreview, setShowPreview] = useState(false)
   const [previewHTML, setPreviewHTML] = useState<string>('')
   const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs' | 'stanford'>(
-    'harvard'
+    initialTemplate || 'harvard'
   )
 
   // Debug log to track when component is rendered
@@ -168,36 +175,33 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
         <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Harvard Template */}
           <div
-            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+            className={`cursor-pointer rounded-lg border-2 p-6 transition-all ${
               selectedTemplate === 'harvard'
-                ? 'border-accent-500 bg-matte-dark'
-                : 'border-matte-gray bg-matte-dark hover:border-accent-500'
+                ? 'border-accent-500 bg-matte-dark shadow-lg shadow-accent-500/20'
+                : 'border-matte-gray bg-matte-dark hover:border-accent-500/50'
             }`}
             onClick={() => handleTemplateSelect('harvard')}
           >
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
+            {/* Image Preview */}
+            <div className="mb-4 overflow-hidden rounded-lg border border-matte-gray">
+              <div className="relative aspect-[8.5/11] w-full">
+                <Image
+                  src="/static/images/Harvard_Screenshot.png"
+                  alt="Harvard Resume Template Preview"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
+            </div>
+            <div className="text-center">
               <h3 className="mb-2 text-xl font-bold text-white">
                 Harvard Template
                 {selectedTemplate === 'harvard' && (
                   <span className="ml-2 text-accent-500">✓ Selected</span>
                 )}
               </h3>
-              <p className="mb-4 text-gray-300">
+              <p className="mb-4 text-sm text-gray-300">
                 Clean, professional design perfect for academic and professional settings. Features
                 clear sections and elegant typography.
               </p>
@@ -256,36 +260,33 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
           {/* LBS Template */}
           <div
-            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+            className={`cursor-pointer rounded-lg border-2 p-6 transition-all ${
               selectedTemplate === 'lbs'
-                ? 'border-accent-500 bg-matte-dark'
-                : 'border-matte-gray bg-matte-dark hover:border-accent-500'
+                ? 'border-accent-500 bg-matte-dark shadow-lg shadow-accent-500/20'
+                : 'border-matte-gray bg-matte-dark hover:border-accent-500/50'
             }`}
             onClick={() => handleTemplateSelect('lbs')}
           >
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
+            {/* Image Preview */}
+            <div className="mb-4 overflow-hidden rounded-lg border border-matte-gray">
+              <div className="relative aspect-[8.5/11] w-full">
+                <Image
+                  src="/static/images/LBS_Screenshot.png"
+                  alt="London Business School Resume Template Preview"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
+            </div>
+            <div className="text-center">
               <h3 className="mb-2 text-xl font-bold text-white">
                 London Business School Template
                 {selectedTemplate === 'lbs' && (
                   <span className="ml-2 text-accent-500">✓ Selected</span>
                 )}
               </h3>
-              <p className="mb-4 text-gray-300">
+              <p className="mb-4 text-sm text-gray-300">
                 Executive-style template with Times New Roman font, perfect for business school
                 applications and corporate roles.
               </p>
@@ -344,43 +345,40 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
 
           {/* Stanford Template */}
           <div
-            className={`cursor-pointer rounded-lg border p-6 transition-colors ${
+            className={`cursor-pointer rounded-lg border-2 p-6 transition-all ${
               selectedTemplate === 'stanford'
-                ? 'border-pink-500 bg-gray-700'
-                : 'border-gray-700 bg-gray-800 hover:border-pink-500'
+                ? 'border-accent-500 bg-matte-dark shadow-lg shadow-accent-500/20'
+                : 'border-matte-gray bg-matte-dark hover:border-accent-500/50'
             }`}
             onClick={() => handleTemplateSelect('stanford')}
           >
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-700">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
+            {/* Image Preview */}
+            <div className="mb-4 overflow-hidden rounded-lg border border-matte-gray">
+              <div className="relative aspect-[8.5/11] w-full">
+                <Image
+                  src="/static/images/Stanford_Screenshot.png"
+                  alt="Stanford Resume Template Preview"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
+            </div>
+            <div className="text-center">
               <h3 className="mb-2 text-xl font-bold text-white">
                 Stanford Template
                 {selectedTemplate === 'stanford' && (
-                  <span className="ml-2 text-red-500">✓ Selected</span>
+                  <span className="ml-2 text-accent-500">✓ Selected</span>
                 )}
               </h3>
-              <p className="mb-4 text-gray-300">
+              <p className="mb-4 text-sm text-gray-300">
                 Academic-style template with Times New Roman font, perfect for graduate school
                 applications and research positions.
               </p>
               <div className="space-y-2 text-sm text-gray-400">
                 <div className="flex items-center">
                   <svg
-                    className="mr-2 h-4 w-4 text-red-500"
+                    className="mr-2 h-4 w-4 text-accent-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -396,7 +394,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                 </div>
                 <div className="flex items-center">
                   <svg
-                    className="mr-2 h-4 w-4 text-red-500"
+                    className="mr-2 h-4 w-4 text-accent-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -412,7 +410,7 @@ const TemplateSelectionPage = ({ resumeData, resumeId, onBack }: TemplateSelecti
                 </div>
                 <div className="flex items-center">
                   <svg
-                    className="mr-2 h-4 w-4 text-red-500"
+                    className="mr-2 h-4 w-4 text-accent-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

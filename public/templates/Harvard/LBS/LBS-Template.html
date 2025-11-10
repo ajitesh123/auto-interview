@@ -14,15 +14,18 @@
 
         body {
 
-            font-family: Arial, sans-serif;
+            /* Prefer Calibri to better match DOCX metrics, fall back to Arial */
+            font-family: 'Calibri', Arial, sans-serif;
 
-            max-width: 800px;
+            /* Match US Letter width: 8.5in @ 96dpi ≈ 816px */
+            max-width: 816px;
 
             margin: 0 auto;
 
             padding: 40px;
 
-            line-height: 1.2;
+            /* Match DOCX default line spacing */
+            line-height: 1.15;
 
             color: #000;
 
@@ -180,7 +183,9 @@
 
             margin: 8px 0;
 
-            padding-left: 20px;
+            /* Hanging indent + outside bullets to match Word wrapping */
+            list-style: disc outside;
+            padding-left: 24px;
 
             font-size: 10pt;
 
@@ -192,7 +197,8 @@
 
             margin-bottom: 4px;
 
-            padding-left: 5px;
+            /* remove extra padding so wrapped lines align under text */
+            padding-left: 0;
 
             font-size: 10pt;
 
