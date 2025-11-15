@@ -10,7 +10,6 @@ interface CategoryTab {
   title: string
   subtitle: string
   badge: string
-  accent: string
   comingSoon?: boolean
 }
 
@@ -43,14 +42,12 @@ const categoryTabs: CategoryTab[] = [
     title: 'MBA Career Vault',
     subtitle: 'Break into consulting, product, marketing, finance, and GM roles faster.',
     badge: 'New',
-    accent: 'from-indigo-500/20 to-purple-500/20 border-indigo-500/60',
   },
   {
     id: 'coding',
     title: 'Coding Interview Lab',
     subtitle: 'DSA drills, system design labs, and FAANG-ready resumes.',
     badge: 'Coming soon',
-    accent: 'from-emerald-500/20 to-cyan-500/20 border-emerald-500/60',
     comingSoon: true,
   },
   {
@@ -58,7 +55,6 @@ const categoryTabs: CategoryTab[] = [
     title: 'Chartered Accountant Hub',
     subtitle: 'Audit-ready templates, ERM trackers, CFO interview loops.',
     badge: 'Coming soon',
-    accent: 'from-amber-500/20 to-orange-500/20 border-amber-500/60',
     comingSoon: true,
   },
 ]
@@ -197,11 +193,10 @@ const quickWins = [
 
 const FreeResourcesPage = () => {
   const [activeCategory, setActiveCategory] = useState<PrimaryCategory>('mba')
-
-  const categoryAccent = useMemo(
-    () => categoryTabs.find((tab) => tab.id === activeCategory)?.accent ?? 'from-indigo-500',
-    [activeCategory]
-  )
+  const glassGreen =
+    'bg-white/5 border border-emerald-100/30 hover:border-emerald-100/70 hover:bg-emerald-200/10 text-emerald-100'
+  const activePurple =
+    'bg-gradient-to-r from-purple-500/80 via-fuchsia-500/80 to-purple-600/80 border border-purple-200/70 text-white shadow-[0_20px_50px_rgba(168,85,247,0.35)]'
 
   return (
     <div className="flex min-h-full w-full flex-col px-6 py-10 text-white sm:px-8 lg:px-16">
@@ -253,26 +248,22 @@ const FreeResourcesPage = () => {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`group rounded-3xl border bg-gradient-to-r px-5 py-5 text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
-                  category.accent
-                } ${
-                  isActive
-                    ? 'opacity-100 ring-2 ring-offset-2 ring-accent-400 ring-offset-gray-950'
-                    : 'opacity-70'
-                }`}
+                className={`group rounded-3xl px-5 py-5 text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
+                  isActive ? activePurple : `${glassGreen} text-white/90`
+                } ${category.comingSoon ? 'backdrop-blur-lg' : ''}`}
               >
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-semibold uppercase tracking-widest text-gray-200">
                     {category.badge}
                   </p>
                   {category.comingSoon && (
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase text-white">
+                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase text-white shadow-inner shadow-black/20">
                       Preview
                     </span>
                   )}
                 </div>
                 <h3 className="mt-3 text-2xl font-bold text-white">{category.title}</h3>
-                <p className="mt-2 text-sm text-gray-200">{category.subtitle}</p>
+                <p className="mt-2 text-sm text-gray-100/90">{category.subtitle}</p>
               </button>
             )
           })}
@@ -296,7 +287,7 @@ const FreeResourcesPage = () => {
             {mbaFolders.map((folder) => (
               <div
                 key={folder.id}
-                className={`flex flex-col rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur`}
+                className={`flex flex-col rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_35px_60px_rgba(0,0,0,0.35)]`}
               >
                 <div className="flex items-center justify-between text-xs uppercase tracking-widest text-gray-200">
                   <span>{folder.stats}</span>
@@ -317,13 +308,13 @@ const FreeResourcesPage = () => {
                 <div className="mt-auto flex flex-col gap-3 pt-6">
                   <Link
                     href={folder.primaryAction.href}
-                    className="flex items-center justify-center rounded-xl bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/30"
+                    className="flex items-center justify-center rounded-xl bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:bg-white/30"
                   >
                     {folder.primaryAction.label}
                   </Link>
                   <Link
                     href={folder.secondaryAction.href}
-                    className="flex items-center justify-center rounded-xl border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                    className="flex items-center justify-center rounded-xl border border-white/30 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:border-white hover:bg-white/10"
                   >
                     {folder.secondaryAction.label}
                   </Link>
@@ -338,7 +329,11 @@ const FreeResourcesPage = () => {
       {activeCategory !== 'mba' && (
         <section className="mb-16">
           <div
-            className={`rounded-3xl border border-white/10 bg-gradient-to-br ${categoryAccent} p-10 text-center shadow-2xl shadow-black/40`}
+            className={`rounded-3xl border border-white/10 p-10 text-center shadow-2xl shadow-black/40 ${
+              activeCategory === 'coding'
+                ? 'bg-gradient-to-br from-emerald-400/20 via-emerald-500/10 to-teal-600/20'
+                : 'bg-gradient-to-br from-amber-400/20 via-amber-500/10 to-amber-600/20'
+            } backdrop-blur-lg`}
           >
             <p className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-white">
               Coming Soon
