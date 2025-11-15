@@ -36,6 +36,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       title: 'Generate Custom Cover Letter',
       href: '/cover-letter',
     },
+    {
+      id: 'free-resources',
+      title: 'Free Resources Library',
+      href: '/free-resources',
+    },
   ]
 
   const isActive = (href: string) => {

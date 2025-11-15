@@ -3,155 +3,175 @@
 import { useMemo, useState } from 'react'
 import Link from '@/components/Link'
 
-type CategoryFilter =
-  | 'All'
-  | 'Resume Templates'
-  | 'Interview Prep'
-  | 'Job Search'
-  | 'Career Strategy'
+type PrimaryCategory = 'mba' | 'coding' | 'ca'
 
-interface ResourceCard {
+interface CategoryTab {
+  id: PrimaryCategory
+  title: string
+  subtitle: string
+  badge: string
+  accent: string
+  comingSoon?: boolean
+}
+
+interface FolderCard {
   id: string
   title: string
   description: string
-  category: Exclude<CategoryFilter, 'All'>
-  link: string
-  format: string
-  time: string
-  actionText?: string
-  isNew?: boolean
-}
-
-interface Bundle {
-  title: string
-  description: string
-  items: string[]
-  cta: {
+  accent: string
+  stats: string
+  highlights: string[]
+  primaryAction: {
+    label: string
+    href: string
+  }
+  secondaryAction: {
     label: string
     href: string
   }
 }
 
-const categoryFilters: CategoryFilter[] = [
-  'All',
-  'Resume Templates',
-  'Interview Prep',
-  'Job Search',
-  'Career Strategy',
-]
-
 const heroStats = [
-  { label: 'Free templates', value: '12', helper: 'ATS-friendly layouts' },
+  { label: 'MBA-ready folders', value: '6', helper: 'Consulting to PM' },
   { label: 'Guides & playbooks', value: '18', helper: 'Step-by-step walkthroughs' },
   { label: 'Community downloads', value: '42k+', helper: 'Across 120 countries' },
 ]
 
-const resources: ResourceCard[] = [
+const categoryTabs: CategoryTab[] = [
   {
-    id: 'harvard-template',
-    title: 'Harvard Resume Template (HTML + CSS)',
-    description:
-      'Battle-tested single-column resume structure that mirrors the Harvard career center format. Download the responsive HTML file and customize instantly.',
-    category: 'Resume Templates',
-    link: '/templates/Harvard/harvard-template.html',
-    format: 'HTML + CSS',
-    time: '5 min setup',
-    isNew: true,
+    id: 'mba',
+    title: 'MBA Career Vault',
+    subtitle: 'Break into consulting, product, marketing, finance, and GM roles faster.',
+    badge: 'New',
+    accent: 'from-indigo-500/20 to-purple-500/20 border-indigo-500/60',
   },
   {
-    id: 'stanford-template',
-    title: 'Stanford Resume Template',
-    description:
-      'Clean, minimalist layout favored by product and strategy roles. Includes typography guidance plus spacing rules for ATS parsing.',
-    category: 'Resume Templates',
-    link: '/templates/Harvard/Stanford/Stanford-template.html',
-    format: 'HTML',
-    time: 'Copy → paste into builder',
+    id: 'coding',
+    title: 'Coding Interview Lab',
+    subtitle: 'DSA drills, system design labs, and FAANG-ready resumes.',
+    badge: 'Coming soon',
+    accent: 'from-emerald-500/20 to-cyan-500/20 border-emerald-500/60',
+    comingSoon: true,
   },
   {
-    id: 'lbs-template',
-    title: 'London Business School Template',
-    description:
-      'Two-column layout that highlights leadership impact and extracurriculars—perfect for MBA, consulting, and growth roles.',
-    category: 'Resume Templates',
-    link: '/templates/Harvard/LBS/LBS-Template.html',
-    format: 'HTML',
-    time: 'Ready in 7 min',
-  },
-  {
-    id: 'pm-checklist',
-    title: 'Product Management Interview Checklist',
-    description:
-      'Comprehensive checklist covering discovery, execution, metrics, and leadership prompts. Use before every onsite loop.',
-    category: 'Interview Prep',
-    link: '/downloads/pm-interview-checklist.md',
-    format: 'Markdown / PDF export',
-    time: 'Print-ready',
-  },
-  {
-    id: 'pm-templates',
-    title: 'PM Interview Answer Templates',
-    description:
-      'Fill-in-the-blank templates for product sense, estimation, and system design responses so you never blank out again.',
-    category: 'Interview Prep',
-    link: '/downloads/pm-interview-templates.md',
-    format: 'Markdown',
-    time: '2 min to customize',
-  },
-  {
-    id: 'ats-guide',
-    title: 'ATS Resume Optimization Guide',
-    description:
-      'Step-by-step article that explains how to structure sections, keyword balance, and formatting so you consistently score 80+ on ATS scans.',
-    category: 'Career Strategy',
-    link: '/blog/ats-resume-optimization',
-    format: 'In-depth article',
-    time: '10 min read',
-  },
-  {
-    id: 'job-search-playbook',
-    title: 'Job Search Playbook (LinkedIn Edition)',
-    description:
-      'Complete walkthrough for sourcing leads, saving searches, and building a 15-min daily routine to stay ahead of stealth postings.',
-    category: 'Job Search',
-    link: '/blog/how-to-find-jobs-complete-guide',
-    format: 'Playbook',
-    time: '15 min read',
-  },
-  {
-    id: 'career-roadmap',
-    title: 'Complete Job Preparation Guide 2025',
-    description:
-      'Master checklist that shows the exact order to build resumes, score them, find roles, and prep interviews without burning out.',
-    category: 'Career Strategy',
-    link: '/blog/complete-job-preparation-guide-2025',
-    format: 'Guide',
-    time: 'Bookmark-friendly',
+    id: 'ca',
+    title: 'Chartered Accountant Hub',
+    subtitle: 'Audit-ready templates, ERM trackers, CFO interview loops.',
+    badge: 'Coming soon',
+    accent: 'from-amber-500/20 to-orange-500/20 border-amber-500/60',
+    comingSoon: true,
   },
 ]
 
-const bundles: Bundle[] = [
+const mbaFolders: FolderCard[] = [
   {
-    title: 'Resume Launch Kit',
+    id: 'consulting',
+    title: 'Consulting',
     description:
-      'Start from a blank canvas, turn it into an ATS-ready resume, and verify the score before you send a single application.',
-    items: ['Harvard template', 'ATS checklist', 'Keyword planner worksheet'],
-    cta: { label: 'Open Resume Builder', href: '/build-resume' },
+      'Case interview math sheets, MECE storytelling flows, and partner-review resume templates.',
+    accent: 'from-purple-600/80 via-indigo-600/60 to-indigo-900/60',
+    stats: '8 premium templates',
+    highlights: ['Harvard resume skin', 'Case math crib sheet', 'Partner debrief script'],
+    primaryAction: {
+      label: 'Launch Consulting Kit',
+      href: '/templates/Harvard/harvard-template.html',
+    },
+    secondaryAction: {
+      label: 'Read case prep guide',
+      href: '/blog/complete-job-preparation-guide-2025',
+    },
   },
   {
-    title: 'Interview Confidence Kit',
+    id: 'finance',
+    title: 'Finance',
     description:
-      'Warm-up routine that keeps you sharp: structure answers, refresh frameworks, and rehearse high-signal stories.',
-    items: ['PM interview checklist', 'Answer templates', 'AI mock prompts'],
-    cta: { label: 'Generate Cover Letter & Stories', href: '/cover-letter' },
+      'Pitch deck outlines, buy-side resume bullets, and Excel-ready valuation trackers.',
+    accent: 'from-blue-600/80 via-sky-600/60 to-blue-900/60',
+    stats: '6 curated playbooks',
+    highlights: ['1-pager template', 'Deal sheet builder', 'Capital markets outreach doc'],
+    primaryAction: {
+      label: 'Download LBS Template',
+      href: '/templates/Harvard/LBS/LBS-Template.html',
+    },
+    secondaryAction: {
+      label: 'See outreach playbook',
+      href: '/blog/how-to-find-jobs-complete-guide',
+    },
   },
   {
-    title: 'Opportunity Engine',
+    id: 'general-management',
+    title: 'General Management',
     description:
-      'Organize searches, stack-ranked leads, and outreach cadences to source 10-15 qualified interviews per month.',
-    items: ['Job search playbook', 'Application tracker', 'Daily outreach script'],
-    cta: { label: 'Find Jobs Now', href: '/find-jobs' },
+      'Operating rhythm checklists, OKR dashboards, and executive briefing memos for GM roles.',
+    accent: 'from-pink-600/80 via-rose-500/60 to-rose-900/60',
+    stats: '5 scaled frameworks',
+    highlights: ['Executive summary sheet', 'Cross-functional scorecards', 'Board update memo'],
+    primaryAction: {
+      label: 'Use Modern Template',
+      href: '/templates/Harvard/Stanford/Stanford-template.html',
+    },
+    secondaryAction: {
+      label: 'View leadership guide',
+      href: '/blog/complete-job-preparation-guide-2025',
+    },
   },
+  {
+    id: 'hr',
+    title: 'HR / People',
+    description:
+      'Competency interview scripts, behavioral scorecards, and culture pulse survey doc.',
+    accent: 'from-amber-500/80 via-orange-500/60 to-orange-900/60',
+    stats: '4 ready-to-use packs',
+    highlights: ['Behavioral answer bank', 'Change management playbook', 'Ops dashboard'],
+    primaryAction: {
+      label: 'Download Checklist',
+      href: '/downloads/pm-interview-checklist.md',
+    },
+    secondaryAction: {
+      label: 'Prep with TL;DR',
+      href: '/blog/behavioral-interview-star-method-guide',
+    },
+  },
+  {
+    id: 'marketing',
+    title: 'Marketing',
+    description:
+      'Launch brief blueprints, growth OKR trackers, and campaign retro templates for CMOs.',
+    accent: 'from-fuchsia-600/80 via-purple-500/60 to-purple-900/60',
+    stats: '7 launch assets',
+    highlights: ['Go-to-market outline', 'Creative retro doc', 'Channel impact tracker'],
+    primaryAction: {
+      label: 'Grab GTM Template',
+      href: '/downloads/pm-interview-templates.md',
+    },
+    secondaryAction: {
+      label: 'Review messaging guide',
+      href: '/blog/top-pm-interview-prep-resources',
+    },
+  },
+  {
+    id: 'product-management',
+    title: 'Product Management',
+    description:
+      'Product sense cheatsheets, estimation workbooks, and PM-ready Harvard templates.',
+    accent: 'from-emerald-600/80 via-teal-500/60 to-emerald-900/60',
+    stats: '10 PM artifacts',
+    highlights: ['PM interview templates', 'Estimation frameworks', 'Roadmap storytelling'],
+    primaryAction: {
+      label: 'Open PM Templates',
+      href: '/downloads/pm-interview-templates.md',
+    },
+    secondaryAction: {
+      label: 'Read PM guide',
+      href: '/blog/product-manager-interview-guide-2025',
+    },
+  },
+]
+
+const comingSoonHighlights = [
+  'Interactive editors with AI critiques',
+  'Scenario-based walkthroughs',
+  'One-click exports (PDF / DOCX / Notion)',
 ]
 
 const quickWins = [
@@ -176,12 +196,12 @@ const quickWins = [
 ]
 
 const FreeResourcesPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('All')
+  const [activeCategory, setActiveCategory] = useState<PrimaryCategory>('mba')
 
-  const visibleResources = useMemo(() => {
-    if (selectedCategory === 'All') return resources
-    return resources.filter((resource) => resource.category === selectedCategory)
-  }, [selectedCategory])
+  const categoryAccent = useMemo(
+    () => categoryTabs.find((tab) => tab.id === activeCategory)?.accent ?? 'from-indigo-500',
+    [activeCategory]
+  )
 
   return (
     <div className="flex min-h-full w-full flex-col px-6 py-10 text-white sm:px-8 lg:px-16">
@@ -225,66 +245,138 @@ const FreeResourcesPage = () => {
       </section>
 
       {/* Category Filters */}
-      <section className="mb-10">
-        <div className="mb-4 flex flex-wrap items-center gap-3">
-          {categoryFilters.map((category) => {
-            const isActive = category === selectedCategory
+      <section className="mb-12">
+        <div className="grid gap-4 md:grid-cols-3">
+          {categoryTabs.map((category) => {
+            const isActive = category.id === activeCategory
             return (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`group rounded-3xl border bg-gradient-to-r px-5 py-5 text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
+                  category.accent
+                } ${
                   isActive
-                    ? 'border-accent-400 bg-accent-500/20 text-white shadow-lg shadow-accent-500/30'
-                    : 'border-gray-700 bg-gray-900 text-gray-300 hover:border-accent-500/70 hover:text-white'
+                    ? 'opacity-100 ring-2 ring-offset-2 ring-accent-400 ring-offset-gray-950'
+                    : 'opacity-70'
                 }`}
-                aria-pressed={isActive}
               >
-                {category}
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-200">
+                    {category.badge}
+                  </p>
+                  {category.comingSoon && (
+                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase text-white">
+                      Preview
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-3 text-2xl font-bold text-white">{category.title}</h3>
+                <p className="mt-2 text-sm text-gray-200">{category.subtitle}</p>
               </button>
             )
           })}
         </div>
-        <p className="text-sm text-gray-400">
-          Showing {visibleResources.length} resource{visibleResources.length !== 1 ? 's' : ''} •{' '}
-          {selectedCategory === 'All' ? 'Browse everything in the library.' : selectedCategory}
-        </p>
       </section>
 
-      {/* Resource Grid */}
-      <section className="mb-16">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {visibleResources.map((resource) => (
-            <div
-              key={resource.id}
-              className="flex flex-col rounded-2xl border border-gray-800 bg-gray-900/80 p-6 transition-all hover:-translate-y-1 hover:border-accent-500/60 hover:bg-gray-900"
-            >
-              <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-widest">
-                <span className="font-semibold text-accent-300">{resource.category}</span>
-                {resource.isNew && (
-                  <span className="rounded-full bg-accent-500/20 px-3 py-1 text-[10px] font-bold text-accent-200">
-                    New
+      {/* MBA folders */}
+      {activeCategory === 'mba' && (
+        <section className="mb-16">
+          <div className="mb-8 rounded-3xl border border-gray-800 bg-gradient-to-r from-gray-900 via-gray-900 to-black p-6">
+            <p className="text-xs uppercase tracking-[0.4em] text-accent-300">MBA Vault</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">
+              Structured like your favourite Google Drive. Just faster.
+            </h2>
+            <p className="mt-2 text-sm text-gray-300">
+              Click into a folder to grab templates, scripts, and checklists tailored for that track.
+              Every asset is ATS-friendly and ready to remix inside Auto Interview AI.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {mbaFolders.map((folder) => (
+              <div
+                key={folder.id}
+                className={`flex flex-col rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur`}
+              >
+                <div className="flex items-center justify-between text-xs uppercase tracking-widest text-gray-200">
+                  <span>{folder.stats}</span>
+                  <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold">
+                    Folder
                   </span>
-                )}
+                </div>
+                <h3 className="mt-3 text-2xl font-bold text-white">{folder.title}</h3>
+                <p className="mt-2 text-sm text-gray-100">{folder.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-white/90">
+                  {folder.highlights.map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="text-white/70">▹</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto flex flex-col gap-3 pt-6">
+                  <Link
+                    href={folder.primaryAction.href}
+                    className="flex items-center justify-center rounded-xl bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/30"
+                  >
+                    {folder.primaryAction.label}
+                  </Link>
+                  <Link
+                    href={folder.secondaryAction.href}
+                    className="flex items-center justify-center rounded-xl border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                  >
+                    {folder.secondaryAction.label}
+                  </Link>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-white">{resource.title}</h3>
-              <p className="mt-2 text-sm text-gray-300">{resource.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-400">
-                <span className="rounded-full border border-gray-700 px-3 py-1">{resource.format}</span>
-                <span className="rounded-full border border-gray-700 px-3 py-1">{resource.time}</span>
-              </div>
-              <div className="mt-auto pt-6">
-                <Link
-                  href={resource.link}
-                  className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-accent-500 to-accent-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-accent-400 hover:to-accent-500"
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Coming soon */}
+      {activeCategory !== 'mba' && (
+        <section className="mb-16">
+          <div
+            className={`rounded-3xl border border-white/10 bg-gradient-to-br ${categoryAccent} p-10 text-center shadow-2xl shadow-black/40`}
+          >
+            <p className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-white">
+              Coming Soon
+            </p>
+            <h2 className="mt-4 text-4xl font-bold text-white">
+              {activeCategory === 'coding'
+                ? 'Coding Interview Lab drops next.'
+                : 'CA leadership toolkit in progress.'}
+            </h2>
+            <p className="mt-3 text-lg text-gray-100">
+              Our team is packaging editor-ready playbooks, animated explainers, and AI workflows
+              purpose-built for this track. Join the waitlist to get early access.
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {comingSoonHighlights.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm text-white shadow-inner shadow-black/20 backdrop-blur"
                 >
-                  {resource.actionText ?? 'Download Free'}
-                </Link>
-              </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 animate-ping rounded-full bg-white"></span>
+                    <p>{item}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+            <Link
+              href="/contact-policy"
+              className="mt-8 inline-flex items-center rounded-full bg-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/30"
+            >
+              Notify me when live
+              <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Bundles */}
       <section className="mb-16">
@@ -299,7 +391,29 @@ const FreeResourcesPage = () => {
           </div>
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
-          {bundles.map((bundle) => (
+          {[
+            {
+              title: 'Resume Launch Kit',
+              description:
+                'Start from a blank canvas, turn it into an ATS-ready resume, and verify the score before you send a single application.',
+              items: ['Harvard template', 'ATS checklist', 'Keyword planner worksheet'],
+              href: '/build-resume',
+            },
+            {
+              title: 'Interview Confidence Kit',
+              description:
+                'Warm-up routine that keeps you sharp: structure answers, refresh frameworks, and rehearse high-signal stories.',
+              items: ['PM interview checklist', 'Answer templates', 'AI mock prompts'],
+              href: '/cover-letter',
+            },
+            {
+              title: 'Opportunity Engine',
+              description:
+                'Organize searches, stack-ranked leads, and outreach cadences to source 10-15 qualified interviews per month.',
+              items: ['Job search playbook', 'Application tracker', 'Daily outreach script'],
+              href: '/find-jobs',
+            },
+          ].map((bundle) => (
             <div
               key={bundle.title}
               className="flex flex-col rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900 to-gray-950 p-6"
@@ -316,10 +430,10 @@ const FreeResourcesPage = () => {
               </ul>
               <div className="mt-auto pt-6">
                 <Link
-                  href={bundle.cta.href}
+                  href={bundle.href}
                   className="inline-flex w-full items-center justify-center rounded-xl border border-accent-500/40 px-4 py-2 text-sm font-semibold text-accent-200 transition hover:border-accent-400 hover:bg-accent-500/10"
                 >
-                  {bundle.cta.label}
+                  Launch workflow
                 </Link>
               </div>
             </div>
