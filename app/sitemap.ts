@@ -31,7 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const getRoutePriority = (route: string) => {
     if (route === '') return 1.0 // Homepage - highest priority
     // Feature pages are core business value - very high priority
-    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter'].includes(route)) return 0.95
+    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter', 'free-resources'].includes(route))
+      return 0.95
     if (route === 'blog') return 0.9 // Blog index is important
     if (route === 'about') return 0.85 // About page for E-E-A-T
     // Policy pages - lower priority but still important for trust
@@ -42,7 +43,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Helper function to determine change frequency
   const getChangeFrequency = (route: string) => {
     if (route === '') return 'daily' as const // Homepage changes frequently
-    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter'].includes(route)) return 'weekly' as const
+    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter', 'free-resources'].includes(route))
+      return 'weekly' as const
     if (route === 'blog') return 'daily' as const // Blog index updates with new posts
     return 'monthly' as const // Static pages change less frequently
   }
@@ -56,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'ats-score',
     'find-jobs',
     'cover-letter',
+    'free-resources',
     'privacy-policy',
     'terms-conditions',
     'refund-policy',

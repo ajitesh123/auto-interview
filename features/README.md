@@ -60,6 +60,14 @@ features/
   - AI content generation
   - Export options
 
+### 6. Free Resources (`free-resources/`)
+- **Component**: `FreeResourcesPage`
+- **Purpose**: Showcase ungated templates, playbooks, and checklists
+- **Key Features**:
+  - Category filters for resume, interview, and job search assets
+  - Download links to HTML templates, Markdown guides, and blog playbooks
+  - Curated bundles that map resources to core product flows
+
 ## Development Guidelines
 
 ### Adding New Features

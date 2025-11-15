@@ -74,6 +74,12 @@ const HomePage = () => {
       description: 'Create personalized cover letters',
       href: '/cover-letter',
     },
+    {
+      id: 'free-resources',
+      title: 'Free Resources Library',
+      description: 'Download templates, checklists, and playbooks',
+      href: '/free-resources',
+    },
   ]
 
   const handleFeatureClick = (feature: any) => {

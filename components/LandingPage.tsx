@@ -10,6 +10,7 @@ import { ATSScorePage } from '../features/ats-score'
 import { FindJobsPage } from '../features/find-jobs'
 // import { AssessmentsPage } from '../features/assessments' // Removed - now redirects to Tough Tongue AI
 import { CoverLetterPage } from '../features/cover-letter'
+import { FreeResourcesPage } from '../features/free-resources'
 
 const LandingPage = () => {
   const [activeMenu, setActiveMenu] = useState('Build Resume')
@@ -21,6 +22,7 @@ const LandingPage = () => {
     'Find Jobs',
     'Practice Interview',
     'Generate Custom Cover Letter',
+    'Free Resources',
   ]
 
   const renderMainContent = () => {
@@ -34,6 +36,8 @@ const LandingPage = () => {
       // Try Assessments case removed - now redirects to Tough Tongue AI
       case 'Generate Custom Cover Letter':
         return <CoverLetterPage />
+      case 'Free Resources':
+        return <FreeResourcesPage />
       default:
         return <BuildResumePage key={buildResumeKey} />
     }
@@ -78,6 +82,12 @@ const LandingPage = () => {
         <p>
           Practice with AI-powered mock interviews to boost your confidence and performance in real
           interviews.
+        </p>
+
+        <h2>Free Resources Library</h2>
+        <p>
+          Download ATS-friendly resume templates, interview checklists, outreach scripts, and job search
+          playbooks curated by the Auto Interview AI team. Every resource is 100% free and ungated.
         </p>
 
         <h3>Key Features:</h3>

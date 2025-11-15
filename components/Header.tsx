@@ -17,6 +17,7 @@ const Header = () => {
     { href: '/ats-score', title: 'Check ATS Score', icon: '📊' },
     { href: '/find-jobs', title: 'Find Jobs', icon: '🔍' },
     { href: '/cover-letter', title: 'Cover Letter', icon: '✍️' },
+    { href: '/free-resources', title: 'Free Resources', icon: '🎁' },
   ]
 
   return (

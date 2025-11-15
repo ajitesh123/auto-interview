@@ -36,6 +36,12 @@ const allTools: Tool[] = [
     href: '/cover-letter',
     icon: '✉️',
   },
+  {
+    title: 'Free Resources Library',
+    description: 'Download templates, checklists, and job search playbooks',
+    href: '/free-resources',
+    icon: '🎁',
+  },
 ]
 
 export default function RelatedTools({ currentPage }: RelatedToolsProps) {

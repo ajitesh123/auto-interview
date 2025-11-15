@@ -34,6 +34,7 @@ const SEOFeatures = () => {
               'Cover Letter Generator',
               'Skill Assessments',
               'Mock Interview Practice',
+              'Free Resources Library',
             ],
             creator: {
               '@type': 'Organization',
@@ -189,6 +190,29 @@ const SEOFeatures = () => {
                 'Data analysis assessments',
                 'Leadership evaluations',
                 'Progress tracking',
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: 'Free Career Resources Library',
+              description:
+                'Ungated collection of resume templates, interview checklists, outreach scripts, and job search playbooks curated by Auto Interview AI',
+              url: 'https://www.autointerviewai.com/free-resources',
+              applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              featureList: [
+                'ATS-friendly resume templates',
+                'Interview checklists and answer frameworks',
+                'Job search and outreach playbooks',
+                'Cover letter scripts',
+                'Keyword planners and trackers',
+                'Plug-and-play execution bundles',
               ],
             },
           ]),
