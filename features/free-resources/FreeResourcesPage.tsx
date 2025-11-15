@@ -13,21 +13,19 @@ interface CategoryTab {
   comingSoon?: boolean
 }
 
+interface FolderFile {
+  id: string
+  name: string
+  description: string
+  href: string
+  format: string
+}
+
 interface FolderCard {
   id: string
   title: string
-  description: string
   accent: string
-  stats: string
-  highlights: string[]
-  primaryAction: {
-    label: string
-    href: string
-  }
-  secondaryAction: {
-    label: string
-    href: string
-  }
+  files: FolderFile[]
 }
 
 const heroStats = [
@@ -63,104 +61,46 @@ const mbaFolders: FolderCard[] = [
   {
     id: 'consulting',
     title: 'Consulting',
-    description:
-      'Case interview math sheets, MECE storytelling flows, and partner-review resume templates.',
     accent: 'from-purple-600/80 via-indigo-600/60 to-indigo-900/60',
-    stats: '8 premium templates',
-    highlights: ['Harvard resume skin', 'Case math crib sheet', 'Partner debrief script'],
-    primaryAction: {
-      label: 'Launch Consulting Kit',
-      href: '/templates/Harvard/harvard-template.html',
-    },
-    secondaryAction: {
-      label: 'Read case prep guide',
-      href: '/blog/complete-job-preparation-guide-2025',
-    },
+    files: [
+      {
+        id: 'iimc-casebook',
+        name: 'IIM Calcutta Casebook',
+        description: 'Complete IIM-C case interview book covering frameworks, math, and sample drills.',
+        href: '/downloads/IIMC_Casebook_24-25.pdf',
+        format: 'PDF',
+      },
+    ],
   },
   {
     id: 'finance',
     title: 'Finance',
-    description:
-      'Pitch deck outlines, buy-side resume bullets, and Excel-ready valuation trackers.',
     accent: 'from-blue-600/80 via-sky-600/60 to-blue-900/60',
-    stats: '6 curated playbooks',
-    highlights: ['1-pager template', 'Deal sheet builder', 'Capital markets outreach doc'],
-    primaryAction: {
-      label: 'Download LBS Template',
-      href: '/templates/Harvard/LBS/LBS-Template.html',
-    },
-    secondaryAction: {
-      label: 'See outreach playbook',
-      href: '/blog/how-to-find-jobs-complete-guide',
-    },
+    files: [],
   },
   {
     id: 'general-management',
     title: 'General Management',
-    description:
-      'Operating rhythm checklists, OKR dashboards, and executive briefing memos for GM roles.',
     accent: 'from-pink-600/80 via-rose-500/60 to-rose-900/60',
-    stats: '5 scaled frameworks',
-    highlights: ['Executive summary sheet', 'Cross-functional scorecards', 'Board update memo'],
-    primaryAction: {
-      label: 'Use Modern Template',
-      href: '/templates/Harvard/Stanford/Stanford-template.html',
-    },
-    secondaryAction: {
-      label: 'View leadership guide',
-      href: '/blog/complete-job-preparation-guide-2025',
-    },
+    files: [],
   },
   {
     id: 'hr',
     title: 'HR / People',
-    description:
-      'Competency interview scripts, behavioral scorecards, and culture pulse survey doc.',
     accent: 'from-amber-500/80 via-orange-500/60 to-orange-900/60',
-    stats: '4 ready-to-use packs',
-    highlights: ['Behavioral answer bank', 'Change management playbook', 'Ops dashboard'],
-    primaryAction: {
-      label: 'Download Checklist',
-      href: '/downloads/pm-interview-checklist.md',
-    },
-    secondaryAction: {
-      label: 'Prep with TL;DR',
-      href: '/blog/behavioral-interview-star-method-guide',
-    },
+    files: [],
   },
   {
     id: 'marketing',
     title: 'Marketing',
-    description:
-      'Launch brief blueprints, growth OKR trackers, and campaign retro templates for CMOs.',
     accent: 'from-fuchsia-600/80 via-purple-500/60 to-purple-900/60',
-    stats: '7 launch assets',
-    highlights: ['Go-to-market outline', 'Creative retro doc', 'Channel impact tracker'],
-    primaryAction: {
-      label: 'Grab GTM Template',
-      href: '/downloads/pm-interview-templates.md',
-    },
-    secondaryAction: {
-      label: 'Review messaging guide',
-      href: '/blog/top-pm-interview-prep-resources',
-    },
+    files: [],
   },
   {
     id: 'product-management',
     title: 'Product Management',
-    description:
-      'Product sense cheatsheets, estimation workbooks, and PM-ready Harvard templates.',
     accent: 'from-emerald-600/80 via-teal-500/60 to-emerald-900/60',
-    stats: '10 PM artifacts',
-    highlights: ['PM interview templates', 'Estimation frameworks', 'Roadmap storytelling'],
-    primaryAction: {
-      label: 'Open PM Templates',
-      href: '/downloads/pm-interview-templates.md',
-    },
-    secondaryAction: {
-      label: 'Read PM guide',
-      href: '/blog/product-manager-interview-guide-2025',
-    },
+    files: [],
   },
 ]
 
@@ -193,10 +133,22 @@ const quickWins = [
 
 const FreeResourcesPage = () => {
   const [activeCategory, setActiveCategory] = useState<PrimaryCategory>('mba')
+  const [expandedFolderId, setExpandedFolderId] = useState<string | null>(null)
+  const [downloadingFileId, setDownloadingFileId] = useState<string | null>(null)
   const glassGreen =
     'bg-white/5 border border-emerald-100/30 hover:border-emerald-100/70 hover:bg-emerald-200/10 text-emerald-100'
   const activePurple =
     'bg-gradient-to-r from-purple-500/80 via-fuchsia-500/80 to-purple-600/80 border border-purple-200/70 text-white shadow-[0_20px_50px_rgba(168,85,247,0.35)]'
+
+  const toggleFolder = (folderId: string) => {
+    setExpandedFolderId((prev) => (prev === folderId ? null : folderId))
+  }
+
+  const handleFileDownload = (file: FolderFile) => {
+    setDownloadingFileId(file.id)
+    window.open(file.href, '_blank')
+    setTimeout(() => setDownloadingFileId((current) => (current === file.id ? null : current)), 1500)
+  }
 
   return (
     <div className="flex min-h-full w-full flex-col px-6 py-10 text-white sm:px-8 lg:px-16">
@@ -276,51 +228,107 @@ const FreeResourcesPage = () => {
           <div className="mb-8 rounded-3xl border border-gray-800 bg-gradient-to-r from-gray-900 via-gray-900 to-black p-6">
             <p className="text-xs uppercase tracking-[0.4em] text-accent-300">MBA Vault</p>
             <h2 className="mt-3 text-3xl font-bold text-white">
-              Structured like your favourite Google Drive. Just faster.
+              Structured like your favourite Drive. Click a folder to reveal files.
             </h2>
             <p className="mt-2 text-sm text-gray-300">
-              Click into a folder to grab templates, scripts, and checklists tailored for that track.
-              Every asset is ATS-friendly and ready to remix inside Auto Interview AI.
+              Minimal surface, zero clutter. Tap “Click to open” to peek inside a folder and grab the
+              resources you need.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {mbaFolders.map((folder) => (
-              <div
-                key={folder.id}
-                className={`flex flex-col rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_35px_60px_rgba(0,0,0,0.35)]`}
-              >
-                <div className="flex items-center justify-between text-xs uppercase tracking-widest text-gray-200">
-                  <span>{folder.stats}</span>
-                  <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold">
-                    Folder
-                  </span>
+            {mbaFolders.map((folder) => {
+              const isExpanded = expandedFolderId === folder.id
+              return (
+                <div
+                  key={folder.id}
+                  className={`rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-white/70">Folder</p>
+                      <h3 className="mt-3 text-2xl font-bold text-white">{folder.title}</h3>
+                    </div>
+                    <button
+                      onClick={() => toggleFolder(folder.id)}
+                      className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
+                        isExpanded ? 'bg-white/90 text-gray-900' : 'bg-white/15 text-white'
+                      }`}
+                    >
+                      {isExpanded ? 'Hide files' : 'Click to open'}
+                    </button>
+                  </div>
+                  {isExpanded && (
+                    <div className="mt-6 rounded-2xl border border-white/20 bg-black/20 p-4 shadow-inner shadow-black/40">
+                      {folder.files.length > 0 ? (
+                        <ul className="space-y-3">
+                          {folder.files.map((file) => (
+                            <li
+                              key={file.id}
+                              className="rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/90"
+                            >
+                              <div className="flex flex-col gap-1">
+                                <div className="flex items-center justify-between">
+                                  <p className="font-semibold text-white">{file.name}</p>
+                                  <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] uppercase tracking-widest text-white/70">
+                                    {file.format}
+                                  </span>
+                                </div>
+                                <p className="text-white/70">{file.description}</p>
+                                <button
+                                  onClick={() => handleFileDownload(file)}
+                                  className="mt-2 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-accent-100 transition-all duration-300 hover:bg-white/20 hover:text-white"
+                                  disabled={downloadingFileId === file.id}
+                                >
+                                  {downloadingFileId === file.id ? (
+                                    <>
+                                      <svg
+                                        className="mr-2 h-4 w-4 animate-spin text-white"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M4 12a8 8 0 018-8 8 8 0 018 8 8 8 0 01-8 8"
+                                        />
+                                      </svg>
+                                      Preparing...
+                                    </>
+                                  ) : (
+                                    <>
+                                      Click to download
+                                      <svg
+                                        className="ml-2 h-3 w-3"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        />
+                                      </svg>
+                                    </>
+                                  )}
+                                </button>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm text-white/70">
+                          Files coming soon
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <h3 className="mt-3 text-2xl font-bold text-white">{folder.title}</h3>
-                <p className="mt-2 text-sm text-gray-100">{folder.description}</p>
-                <ul className="mt-4 space-y-2 text-sm text-white/90">
-                  {folder.highlights.map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="text-white/70">▹</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto flex flex-col gap-3 pt-6">
-                  <Link
-                    href={folder.primaryAction.href}
-                    className="flex items-center justify-center rounded-xl bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:bg-white/30"
-                  >
-                    {folder.primaryAction.label}
-                  </Link>
-                  <Link
-                    href={folder.secondaryAction.href}
-                    className="flex items-center justify-center rounded-xl border border-white/30 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:border-white hover:bg-white/10"
-                  >
-                    {folder.secondaryAction.label}
-                  </Link>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </section>
       )}
