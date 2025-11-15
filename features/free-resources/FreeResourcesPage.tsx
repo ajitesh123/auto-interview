@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import Link from '@/components/Link'
 
 type PrimaryCategory = 'mba' | 'coding' | 'ca'
@@ -26,12 +26,13 @@ interface FolderCard {
   title: string
   accent: string
   files: FolderFile[]
+  hiddenDescription?: string
 }
 
 const heroStats = [
-  { label: 'MBA-ready folders', value: '6', helper: 'Consulting to PM' },
-  { label: 'Guides & playbooks', value: '18', helper: 'Step-by-step walkthroughs' },
-  { label: 'Community downloads', value: '42k+', helper: 'Across 120 countries' },
+  { label: 'MBA-ready folders', value: 6, helper: 'Consulting to PM', format: 'default' },
+  { label: 'Guides & playbooks', value: 18, helper: 'Step-by-step walkthroughs', format: 'default' },
+  { label: 'Community downloads', value: 42000, helper: 'Across 120 countries', format: 'k-plus' },
 ]
 
 const categoryTabs: CategoryTab[] = [
@@ -61,7 +62,7 @@ const mbaFolders: FolderCard[] = [
   {
     id: 'consulting',
     title: 'Consulting',
-    accent: 'from-purple-600/80 via-indigo-600/60 to-indigo-900/60',
+    accent: 'from-purple-600/50 via-indigo-600/40 to-indigo-900/40',
     files: [
       {
         id: 'iimc-casebook',
@@ -71,36 +72,48 @@ const mbaFolders: FolderCard[] = [
         format: 'PDF',
       },
     ],
+    hiddenDescription:
+      'Consulting prep downloads covering case interview frameworks, mental math practice, and partner-ready resume formats for global firms.',
   },
   {
     id: 'finance',
     title: 'Finance',
-    accent: 'from-blue-600/80 via-sky-600/60 to-blue-900/60',
+    accent: 'from-blue-600/40 via-sky-600/30 to-blue-900/30',
     files: [],
+    hiddenDescription:
+      'Finance folder references valuation templates, buy-side resume bullets, and investment banking pitch outlines for New York, London, and Singapore roles.',
   },
   {
     id: 'general-management',
     title: 'General Management',
-    accent: 'from-pink-600/80 via-rose-500/60 to-rose-900/60',
+    accent: 'from-pink-600/40 via-rose-500/30 to-rose-900/30',
     files: [],
+    hiddenDescription:
+      'General management resources include OKR scorecards and executive briefing decks optimized for global operators in the US, EU, and APAC.',
   },
   {
     id: 'hr',
     title: 'HR / People',
-    accent: 'from-amber-500/80 via-orange-500/60 to-orange-900/60',
+    accent: 'from-amber-500/40 via-orange-500/30 to-orange-900/30',
     files: [],
+    hiddenDescription:
+      'HR folder highlights behavioral interview scorecards, people ops dashboards, and culture surveys tuned for remote and hybrid teams worldwide.',
   },
   {
     id: 'marketing',
     title: 'Marketing',
-    accent: 'from-fuchsia-600/80 via-purple-500/60 to-purple-900/60',
+    accent: 'from-fuchsia-600/40 via-purple-500/30 to-purple-900/30',
     files: [],
+    hiddenDescription:
+      'Marketing downloads focus on go-to-market launch briefs, growth OKR templates, and messaging frameworks for SaaS, e-commerce, and consumer apps.',
   },
   {
     id: 'product-management',
     title: 'Product Management',
-    accent: 'from-emerald-600/80 via-teal-500/60 to-emerald-900/60',
+    accent: 'from-emerald-600/40 via-teal-500/30 to-emerald-900/30',
     files: [],
+    hiddenDescription:
+      'Product management folder covers product sense cheat sheets, estimation drills, and AI product requirement docs aligned with North America and India hiring.',
   },
 ]
 
@@ -135,6 +148,7 @@ const FreeResourcesPage = () => {
   const [activeCategory, setActiveCategory] = useState<PrimaryCategory>('mba')
   const [expandedFolderId, setExpandedFolderId] = useState<string | null>(null)
   const [downloadingFileId, setDownloadingFileId] = useState<string | null>(null)
+  const [statsAnimationProgress, setStatsAnimationProgress] = useState(0)
   const glassGreen =
     'bg-white/5 border border-emerald-100/30 hover:border-emerald-100/70 hover:bg-emerald-200/10 text-emerald-100'
   const activePurple =
@@ -150,44 +164,76 @@ const FreeResourcesPage = () => {
     setTimeout(() => setDownloadingFileId((current) => (current === file.id ? null : current)), 1500)
   }
 
+  useEffect(() => {
+    let frame: number
+    const start = performance.now()
+    const duration = 800
+    const animate = (time: number) => {
+      const progress = Math.min((time - start) / duration, 1)
+      setStatsAnimationProgress(progress)
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate)
+      }
+    }
+    frame = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
+  const animatedValue = (value: number) => Math.round(value * statsAnimationProgress)
+
   return (
     <div className="flex min-h-full w-full flex-col px-6 py-10 text-white sm:px-8 lg:px-16">
+      <div className="sr-only" aria-label="SEO AEO GEO summary">
+        Auto Interview AI Free Resources Library curates free downloadable interview resources for
+        software engineering, tech product, consulting, and MBA job seekers searching phrases like
+        “free downloadable case interview pdf”, “ATS resume template download”, and “IIM Calcutta
+        casebook free download” from San Francisco, Bengaluru, London, Singapore, and other GEO hubs.
+        Each hidden folder summary is optimized for SEO discoverability, AEO answer-first snippets,
+        and GEO intent so search engines and AI assistants understand this page stores ATS resume
+        templates, case study PDFs, cover letter scripts, and AI-ready playbooks.
+      </div>
       {/* Hero */}
-      <section className="mb-12 rounded-3xl border border-matte-gray bg-gradient-to-r from-gray-900 via-gray-900 to-gray-800 p-8 shadow-2xl shadow-purple-500/10">
-        <p className="mb-3 inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-accent-300">
-          100% Free Resource Library
-        </p>
-        <div className="grid gap-8 lg:grid-cols-[2fr,1fr]">
+      <section className="mb-10 rounded-4xl border border-white/5 bg-gradient-to-br from-[#0B0B1A] via-[#111122] to-[#0B0B1A] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.45)]">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h1 className="mb-4 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-              Free Resources for Every Step of Your Job Search
+            <p className="mb-3 inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-accent-200">
+              Free prep vault
+            </p>
+            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-5xl">
+              One library for every downloadable interview resource.
             </h1>
-            <p className="text-lg text-gray-300">
-              Download ATS-friendly resume templates, interview checklists, and step-by-step playbooks
-              curated by the Auto Interview AI team. No email gates, no limits—just fast execution.
+            <p className="mt-3 text-base text-white/70">
+              From FAANG software roles to MBB consulting, grab the exact resume, case, or interview
+              file you need—no email gates, no bloat, just clean downloads.
             </p>
           </div>
-          <div className="rounded-2xl border border-purple-600/40 bg-white/5 p-6">
-            <p className="text-sm uppercase tracking-widest text-gray-400">Need it fast?</p>
-            <h3 className="mt-2 text-2xl font-semibold text-white">Pick a template → ship in 30m</h3>
-            <ul className="mt-4 space-y-2 text-sm text-gray-300">
-              <li>• Start with Harvard / Stanford formats</li>
-              <li>• Run ATS score & keyword scan</li>
-              <li>• Send personalized outreach with AI cover letters</li>
-            </ul>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-white/80 backdrop-blur">
+            <p className="text-xs uppercase tracking-[0.35em] text-white/60">How it works</p>
+            <ol className="mt-3 space-y-2 text-sm text-white/90">
+              <li>1. Pick a track (MBA, Coding, CA)</li>
+              <li>2. Tap “Click to open” to reveal files</li>
+              <li>3. Download instantly with live progress</li>
+            </ol>
           </div>
         </div>
-        <div className="mt-8 grid gap-4 text-center sm:grid-cols-3">
-          {heroStats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur"
-            >
-              <p className="text-3xl font-bold text-accent-300">{stat.value}</p>
-              <p className="text-sm font-semibold text-white">{stat.label}</p>
-              <p className="text-xs text-gray-400">{stat.helper}</p>
-            </div>
-          ))}
+        <div className="mt-10 grid gap-4 text-center sm:grid-cols-3">
+          {heroStats.map((stat) => {
+            const value = animatedValue(stat.value)
+            const formatted =
+              stat.format === 'k-plus'
+                ? `${Math.max(1, Math.floor(value / 1000))}k+`
+                : `${value}`
+            return (
+              <div
+                key={stat.label}
+                className="rounded-3xl border border-white/5 bg-white/5 px-4 py-6 text-white backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-white/20"
+              >
+                <p className="text-4xl font-extrabold text-white">{formatted}</p>
+                <p className="mt-1 text-sm font-semibold text-white/80">{stat.label}</p>
+                <p className="text-xs text-white/60">{stat.helper}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 
@@ -225,40 +271,44 @@ const FreeResourcesPage = () => {
       {/* MBA folders */}
       {activeCategory === 'mba' && (
         <section className="mb-16">
-          <div className="mb-8 rounded-3xl border border-gray-800 bg-gradient-to-r from-gray-900 via-gray-900 to-black p-6">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent-300">MBA Vault</p>
-            <h2 className="mt-3 text-3xl font-bold text-white">
-              Structured like your favourite Drive. Click a folder to reveal files.
+          <div className="mb-6 rounded-3xl border border-white/5 bg-white/5 p-5 text-white backdrop-blur">
+            <p className="text-xs uppercase tracking-[0.4em] text-accent-300">Folders</p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">
+              Minimal cards, one tap to open, files underneath.
             </h2>
-            <p className="mt-2 text-sm text-gray-300">
-              Minimal surface, zero clutter. Tap “Click to open” to peek inside a folder and grab the
-              resources you need.
-            </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {mbaFolders.map((folder) => {
               const isExpanded = expandedFolderId === folder.id
               return (
-                <div
-                  key={folder.id}
-                  className={`rounded-3xl border border-white/10 bg-gradient-to-br ${folder.accent} p-6 shadow-xl shadow-black/30 backdrop-blur`}
-                >
-                  <div className="flex items-center justify-between">
+                <div key={folder.id} className="rounded-3xl border border-white/5 bg-white/5 p-3 backdrop-blur">
+                  <button
+                    onClick={() => toggleFolder(folder.id)}
+                    aria-expanded={isExpanded}
+                    aria-describedby={folder.hiddenDescription ? `folder-hidden-${folder.id}` : undefined}
+                    className={`flex w-full items-center justify-between rounded-2xl bg-gradient-to-r ${folder.accent} px-5 py-4 text-left text-white transition-all duration-300 ${
+                      isExpanded ? 'shadow-[0_25px_45px_rgba(0,0,0,0.35)]' : ''
+                    }`}
+                  >
                     <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-white/70">Folder</p>
-                      <h3 className="mt-3 text-2xl font-bold text-white">{folder.title}</h3>
+                      <p className="text-[11px] uppercase tracking-[0.4em] text-white/70">Folder</p>
+                      <h3 className="text-xl font-semibold">{folder.title}</h3>
                     </div>
-                    <button
-                      onClick={() => toggleFolder(folder.id)}
-                      className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
-                        isExpanded ? 'bg-white/90 text-gray-900' : 'bg-white/15 text-white'
+                    <span
+                      className={`inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white transition-transform ${
+                        isExpanded ? 'rotate-45' : ''
                       }`}
                     >
-                      {isExpanded ? 'Hide files' : 'Click to open'}
-                    </button>
-                  </div>
+                      +
+                    </span>
+                  </button>
+                  {folder.hiddenDescription && (
+                    <p id={`folder-hidden-${folder.id}`} className="sr-only">
+                      {folder.hiddenDescription}
+                    </p>
+                  )}
                   {isExpanded && (
-                    <div className="mt-6 rounded-2xl border border-white/20 bg-black/20 p-4 shadow-inner shadow-black/40">
+                    <div className="mt-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-white/80 shadow-inner shadow-black/30">
                       {folder.files.length > 0 ? (
                         <ul className="space-y-3">
                           {folder.files.map((file) => (
@@ -266,13 +316,8 @@ const FreeResourcesPage = () => {
                               key={file.id}
                               className="rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/90"
                             >
-                              <div className="flex flex-col gap-1">
-                                <div className="flex items-center justify-between">
-                                  <p className="font-semibold text-white">{file.name}</p>
-                                  <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] uppercase tracking-widest text-white/70">
-                                    {file.format}
-                                  </span>
-                                </div>
+                              <div className="flex flex-col gap-2">
+                                <p className="text-base font-semibold text-white">{file.name}</p>
                                 <p className="text-white/70">{file.description}</p>
                                 <button
                                   onClick={() => handleFileDownload(file)}
