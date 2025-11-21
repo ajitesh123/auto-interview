@@ -27,7 +27,7 @@ interface Improvement {
   scoreImpact: string
 }
 
-interface AnalysisResults {
+export interface AnalysisResults {
   overallScore: number
   breakdown: CategoryScore
   strengths: Strength[]
@@ -46,14 +46,57 @@ interface AnalysisResults {
   parseCoverage: number
 }
 
-const ATSScorePage = () => {
+const ATSScorePage = ({
+  initialResults = null,
+  initialTips = [],
+  showUploadSection = true,
+}: {
+  initialResults?: AnalysisResults | null
+  initialTips?: Array<{ title: string; body: string }>
+  showUploadSection?: boolean
+} = {}) => {
   const router = useRouter()
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(null)
+  const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(
+    initialResults || null
+  )
   const [error, setError] = useState<string | null>(null)
   const [progress, setProgress] = useState<number>(0)
-  const [selectedTips, setSelectedTips] = useState<Array<{ title: string; body: string }>>([])
+  const [selectedTips, setSelectedTips] =
+    useState<Array<{ title: string; body: string }>>(initialTips)
+
+  useEffect(() => {
+    setAnalysisResults(initialResults || null)
+  }, [initialResults])
+
+  useEffect(() => {
+    if (initialTips.length) {
+      setSelectedTips(initialTips)
+    }
+  }, [initialTips])
+
+  const isResultOnlyView = !showUploadSection
+
+  if (isResultOnlyView && !analysisResults) {
+    return (
+      <div className="relative w-full overflow-hidden px-8 py-16">
+        <div className="relative z-10 mx-auto max-w-3xl rounded-2xl border border-matte-gray bg-matte-dark/80 p-10 text-center shadow-2xl">
+          <h1 className="mb-4 text-3xl font-semibold text-white">Run an ATS analysis first</h1>
+          <p className="mb-8 text-gray-300">
+            We couldn&apos;t find a saved ATS report for this session. Please analyze a resume to
+            view the detailed results.
+          </p>
+          <button
+            onClick={() => router.push('/ats-score')}
+            className="rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-white transition-colors hover:from-accent-400 hover:to-accent-500"
+          >
+            Go to ATS Analyzer
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   // Static tips list provided by user
   const resumeTips: Array<{ title: string; body: string }> = [
@@ -159,6 +202,17 @@ const ATSScorePage = () => {
       const data = await analysisPromise
       setProgress(100)
       setAnalysisResults(data)
+      if (showUploadSection) {
+        try {
+          if (typeof window !== 'undefined') {
+            window.sessionStorage.setItem('ats:analysisResult', JSON.stringify(data))
+            window.sessionStorage.setItem('ats:analysisTips', JSON.stringify(chosenTips))
+          }
+        } catch (storageError) {
+          console.error('Failed to persist ATS analysis result', storageError)
+        }
+        router.push('/ats-score/result')
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Failed to analyze resume. Please try again.'
       setError(msg)
@@ -239,7 +293,7 @@ const ATSScorePage = () => {
         </div>
 
         {/* Upload Section */}
-        {!analysisResults && (
+        {showUploadSection && !analysisResults && (
           <div className="mx-auto mb-8 w-full max-w-md">
             <div className="rounded-lg border border-matte-gray bg-matte-dark p-8 shadow-lg shadow-gray-500/20">
               <div className="text-center">
@@ -404,6 +458,24 @@ const ATSScorePage = () => {
                 )}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Result view actions */}
+        {analysisResults && isResultOnlyView && (
+          <div className="mb-10 flex flex-col items-center justify-center gap-4 text-center sm:flex-row">
+            <button
+              onClick={() => router.push('/ats-score')}
+              className="rounded-lg border border-accent-500 px-6 py-2 font-semibold text-white transition-colors hover:bg-accent-500/10"
+            >
+              Analyze Another Resume
+            </button>
+            <button
+              onClick={() => router.push('/build-resume')}
+              className="rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-2 font-semibold text-white transition-colors hover:from-purple-400 hover:to-purple-500"
+            >
+              Improve My Resume
+            </button>
           </div>
         )}
 

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import ResumeBuilderLayout from './ResumeBuilderLayout'
 import ContactSection from './ContactSection'
 import EducationSection from './EducationSection'
@@ -9,7 +10,6 @@ import LeadershipActivitiesSection from './LeadershipActivitiesSection'
 import ProjectsSection from './ProjectsSection'
 import CertificationsSection from './CertificationsSection'
 import SkillsSection from './SkillsSection'
-import TemplateSelectionPage from './TemplateSelectionPage'
 import PreviewPanel from './PreviewPanel'
 import { resumeApi } from '../../../lib/resumeApi'
 import { ResumeData as ResumeDataType, SkillsData } from '../../../lib/resumeStore'
@@ -109,10 +109,10 @@ const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => 
   const [savedResumeId, setSavedResumeId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
-  const [showTemplateSelection, setShowTemplateSelection] = useState(false)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [isResumeSaved, setIsResumeSaved] = useState(false)
+  const router = useRouter()
 
   // Get selected template (default to harvard if not provided)
   const selectedTemplate = initialTemplate || 'harvard'
@@ -246,7 +246,7 @@ const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => 
       // Handle completion - automatically save and navigate to template selection
       const resumeId = await saveResume()
       if (resumeId) {
-        setShowTemplateSelection(true)
+        persistAndNavigateToDownload(resumeId)
       } else {
         // If save failed, show error message and don't proceed to template selection
         setSaveMessage('Failed to save resume. Please try again.')
@@ -255,8 +255,17 @@ const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => 
     }
   }
 
-  const handleBackToBuilder = () => {
-    setShowTemplateSelection(false)
+  const persistAndNavigateToDownload = (resumeId: string) => {
+    try {
+      if (typeof window !== 'undefined') {
+        window.sessionStorage.setItem('resumeBuilder:lastResumeData', JSON.stringify(resumeData))
+        window.sessionStorage.setItem('resumeBuilder:lastResumeId', resumeId)
+        window.sessionStorage.setItem('resumeBuilder:lastTemplate', selectedTemplate)
+      }
+    } catch (error) {
+      console.error('Failed to cache resume for download page', error)
+    }
+    router.push('/build-resume/download')
   }
 
   const handlePrevious = () => {
@@ -328,19 +337,6 @@ const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => 
       default:
         return null
     }
-  }
-
-  // Show template selection if completed and we have a valid resume ID
-  if (showTemplateSelection && savedResumeId) {
-    console.log('Showing template selection page with resume ID:', savedResumeId)
-    return (
-      <TemplateSelectionPage
-        resumeData={resumeData}
-        resumeId={savedResumeId}
-        onBack={handleBackToBuilder}
-        initialTemplate={initialTemplate}
-      />
-    )
   }
 
   // Create preview panel

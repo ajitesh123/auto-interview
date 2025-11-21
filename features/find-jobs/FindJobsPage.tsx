@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface Job {
   id: string
@@ -12,6 +13,7 @@ interface Job {
 }
 
 const FindJobsPage = () => {
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [location, setLocation] = useState('')
   const [company, setCompany] = useState('')
@@ -80,6 +82,23 @@ const FindJobsPage = () => {
           console.log('✅ Jobs found - clearing any previous errors')
           setSearchError(null)
         }
+        if (typeof window !== 'undefined') {
+          try {
+            window.sessionStorage.setItem(
+              'jobSearch:lastResult',
+              JSON.stringify({
+                jobs: result.jobs,
+                searchQuery,
+                location,
+                company,
+                fetchedAt: Date.now(),
+              })
+            )
+          } catch (storageError) {
+            console.error('Failed to persist job search result', storageError)
+          }
+        }
+        router.push('/find-jobs/results')
       } else {
         console.error('Scraping failed:', result.error)
         setSearchError('Failed to fetch jobs from LinkedIn. Please try again.')

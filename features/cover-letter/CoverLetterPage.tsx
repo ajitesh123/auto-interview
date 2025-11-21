@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 const CoverLetterPage = () => {
+  const router = useRouter()
   const [jobTitle, setJobTitle] = useState('')
   const [company, setCompany] = useState('')
   const [jobDescription, setJobDescription] = useState('')
@@ -127,6 +129,22 @@ const CoverLetterPage = () => {
 
       setGeneratedLetter(coverLetterResult.coverLetter)
       setUploadMessage('Cover letter generated successfully!')
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem(
+            'coverLetter:lastResult',
+            JSON.stringify({
+              jobTitle,
+              company,
+              jobDescription,
+              coverLetter: coverLetterResult.coverLetter,
+            })
+          )
+        } catch (storageError) {
+          console.error('Failed to persist cover letter result', storageError)
+        }
+      }
+      router.push('/cover-letter/result')
     } catch (error) {
       console.error('Error generating cover letter:', error)
       setUploadMessage(

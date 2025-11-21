@@ -717,5 +717,141 @@
     "id": "resume_1762761967992_ogwa7ud3p",
     "createdAt": "2025-11-10T08:06:07.992Z",
     "updatedAt": "2025-11-10T08:06:08.609Z"
+  },
+  "resume_1763733105805_agt3smm4f": {
+    "contact": {
+      "name": "ASHISH SHARMA",
+      "email": "ashishsharma1070@gmail.com",
+      "phone": "+91-9818105173",
+      "linkedin": "linkedin.com/in/ashishsharma021/",
+      "portfolio": "Portfolio",
+      "location": "Shillong"
+    },
+    "education": [
+      {
+        "id": "1719717013346_1",
+        "degree": "MBA",
+        "major": "General Management",
+        "university": "Indian Institute of Management, Shillong",
+        "location": "Shillong, Meghalaya, India",
+        "graduationMonth": "March",
+        "graduationYear": "2026",
+        "gpa": "3.14/4.33"
+      },
+      {
+        "id": "1719717013346_2",
+        "degree": "Executive Education",
+        "major": "Product Management",
+        "university": "Indian School of Business",
+        "location": "Remote",
+        "graduationMonth": "September",
+        "graduationYear": "2024",
+        "gpa": "95.87%"
+      },
+      {
+        "id": "1719717013346_3",
+        "degree": "B.Tech.",
+        "major": "Electronics and Communication Engineering",
+        "university": "National Institute of Technology, Kurukshetra",
+        "location": "Kurukshetra, Haryana, India",
+        "graduationMonth": "May",
+        "graduationYear": "2021",
+        "gpa": ""
+      }
+    ],
+    "experience": [
+      {
+        "id": "1719717013346_4",
+        "jobTitle": "AI Product Manager Intern",
+        "company": "Tough Tongue AI",
+        "location": "Remote",
+        "startMonth": "September",
+        "startYear": "2025",
+        "endMonth": "",
+        "endYear": "",
+        "isCurrent": true,
+        "bullets": [
+          "Led end-to-end product development of AI Resume Builder using Next.js featuring templates, AI-powered parsing; conducted user research and UAT achieving 98% data extraction accuracy, engaged 500+ users in 2 days",
+          "Designed and implemented software development of an AI-driven LinkedIn job aggregation tool (Node.js/React) using Scrum practices, processing 200+ listings per session and cutting manual effort by 80%",
+          "Growth-hacked, scaled a 300+ member MBA placement community, ran 50+ mocks, improved platform DAU 10%"
+        ]
+      },
+      {
+        "id": "1719717013346_5",
+        "jobTitle": "Business Strategy Intern – CHRO’s Office",
+        "company": "IndiaMART Intermesh Ltd.",
+        "location": "Noida, Uttar Pradesh, India",
+        "startMonth": "April",
+        "startYear": "2025",
+        "endMonth": "May",
+        "endYear": "2025",
+        "isCurrent": false,
+        "bullets": [
+          "Led WhatsApp HR chatbot product roadmap by fostering cross-functional collaboration with Engineering, HR Strategy, Finance, and UX teams for onboarding team of 5, reducing effort by 80% and enhancing user satisfaction",
+          "Re-engineered ATS; resolved 5+ pain points, shipped new UI/UX features in Agile sprint, cut stage transitions 30%",
+          "Saved 400+ man-hours, cut costs 40% by crafting PRD with user stories to automate performance management"
+        ]
+      },
+      {
+        "id": "1719717013346_6",
+        "jobTitle": "Associate Consultant – Management Consulting",
+        "company": "ZS Associates",
+        "location": "Gurugram, Haryana, India",
+        "startMonth": "July",
+        "startYear": "2021",
+        "endMonth": "June",
+        "endYear": "2024",
+        "isCurrent": false,
+        "bullets": [
+          "Optimised a $20M+ annual client product marketing budget by benchmarking against 10+ competitor ad strategies, identifying impact opportunities and conducting risk management through data analytics",
+          "Boosted marketing ROI 2x by designing and executing statistical testing on user research data, identifying 3 high-value segments based on user requirements",
+          "Executed investigative cross-functional brand equity study by analysing patient feedback and workflows using Python, identifying pain points leading to 10% NPS boost by targeted program improvements for 10K+ patients",
+          "Migrated sales data to cloud Data Lake using PL/SQL, automating reporting and reducing analytics TAT by 40%",
+          "Implemented Tableau dashboards to track KPIs, enhancing product strategy and increasing user engagement",
+          "Estimated demand for a pipeline drug, improved retail Go-to-Market strategy to increase market share by 30%",
+          "Spearheaded pricing strategy and stakeholder management with insurers, boosting contracting accuracy by 20%"
+        ]
+      }
+    ],
+    "leadership": [
+      {
+        "id": "1719717013346_7",
+        "organization": "Colours - Mental Health Club",
+        "title": "Co-founder",
+        "location": "NIT Kurukshetra",
+        "startMonth": "August",
+        "startYear": "2020",
+        "endMonth": "May",
+        "endYear": "2021",
+        "isCurrent": false,
+        "bullets": [
+          "Engaged 500+ students via 5+ programs; facilitated social media campaigns, venting portal, counselling referrals"
+        ]
+      }
+    ],
+    "projects": [],
+    "certifications": {
+      "bullets": []
+    },
+    "skills": {
+      "technical": [
+        "Next.js",
+        "Node.js",
+        "React",
+        "Scrum",
+        "Agile",
+        "Python",
+        "PL/SQL",
+        "Tableau",
+        "Figma",
+        "GenAI APIs",
+        "Data Analytics"
+      ],
+      "languages": [],
+      "interests": []
+    },
+    "id": "resume_1763733105805_agt3smm4f",
+    "createdAt": "2025-11-21T13:51:45.805Z",
+    "updatedAt": "2025-11-21T13:51:46.649Z"
   }
 }

@@ -9,6 +9,8 @@ import { ResumeData } from '../../lib/resumeStore'
 const BuildResumePage = () => {
   const [hasResume, setHasResume] = useState<boolean | null>(null)
   const [parsedResumeData, setParsedResumeData] = useState<Partial<ResumeData> | null>(null)
+  const [pendingParsedResumeData, setPendingParsedResumeData] =
+    useState<Partial<ResumeData> | null>(null)
   const [showUploadPage, setShowUploadPage] = useState(false)
   const [showTemplateSelection, setShowTemplateSelection] = useState(false)
   const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs' | 'stanford' | null>(
@@ -20,9 +22,9 @@ const BuildResumePage = () => {
   }
 
   const handleUploadComplete = (parsedData: Partial<ResumeData>) => {
-    setParsedResumeData(parsedData)
+    setPendingParsedResumeData(parsedData)
     setShowUploadPage(false)
-    setHasResume(false) // This will show the ResumeBuilder with pre-filled data
+    setShowTemplateSelection(true)
   }
 
   const handleBackFromUpload = () => {
@@ -30,14 +32,17 @@ const BuildResumePage = () => {
   }
 
   const handleStartBuilding = () => {
+    setPendingParsedResumeData(null)
+    setParsedResumeData(null)
     setShowTemplateSelection(true)
   }
 
   const handleTemplateSelected = (template: 'harvard' | 'lbs' | 'stanford') => {
     setSelectedTemplate(template)
     setShowTemplateSelection(false)
+    setParsedResumeData(pendingParsedResumeData)
+    setPendingParsedResumeData(null)
     setHasResume(false)
-    setParsedResumeData(null) // Clear any previously parsed data
   }
 
   // Show Upload Page FIRST - this takes priority

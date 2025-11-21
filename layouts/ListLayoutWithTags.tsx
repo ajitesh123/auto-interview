@@ -152,6 +152,8 @@ export default function ListLayoutWithTags({
 
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
+  const featuredReport = posts.find((post) => post.tags?.includes('hiring-index'))
+
   return (
     <div className="min-h-screen bg-matte-black">
       <LandingHeader />
@@ -166,6 +168,34 @@ export default function ListLayoutWithTags({
             Discover insights, tips, and strategies for your career journey
           </p>
         </div>
+
+        {featuredReport && (
+          <div className="mb-10 rounded-2xl border border-accent-600/50 bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-6 shadow-xl shadow-purple-900/30 sm:p-8 lg:flex lg:items-center lg:justify-between">
+            <div className="flex-1">
+              <p className="inline-flex items-center rounded-full bg-accent-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-200">
+                New · Hiring Index
+              </p>
+              <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
+                {featuredReport.title}
+              </h2>
+              <p className="mt-3 text-sm text-gray-200 sm:text-base">{featuredReport.summary}</p>
+              <div className="mt-4 text-xs text-gray-400 sm:text-sm">
+                Updated {formatDate(featuredReport.date, siteMetadata.locale)}
+              </div>
+            </div>
+            <div className="mt-6 flex flex-col gap-3 lg:ml-8 lg:mt-0 lg:w-64">
+              <Link
+                href={`/${featuredReport.path}`}
+                className="inline-flex items-center justify-center rounded-lg bg-accent-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-accent-500 sm:text-base"
+              >
+                Read the Hiring Index
+              </Link>
+              <p className="text-center text-xs text-gray-300">
+                Quarterly insights from anonymized ATS scans & job matches.
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
           {/* Sidebar - Categories */}
