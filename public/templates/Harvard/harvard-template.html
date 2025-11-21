@@ -348,11 +348,7 @@
 
           </div>
 
-          <ul class="bullets">
-
-            {{Project 1 Bullets}}
-
-          </ul>
+          {{Project 1 Bullets}}
 
         </div>
 
@@ -370,11 +366,7 @@
 
           </div>
 
-          <ul class="bullets">
-
-            {{Project 2 Bullets}}
-
-          </ul>
+          {{Project 2 Bullets}}
 
         </div>
 
@@ -546,7 +538,7 @@
 
       // Manage experience date separators
 
-      const experienceEntries = ['1', '2', '3', 'L'];
+      const experienceEntries = ['1', '2', '3', 'L', 'L2'];
 
       experienceEntries.forEach(num => {
 
@@ -557,6 +549,10 @@
         const separator = document.querySelector(`[data-field="start${num}"] + .date-separator`);
 
 
+
+        if (!startDate || !endDate || !separator) {
+          return;
+        }
 
         if (!hasContent(startDate.textContent)) {
 
@@ -648,6 +644,20 @@
 
         }
 
+      });
+
+
+
+      ['leadership-1', 'leadership-2'].forEach(id => {
+        const element = document.getElementById(id);
+        if (!element) return;
+
+        const text = element.textContent || '';
+        const cleaned = text.replace(/[\s–—-]/g, '').trim();
+
+        if (!cleaned.length) {
+          element.style.display = 'none';
+        }
       });
 
     });

@@ -281,53 +281,58 @@ const LeadershipActivitiesSection = ({ data, onChange }: LeadershipActivitiesSec
                     </select>
                   </div>
 
-                  {!entry.isCurrent && (
-                    <>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor={`endMonth-${entry.id}`}
-                          className="block text-sm font-medium text-gray-300"
-                        >
-                          End Month
-                        </label>
-                        <select
-                          id={`endMonth-${entry.id}`}
-                          value={entry.endMonth}
-                          onChange={(e) => handleEntryChange(entry.id, 'endMonth', e.target.value)}
-                          className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent-500"
-                        >
-                          <option value="">Select Month</option>
-                          {months.map((month) => (
-                            <option key={month} value={month}>
-                              {month}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor={`endMonth-${entry.id}`}
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      End Month
+                    </label>
+                    <select
+                      id={`endMonth-${entry.id}`}
+                      value={entry.endMonth}
+                      onChange={(e) => handleEntryChange(entry.id, 'endMonth', e.target.value)}
+                      disabled={entry.isCurrent}
+                      className={`w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent-500 ${
+                        entry.isCurrent ? 'cursor-not-allowed opacity-50' : ''
+                      }`}
+                    >
+                      <option value="">Select Month</option>
+                      {months.map((month) => (
+                        <option key={month} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    {entry.isCurrent && (
+                      <p className="text-xs text-gray-400">Disabled while marked as Current</p>
+                    )}
+                  </div>
 
-                      <div className="space-y-2">
-                        <label
-                          htmlFor={`endYear-${entry.id}`}
-                          className="block text-sm font-medium text-gray-300"
-                        >
-                          End Year
-                        </label>
-                        <select
-                          id={`endYear-${entry.id}`}
-                          value={entry.endYear}
-                          onChange={(e) => handleEntryChange(entry.id, 'endYear', e.target.value)}
-                          className="w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent-500"
-                        >
-                          <option value="">Select Year</option>
-                          {years.map((year) => (
-                            <option key={year} value={year.toString()}>
-                              {year}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </>
-                  )}
+                  <div className="space-y-2">
+                    <label
+                      htmlFor={`endYear-${entry.id}`}
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      End Year
+                    </label>
+                    <select
+                      id={`endYear-${entry.id}`}
+                      value={entry.endYear}
+                      onChange={(e) => handleEntryChange(entry.id, 'endYear', e.target.value)}
+                      disabled={entry.isCurrent}
+                      className={`w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-3 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent-500 ${
+                        entry.isCurrent ? 'cursor-not-allowed opacity-50' : ''
+                      }`}
+                    >
+                      <option value="">Select Year</option>
+                      {years.map((year) => (
+                        <option key={year} value={year.toString()}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 {/* Bullet Points */}

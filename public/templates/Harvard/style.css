@@ -41,7 +41,8 @@ header {
 
 .name {
   font-weight: 700;
-  font-size: 11pt; /* same size, bolded */
+  font-size: 14pt;
+  font-family: 'Calibri', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--text-color);
   margin-bottom: 4px;
 }

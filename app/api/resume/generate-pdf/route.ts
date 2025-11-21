@@ -215,7 +215,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
       if (hasContent(education[0]?.degree)) parts.push(education[0].degree)
       if (hasContent(education[0]?.major)) parts.push(education[0].major)
       if (hasContent(education[0]?.gpa)) parts.push(education[0].gpa)
-      return parts.join(' — ')
+      return parts.join(', ')
     })(),
     'Institution 2': education[1]?.university || '',
     'Institution Location 2': education[1]?.location || '',
@@ -228,7 +228,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
       if (hasContent(education[1]?.degree)) parts.push(education[1].degree)
       if (hasContent(education[1]?.major)) parts.push(education[1].major)
       if (hasContent(education[1]?.gpa)) parts.push(education[1].gpa)
-      return parts.join(' — ')
+      return parts.join(', ')
     })(),
     'Institution 3': education[2]?.university || '',
     'Institution Location 3': education[2]?.location || '',
@@ -241,7 +241,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
       if (hasContent(education[2]?.degree)) parts.push(education[2].degree)
       if (hasContent(education[2]?.major)) parts.push(education[2].major)
       if (hasContent(education[2]?.gpa)) parts.push(education[2].gpa)
-      return parts.join(' — ')
+      return parts.join(', ')
     })(),
 
     // Experience Section (mapped to specific placeholders)

@@ -107,7 +107,7 @@ function createHeaderSection(contact: ResumeData['contact']) {
         new TextRun({
           text: contact.name || '',
           bold: true,
-          size: 22,
+          size: 28,
           color: '000000',
           font: 'Calibri',
         }),
