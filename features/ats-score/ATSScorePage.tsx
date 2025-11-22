@@ -175,7 +175,8 @@ const ATSScorePage = ({
 
     // Pick 3 random tips for this run
     const shuffled = [...resumeTips].sort(() => Math.random() - 0.5)
-    setSelectedTips(shuffled.slice(0, 3))
+    const chosenTips = shuffled.slice(0, 3)
+    setSelectedTips(chosenTips)
 
     try {
       const formData = new FormData()
