@@ -316,7 +316,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   // Keep original heuristics for other parts but compute mapped format later from generousFormat20
   let format = 0
   if (parsed.rawText.length >= 400) format += 7
-  const fancyBullets = /[•‣●♦▪▶■□◦◼︎]/.test(parsed.rawText)
+  const fancyBullets = /[•‣●♦▪▶■□◦]/.test(parsed.rawText)
   format += fancyBullets ? 3 : 4
   const dateUniform =
     /(\b\d{2}\/\d{4}\b|\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}\b)/i.test(
@@ -375,7 +375,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
     /(revenue|cost|margin|profit|retention|churn|nps|engagement|conversion|latency|uptime|availability|sla)/i
   const outcomeHits = bullets.filter((b) => outcomes.test(b)).length
   // More generous: give baseline and partial credit
-  let impact = Math.max(
+  const impact = Math.max(
     0.35,
     density * 0.65 + (bullets.length ? outcomeHits / bullets.length : 0) * 0.35
   )
@@ -409,7 +409,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   else if (strongPct >= 40) actionVerbs4 = 2
   else if (strongPct >= 25) actionVerbs4 = 1
   // retain weak verb penalty only if not strong
-  let strong = strongStarts
+  const strong = strongStarts
   let weak = 0
   for (const b of bullets) {
     if (!detectStrongStart(b)) {
@@ -456,7 +456,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   }
 
   // FRIENDLIER/Market-Aligned Score Curve
-  let rawScore =
+  const rawScore =
     breakdown.formatCompatibility +
     breakdown.keywordOptimization +
     breakdown.impactAndMetrics +
@@ -839,7 +839,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
     ]
     pts += Math.min(4, bonusCandidates.filter(Boolean).length)
     // deduction for creative headers
-    const creative = /my\s+journey|what\s+i\'?ve\s+done/i.test(parsed.rawText)
+    const creative = /my\s+journey|what\s+i'?ve\s+done/i.test(parsed.rawText)
     if (creative) pts = Math.max(0, pts - 2)
     return Math.max(0, Math.min(8, pts))
   })()
@@ -1041,7 +1041,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
       if (e.degree) pts += 1
       if (e.school) pts += 1
       if (e.dates) pts += 0.5
-      if (/gpa\s*[\=:]?\s*([3-4](?:\.\d+)?)/i.test(parsed.rawText)) pts += 0.5
+      if (/gpa\s*[=:]?\s*([3-4](?:\.\d+)?)/i.test(parsed.rawText)) pts += 0.5
     }
     return Math.min(3, Math.round(pts * 2) / 2)
   })()

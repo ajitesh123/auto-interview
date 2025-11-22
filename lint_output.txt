@@ -1,0 +1,86 @@
+
+> tailwind-nextjs-starter-blog@2.2.0 lint
+> next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+
+./app/api/ats/analyze/route.ts
+14:31  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+49:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+132:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+136:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+150:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+152:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+172:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+176:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+240:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+244:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+259:28  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+265:17  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+273:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+289:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+295:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+299:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+343:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+436:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+456:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+515:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/resume-job-matcher/match/route.ts
+40:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+249:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+250:20  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+261:28  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+367:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+419:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+428:28  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+445:36  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+529:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+583:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/AppLayout.tsx
+51:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/HomePage.tsx
+85:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/ats/score.ts
+300:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+319:24  Error: Unexpected combined character in character class.  no-misleading-character-class
+787:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+788:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+842:44  Error: Unnecessary escape character: \'.  no-useless-escape
+881:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1044:19  Error: Unnecessary escape character: \=.  no-useless-escape
+
+./lib/docxGenerator.ts
+79:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+425:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+710:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+995:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1155:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1278:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1435:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1702:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+1867:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+2052:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+2128:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+2174:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+2282:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/geminiService.ts
+33:60  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+35:18  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/keywordAnalyzer.ts
+5:8  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/visitorStorage.ts
+39:9  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+40:11  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
