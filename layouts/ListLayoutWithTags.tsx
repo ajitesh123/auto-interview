@@ -12,6 +12,7 @@ import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 import LandingHeader from '@/components/LandingHeader'
 import Footer from '@/components/Footer'
+import FloatingNav from '@/components/FloatingNav'
 
 interface PaginationProps {
   totalPages: number
@@ -156,6 +157,7 @@ export default function ListLayoutWithTags({
 
   return (
     <div className="min-h-screen bg-matte-black">
+      <FloatingNav />
       <LandingHeader />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">

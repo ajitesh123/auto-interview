@@ -642,34 +642,45 @@ function removeEmptyLBSSections(html: string, data: ResumeData): string {
 
   let processedHtml = html
 
-  // Remove education entries that have empty content - based on new MM/YYYY format
-  // Pattern 1: Remove entries with empty completion date and empty degree title
+  // ============ CRITICAL FIX: Remove ENTIRE empty education-entry divs ============
+  // Pattern 1: Education entries with ONLY empty date AND empty institution/degree
+  // Matches the ACTUAL output: <div class="education-entry"><div class="date-range"></div><div class="degree-title"><br>, <span class="degree-details"></span></div></div>
   processedHtml = processedHtml.replace(
-    /<div class="education-entry">\s*<div class="date-range"><\/div>\s*<div class="degree-title">\s*<br>\s*, <span class="degree-details"><\/span><\/div>\s*<\/div>/g,
+    /<div class="education-entry">\s*<div class="date-range"><\/div>\s*<div class="degree-title">\s*<br>,\s*<span class="degree-details"><\/span><\/div>\s*<\/div>/g,
     ''
   )
 
-  // Pattern 2: Remove entries with empty degree title (just <br>, <span></span>)
+  // Pattern 2: Education entries with completion date but NO institution/degree
+  // Matches: <div class="education-entry"><div class="date-range">MM/YYYY</div><div class="degree-title"><br>, <span...</span></div></div>
   processedHtml = processedHtml.replace(
-    /<div class="education-entry">[\s\S]*?<div class="degree-title">\s*<br>\s*, <span class="degree-details"><\/span><\/div>[\s\S]*?<\/div>/g,
+    /<div class="education-entry">\s*<div class="date-range">[^<]*<\/div>\s*<div class="degree-title">\s*<br>,\s*<span class="degree-details"><\/span><\/div>\s*<\/div>/g,
     ''
   )
 
-  // Pattern 3: Remove entries that still contain placeholder patterns
+  // Pattern 3: Education1 format (no comma/span) - just <br> with no content
+  // Matches: <div class="degree-title"><br></div>
   processedHtml = processedHtml.replace(
-    /<div class="education-entry">[\s\S]*?{{Education[34]_[^}]+}}[\s\S]*?<\/div>/g,
+    /<div class="education-entry">\s*<div class="date-range"><\/div>\s*<div class="degree-title">\s*<br>\s*<\/div>\s*<\/div>/g,
     ''
   )
 
-  // Remove experience entries that have empty content
+  // Pattern 4: Catch-all for any remaining empty education entries
   processedHtml = processedHtml.replace(
-    /<div class="experience-entry">\s*<div class="date-range">\s*-\s*<\/div>\s*<div class="company-description">\s*<div class="company-name">, <\/div>\s*<div class="job-title"><\/div>\s*<\/div>\s*<\/div>/g,
+    /<div class="education-entry">\s*<div class="date-range">[^<]*<\/div>\s*<div class="degree-title">\s*<br>\s*<\/div>\s*<\/div>/g,
     ''
   )
 
-  // Remove project entries that have empty content
+  // ============ CRITICAL FIX: Remove ENTIRE empty experience-entry divs ============
+  // Pattern 1: Experience entries with empty date range AND empty company/role
+  // Matches: <div class="experience-entry"><div class="date-range"> - </div><div class="company-description">...</div></div>
   processedHtml = processedHtml.replace(
-    /<div class="experience-entry">\s*<div class="date-range"><\/div>\s*<div class="company-description">\s*<div class="company-name"><\/div>\s*<\/div>\s*<\/div>/g,
+    /<div class="experience-entry">\s*<div class="date-range">\s*-\s*<\/div>\s*<div class="company-description">\s*<div class="company-name">\s*,?\s*<\/div>\s*<div class="job-title"><\/div>\s*<\/div>\s*<\/div>/g,
+    ''
+  )
+
+  // Pattern 2: Experience entries with NO date range at all
+  processedHtml = processedHtml.replace(
+    /<div class="experience-entry">\s*<div class="date-range"><\/div>\s*<div class="company-description">\s*<div class="company-name">[^A-Za-z0-9]*<\/div>\s*<div class="job-title"><\/div>\s*<\/div>\s*<\/div>/g,
     ''
   )
 
@@ -735,26 +746,61 @@ function removeEmptyLBSSections(html: string, data: ResumeData): string {
   processedHtml = processedHtml.replace(/,\s*<br>/g, '<br>') // comma before line break
   processedHtml = processedHtml.replace(/,\s*\n/g, '\n') // comma before newline
 
-  // NEW: Remove empty bullet points
-  processedHtml = processedHtml.replace(/<li>\s*•\s*<\/li>/g, '')
-  processedHtml = processedHtml.replace(/<li>\s*<\/li>/g, '')
+  // COMPREHENSIVE FIX: Remove ALL empty bullet points (including those with just bullet symbols)
+  // Pattern 1: li tags with just bullet symbols (•, ·, *, etc.)
+  processedHtml = processedHtml.replace(/<li[^>]*>\s*[•·*◦▪]\s*<\/li>/g, '')
+  // Pattern 2: li tags that are completely empty
+  processedHtml = processedHtml.replace(/<li[^>]*>\s*<\/li>/g, '')
+  // Pattern 3: li tags with just commas or punctuation
+  processedHtml = processedHtml.replace(/<li[^>]*>\s*[,;.]\s*<\/li>/g, '')
+  // Pattern 4: li tags with just whitespace and br tags
+  processedHtml = processedHtml.replace(/<li[^>]*>\s*(<br\s*\/?>)*\s*<\/li>/g, '')
+
+  // NEW: Remove empty ul/ol blocks that have no content or only empty children
+  processedHtml = processedHtml.replace(/<ul[^>]*>\s*(<li>\s*<\/li>\s*)*<\/ul>/g, '')
+  processedHtml = processedHtml.replace(/<ol[^>]*>\s*(<li>\s*<\/li>\s*)*<\/ol>/g, '')
+  // Remove ul/ol that only contain whitespace
+  processedHtml = processedHtml.replace(/<ul[^>]*>\s*<\/ul>/g, '')
+  processedHtml = processedHtml.replace(/<ol[^>]*>\s*<\/ol>/g, '')
 
   // NEW: Remove lines that are just commas or whitespace
   processedHtml = processedHtml.replace(/^\s*,\s*$/gm, '')
   processedHtml = processedHtml.replace(/<div>\s*,\s*<\/div>/g, '')
 
-  // NEW: Remove section headings with no content or only commas after them
-  // Remove EDUCATION heading if no entries follow or only commas
-  processedHtml = processedHtml.replace(
-    /<div class="section-heading">EDUCATION<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
-    ''
-  )
+  // IMPROVED: Remove section headings ONLY when the corresponding data is actually empty
+  // Pattern 1: EDUCATION heading - remove only if no education data exists
+  const hasEducation =
+    data.education &&
+    data.education.length > 0 &&
+    data.education.some((edu) => edu.university || edu.degree)
 
-  // Remove BUSINESS EXPERIENCE heading if no entries follow
-  processedHtml = processedHtml.replace(
-    /<div class="section-heading">BUSINESS EXPERIENCE<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
-    ''
-  )
+  if (!hasEducation) {
+    processedHtml = processedHtml.replace(
+      /<div class="section-heading">EDUCATION<\/div>\s*<ul[^>]*>\s*<\/ul>/g,
+      ''
+    )
+    processedHtml = processedHtml.replace(
+      /<div class="section-heading">EDUCATION<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+      ''
+    )
+  }
+
+  // Pattern 2: BUSINESS EXPERIENCE heading - remove ONLY if no experience data exists
+  const hasExperience =
+    data.experience &&
+    data.experience.length > 0 &&
+    data.experience.some((exp) => exp.company || exp.jobTitle)
+
+  if (!hasExperience) {
+    processedHtml = processedHtml.replace(
+      /<div class="section-heading">BUSINESS EXPERIENCE<\/div>\s*<ul[^>]*>\s*<\/ul>/g,
+      ''
+    )
+    processedHtml = processedHtml.replace(
+      /<div class="section-heading">BUSINESS EXPERIENCE<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+      ''
+    )
+  }
 
   // Remove LEADERSHIP heading if no entries follow
   processedHtml = processedHtml.replace(
@@ -765,6 +811,32 @@ function removeEmptyLBSSections(html: string, data: ResumeData): string {
   // Remove PROJECTS heading if no entries follow
   processedHtml = processedHtml.replace(
     /<div class="section-heading">PROJECTS<\/div>\s*(?=<div class="section-heading">|<\/body>|<!-- |$)/g,
+    ''
+  )
+
+  // Pattern 3: LEADERSHIP heading with no entries
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">LEADERSHIP<\/div>\s*<ul[^>]*>\s*<\/ul>/g,
+    ''
+  )
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">LEADERSHIP<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+    ''
+  )
+
+  // Pattern 4: PROJECTS heading with no entries
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">PROJECTS<\/div>\s*<ul[^>]*>\s*<\/ul>/g,
+    ''
+  )
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">PROJECTS<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+    ''
+  )
+
+  // Pattern 5: Any other section headings that might be empty
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">[^<]+<\/div>\s*<ul[^>]*>\s*<\/ul>/g,
     ''
   )
 

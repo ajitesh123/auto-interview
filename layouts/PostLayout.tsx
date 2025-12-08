@@ -47,11 +47,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       '@type': 'Person',
       name: author.name,
       url: author.twitter || author.linkedin || author.github,
-    })) || [{
-      '@type': 'Organization',
-      name: 'Auto Interview AI',
-      url: 'https://www.autointerviewai.com',
-    }],
+    })) || [
+      {
+        '@type': 'Organization',
+        name: 'Auto Interview AI',
+        url: 'https://www.autointerviewai.com',
+      },
+    ],
     publisher: {
       '@type': 'Organization',
       name: 'Auto Interview AI',
@@ -67,7 +69,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       '@type': 'WebPage',
       '@id': `${siteMetadata.siteUrl}/${path}`,
     },
-    image: images && images.length > 0 ? images[0] : `${siteMetadata.siteUrl}/static/images/Auto-interview-thumbnail.png`,
+    image:
+      images && images.length > 0
+        ? images[0]
+        : `${siteMetadata.siteUrl}/static/images/Auto-interview-thumbnail.png`,
     keywords: tags?.join(', ') || '',
     inLanguage: 'en-US',
     isAccessibleForFree: true,
@@ -287,7 +292,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the difference between employee training and development?',
+              name: "What's the difference between employee training and development?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Employee training focuses on teaching specific skills for current job roles with short-term, task-oriented learning for immediate application. Employee development focuses on long-term career growth and advancement, building capabilities for future roles with holistic professional growth. Key differences: Training is immediate and narrow in scope, while development is long-term and broad. The most effective organizations combine both for comprehensive learning strategies.',
@@ -428,7 +433,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'What is an ATS and why does it matter?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'An Applicant Tracking System (ATS) is software that screens and ranks resumes before human recruiters see them. 70% of companies use ATS, meaning your resume must pass automated screening to reach hiring managers. Resumes that aren\'t ATS-optimized are automatically rejected, regardless of qualifications.',
+                text: "An Applicant Tracking System (ATS) is software that screens and ranks resumes before human recruiters see them. 70% of companies use ATS, meaning your resume must pass automated screening to reach hiring managers. Resumes that aren't ATS-optimized are automatically rejected, regardless of qualifications.",
               },
             },
             {
@@ -452,7 +457,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'What are informational interviews and how do I request them?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Informational interviews are 15-30 minute conversations with professionals to learn about their role, company, or industry—not to ask for jobs directly. Request them by identifying people in target roles through LinkedIn, sending personalized messages explaining why you\'re reaching out, being specific about what you want to learn, and offering flexibility in scheduling.',
+                text: "Informational interviews are 15-30 minute conversations with professionals to learn about their role, company, or industry—not to ask for jobs directly. Request them by identifying people in target roles through LinkedIn, sending personalized messages explaining why you're reaching out, being specific about what you want to learn, and offering flexibility in scheduling.",
               },
             },
           ],
@@ -466,7 +471,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           '@context': 'https://schema.org',
           '@type': 'HowTo',
           name: 'How to Successfully Search for a Job in 2025',
-          description: 'A comprehensive step-by-step guide to navigating the modern job market in 2025, covering AI screening, remote work trends, networking tactics, and skills-based hiring.',
+          description:
+            'A comprehensive step-by-step guide to navigating the modern job market in 2025, covering AI screening, remote work trends, networking tactics, and skills-based hiring.',
           totalTime: 'P3M', // 3 months
           estimatedCost: {
             '@type': 'MonetaryAmount',
@@ -552,7 +558,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What are the 7 C\'s of effective communication?',
+              name: "What are the 7 C's of effective communication?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'While traditional models list Clear, Concise, Concrete, Correct, Coherent, Complete, and Courteous, the CLEAR Framework (Clarity, Listening, Empathy, Adaptability, Repetition) is more actionable for modern learners and includes active listening—the foundation of all communication.',
@@ -576,10 +582,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the fastest way to improve English pronunciation?',
+              name: "What's the fastest way to improve English pronunciation?",
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The Mirror Method: 1) Observe native speakers\' mouth movements, 2) Isolate difficult sounds and practice alone, 3) Integrate sounds into words, 4) Apply in full sentences, 5) Record and compare. Practice 10 minutes daily for 30 days focusing on your 3 most difficult sounds. Results visible within 2 weeks.',
+                text: "The Mirror Method: 1) Observe native speakers' mouth movements, 2) Isolate difficult sounds and practice alone, 3) Integrate sounds into words, 4) Apply in full sentences, 5) Record and compare. Practice 10 minutes daily for 30 days focusing on your 3 most difficult sounds. Results visible within 2 weeks.",
               },
             },
             {
@@ -608,7 +614,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the difference between fluency and accuracy in English?',
+              name: "What's the difference between fluency and accuracy in English?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Fluency = smooth, natural flow of speech without long pauses. Accuracy = grammatical correctness. Prioritize fluency first—communicate your ideas even with small errors. Accuracy improves naturally with practice. Native speakers value understanding over perfect grammar. The Mirror Method and conversation practice build fluency; grammar study builds accuracy.',
@@ -625,7 +631,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           '@context': 'https://schema.org',
           '@type': 'HowTo',
           name: 'How to Master Communication Skills and Speak English Fluently',
-          description: 'A complete guide to improving communication skills and achieving English fluency using proven frameworks, daily exercises, and AI-powered practice methods.',
+          description:
+            'A complete guide to improving communication skills and achieving English fluency using proven frameworks, daily exercises, and AI-powered practice methods.',
           totalTime: 'P6M', // 6 months
           estimatedCost: {
             '@type': 'MonetaryAmount',
@@ -719,7 +726,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'How many mock interviews do I actually need?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Research suggests quality matters more than quantity. One study found that 25+ mock interviews improved confidence but didn\'t guarantee real interview success if they lacked stress simulation. Focus on 8-12 progressively stressful mock interviews rather than 30+ comfortable ones.',
+                text: "Research suggests quality matters more than quantity. One study found that 25+ mock interviews improved confidence but didn't guarantee real interview success if they lacked stress simulation. Focus on 8-12 progressively stressful mock interviews rather than 30+ comfortable ones.",
               },
             },
             {
@@ -735,7 +742,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'What if I still freeze during the real interview despite preparation?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Have a recovery protocol ready. Practice this exact script: "That\'s a great question. Let me take a moment to organize my thoughts... [breathe for 3-5 seconds] ... Here\'s what I\'d highlight..." This buys you time to let your amygdala calm and your prefrontal cortex reboot.',
+                text: "Have a recovery protocol ready. Practice this exact script: \"That's a great question. Let me take a moment to organize my thoughts... [breathe for 3-5 seconds] ... Here's what I'd highlight...\" This buys you time to let your amygdala calm and your prefrontal cortex reboot.",
               },
             },
             {
@@ -767,7 +774,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'Can AI interview tools replace human mock interviewers?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Not entirely. AI excels at content feedback and unlimited practice but can\'t replicate the social threat response that human interviewers trigger. Use AI for volume and skill-building; use humans for stress inoculation.',
+                text: "Not entirely. AI excels at content feedback and unlimited practice but can't replicate the social threat response that human interviewers trigger. Use AI for volume and skill-building; use humans for stress inoculation.",
               },
             },
             {
@@ -791,7 +798,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'What is amygdala hijack during interviews?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Amygdala hijack occurs when your brain\'s threat-detection system (amygdala) perceives social rejection or evaluation as a survival threat. It releases adrenaline and cortisol, shuts down non-essential cognitive functions including memory retrieval and complex reasoning, and redirects resources to fight-or-flight responses. This causes blank mind, verbal stumbling, time distortion, and physical symptoms like sweating and shaking.',
+                text: "Amygdala hijack occurs when your brain's threat-detection system (amygdala) perceives social rejection or evaluation as a survival threat. It releases adrenaline and cortisol, shuts down non-essential cognitive functions including memory retrieval and complex reasoning, and redirects resources to fight-or-flight responses. This causes blank mind, verbal stumbling, time distortion, and physical symptoms like sweating and shaking.",
               },
             },
           ],
@@ -818,7 +825,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'Why do I know my introduction perfectly at home but freeze in the actual interview?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Your brain stores information in state-dependent memory. Practice under low stress creates memories your brain can\'t access under high stress. The information is there, but cortisol blocks retrieval pathways. Solution: Practice under realistic stress conditions (after physical exercise, with harsh evaluators, surprise timing).',
+                text: "Your brain stores information in state-dependent memory. Practice under low stress creates memories your brain can't access under high stress. The information is there, but cortisol blocks retrieval pathways. Solution: Practice under realistic stress conditions (after physical exercise, with harsh evaluators, surprise timing).",
               },
             },
             {
@@ -826,7 +833,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'How long should my "Tell me about yourself" answer be?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: '90-120 seconds maximum. Under 60 seconds is too brief (shows lack of preparation); over 2 minutes loses the interviewer\'s attention. Practice with a timer to calibrate.',
+                text: "90-120 seconds maximum. Under 60 seconds is too brief (shows lack of preparation); over 2 minutes loses the interviewer's attention. Practice with a timer to calibrate.",
               },
             },
             {
@@ -842,7 +849,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               name: 'What causes interview freeze?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Interview freeze is caused by amygdala hijack—your brain\'s threat detector floods your system with cortisol and adrenaline, shutting down non-essential cognitive functions like memory retrieval and complex reasoning. The amygdala can\'t distinguish between a job interview and actual life-threatening danger.',
+                text: "Interview freeze is caused by amygdala hijack—your brain's threat detector floods your system with cortisol and adrenaline, shutting down non-essential cognitive functions like memory retrieval and complex reasoning. The amygdala can't distinguish between a job interview and actual life-threatening danger.",
               },
             },
             {
@@ -855,7 +862,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'How many times should I practice before I\'m confident?',
+              name: "How many times should I practice before I'm confident?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Research suggests quality over quantity: 25-30 practice repetitions using stress conditions (physical stress, surprise timing, harsh feedback) is more effective than 100 comfortable repetitions. Confidence comes from knowing you can recover from mistakes, not from never making them.',
@@ -879,7 +886,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What if I freeze and then forget what job I\'m interviewing for?',
+              name: "What if I freeze and then forget what job I'm interviewing for?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'This is panic-level anxiety. Use emergency protocol: "I apologize—I need a brief moment to compose myself" → 5-4-3-2-1 grounding (mentally note 5 things you see) → Box breathing (4-4-4-4) → If still frozen, request brief bathroom break to check your notes and reset.',
@@ -896,7 +903,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           '@context': 'https://schema.org',
           '@type': 'HowTo',
           name: 'How to Stop Freezing in Real Interviews After Mock Practice',
-          description: 'A comprehensive guide to bridging the practice-performance gap in job interviews using stress inoculation training, neuroscience-based recovery protocols, and evidence-based strategies.',
+          description:
+            'A comprehensive guide to bridging the practice-performance gap in job interviews using stress inoculation training, neuroscience-based recovery protocols, and evidence-based strategies.',
           totalTime: 'P6W', // 6 weeks
           estimatedCost: {
             '@type': 'MonetaryAmount',
@@ -943,7 +951,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               '@type': 'HowToStep',
               position: 6,
               name: 'Practice Recovery Protocols',
-              text: 'Rehearse this exact script for when you blank: "That\'s a great question. Let me take a moment to organize my thoughts... [pause 3-5 seconds, breathe] ... Here\'s what I\'d highlight..." Practice intentional failure moments in mock interviews.',
+              text: "Rehearse this exact script for when you blank: \"That's a great question. Let me take a moment to organize my thoughts... [pause 3-5 seconds, breathe] ... Here's what I'd highlight...\" Practice intentional failure moments in mock interviews.",
               url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
             },
             {
@@ -957,7 +965,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               '@type': 'HowToStep',
               position: 8,
               name: 'Add Real Consequences to Practice',
-              text: 'Create authentic stakes: bet $20 on your performance, record and publicly share mock interviews, or apply to practice jobs you don\'t care about. Real consequences activate your stress response during practice.',
+              text: "Create authentic stakes: bet $20 on your performance, record and publicly share mock interviews, or apply to practice jobs you don't care about. Real consequences activate your stress response during practice.",
               url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#strategies`,
             },
             {
@@ -971,7 +979,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               '@type': 'HowToStep',
               position: 10,
               name: 'Combine AI and Human Practice',
-              text: 'Use AI tools for unlimited content practice and volume, brutal human mock interviews for stress inoculation, and real interviews at companies you don\'t care about for authentic stakes exposure.',
+              text: "Use AI tools for unlimited content practice and volume, brutal human mock interviews for stress inoculation, and real interviews at companies you don't care about for authentic stakes exposure.",
               url: `${siteMetadata.siteUrl}/blog/why-freeze-interviews-after-mock-practice#coaching-limits`,
             },
           ],
@@ -1105,181 +1113,229 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           {/* Main Content */}
           <main className="flex-1 lg:max-w-4xl">
             {/* Semantic HTML5 article element for better SEO */}
-            <article className="rounded-lg border border-matte-gray bg-matte-black p-8" itemScope itemType="https://schema.org/Article">
+            <article
+              className="rounded-lg border border-matte-gray bg-matte-black p-8"
+              itemScope
+              itemType="https://schema.org/Article"
+            >
               {/* Article Header */}
               <header className="mb-8 border-b border-matte-gray pb-8">
-            <div className="space-y-4 text-center">
-              <div>
-                <time dateTime={date} className="text-sm font-medium text-accent-400" itemProp="datePublished">
-                  {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                </time>
-              </div>
-              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl" itemProp="headline">{title}</h1>
-              <div className="flex flex-wrap justify-center gap-2">
-                {tags?.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-matte-gray px-3 py-1 text-xs font-medium text-gray-300 transition-colors hover:bg-accent-600 hover:text-white"
+                <div className="space-y-4 text-center">
+                  <div>
+                    <time
+                      dateTime={date}
+                      className="text-sm font-medium text-accent-400"
+                      itemProp="datePublished"
+                    >
+                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                    </time>
+                  </div>
+                  <h1
+                    className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
+                    itemProp="headline"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </header>
+                    {title}
+                  </h1>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {tags?.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-matte-gray px-3 py-1 text-xs font-medium text-gray-300 transition-colors hover:bg-accent-600 hover:text-white"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </header>
 
-          {/* Social Sharing Buttons */}
-          <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
+              {/* Social Sharing Buttons */}
+              <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
 
-          {/* Article Content - Semantic HTML5 section */}
-          <section className="prose prose-invert max-w-none pb-8" itemProp="articleBody">{children}</section>
+              {/* Article Content - Semantic HTML5 section */}
+              <section className="prose prose-invert max-w-none pb-8" itemProp="articleBody">
+                {children}
+              </section>
 
-          {/* Article Footer */}
-          <footer className="border-t border-matte-gray pt-8">
-            {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-            <aside className="mb-8 rounded-lg bg-matte-gray/30 p-6">
-              <h3 className="mb-4 text-lg font-semibold text-white">About the Author</h3>
-              <div className="flex flex-wrap gap-6">
-                {authorDetails.map((author) => (
-                  <div key={author.name} className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
-                    {author.avatar && (
-                      <Image
-                        src={author.avatar}
-                        width={64}
-                        height={64}
-                        alt={`${author.name} - Career Expert`}
-                        className="h-16 w-16 rounded-full"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <div className="mb-2 font-semibold text-white" itemProp="author" itemScope itemType="https://schema.org/Person">
-                        <span itemProp="name">{author.name}</span>
+              {/* Article Footer */}
+              <footer className="border-t border-matte-gray pt-8">
+                {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
+                <aside className="mb-8 rounded-lg bg-matte-gray/30 p-6">
+                  <h3 className="mb-4 text-lg font-semibold text-white">About the Author</h3>
+                  <div className="flex flex-wrap gap-6">
+                    {authorDetails.map((author) => (
+                      <div
+                        key={author.name}
+                        className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0"
+                      >
+                        {author.avatar && (
+                          <Image
+                            src={author.avatar}
+                            width={64}
+                            height={64}
+                            alt={`${author.name} - Career Expert`}
+                            className="h-16 w-16 rounded-full"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <div
+                            className="mb-2 font-semibold text-white"
+                            itemProp="author"
+                            itemScope
+                            itemType="https://schema.org/Person"
+                          >
+                            <span itemProp="name">{author.name}</span>
+                          </div>
+                          {author.occupation && (
+                            <div className="mb-2 text-sm text-gray-300">{author.occupation}</div>
+                          )}
+                          <p className="mb-3 text-sm leading-relaxed text-gray-300">
+                            {author.name} is an AI & Career Tools Developer specializing in resume
+                            optimization, ATS systems, and interview preparation. Creator of Auto
+                            Interview AI, helping thousands of job seekers land their dream jobs
+                            through AI-powered career tools and expert guidance.
+                          </p>
+                          <div className="flex flex-wrap gap-3">
+                            {author.twitter && (
+                              <Link
+                                href={author.twitter}
+                                className="text-sm text-accent-400 hover:text-accent-300"
+                                rel="author"
+                              >
+                                Follow on X
+                              </Link>
+                            )}
+                            {author.linkedin && (
+                              <Link
+                                href={author.linkedin}
+                                className="text-sm text-accent-400 hover:text-accent-300"
+                                rel="author"
+                              >
+                                LinkedIn
+                              </Link>
+                            )}
+                            <Link
+                              href="/about"
+                              className="text-sm text-accent-400 hover:text-accent-300"
+                            >
+                              More Articles
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                      {author.occupation && (
-                        <div className="mb-2 text-sm text-gray-300">{author.occupation}</div>
-                      )}
-                      <p className="mb-3 text-sm leading-relaxed text-gray-300">
-                        {author.name} is an AI & Career Tools Developer specializing in resume optimization, 
-                        ATS systems, and interview preparation. Creator of Auto Interview AI, helping thousands 
-                        of job seekers land their dream jobs through AI-powered career tools and expert guidance.
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        {author.twitter && (
-                          <Link
-                            href={author.twitter}
-                            className="text-sm text-accent-400 hover:text-accent-300"
-                            rel="author"
-                          >
-                            Follow on X
-                          </Link>
-                        )}
-                        {author.linkedin && (
-                          <Link
-                            href={author.linkedin}
-                            className="text-sm text-accent-400 hover:text-accent-300"
-                            rel="author"
-                          >
-                            LinkedIn
-                          </Link>
-                        )}
-                        <Link
-                          href="/about"
-                          className="text-sm text-accent-400 hover:text-accent-300"
-                        >
-                          More Articles
-                        </Link>
+                    ))}
+                  </div>
+                </aside>
+
+                {/* Trust Signals for E-E-A-T */}
+                <div className="mb-8 rounded-lg border border-matte-gray/50 bg-matte-black p-6">
+                  <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
+                    Why Trust Auto Interview AI?
+                  </h4>
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-white">✓ Expert-Verified Content</div>
+                      <div className="text-gray-400">
+                        Written by career professionals with real-world experience
+                      </div>
+                    </div>
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-white">✓ Data-Driven Insights</div>
+                      <div className="text-gray-400">
+                        Based on industry research and proven strategies
+                      </div>
+                    </div>
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-white">✓ Regularly Updated</div>
+                      <div className="text-gray-400">
+                        Content reviewed and updated for 2025 job market
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </aside>
+                </div>
 
-            {/* Trust Signals for E-E-A-T */}
-            <div className="mb-8 rounded-lg border border-matte-gray/50 bg-matte-black p-6">
-              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                Why Trust Auto Interview AI?
-              </h4>
-              <div className="grid gap-4 sm:grid-cols-3">
-                <div className="text-sm">
-                  <div className="mb-1 font-medium text-white">✓ Expert-Verified Content</div>
-                  <div className="text-gray-400">Written by career professionals with real-world experience</div>
-                </div>
-                <div className="text-sm">
-                  <div className="mb-1 font-medium text-white">✓ Data-Driven Insights</div>
-                  <div className="text-gray-400">Based on industry research and proven strategies</div>
-                </div>
-                <div className="text-sm">
-                  <div className="mb-1 font-medium text-white">✓ Regularly Updated</div>
-                  <div className="text-gray-400">Content reviewed and updated for 2025 job market</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            {(next || prev) && (
-              <div className="mb-8 grid gap-4 sm:grid-cols-2">
-                {prev && prev.path && (
-                  <div className="rounded-lg border border-matte-gray p-4">
-                    <h4 className="text-sm font-medium text-gray-400">Previous Article</h4>
-                    <Link
-                      href={`/${prev.path}`}
-                      className="text-white transition-colors hover:text-accent-400"
-                    >
-                      {prev.title}
-                    </Link>
+                {/* Navigation */}
+                {(next || prev) && (
+                  <div className="mb-8 grid gap-4 sm:grid-cols-2">
+                    {prev && prev.path && (
+                      <div className="rounded-lg border border-matte-gray p-4">
+                        <h4 className="text-sm font-medium text-gray-400">Previous Article</h4>
+                        <Link
+                          href={`/${prev.path}`}
+                          className="text-white transition-colors hover:text-accent-400"
+                        >
+                          {prev.title}
+                        </Link>
+                      </div>
+                    )}
+                    {next && next.path && (
+                      <div className="rounded-lg border border-matte-gray p-4">
+                        <h4 className="text-sm font-medium text-gray-400">Next Article</h4>
+                        <Link
+                          href={`/${next.path}`}
+                          className="text-white transition-colors hover:text-accent-400"
+                        >
+                          {next.title}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 )}
-                {next && next.path && (
-                  <div className="rounded-lg border border-matte-gray p-4">
-                    <h4 className="text-sm font-medium text-gray-400">Next Article</h4>
-                    <Link
-                      href={`/${next.path}`}
-                      className="text-white transition-colors hover:text-accent-400"
-                    >
-                      {next.title}
-                    </Link>
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center justify-between gap-4">
+                  {/* Home Button */}
+                  <Link
+                    href="/"
+                    className="inline-flex items-center gap-2 rounded-lg bg-matte-gray px-4 py-2 text-sm font-medium text-chatgpt-text transition-all hover:bg-chatgpt-card hover:text-accent-500"
+                    aria-label="Go to home page"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    Home
+                  </Link>
+
+                  {/* Back to Blog Button */}
+                  <Link
+                    href={`/${basePath}`}
+                    className="inline-flex items-center gap-2 rounded-lg bg-matte-gray px-4 py-2 text-sm font-medium text-chatgpt-text transition-all hover:bg-chatgpt-card hover:text-accent-500"
+                    aria-label="Back to the blog"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                      />
+                    </svg>
+                    Back to Blog
+                  </Link>
+                </div>
+
+                {/* Comments */}
+                {siteMetadata.comments && (
+                  <div className="mt-8 border-t border-matte-gray pt-8" id="comment">
+                    <h3 className="mb-4 text-lg font-semibold text-white">Comments</h3>
+                    <Comments slug={slug} />
                   </div>
                 )}
-              </div>
-            )}
+              </footer>
+            </article>
+          </main>
 
-            {/* Back to Blog */}
-            <div className="flex justify-center">
-              <Link
-                href={`/${basePath}`}
-                className="inline-flex items-center rounded-lg bg-matte-gray px-6 py-3 text-white transition-colors hover:bg-accent-600"
-                aria-label="Back to the blog"
-              >
-                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  />
-                </svg>
-                Back to Blog
-              </Link>
-            </div>
-
-            {/* Comments */}
-            {siteMetadata.comments && (
-              <div className="mt-8 border-t border-matte-gray pt-8" id="comment">
-                <h3 className="mb-4 text-lg font-semibold text-white">Comments</h3>
-                <Comments slug={slug} />
-              </div>
-            )}
-          </footer>
-        </article>
-      </main>
-
-      {/* Sidebar with Table of Contents - Google SEO: Internal linking and better UX */}
-      <aside className="hidden lg:block lg:w-80">
-        <TableOfContents />
-      </aside>
-    </div>
-  </div>
+          {/* Sidebar with Table of Contents - Google SEO: Internal linking and better UX */}
+          <aside className="hidden lg:block lg:w-80">
+            <TableOfContents />
+          </aside>
+        </div>
+      </div>
 
       <Footer />
     </div>

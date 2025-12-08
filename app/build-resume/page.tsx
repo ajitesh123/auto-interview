@@ -4,6 +4,7 @@ import { BuildResumePage } from '@/features/build-resume'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
 import TLDRSummary from '@/components/TLDRSummary'
+import ResumeBuilderMotivation from '@/components/ResumeBuilderMotivation'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'Free AI Resume Builder | ATS-Friendly Templates | Auto Interview AI',
@@ -23,10 +24,10 @@ export default function BuildResume() {
       <div className="sr-only" aria-label="Resume Builder Description">
         <h1>Free AI Resume Builder - Create ATS-Friendly Professional Resumes</h1>
         <p>
-          Build professional, ATS-optimized resumes with our free AI-powered resume builder.
-          Create from scratch or upload your existing resume for AI-driven improvements. Choose
-          from multiple ATS-friendly templates including Harvard, Modern, and Professional formats
-          that pass Applicant Tracking Systems used by 99% of Fortune 500 companies.
+          Build professional, ATS-optimized resumes with our free AI-powered resume builder. Create
+          from scratch or upload your existing resume for AI-driven improvements. Choose from
+          multiple ATS-friendly templates including Harvard, Modern, and Professional formats that
+          pass Applicant Tracking Systems used by 99% of Fortune 500 companies.
         </p>
 
         <h2>Key Features of Our Resume Builder</h2>
@@ -64,11 +65,11 @@ export default function BuildResume() {
 
         <h2>Why Use Our AI Resume Builder?</h2>
         <p>
-          Over 75% of resumes are rejected by Applicant Tracking Systems (ATS) before reaching
-          human recruiters. Companies use ATS software to automatically filter and rank resumes
-          based on keywords, formatting, and structure. Our resume builder ensures your resume
-          passes ATS screening with proper formatting, strategic keyword optimization, and
-          professional structure that both algorithms and recruiters appreciate.
+          Over 75% of resumes are rejected by Applicant Tracking Systems (ATS) before reaching human
+          recruiters. Companies use ATS software to automatically filter and rank resumes based on
+          keywords, formatting, and structure. Our resume builder ensures your resume passes ATS
+          screening with proper formatting, strategic keyword optimization, and professional
+          structure that both algorithms and recruiters appreciate.
         </p>
 
         <h2>How the Resume Builder Works</h2>
@@ -182,6 +183,10 @@ export default function BuildResume() {
         />
 
         <BuildResumePage />
+
+        {/* Motivational Content */}
+        <ResumeBuilderMotivation />
+
         <RelatedTools currentPage="/build-resume" />
       </AppLayout>
     </>

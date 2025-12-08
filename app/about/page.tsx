@@ -2,12 +2,14 @@ import { genPageMetadata } from 'app/seo'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Link from '@/components/Link'
+import FloatingNav from '@/components/FloatingNav'
 
 export const metadata = genPageMetadata({ title: 'About' })
 
 export default function Page() {
   return (
     <>
+      <FloatingNav />
       <Header />
       <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
         <div className="mx-auto max-w-4xl px-4 py-16">
