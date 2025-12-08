@@ -531,7 +531,7 @@ const ATSScorePage = ({
             <div className="rounded-3xl border border-blue-700/50 bg-blue-900/30 p-8 shadow-lg">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-blue-300">ATS Parse Coverage</h3>
-                {(analysisResults.parseCoverage ?? 0) >= 85 && (
+                {(analysisResults?.parseCoverage ?? 0) >= 85 && (
                   <span className="inline-block rounded-full bg-purple-600 px-3 py-1 text-xs text-white">
                     Excellent
                   </span>
@@ -542,19 +542,19 @@ const ATSScorePage = ({
                   <div className="h-4 w-full overflow-hidden rounded-full bg-blue-900/60">
                     <div
                       className="h-4 rounded-full bg-gradient-to-r from-blue-400 to-green-400 transition-all duration-1000 ease-out"
-                      style={{ width: `${analysisResults.parseCoverage ?? 0}%` }}
+                      style={{ width: `${analysisResults?.parseCoverage ?? 0}%` }}
                     ></div>
                   </div>
                 </div>
                 <div>
                   <span className="text-xl font-bold text-blue-400">
-                    {analysisResults.parseCoverage ?? 0}%
+                    {analysisResults?.parseCoverage ?? 0}%
                   </span>
                 </div>
               </div>
               <p className="mt-2 text-xs text-blue-200">
                 Percent of your resume that can be reliably parsed by modern ATS.{' '}
-                {(analysisResults.parseCoverage ?? 0) < 70
+                {(analysisResults?.parseCoverage ?? 0) < 70
                   ? 'Consider improving formatting, using standard sections, and avoiding images/tables.'
                   : ''}
               </p>
@@ -570,43 +570,43 @@ const ATSScorePage = ({
                 <div className="relative mb-8 inline-block">
                   <div className="relative">
                     <div
-                      className={`text-9xl font-bold ${getScoreColor(analysisResults.overallScore)} mb-2 drop-shadow-2xl`}
+                      className={`text-9xl font-bold ${getScoreColor(analysisResults?.overallScore ?? 0)} mb-2 drop-shadow-2xl`}
                     >
-                      {analysisResults.overallScore}
+                      {analysisResults?.overallScore ?? 0}
                     </div>
                     <div className="text-3xl font-light text-gray-400">/ 100</div>
 
                     {/* Animated score indicator */}
                     <div
-                      className={`absolute -right-4 -top-4 h-8 w-8 ${getScoreBgColor(analysisResults.overallScore)} animate-pulse rounded-full shadow-lg`}
+                      className={`absolute -right-4 -top-4 h-8 w-8 ${getScoreBgColor(analysisResults?.overallScore ?? 0)} animate-pulse rounded-full shadow-lg`}
                     ></div>
 
                     {/* Glowing effect */}
                     <div
-                      className={`absolute inset-0 ${getScoreColor(analysisResults.overallScore)} opacity-20 blur-xl`}
+                      className={`absolute inset-0 ${getScoreColor(analysisResults?.overallScore ?? 0)} opacity-20 blur-xl`}
                     ></div>
                   </div>
                 </div>
 
-                {'summary' in analysisResults && (analysisResults as any).summary && (
+                {(analysisResults as any)?.summary && (
                   <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-400">
                     {(analysisResults as any).summary}
                   </p>
                 )}
 
                 {/* Potential Score Improvement */}
-                {analysisResults.improvements.length > 0 && (
+                {(analysisResults?.improvements?.length ?? 0) > 0 && (
                   <div className="mt-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 p-6 backdrop-blur-sm">
                     <div className="mb-3 flex items-center justify-center space-x-4">
                       <div className="h-3 w-3 animate-pulse rounded-full bg-cyan-400"></div>
                       <p className="text-xl font-semibold text-cyan-300">
                         Potential Score Improvement: +
                         {Math.min(
-                          analysisResults.improvements.reduce((total, improvement) => {
+                          (analysisResults?.improvements ?? []).reduce((total, improvement) => {
                             const points = parseInt(improvement.scoreImpact) || 0
                             return total + points
                           }, 0),
-                          100 - analysisResults.overallScore
+                          100 - (analysisResults?.overallScore ?? 0)
                         )}{' '}
                         points
                       </p>
@@ -647,7 +647,7 @@ const ATSScorePage = ({
                 Category Breakdown
               </h3>
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(analysisResults.breakdown).map(([category, score]) => (
+                {Object.entries(analysisResults?.breakdown ?? {}).map(([category, score]) => (
                   <div
                     key={category}
                     className="group rounded-2xl border border-gray-700/50 bg-gray-800/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gray-600/50"
@@ -667,7 +667,7 @@ const ATSScorePage = ({
                         {(() => {
                           const scoreNum = score as number
                           const maxNum =
-                            analysisResults.breakdownMax[category as keyof CategoryScore]
+                            analysisResults?.breakdownMax?.[category as keyof CategoryScore] ?? 0
                           const percentage = maxNum > 0 ? (scoreNum / maxNum) * 100 : 0
                           return (
                             <div
@@ -683,7 +683,7 @@ const ATSScorePage = ({
                       ></div>
                       <div className="mt-2 text-right text-xs text-gray-400">
                         {score as number} /{' '}
-                        {analysisResults.breakdownMax[category as keyof CategoryScore]}
+                        {analysisResults?.breakdownMax?.[category as keyof CategoryScore]}
                       </div>
                     </div>
                   </div>
@@ -695,7 +695,7 @@ const ATSScorePage = ({
             <div className="rounded-lg border border-gray-700 bg-gray-900 p-8">
               <h3 className="mb-6 text-2xl font-bold text-white">Strengths</h3>
               <div className="space-y-4">
-                {analysisResults.strengths.map((strength, index) => (
+                {(analysisResults?.strengths ?? []).map((strength, index) => (
                   <div key={index} className="rounded-lg bg-gray-800 p-6">
                     <div className="flex items-start space-x-4">
                       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-purple-500">
@@ -738,12 +738,12 @@ const ATSScorePage = ({
                 <h3 className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-3xl font-bold text-transparent">
                   Improvement Suggestions
                 </h3>
-                {analysisResults.improvements.length > 0 && (
+                {(analysisResults?.improvements?.length ?? 0) > 0 && (
                   <div className="text-right">
                     <p className="text-lg text-gray-400">
                       Current Score:{' '}
                       <span className="font-bold text-white">
-                        {analysisResults.overallScore}/100
+                        {analysisResults?.overallScore ?? 0}/100
                       </span>
                     </p>
                     <p className="text-lg text-cyan-400">
@@ -752,15 +752,14 @@ const ATSScorePage = ({
                         {(() => {
                           // Calculate potential score more realistically
                           // Only add up to the difference from 100, to avoid suggesting over 100
-                          const currentScore = analysisResults.overallScore
+                          const currentScore = analysisResults?.overallScore ?? 0
                           const maxPossibleIncrease = 100 - currentScore
-                          const totalImprovementPoints = analysisResults.improvements.reduce(
-                            (total, improvement) => {
-                              const points = parseInt(improvement.scoreImpact) || 0
-                              return total + points
-                            },
-                            0
-                          )
+                          const totalImprovementPoints = (
+                            analysisResults?.improvements ?? []
+                          ).reduce((total, improvement) => {
+                            const points = parseInt(improvement.scoreImpact) || 0
+                            return total + points
+                          }, 0)
                           // Cap at the maximum achievable increase
                           const realisticIncrease = Math.min(
                             totalImprovementPoints,
@@ -778,7 +777,7 @@ const ATSScorePage = ({
               {/* Categorized Improvements */}
               {(() => {
                 // Group improvements by category
-                const categorizedImprovements = analysisResults.improvements.reduce(
+                const categorizedImprovements = (analysisResults?.improvements ?? []).reduce(
                   (acc, improvement, index) => {
                     const category = improvement.category.toLowerCase().replace(/\s+/g, '-')
                     if (!acc[category]) {
@@ -1003,11 +1002,11 @@ const ATSScorePage = ({
             </div>
 
             {/* Line-by-line deterministic feedback */}
-            {analysisResults.lineByLine && analysisResults.lineByLine.length > 0 && (
+            {analysisResults?.lineByLine && (analysisResults?.lineByLine?.length ?? 0) > 0 && (
               <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
                 <h3 className="mb-6 text-2xl font-bold text-white">Line-by-Line Feedback</h3>
                 <div className="space-y-4">
-                  {analysisResults.lineByLine.map((item, idx) => (
+                  {(analysisResults?.lineByLine ?? []).map((item, idx) => (
                     <div
                       key={idx}
                       className="rounded-xl border border-gray-700/50 bg-gray-800/40 p-4"
