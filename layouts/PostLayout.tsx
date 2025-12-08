@@ -13,6 +13,7 @@ import LandingHeader from '@/components/LandingHeader'
 import Footer from '@/components/Footer'
 import SocialShareButtons from '@/components/SocialShareButtons'
 import TableOfContents from '@/components/TableOfContents'
+import FloatingNav from '@/components/FloatingNav'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -921,7 +922,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the ROI of sales training programs?',
+              name: "What's the ROI of sales training programs?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Well-designed sales training programs deliver 300%+ ROI within 90 days. Key metrics: win rates increase 3-5%, average deal size grows 5-10%, sales cycle length decreases 10-15%, and rep ramp time reduces by 2 months. Companies investing $50,000 in training typically see $200,000+ revenue increase.',
@@ -969,7 +970,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the difference between SPIN Selling and Challenger Sale?',
+              name: "What's the difference between SPIN Selling and Challenger Sale?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'SPIN Selling focuses on structured discovery questions (Situation, Problem, Implication, Need-Payoff) to uncover buyer needs. Challenger Sale teaches salespeople to bring fresh insights that challenge buyer thinking, then tailor and take control. SPIN is question-driven; Challenger is insight-driven. Both work, but Challenger excels in competitive situations.',
@@ -1001,7 +1002,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             },
             {
               '@type': 'Question',
-              name: 'What\'s the best sales training for remote teams?',
+              name: "What's the best sales training for remote teams?",
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Digital-first methods work best: Microlearning (on-demand modules), AI-powered simulations (24/7 practice), virtual role-plays (video-based), asynchronous coaching (recorded feedback). Hybrid models (70% async, 30% live) increase engagement. Platforms like Tough Tongue AI provide remote-friendly practice for tough conversations.',
@@ -1479,6 +1480,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       </div>
 
       <Footer />
+
+      {/* Floating Navigation Buttons */}
+      <FloatingNav />
     </div>
   )
 }
