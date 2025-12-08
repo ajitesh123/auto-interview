@@ -11,16 +11,15 @@
     <title>CV Template</title>
 
     <style>
-
         body {
 
             /* Prefer Calibri to better match DOCX metrics, fall back to Arial */
             font-family: 'Calibri', Arial, sans-serif;
 
-            /* Match US Letter width: 8.5in @ 96dpi ≈ 816px */
-            max-width: 816px;
+            /* Use 100% width to fill container - no max-width for preview */
+            width: 100%;
 
-            margin: 0 auto;
+            margin: 0;
 
             padding: 40px;
 
@@ -101,7 +100,8 @@
 
         /* Education and Experience entries */
 
-        .education-entry, .experience-entry {
+        .education-entry,
+        .experience-entry {
 
             display: table;
 
@@ -143,7 +143,8 @@
 
 
 
-        .degree-title, .company-name {
+        .degree-title,
+        .company-name {
 
             font-weight: bold;
 
@@ -249,7 +250,6 @@
             font-weight: bold;
 
         }
-
     </style>
 
 </head>
@@ -270,6 +270,8 @@
 
             <div><a href="{{LinkedIn}}">{{LinkedIn}}</a></div>
 
+            <div><a href="{{Portfolio}}">{{Portfolio}}</a></div>
+
         </div>
 
     </div>
@@ -280,7 +282,7 @@
 
     <div class="section-heading">EDUCATION</div>
 
-    
+
 
     <div class="education-entry">
 
@@ -296,7 +298,8 @@
 
         <div class="date-range">{{Education2_CompletionDate}}</div>
 
-        <div class="degree-title">{{Education2_Institution}}<br>{{Education2_Degree}}, <span class="degree-details">{{Education2_Honours}}</span></div>
+        <div class="degree-title">{{Education2_Institution}}<br>{{Education2_Degree}}, <span
+                class="degree-details">{{Education2_Honours}}</span></div>
 
     </div>
 
@@ -306,7 +309,8 @@
 
         <div class="date-range">{{Education3_CompletionDate}}</div>
 
-        <div class="degree-title">{{Education3_Institution}}<br>{{Education3_Degree}}, <span class="degree-details">{{Education3_Honours}}</span></div>
+        <div class="degree-title">{{Education3_Institution}}<br>{{Education3_Degree}}, <span
+                class="degree-details">{{Education3_Honours}}</span></div>
 
     </div>
 
@@ -316,7 +320,8 @@
 
         <div class="date-range">{{Education4_CompletionDate}}</div>
 
-        <div class="degree-title">{{Education4_Institution}}<br>{{Education4_Degree}}, <span class="degree-details">{{Education4_Honours}}</span></div>
+        <div class="degree-title">{{Education4_Institution}}<br>{{Education4_Degree}}, <span
+                class="degree-details">{{Education4_Honours}}</span></div>
 
     </div>
 

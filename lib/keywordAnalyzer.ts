@@ -84,7 +84,7 @@ export async function analyzeKeywords(
     const finalScore = Math.max(score25, hardSkills.length > 0 ? 12 : 0)
 
     console.log(
-      `[Gemini] Baseline Keyword Score: ${finalScore}/25 (optimization: ${optimization}, atsReadiness: ${atsReadiness}, hardSkills: ${hardSkills.length})`
+      `[Gemini] Baseline Keyword Score: ${finalScore}/25 (optimization: ${optimization}, atsReadiness: ${atsReadiness}, hardSkills: ${hardSkills.length}, inferredRole: ${analysis.inferredRole || 'unknown'})`
     )
 
     return { score25: finalScore, raw: analysis }
@@ -134,8 +134,12 @@ Analyze semantic matches (e.g., "JavaScript" matches "JS", "React dev", "Node.js
 function buildBaselinePrompt(resumeText: string): string {
   return `You are an expert ATS keyword analyzer. Analyze resume keyword optimization WITHOUT a job description. Return ONLY valid JSON (no markdown, no code blocks).
 
+CRITICAL: First infer the candidate's target role/industry from their resume, then suggest keywords RELEVANT to that specific role. DO NOT suggest random programming languages or tech stacks unless they match the candidate's background.
+
 Required JSON structure:
 {
+  "inferredRole": "<inferred job role/career path based on resume>",
+  "inferredIndustry": "<inferred industry>",
   "optimizationScore": <0-100>,
   "atsReadiness": {"score": <0-100>, "level": "excellent|good|fair|poor"},
   "keywordsFound": {
@@ -145,12 +149,37 @@ Required JSON structure:
   },
   "keywordDistribution": {"assessment": "well-distributed|concentrated|sparse"},
   "recommendations": [
-    {"priority": "high|medium|low", "category": "category", "issue": "description", "action": "what to do", "examples": ["example1"]}
+    {
+      "priority": "high|medium|low", 
+      "category": "category", 
+      "issue": "description", 
+      "action": "what to do - MUST be relevant to the inferred role/industry", 
+      "examples": ["example1 - MUST match the candidate's career path"]
+    }
   ]
 }
 
 RESUME TEXT:
 ${resumeText.slice(0, 30000)}
 
-Evaluate keyword quality, variety, and ATS-readiness. Be generous - if resume has 5+ hard skills, optimizationScore should be at least 60. Return ONLY the JSON object.`
+IMPORTANT INSTRUCTIONS:
+1. First analyze the resume to determine:What role is this person targeting? (e.g., Software Engineer, Data Scientist, Product Manager, Marketing Manager, etc.)
+2. Base ALL recommendations on that inferred role
+3. For keyword recommendations: ONLY suggest keywords relevant to their specific career path
+4. DO NOT recommend random programming languages (e.g., don't suggest Python to a Marketing Manager, or Java to a Data Scientist who uses Python)
+5. If resume shows backend experience with Python/Django, don't suggest frontend frameworks like React/Vue
+6. Match recommendations to their actual skill set and career trajectory
+7. Be generous - if resume has 5+ hard skills, optimizationScore should be at least 60
+
+Example of GOOD recommendations:
+- If resume shows Python/Django backend work → suggest "API design, microservices, PostgreSQL, Docker"
+- If resume shows data science → suggest "machine learning, statistical analysis, data visualization"
+- If resume shows frontend → suggest "responsive design, accessibility, performance optimization"
+
+Example of BAD recommendations (AVOID):
+- Suggesting "JavaScript, TypeScript, Java, Kotlin, Swift" to someone with no web/mobile dev experience
+- Suggesting unrelated tech stacks just because they're popular
+- Generic lists of programming languages
+
+Return ONLY the JSON object.`
 }

@@ -90,8 +90,8 @@ const ResumeBuilderLayout = ({
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-[1600px] px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px]">
+      <div className="mx-auto max-w-[1800px] px-4 py-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.2fr_500px] xl:grid-cols-[1.3fr_550px]">
           {/* Left Column - Form Content */}
           <div className="min-w-0">
             {/* Validation Errors */}
@@ -131,7 +131,7 @@ const ResumeBuilderLayout = ({
                 className={`mb-4 rounded-lg p-4 ${
                   saveMessage.includes('Error')
                     ? 'border border-red-700 bg-red-900 text-red-200'
-                    : 'border border-green-700 bg-green-900 text-green-200'
+                    : 'border border-purple-700 bg-purple-900 text-purple-200'
                 }`}
               >
                 <div className="flex items-center">
@@ -270,7 +270,7 @@ const ResumeBuilderLayout = ({
               {currentSection < totalSections - 1 ? (
                 <button
                   onClick={onNext}
-                  className="flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
+                  className="flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-accent-600"
                 >
                   Next
                   <svg
@@ -293,7 +293,7 @@ const ResumeBuilderLayout = ({
                   disabled={!isResumeSaved}
                   className={`flex items-center rounded-lg px-6 py-3 font-semibold text-chatgpt-text transition-colors ${
                     isResumeSaved
-                      ? 'bg-chatgpt-accent hover:bg-chatgpt-green/80'
+                      ? 'bg-chatgpt-accent hover:bg-accent-600'
                       : 'cursor-not-allowed bg-chatgpt-input opacity-50'
                   }`}
                   title={!isResumeSaved ? 'Please click "Save Progress" to view templates' : ''}

@@ -31,8 +31,13 @@ interface FolderCard {
 
 const heroStats = [
   { label: 'MBA-ready folders', value: 6, helper: 'Consulting to PM', format: 'default' },
-  { label: 'Guides & playbooks', value: 18, helper: 'Step-by-step walkthroughs', format: 'default' },
-  { label: 'Community downloads', value: 42000, helper: 'Across 120 countries', format: 'k-plus' },
+  {
+    label: 'Guides & playbooks',
+    value: 18,
+    helper: 'Step-by-step walkthroughs',
+    format: 'default',
+  },
+  { label: 'Community downloads', value: 2000, helper: 'Across 5 countries', format: 'k-plus' },
 ]
 
 const categoryTabs: CategoryTab[] = [
@@ -67,7 +72,8 @@ const mbaFolders: FolderCard[] = [
       {
         id: 'iimc-casebook',
         name: 'IIM Calcutta Casebook',
-        description: 'Complete IIM-C case interview book covering frameworks, math, and sample drills.',
+        description:
+          'Complete IIM-C case interview book covering frameworks, math, and sample drills.',
         href: '/downloads/IIMC_Casebook_24-25.pdf',
         format: 'PDF',
       },
@@ -161,7 +167,10 @@ const FreeResourcesPage = () => {
   const handleFileDownload = (file: FolderFile) => {
     setDownloadingFileId(file.id)
     window.open(file.href, '_blank')
-    setTimeout(() => setDownloadingFileId((current) => (current === file.id ? null : current)), 1500)
+    setTimeout(
+      () => setDownloadingFileId((current) => (current === file.id ? null : current)),
+      1500
+    )
   }
 
   useEffect(() => {
@@ -187,13 +196,13 @@ const FreeResourcesPage = () => {
         Auto Interview AI Free Resources Library curates free downloadable interview resources for
         software engineering, tech product, consulting, and MBA job seekers searching phrases like
         “free downloadable case interview pdf”, “ATS resume template download”, and “IIM Calcutta
-        casebook free download” from San Francisco, Bengaluru, London, Singapore, and other GEO hubs.
-        Each hidden folder summary is optimized for SEO discoverability, AEO answer-first snippets,
-        and GEO intent so search engines and AI assistants understand this page stores ATS resume
-        templates, case study PDFs, cover letter scripts, and AI-ready playbooks.
+        casebook free download” from San Francisco, Bengaluru, London, Singapore, and other GEO
+        hubs. Each hidden folder summary is optimized for SEO discoverability, AEO answer-first
+        snippets, and GEO intent so search engines and AI assistants understand this page stores ATS
+        resume templates, case study PDFs, cover letter scripts, and AI-ready playbooks.
       </div>
       {/* Hero */}
-      <section className="mb-10 rounded-4xl border border-white/5 bg-gradient-to-br from-[#0B0B1A] via-[#111122] to-[#0B0B1A] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.45)]">
+      <section className="rounded-4xl mb-10 border border-white/5 bg-gradient-to-br from-[#0B0B1A] via-[#111122] to-[#0B0B1A] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.45)]">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="mb-3 inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-accent-200">
@@ -220,9 +229,7 @@ const FreeResourcesPage = () => {
           {heroStats.map((stat) => {
             const value = animatedValue(stat.value)
             const formatted =
-              stat.format === 'k-plus'
-                ? `${Math.max(1, Math.floor(value / 1000))}k+`
-                : `${value}`
+              stat.format === 'k-plus' ? `${Math.max(1, Math.floor(value / 1000))}k+` : `${value}`
             return (
               <div
                 key={stat.label}
@@ -281,11 +288,16 @@ const FreeResourcesPage = () => {
             {mbaFolders.map((folder) => {
               const isExpanded = expandedFolderId === folder.id
               return (
-                <div key={folder.id} className="rounded-3xl border border-white/5 bg-white/5 p-3 backdrop-blur">
+                <div
+                  key={folder.id}
+                  className="rounded-3xl border border-white/5 bg-white/5 p-3 backdrop-blur"
+                >
                   <button
                     onClick={() => toggleFolder(folder.id)}
                     aria-expanded={isExpanded}
-                    aria-describedby={folder.hiddenDescription ? `folder-hidden-${folder.id}` : undefined}
+                    aria-describedby={
+                      folder.hiddenDescription ? `folder-hidden-${folder.id}` : undefined
+                    }
                     className={`flex w-full items-center justify-between rounded-2xl bg-gradient-to-r ${folder.accent} px-5 py-4 text-left text-white transition-all duration-300 ${
                       isExpanded ? 'shadow-[0_25px_45px_rgba(0,0,0,0.35)]' : ''
                     }`}
@@ -419,7 +431,12 @@ const FreeResourcesPage = () => {
             >
               Notify me when live
               <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </Link>
           </div>
@@ -433,8 +450,8 @@ const FreeResourcesPage = () => {
             <p className="text-xs uppercase tracking-widest text-accent-300">Shortcut Kits</p>
             <h2 className="text-3xl font-bold">Plug-and-Play Resource Bundles</h2>
             <p className="text-sm text-gray-400">
-              Each kit is a curated mini playbook designed to solve one part of the funnel in a single
-              sitting.
+              Each kit is a curated mini playbook designed to solve one part of the funnel in a
+              single sitting.
             </p>
           </div>
         </div>
@@ -495,8 +512,8 @@ const FreeResourcesPage = () => {
           <p className="text-xs uppercase tracking-widest text-accent-300">Execute Now</p>
           <h2 className="text-3xl font-bold text-white">Turn Downloads into Action</h2>
           <p className="text-sm text-gray-400">
-            Pair each resource with the matching Auto Interview AI workflow so you can apply what you
-            downloaded right away.
+            Pair each resource with the matching Auto Interview AI workflow so you can apply what
+            you downloaded right away.
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -509,13 +526,13 @@ const FreeResourcesPage = () => {
                 className="mt-4 inline-flex items-center text-sm font-semibold text-accent-300 hover:text-accent-100"
               >
                 {item.action}
-                <svg
-                  className="ml-2 h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </Link>
             </div>
@@ -527,4 +544,3 @@ const FreeResourcesPage = () => {
 }
 
 export default FreeResourcesPage
-

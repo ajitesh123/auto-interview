@@ -44,8 +44,11 @@ module.exports = {
           100: '#f3e8ff',
           200: '#e9d5ff',
           300: '#d8b4fe',
+          350: '#c99afe', // New lighter purple
           400: '#c084fc',
+          450: '#b76df9', // New mid purple
           500: '#a855f7',
+          550: '#9b45f5', // New darker purple
           600: '#9333ea',
           700: '#7c3aed',
           800: '#6b21a8',
@@ -59,7 +62,7 @@ module.exports = {
           light: '#525252', // ChatGPT input background
         },
         chatgpt: {
-          green: '#74AA9C',
+          green: '#AB68FF',
           purple: '#AB68FF',
           white: '#FFFFFF',
           dark: '#171717',
@@ -68,7 +71,7 @@ module.exports = {
           input: '#525252',
           text: '#FFFFFF',
           textSecondary: '#D1D5DB',
-          accent: '#74AA9C',
+          accent: '#AB68FF',
         },
         gray: colors.gray,
       },
@@ -128,16 +131,26 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
         slideUp: {
           '0%': { opacity: '0', transform: 'translateY(30px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
         },
       },
       animation: {
         shuttle: 'shuttle 1s ease-in-out infinite',
         gradient: 'gradient 15s ease infinite',
         'fade-in': 'fadeIn 1s ease-out',
+        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
         'slide-up': 'slideUp 0.6s ease-out',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
       },
     },
   },

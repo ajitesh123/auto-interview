@@ -269,17 +269,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ errorCode: 'SCORE_FAIL', message: msg }, { status: 500 })
     }
 
-    // Gemini-powered keyword optimization score (authoritative override)
+    // Gemini-powered keyword optimization score (with strict validation)
     let geminiKW: any = null
     try {
       console.log('[API] Calling Gemini keyword analyzer...')
       geminiKW = await analyzeKeywords(text, jobDesc || '', jdKeywords)
       const oldKW = scoring.breakdown.keywordOptimization || 0
-      const newKW = Math.max(0, Math.min(25, geminiKW.score25))
-      const delta = newKW - oldKW
-      console.log(`[API] Keyword score override: ${oldKW} -> ${newKW} (delta: ${delta})`)
+      const rawNewKW = Math.max(0, Math.min(25, geminiKW.score25))
+      const delta = rawNewKW - oldKW
+
+      // VALIDATION: Cap Gemini override to ±5 points to prevent inflation
+      const cappedDelta = Math.max(-5, Math.min(5, delta))
+      const newKW = Math.max(0, Math.min(25, oldKW + cappedDelta))
+
+      if (Math.abs(delta) > 5) {
+        console.warn(
+          `[API] Gemini keyword score divergence capped: wanted ${delta}, applied ${cappedDelta}`
+        )
+      }
+
+      console.log(`[API] Keyword score override: ${oldKW} -> ${newKW} (delta: ${cappedDelta})`)
       scoring.breakdown.keywordOptimization = newKW
-      scoring.overallScore = Math.max(0, Math.min(100, scoring.overallScore + delta))
+      scoring.overallScore = Math.max(0, Math.min(100, scoring.overallScore + cappedDelta))
     } catch (e) {
       console.error('[API] Gemini keyword analyzer failed:', e)
       // Don't silently fail - log but continue with existing score
@@ -449,9 +460,11 @@ Return ONLY valid JSON (no markdown):
       return parts.length > 0 ? parts.join('. ') : JSON.stringify(rec)
     }
 
+    // Gemini now intelligently infers target role and suggests only relevant keywords
     const geminiRecommendations = (geminiKW?.raw?.recommendations || [])
       .map(formatGeminiRecommendation)
-      .filter((r: string) => r.trim().length > 0)
+      .filter((r: string) => r && r.trim().length > 0)
+
     const suggestionsRecommendations = (suggestions.recommendations || [])
       .map((r: any) => (typeof r === 'string' ? r : formatGeminiRecommendation(r)))
       .filter((r: string) => r.trim().length > 0)
@@ -502,10 +515,34 @@ Return ONLY valid JSON (no markdown):
         ...suggestionsRecommendations,
         ...geminiRecommendations,
       ],
-      keywordAnalysis: { matched, missing, matchRate, keywordsUsed: jdKeywords, aliases },
-      geminiKeywordAnalysis: geminiKW?.raw || null,
-      parseCoverage: scoring.parseCoverage || 0,
     }
+
+    // Apply score caps for realistic scoring
+    let cappedOverallScore = finalResult.overallScore
+
+    // CAP 1: No job description = limited optimization possible (max 75)
+    if (!jobDesc || jobDesc.trim().length < 20) {
+      if (cappedOverallScore > 75) {
+        console.log(`[API] Capping score from ${cappedOverallScore} to 75 (no JD provided)`)
+        cappedOverallScore = 75
+      }
+    }
+
+    // CAP 2: Missing critical sections = incomplete resume (max 70)
+    const hasCriticalSections =
+      scoring.lineByLine.length > 0 && // Has experience bullets
+      parsed.education.length > 0 &&
+      parsed.skills.length >= 3
+
+    if (!hasCriticalSections && cappedOverallScore > 70) {
+      console.log(
+        `[API] Capping score from ${cappedOverallScore} to 70 (missing critical sections)`
+      )
+      cappedOverallScore = 70
+    }
+
+    finalResult.overallScore = cappedOverallScore
+
     cache.set(
       hash + (jobDesc ? `:${crypto.createHash('sha1').update(jobDesc).digest('hex')}` : ''),
       finalResult

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ATSScoreResults from './ATSScoreResults'
+import ATSScoreMotivation from '@/components/ATSScoreMotivation'
 
 interface CategoryScore {
   formatCompatibility: number
@@ -224,13 +226,13 @@ const ATSScorePage = ({
   }
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-400'
+    if (score >= 80) return 'text-purple-400'
     if (score >= 60) return 'text-yellow-400'
     return 'text-red-400'
   }
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500'
+    if (score >= 80) return 'bg-purple-500'
     if (score >= 60) return 'bg-yellow-500'
     return 'bg-red-500'
   }
@@ -242,7 +244,7 @@ const ATSScorePage = ({
       case 'medium':
         return 'bg-yellow-500'
       case 'low':
-        return 'bg-green-500'
+        return 'bg-purple-500'
       default:
         return 'bg-gray-500'
     }
@@ -402,13 +404,18 @@ const ATSScorePage = ({
                       <span className="relative z-10">Analyze Resume</span>
                     )}
                   </button>
+                  {/* AI Resume Builder Button - Prominent and Clear */}
                   <button
                     onClick={() => router.push('/resume-job-matcher')}
-                    className="group relative overflow-hidden rounded-lg border-2 border-purple-500 bg-purple-600/20 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-300 hover:bg-purple-600/30 hover:shadow-purple-500/40"
+                    className="group relative overflow-hidden rounded-xl border-2 border-emerald-500/50 bg-gradient-to-r from-emerald-600/20 via-green-600/20 to-teal-600/20 px-6 py-4 shadow-xl shadow-emerald-500/20 transition-all duration-300 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/30"
                   >
-                    <span className="relative z-10 flex items-center justify-center">
+                    {/* Animated background glow on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-green-500/10 to-emerald-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+
+                    <div className="relative z-10 flex items-center justify-center gap-3">
+                      {/* AI Sparkle Icon */}
                       <svg
-                        className="mr-2 h-5 w-5"
+                        className="h-6 w-6 text-emerald-400 transition-transform duration-300 group-hover:scale-110"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -417,11 +424,22 @@ const ATSScorePage = ({
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
                         />
                       </svg>
-                      Make Resume According to Job
-                    </span>
+
+                      <div className="flex flex-col items-start">
+                        <span className="text-base font-bold text-white">AI Resume Builder</span>
+                        <span className="text-xs text-emerald-300">
+                          Tailor your resume for any job in seconds
+                        </span>
+                      </div>
+
+                      {/* "NEW" Badge */}
+                      <span className="ml-2 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-bold text-white">
+                        AI
+                      </span>
+                    </div>
                   </button>
                 </div>
 
@@ -480,15 +498,41 @@ const ATSScorePage = ({
           </div>
         )}
 
-        {/* Results Section */}
+        {/* NEW: Modern Progressive Disclosure Results UI */}
         {analysisResults && (
+          <div className="mb-12">
+            <ATSScoreResults results={analysisResults} />
+
+            {/* Action Buttons */}
+            <div className="mx-auto mt-8 flex max-w-5xl justify-center gap-4 px-4">
+              <button
+                onClick={() => {
+                  setUploadedFile(null)
+                  setAnalysisResults(null)
+                }}
+                className="rounded-lg border border-purple-500/30 bg-purple-500/10 px-6 py-3 font-semibold text-purple-300 transition-colors hover:bg-purple-500/20"
+              >
+                Analyze Another Resume
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-500"
+              >
+                Print Report
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* OLD Results Section (can be removed once new UI is confirmed working) */}
+        {false && analysisResults && (
           <div className="space-y-12">
             {/* Parse Coverage */}
             <div className="rounded-3xl border border-blue-700/50 bg-blue-900/30 p-8 shadow-lg">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-blue-300">ATS Parse Coverage</h3>
                 {(analysisResults.parseCoverage ?? 0) >= 85 && (
-                  <span className="inline-block rounded-full bg-green-600 px-3 py-1 text-xs text-white">
+                  <span className="inline-block rounded-full bg-purple-600 px-3 py-1 text-xs text-white">
                     Excellent
                   </span>
                 )}
@@ -654,7 +698,7 @@ const ATSScorePage = ({
                 {analysisResults.strengths.map((strength, index) => (
                   <div key={index} className="rounded-lg bg-gray-800 p-6">
                     <div className="flex items-start space-x-4">
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-purple-500">
                         <svg
                           className="h-4 w-4 text-white"
                           fill="none"
@@ -674,11 +718,11 @@ const ATSScorePage = ({
                           {strength.category}
                         </h4>
                         <p className="mb-3 text-gray-300">{strength.description}</p>
-                        <p className="mb-3 text-sm text-green-400">{strength.impact}</p>
+                        <p className="mb-3 text-sm text-purple-400">{strength.impact}</p>
                         {strength.exampleText && (
-                          <div className="rounded-lg border border-green-700 bg-green-900 p-3">
+                          <div className="rounded-lg border border-purple-700 bg-purple-900 p-3">
                             <p className="mb-1 text-sm text-gray-400">Example from your resume:</p>
-                            <p className="italic text-green-200">"{strength.exampleText}"</p>
+                            <p className="italic text-purple-200">"{strength.exampleText}"</p>
                           </div>
                         )}
                       </div>
@@ -904,15 +948,15 @@ const ATSScorePage = ({
                                   <div className="space-y-4">
                                     <div className="flex items-center space-x-3">
                                       <div
-                                        className="h-4 w-4 animate-pulse rounded-full bg-green-500"
+                                        className="h-4 w-4 animate-pulse rounded-full bg-purple-500"
                                         style={{ animationDelay: '0.5s' }}
                                       ></div>
-                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-green-400">
+                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-purple-400">
                                         Improved Text
                                       </h6>
                                     </div>
-                                    <div className="rounded-xl border border-green-500/30 bg-green-900/20 p-6 backdrop-blur-sm">
-                                      <p className="text-lg leading-relaxed text-green-200">
+                                    <div className="rounded-xl border border-purple-500/30 bg-purple-900/20 p-6 backdrop-blur-sm">
+                                      <p className="text-lg leading-relaxed text-purple-200">
                                         "{improvement.suggestedText}"
                                       </p>
                                     </div>
@@ -1020,6 +1064,9 @@ const ATSScorePage = ({
             </div>
           </div>
         )}
+
+        {/* Educational Content About ATS Scores */}
+        <ATSScoreMotivation />
       </div>
     </div>
   )

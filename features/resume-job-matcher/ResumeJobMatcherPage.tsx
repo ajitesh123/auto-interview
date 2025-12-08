@@ -327,8 +327,8 @@ const ResumeJobMatcherPage = () => {
                     <div>
                       <h3 className="mb-4 text-xl font-bold text-white">Matched Keywords</h3>
                       <div className="grid gap-6 md:grid-cols-2">
-                        <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-6">
-                          <h4 className="mb-3 flex items-center gap-2 text-lg font-semibold text-green-400">
+                        <div className="rounded-lg border border-purple-500/30 bg-purple-900/20 p-6">
+                          <h4 className="mb-3 flex items-center gap-2 text-lg font-semibold text-purple-400">
                             <svg
                               className="h-5 w-5"
                               fill="none"
@@ -349,7 +349,7 @@ const ResumeJobMatcherPage = () => {
                               matchResult.matchedKeywords.technical.map((keyword, idx) => (
                                 <span
                                   key={idx}
-                                  className="rounded-full bg-green-600/30 px-3 py-1 text-sm text-green-300"
+                                  className="rounded-full bg-purple-600/30 px-3 py-1 text-sm text-purple-300"
                                 >
                                   {keyword}
                                 </span>

@@ -270,65 +270,106 @@ function buildKeywordSet(
 export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): ScoreResult {
   const weights = { ...DEFAULT_WEIGHTS, ...(opts.weights || {}) }
   const normalizedText = normalizeToken(parsed.rawText)
-  // Calculate parse coverage (proportion of text in sections)
-  const totalLen = parsed.rawText.length
-  let parsedLen = 0
-  if (parsed.summary) parsedLen += parsed.summary.length
-  parsed.experience.forEach((e) => {
-    if (e.header) parsedLen += e.header.length
-    e.bullets.forEach((b) => (parsedLen += b.length))
-  })
-  parsed.skills.forEach((s) => {
-    parsedLen += s.length
-  })
-  parsed.education.forEach((e) => {
-    if (e.school) parsedLen += e.school.length
-    if (e.degree) parsedLen += e.degree.length
-    if (e.dates) parsedLen += e.dates.length
-  })
-  if (parsed.contact)
-    Object.values(parsed.contact).forEach((val) => {
-      if (val) parsedLen += val.length
-    })
-  const parseCoverage = totalLen > 0 ? Math.min(100, Math.round((parsedLen / totalLen) * 100)) : 0
 
-  // 1) FormatCompatibility (20) — recalibrated generous scorer
-  const generousFormat20 = (() => {
-    let score = 20
-    // Wrong type major hit
-    // mime info may be in opts; fall back to rawText heuristics
+  // Calculate parse coverage (word-based with section weighting)
+  const totalWords = wordCount(parsed.rawText)
+  let parsedWords = 0
+
+  // Section weights - reflect importance and avoid double-counting
+  const sectionWeights = {
+    contact: 1.0,
+    summary: 1.0,
+    experienceHeader: 0.5, // Headers less important
+    experienceBullets: 1.0, // Main content
+    skills: 0.6, // Often just keywords
+    education: 0.8, // Usually shorter sections
+  }
+
+  // Contact information
+  if (parsed.contact) {
+    Object.values(parsed.contact).forEach((val) => {
+      if (val) parsedWords += wordCount(val) * sectionWeights.contact
+    })
+  }
+
+  // Summary
+  if (parsed.summary) {
+    parsedWords += wordCount(parsed.summary) * sectionWeights.summary
+  }
+
+  // Experience (main content)
+  parsed.experience.forEach((e) => {
+    if (e.header) parsedWords += wordCount(e.header) * sectionWeights.experienceHeader
+    e.bullets.forEach((b) => (parsedWords += wordCount(b) * sectionWeights.experienceBullets))
+  })
+
+  // Skills
+  parsed.skills.forEach((s) => {
+    parsedWords += wordCount(s) * sectionWeights.skills
+  })
+
+  // Education
+  parsed.education.forEach((e) => {
+    if (e.school) parsedWords += wordCount(e.school) * sectionWeights.education
+    if (e.degree) parsedWords += wordCount(e.degree) * sectionWeights.education
+    if (e.dates) parsedWords += wordCount(e.dates) * sectionWeights.education * 0.5 // Dates less important
+  })
+
+  // Calculate coverage percentage
+  const parseCoverage =
+    totalWords > 0 ? Math.min(100, Math.round((parsedWords / totalWords) * 100)) : 0
+
+  // 1) FormatCompatibility (20) — realistic ATS-focused scoring
+  const realisticFormat20 = (() => {
+    let score = 0 // Start at 0, earn points for good practices
+
+    // File type scoring
     const m = (opts as any).mime as string | undefined
-    if (m && !(m.includes('pdf') || m.includes('word') || m.includes('officedocument'))) score -= 5
-    // Critical ATS issues
+    if (m) {
+      const mime = m.toLowerCase()
+      if (mime.includes('pdf'))
+        score += 8 // PDF is best
+      else if (mime.includes('word') || mime.includes('officedocument'))
+        score += 6 // DOCX ok
+      else if (mime.includes('msword'))
+        score += 4 // DOC less ideal
+      else score += 0 // Wrong type: no points
+    } else {
+      score += 5 // Unknown but parseable
+    }
+
+    // Critical ATS-breaking issues (harsh penalties)
     const hasTables = /\btable\b|\|\s*[-|]+\s*\|/.test(parsed.rawText)
     const hasTextBoxes = /text\s*box/i.test(parsed.rawText)
     const hasEmbeddedImages = /(image:|data:image|<img)/i.test(parsed.rawText)
-    if (hasTables) score -= 3
-    if (hasTextBoxes) score -= 3
-    if (hasEmbeddedImages) score -= 3
-    // Multi-column 3+ only small hit
+    if (hasTables) score -= 8 // Tables break ATS parsing badly
+    if (hasTextBoxes) score -= 8 // Text boxes not parseable
+    if (hasEmbeddedImages) score -= 10 // Images completely unparseable
+
+    // Multi-column layout issues
     const looksThreePlus = /\s{12,}\S/.test(parsed.rawText)
-    if (looksThreePlus) score -= 2
-    // Non-standard font unknown in plain text: minimal penalty omitted
-    return Math.max(0, score)
+    if (looksThreePlus) score -= 4 // Multi-column confuses parsers
+
+    // Award points for good practices
+    const dateUniform =
+      /(\b\d{2}\/\d{4}\b|\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}\b)/i.test(
+        parsed.rawText
+      )
+    if (dateUniform) score += 4 // Consistent date formatting
+
+    const hasGoodLength = parsed.rawText.length >= 400 && parsed.rawText.length <= 3000
+    if (hasGoodLength) score += 4 // Appropriate resume length
+
+    const standardBullets = /^[\s]*[-•*]\s+/m.test(parsed.rawText)
+    if (standardBullets) score += 3 // Standard bullet points
+
+    const noSpacingIssues = !/\s{6,}/.test(parsed.rawText)
+    if (noSpacingIssues) score += 3 // Clean spacing
+
+    return Math.max(0, Math.min(20, score))
   })()
 
-  // Keep original heuristics for other parts but compute mapped format later from generousFormat20
-  let format = 0
-  if (parsed.rawText.length >= 400) format += 7
-  const fancyBullets = /[•‣●♦▪▶■□◦]/.test(parsed.rawText)
-  format += fancyBullets ? 3 : 4
-  const dateUniform =
-    /(\b\d{2}\/\d{4}\b|\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}\b)/i.test(
-      parsed.rawText
-    )
-  format += dateUniform ? 4 : 3
-  const spacingIssues = /\s{6,}/.test(parsed.rawText)
-  format += spacingIssues ? 1 : 4
-  const formatScore = Math.min(
-    weights.formatCompatibility,
-    Math.round((format / 20) * weights.formatCompatibility)
-  )
+  const formatScore = realisticFormat20
 
   // 2) KeywordOptimization (25) recalibrated baseline when no JD
   const keywordSet = buildKeywordSet(opts.keywords, opts.aliases || {})
@@ -350,21 +391,30 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
     keywordRaw = Math.max(0, keywordRaw - 25 * stuffingPenalty)
     keywordScore = Math.min(25, Math.round(keywordRaw))
   } else {
+    // NO JD: Only award minimal points for basic technical competence
+    // This is NOT optimization - that requires a target JD
     const resumeText = normalizedText
     let base = 0
+    // Basic technical skills presence (max 2 points total)
     if (
       /\b(python|javascript|react|node|sql|aws|azure|docker|kubernetes|java|c\+\+|typescript|angular|vue)\b/i.test(
         resumeText
       )
     )
-      base += 5
-    if (/\d+%|\$[\d,]+|(increased|decreased|improved|reduced)/i.test(resumeText)) base += 5
-    if (/\b(led|managed|directed|spearheaded|coordinated|supervised)\b/i.test(resumeText)) base += 5
-    if (/(cross-functional|collaborated|partnered|stakeholder|team)/i.test(resumeText)) base += 3
-    if (/(agile|scrum|lean|six sigma|waterfall|kanban)/i.test(resumeText)) base += 4
+      base += 1
+    // Quantification present (1 point)
+    if (/\d+%|\$[\d,]+|(increased|decreased|improved|reduced)/i.test(resumeText)) base += 1
+    // Leadership language (1 point)
+    if (/\b(led|managed|directed|spearheaded|coordinated|supervised)\b/i.test(resumeText)) base += 1
+    // Collaboration language (1 point)
+    if (/(cross-functional|collaborated|partnered|stakeholder|team)/i.test(resumeText)) base += 1
+    // Modern methodologies (1 point)
+    if (/(agile|scrum|lean|six sigma|waterfall|kanban)/i.test(resumeText)) base += 0.5
+    // Business tools (0.5 points)
     if (/(excel|tableau|power bi|salesforce|jira|confluence|slack|figma)/i.test(resumeText))
-      base += 3
-    keywordScore = Math.min(25, base)
+      base += 0.5
+    // Cap at 5/25 - without JD, cannot truly optimize keywords
+    keywordScore = Math.min(5, Math.round(base))
   }
 
   // 3) ImpactAndMetrics (25)
@@ -374,10 +424,10 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   const outcomes =
     /(revenue|cost|margin|profit|retention|churn|nps|engagement|conversion|latency|uptime|availability|sla)/i
   const outcomeHits = bullets.filter((b) => outcomes.test(b)).length
-  // More generous: give baseline and partial credit
+  // Minimal baseline - must earn points through metrics
   const impact = Math.max(
-    0.35,
-    density * 0.65 + (bullets.length ? outcomeHits / bullets.length : 0) * 0.35
+    0.05, // Very low baseline (1.25/25 points) - must have metrics to score well
+    density * 0.75 + (bullets.length ? outcomeHits / bullets.length : 0) * 0.25
   )
   const impactScore = Math.min(
     weights.impactAndMetrics,
@@ -423,9 +473,9 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   }
   const strongRatio = bullets.length ? strong / bullets.length : 0
   const weakRatio = bullets.length ? weak / bullets.length : 0
-  // More generous: if no weak verbs, give baseline credit
-  let verbs = strongRatio * 0.85 - weakRatio * 0.3
-  if (weakRatio === 0 && strongRatio === 0) verbs = 0.4 // baseline for neutral verbs
+  // Strict scoring: must have strong verbs to score well
+  let verbs = strongRatio * 0.9 - weakRatio * 0.4
+  if (weakRatio === 0 && strongRatio === 0) verbs = 0.15 // Minimal baseline for neutral verbs
   verbs = Math.max(0, Math.min(1, verbs))
   const verbsScore = Math.min(
     weights.actionVerbs,
@@ -455,7 +505,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
     sectionCompleteness: completenessScore,
   }
 
-  // FRIENDLIER/Market-Aligned Score Curve
+  // Realistic ATS Score Calculation (no artificial inflation)
   const rawScore =
     breakdown.formatCompatibility +
     breakdown.keywordOptimization +
@@ -463,22 +513,23 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
     breakdown.actionVerbs +
     breakdown.sectionCompleteness
 
-  // Score bands:
-  // - Top resumes: 90–100 (rare)
-  // - Typical average: 70–89 (majority should land here if decently filled)
-  // - Weak: 50–69 (minimal/poor resumes only)
-  // - <50 for only nearly empty/unusable resumes
+  // Score bands - REALISTIC distribution:
+  // - Exceptional: 85–100 (top 5%)
+  // - Good: 70–84 (top 25%)
+  // - Average: 55–69 (50% of resumes)
+  // - Below Average: 40–54 (15%)
+  // - Poor: <40 (5%, nearly empty/unparsable)
 
   function curveScore(unscaled: number, parseCoverage: number) {
-    if (parseCoverage < 15 || unscaled < 10) return Math.max(25, Math.round(unscaled)) // totally blank/unparsable
-    if (unscaled > 90) return 95 + Math.min(5, Math.round((unscaled - 90) / 2))
-    if (unscaled > 80) return 85 + Math.round((unscaled - 80) / 2)
-    if (unscaled > 70) return 75 + Math.round((unscaled - 70) / 2)
-    if (unscaled > 60) return 65 + Math.round((unscaled - 60) / 2)
-    return Math.max(50, Math.round(unscaled * 0.95))
+    // Only apply minimal curve for edge cases
+    if (parseCoverage < 15 || unscaled < 10) return Math.max(15, Math.round(unscaled)) // Nearly blank
+    if (unscaled > 95) return 98 // Cap exceptional at 98
+    // Linear scoring for most cases - no inflation
+    return Math.round(unscaled)
   }
   let overall = curveScore(rawScore, parseCoverage)
-  overall = Math.min(100, Math.max(overall, parseCoverage > 60 ? 65 : 0))
+  // Realistic floor: only prevent scores below 25 for parseable content
+  overall = Math.min(100, Math.max(overall, parseCoverage > 60 ? 40 : 25))
 
   const priorityIssues: ScoreResult['priorityIssues'] = []
   if (withMetrics === 0)
@@ -1062,8 +1113,8 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
       semanticBoost
   )
 
-  // Map into existing breakdown for UI (override formatCompatibility with generousFormat20)
-  const formatCompatMapped = Math.round((generousFormat20 / 20) * weights.formatCompatibility)
+  // Map into existing breakdown for UI (use realisticFormat20)
+  const formatCompatMapped = Math.round((realisticFormat20 / 20) * weights.formatCompatibility)
   const keywordMapped = Math.round(
     ((hardSkillsScore8 + softSkillsScore3 + keywordDistribution4) / 15) *
       weights.keywordOptimization

@@ -49,12 +49,11 @@ const PreviewPanel = ({ resumeData, template, resumeId }: PreviewPanelProps) => 
       }
     }
 
-    // Generate preview when data or template changes
     generatePreview()
   }, [resumeData, template, resumeId])
 
   return (
-    <div className="sticky top-24 h-[calc(100vh-8rem)] w-full overflow-hidden rounded-lg border border-chatgpt-border bg-white">
+    <div className="sticky top-24 h-[calc(100vh-8rem)] w-full overflow-hidden rounded-lg border border-chatgpt-border bg-gray-200">
       <div className="flex h-full flex-col">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-chatgpt-border bg-chatgpt-card px-4 py-3">
@@ -88,63 +87,19 @@ const PreviewPanel = ({ resumeData, template, resumeId }: PreviewPanelProps) => 
           )}
         </div>
 
-        {/* Preview Content - Scaled to match final preview size */}
-        <div className="flex-1 overflow-auto p-4">
+        {/* Simple scrollable preview */}
+        <div className="flex-1 overflow-auto p-6" style={{ backgroundColor: '#ffffff' }}>
           {error ? (
             <div className="flex h-full items-center justify-center">
               <div className="text-center">
-                <svg
-                  className="mx-auto mb-2 h-8 w-8 text-red-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
                 <p className="text-sm text-red-500">{error}</p>
               </div>
             </div>
           ) : previewHTML ? (
-            <div className="flex h-full w-full items-start justify-center">
-              {/* Render at actual document size - 8.5in width with proper scaling for sidebar */}
-              <div className="flex items-start justify-center">
-                {/* Scale down to fit sidebar while maintaining aspect ratio */}
-                <div
-                  className="bg-white shadow-lg"
-                  style={{
-                    width: '8.5in',
-                    minHeight: '11in',
-                    // Scale down to ~60% to fit sidebar and show actual font sizes (Calibri 11)
-                    transform: 'scale(0.6)',
-                    transformOrigin: 'top center',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: previewHTML }}
-                />
-              </div>
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: previewHTML }} style={{ color: '#000000' }} />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <div className="text-center">
-                <svg
-                  className="mx-auto mb-2 h-8 w-8 animate-pulse text-chatgpt-textSecondary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                <p className="text-sm text-chatgpt-textSecondary">Loading preview...</p>
-              </div>
+              <p className="text-sm text-gray-500">Loading preview...</p>
             </div>
           )}
         </div>
