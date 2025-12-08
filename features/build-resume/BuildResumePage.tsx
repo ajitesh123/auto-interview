@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import ResumeBuilder from './components/ResumeBuilder'
 import ResumeUploadPage from './components/ResumeUploadPage'
 import InitialTemplateSelection from './components/InitialTemplateSelection'
 import { ResumeData } from '../../lib/resumeStore'
 
 const BuildResumePage = () => {
+  const router = useRouter()
   const [hasResume, setHasResume] = useState<boolean | null>(null)
   const [parsedResumeData, setParsedResumeData] = useState<Partial<ResumeData> | null>(null)
   const [pendingParsedResumeData, setPendingParsedResumeData] =
@@ -32,9 +34,7 @@ const BuildResumePage = () => {
   }
 
   const handleStartBuilding = () => {
-    setPendingParsedResumeData(null)
-    setParsedResumeData(null)
-    setShowTemplateSelection(true)
+    router.push('/build-resume/templates')
   }
 
   const handleTemplateSelected = (template: 'harvard' | 'lbs' | 'stanford') => {

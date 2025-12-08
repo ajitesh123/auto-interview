@@ -96,7 +96,7 @@ const AssessmentsPage = () => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Beginner':
-        return 'bg-green-500'
+        return 'bg-purple-500'
       case 'Intermediate':
         return 'bg-yellow-500'
       case 'Advanced':

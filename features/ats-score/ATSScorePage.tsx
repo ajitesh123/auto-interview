@@ -224,13 +224,13 @@ const ATSScorePage = ({
   }
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-400'
+    if (score >= 80) return 'text-purple-400'
     if (score >= 60) return 'text-yellow-400'
     return 'text-red-400'
   }
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500'
+    if (score >= 80) return 'bg-purple-500'
     if (score >= 60) return 'bg-yellow-500'
     return 'bg-red-500'
   }
@@ -242,7 +242,7 @@ const ATSScorePage = ({
       case 'medium':
         return 'bg-yellow-500'
       case 'low':
-        return 'bg-green-500'
+        return 'bg-purple-500'
       default:
         return 'bg-gray-500'
     }
@@ -488,7 +488,7 @@ const ATSScorePage = ({
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-blue-300">ATS Parse Coverage</h3>
                 {(analysisResults.parseCoverage ?? 0) >= 85 && (
-                  <span className="inline-block rounded-full bg-green-600 px-3 py-1 text-xs text-white">
+                  <span className="inline-block rounded-full bg-purple-600 px-3 py-1 text-xs text-white">
                     Excellent
                   </span>
                 )}
@@ -654,7 +654,7 @@ const ATSScorePage = ({
                 {analysisResults.strengths.map((strength, index) => (
                   <div key={index} className="rounded-lg bg-gray-800 p-6">
                     <div className="flex items-start space-x-4">
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-purple-500">
                         <svg
                           className="h-4 w-4 text-white"
                           fill="none"
@@ -674,11 +674,11 @@ const ATSScorePage = ({
                           {strength.category}
                         </h4>
                         <p className="mb-3 text-gray-300">{strength.description}</p>
-                        <p className="mb-3 text-sm text-green-400">{strength.impact}</p>
+                        <p className="mb-3 text-sm text-purple-400">{strength.impact}</p>
                         {strength.exampleText && (
-                          <div className="rounded-lg border border-green-700 bg-green-900 p-3">
+                          <div className="rounded-lg border border-purple-700 bg-purple-900 p-3">
                             <p className="mb-1 text-sm text-gray-400">Example from your resume:</p>
-                            <p className="italic text-green-200">"{strength.exampleText}"</p>
+                            <p className="italic text-purple-200">"{strength.exampleText}"</p>
                           </div>
                         )}
                       </div>
@@ -904,15 +904,15 @@ const ATSScorePage = ({
                                   <div className="space-y-4">
                                     <div className="flex items-center space-x-3">
                                       <div
-                                        className="h-4 w-4 animate-pulse rounded-full bg-green-500"
+                                        className="h-4 w-4 animate-pulse rounded-full bg-purple-500"
                                         style={{ animationDelay: '0.5s' }}
                                       ></div>
-                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-green-400">
+                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-purple-400">
                                         Improved Text
                                       </h6>
                                     </div>
-                                    <div className="rounded-xl border border-green-500/30 bg-green-900/20 p-6 backdrop-blur-sm">
-                                      <p className="text-lg leading-relaxed text-green-200">
+                                    <div className="rounded-xl border border-purple-500/30 bg-purple-900/20 p-6 backdrop-blur-sm">
+                                      <p className="text-lg leading-relaxed text-purple-200">
                                         "{improvement.suggestedText}"
                                       </p>
                                     </div>

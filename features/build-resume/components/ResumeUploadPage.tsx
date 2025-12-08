@@ -158,7 +158,7 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
             className={`mb-6 rounded-lg p-4 ${
               uploadMessage.includes('Error') || uploadMessage.includes('failed')
                 ? 'border border-red-700 bg-red-900 text-red-200'
-                : 'border border-green-700 bg-green-900 text-green-200'
+                : 'border border-purple-700 bg-purple-900 text-purple-200'
             }`}
           >
             {uploadMessage}
@@ -256,7 +256,7 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-green-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded bg-purple-600">
                 <span className="text-xs font-bold text-white">DOC</span>
               </div>
               <div>

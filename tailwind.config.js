@@ -59,7 +59,7 @@ module.exports = {
           light: '#525252', // ChatGPT input background
         },
         chatgpt: {
-          green: '#74AA9C',
+          green: '#AB68FF',
           purple: '#AB68FF',
           white: '#FFFFFF',
           dark: '#171717',
@@ -68,7 +68,7 @@ module.exports = {
           input: '#525252',
           text: '#FFFFFF',
           textSecondary: '#D1D5DB',
-          accent: '#74AA9C',
+          accent: '#AB68FF',
         },
         gray: colors.gray,
       },

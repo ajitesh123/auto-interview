@@ -190,6 +190,7 @@ function getReplacements(data: ResumeData): Record<string, string> {
   if (hasContent(contact.email)) contactParts.push(contact.email)
   if (hasContent(contact.phone)) contactParts.push(contact.phone)
   if (hasContent(contact.linkedin)) contactParts.push(contact.linkedin)
+  if (hasContent(contact.portfolio)) contactParts.push(contact.portfolio)
   const contactInfo = contactParts.join(' • ')
 
   const replacements: Record<string, string> = {
@@ -422,6 +423,7 @@ function removeEmptySections(html: string): string {
 // Function to fill LBS template
 async function fillLBSTemplate(data: ResumeData): Promise<string> {
   try {
+    console.log('[fillLBSTemplate] Contact data received:', JSON.stringify(data.contact, null, 2))
     const templatePath = path.join(
       process.cwd(),
       'public',
@@ -433,6 +435,14 @@ async function fillLBSTemplate(data: ResumeData): Promise<string> {
     const template = fs.readFileSync(templatePath, 'utf-8')
 
     const replacements = getLBSReplacements(data)
+    console.log(
+      '[fillLBSTemplate] Replacements generated - Name:',
+      replacements.Name,
+      ', Email:',
+      replacements.Email,
+      ', Phone:',
+      replacements.Phone
+    )
 
     let filledTemplate = template
     Object.entries(replacements).forEach(([placeholder, value]) => {
@@ -441,6 +451,12 @@ async function fillLBSTemplate(data: ResumeData): Promise<string> {
 
     // Remove empty sections and entries
     filledTemplate = removeEmptyLBSSections(filledTemplate, data)
+    console.log('[fillLBSTemplate] Template filled and cleaned')
+
+    // Debug: Save filled HTML to temporary file for inspection
+    const debugPath = path.join(process.cwd(), '.next', 'lbs-debug-output.html')
+    fs.writeFileSync(debugPath, filledTemplate, 'utf-8')
+    console.log('[DEBUG] Saved filled HTML to:', debugPath)
 
     return filledTemplate
   } catch (error) {
@@ -510,6 +526,7 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
     Email: contact.email || '',
     Phone: contact.phone || '',
     LinkedIn: contact.linkedin || '',
+    Portfolio: contact.portfolio || '',
 
     // Education (up to 4 entries) - Use completion date only
     Education1_CompletionDate: formatEducationCompletionDate(
@@ -545,47 +562,47 @@ function getLBSReplacements(data: ResumeData): Record<string, string> {
 
     // Experience (up to 3 entries)
     Experience1_StartYear: experience[0]?.startYear || '',
-    Experience1_EndYear: experience[0]?.endYear || '',
+    Experience1_EndYear: experience[0]?.isCurrent ? 'Present' : experience[0]?.endYear || '',
     Organisation1: experience[0]?.company || '',
     Organisation1_Description: experience[0]?.location || '',
     Role1: experience[0]?.jobTitle || '',
-    Experience1_Bullets: generateBulletsHTML(experience[0]?.bullets),
+    Experience1_Bullets: generateBulletsHTML(experience[0]?.bullets || []),
 
     Experience2_StartYear: experience[1]?.startYear || '',
-    Experience2_EndYear: experience[1]?.endYear || '',
+    Experience2_EndYear: experience[1]?.isCurrent ? 'Present' : experience[1]?.endYear || '',
     Organisation2: experience[1]?.company || '',
     Organisation2_Description: experience[1]?.location || '',
     Role2: experience[1]?.jobTitle || '',
-    Experience2_Bullets: generateBulletsHTML(experience[1]?.bullets),
+    Experience2_Bullets: generateBulletsHTML(experience[1]?.bullets || []),
 
     Experience3_StartYear: experience[2]?.startYear || '',
-    Experience3_EndYear: experience[2]?.endYear || '',
+    Experience3_EndYear: experience[2]?.isCurrent ? 'Present' : experience[2]?.endYear || '',
     Organisation3: experience[2]?.company || '',
     Organisation3_Description: experience[2]?.location || '',
     Role3: experience[2]?.jobTitle || '',
-    Experience3_Bullets: generateBulletsHTML(experience[2]?.bullets),
+    Experience3_Bullets: generateBulletsHTML(experience[2]?.bullets || []),
 
     // Leadership & Activities (up to 2 entries)
     Leadership1_StartYear: leadership[0]?.startYear || '',
-    Leadership1_EndYear: leadership[0]?.endYear || '',
+    Leadership1_EndYear: leadership[0]?.isCurrent ? 'Present' : leadership[0]?.endYear || '',
     Leadership1_Organisation: leadership[0]?.organization || '',
     Leadership1_Location: leadership[0]?.location || '',
     Leadership1_Role: leadership[0]?.title || '',
-    Leadership1_Bullets: generateBulletsHTML(leadership[0]?.bullets),
+    Leadership1_Bullets: generateBulletsHTML(leadership[0]?.bullets || []),
 
     Leadership2_StartYear: leadership[1]?.startYear || '',
-    Leadership2_EndYear: leadership[1]?.endYear || '',
+    Leadership2_EndYear: leadership[1]?.isCurrent ? 'Present' : leadership[1]?.endYear || '',
     Leadership2_Organisation: leadership[1]?.organization || '',
     Leadership2_Location: leadership[1]?.location || '',
     Leadership2_Role: leadership[1]?.title || '',
-    Leadership2_Bullets: generateBulletsHTML(leadership[1]?.bullets),
+    Leadership2_Bullets: generateBulletsHTML(leadership[1]?.bullets || []),
 
     // Projects (up to 2 entries)
     Project1_Name: data.projects?.[0]?.projectName || '',
-    Project1_Bullets: generateBulletsHTML(data.projects?.[0]?.bullets),
+    Project1_Bullets: generateBulletsHTML(data.projects?.[0]?.bullets || []),
 
     Project2_Name: data.projects?.[1]?.projectName || '',
-    Project2_Bullets: generateBulletsHTML(data.projects?.[1]?.bullets),
+    Project2_Bullets: generateBulletsHTML(data.projects?.[1]?.bullets || []),
 
     // Skills
     TechnicalSkills: (() => {
@@ -711,6 +728,45 @@ function removeEmptyLBSSections(html: string, data: ResumeData): string {
 
   // Remove empty footer-info div if all content is removed
   processedHtml = processedHtml.replace(/<div class="footer-info">\s*<\/div>/g, '')
+
+  // NEW: Remove standalone commas and periods (orphaned punctuation)
+  processedHtml = processedHtml.replace(/,\s*,/g, ',') // double commas
+  processedHtml = processedHtml.replace(/,\s*<\/div>/g, '</div>') // trailing commas
+  processedHtml = processedHtml.replace(/,\s*<br>/g, '<br>') // comma before line break
+  processedHtml = processedHtml.replace(/,\s*\n/g, '\n') // comma before newline
+
+  // NEW: Remove empty bullet points
+  processedHtml = processedHtml.replace(/<li>\s*•\s*<\/li>/g, '')
+  processedHtml = processedHtml.replace(/<li>\s*<\/li>/g, '')
+
+  // NEW: Remove lines that are just commas or whitespace
+  processedHtml = processedHtml.replace(/^\s*,\s*$/gm, '')
+  processedHtml = processedHtml.replace(/<div>\s*,\s*<\/div>/g, '')
+
+  // NEW: Remove section headings with no content or only commas after them
+  // Remove EDUCATION heading if no entries follow or only commas
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">EDUCATION<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+    ''
+  )
+
+  // Remove BUSINESS EXPERIENCE heading if no entries follow
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">BUSINESS EXPERIENCE<\/div>\s*(?:,\s*)*\s*(?=<div class="section-heading">|<\/body>|<!-- )/g,
+    ''
+  )
+
+  // Remove LEADERSHIP heading if no entries follow
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">LEADERSHIP & ACTIVITIES<\/div>\s*(?=<div class="section-heading">|<\/body>|<!-- |$)/g,
+    ''
+  )
+
+  // Remove PROJECTS heading if no entries follow
+  processedHtml = processedHtml.replace(
+    /<div class="section-heading">PROJECTS<\/div>\s*(?=<div class="section-heading">|<\/body>|<!-- |$)/g,
+    ''
+  )
 
   console.log('Finished removeEmptyLBSSections with HTML length:', processedHtml.length)
   return processedHtml

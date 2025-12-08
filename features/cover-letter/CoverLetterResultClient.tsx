@@ -134,7 +134,7 @@ const CoverLetterResultClient = () => {
               className={`mb-4 rounded-lg p-3 text-sm ${
                 message.toLowerCase().startsWith('error')
                   ? 'border border-red-500 bg-red-900/20 text-red-200'
-                  : 'border border-green-500 bg-green-900/20 text-green-200'
+                  : 'border border-purple-500 bg-purple-900/20 text-purple-200'
               }`}
             >
               {message}

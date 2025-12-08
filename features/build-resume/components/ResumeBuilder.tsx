@@ -90,6 +90,7 @@ interface ResumeBuilderProps {
 
 const ResumeBuilder = ({ initialData, initialTemplate }: ResumeBuilderProps) => {
   const [currentSection, setCurrentSection] = useState(0)
+
   const [resumeData, setResumeData] = useState<ResumeDataType>({
     contact: {
       name: initialData?.contact?.name || '',

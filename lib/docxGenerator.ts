@@ -13,7 +13,6 @@ import {
   WidthType,
   IPropertiesOptions,
 } from 'docx'
-import { saveAs } from 'file-saver'
 import { ResumeData } from '../lib/resumeStore'
 
 export async function generateDOCX(
@@ -91,9 +90,24 @@ export async function generateDOCX(
       ],
     })
 
+    console.log('[generateDOCX] Document created successfully')
     const blob = await Packer.toBlob(doc)
+    console.log('[generateDOCX] Blob created:', blob.size, 'bytes')
+
     const fileName = `${resumeData.contact.name.replace(/\s+/g, '_')}_Resume.docx`
-    saveAs(blob, fileName)
+    console.log('[generateDOCX] Downloading with filename:', fileName)
+
+    // Create a download link and trigger it
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = fileName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+
+    console.log('[generateDOCX] Download triggered successfully')
   } catch (error) {
     console.error('Error generating DOCX:', error)
     throw new Error('Failed to generate DOCX file')

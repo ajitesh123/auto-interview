@@ -273,7 +273,7 @@ const CoverLetterPage = () => {
                 >
                   {resumeFile ? (
                     <div>
-                      <div className="mb-2 text-green-400">✓ File Selected</div>
+                      <div className="mb-2 text-purple-400">✓ File Selected</div>
                       <div className="font-medium text-white">{resumeFile.name}</div>
                       <div className="text-sm text-gray-400">
                         {(resumeFile.size / 1024 / 1024).toFixed(2)} MB
@@ -318,7 +318,7 @@ const CoverLetterPage = () => {
                 className={`rounded-lg p-4 ${
                   uploadMessage.includes('Error')
                     ? 'border border-red-500 bg-red-900/20 text-red-300'
-                    : 'border border-green-500 bg-green-900/20 text-green-300'
+                    : 'border border-purple-500 bg-purple-900/20 text-purple-300'
                 }`}
               >
                 {uploadMessage}

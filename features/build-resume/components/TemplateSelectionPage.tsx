@@ -93,22 +93,9 @@ const TemplateSelectionPage = ({
 
       const html = await response.text()
 
-      // Use popup modal for Harvard template only, new tab for LBS and Stanford
-      if (selectedTemplate === 'harvard') {
-        setPreviewHTML(html)
-        setShowPreview(true)
-      } else {
-        // LBS and Stanford templates - open in new window
-        const newWindow = window.open('', '_blank', 'width=800,height=600')
-        if (newWindow) {
-          newWindow.document.write(html)
-          newWindow.document.close()
-        } else {
-          // Fallback to modal if popup blocked
-          setPreviewHTML(html)
-          setShowPreview(true)
-        }
-      }
+      // Use modal popup for all templates
+      setPreviewHTML(html)
+      setShowPreview(true)
     } catch (error) {
       console.error('Error generating preview:', error)
       setDownloadMessage('Error generating preview. Please try again.')
@@ -145,10 +132,10 @@ const TemplateSelectionPage = ({
         </div>
 
         {/* Success Message */}
-        <div className="mb-8 rounded-lg border border-green-700 bg-green-900 p-4">
+        <div className="mb-8 rounded-lg border border-purple-700 bg-purple-900 p-4">
           <div className="flex items-center">
             <svg
-              className="mr-3 h-5 w-5 text-green-400"
+              className="mr-3 h-5 w-5 text-purple-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -161,10 +148,10 @@ const TemplateSelectionPage = ({
               />
             </svg>
             <div>
-              <h3 className="text-lg font-semibold text-green-200">
+              <h3 className="text-lg font-semibold text-purple-200">
                 Resume Data Saved Successfully!
               </h3>
-              <p className="text-green-300">
+              <p className="text-purple-300">
                 Your resume information has been saved and is ready for template selection.
               </p>
             </div>
@@ -458,7 +445,7 @@ const TemplateSelectionPage = ({
             className={`mb-6 rounded-lg p-4 ${
               downloadMessage.includes('Error')
                 ? 'border border-red-700 bg-red-900 text-red-200'
-                : 'border border-green-700 bg-green-900 text-green-200'
+                : 'border border-purple-700 bg-purple-900 text-purple-200'
             }`}
           >
             <div className="flex items-center">
