@@ -3,8 +3,8 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// Initialize Gemini AI with embedded API key
-const GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
+// Initialize Gemini AI
+const GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
 
 export const maxDuration = 60

@@ -5,10 +5,9 @@ import { segmentResume } from '@/lib/ats/segment'
 import { scoreResume } from '@/lib/ats/score'
 import { analyzeKeywords } from '@/lib/keywordAnalyzer'
 
-// Initialize Gemini AI with env key (used only for suggestions)
-const GOOGLE_GEMINI_API_KEY =
-  process.env.GEMINI_API_KEY || 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
-const genAI = GOOGLE_GEMINI_API_KEY ? new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY) : null
+// Initialize Gemini AI
+const GOOGLE_GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
+const genAI = new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY)
 
 // Simple in-memory cache (best-effort)
 const cache = new Map<string, any>()
@@ -476,10 +475,10 @@ Return ONLY valid JSON (no markdown):
       Math.max(
         0,
         scoring.breakdown.formatCompatibility +
-          scoring.breakdown.keywordOptimization +
-          scoring.breakdown.impactAndMetrics +
-          scoring.breakdown.actionVerbs +
-          scoring.breakdown.sectionCompleteness
+        scoring.breakdown.keywordOptimization +
+        scoring.breakdown.impactAndMetrics +
+        scoring.breakdown.actionVerbs +
+        scoring.breakdown.sectionCompleteness
       )
     )
 
@@ -488,17 +487,17 @@ Return ONLY valid JSON (no markdown):
       scoring.improvements && scoring.improvements.length > 0
         ? scoring.improvements
         : [
-            {
-              category: 'Resume Optimization',
-              priority: 'medium' as const,
-              currentText: 'Your resume is strong, but can always be optimized further',
-              suggestedText:
-                'Consider tailoring your resume for specific job descriptions by adding relevant keywords, quantifying achievements with specific metrics, and using strong action verbs.',
-              reason:
-                'Continuous optimization helps improve ATS matching and makes your resume stand out to recruiters.',
-              scoreImpact: '5',
-            },
-          ]
+          {
+            category: 'Resume Optimization',
+            priority: 'medium' as const,
+            currentText: 'Your resume is strong, but can always be optimized further',
+            suggestedText:
+              'Consider tailoring your resume for specific job descriptions by adding relevant keywords, quantifying achievements with specific metrics, and using strong action verbs.',
+            reason:
+              'Continuous optimization helps improve ATS matching and makes your resume stand out to recruiters.',
+            scoreImpact: '5',
+          },
+        ]
 
     const finalResult = {
       version: scoring.version,

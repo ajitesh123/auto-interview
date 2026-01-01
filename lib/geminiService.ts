@@ -5,8 +5,9 @@ class GeminiService {
   private modelId: string
 
   constructor() {
-    const key = process.env.GEMINI_API_KEY || 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
-    this.genAI = key ? new GoogleGenerativeAI(key) : null
+    const key = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
+
+    this.genAI = new GoogleGenerativeAI(key)
     this.modelId = process.env.GEMINI_MODEL || 'gemini-2.5-flash'
   }
 

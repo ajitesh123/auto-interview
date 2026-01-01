@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// Initialize Gemini AI with embedded API key
-const GEMINI_API_KEY = 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
+// Initialize Gemini AI
+const GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
 console.log('Gemini API Key configured:', !!GEMINI_API_KEY)
 
@@ -338,7 +338,7 @@ Return ONLY the JSON object, no additional text or formatting.
       } else if (error.message.includes('QUOTA_EXCEEDED') || error.message.includes('quota')) {
         throw new Error(
           'API quota exceeded: You have reached your free tier limit. Please wait or upgrade your plan. Error: ' +
-            error.message
+          error.message
         )
       } else if (error.message.includes('PERMISSION_DENIED')) {
         throw new Error('Permission denied: Please check your API key permissions.')

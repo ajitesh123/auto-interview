@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 // Initialize Gemini AI
-const GOOGLE_GEMINI_API_KEY =
-  process.env.GEMINI_API_KEY || 'AIzaSyBzPxbFBd7imzZOlYo8JVIRNo_a6Sqwp5s'
-const genAI = GOOGLE_GEMINI_API_KEY ? new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY) : null
+const GOOGLE_GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
+const genAI = new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY)
 
 async function extractTextFromFile(file: File): Promise<{ text: string; mime: string }> {
   const bytes = await file.arrayBuffer()
