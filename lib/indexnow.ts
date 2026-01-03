@@ -7,8 +7,8 @@
  * @see https://www.indexnow.org/
  */
 
-const INDEXNOW_API_KEY = 'a8f3e9b2c7d4f1a6e5b8c3d2f9a1e4b7'
-const SITE_HOST = 'www.autointerviewai.com'
+const INDEXNOW_API_KEY = 'cdad5b9b7330476aaaf772f88d3d697e'
+const SITE_HOST = 'auto-interview-ai.com'
 
 export interface IndexNowOptions {
     url?: string | string[]
@@ -66,24 +66,25 @@ export async function submitToIndexNow(urls: string | string[]): Promise<boolean
 export async function submitAllPages(): Promise<boolean> {
     const importantPages = [
         // Homepage
-        'https://www.autointerviewai.com/',
+        'https://auto-interview-ai.com/',
 
         // Core features
-        'https://www.autointerviewai.com/build-resume',
-        'https://www.autointerviewai.com/ats-score',
-        'https://www.autointerviewai.com/find-jobs',
-        'https://www.autointerviewai.com/cover-letter',
-        'https://www.autointerviewai.com/resume-job-matcher',
+        'https://auto-interview-ai.com/build-resume',
+        'https://auto-interview-ai.com/ats-score',
+        'https://auto-interview-ai.com/find-jobs',
+        'https://auto-interview-ai.com/cover-letter',
+        'https://auto-interview-ai.com/resume-job-matcher',
 
         // Important pages
-        'https://www.autointerviewai.com/blog',
-        'https://www.autointerviewai.com/free-resources',
-        'https://www.autointerviewai.com/about',
+        'https://auto-interview-ai.com/blog',
+        'https://auto-interview-ai.com/free-resources',
+        'https://auto-interview-ai.com/about',
 
         // Latest blog posts (add new ones here)
-        'https://www.autointerviewai.com/blog/best-mock-interview-platforms-2026',
-        'https://www.autointerviewai.com/blog/best-ats-resume-checker-2025',
-        'https://www.autointerviewai.com/blog/how-to-find-jobs-complete-guide',
+        'https://auto-interview-ai.com/blog/best-ai-roleplay-platforms-2026',
+        'https://auto-interview-ai.com/blog/best-mock-interview-platforms-2026',
+        'https://auto-interview-ai.com/blog/best-ats-resume-checker-2025',
+        'https://auto-interview-ai.com/blog/how-to-find-jobs-complete-guide',
     ]
 
     return await submitToIndexNow(importantPages)
@@ -94,6 +95,6 @@ export async function submitAllPages(): Promise<boolean> {
  * Use this when publishing new blog content
  */
 export async function submitBlogPost(slug: string): Promise<boolean> {
-    const url = `https://www.autointerviewai.com/blog/${slug}`
+    const url = `https://auto-interview-ai.com/blog/${slug}`
     return await submitToIndexNow(url)
 }
