@@ -715,6 +715,57 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
+  // FAQ Schema for B2B vs B2C Sales Guide - Google SEO requirement
+  const b2bSalesFaqSchema =
+    slug === 'b2b-vs-b2c-sales-career-guide'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'Which pays more, B2B or B2C sales?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Generally, B2B sales has a higher average salary and income ceiling due to larger deal sizes and corporate budgets. However, top performers in high-ticket B2C sales (like luxury real estate or solar) can out-earn average B2B reps.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is it hard to switch from B2C to B2B?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'It can be challenging but is very common. B2C reps often need to learn to slow down, manage multiple stakeholders, and adopt a more consultative approach. Starting as a BDR (Business Development Representative) is a common bridge.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Do I need a degree for B2B sales?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: "Many B2B roles, especially in Tech/SaaS, prefer a bachelor's degree, but it is not strictly required if you have a strong track record. B2C roles rarely require a degree.",
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Which is more stressful?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'B2C is stressful due to the daily grind and rejection volume. B2B is stressful due to the pressure of quarterly targets and the complexity of managing large deals where one mistake can cost millions.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is B2B2C?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'B2B2C (Business-to-Business-to-Consumer) is a hybrid model where a business sells to another business to reach end consumers. An example is a food delivery app selling to restaurants (B2B) to serve diners (B2C).',
+              },
+            },
+          ],
+        }
+      : null
+
   // FAQ Schema for Interview Freeze Blog - Google SEO requirement
   const interviewFreezeFaqSchema =
     slug === 'why-freeze-interviews-after-mock-practice'
