@@ -138,9 +138,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
                 <Logo width={40} height={40} className="mr-2" />
                 <div>
-                  <h1 className="text-base font-bold text-chatgpt-text sm:text-lg">
+                  <div className="text-base font-bold text-chatgpt-text sm:text-lg">
                     Auto Interview AI
-                  </h1>
+                  </div>
                   <p className="hidden text-xs text-chatgpt-textSecondary sm:block">
                     AI-powered career tools
                   </p>

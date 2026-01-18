@@ -5,10 +5,9 @@ import SEOFeatures from '@/components/SEOFeatures'
 import AppLayout from '@/components/AppLayout'
 
 export const metadata: Metadata = genPageMetadata({
-  title:
-    'Auto Interview AI - Complete Job Preparation Platform | Free Resume Builder, ATS Checker, Job Search',
+  title: 'Auto Interview AI: Free Job Prep & Resume Builder',
   description:
-    'Complete AI-powered job preparation platform. Build ATS-friendly resumes, check ATS scores, search jobs, generate cover letters, and practice interviews. Everything you need to land your dream job - all free.',
+    'Auto Interview AI: Free AI-powered job prep platform. Build ATS-friendly resumes, check scores, search jobs, and practice interviews to land your dream job.',
   keywords:
     'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, job search, cover letter generator, interview practice, career tools, free resume builder, ATS score, job application tools, AI interview practice, automated interview prep, resume optimization, job matching, skill assessment, mock interview',
   openGraph: {

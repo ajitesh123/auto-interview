@@ -1,10 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Auto Interview AI – Complete Job Preparation Platform',
+  title: 'Auto Interview AI: Free Job Prep & Resume Builder',
   author: 'Auto Interview AI',
   headerTitle: 'Auto Interview AI',
   description:
-    'Auto Interview AI (Autointerviewai) is the complete job preparation platform — free AI resume builder, ATS score checker, job search, cover letter generator, and skill assessments. Everything you need to land your dream job.',
+    'Auto Interview AI: Free AI-powered job prep platform. Build ATS-friendly resumes, check scores, search jobs, and practice interviews to land your dream job.',
   keywords:
     'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, job search, cover letter generator, skill assessment, mock interview, career tools, free resume builder, ATS score, job application tools, AI interview practice, automated interview prep, resume optimization, job matching, professional resume, interview preparation, career development, job hunting, employment search, resume templates, cover letter templates, interview skills, career coaching',
   language: 'en-us',
