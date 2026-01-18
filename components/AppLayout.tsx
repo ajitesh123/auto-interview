@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import SearchButton from './SearchButton'
 import MinimalFooter from './MinimalFooter'
@@ -13,7 +13,14 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const features = [
+  interface Feature {
+    id: string
+    title: string
+    href: string
+    external?: boolean
+  }
+
+  const features: Feature[] = [
     {
       id: 'build-resume',
       title: 'Create Resume',
@@ -32,8 +39,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     {
       id: 'assessments',
       title: 'Practice Interview',
-      href: 'https://app.toughtongueai.com/',
-      external: true,
+      href: '/free-mock-interview',
     },
     {
       id: 'cover-letter',
@@ -163,10 +169,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 About
               </Link>
               <Link
-                href="https://app.toughtongueai.com/"
+                href="/free-mock-interview"
                 className="hidden text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text lg:block"
               >
-                Tough Tongue AI
+                Free Mock Interview
               </Link>
               <SearchButton />
             </div>
@@ -285,11 +291,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                     About
                   </Link>
                   <Link
-                    href="https://app.toughtongueai.com/"
+                    href="/free-mock-interview"
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:bg-matte-gray hover:text-white"
                   >
-                    Tough Tongue AI
+                    Free Mock Interview
                   </Link>
                 </div>
               </nav>

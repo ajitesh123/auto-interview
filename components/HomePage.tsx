@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from './Link'
 import SearchButton from './SearchButton'
 import MinimalFooter from './MinimalFooter'
@@ -65,8 +65,7 @@ const HomePage = () => {
       id: 'assessments',
       title: 'Practice Interview',
       description: 'Practice with AI-powered interview simulations',
-      href: 'https://app.toughtongueai.com/',
-      external: true,
+      href: '/free-mock-interview',
     },
     {
       id: 'cover-letter',
@@ -240,7 +239,7 @@ const HomePage = () => {
                   even sees your qualifications.
                 </p>
                 <p>
-                  The system isn't broken—it's just that no one taught you how to work with it.
+                  The system isn't broken - it's just that no one taught you how to work with it.
                   Companies use software to filter thousands of applications, and if your resume
                   doesn't match their exact format and keywords, you're out.
                 </p>
@@ -333,7 +332,7 @@ const HomePage = () => {
                   </h3>
                   <p className="text-chatgpt-textSecondary">
                     We analyze thousands of real ATS scans and job matches every quarter. Our
-                    recommendations aren't based on outdated "resume tips from 2015"—they're based
+                    recommendations aren't based on outdated "resume tips from 2015" - they're based
                     on what's actually working right now in 2025 for people landing interviews and
                     offers.
                   </p>
@@ -407,7 +406,7 @@ const HomePage = () => {
                     </h3>
                     <p className="text-sm text-chatgpt-textSecondary">
                       Use our templates that are specifically designed to pass ATS parsing. The
-                      average improvement is +32 points on your ATS score—enough to move from
+                      average improvement is +32 points on your ATS score - enough to move from
                       auto-reject to interview pile.
                     </p>
                   </div>

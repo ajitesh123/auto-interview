@@ -6,7 +6,10 @@ export default function Footer() {
   return (
     <footer>
       {/* SEO-Optimized Footer with crawlable links - Google SEO requirement */}
-      <nav className="mt-8 border-t border-gray-200 dark:border-gray-700" aria-label="Footer Navigation">
+      <nav
+        className="mt-8 border-t border-gray-200 dark:border-gray-700"
+        aria-label="Footer Navigation"
+      >
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {/* Tools Section */}
@@ -16,46 +19,44 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/build-resume" 
+                  <Link
+                    href="/build-resume"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Free Resume Builder
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/ats-score" 
+                  <Link
+                    href="/ats-score"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     ATS Score Checker
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/find-jobs" 
+                  <Link
+                    href="/find-jobs"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Job Search Engine
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/cover-letter" 
+                  <Link
+                    href="/cover-letter"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Cover Letter Generator
                   </Link>
                 </li>
                 <li>
-                  <a 
-                    href="https://app.toughtongueai.com" 
+                  <Link
+                    href="/free-mock-interview"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
                   >
-                    AI Mock Interviews ↗
-                  </a>
+                    Free Mock Interview
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -67,40 +68,40 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/blog" 
+                  <Link
+                    href="/blog"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Career Blog
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/blog/job-search-guide-2025" 
+                  <Link
+                    href="/blog/job-search-guide-2025"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Job Search Guide 2025
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/blog/best-ats-resume-checker-2025" 
+                  <Link
+                    href="/blog/best-ats-resume-checker-2025"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Best ATS Resume Checkers
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/blog/product-manager-interview-guide-2025" 
+                  <Link
+                    href="/blog/product-manager-interview-guide-2025"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     PM Interview Guide
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/tags" 
+                  <Link
+                    href="/tags"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Browse All Topics
@@ -116,40 +117,40 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/about" 
+                  <Link
+                    href="/about"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/privacy-policy" 
+                  <Link
+                    href="/privacy-policy"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/terms-conditions" 
+                  <Link
+                    href="/terms-conditions"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Terms & Conditions
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/refund-policy" 
+                  <Link
+                    href="/refund-policy"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Refund Policy
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/contact-policy" 
+                  <Link
+                    href="/contact-policy"
                     className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                   >
                     Contact Us

@@ -11,7 +11,7 @@ export default function ResumeBuilderMotivation() {
         <div className="mx-auto max-w-3xl space-y-4 text-left text-base text-chatgpt-textSecondary">
           <p>
             Most resume templates online look great to humans but fail miserably with{' '}
-            <strong className="text-chatgpt-text">ATS (Applicant Tracking Systems)</strong>—the
+            <strong className="text-chatgpt-text">ATS (Applicant Tracking Systems)</strong> - the
             software that 99% of companies use to filter resumes before anyone reads them.
           </p>
           <p>
@@ -170,7 +170,7 @@ export default function ResumeBuilderMotivation() {
               <h4 className="mb-2 font-semibold text-chatgpt-text">Choose Your Template</h4>
               <p className="text-sm text-chatgpt-textSecondary">
                 Pick from Harvard (traditional), LBS (modern), or Stanford (professional). All are
-                ATS-friendly—just pick what suits your style.
+                ATS-friendly - just pick what suits your style.
               </p>
             </div>
           </div>

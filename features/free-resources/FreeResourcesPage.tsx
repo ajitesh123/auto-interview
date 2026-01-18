@@ -213,7 +213,7 @@ const FreeResourcesPage = () => {
             </h1>
             <p className="mt-3 text-base text-white/70">
               From FAANG software roles to MBB consulting, grab the exact resume, case, or interview
-              file you need—no email gates, no bloat, just clean downloads.
+              file you need - no email gates, no bloat, just clean downloads.
             </p>
           </div>
           <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-white/80 backdrop-blur">

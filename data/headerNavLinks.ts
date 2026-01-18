@@ -2,7 +2,7 @@ const headerNavLinks = [
   { href: '/', title: 'Home' },
   { href: '/blog', title: 'Blog' },
   { href: '/about', title: 'About' },
-  { href: 'https://app.toughtongueai.com/', title: 'Tough Tongue AI' },
+  { href: '/free-mock-interview', title: 'Free Mock Interview' },
 ]
 
 export default headerNavLinks

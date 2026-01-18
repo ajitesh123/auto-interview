@@ -38,10 +38,10 @@ const LandingHeader = () => {
             About
           </Link>
           <Link
-            href="https://app.toughtongueai.com/"
+            href="/free-mock-interview"
             className="font-medium text-gray-400 transition-colors hover:text-white"
           >
-            Tough Tongue AI
+            Free Mock Interview
           </Link>
           <SearchButton />
         </div>
@@ -87,11 +87,8 @@ const LandingHeader = () => {
           <Link href="/about" className="text-sm text-gray-400 hover:text-white">
             About
           </Link>
-          <Link
-            href="https://app.toughtongueai.com/"
-            className="text-sm text-gray-400 hover:text-white"
-          >
-            Tough Tongue AI
+          <Link href="/free-mock-interview" className="text-sm text-gray-400 hover:text-white">
+            Free Mock Interview
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Link from './Link'
 import SearchButton from './SearchButton'
 import MinimalFooter from './MinimalFooter'
@@ -86,8 +86,9 @@ const LandingPage = () => {
 
         <h2>Free Resources Library</h2>
         <p>
-          Download ATS-friendly resume templates, interview checklists, outreach scripts, and job search
-          playbooks curated by the Auto Interview AI team. Every resource is 100% free and ungated.
+          Download ATS-friendly resume templates, interview checklists, outreach scripts, and job
+          search playbooks curated by the Auto Interview AI team. Every resource is 100% free and
+          ungated.
         </p>
 
         <h3>Key Features:</h3>
@@ -141,9 +142,9 @@ const LandingPage = () => {
               <button
                 key={item}
                 onClick={() => {
-                  // Redirect to Tough Tongue AI app for practice interviews
+                  // Redirect to Free Mock Interview page
                   if (item === 'Practice Interview') {
-                    window.open('https://app.toughtongueai.com/', '_blank')
+                    window.location.href = '/free-mock-interview'
                     return
                   }
 
@@ -195,10 +196,10 @@ const LandingPage = () => {
                 About
               </Link>
               <Link
-                href="https://app.toughtongueai.com/"
+                href="/free-mock-interview"
                 className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
               >
-                Tough Tongue AI
+                Free Mock Interview
               </Link>
               <SearchButton />
             </div>

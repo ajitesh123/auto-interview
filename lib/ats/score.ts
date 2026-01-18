@@ -319,7 +319,7 @@ export function scoreResume(parsed: SegmentedResume, opts: ScoreOptions = {}): S
   const parseCoverage =
     totalWords > 0 ? Math.min(100, Math.round((parsedWords / totalWords) * 100)) : 0
 
-  // 1) FormatCompatibility (20) — realistic ATS-focused scoring
+  // 1) FormatCompatibility (20) - realistic ATS-focused scoring
   const realisticFormat20 = (() => {
     let score = 0 // Start at 0, earn points for good practices
 

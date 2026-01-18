@@ -12,13 +12,13 @@ export default function ATSScoreMotivation() {
           <p>
             Here's what most people don't know:{' '}
             <strong className="text-white">75% of resumes never reach human eyes</strong>. They're
-            filtered out by ATS (Applicant Tracking Systems) before any recruiter sees
-            them—regardless of how qualified you are.
+            filtered out by ATS (Applicant Tracking Systems) before any recruiter sees them -
+            regardless of how qualified you are.
           </p>
           <p>
             We've analyzed over 21,000 real job applications. Candidates with ATS scores above 80
             got called back <strong className="text-emerald-400">3.2x more often</strong> than those
-            below 60—even when their actual qualifications were similar.
+            below 60 - even when their actual qualifications were similar.
           </p>
           <p className="text-lg font-semibold text-purple-300">
             Your resume might be perfect for humans, but if it scores low on ATS, you'll never get
@@ -196,9 +196,10 @@ export default function ATSScoreMotivation() {
       <div className="text-center">
         <p className="mx-auto max-w-2xl text-sm italic text-gray-400">
           "I was applying to 50+ jobs with no callbacks. After fixing my ATS score from 62 to 87, I
-          got 3 interviews in the first week. Same resume, same qualifications—just ATS-optimized."
+          got 3 interviews in the first week. Same resume, same qualifications - just
+          ATS-optimized."
           <span className="mt-2 block text-xs not-italic text-gray-500">
-            — Sarah M., Software Engineer
+            - Sarah M., Software Engineer
           </span>
         </p>
       </div>
