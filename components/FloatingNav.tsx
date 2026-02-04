@@ -36,7 +36,7 @@ export default function FloatingNav() {
       {/* Back Button */}
       <button
         onClick={handleBack}
-        className="group flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg transition-all duration-300 hover:scale-110 hover:from-purple-500 hover:to-purple-600 hover:shadow-xl hover:shadow-purple-500/50 active:scale-95"
+        className="group flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg transition-all duration-300 hover:scale-110 hover:from-primary hover:to-primary-600 hover:shadow-xl hover:shadow-primary/50 active:scale-95"
         aria-label="Go back to previous page"
       >
         <svg

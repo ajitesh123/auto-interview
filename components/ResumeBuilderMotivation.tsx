@@ -5,10 +5,10 @@ export default function ResumeBuilderMotivation() {
     <div className="mx-auto max-w-6xl space-y-12 px-4 py-12 sm:px-6 lg:px-8">
       {/* Why Use This Builder */}
       <div className="text-center">
-        <h2 className="mb-6 text-3xl font-bold text-chatgpt-text">
+        <h2 className="text-chatgpt-text mb-6 text-3xl font-bold">
           Why Building Your Resume Here Changes Everything
         </h2>
-        <div className="mx-auto max-w-3xl space-y-4 text-left text-base text-chatgpt-textSecondary">
+        <div className="text-chatgpt-textSecondary mx-auto max-w-3xl space-y-4 text-left text-base">
           <p>
             Most resume templates online look great to humans but fail miserably with{' '}
             <strong className="text-chatgpt-text">ATS (Applicant Tracking Systems)</strong> - the
@@ -24,26 +24,26 @@ export default function ResumeBuilderMotivation() {
       </div>
 
       {/* The Data */}
-      <div className="rounded-xl border border-chatgpt-border bg-chatgpt-card p-8">
-        <h3 className="mb-6 text-center text-2xl font-bold text-chatgpt-text">
+      <div className="border-chatgpt-border bg-chatgpt-card rounded-xl border p-8">
+        <h3 className="text-chatgpt-text mb-6 text-center text-2xl font-bold">
           What Happens When You Use ATS-Friendly Templates
         </h3>
         <div className="grid gap-6 sm:grid-cols-3">
-          <div className="rounded-lg border border-chatgpt-border bg-chatgpt-input p-6 text-center">
-            <div className="mb-2 text-4xl font-bold text-purple-400">+32</div>
-            <p className="text-sm text-chatgpt-textSecondary">
+          <div className="border-chatgpt-border bg-chatgpt-input rounded-lg border p-6 text-center">
+            <div className="mb-2 text-4xl font-bold text-primary">+32</div>
+            <p className="text-chatgpt-textSecondary text-sm">
               Average ATS score improvement (out of 100) with our templates
             </p>
           </div>
-          <div className="rounded-lg border border-chatgpt-border bg-chatgpt-input p-6 text-center">
-            <div className="mb-2 text-4xl font-bold text-purple-400">47%</div>
-            <p className="text-sm text-chatgpt-textSecondary">
+          <div className="border-chatgpt-border bg-chatgpt-input rounded-lg border p-6 text-center">
+            <div className="mb-2 text-4xl font-bold text-primary">47%</div>
+            <p className="text-chatgpt-textSecondary text-sm">
               Higher callback rate compared to generic resume templates
             </p>
           </div>
-          <div className="rounded-lg border border-chatgpt-border bg-chatgpt-input p-6 text-center">
-            <div className="mb-2 text-4xl font-bold text-purple-400">10-15</div>
-            <p className="text-sm text-chatgpt-textSecondary">
+          <div className="border-chatgpt-border bg-chatgpt-input rounded-lg border p-6 text-center">
+            <div className="mb-2 text-4xl font-bold text-primary">10-15</div>
+            <p className="text-chatgpt-textSecondary text-sm">
               Minutes to build a professional, ATS-optimized resume
             </p>
           </div>
@@ -51,13 +51,13 @@ export default function ResumeBuilderMotivation() {
       </div>
 
       {/* What Makes It Different */}
-      <div className="rounded-xl border border-chatgpt-border bg-chatgpt-card p-8">
-        <h3 className="mb-6 text-2xl font-bold text-chatgpt-text">
+      <div className="border-chatgpt-border bg-chatgpt-card rounded-xl border p-8">
+        <h3 className="text-chatgpt-text mb-6 text-2xl font-bold">
           What Makes These Templates Actually Work
         </h3>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="flex gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-600">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-600">
               <svg
                 className="h-5 w-5 text-white"
                 fill="none"
@@ -73,8 +73,8 @@ export default function ResumeBuilderMotivation() {
               </svg>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-chatgpt-text">ATS-Parseable Format</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-1 font-semibold">ATS-Parseable Format</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 No fancy tables, text boxes, or graphics that confuse ATS systems. Simple, clean
                 formatting that both software and humans love.
               </p>
@@ -98,8 +98,8 @@ export default function ResumeBuilderMotivation() {
               </svg>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-chatgpt-text">Guided Sections</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-1 font-semibold">Guided Sections</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 Our builder asks for exactly what recruiters look for, ensuring you don't miss
                 critical information.
               </p>
@@ -123,8 +123,8 @@ export default function ResumeBuilderMotivation() {
               </svg>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-chatgpt-text">Real-Time Preview</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-1 font-semibold">Real-Time Preview</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 See exactly how your resume looks as you build it. No surprises when you download.
               </p>
             </div>
@@ -147,8 +147,8 @@ export default function ResumeBuilderMotivation() {
               </svg>
             </div>
             <div>
-              <h4 className="mb-1 font-semibold text-chatgpt-text">Multiple Export Formats</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-1 font-semibold">Multiple Export Formats</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 Download as PDF for applications or DOCX for further customization. Your choice.
               </p>
             </div>
@@ -157,8 +157,8 @@ export default function ResumeBuilderMotivation() {
       </div>
 
       {/* The Process */}
-      <div className="rounded-xl border border-purple-500/30 bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-8">
-        <h3 className="mb-6 text-center text-2xl font-bold text-chatgpt-text">
+      <div className="rounded-xl border border-primary/30 bg-gradient-to-r from-primary/20 to-blue-900/20 p-8">
+        <h3 className="text-chatgpt-text mb-6 text-center text-2xl font-bold">
           How It Works (Really Simple)
         </h3>
         <div className="mx-auto max-w-3xl space-y-6">
@@ -167,8 +167,8 @@ export default function ResumeBuilderMotivation() {
               1
             </div>
             <div>
-              <h4 className="mb-2 font-semibold text-chatgpt-text">Choose Your Template</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-2 font-semibold">Choose Your Template</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 Pick from Harvard (traditional), LBS (modern), or Stanford (professional). All are
                 ATS-friendly - just pick what suits your style.
               </p>
@@ -180,8 +180,8 @@ export default function ResumeBuilderMotivation() {
               2
             </div>
             <div>
-              <h4 className="mb-2 font-semibold text-chatgpt-text">Fill In Your Information</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-2 font-semibold">Fill In Your Information</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 Work through each section step-by-step: Contact, Education, Experience, Skills. The
                 builder guides you through what to include.
               </p>
@@ -193,8 +193,8 @@ export default function ResumeBuilderMotivation() {
               3
             </div>
             <div>
-              <h4 className="mb-2 font-semibold text-chatgpt-text">Watch the Live Preview</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-2 font-semibold">Watch the Live Preview</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 See your resume update in real-time on the right side. Adjust until it looks
                 perfect.
               </p>
@@ -206,8 +206,8 @@ export default function ResumeBuilderMotivation() {
               4
             </div>
             <div>
-              <h4 className="mb-2 font-semibold text-chatgpt-text">Download and Apply</h4>
-              <p className="text-sm text-chatgpt-textSecondary">
+              <h4 className="text-chatgpt-text mb-2 font-semibold">Download and Apply</h4>
+              <p className="text-chatgpt-textSecondary text-sm">
                 Export as PDF or DOCX. Start applying with confidence that your resume will actually
                 get read.
               </p>
@@ -218,10 +218,10 @@ export default function ResumeBuilderMotivation() {
 
       {/* Bottom CTA */}
       <div className="text-center">
-        <h3 className="mb-4 text-2xl font-bold text-chatgpt-text">
+        <h3 className="text-chatgpt-text mb-4 text-2xl font-bold">
           Ready to Build a Resume That Actually Works?
         </h3>
-        <p className="mb-6 text-chatgpt-textSecondary">
+        <p className="text-chatgpt-textSecondary mb-6">
           Pick a template above to get started. It takes 10-15 minutes, and it's completely free.
         </p>
       </div>

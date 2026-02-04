@@ -105,19 +105,19 @@ export default function RelatedTools({ currentPage }: RelatedToolsProps) {
           <Link
             key={tool.href}
             href={tool.href}
-            className="group block rounded-lg border border-gray-700 bg-gray-900 p-6 transition-all hover:border-purple-500 hover:bg-gray-800 hover:shadow-lg hover:shadow-purple-500/20"
+            className="group block rounded-lg border border-gray-700 bg-gray-900 p-6 transition-all hover:border-primary hover:bg-gray-800 hover:shadow-lg hover:shadow-primary/20"
             aria-label={`Go to ${tool.title}`}
           >
-            <div className="mb-4 text-purple-400 transition-colors group-hover:text-purple-300">
+            <div className="group-hover:text-primary-300 mb-4 text-primary transition-colors">
               {tool.icon}
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-purple-400">
+            <h3 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-primary">
               {tool.title}
             </h3>
             <p className="text-sm text-gray-400 transition-colors group-hover:text-gray-300">
               {tool.description}
             </p>
-            <div className="mt-4 flex items-center text-sm font-medium text-purple-400 transition-colors group-hover:text-purple-300">
+            <div className="group-hover:text-primary-300 mt-4 flex items-center text-sm font-medium text-primary transition-colors">
               Try it free
               <svg
                 className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"

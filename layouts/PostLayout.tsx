@@ -1170,7 +1170,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       : null
 
   return (
-    <div className="min-h-screen bg-matte-black">
+    <div className="bg-matte-black min-h-screen">
       <LandingHeader />
 
       {/* Generic Article Schema for ALL blog posts - Google SEO */}
@@ -1307,24 +1307,24 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <main className="flex-1 lg:max-w-4xl">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="rounded-lg border border-matte-gray bg-matte-black p-8"
+              className="rounded-lg border border-gray-200 bg-white p-8"
               itemScope
               itemType="https://schema.org/Article"
             >
               {/* Article Header */}
-              <header className="mb-8 border-b border-matte-gray pb-8">
+              <header className="mb-8 border-b border-gray-200 pb-8">
                 <div className="space-y-4 text-center">
                   <div>
                     <time
                       dateTime={date}
-                      className="text-sm font-medium text-accent-400"
+                      className="text-sm font-medium text-gray-600"
                       itemProp="datePublished"
                     >
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                     </time>
                   </div>
                   <h1
-                    className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
+                    className="text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
                     itemProp="headline"
                   >
                     {title}
@@ -1333,7 +1333,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                     {tags?.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-matte-gray px-3 py-1 text-xs font-medium text-gray-300 transition-colors hover:bg-accent-600 hover:text-white"
+                        className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200"
                       >
                         {tag}
                       </span>
@@ -1346,15 +1346,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
 
               {/* Article Content - Semantic HTML5 section */}
-              <section className="prose prose-invert max-w-none pb-8" itemProp="articleBody">
+              <section className="prose prose-gray max-w-none pb-8" itemProp="articleBody">
                 {children}
               </section>
 
               {/* Article Footer */}
-              <footer className="border-t border-matte-gray pt-8">
+              <footer className="border-t border-gray-200 pt-8">
                 {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-                <aside className="mb-8 rounded-lg bg-matte-gray/30 p-6">
-                  <h3 className="mb-4 text-lg font-semibold text-white">About the Author</h3>
+                <aside className="mb-8 rounded-lg bg-gray-50 p-6">
+                  <h3 className="mb-4 text-lg font-semibold text-black">About the Author</h3>
                   <div className="flex flex-wrap gap-6">
                     {authorDetails.map((author) => (
                       <div
@@ -1372,7 +1372,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         )}
                         <div className="flex-1">
                           <div
-                            className="mb-2 font-semibold text-white"
+                            className="mb-2 font-semibold text-black"
                             itemProp="author"
                             itemScope
                             itemType="https://schema.org/Person"
@@ -1380,9 +1380,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             <span itemProp="name">{author.name}</span>
                           </div>
                           {author.occupation && (
-                            <div className="mb-2 text-sm text-gray-300">{author.occupation}</div>
+                            <div className="mb-2 text-sm text-gray-600">{author.occupation}</div>
                           )}
-                          <p className="mb-3 text-sm leading-relaxed text-gray-300">
+                          <p className="mb-3 text-sm leading-relaxed text-gray-600">
                             {author.name} is an AI & Career Tools Developer specializing in resume
                             optimization, ATS systems, and interview preparation. Creator of Auto
                             Interview AI, helping thousands of job seekers land their dream jobs
@@ -1392,7 +1392,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             {author.twitter && (
                               <Link
                                 href={author.twitter}
-                                className="text-sm text-accent-400 hover:text-accent-300"
+                                className="text-accent-400 hover:text-accent-300 text-sm"
                                 rel="author"
                               >
                                 Follow on X
@@ -1401,7 +1401,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             {author.linkedin && (
                               <Link
                                 href={author.linkedin}
-                                className="text-sm text-accent-400 hover:text-accent-300"
+                                className="text-accent-400 hover:text-accent-300 text-sm"
                                 rel="author"
                               >
                                 LinkedIn
@@ -1409,7 +1409,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             )}
                             <Link
                               href="/about"
-                              className="text-sm text-accent-400 hover:text-accent-300"
+                              className="text-accent-400 hover:text-accent-300 text-sm"
                             >
                               More Articles
                             </Link>
@@ -1421,7 +1421,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </aside>
 
                 {/* Trust Signals for E-E-A-T */}
-                <div className="mb-8 rounded-lg border border-matte-gray/50 bg-matte-black p-6">
+                <div className="border-matte-gray/50 bg-matte-black mb-8 rounded-lg border p-6">
                   <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
                     Why Trust Auto Interview AI?
                   </h4>
@@ -1451,22 +1451,22 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {(next || prev) && (
                   <div className="mb-8 grid gap-4 sm:grid-cols-2">
                     {prev && prev.path && (
-                      <div className="rounded-lg border border-matte-gray p-4">
+                      <div className="border-matte-gray rounded-lg border p-4">
                         <h4 className="text-sm font-medium text-gray-400">Previous Article</h4>
                         <Link
                           href={`/${prev.path}`}
-                          className="text-white transition-colors hover:text-accent-400"
+                          className="hover:text-accent-400 text-white transition-colors"
                         >
                           {prev.title}
                         </Link>
                       </div>
                     )}
                     {next && next.path && (
-                      <div className="rounded-lg border border-matte-gray p-4">
+                      <div className="border-matte-gray rounded-lg border p-4">
                         <h4 className="text-sm font-medium text-gray-400">Next Article</h4>
                         <Link
                           href={`/${next.path}`}
-                          className="text-white transition-colors hover:text-accent-400"
+                          className="hover:text-accent-400 text-white transition-colors"
                         >
                           {next.title}
                         </Link>
@@ -1480,7 +1480,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {/* Home Button */}
                   <Link
                     href="/"
-                    className="inline-flex items-center gap-2 rounded-lg bg-matte-gray px-4 py-2 text-sm font-medium text-chatgpt-text transition-all hover:bg-chatgpt-card hover:text-accent-500"
+                    className="bg-matte-gray text-chatgpt-text hover:bg-chatgpt-card inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all hover:text-accent-500"
                     aria-label="Go to home page"
                   >
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1497,7 +1497,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {/* Back to Blog Button */}
                   <Link
                     href={`/${basePath}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-matte-gray px-4 py-2 text-sm font-medium text-chatgpt-text transition-all hover:bg-chatgpt-card hover:text-accent-500"
+                    className="bg-matte-gray text-chatgpt-text hover:bg-chatgpt-card inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all hover:text-accent-500"
                     aria-label="Back to the blog"
                   >
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1514,7 +1514,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
                 {/* Comments */}
                 {siteMetadata.comments && (
-                  <div className="mt-8 border-t border-matte-gray pt-8" id="comment">
+                  <div className="border-matte-gray mt-8 border-t pt-8" id="comment">
                     <h3 className="mb-4 text-lg font-semibold text-white">Comments</h3>
                     <Comments slug={slug} />
                   </div>

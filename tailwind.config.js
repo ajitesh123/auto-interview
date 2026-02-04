@@ -26,54 +26,52 @@ module.exports = {
         sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
       },
       colors: {
+        // ElevenLabs Clean Palette
+        white: '#FFFFFF',
+        black: '#000000',
+
+        // Clean Gray Scale
+        gray: {
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
+          950: '#030712',
+        },
+
+        // Primary is now just black for buttons
         primary: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
+          DEFAULT: '#000000',
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          500: '#000000',
+          600: '#1F2937',
+          700: '#111827',
+          800: '#000000',
+          900: '#000000',
         },
+
+        // Accent for rare highlights
         accent: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          350: '#c99afe', // New lighter purple
-          400: '#c084fc',
-          450: '#b76df9', // New mid purple
-          500: '#a855f7',
-          550: '#9b45f5', // New darker purple
-          600: '#9333ea',
-          700: '#7c3aed',
-          800: '#6b21a8',
-          900: '#581c87',
-          950: '#3b0764',
+          DEFAULT: '#00D9FF',
+          50: '#E6FAFF',
+          100: '#CCF5FF',
+          500: '#00D9FF',
+          600: '#00B8DB',
+          700: '#00A8CC',
         },
-        matte: {
-          black: '#171717', // ChatGPT dark background
-          dark: '#262626', // ChatGPT card background
-          gray: '#404040', // ChatGPT border color
-          light: '#525252', // ChatGPT input background
-        },
-        chatgpt: {
-          green: '#AB68FF',
-          purple: '#AB68FF',
-          white: '#FFFFFF',
-          dark: '#171717',
-          card: '#262626',
-          border: '#404040',
-          input: '#525252',
-          text: '#FFFFFF',
-          textSecondary: '#D1D5DB',
-          accent: '#AB68FF',
-        },
-        gray: colors.gray,
+
+        // Status colors
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
       },
       zIndex: {
         60: '60',

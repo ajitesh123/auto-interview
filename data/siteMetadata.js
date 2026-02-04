@@ -8,7 +8,7 @@ const siteMetadata = {
   keywords:
     'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, job search, cover letter generator, skill assessment, mock interview, career tools, free resume builder, ATS score, job application tools, AI interview practice, automated interview prep, resume optimization, job matching, professional resume, interview preparation, career development, job hunting, employment search, resume templates, cover letter templates, interview skills, career coaching',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'light', // system, dark or light
   siteUrl: 'https://www.autointerviewai.com',
   siteRepo: 'https://github.com/ajitesh123/tailwind-css-starter-blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.svg`,

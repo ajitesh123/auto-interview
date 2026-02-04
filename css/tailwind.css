@@ -1,317 +1,199 @@
+/* Import design tokens and Tailwind directives */
+@import './design-tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.task-list-item::before {
-  @apply hidden;
-}
-
-.task-list-item {
-  @apply list-none;
-}
-
-.footnotes {
-  @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
-}
-
-.data-footnote-backref {
-  @apply no-underline;
-}
-
-.csl-entry {
-  @apply my-5;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  transition:
-    background-color 600000s 0s,
-    color 600000s 0s;
-}
-
-.katex-display {
-  overflow: auto hidden;
-}
-
-.content-header-link {
-  opacity: 0;
-  margin-left: -24px;
-  padding-right: 4px;
-}
-
-/* Visible animations for Auto Interview AI title */
-@keyframes rainbow-flow {
-  0% {
-    background-position: 0% 50%;
+/* ========================================
+   BASE LAYER - Clean & Minimal
+   ======================================== */
+@layer base {
+  /* Body - White background, black text */
+  body {
+    @apply bg-white text-gray-900;
+    font-family:
+      var(--font-space-grotesk),
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
   }
-  25% {
-    background-position: 100% 50%;
+
+  /* Headings - Black text */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-black;
   }
-  50% {
-    background-position: 200% 50%;
+
+  /* Links - Clean underline on hover */
+  a {
+    @apply text-black transition-colors duration-200;
   }
-  75% {
-    background-position: 300% 50%;
-  }
-  100% {
-    background-position: 400% 50%;
+
+  a:hover {
+    @apply text-gray-700;
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    text-shadow:
-      0 0 5px rgba(168, 85, 247, 0.3),
-      0 0 10px rgba(168, 85, 247, 0.2);
+/* ========================================
+   COMPONENT LAYER - Reusable Components
+   ======================================== */
+@layer components {
+  /* PRIMARY BUTTON - Black Pill */
+  .btn-primary {
+    @apply inline-flex items-center justify-center;
+    @apply px-8 py-3;
+    @apply bg-black text-white;
+    @apply rounded-full;
+    @apply text-base font-semibold;
+    @apply transition-all duration-200;
+    @apply hover:bg-gray-800;
+    @apply active:scale-95;
+    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
   }
-  50% {
-    text-shadow:
-      0 0 8px rgba(168, 85, 247, 0.5),
-      0 0 15px rgba(168, 85, 247, 0.3);
-  }
-}
 
-@keyframes wave-bounce {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
+  /* SECONDARY BUTTON - Outlined Pill */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center;
+    @apply px-8 py-3;
+    @apply bg-transparent text-black;
+    @apply border-2 border-black;
+    @apply rounded-full;
+    @apply text-base font-semibold;
+    @apply transition-all duration-200;
+    @apply hover:bg-gray-50;
+    @apply active:scale-95;
+    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
   }
-  25% {
-    transform: translateY(-5px) rotate(1deg);
+
+  /* TERTIARY BUTTON - Text Only */
+  .btn-tertiary {
+    @apply inline-flex items-center justify-center;
+    @apply px-6 py-2;
+    @apply bg-transparent text-gray-700;
+    @apply rounded-full;
+    @apply text-base font-medium;
+    @apply transition-colors duration-200;
+    @apply hover:bg-gray-100 hover:text-black;
+    @apply focus:outline-none;
   }
-  50% {
-    transform: translateY(0) rotate(0deg);
+
+  /* CARD - Clean White with Subtle Shadow */
+  .card {
+    @apply bg-white;
+    @apply border border-gray-200;
+    @apply rounded-2xl;
+    @apply p-6;
+    @apply transition-shadow duration-200;
+    @apply hover:shadow-md;
   }
-  75% {
-    transform: translateY(5px) rotate(-1deg);
+
+  /* PILL TABS - Like ElevenLabs */
+  .pill-tab {
+    @apply px-6 py-2;
+    @apply rounded-full;
+    @apply text-sm font-medium;
+    @apply transition-all duration-200;
   }
-}
 
-@keyframes shimmer-sweep {
-  0% {
-    background-position: -200% 0;
+  .pill-tab-active {
+    @apply bg-white text-black shadow-sm;
   }
-  100% {
-    background-position: 200% 0;
+
+  .pill-tab-inactive {
+    @apply text-gray-600 hover:text-black;
   }
-}
 
-.animate-rainbow-flow {
-  background: linear-gradient(
-    90deg,
-    #8b5cf6,
-    #a855f7,
-    #c084fc,
-    #d8b4fe,
-    #e9d5ff,
-    #c084fc,
-    #a855f7,
-    #8b5cf6,
-    #7c3aed,
-    #6b21a8
-  );
-  background-size: 500% 100%;
-  animation: rainbow-flow 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.animate-wave-bounce {
-  animation: wave-bounce 4s ease-in-out infinite;
-}
-
-.animate-shimmer-sweep {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    rgba(168, 85, 247, 0.6),
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shimmer-sweep 2.5s ease-in-out infinite;
-}
-
-.content-header:hover .content-header-link,
-.content-header-link:hover {
-  opacity: 1;
-}
-
-.linkicon {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+  /* INPUT - Clean Minimal */
+  .input {
+    @apply w-full px-4 py-3;
+    @apply border border-gray-300 bg-white;
+    @apply rounded-lg;
+    @apply text-black placeholder-gray-400;
+    @apply transition-colors duration-200;
+    @apply focus:border-black focus:outline-none focus:ring-1 focus:ring-black;
   }
 }
 
-.bg-gradient-animate {
-  background-size: 200% 200%;
-  animation: gradient 15s ease infinite;
-  background-image: linear-gradient(
-    to right,
-    var(--tw-gradient-from),
-    var(--tw-gradient-via),
-    var(--tw-gradient-to)
-  );
+/* ========================================
+   UTILITY LAYER - Helper Classes
+   ======================================== */
+@layer utilities {
+  /* Hide content visually but keep for screen readers */
+  .seo-only-content {
+    @apply absolute -m-px h-px w-px overflow-hidden p-0;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Smooth scroll behavior */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Clean Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
+  }
 }
 
-/* Ensure consistent font rendering across all environments */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ========================================
+   PROSE - Blog Content Styling
+   ======================================== */
+.prose {
+  @apply max-w-none;
 }
 
-/* Fix for consistent card heights */
-.card-container {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.prose a {
+  @apply text-black underline decoration-gray-300;
+  @apply hover:decoration-black;
+  @apply transition-colors duration-200;
 }
 
-/* Ensure consistent spacing */
-.feature-card {
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Responsive text sizing */
-.responsive-text {
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-}
-
-.responsive-heading {
-  font-size: clamp(1.5rem, 4vw, 3rem);
-}
-
-/* Ensure consistent button styling */
-.btn-primary {
-  background: linear-gradient(to right, #ec4899, #be185d);
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(to right, #f472b6, #ec4899);
-  transform: translateY(-1px);
-}
-
-/* Fix for consistent icon sizing */
-.icon-responsive {
-  width: clamp(1.5rem, 3vw, 2.5rem);
-  height: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-/* Blog content link styling to match theme */
-.prose a,
 .prose a:visited {
-  color: #a855f7 !important; /* accent-500 purple */
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  @apply text-gray-700;
 }
 
-.prose a:hover,
-.prose a:focus {
-  color: #c084fc !important; /* accent-400 lighter purple */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-bold text-black;
 }
 
-/* Ensure links in blog content use theme colors */
-.prose h1 a,
-.prose h2 a,
-.prose h3 a,
-.prose h4 a,
-.prose h5 a,
-.prose h6 a {
-  color: #a855f7 !important;
+.prose p {
+  @apply leading-relaxed text-gray-700;
 }
 
-.prose h1 a:hover,
-.prose h2 a:hover,
-.prose h3 a:hover,
-.prose h4 a:hover,
-.prose h5 a:hover,
-.prose h6 a:hover {
-  color: #c084fc !important;
-}
-
-/* Reset inline code to normal text styling */
 .prose code {
-  color: inherit !important; /* Use normal text color */
-  background-color: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  font-size: inherit !important;
+  @apply rounded bg-gray-100 px-2 py-1 text-black;
 }
 
-.prose code::before,
-.prose code::after {
-  content: none !important;
+.prose pre {
+  @apply rounded-lg border border-gray-200 bg-gray-100;
 }
 
-/* SEO-only content - Hidden from users but accessible to crawlers */
-.seo-only-content {
-  /* Multiple techniques to ensure invisibility to users */
-  position: absolute !important;
-  left: -9999px !important;
-  top: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  visibility: hidden !important;
-  z-index: -1 !important;
-  
-  /* Critical: Keep content accessible to crawlers and screen readers */
-  display: block !important;
-  /* Don't use display: none as it hides from crawlers */
+/* ========================================
+   CUSTOM UTILITIES
+   ======================================== */
+
+/* Container with max width */
+.container-custom {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 
-/* Ensure the content is still structured for SEO */
-.seo-only-content h1,
-.seo-only-content h2,
-.seo-only-content h3,
-.seo-only-content h4,
-.seo-only-content h5,
-.seo-only-content h6 {
-  /* Maintain semantic structure */
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
+/* Section spacing */
+.section {
+  @apply py-16 md:py-24;
 }
 
-.seo-only-content p,
-.seo-only-content ul,
-.seo-only-content ol,
-.seo-only-content li {
-  /* Keep content readable by crawlers */
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
+/* Gradient text (minimal use) */
+.gradient-text {
+  @apply bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent;
 }

@@ -72,7 +72,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         <div className="flex items-center space-x-1 sm:space-x-2">
           {!prevPage && (
             <button
-              className="cursor-auto rounded-lg bg-matte-gray px-3 py-2 text-xs font-medium text-gray-500 disabled:opacity-50 sm:px-4 sm:text-sm"
+              className="cursor-auto rounded-lg bg-gray-200 px-3 py-2 text-xs font-medium text-gray-400 disabled:opacity-50 sm:px-4 sm:text-sm"
               disabled={!prevPage}
             >
               <span className="hidden sm:inline">Previous</span>
@@ -85,7 +85,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
                 currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`
               }
               rel="prev"
-              className="rounded-lg border border-matte-gray bg-matte-gray px-3 py-2 text-xs font-medium text-gray-300 transition-colors hover:border-accent-600 hover:bg-accent-600 hover:text-white sm:px-4 sm:text-sm"
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-black transition-colors hover:border-black hover:bg-gray-50 sm:px-4 sm:text-sm"
             >
               <span className="hidden sm:inline">Previous</span>
               <span className="sm:hidden">Prev</span>
@@ -105,8 +105,8 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
                   href={page === 1 ? `/${basePath}/` : `/${basePath}/page/${page}`}
                   className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
                     page === currentPage
-                      ? 'bg-accent-600 text-white hover:bg-accent-700'
-                      : 'border border-matte-gray bg-matte-gray text-gray-300 hover:border-accent-600 hover:bg-accent-600 hover:text-white'
+                      ? 'bg-black text-white hover:bg-gray-800'
+                      : 'border border-gray-300 bg-white text-black hover:border-black hover:bg-gray-50'
                   }`}
                 >
                   {page}
@@ -119,7 +119,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         <div className="flex items-center space-x-1 sm:space-x-2">
           {!nextPage && (
             <button
-              className="cursor-auto rounded-lg bg-matte-gray px-3 py-2 text-xs font-medium text-gray-500 disabled:opacity-50 sm:px-4 sm:text-sm"
+              className="cursor-auto rounded-lg bg-gray-200 px-3 py-2 text-xs font-medium text-gray-400 disabled:opacity-50 sm:px-4 sm:text-sm"
               disabled={!nextPage}
             >
               Next
@@ -129,7 +129,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             <Link
               href={`/${basePath}/page/${currentPage + 1}`}
               rel="next"
-              className="rounded-lg border border-matte-gray bg-matte-gray px-3 py-2 text-xs font-medium text-gray-300 transition-colors hover:border-accent-600 hover:bg-accent-600 hover:text-white sm:px-4 sm:text-sm"
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-black transition-colors hover:border-black hover:bg-gray-50 sm:px-4 sm:text-sm"
             >
               Next
             </Link>
@@ -156,43 +156,43 @@ export default function ListLayoutWithTags({
   const featuredReport = posts.find((post) => post.tags?.includes('hiring-index'))
 
   return (
-    <div className="min-h-screen bg-matte-black">
+    <div className="min-h-screen bg-white">
       <FloatingNav />
       <LandingHeader />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         {/* Page Header */}
         <div className="mb-8 text-center sm:mb-12">
-          <h1 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="text-3xl font-bold text-black sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </h1>
-          <p className="mt-4 text-base text-gray-400 sm:text-lg">
+          <p className="mt-4 text-base text-gray-600 sm:text-lg">
             Discover insights, tips, and strategies for your career journey
           </p>
         </div>
 
         {featuredReport && (
-          <div className="mb-10 rounded-2xl border border-accent-600/50 bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-6 shadow-xl shadow-purple-900/30 sm:p-8 lg:flex lg:items-center lg:justify-between">
+          <div className="mb-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg sm:p-8 lg:flex lg:items-center lg:justify-between">
             <div className="flex-1">
-              <p className="inline-flex items-center rounded-full bg-accent-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-200">
+              <p className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-700">
                 New · Hiring Index
               </p>
-              <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
+              <h2 className="mt-3 text-2xl font-bold text-black sm:text-3xl">
                 {featuredReport.title}
               </h2>
-              <p className="mt-3 text-sm text-gray-200 sm:text-base">{featuredReport.summary}</p>
-              <div className="mt-4 text-xs text-gray-400 sm:text-sm">
+              <p className="mt-3 text-sm text-gray-700 sm:text-base">{featuredReport.summary}</p>
+              <div className="mt-4 text-xs text-gray-500 sm:text-sm">
                 Updated {formatDate(featuredReport.date, siteMetadata.locale)}
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-3 lg:ml-8 lg:mt-0 lg:w-64">
               <Link
                 href={`/${featuredReport.path}`}
-                className="inline-flex items-center justify-center rounded-lg bg-accent-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-accent-500 sm:text-base"
+                className="inline-flex items-center justify-center rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 sm:text-base"
               >
                 Read the Hiring Index
               </Link>
-              <p className="text-center text-xs text-gray-300">
+              <p className="text-center text-xs text-gray-600">
                 Quarterly insights from anonymized ATS scans & job matches.
               </p>
             </div>
@@ -202,15 +202,15 @@ export default function ListLayoutWithTags({
         <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
           {/* Sidebar - Categories */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
-            <div className="rounded-lg bg-matte-gray p-4 sm:p-6 lg:sticky lg:top-8">
-              <h3 className="mb-4 text-base font-semibold text-white sm:text-lg">Categories</h3>
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6 lg:sticky lg:top-8">
+              <h3 className="mb-4 text-base font-semibold text-black sm:text-lg">Categories</h3>
               <nav className="space-y-1 sm:space-y-2">
                 <Link
                   href="/blog"
                   className={`block rounded-md px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
                     pathname.startsWith('/blog') && !pathname.includes('/tags/')
-                      ? 'bg-accent-600 text-white'
-                      : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                      ? 'bg-black text-white'
+                      : 'text-gray-700 hover:bg-gray-200 hover:text-black'
                   }`}
                 >
                   All Posts ({posts.length})
@@ -223,8 +223,8 @@ export default function ListLayoutWithTags({
                       href={`/tags/${slug(t)}`}
                       className={`block rounded-md px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
                         isActive
-                          ? 'bg-accent-600 text-white'
-                          : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                          ? 'bg-black text-white'
+                          : 'text-gray-700 hover:bg-gray-200 hover:text-black'
                       }`}
                       aria-label={`View posts tagged ${t}`}
                     >
@@ -244,14 +244,14 @@ export default function ListLayoutWithTags({
                 return (
                   <article
                     key={path}
-                    className="group rounded-lg border border-matte-gray bg-matte-black p-4 transition-all duration-300 hover:border-accent-600 hover:shadow-lg hover:shadow-accent-600/10 sm:p-6"
+                    className="group rounded-lg border border-gray-200 bg-white p-4 transition-all duration-300 hover:border-black hover:shadow-lg sm:p-6"
                   >
                     <div className="flex flex-col space-y-3 sm:space-y-4">
                       {/* Date */}
                       <div className="flex items-center">
                         <time
                           dateTime={date}
-                          className="text-xs font-medium text-accent-400 sm:text-sm"
+                          className="text-xs font-medium text-gray-600 sm:text-sm"
                           suppressHydrationWarning
                         >
                           {formatDate(date, siteMetadata.locale)}
@@ -259,7 +259,7 @@ export default function ListLayoutWithTags({
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-lg font-bold leading-tight text-white transition-colors group-hover:text-accent-400 sm:text-xl md:text-2xl">
+                      <h2 className="text-lg font-bold leading-tight text-black transition-colors group-hover:text-gray-700 sm:text-xl md:text-2xl">
                         <Link href={`/${path}`} className="hover:underline">
                           {title}
                         </Link>
@@ -270,7 +270,7 @@ export default function ListLayoutWithTags({
                         {tags?.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-matte-gray px-2 py-1 text-xs font-medium text-gray-300 transition-colors hover:bg-accent-600 hover:text-white sm:px-3"
+                            className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:px-3"
                           >
                             {tag}
                           </span>
@@ -278,7 +278,7 @@ export default function ListLayoutWithTags({
                       </div>
 
                       {/* Summary */}
-                      <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
+                      <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
                         {summary}
                       </p>
 
@@ -286,7 +286,7 @@ export default function ListLayoutWithTags({
                       <div className="pt-1 sm:pt-2">
                         <Link
                           href={`/${path}`}
-                          className="inline-flex items-center text-sm font-medium text-accent-400 transition-colors hover:text-accent-300 sm:text-base"
+                          className="inline-flex items-center text-sm font-medium text-black transition-colors hover:text-gray-700 sm:text-base"
                         >
                           Read more
                           <svg

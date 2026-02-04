@@ -20,7 +20,7 @@ export default function ATSScoreMotivation() {
             got called back <strong className="text-emerald-400">3.2x more often</strong> than those
             below 60 - even when their actual qualifications were similar.
           </p>
-          <p className="text-lg font-semibold text-purple-300">
+          <p className="text-primary-300 text-lg font-semibold">
             Your resume might be perfect for humans, but if it scores low on ATS, you'll never get
             the chance to prove it.
           </p>
@@ -28,7 +28,7 @@ export default function ATSScoreMotivation() {
       </div>
 
       {/* The Reality */}
-      <div className="rounded-xl border border-purple-500/20 bg-gradient-to-br from-slate-900/90 to-purple-900/20 p-8 backdrop-blur-sm">
+      <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-slate-900/90 to-primary/10 p-8 backdrop-blur-sm">
         <h3 className="mb-6 text-center text-2xl font-bold text-white">
           What ATS Score Actually Means for Your Job Search
         </h3>
@@ -58,7 +58,7 @@ export default function ATSScoreMotivation() {
       </div>
 
       {/* What Gets Measured */}
-      <div className="rounded-xl border border-purple-500/20 bg-slate-900/50 p-8">
+      <div className="rounded-xl border border-primary/20 bg-slate-900/50 p-8">
         <h3 className="mb-6 text-2xl font-bold text-white">What ATS Systems Actually Check</h3>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="flex gap-4">

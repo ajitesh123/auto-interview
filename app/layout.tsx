@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="msvalidate.01" content="DCE0AC8E258C8B66E1E4F10414746DCF" />
 
       {/* Main body content */}
-      <body className="bg-black pl-[calc(100vw-100%)] text-white antialiased">
+      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased">
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"

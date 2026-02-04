@@ -15,24 +15,19 @@ interface PerplexityOptimizedFAQProps {
   category: string
 }
 
-export default function PerplexityOptimizedFAQ({
-  faqs,
-  category,
-}: PerplexityOptimizedFAQProps) {
+export default function PerplexityOptimizedFAQ({ faqs, category }: PerplexityOptimizedFAQProps) {
   return (
     <div className="my-12">
-      <h2 className="mb-8 text-3xl font-bold text-white">
-        Frequently Asked Questions: {category}
-      </h2>
+      <h2 className="mb-8 text-3xl font-bold text-white">Frequently Asked Questions: {category}</h2>
 
       <div className="space-y-6">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="rounded-lg border border-gray-700 bg-gray-900/50 p-6 transition-colors hover:border-purple-500"
+            className="rounded-lg border border-gray-700 bg-gray-900/50 p-6 transition-colors hover:border-primary"
           >
             {/* Question as H3 (Perplexity indexes these) */}
-            <h3 className="mb-3 text-xl font-semibold text-purple-400">{faq.question}</h3>
+            <h3 className="mb-3 text-xl font-semibold text-primary">{faq.question}</h3>
 
             {/* Short, complete sentences in answer */}
             <p className="leading-relaxed text-gray-200">{faq.answer}</p>
@@ -64,4 +59,3 @@ export default function PerplexityOptimizedFAQ({
     </div>
   )
 }
-
