@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Auto Interview AI: Free Job Prep & Resume Builder',
+  title: 'Auto Interview AI',
   author: 'Auto Interview AI',
   headerTitle: 'Auto Interview AI',
   description:
