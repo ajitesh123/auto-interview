@@ -13,6 +13,7 @@ import CriteriaForGenAI from './charts/CriteriaForGenAI'
 import EnterpriseSpendCategories from './charts/EnterpriseSpendCategories'
 import EnterpriseSpendByDepartment from './charts/EnterpriseSpendByDepartment'
 import QuoteAnimation from './QuoteAnimation'
+import CTABanner from './CTABanner'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -30,5 +31,6 @@ export const components: MDXComponents = {
   EnterpriseSpendCategories,
   EnterpriseSpendByDepartment,
   QuoteAnimation,
+  CTABanner,
   Tweet,
 }
