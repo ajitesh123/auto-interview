@@ -58,14 +58,17 @@ export default function CTABanner({
         }
         .cta-secondary-btn {
           background: transparent;
-          color: #d4d4d4;
-          border: 1px solid #555555;
-          transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+          color: #ffffff !important;
+          border: 1.5px solid rgba(255,255,255,0.45);
+          transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
         }
         .cta-secondary-btn:hover {
           transform: translateY(-2px);
-          border-color: #aaaaaa;
-          color: #ffffff;
+          border-color: rgba(255,255,255,0.85);
+          background: rgba(255,255,255,0.07);
+        }
+        .cta-secondary-btn svg {
+          stroke: #ffffff !important;
         }
       `}</style>
 
