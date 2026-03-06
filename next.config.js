@@ -98,6 +98,25 @@ module.exports = () => {
         },
       ]
     },
+    async redirects() {
+      return [
+        {
+          source: '/tough-tongue-ai',
+          destination: 'https://app.toughtongueai.com',
+          permanent: true,
+        },
+        {
+          source: '/ats-checker',
+          destination: '/ats-score',
+          permanent: true,
+        },
+        {
+          source: '/community',
+          destination: '/',
+          permanent: true,
+        },
+      ]
+    },
     webpack: (config, { dev, isServer }) => {
       // SVG handling
       config.module.rules.push({
