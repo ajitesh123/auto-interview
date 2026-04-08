@@ -115,6 +115,36 @@ module.exports = () => {
           destination: '/',
           permanent: true,
         },
+        {
+          source: '/tags/smith.ai-alternatives',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/ats-data',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/ai-jobs',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/blog/auto-interview-ai-hiring-index-july-2026',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/projects',
+          destination: '/',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-mock-interviews-guide',
+          destination: '/blog',
+          permanent: true,
+        },
       ]
     },
     webpack: (config, { dev, isServer }) => {
