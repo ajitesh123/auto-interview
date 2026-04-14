@@ -17,5 +17,4 @@ Allow: /
 User-Agent: Bytespider
 Allow: /
 
-Host: https://www.autointerviewai.com
 Sitemap: https://www.autointerviewai.com/sitemap.xml
