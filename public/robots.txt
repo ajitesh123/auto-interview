@@ -1,14 +1,21 @@
-User-agent: *
+User-Agent: *
 Allow: /
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
 
-# Sitemap
-Sitemap: https://www.autointerviewai.com/sitemap.xml
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+Allow: /
 
-# Host
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Bytespider
+Allow: /
+
 Host: https://www.autointerviewai.com
-
-# Crawl-delay for better server performance
-Crawl-delay: 1
+Sitemap: https://www.autointerviewai.com/sitemap.xml
