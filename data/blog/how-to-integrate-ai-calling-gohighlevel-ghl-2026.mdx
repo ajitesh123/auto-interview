@@ -19,14 +19,14 @@ structuredData:
   mainEntity:
     - '@type': 'Question'
       name: 'Can the AI read custom fields from GoHighLevel?'
-      acceptedAnswer:
-        '@type': 'Answer'
-        text: 'Yes. When GHL fires the initial outbound webhook, you can pass any custom field as a variable in the JSON payload for the AI to dynamically inject into its prompt.'
+        acceptedAnswer:
+          '@type': 'Answer'
+          text: 'Yes. When GHL fires the initial outbound webhook, you can pass any custom field as a variable in the JSON payload for the AI to dynamically inject into its prompt.'
     - '@type': 'Question'
       name: 'Does AI calling work for inbound calls to Twilio numbers on GHL?'
-      acceptedAnswer:
-        '@type': 'Answer'
-        text: 'Yes. You can route GHL Twilio numbers directly to an AI Voice agent SIP trunk to answer inbound customer calls instantly.'
+        acceptedAnswer:
+          '@type': 'Answer'
+          text: 'Yes. You can route GHL Twilio numbers directly to an AI Voice agent SIP trunk to answer inbound customer calls instantly.'
 ---
 
 # How to Integrate AI Calling with GoHighLevel (GHL) in 2026
@@ -105,7 +105,7 @@ _Pro Tip: Use Direct Webhooks to initiate calls so there is zero delay for "Spee
 ## FAQ: GHL & AI Voice Integration
 
 **Can the AI read custom fields from GoHighLevel?**  
-Yes. When GHL fires the initial outbound webhook, you can pass any custom field (e.g., {{contact.custom_field_roof_age}}) as a variable in the JSON payload. The AI will then dynamically inject that into its prompt.
+Yes. When GHL fires the initial outbound webhook, you can pass any custom field (e.g., `{{contact.custom_field_roof_age}}`) as a variable in the JSON payload. The AI will then dynamically inject that into its prompt.
 
 **Does this work for inbound calls to twilio numbers on GHL?**  
 Yes. You can route your GHL Twilio numbers directly to an AI Voice agent's SIP trunk. When a customer calls the GHL number, the AI answers instantly.
