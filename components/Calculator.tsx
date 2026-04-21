@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react'
 
 const TIER_THRESHOLDS = [
-  { min: 1, max: 999, inr: 9, usd: 0.1 },
-  { min: 1000, max: 4999, inr: 8, usd: 0.09 },
-  { min: 5000, max: 9999, inr: 7, usd: 0.08 },
-  { min: 10000, max: 100000, inr: 6, usd: 0.07 },
+  { min: 1, max: 5000, label: '< 5k', inr: 9, usd: 0.1 },
+  { min: 5001, max: 12000, label: '5k-12k', inr: 7, usd: 0.08 },
+  { min: 12001, max: 10000000, label: '12k+', inr: 6, usd: 0.07 },
 ]
 
 const OTHERS_RATE_INR = 15
@@ -86,14 +85,15 @@ export default function Calculator() {
       ? ['1', '2,500', '5,000', '7,500', '10,000']
       : ['30', '75,000', '150,000', '225,000', '300,000']
 
+  const totalMinutesPerDay = dailyCalls * MINS_PER_CALL
+  const monthlyMinutes = totalMinutesPerDay * 30
+
   const activeTier =
-    TIER_THRESHOLDS.find((t) => dailyCalls >= t.min && dailyCalls <= t.max) ||
+    TIER_THRESHOLDS.find((t) => monthlyMinutes >= t.min && monthlyMinutes <= t.max) ||
     TIER_THRESHOLDS[TIER_THRESHOLDS.length - 1]
 
   const ttaiRate = isINR ? activeTier.inr : activeTier.usd
   const othersRate = isINR ? OTHERS_RATE_INR : OTHERS_RATE_USD
-
-  const totalMinutesPerDay = dailyCalls * MINS_PER_CALL
 
   const othersDailyCost = totalMinutesPerDay * othersRate
   const othersMonthlyCost = othersDailyCost * 30
@@ -226,7 +226,7 @@ export default function Calculator() {
           <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
             Tough Tongue AI Volume Pricing (Per Min)
           </p>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-3 gap-3">
             {TIER_THRESHOLDS.map((tier, idx) => {
               const isActive = activeTier.min === tier.min
               return (
@@ -239,7 +239,7 @@ export default function Calculator() {
                   }`}
                 >
                   <p className="mb-1 text-[10px] font-medium uppercase tracking-wider text-gray-500">
-                    {tier.min === 10000 ? '10k+' : `< ${tier.max + 1}`}
+                    {tier.label}
                   </p>
                   <p
                     className={`font-bold ${isActive ? 'text-lg text-black' : 'text-sm text-gray-400'}`}
