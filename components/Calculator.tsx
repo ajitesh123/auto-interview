@@ -51,7 +51,8 @@ function formatCurrency(num: number, isINR: boolean) {
 }
 
 export default function Calculator() {
-  const [calls, setCalls] = useState(1000)
+  const [calls, setCalls] = useState(30000)
+  const [timeframe, setTimeframe] = useState<'day' | 'month'>('month')
   const [isINR, setIsINR] = useState(true)
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,19 +61,39 @@ export default function Calculator() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = Number(e.target.value.replace(/\D/g, ''))
-    if (val > 10000) val = 10000
+    const maxVal = timeframe === 'day' ? 10000 : 300000
+    if (val > maxVal) val = maxVal
     if (val < 1) val = 1
     setCalls(val)
   }
 
+  const handleTimeframeChange = (newTimeframe: 'day' | 'month') => {
+    if (newTimeframe === timeframe) return
+    if (newTimeframe === 'month') {
+      setCalls(calls * 30)
+    } else {
+      setCalls(Math.max(1, Math.round(calls / 30)))
+    }
+    setTimeframe(newTimeframe)
+  }
+
+  const dailyCalls = timeframe === 'day' ? calls : calls / 30
+  const maxCalls = timeframe === 'day' ? 10000 : 300000
+  const presets =
+    timeframe === 'day' ? [100, 500, 1000, 2500, 5000] : [3000, 15000, 30000, 75000, 150000]
+  const sliderMarks =
+    timeframe === 'day'
+      ? ['1', '2,500', '5,000', '7,500', '10,000']
+      : ['30', '75,000', '150,000', '225,000', '300,000']
+
   const activeTier =
-    TIER_THRESHOLDS.find((t) => calls >= t.min && calls <= t.max) ||
+    TIER_THRESHOLDS.find((t) => dailyCalls >= t.min && dailyCalls <= t.max) ||
     TIER_THRESHOLDS[TIER_THRESHOLDS.length - 1]
 
   const ttaiRate = isINR ? activeTier.inr : activeTier.usd
   const othersRate = isINR ? OTHERS_RATE_INR : OTHERS_RATE_USD
 
-  const totalMinutesPerDay = calls * MINS_PER_CALL
+  const totalMinutesPerDay = dailyCalls * MINS_PER_CALL
 
   const othersDailyCost = totalMinutesPerDay * othersRate
   const othersMonthlyCost = othersDailyCost * 30
@@ -84,8 +105,8 @@ export default function Calculator() {
   const savingsPercent = ((othersMonthlyCost - ttaiMonthlyCost) / othersMonthlyCost) * 100
 
   // Optional: conversions
-  const othersConversionsDay = Math.round(calls * OTHERS_CONVERSION_RATE)
-  const ttaiConversionsDay = Math.round(calls * CONVERSION_RATE)
+  const othersConversionsDay = Math.round(dailyCalls * OTHERS_CONVERSION_RATE)
+  const ttaiConversionsDay = Math.round(dailyCalls * CONVERSION_RATE)
 
   const othersCostPerConv = othersConversionsDay > 0 ? othersDailyCost / othersConversionsDay : 0
   const ttaiCostPerConv = ttaiConversionsDay > 0 ? ttaiDailyCost / ttaiConversionsDay : 0
@@ -134,9 +155,34 @@ export default function Calculator() {
         </div>
 
         <div className="mb-6">
+          <div className="mb-6 flex justify-center">
+            <div className="inline-flex rounded-lg border border-gray-200 bg-gray-50 p-1">
+              <button
+                onClick={() => handleTimeframeChange('day')}
+                className={`rounded-md px-6 py-2 text-sm font-bold transition-colors ${
+                  timeframe === 'day'
+                    ? 'bg-white text-black shadow'
+                    : 'text-gray-500 hover:text-black'
+                }`}
+              >
+                Per Day
+              </button>
+              <button
+                onClick={() => handleTimeframeChange('month')}
+                className={`rounded-md px-6 py-2 text-sm font-bold transition-colors ${
+                  timeframe === 'month'
+                    ? 'bg-white text-black shadow'
+                    : 'text-gray-500 hover:text-black'
+                }`}
+              >
+                Per Month
+              </button>
+            </div>
+          </div>
+
           <div className="mb-4 flex items-center justify-between">
             <label className="text-sm font-semibold uppercase tracking-wider text-gray-700">
-              Outbound Calls Per Day
+              Outbound Calls {timeframe === 'day' ? 'Per Day' : 'Per Month'}
             </label>
             <input
               type="text"
@@ -147,21 +193,19 @@ export default function Calculator() {
           </div>
           <input
             type="range"
-            min="1"
-            max="10000"
+            min={timeframe === 'day' ? 1 : 30}
+            max={maxCalls}
             value={calls}
             onChange={handleSliderChange}
             className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-black"
           />
           <div className="mt-3 flex justify-between text-xs font-medium text-gray-400">
-            <span>1</span>
-            <span>2,500</span>
-            <span>5,000</span>
-            <span>7,500</span>
-            <span>10,000</span>
+            {sliderMarks.map((mark, i) => (
+              <span key={i}>{mark}</span>
+            ))}
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
-            {[100, 500, 1000, 2500, 5000].map((preset) => (
+            {presets.map((preset) => (
               <button
                 key={preset}
                 onClick={() => setCalls(preset)}
@@ -171,7 +215,7 @@ export default function Calculator() {
                     : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-400'
                 }`}
               >
-                {preset}
+                {preset.toLocaleString()}
               </button>
             ))}
           </div>
