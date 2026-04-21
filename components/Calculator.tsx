@@ -100,8 +100,8 @@ export default function Calculator() {
   const animOthersCostConv = useAnimatedNumber(othersCostPerConv)
 
   return (
-    <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-gray-200 bg-white font-sans text-gray-900 shadow-xl">
-      <div className="border-b border-gray-200 p-8">
+    <div className="mx-auto flex w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white font-sans text-gray-900 shadow-xl lg:flex-row">
+      <div className="flex flex-col justify-center border-b border-gray-200 p-6 sm:p-8 lg:w-1/2 lg:border-b-0 lg:border-r">
         <div className="mb-8 flex flex-col items-start justify-between md:flex-row md:items-center">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">AI Calling ROI Calculator</h2>
@@ -209,7 +209,7 @@ export default function Calculator() {
         </div>
       </div>
 
-      <div className="bg-gray-50 p-8">
+      <div className="flex flex-col justify-center bg-gray-50 p-6 sm:p-8 lg:w-1/2">
         {/* Savings Banner */}
         <div className="mb-8 flex flex-col items-center justify-between rounded-2xl bg-black p-6 text-white shadow-lg md:flex-row">
           <div>
