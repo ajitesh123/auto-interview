@@ -5,6 +5,7 @@ import Link from './Link'
 import VisitorCounter from './VisitorCounter'
 import PillTabs from './PillTabs'
 import ContentBox from './ContentBox'
+import Calculator from './Calculator'
 
 const HomePage = () => {
   const [activeFeatureTab, setActiveFeatureTab] = useState('resume')
@@ -122,6 +123,18 @@ const HomePage = () => {
       {/* Visitor Counter */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <VisitorCounter />
+      </div>
+
+      {/* Calculator Integration */}
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-black sm:text-4xl">Calculate Your Savings</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-gray-600">
+            See exactly how much money and time you can save by cutting out manual tasks with our AI
+            Agent tools.
+          </p>
+        </div>
+        <Calculator />
       </div>
 
       {/* 2025 Hiring Index Banner */}

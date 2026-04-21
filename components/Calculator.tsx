@@ -217,7 +217,7 @@ export default function Calculator() {
               Estimated Monthly Savings
             </p>
             <div className="flex items-baseline gap-3">
-              <h3 className="text-4xl font-black tracking-tight md:text-5xl">
+              <h3 className="text-4xl font-black tracking-tight text-white md:text-5xl">
                 {formatCurrency(animSavings, isINR)}
               </h3>
               <span className="text-lg font-medium text-gray-300">/mo</span>
@@ -278,24 +278,28 @@ export default function Calculator() {
 
           {/* TTAI Card */}
           <div className="pattern-dots relative overflow-hidden rounded-2xl border border-gray-900 bg-black p-6 text-white shadow-xl">
-            <h4 className="mb-6 flex items-center gap-2 text-xs font-bold uppercase tracking-wide">
+            <h4 className="mb-6 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-white">
               <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
               Tough Tongue AI
             </h4>
 
             <div className="mb-6">
               <p className="mb-1 text-xs font-medium uppercase text-gray-400">Monthly Cost</p>
-              <h5 className="text-3xl font-black">{formatCurrency(animTtaiMonthly, isINR)}</h5>
+              <h5 className="text-3xl font-black text-white">
+                {formatCurrency(animTtaiMonthly, isINR)}
+              </h5>
             </div>
 
             <div className="grid grid-cols-2 gap-4 border-t border-gray-800 pt-4">
               <div>
                 <p className="mb-1 text-xs font-medium uppercase text-gray-400">Leads / Day</p>
-                <p className="text-xl font-bold">{animTtaiConv}</p>
+                <p className="text-xl font-bold text-white">{animTtaiConv}</p>
               </div>
               <div>
                 <p className="mb-1 text-xs font-medium uppercase text-gray-400">Cost / Lead</p>
-                <p className="text-xl font-bold">{formatCurrency(animTtaiCostConv, isINR)}</p>
+                <p className="text-xl font-bold text-white">
+                  {formatCurrency(animTtaiCostConv, isINR)}
+                </p>
               </div>
             </div>
 

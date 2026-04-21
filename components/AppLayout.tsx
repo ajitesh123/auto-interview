@@ -102,17 +102,17 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   }, [isMenuOpen])
 
   return (
-    <div className="min-h-screen bg-matte-black text-white">
+    <div className="bg-matte-black min-h-screen text-white">
       <div className="flex min-h-screen flex-col">
         {/* Top Header Bar */}
-        <div className="sticky top-0 z-50 border-b border-matte-gray bg-matte-dark">
+        <div className="sticky top-0 z-50 border-b border-gray-200 bg-white">
           <div className="flex items-center justify-between px-4 py-3 sm:px-6">
             {/* Left side: Logo + Hamburger */}
             <div className="flex items-center space-x-3">
               {/* Hamburger Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="rounded-lg p-2 text-chatgpt-text transition-colors hover:bg-matte-gray focus:outline-none focus:ring-2 focus:ring-accent-500"
+                className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black"
                 aria-label="Toggle menu"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,12 +138,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
                 <Logo width={40} height={40} className="mr-2" />
                 <div>
-                  <div className="text-base font-bold text-chatgpt-text sm:text-lg">
-                    Auto Interview AI
-                  </div>
-                  <p className="hidden text-xs text-chatgpt-textSecondary sm:block">
-                    AI-powered career tools
-                  </p>
+                  <div className="text-base font-bold text-black sm:text-lg">Auto Interview AI</div>
+                  <p className="hidden text-xs text-gray-500 sm:block">AI-powered career tools</p>
                 </div>
               </Link>
             </div>
@@ -152,29 +148,31 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center space-x-3 sm:space-x-4">
               <Link
                 href="/"
-                className="hidden text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:block"
+                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black sm:block"
               >
                 Home
               </Link>
               <Link
                 href="/blog"
-                className="hidden text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:block"
+                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black sm:block"
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="hidden text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text lg:block"
+                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black lg:block"
               >
                 About
               </Link>
               <Link
                 href="/free-mock-interview"
-                className="hidden text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text lg:block"
+                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black lg:block"
               >
                 Free Mock Interview
               </Link>
-              <SearchButton />
+              <div className="text-gray-800">
+                <SearchButton />
+              </div>
             </div>
           </div>
         </div>
@@ -184,7 +182,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm">
             <div
               ref={menuRef}
-              className="absolute left-0 top-[73px] h-[calc(100vh-73px)] w-80 max-w-[90vw] overflow-y-auto bg-matte-dark shadow-2xl"
+              className="bg-matte-dark absolute left-0 top-[73px] h-[calc(100vh-73px)] w-80 max-w-[90vw] overflow-y-auto shadow-2xl"
             >
               <nav className="space-y-1 p-4">
                 <Link
@@ -193,11 +191,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                   className={`group relative block w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-all duration-200 ${
                     pathname === '/'
                       ? 'bg-matte-gray/20 text-white'
-                      : 'text-gray-400 hover:bg-matte-gray hover:text-white'
+                      : 'hover:bg-matte-gray text-gray-400 hover:text-white'
                   }`}
                 >
                   {pathname === '/' && (
-                    <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400" />
+                    <div className="to-accent-400 absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500" />
                   )}
                   <span className="relative z-10">Home</span>
                 </Link>
@@ -210,11 +208,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                         className={`group relative block w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-all duration-200 ${
                           isActive(feature.href)
                             ? 'bg-matte-gray/20 text-white'
-                            : 'text-gray-400 hover:bg-matte-gray hover:text-white'
+                            : 'hover:bg-matte-gray text-gray-400 hover:text-white'
                         }`}
                       >
                         {isActive(feature.href) && (
-                          <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400" />
+                          <div className="to-accent-400 absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500" />
                         )}
                         <span className="relative z-10 flex items-center justify-between">
                           {feature.title}
@@ -240,11 +238,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                         className={`group relative block w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-all duration-200 ${
                           isActive(feature.href)
                             ? 'bg-matte-gray/20 text-white'
-                            : 'text-gray-400 hover:bg-matte-gray hover:text-white'
+                            : 'hover:bg-matte-gray text-gray-400 hover:text-white'
                         }`}
                       >
                         {isActive(feature.href) && (
-                          <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400" />
+                          <div className="to-accent-400 absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500" />
                         )}
                         <span className="relative z-10">{feature.title}</span>
                       </Link>
@@ -253,12 +251,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 ))}
 
                 {/* Mobile-only links */}
-                <div className="mt-6 border-t border-matte-gray pt-4 sm:hidden">
+                <div className="border-matte-gray mt-6 border-t pt-4 sm:hidden">
                   {pathname !== '/' && (
                     <Link
                       href="/"
                       onClick={() => setIsMenuOpen(false)}
-                      className="mb-2 flex items-center space-x-2 rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:bg-matte-gray hover:text-white"
+                      className="hover:bg-matte-gray mb-2 flex items-center space-x-2 rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:text-white"
                     >
                       <svg
                         className="h-4 w-4"
@@ -279,21 +277,21 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                   <Link
                     href="/blog"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:bg-matte-gray hover:text-white"
+                    className="hover:bg-matte-gray block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:text-white"
                   >
                     Blog
                   </Link>
                   <Link
                     href="/about"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:bg-matte-gray hover:text-white"
+                    className="hover:bg-matte-gray block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:text-white"
                   >
                     About
                   </Link>
                   <Link
                     href="/free-mock-interview"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:bg-matte-gray hover:text-white"
+                    className="hover:bg-matte-gray block rounded-lg px-4 py-3 text-sm font-medium text-gray-400 hover:text-white"
                   >
                     Free Mock Interview
                   </Link>
