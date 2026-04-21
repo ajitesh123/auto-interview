@@ -26,6 +26,29 @@ export default function CalculatorPage() {
           <div className="mt-10">
             <Calculator />
           </div>
+
+          {/* Schedule Demo CTA */}
+          <div className="relative mx-auto mt-16 max-w-4xl overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-xl sm:p-12">
+            <h2 className="relative z-10 mb-4 text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
+              Want to know more about AI Calling?
+            </h2>
+            <p className="relative z-10 mx-auto mb-8 text-lg text-gray-600 sm:text-xl">
+              Schedule a quick demo with us for free and see how our platform can supercharge your
+              sales team.
+            </p>
+            <a
+              href="https://cal.com/ajitesh/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-replicate-hero relative z-10 inline-flex items-center justify-center rounded-full px-10 py-5 text-lg font-bold text-white shadow-lg shadow-pink-500/30 transition-transform hover:scale-105 hover:opacity-95"
+            >
+              Schedule Your Free Demo
+            </a>
+
+            {/* Decorative background circle */}
+            <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-pink-50 opacity-50 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-orange-50 opacity-50 blur-3xl" />
+          </div>
         </div>
       </div>
     </AppLayout>
