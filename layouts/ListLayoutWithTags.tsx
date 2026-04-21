@@ -195,34 +195,6 @@ export default function ListLayoutWithTags({
           <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-orange-50 opacity-40 blur-3xl" />
         </div>
 
-        {featuredReport && (
-          <div className="mb-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg sm:p-8 lg:flex lg:items-center lg:justify-between">
-            <div className="flex-1">
-              <p className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-700">
-                New · Hiring Index
-              </p>
-              <h2 className="mt-3 text-2xl font-bold text-black sm:text-3xl">
-                {featuredReport.title}
-              </h2>
-              <p className="mt-3 text-sm text-gray-700 sm:text-base">{featuredReport.summary}</p>
-              <div className="mt-4 text-xs text-gray-500 sm:text-sm">
-                Updated {formatDate(featuredReport.date, siteMetadata.locale)}
-              </div>
-            </div>
-            <div className="mt-6 flex flex-col gap-3 lg:ml-8 lg:mt-0 lg:w-64">
-              <Link
-                href={`/${featuredReport.path}`}
-                className="inline-flex items-center justify-center rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 sm:text-base"
-              >
-                Read the Hiring Index
-              </Link>
-              <p className="text-center text-xs text-gray-600">
-                Quarterly insights from anonymized ATS scans & job matches.
-              </p>
-            </div>
-          </div>
-        )}
-
         <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
           {/* Sidebar - Categories */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
