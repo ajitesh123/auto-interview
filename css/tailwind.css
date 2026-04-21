@@ -44,31 +44,31 @@
    COMPONENT LAYER - Reusable Components
    ======================================== */
 @layer components {
-  /* PRIMARY BUTTON - Black Pill */
+  /* PRIMARY BUTTON - Dark Pill */
   .btn-primary {
     @apply inline-flex items-center justify-center;
-    @apply px-8 py-3;
-    @apply bg-black text-white;
-    @apply rounded-full;
+    @apply px-[4px] py-[4px];
+    /* Replicate pill compact padding logic */
+    @apply bg-replicate-dark text-[#fcfcfc];
+    @apply border-[4px] border-replicate-dark;
+    @apply rounded-[9999px];
     @apply text-base font-semibold;
     @apply transition-all duration-200;
-    @apply hover:bg-gray-800;
-    @apply active:scale-95;
-    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
+    @apply hover:opacity-90;
+    @apply focus:outline-none focus:ring-2 focus:ring-replicate-dark focus:ring-offset-2;
   }
 
   /* SECONDARY BUTTON - Outlined Pill */
   .btn-secondary {
     @apply inline-flex items-center justify-center;
-    @apply px-8 py-3;
-    @apply bg-transparent text-black;
-    @apply border-2 border-black;
-    @apply rounded-full;
+    @apply px-6 py-2;
+    @apply bg-white text-replicate-dark;
+    @apply border border-replicate-dark;
+    @apply rounded-[9999px];
     @apply text-base font-semibold;
     @apply transition-all duration-200;
     @apply hover:bg-gray-50;
-    @apply active:scale-95;
-    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-replicate-dark focus:ring-offset-2;
   }
 
   /* TERTIARY BUTTON - Text Only */
@@ -86,11 +86,11 @@
   /* CARD - Clean White with Subtle Shadow */
   .card {
     @apply bg-white;
-    @apply border border-gray-200;
-    @apply rounded-2xl;
-    @apply p-6;
+    @apply border border-replicate-dark;
+    @apply rounded-[9999px];
+    @apply p-8 sm:p-12;
     @apply transition-shadow duration-200;
-    @apply hover:shadow-md;
+    @apply hover:border-replicate-red;
   }
 
   /* PILL TABS - Like ElevenLabs */
@@ -111,12 +111,13 @@
 
   /* INPUT - Clean Minimal */
   .input {
-    @apply w-full px-4 py-3;
-    @apply border border-gray-300 bg-white;
-    @apply rounded-lg;
-    @apply text-black placeholder-gray-400;
+    @apply w-full px-7 py-3;
+    @apply bg-white/10;
+    @apply border border-transparent ring-1 ring-[#bbbbbb];
+    @apply rounded-[9999px];
+    @apply text-replicate-dark placeholder-gray-400;
     @apply transition-colors duration-200;
-    @apply focus:border-black focus:outline-none focus:ring-1 focus:ring-black;
+    @apply focus:border-transparent focus:outline-none focus:ring-replicate-dark;
   }
 }
 
@@ -151,32 +152,28 @@
 }
 
 .prose a {
-  @apply text-black underline decoration-gray-300;
-  @apply hover:decoration-black;
+  @apply text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4;
+  @apply hover:decoration-replicate-red;
   @apply transition-colors duration-200;
 }
 
 .prose a:visited {
-  @apply text-gray-700;
+  @apply text-replicate-dark;
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  @apply font-bold text-black;
-}
-
-.prose p {
-  @apply leading-relaxed text-gray-700;
+  @apply font-display font-bold tracking-tight text-replicate-dark;
 }
 
 .prose code {
-  @apply rounded bg-gray-100 px-2 py-1 text-black;
+  @apply rounded-[9999px] bg-replicate-githubDark px-3 py-1 font-mono text-[#fcfcfc];
 }
 
 .prose pre {
-  @apply rounded-lg border border-gray-200 bg-gray-100;
+  @apply rounded-[9999px] border border-replicate-dark bg-replicate-githubDark p-8 font-mono text-[#fcfcfc];
 }
 
 /* ========================================
@@ -195,5 +192,10 @@
 
 /* Gradient text (minimal use) */
 .gradient-text {
-  @apply bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-replicate-dark to-gray-700 bg-clip-text text-transparent;
+}
+
+/* Replicate Brand Elements */
+.bg-replicate-hero {
+  @apply bg-gradient-to-r from-replicate-red via-[#ff2a5f] to-[#ff4b9c];
 }

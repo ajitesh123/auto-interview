@@ -23,12 +23,23 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
+        sans: ['basier-square', 'var(--font-space-grotesk)', ...fontFamily.sans],
+        display: ['rb-freigeist-neue', 'ui-sans-serif', 'system-ui'],
+        mono: ['jetbrains-mono', ...fontFamily.mono],
       },
       colors: {
         // ElevenLabs Clean Palette
         white: '#FFFFFF',
         black: '#000000',
+
+        // Replicate Core Colors
+        replicate: {
+          dark: '#202020',
+          red: '#ea2804',
+          green: '#2b9a66',
+          secondaryRed: '#dd4425',
+          githubDark: '#24292e',
+        },
 
         // Clean Gray Scale
         gray: {

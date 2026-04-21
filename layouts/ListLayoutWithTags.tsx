@@ -162,11 +162,11 @@ export default function ListLayoutWithTags({
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         {/* Page Header */}
-        <div className="mb-8 text-center sm:mb-12">
-          <h1 className="text-3xl font-bold text-black sm:text-4xl md:text-5xl lg:text-6xl">
+        <div className="bg-replicate-hero -mx-4 mb-16 px-4 py-24 text-center text-white sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          <h1 className="font-display text-[48px] font-bold leading-tight tracking-[-1.8px] sm:text-[72px]">
             {title}
           </h1>
-          <p className="mt-4 text-base text-gray-600 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-3xl font-sans text-xl opacity-90 sm:text-2xl">
             Discover insights, tips, and strategies for your career journey
           </p>
         </div>
@@ -244,7 +244,7 @@ export default function ListLayoutWithTags({
                 return (
                   <article
                     key={path}
-                    className="group rounded-lg border border-gray-200 bg-white p-4 transition-all duration-300 hover:border-black hover:shadow-lg sm:p-6"
+                    className="group rounded-[9999px] border border-replicate-dark bg-white p-6 transition-all duration-300 hover:border-replicate-red hover:shadow-lg sm:p-12"
                   >
                     <div className="flex flex-col space-y-3 sm:space-y-4">
                       {/* Date */}
@@ -259,8 +259,11 @@ export default function ListLayoutWithTags({
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-lg font-bold leading-tight text-black transition-colors group-hover:text-gray-700 sm:text-xl md:text-2xl">
-                        <Link href={`/${path}`} className="hover:underline">
+                      <h2 className="font-display text-[30px] font-bold leading-[1.20] text-replicate-dark transition-colors group-hover:text-replicate-red">
+                        <Link
+                          href={`/${path}`}
+                          className="hover:underline hover:decoration-[#bbbbbb] hover:decoration-dotted hover:underline-offset-4"
+                        >
                           {title}
                         </Link>
                       </h2>
@@ -270,7 +273,7 @@ export default function ListLayoutWithTags({
                         {tags?.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:px-3"
+                            className="rounded-[9999px] bg-replicate-green px-3 py-1 text-[12px] font-medium lowercase text-white transition-colors hover:bg-opacity-90"
                           >
                             {tag}
                           </span>
@@ -283,10 +286,10 @@ export default function ListLayoutWithTags({
                       </p>
 
                       {/* Read More Link */}
-                      <div className="pt-1 sm:pt-2">
+                      <div className="pt-2 sm:pt-4">
                         <Link
                           href={`/${path}`}
-                          className="inline-flex items-center text-sm font-medium text-black transition-colors hover:text-gray-700 sm:text-base"
+                          className="inline-flex items-center text-[16px] font-semibold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red hover:decoration-replicate-red"
                         >
                           Read more
                           <svg

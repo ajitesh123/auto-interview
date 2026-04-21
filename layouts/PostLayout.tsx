@@ -1170,7 +1170,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       : null
 
   return (
-    <div className="bg-matte-black min-h-screen">
+    <div className="min-h-screen bg-white text-replicate-dark">
       <LandingHeader />
 
       {/* Generic Article Schema for ALL blog posts - Google SEO */}
@@ -1307,33 +1307,33 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <main className="flex-1 lg:max-w-4xl">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="rounded-lg border border-gray-200 bg-white p-8"
+              className="overflow-hidden rounded-[9999px] border border-replicate-dark bg-white px-8 py-24 sm:px-24 sm:py-32"
               itemScope
               itemType="https://schema.org/Article"
             >
               {/* Article Header */}
-              <header className="mb-8 border-b border-gray-200 pb-8">
-                <div className="space-y-4 text-center">
+              <header className="bg-replicate-hero -mx-4 mb-24 rounded-[9999px] px-8 py-24 text-center text-white sm:-mx-16 sm:px-16 sm:py-32">
+                <div className="space-y-6">
                   <div>
                     <time
                       dateTime={date}
-                      className="text-sm font-medium text-gray-600"
+                      className="text-lg font-medium opacity-90"
                       itemProp="datePublished"
                     >
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                     </time>
                   </div>
                   <h1
-                    className="text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
+                    className="font-display text-[48px] font-bold leading-[1.0] tracking-[-1.8px] sm:text-[72px]"
                     itemProp="headline"
                   >
                     {title}
                   </h1>
-                  <div className="flex flex-wrap justify-center gap-2">
+                  <div className="mt-8 flex flex-wrap justify-center gap-3">
                     {tags?.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200"
+                        className="rounded-[9999px] bg-replicate-green px-4 py-2 text-[12px] font-medium lowercase text-white"
                       >
                         {tag}
                       </span>
@@ -1346,15 +1346,27 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
 
               {/* Article Content - Semantic HTML5 section */}
-              <section className="prose prose-gray max-w-none pb-8" itemProp="articleBody">
+              <section
+                className="prose prose-lg mx-auto max-w-none pb-8 font-sans text-replicate-dark"
+                itemProp="articleBody"
+              >
                 {children}
               </section>
 
+              {/* Manifesto Section */}
+              <div className="my-24 flex items-center justify-center overflow-hidden rounded-[9999px] border border-replicate-dark bg-replicate-dark p-12 text-center text-white sm:p-24">
+                <h2 className="font-display text-[60px] font-bold leading-[1.0] tracking-tight sm:text-[128px]">
+                  Imagine what you can build.
+                </h2>
+              </div>
+
               {/* Article Footer */}
-              <footer className="border-t border-gray-200 pt-8">
+              <footer className="pt-8">
                 {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-                <aside className="mb-8 rounded-lg bg-gray-50 p-6">
-                  <h3 className="mb-4 text-lg font-semibold text-black">About the Author</h3>
+                <aside className="mb-8 rounded-[9999px] border border-replicate-dark bg-white p-8 sm:p-12">
+                  <h3 className="mb-6 font-display text-[30px] font-bold text-replicate-dark">
+                    About the Author
+                  </h3>
                   <div className="flex flex-wrap gap-6">
                     {authorDetails.map((author) => (
                       <div
@@ -1388,11 +1400,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             Interview AI, helping thousands of job seekers land their dream jobs
                             through AI-powered career tools and expert guidance.
                           </p>
-                          <div className="flex flex-wrap gap-3">
+                          <div className="mt-4 flex flex-wrap gap-4">
                             {author.twitter && (
                               <Link
                                 href={author.twitter}
-                                className="text-accent-400 hover:text-accent-300 text-sm"
+                                className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
                                 rel="author"
                               >
                                 Follow on X
@@ -1401,7 +1413,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             {author.linkedin && (
                               <Link
                                 href={author.linkedin}
-                                className="text-accent-400 hover:text-accent-300 text-sm"
+                                className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
                                 rel="author"
                               >
                                 LinkedIn
@@ -1409,7 +1421,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             )}
                             <Link
                               href="/about"
-                              className="text-accent-400 hover:text-accent-300 text-sm"
+                              className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
                             >
                               More Articles
                             </Link>
@@ -1421,26 +1433,30 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </aside>
 
                 {/* Trust Signals for E-E-A-T */}
-                <div className="border-matte-gray/50 bg-matte-black mb-8 rounded-lg border p-6">
-                  <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
+                <div className="mb-8 rounded-[9999px] border border-replicate-dark bg-white p-8 sm:p-12">
+                  <h4 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-replicate-dark">
                     Why Trust Auto Interview AI?
                   </h4>
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-white">✓ Expert-Verified Content</div>
-                      <div className="text-gray-400">
+                  <div className="grid gap-6 sm:grid-cols-3">
+                    <div className="text-[14px]">
+                      <div className="mb-2 font-bold text-replicate-dark">
+                        ✓ Expert-Verified Content
+                      </div>
+                      <div className="text-gray-600">
                         Written by career professionals with real-world experience
                       </div>
                     </div>
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-white">✓ Data-Driven Insights</div>
-                      <div className="text-gray-400">
+                    <div className="text-[14px]">
+                      <div className="mb-2 font-bold text-replicate-dark">
+                        ✓ Data-Driven Insights
+                      </div>
+                      <div className="text-gray-600">
                         Based on industry research and proven strategies
                       </div>
                     </div>
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-white">✓ Regularly Updated</div>
-                      <div className="text-gray-400">
+                    <div className="text-[14px]">
+                      <div className="mb-2 font-bold text-replicate-dark">✓ Regularly Updated</div>
+                      <div className="text-gray-600">
                         Content reviewed and updated for 2025 job market
                       </div>
                     </div>
@@ -1451,22 +1467,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {(next || prev) && (
                   <div className="mb-8 grid gap-4 sm:grid-cols-2">
                     {prev && prev.path && (
-                      <div className="border-matte-gray rounded-lg border p-4">
-                        <h4 className="text-sm font-medium text-gray-400">Previous Article</h4>
+                      <div className="rounded-[9999px] border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
+                        <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
+                          Previous Article
+                        </h4>
                         <Link
                           href={`/${prev.path}`}
-                          className="hover:text-accent-400 text-white transition-colors"
+                          className="font-display text-lg font-bold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red"
                         >
                           {prev.title}
                         </Link>
                       </div>
                     )}
                     {next && next.path && (
-                      <div className="border-matte-gray rounded-lg border p-4">
-                        <h4 className="text-sm font-medium text-gray-400">Next Article</h4>
+                      <div className="rounded-[9999px] border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
+                        <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
+                          Next Article
+                        </h4>
                         <Link
                           href={`/${next.path}`}
-                          className="hover:text-accent-400 text-white transition-colors"
+                          className="font-display text-lg font-bold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red"
                         >
                           {next.title}
                         </Link>
@@ -1476,14 +1496,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 )}
 
                 {/* Navigation Buttons */}
-                <div className="flex items-center justify-between gap-4">
+                <div className="mt-8 flex items-center justify-between gap-4">
                   {/* Home Button */}
-                  <Link
-                    href="/"
-                    className="bg-matte-gray text-chatgpt-text hover:bg-chatgpt-card inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all hover:text-accent-500"
-                    aria-label="Go to home page"
-                  >
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <Link href="/" className="btn-secondary" aria-label="Go to home page">
+                    <svg
+                      className="mr-3 h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1497,10 +1518,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {/* Back to Blog Button */}
                   <Link
                     href={`/${basePath}`}
-                    className="bg-matte-gray text-chatgpt-text hover:bg-chatgpt-card inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all hover:text-accent-500"
+                    className="btn-secondary"
                     aria-label="Back to the blog"
                   >
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="mr-3 h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1514,8 +1540,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
                 {/* Comments */}
                 {siteMetadata.comments && (
-                  <div className="border-matte-gray mt-8 border-t pt-8" id="comment">
-                    <h3 className="mb-4 text-lg font-semibold text-white">Comments</h3>
+                  <div className="mt-8 border-t border-replicate-dark pt-8" id="comment">
+                    <h3 className="mb-4 font-display text-2xl font-bold text-replicate-dark">
+                      Comments
+                    </h3>
                     <Comments slug={slug} />
                   </div>
                 )}
