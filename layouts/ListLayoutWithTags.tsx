@@ -162,13 +162,40 @@ export default function ListLayoutWithTags({
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         {/* Page Header */}
-        <div className="bg-replicate-hero -mx-4 mb-16 px-4 py-24 text-center text-white sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="bg-replicate-hero -mx-4 mb-10 px-4 py-24 text-center text-white sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <h1 className="font-display text-[48px] font-bold leading-tight tracking-[-1.8px] sm:text-[72px]">
             {title}
           </h1>
           <p className="mx-auto mt-6 max-w-3xl font-sans text-xl opacity-90 sm:text-2xl">
             Discover insights, tips, and strategies for your career journey
           </p>
+        </div>
+
+        {/* AI Calling ROI Calculator CTA */}
+        <div className="relative mb-12 flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-xl sm:p-12">
+          <div className="relative z-10 mb-8 w-full max-w-3xl border-b border-gray-100 pb-8">
+            <span className="bg-replicate-hero/10 mb-6 inline-block rounded-full px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-black mix-blend-multiply">
+              New Output Tool
+            </span>
+            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-black sm:text-5xl">
+              Estimate Your AI Calling ROI
+            </h2>
+            <p className="mx-auto text-lg leading-relaxed text-gray-600 sm:text-xl">
+              Stop guessing. Calculate exactly how many more leads you can generate and your
+              expected savings when switching to Tough Tongue AI relative to other platforms.
+            </p>
+          </div>
+
+          <Link
+            href="/ai-calling-roi-calculator"
+            className="bg-replicate-hero relative z-10 inline-flex items-center justify-center rounded-full px-10 py-5 text-lg font-bold text-white shadow-lg shadow-pink-500/30 transition-transform hover:scale-105 hover:opacity-95"
+          >
+            Calculate Your Savings Now
+          </Link>
+
+          {/* Decorative background circle */}
+          <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-pink-50 opacity-50 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-orange-50 opacity-50 blur-3xl" />
         </div>
 
         {featuredReport && (
