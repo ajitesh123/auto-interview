@@ -254,21 +254,41 @@ export default function Calculator() {
       </div>
 
       <div className="flex flex-col justify-center bg-gray-50 p-6 sm:p-8 lg:w-1/2">
-        {/* Savings Banner */}
-        <div className="mb-8 flex flex-col items-center justify-between rounded-2xl bg-black p-6 text-white shadow-lg md:flex-row">
+        {/* Demo CTA Block */}
+        <div className="mb-4 flex flex-col items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-gradient-to-r from-pink-50 to-orange-50 p-4 shadow-sm md:flex-row">
           <div>
-            <p className="mb-1 text-sm font-medium uppercase tracking-widest text-gray-400">
+            <h3 className="font-display text-lg font-bold tracking-tight text-gray-900">
+              Want to know more about AI Calling?
+            </h3>
+            <p className="text-xs text-gray-600">
+              See the exact architecture that drives this automated ROI.
+            </p>
+          </div>
+          <a
+            href="https://cal.com/ajitesh/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-replicate-hero shrink-0 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
+          >
+            Schedule a Demo
+          </a>
+        </div>
+
+        {/* Savings Banner - Compressed */}
+        <div className="mb-6 flex flex-col items-center justify-between rounded-xl bg-black p-4 text-white shadow-lg md:flex-row">
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
               Estimated Monthly Savings
             </p>
-            <div className="flex items-baseline gap-3">
-              <h3 className="text-4xl font-black tracking-tight text-white md:text-5xl">
+            <div className="flex items-baseline gap-2">
+              <h3 className="text-3xl font-black tracking-tight text-white md:text-3xl">
                 {formatCurrency(animSavings, isINR)}
               </h3>
-              <span className="text-lg font-medium text-gray-300">/mo</span>
+              <span className="text-sm font-medium text-gray-300">/mo</span>
             </div>
           </div>
-          <div className="mt-4 text-center md:mt-0 md:text-right">
-            <div className="inline-block rounded-full bg-white px-4 py-1.5 text-sm font-bold tracking-wide text-black">
+          <div className="mt-3 text-center md:mt-0 md:text-right">
+            <div className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold tracking-wide text-black">
               Cut costs by {savingsPercent.toFixed(1)}%
             </div>
           </div>
