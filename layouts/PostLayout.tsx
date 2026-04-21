@@ -14,7 +14,7 @@ import Footer from '@/components/Footer'
 import SocialShareButtons from '@/components/SocialShareButtons'
 import TableOfContents from '@/components/TableOfContents'
 import FloatingNav from '@/components/FloatingNav'
-
+import CTABanner from '@/components/CTABanner'
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
@@ -1341,6 +1341,32 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   </div>
                 </div>
               </header>
+
+              {/* Conditional CTA Display */}
+              {slug === 'ai-calling-roi-calculator-sales-pipeline-2026' ? (
+                <div className="relative mx-auto my-12 max-w-4xl overflow-hidden rounded-[3rem] border border-gray-200 bg-white p-8 text-center shadow-2xl sm:p-16">
+                  <div className="relative z-10 mb-8 w-full">
+                    <h2 className="mb-4 font-display text-4xl font-extrabold tracking-tight text-replicate-dark sm:text-5xl">
+                      Estimate Your AI Calling ROI
+                    </h2>
+                    <p className="mx-auto text-xl leading-relaxed text-gray-600 sm:text-2xl">
+                      Stop guessing. Calculate exactly how many more leads you can generate and your
+                      expected savings when switching to Tough Tongue AI relative to other
+                      platforms.
+                    </p>
+                  </div>
+                  <Link
+                    href="/ai-calling-roi-calculator"
+                    className="bg-replicate-hero relative z-10 inline-flex items-center justify-center rounded-full px-12 py-6 text-xl font-bold text-white shadow-xl shadow-pink-500/30 transition-transform hover:scale-105 hover:opacity-95"
+                  >
+                    Calculate Your Savings Now
+                  </Link>
+                  <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-pink-50 opacity-50 blur-3xl" />
+                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-orange-50 opacity-50 blur-3xl" />
+                </div>
+              ) : (
+                <CTABanner />
+              )}
 
               {/* Social Sharing Buttons */}
               <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
