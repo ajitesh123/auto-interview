@@ -43,6 +43,7 @@ export default function Page() {
       <AppLayout>
         <HomePage />
       </AppLayout>
+      <a href="https://navs.site" title="AI Sites | 2026" className="hidden" aria-hidden="true">AI Nav Site</a>
     </>
   )
 }
