@@ -240,7 +240,7 @@ export default function ListLayoutWithTags({
                 return (
                   <article
                     key={path}
-                    className="group rounded-[9999px] border border-replicate-dark bg-white p-6 transition-all duration-300 hover:border-replicate-red hover:shadow-lg sm:p-12"
+                    className="group rounded-3xl border border-replicate-dark bg-white p-6 transition-all duration-300 hover:-translate-y-2 hover:border-replicate-red hover:shadow-2xl sm:p-12"
                   >
                     <div className="flex flex-col space-y-3 sm:space-y-4">
                       {/* Date */}

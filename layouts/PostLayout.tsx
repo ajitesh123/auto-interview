@@ -1307,12 +1307,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <main className="flex-1 lg:max-w-4xl">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="overflow-hidden rounded-[9999px] border border-replicate-dark bg-white px-8 py-24 sm:px-24 sm:py-32"
+              className="overflow-hidden rounded-3xl border border-replicate-dark bg-white px-8 py-24 sm:px-24 sm:py-32"
               itemScope
               itemType="https://schema.org/Article"
             >
               {/* Article Header */}
-              <header className="bg-replicate-hero -mx-4 mb-24 rounded-[9999px] px-8 py-24 text-center text-white sm:-mx-16 sm:px-16 sm:py-32">
+              <header className="bg-replicate-hero -mx-4 mb-24 rounded-3xl px-8 py-24 text-center text-white sm:-mx-16 sm:px-16 sm:py-32">
                 <div className="space-y-6">
                   <div>
                     <time
@@ -1380,7 +1380,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </section>
 
               {/* Manifesto Section */}
-              <div className="my-24 flex items-center justify-center overflow-hidden rounded-[9999px] border border-replicate-dark bg-replicate-dark p-12 text-center text-white sm:p-24">
+              <div className="my-24 flex items-center justify-center overflow-hidden rounded-3xl border border-replicate-dark bg-replicate-dark p-12 text-center text-white sm:p-24">
                 <h2 className="font-display text-[60px] font-bold leading-[1.0] tracking-tight sm:text-[128px]">
                   Imagine what you can build.
                 </h2>
@@ -1389,7 +1389,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               {/* Article Footer */}
               <footer className="pt-8">
                 {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-                <aside className="mb-8 rounded-[9999px] border border-replicate-dark bg-white p-8 sm:p-12">
+                <aside className="mb-8 rounded-3xl border border-replicate-dark bg-white p-8 sm:p-12">
                   <h3 className="mb-6 font-display text-[30px] font-bold text-replicate-dark">
                     About the Author
                   </h3>
@@ -1459,7 +1459,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </aside>
 
                 {/* Trust Signals for E-E-A-T */}
-                <div className="mb-8 rounded-[9999px] border border-replicate-dark bg-white p-8 sm:p-12">
+                <div className="mb-8 rounded-3xl border border-replicate-dark bg-white p-8 sm:p-12">
                   <h4 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-replicate-dark">
                     Why Trust Auto Interview AI?
                   </h4>
@@ -1493,7 +1493,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {(next || prev) && (
                   <div className="mb-8 grid gap-4 sm:grid-cols-2">
                     {prev && prev.path && (
-                      <div className="rounded-[9999px] border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
+                      <div className="rounded-3xl border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
                         <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
                           Previous Article
                         </h4>
@@ -1506,7 +1506,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                       </div>
                     )}
                     {next && next.path && (
-                      <div className="rounded-[9999px] border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
+                      <div className="rounded-3xl border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
                         <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
                           Next Article
                         </h4>
