@@ -194,6 +194,12 @@ export default function Footer() {
             Featured on SeeWhatNewAI Directory
           </a>
         </div>
+        <div className="mb-8 mt-4 flex justify-center">
+          <a target="_blank" href="https://startupbenchmarks.com" rel="noreferrer">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" />
+          </a>
+        </div>
       </div>
     </footer>
   )
