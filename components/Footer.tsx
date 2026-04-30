@@ -185,10 +185,14 @@ export default function Footer() {
           <div>{` • `}</div>
           <Link href="/">{siteMetadata.title}</Link>
         </div>
-        <div className="mb-2 text-sm text-gray-400">
+        <div className="mb-2 text-sm text-gray-400 flex items-center space-x-2">
           <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
             Tailwind Nextjs Theme
           </Link>
+          <span>{` • `}</span>
+          <a href="https://www.seewhatnewai.com" target="_blank" rel="noreferrer">
+            Featured on SeeWhatNewAI Directory
+          </a>
         </div>
       </div>
     </footer>
