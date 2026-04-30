@@ -120,10 +120,8 @@ const HomePage = () => {
 
           {/* Startup Benchmarks Badge */}
           <div className="mt-8 flex justify-center">
-            <a target="_blank" href="https://startupbenchmarks.com" rel="noreferrer">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" />
-            </a>
+            {/* eslint-disable-next-line @next/next/no-img-element, react/jsx-no-target-blank */}
+            <a target="_blank" href="https://startupbenchmarks.com"><img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" /></a>
           </div>
         </div>
       </section>
