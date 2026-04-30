@@ -124,6 +124,8 @@ const HomePage = () => {
             <a target="_blank" href="https://startupbenchmarks.com"><img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" /></a>
             {/* eslint-disable-next-line @next/next/no-img-element, react/jsx-no-target-blank */}
             <a target="_blank" href="https://aixcollection.com"><img src="https://aixcollection.com/assets/images/badge.png" alt="AI X Collection" height="54" /></a>
+            {/* eslint-disable-next-line @next/next/no-img-element, react/jsx-no-target-blank */}
+            <a target="_blank" href="https://productwing.com"><img src="https://productwing.com/assets/images/badge.png" alt="Product Wing" height="54" /></a>
           </div>
         </div>
       </section>
