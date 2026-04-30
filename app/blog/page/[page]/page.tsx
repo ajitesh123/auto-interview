@@ -26,10 +26,11 @@ export default async function Page({ params }: { params: Promise<{ page: string 
 
   return (
     <ListLayout
-      posts={posts}
+      posts={initialDisplayPosts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title="All Posts"
+      totalCount={posts.length}
     />
   )
 }

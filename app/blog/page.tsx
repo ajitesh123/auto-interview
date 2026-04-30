@@ -23,10 +23,11 @@ export default async function BlogPage() {
 
   return (
     <ListLayout
-      posts={posts}
+      posts={initialDisplayPosts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title="All Posts"
+      totalCount={posts.length}
     />
   )
 }

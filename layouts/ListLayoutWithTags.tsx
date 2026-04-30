@@ -23,6 +23,7 @@ interface ListLayoutProps {
   title: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
+  totalCount?: number
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
@@ -145,6 +146,7 @@ export default function ListLayoutWithTags({
   title,
   initialDisplayPosts = [],
   pagination,
+  totalCount,
 }: ListLayoutProps) {
   const pathname = usePathname()
   const tagCounts = tagData as Record<string, number>
@@ -209,7 +211,7 @@ export default function ListLayoutWithTags({
                       : 'text-gray-700 hover:bg-gray-200 hover:text-black'
                   }`}
                 >
-                  All Posts ({posts.length})
+                  All Posts ({totalCount !== undefined ? totalCount : posts.length})
                 </Link>
                 {sortedTags.slice(0, 12).map((t) => {
                   const isActive = decodeURI(pathname.split('/tags/')[1]) === slug(t)
