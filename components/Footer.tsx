@@ -194,7 +194,7 @@ export default function Footer() {
             Featured on SeeWhatNewAI Directory
           </a>
         </div>
-        <div className="mb-8 mt-4 flex justify-center items-center space-x-4">
+        <div className="mb-8 mt-4 flex justify-center items-center space-x-4 flex-wrap gap-y-4">
           <a target="_blank" href="https://startupbenchmarks.com" rel="noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" />
@@ -203,6 +203,11 @@ export default function Footer() {
           <a href="https://openhunts.com" target="_blank" title="OpenHunts Club">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img alt="OpenHunts Club Member" height="105" src="https://cdn.openhunts.com/badges/club.webp" style={{ width: '195px', height: 'auto' }} width="486" />
+          </a>
+          {/* eslint-disable-next-line react/jsx-no-target-blank */}
+          <a target="_blank" href="https://mylaunchstash.com">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://mylaunchstash.com/assets/images/badge.png" alt="My Launch Stash" height="54" />
           </a>
         </div>
       </div>
