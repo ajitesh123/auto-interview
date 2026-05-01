@@ -199,7 +199,8 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" />
           </a>
-          <a href="https://openhunts.com" target="_blank" title="OpenHunts Club" rel="noreferrer">
+          {/* eslint-disable-next-line react/jsx-no-target-blank */}
+          <a href="https://openhunts.com" target="_blank" title="OpenHunts Club">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img alt="OpenHunts Club Member" height="105" src="https://cdn.openhunts.com/badges/club.webp" style={{ width: '195px', height: 'auto' }} width="486" />
           </a>
