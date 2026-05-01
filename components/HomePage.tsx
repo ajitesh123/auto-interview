@@ -130,6 +130,8 @@ const HomePage = () => {
             <a target="_blank" href="https://aitechviral.com"><img src="https://aitechviral.com/assets/images/badge.png" alt="AI Tech Viral" height="54" /></a>
             {/* eslint-disable-next-line @next/next/no-img-element, react/jsx-no-target-blank */}
             <a target="_blank" href="https://mylaunchstash.com"><img src="https://mylaunchstash.com/assets/images/badge.png" alt="My Launch Stash" height="54" /></a>
+            {/* eslint-disable-next-line @next/next/no-img-element, react/jsx-no-target-blank */}
+            <a target="_blank" href="https://solvertools.com"><img src="https://solvertools.com/assets/images/badge.png" alt="Solver Tools" height="54" /></a>
           </div>
         </div>
       </section>
