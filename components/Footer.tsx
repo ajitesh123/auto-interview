@@ -194,10 +194,14 @@ export default function Footer() {
             Featured on SeeWhatNewAI Directory
           </a>
         </div>
-        <div className="mb-8 mt-4 flex justify-center">
+        <div className="mb-8 mt-4 flex justify-center items-center space-x-4">
           <a target="_blank" href="https://startupbenchmarks.com" rel="noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks" height="54" />
+          </a>
+          <a href="https://openhunts.com" target="_blank" title="OpenHunts Club" rel="noreferrer">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="OpenHunts Club Member" height="105" src="https://cdn.openhunts.com/badges/club.webp" style={{ width: '195px', height: 'auto' }} width="486" />
           </a>
         </div>
       </div>
