@@ -131,7 +131,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
 
   // Extract external links for Citation Schema (AEO/GEO Trust Signal)
   const extractCitations = (markdown: string) => {
-    const linkRegex = /\[([^\]]+)\]\((https?:\/\/(?!www\.autointerviewai\.com)[^\)]+)\)/g
+    // eslint-disable-next-line no-useless-escape
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/(?!www\.autointerviewai\.com)[^)]+)\)/g
     const citations: string[] = []
     let match
     while ((match = linkRegex.exec(markdown)) !== null) {
