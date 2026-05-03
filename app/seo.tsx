@@ -21,9 +21,13 @@ export function genPageMetadata({
     title,
     description: description || siteMetadata.description,
     keywords: keywords || siteMetadata.keywords,
+    authors: [{ name: siteMetadata.author, url: siteMetadata.siteUrl }],
     // Canonical tag to prevent duplicate content - Google SEO requirement
     alternates: {
       canonical: rest.canonical || './',
+      types: {
+        'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
+      },
     },
     // Robots meta tag for proper indexing
     robots: {

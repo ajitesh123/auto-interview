@@ -60,6 +60,10 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
+    authors: authorDetails.map((author) => ({
+      name: author.name,
+      url: author.twitter || author.linkedin || `${siteMetadata.siteUrl}/about`,
+    })),
     openGraph: {
       title: post.title,
       description: post.summary,
@@ -104,13 +108,82 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
-  const jsonLd = post.jsonLd
-  jsonLd['author'] = authorDetails.map((author) => {
+  let jsonLd = post.jsonLd
+  
+  const enhancedAuthors = authorDetails.map((author) => {
     return {
       '@type': 'Person',
       name: author.name,
+      jobTitle: author.occupation || 'Author',
+      url: `${siteMetadata.siteUrl}/about`,
+      sameAs: [author.linkedin, author.twitter, author.github].filter(Boolean),
     }
   })
+
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteMetadata.siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteMetadata.siteUrl}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `${siteMetadata.siteUrl}/${post.path}` },
+    ],
+  }
+
+  // Extract external links for Citation Schema (AEO/GEO Trust Signal)
+  const extractCitations = (markdown: string) => {
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/(?!www\.autointerviewai\.com)[^\)]+)\)/g
+    const citations: string[] = []
+    let match
+    while ((match = linkRegex.exec(markdown)) !== null) {
+      citations.push(match[2])
+    }
+    return citations
+  }
+
+  if (jsonLd && jsonLd['@graph']) {
+    // It's a Graph schema, update the Article node
+    const articleNode = jsonLd['@graph'].find((node: any) => node['@type'] === 'Article')
+    if (articleNode) {
+      articleNode['author'] = enhancedAuthors
+      const citations = extractCitations(post.body.raw)
+      if (citations.length > 0) {
+        articleNode['citation'] = citations
+      }
+      
+      // Add RelatedArticle semantic graph if prev/next exist
+      const relatedLinks = []
+      if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
+      if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
+      if (relatedLinks.length > 0) {
+        articleNode['hasPart'] = relatedLinks.map(url => ({
+          '@type': 'WebPage',
+          '@id': url
+        }))
+      }
+    }
+    jsonLd['@graph'].push(breadcrumbSchema)
+  } else {
+    // Single schema object
+    jsonLd['author'] = enhancedAuthors
+    const citations = extractCitations(post.body.raw)
+    if (citations.length > 0) {
+      jsonLd['citation'] = citations
+    }
+    
+    // Add RelatedArticle semantic graph
+    const relatedLinks = []
+    if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
+    if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
+    if (relatedLinks.length > 0) {
+      jsonLd['hasPart'] = relatedLinks.map(url => ({
+        '@type': 'WebPage',
+        '@id': url
+      }))
+    }
+    
+    // Convert to graph-like structure for Breadcrumbs
+    jsonLd = [jsonLd, { '@context': 'https://schema.org', ...breadcrumbSchema }]
+  }
 
   const Layout = layouts[post.layout || defaultLayout]
 
