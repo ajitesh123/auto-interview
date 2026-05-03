@@ -152,7 +152,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
       }
       
       // Add RelatedArticle semantic graph if prev/next exist
-      const relatedLinks = []
+      const relatedLinks: string[] = []
       if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
       if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
       if (relatedLinks.length > 0) {
@@ -172,7 +172,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     }
     
     // Add RelatedArticle semantic graph
-    const relatedLinks = []
+    const relatedLinks: string[] = []
     if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
     if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
     if (relatedLinks.length > 0) {
