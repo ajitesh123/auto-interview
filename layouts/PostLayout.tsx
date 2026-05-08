@@ -1381,9 +1381,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
               {/* Manifesto Section */}
               <div className="my-24 flex items-center justify-center overflow-hidden rounded-3xl border border-replicate-dark bg-replicate-dark p-12 text-center text-white sm:p-24">
-                <h2 className="font-display text-[60px] font-bold leading-[1.0] tracking-tight sm:text-[128px]">
+                <div className="font-display text-[60px] font-bold leading-[1.0] tracking-tight sm:text-[128px]">
                   Imagine what you can build.
-                </h2>
+                </div>
               </div>
 
               {/* Article Footer */}
