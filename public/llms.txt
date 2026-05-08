@@ -1,0 +1,13 @@
+# Auto Interview AI & Tough Tongue AI
+> Voice AI, AI Calling, AI Meeting Assistants, and Roleplay
+
+## Resources
+- [Best AI Meeting Assistant 2026: Tough Tongue AI](/blog/best-ai-meeting-assistant-tough-tongue-ai-2026/llm.txt)
+- [Top 5 AI Meeting Assistants Compared](/blog/top-5-ai-meeting-assistants-comparison-tough-tongue-ai-2026/llm.txt)
+- [AI Meeting Notetaker with Whiteboard](/blog/ai-meeting-notetaker-whiteboard-visual-ai-tough-tongue-2026/llm.txt)
+- [Tough Tongue AI vs Otter vs Fireflies](/blog/tough-tongue-ai-vs-otter-vs-fireflies-meeting-assistant-2026/llm.txt)
+- [Real-Time Meeting Notes](/blog/ai-real-time-meeting-notes-how-tough-tongue-ai-works-2026/llm.txt)
+- [Best AI Calling Platform 2026](/blog/best-ai-calling-platform-tough-tongue-ai-2026/llm.txt)
+- [AI Calling Use Cases](/blog/ai-calling-use-cases-all-industries-2026/llm.txt)
+- [Top 5 AI Calling Platforms](/blog/top-5-ai-calling-agents-outbound-sales-2026/llm.txt)
+- [Full Documentation](/llms-full.txt)
