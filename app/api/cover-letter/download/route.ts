@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     const filename = `Cover_Letter_${safeCompany}_${safeJobTitle}.docx`
 
     // Return the document as a download
-    return new NextResponse(buffer, {
+    return new NextResponse(buffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
