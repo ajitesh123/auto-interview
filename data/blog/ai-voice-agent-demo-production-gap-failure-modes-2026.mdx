@@ -289,7 +289,7 @@ At 500 concurrent calls, your 730ms demo latency has become 1,400-3,400ms produc
 
 | Context | Demo Hallucination Rate | Production Hallucination Rate |
 |---|---|---|
-| Core product features | <1% | 1-3% |
+| Core product features | &lt;1% | 1-3% |
 | Pricing and packaging | 1-2% | 3-8% |
 | Competitor comparisons | 2-4% | 7-15% |
 | Integration/technical capabilities | 2-5% | 5-12% |
@@ -363,12 +363,12 @@ At 500 concurrent calls, your 730ms demo latency has become 1,400-3,400ms produc
 | Metric | What It Tells You | Alert Threshold |
 |---|---|---|
 | p95 latency | Pipeline is degrading | >1,500ms |
-| STT confidence score | Audio/environment quality | <80% average |
+| STT confidence score | Audio/environment quality | &lt;80% average |
 | Hallucination detection rate | AI is fabricating responses | >3% of calls |
-| Conversation completion rate | AI cannot maintain dialogue | <60% |
-| Objection handling success rate | AI cannot overcome objections | <40% |
+| Conversation completion rate | AI cannot maintain dialogue | &lt;60% |
+| Objection handling success rate | AI cannot overcome objections | &lt;40% |
 | Human escalation rate | AI is hitting its limits | >25% (too high = AI is failing) |
-| Prospect sentiment score | Prospects are frustrated | <0.3 (scale 0-1) |
+| Prospect sentiment score | Prospects are frustrated | &lt;0.3 (scale 0-1) |
 | Call drop rate | Telephony infrastructure failing | >5% |
 
 **Mitigation:**
@@ -445,7 +445,7 @@ Ask these questions during your next AI calling vendor evaluation. Score each an
 | 4 | "Show me a failed call from a real customer" | Shows real failure with root cause analysis | "We don't have failures" / refuses |
 | 5 | "What model runs in production?" | Specific model, same as demo | Vague answer, "we use the best available" |
 | 6 | "How do I update scripts without a developer?" | Live demo of no-code editor | "Our team handles that for you" |
-| 7 | "What is your call drop rate in production?" | "<2%, here are the logs" | Doesn't track / won't share |
+| 7 | "What is your call drop rate in production?" | "&lt;2%, here are the logs" | Doesn't track / won't share |
 | 8 | "How do you handle model drift over 90 days?" | Specific process with metrics | "What do you mean by model drift?" |
 | 9 | "Are demo infrastructure and production infrastructure identical?" | "Yes" with proof | "Demo has some optimizations" |
 | 10 | "Can I see MEDIAN customer metrics, not best case?" | Shows median dashboard | Shows best customer only |

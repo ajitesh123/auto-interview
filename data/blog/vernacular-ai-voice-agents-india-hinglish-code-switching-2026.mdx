@@ -259,7 +259,7 @@ For production-grade vernacular AI calling in India, your STT system must handle
 | Regional Hindi variant handling | 2-3 dialects | 5+ dialects |
 | Ambient noise tolerance | Light noise (-15dB SNR) | Heavy noise (-5dB SNR) |
 | Network quality tolerance | 3G+ connectivity | 2G connectivity |
-| Latency (STT processing) | <400ms | <200ms |
+| Latency (STT processing) | &lt;400ms | &lt;200ms |
 
 **Critical technical consideration:** Indian English accents are systematically different from American or British English. Retroflex consonants (ट, ड), aspirated sounds (भ, ध), and distinct vowel patterns mean that US-trained STT models lose 15-25% accuracy on Indian English audio. Your STT must be trained on or fine-tuned with Indian English speech data.
 
@@ -288,7 +288,7 @@ The LLM layer must handle code-switched input and generate contextually appropri
 | Hinglish pronunciation | Functional | Native-sounding |
 | English with Indian accent | Available | Multiple Indian accent variants |
 | Prosody matching | Fixed prosody | Context-adaptive prosody |
-| Latency (TTS synthesis) | <300ms | <150ms |
+| Latency (TTS synthesis) | &lt;300ms | &lt;150ms |
 | Code-switching smoothness | Noticeable transition | Seamless transition |
 
 ---
@@ -340,7 +340,7 @@ When you move AI calling operations from Mumbai and Delhi to Lucknow, Indore, Co
 | 4G/LTE (Metro) | 30-80ms | High (16kHz+) | Baseline |
 | 4G (Tier-2) | 80-150ms | Good (8-16kHz) | -5 to -10% |
 | 3G (Tier-3) | 150-400ms | Moderate (4-8kHz) | -15 to -25% |
-| 2G (Rural) | 400-1200ms | Low (<4kHz) | -30 to -50% |
+| 2G (Rural) | 400-1200ms | Low (&lt;4kHz) | -30 to -50% |
 
 At 2G quality, most AI voice agents produce functionally useless transcriptions. The AI either misunderstands the prospect completely or adds so much latency that the conversation feels broken.
 
@@ -389,19 +389,19 @@ Standard noise suppression handles steady-state noise (air conditioning, fan hum
 - STT: Fine-tuned Whisper v3 or Deepgram Nova-2 (Indian English variant)
 - LLM: GPT-4o / Claude 3.5 with Indian context prompt engineering
 - TTS: ElevenLabs / OpenAI TTS with Indian accent profiles
-- Latency target: <800ms end-to-speech
+- Latency target: &lt;800ms end-to-speech
 
 **Tier 2: City Deployments (Variable bandwidth, regional dialects)**
 - STT: India-specific models (IndicWhisper, Bhashini) + Deepgram fallback
 - LLM: Same as Tier 1 with regional context augmentation
 - TTS: Indian voice models with regional accent variants
-- Latency target: <1.5s end-to-speech
+- Latency target: &lt;1.5s end-to-speech
 
 **Tier 3: Town/Rural Deployments (Low bandwidth, heavy dialects)**
 - STT: Edge-cached models with offline fallback capability
 - LLM: Smaller, faster models (Gemma-2, Llama-3 8B) for latency optimization
 - TTS: Pre-synthesized common phrases + real-time for dynamic content
-- Latency target: <2.5s end-to-speech
+- Latency target: &lt;2.5s end-to-speech
 
 ---
 
