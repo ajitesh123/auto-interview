@@ -26,6 +26,8 @@ module.exports = {
         sans: ['basier-square', 'var(--font-space-grotesk)', ...fontFamily.sans],
         display: ['rb-freigeist-neue', 'ui-sans-serif', 'system-ui'],
         mono: ['jetbrains-mono', ...fontFamily.mono],
+        'instrument-serif': ['Instrument Serif', 'serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       colors: {
         // ElevenLabs Clean Palette
@@ -39,6 +41,16 @@ module.exports = {
           green: '#2b9a66',
           secondaryRed: '#dd4425',
           githubDark: '#24292e',
+        },
+
+        // Domain Cinematic Dark Theme
+        domain: {
+          bg: 'hsl(201, 100%, 13%)',
+          fg: '#ffffff',
+          muted: 'hsl(240, 4%, 66%)',
+          border: 'hsl(0, 0%, 18%)',
+          card: 'rgba(255, 255, 255, 0.03)',
+          'card-hover': 'rgba(255, 255, 255, 0.06)',
         },
 
         // Clean Gray Scale

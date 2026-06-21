@@ -199,3 +199,142 @@
 .bg-replicate-hero {
   @apply bg-gradient-to-r from-replicate-red via-[#ff2a5f] to-[#ff4b9c];
 }
+
+/* ========================================
+   DOMAIN PAGES — Cinematic Dark Theme
+   ======================================== */
+
+/* Domain page wrapper */
+.domain-page {
+  background: var(--domain-bg);
+  color: var(--domain-fg);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.domain-page h1,
+.domain-page h2,
+.domain-page h3,
+.domain-page h4,
+.domain-page h5,
+.domain-page h6 {
+  font-family: var(--font-display);
+  color: var(--domain-fg);
+}
+
+.domain-page a {
+  color: var(--domain-fg);
+}
+
+.domain-page a:hover {
+  color: var(--domain-muted);
+}
+
+/* Liquid Glass Effect */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Fade Rise Animations */
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-rise {
+  animation: fade-rise 0.8s ease-out both;
+}
+
+.animate-fade-rise-delay {
+  animation: fade-rise 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-rise-delay-2 {
+  animation: fade-rise 0.8s ease-out 0.4s both;
+}
+
+.animate-fade-rise-delay-3 {
+  animation: fade-rise 0.8s ease-out 0.6s both;
+}
+
+/* Domain card hover */
+.domain-card {
+  transition: all 0.3s ease;
+}
+
+.domain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Coming soon pulse */
+@keyframes coming-soon-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.coming-soon-pulse {
+  animation: coming-soon-pulse 2s ease-in-out infinite;
+}
+
+/* Resource card */
+.resource-card {
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.resource-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* FAQ accordion */
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+

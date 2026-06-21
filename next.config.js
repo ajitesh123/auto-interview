@@ -11,7 +11,7 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is www.googletagmanager.com www.google-analytics.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src * blob: data:;
-  media-src *.s3.amazonaws.com;
+  media-src *.s3.amazonaws.com *.cloudfront.net;
   connect-src * https://api-gateway.umami.dev;
   font-src 'self' https://fonts.gstatic.com;
   frame-src giscus.app www.loom.com www.youtube.com open.spotify.com app.toughtongueai.com

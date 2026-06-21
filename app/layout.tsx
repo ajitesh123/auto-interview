@@ -4,7 +4,7 @@ import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 // Import necessary dependencies and components
-import { Space_Grotesk } from 'next/font/google'
+import { Space_Grotesk, Instrument_Serif, Inter } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
@@ -15,12 +15,25 @@ import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react'
 
-// Initialize the Space Grotesk font with specific configurations
-// This uses Next.js built-in font optimization
+// Initialize fonts
 const space_grotesk = Space_Grotesk({
-  subsets: ['latin'], // Only load Latin character subset
-  display: 'swap', // Use font-display: swap for better performance
-  variable: '--font-space-grotesk', // CSS variable name for the font
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space-grotesk',
+})
+
+const instrument_serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-instrument-serif',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-inter',
 })
 
 /**
@@ -94,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${space_grotesk.variable} ${instrument_serif.variable} ${inter.variable} scroll-smooth`}
       suppressHydrationWarning // Suppress hydration warnings for client/server mismatch
     >
       {/* Favicon and PWA configurations */}
