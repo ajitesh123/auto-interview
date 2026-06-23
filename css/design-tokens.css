@@ -179,7 +179,7 @@
    CINEMATIC DARK THEME — Domain Pages
    ======================================== */
 :root {
-  --domain-bg: hsl(201, 100%, 13%);
+  --domain-bg: #000000;
   --domain-fg: hsl(0, 0%, 100%);
   --domain-muted: hsl(240, 4%, 66%);
   --domain-border: hsl(0, 0%, 18%);
@@ -201,4 +201,3 @@
     /* Can add dark mode toggle later */
   }
 }
-
