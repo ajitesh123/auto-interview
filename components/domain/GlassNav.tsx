@@ -31,7 +31,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
             />
           </svg>
-          <span className="text-lg font-semibold text-white">Asme</span>
+          <span className="text-lg font-semibold text-white tracking-wide" style={{ fontFamily: "'Instrument Serif', serif" }}>Auto Interview AI</span>
         </Link>
 
         {/* Desktop Nav */}
