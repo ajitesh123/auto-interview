@@ -168,13 +168,12 @@ const DomainHomePage: React.FC = () => {
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/40 via-transparent to-black/40" />
 
         {/* Hero Content */}
-        <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 py-12 text-center -translate-y-[10%]">
+        <div className="relative z-10 flex min-h-screen -translate-y-[10%] flex-col items-center justify-center px-6 py-12 text-center">
           <h1
             className="animate-fade-rise max-w-5xl text-5xl font-normal leading-[0.95] tracking-[-2.46px] text-white md:text-6xl lg:text-7xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            Your career.{' '}
-            <em className="not-italic text-[hsl(240,4%,66%)]">Engineered,</em>{' '}
+            Your career. <em className="not-italic text-[hsl(240,4%,66%)]">Engineered,</em>{' '}
             <br className="hidden sm:block" />
             not left to chance.
           </h1>
@@ -213,28 +212,44 @@ const DomainHomePage: React.FC = () => {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-shuttle">
-          <svg className="h-6 w-6 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          <svg
+            className="h-6 w-6 text-white/40"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
           </svg>
         </div>
       </section>
 
       {/* ===== THREE OFFERINGS ===== */}
-      <section id="offerings" className="border-t border-white/[0.08] py-24">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+      <section
+        id="offerings"
+        className="relative overflow-hidden border-t border-white/[0.08] py-24"
+      >
+        {/* Glow Element */}
+        <div className="glow-bg left-1/2 top-0 -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
+
+        <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
           <div className="mb-16 max-w-3xl">
-            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-[hsl(240,4%,66%)]">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
               The Platform
             </p>
             <h2
-              className="animate-fade-rise mb-6 text-4xl text-white sm:text-5xl"
+              className="animate-fade-rise mb-6 text-4xl text-white sm:text-5xl lg:text-6xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              Three pillars. One unfair advantage.
+              Engineered for the elite.
             </h2>
             <p className="animate-fade-rise-delay text-base leading-relaxed text-[hsl(240,4%,66%)]">
-              Every tool you need to outperform 95% of candidates — from domain-specific knowledge
-              to pixel-perfect resumes. No fluff, no paywalls, no excuses.
+              Outperform 95% of candidates with domain-specific intelligence, AI-powered
+              simulations, and a resume that commands authority.
             </p>
           </div>
 
@@ -246,9 +261,9 @@ const DomainHomePage: React.FC = () => {
                 className="group relative block"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="domain-card flex h-full flex-col rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
+                <div className="glass-card flex h-full flex-col p-10">
                   {/* Icon */}
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/80">
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/5 text-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                     {offer.icon}
                   </div>
 
@@ -298,27 +313,28 @@ const DomainHomePage: React.FC = () => {
       </section>
 
       {/* ===== DOMAIN SELECTOR ===== */}
-      <section id="domains" className="border-t border-white/[0.08] py-24">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
+      <section id="domains" className="relative overflow-hidden border-t border-white/[0.08] py-24">
+        <div className="glow-bg right-0 top-0 bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)]" />
+
+        <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
           {/* AEO Summary */}
-          <p className="mb-6 text-base leading-relaxed text-[hsl(240,4%,66%)]">
+          <p className="seo-only-content">
             Auto Interview AI provides free, downloadable interview preparation resources organized
             by academic and professional domain. Choose your domain below to access curated study
             materials, case frameworks, and practice guides.
           </p>
 
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-[hsl(240,4%,66%)]">
+          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
             Resources
           </p>
           <h2
-            className="animate-fade-rise mb-4 text-4xl text-white sm:text-5xl"
+            className="animate-fade-rise mb-4 text-4xl text-white sm:text-5xl lg:text-6xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
             Choose your domain
           </h2>
           <p className="animate-fade-rise-delay mb-12 max-w-2xl text-base leading-relaxed text-[hsl(240,4%,66%)]">
-            Industry-specific prep kits designed by domain experts. Pick your field, download
-            the playbook, and walk into every interview with conviction.
+            Industry-specific intelligence. Download the playbook and secure your unfair advantage.
           </p>
 
           <div className="animate-fade-rise-delay-2 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -330,16 +346,23 @@ const DomainHomePage: React.FC = () => {
       </section>
 
       {/* ===== HOW IT WORKS ===== */}
-      <section className="border-t border-white/[0.08] py-24">
-        <div className="mx-auto max-w-5xl px-6 sm:px-8">
-          <h2
-            className="mb-16 text-center text-4xl text-white sm:text-5xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            The Playbook
-          </h2>
+      <section className="relative overflow-hidden border-t border-white/[0.08] py-24">
+        <div className="glow-bg left-0 top-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,transparent_70%)]" />
 
-          <div className="space-y-8">
+        <div className="relative mx-auto max-w-3xl px-6 sm:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
+              The Methodology
+            </h2>
+            <h3
+              className="text-4xl text-white sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              How you win.
+            </h3>
+          </div>
+
+          <div className="space-y-12">
             {[
               {
                 step: '01',
@@ -361,19 +384,27 @@ const DomainHomePage: React.FC = () => {
                 title: 'Own the Room',
                 desc: 'Walk into every interview prepared, polished, and playing to win.',
               },
-            ].map((item) => (
-              <div key={item.step} className="flex gap-6">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03]">
-                  <span className="text-sm font-medium text-[hsl(240,4%,66%)]">{item.step}</span>
+            ].map((item, i) => (
+              <div key={item.step} className="group relative flex gap-8">
+                {/* Connecting Line */}
+                {i !== 3 && (
+                  <div className="absolute bottom-[-3rem] left-6 top-16 w-px bg-gradient-to-b from-white/20 to-transparent" />
+                )}
+
+                <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-black text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] transition-all group-hover:scale-110 group-hover:border-white/40 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                  <span className="text-sm font-medium">{item.step}</span>
                 </div>
-                <div className="flex-1 border-b border-white/[0.05] pb-8">
+                <div className="flex-1 pb-4">
+                  <div className="mb-2 text-xs font-bold tracking-widest text-white/40">
+                    STEP {item.step}
+                  </div>
                   <h3
-                    className="mb-2 text-xl text-white"
+                    className="mb-3 text-3xl text-white"
                     style={{ fontFamily: "'Instrument Serif', serif" }}
                   >
                     {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-[hsl(240,4%,66%)]">{item.desc}</p>
+                  <p className="text-base leading-relaxed text-[hsl(240,4%,66%)]">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -425,8 +456,8 @@ const DomainHomePage: React.FC = () => {
             The prepared always win.
           </h2>
           <p className="mb-10 text-base leading-relaxed text-[hsl(240,4%,66%)]">
-            Free resources, zero gatekeeping. Pick a domain, build your resume, and start
-            preparing like the top 5%.
+            Free resources, zero gatekeeping. Pick a domain, build your resume, and start preparing
+            like the top 5%.
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link

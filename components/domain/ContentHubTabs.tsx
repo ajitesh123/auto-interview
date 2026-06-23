@@ -30,8 +30,8 @@ const ContentHubTabs: React.FC<ContentHubTabsProps> = ({ subDomain, domainSlug }
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all ${
               activeTab === tab.id
-                ? 'bg-white/10 text-white'
-                : 'text-[hsl(240,4%,66%)] hover:bg-white/[0.04] hover:text-white'
+                ? 'border border-white/20 bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.15)]'
+                : 'border border-transparent text-[hsl(240,4%,66%)] hover:bg-white/[0.04] hover:text-white'
             }`}
           >
             {tab.label}

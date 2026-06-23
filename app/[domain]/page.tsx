@@ -4,7 +4,12 @@ import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
 import Breadcrumbs from '@/components/domain/Breadcrumbs'
 import FAQSection from '@/components/domain/FAQSection'
-import { getDomainBySlug, getAllDomainSlugs, generateBreadcrumbs, countDomainResources } from '@/lib/domainUtils'
+import {
+  getDomainBySlug,
+  getAllDomainSlugs,
+  generateBreadcrumbs,
+  countDomainResources,
+} from '@/lib/domainUtils'
 import siteMetadata from '@/data/siteMetadata'
 
 interface Props {
@@ -52,9 +57,7 @@ export default async function DomainPage({ params }: Props) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* AEO direct-answer summary */}
-        <p className="mb-6 text-base leading-relaxed text-[hsl(240,4%,66%)]">
-          {domain.aeoSummary}
-        </p>
+        <p className="mb-6 text-base leading-relaxed text-[hsl(240,4%,66%)]">{domain.aeoSummary}</p>
 
         {/* Hero */}
         <div className="mb-16">
@@ -100,28 +103,43 @@ export default async function DomainPage({ params }: Props) {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {domain.subDomains.map((sd) => (
-              <Link
-                key={sd.slug}
-                href={`/${domain.slug}/${sd.slug}`}
-                className="group block"
-              >
-                <div className="domain-card rounded-xl border border-white/[0.08] bg-white/[0.03] p-6">
-                  <div className="mb-4 flex items-start justify-between">
-                    <span className="text-3xl">{sd.icon}</span>
-                    <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-[hsl(240,4%,66%)]">
+              <Link key={sd.slug} href={`/${domain.slug}/${sd.slug}`} className="group block">
+                <div className="glass-card flex h-full flex-col p-8">
+                  <div className="mb-6 flex items-start justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      {sd.icon}
+                    </div>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-[hsl(240,4%,66%)]">
                       {sd.resources.length} resources
                     </span>
                   </div>
-                  <h3 className="mb-2 text-lg font-medium text-white">{sd.name}</h3>
-                  <p className="mb-4 line-clamp-2 text-sm text-[hsl(240,4%,66%)]">
+                  <h3
+                    className="mb-3 text-2xl tracking-tight text-white transition-colors group-hover:text-white"
+                    style={{ fontFamily: "'Instrument Serif', serif" }}
+                  >
+                    {sd.name}
+                  </h3>
+                  <p className="mb-6 line-clamp-2 flex-1 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
                     {sd.description}
                   </p>
-                  <span className="flex items-center text-sm text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
-                    Explore
-                    <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
+                  <div className="mt-auto flex items-center text-sm font-medium tracking-wide text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
+                    Explore Specialization
+                    <div className="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-all group-hover:bg-white/10 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                      <svg
+                        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}

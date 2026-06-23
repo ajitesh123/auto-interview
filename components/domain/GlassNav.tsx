@@ -19,18 +19,17 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   ]
 
   return (
-    <nav className="relative z-20 pl-6 pr-6 py-6">
-      <div className="liquid-glass mx-auto flex max-w-5xl items-center justify-between rounded-full px-6 py-3">
+    <nav className="relative z-20 py-6 pl-6 pr-6">
+      <div className="liquid-glass mx-auto flex max-w-5xl items-center justify-between rounded-full px-6 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <svg
-            className="h-6 w-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
-            <path strokeLinecap="round" strokeWidth={1.5} d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+            <path
+              strokeLinecap="round"
+              strokeWidth={1.5}
+              d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+            />
           </svg>
           <span className="text-lg font-semibold text-white">Asme</span>
         </Link>
@@ -42,9 +41,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               key={link.href}
               href={link.href}
               className={`text-sm font-medium transition-colors ${
-                currentPath === link.href
-                  ? 'text-white'
-                  : 'text-white/80 hover:text-white'
+                currentPath === link.href ? 'text-white' : 'text-white/80 hover:text-white'
               }`}
             >
               {link.label}

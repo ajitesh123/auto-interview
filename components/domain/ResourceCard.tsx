@@ -13,8 +13,8 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, domainSlug, subDo
   const detailHref = `/${domainSlug}/${subDomainSlug}/${resource.slug}`
 
   return (
-    <Link href={detailHref} className="group block">
-      <div className="resource-card rounded-xl bg-white/[0.03] p-6">
+    <Link href={detailHref} className="group block h-full">
+      <div className="glass-card flex h-full flex-col p-6">
         {/* Header: Icon + Type badge */}
         <div className="mb-4 flex items-start justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/[0.06]">

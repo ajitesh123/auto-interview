@@ -5,7 +5,12 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import Breadcrumbs from '@/components/domain/Breadcrumbs'
 import ContentHubTabs from '@/components/domain/ContentHubTabs'
 import FAQSection from '@/components/domain/FAQSection'
-import { getSubDomainBySlug, getAllSubDomainSlugs, generateBreadcrumbs, getSiblingSubDomains } from '@/lib/domainUtils'
+import {
+  getSubDomainBySlug,
+  getAllSubDomainSlugs,
+  generateBreadcrumbs,
+  getSiblingSubDomains,
+} from '@/lib/domainUtils'
 import siteMetadata from '@/data/siteMetadata'
 
 interface Props {
@@ -99,14 +104,33 @@ export default async function SubDomainPage({ params }: Props) {
                 <Link
                   key={sd.slug}
                   href={`/${domain.slug}/${sd.slug}`}
-                  className="group flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 transition-colors hover:border-white/20"
+                  className="glass-card group flex items-center gap-4 p-4"
                 >
-                  <span className="text-2xl">{sd.icon}</span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                    {sd.icon}
+                  </div>
                   <div>
-                    <span className="text-sm font-medium text-white">{sd.name}</span>
-                    <span className="block text-xs text-[hsl(240,4%,66%)]">
+                    <span className="block text-sm font-medium text-white transition-colors group-hover:text-white/90">
+                      {sd.name}
+                    </span>
+                    <span className="block text-xs font-medium tracking-wide text-[hsl(240,4%,66%)]">
                       {sd.resources.length} resources
                     </span>
+                  </div>
+                  <div className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-all group-hover:bg-white/10 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                    <svg
+                      className="h-4 w-4 text-[hsl(240,4%,66%)] transition-transform group-hover:translate-x-0.5 group-hover:text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
                   </div>
                 </Link>
               ))}

@@ -120,15 +120,20 @@ const HomePage = () => {
       </div>
 
       {/* Features Section */}
-      <section className="border-t border-white/[0.08] py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden border-t border-white/[0.08] py-20 sm:py-24">
+        <div className="glow-bg left-1/2 top-0 -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2
-              className="text-4xl text-white sm:text-5xl"
+            <h2 className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
+              Toolkit
+            </h2>
+            <h3
+              className="text-4xl text-white sm:text-5xl lg:text-6xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
               Your Career Toolkit
-            </h2>
+            </h3>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-[hsl(240,4%,66%)]">
               Everything you need to land your dream role, powered by AI
             </p>
@@ -144,23 +149,28 @@ const HomePage = () => {
           </div>
 
           {/* Feature Cards */}
-          <div className="mt-8">
-            <ContentBox padding="lg" background="warm">
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {featuresByCategory[activeFeatureTab as keyof typeof featuresByCategory].map(
-                  (feature, index) => (
-                    <Link
-                      key={index}
-                      href={feature.href}
-                      className="group rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.05]"
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuresByCategory[activeFeatureTab as keyof typeof featuresByCategory].map(
+              (feature, index) => (
+                <Link key={index} href={feature.href} className="group block">
+                  <div className="glass-card flex h-full flex-col p-10">
+                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/5 text-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      {feature.icon}
+                    </div>
+                    <h4
+                      className="mb-3 text-3xl tracking-tight text-white transition-colors group-hover:text-white"
+                      style={{ fontFamily: "'Instrument Serif', serif" }}
                     >
-                      <div className="mb-4 text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-white">{feature.title}</h3>
-                      <p className="mt-3 text-base text-[hsl(240,4%,66%)]">{feature.description}</p>
-                      <div className="mt-4 flex items-center text-sm font-medium text-[hsl(240,4%,66%)] group-hover:text-white transition-colors">
-                        Get Started
+                      {feature.title}
+                    </h4>
+                    <p className="mb-8 flex-1 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
+                      {feature.description}
+                    </p>
+                    <div className="mt-auto flex items-center text-sm font-medium tracking-wide text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
+                      Get Started
+                      <div className="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-all group-hover:bg-white/10 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                         <svg
-                          className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+                          className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -173,29 +183,36 @@ const HomePage = () => {
                           />
                         </svg>
                       </div>
-                    </Link>
-                  )
-                )}
-              </div>
-            </ContentBox>
+                    </div>
+                  </div>
+                </Link>
+              )
+            )}
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="border-t border-white/[0.08] py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2
-            className="mb-16 text-center text-4xl text-white sm:text-5xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            The data speaks for itself
-          </h2>
+      <section className="relative overflow-hidden border-t border-white/[0.08] py-20 sm:py-24">
+        <div className="glow-bg right-0 top-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)]" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
+              The Evidence
+            </h2>
+            <h3
+              className="text-4xl text-white sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              The data speaks for itself.
+            </h3>
+          </div>
 
           {/* Featured Large Stat */}
-          <div className="mb-8 rounded-3xl border border-white/[0.08] bg-white/[0.03] p-16 text-center">
+          <div className="glass-card mb-8 p-16 text-center">
             <div
-              className="text-8xl text-white"
+              className="text-8xl text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
               3.4×
@@ -207,36 +224,36 @@ const HomePage = () => {
 
           {/* Supporting Stats Grid */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
+            <div className="glass-card p-10 text-center">
               <div
-                className="text-5xl text-white"
+                className="text-5xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 +32
               </div>
-              <p className="mt-4 text-base text-[hsl(240,4%,66%)]">
+              <p className="mt-4 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
                 Average ATS score improvement using our AI resume builder templates
               </p>
             </div>
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
+            <div className="glass-card p-10 text-center">
               <div
-                className="text-5xl text-white"
+                className="text-5xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 58%
               </div>
-              <p className="mt-4 text-base text-[hsl(240,4%,66%)]">
+              <p className="mt-4 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
                 Of rejections trace back to missing exact keywords from the job description
               </p>
             </div>
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
+            <div className="glass-card p-10 text-center">
               <div
-                className="text-5xl text-white"
+                className="text-5xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 14,363
               </div>
-              <p className="mt-4 text-base text-[hsl(240,4%,66%)]">
+              <p className="mt-4 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
                 Real resumes analyzed in our Hiring Index — giving you data, not guesswork
               </p>
             </div>
@@ -292,7 +309,9 @@ const HomePage = () => {
                   >
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[hsl(240,4%,66%)]">{item.description}</p>
+                  <p className="mt-2 text-base leading-relaxed text-[hsl(240,4%,66%)]">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}

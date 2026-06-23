@@ -43,7 +43,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, withSchema = true }) => {
         Frequently Asked Questions
       </h2>
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.02]">
+      <div className="glass-card">
         {faqs.map((faq, index) => (
           <div key={index} className="faq-item">
             <button
