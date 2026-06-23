@@ -105,14 +105,14 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="bg-matte-black min-h-screen text-white">
       <div className="flex min-h-screen flex-col">
         {/* Top Header Bar */}
-        <div className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+        <div className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/95 backdrop-blur-sm">
           <div className="flex items-center justify-between px-4 py-3 sm:px-6">
             {/* Left side: Logo + Hamburger */}
             <div className="flex items-center space-x-3">
               {/* Hamburger Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black"
+                className="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
                 aria-label="Toggle menu"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,8 +138,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
                 <Logo width={40} height={40} className="mr-2" />
                 <div>
-                  <div className="text-base font-bold text-black sm:text-lg">Auto Interview AI</div>
-                  <p className="hidden text-xs text-gray-500 sm:block">AI-powered career tools</p>
+                  <div className="text-base font-bold text-white sm:text-lg">Auto Interview AI</div>
+                  <p className="hidden text-xs text-white/40 sm:block">Career Intelligence Platform</p>
                 </div>
               </Link>
             </div>
@@ -148,29 +148,29 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center space-x-3 sm:space-x-4">
               <Link
                 href="/"
-                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black sm:block"
+                className="hidden text-sm font-medium text-white/60 transition-colors hover:text-white sm:block"
               >
                 Home
               </Link>
               <Link
                 href="/blog"
-                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black sm:block"
+                className="hidden text-sm font-medium text-white/60 transition-colors hover:text-white sm:block"
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black lg:block"
+                className="hidden text-sm font-medium text-white/60 transition-colors hover:text-white lg:block"
               >
                 About
               </Link>
               <Link
                 href="/free-mock-interview"
-                className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-black lg:block"
+                className="hidden text-sm font-medium text-white/60 transition-colors hover:text-white lg:block"
               >
                 Free Mock Interview
               </Link>
-              <div className="text-gray-800">
+              <div className="text-white">
                 <SearchButton />
               </div>
             </div>

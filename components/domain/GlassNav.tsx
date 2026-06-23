@@ -12,44 +12,59 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/#domains', label: 'Domains' },
-    { href: '/blog', label: 'Blog' },
+    { href: '/#domains', label: 'Resources' },
+    { href: '/build-resume', label: 'Resume Builder' },
+    { href: '/blog', label: 'Insights' },
     { href: '/about', label: 'About' },
   ]
 
   return (
-    <nav className="relative z-10">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 sm:px-8">
+    <nav className="relative z-20 pl-6 pr-6 py-6">
+      <div className="liquid-glass mx-auto flex max-w-5xl items-center justify-between rounded-full px-6 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1">
-          <span
-            className="text-2xl tracking-tight text-white sm:text-3xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
+        <Link href="/" className="flex items-center gap-2">
+          <svg
+            className="h-6 w-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            Auto Interview AI<sup className="text-xs">®</sup>
-          </span>
+            <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
+            <path strokeLinecap="round" strokeWidth={1.5} d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg>
+          <span className="text-lg font-semibold text-white">Asme</span>
         </Link>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Nav */}
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm transition-colors ${
+              className={`text-sm font-medium transition-colors ${
                 currentPath === link.href
                   ? 'text-white'
-                  : 'text-[hsl(240,4%,66%)] hover:text-white'
+                  : 'text-white/80 hover:text-white'
               }`}
             >
               {link.label}
             </Link>
           ))}
+        </div>
+
+        {/* Right Side */}
+        <div className="hidden items-center gap-4 md:flex">
           <Link
-            href="/#domains"
-            className="liquid-glass cursor-pointer rounded-full px-6 py-2.5 text-sm text-white transition-transform hover:scale-[1.03]"
+            href="/about"
+            className="text-sm font-medium text-white transition-colors hover:text-white/80"
           >
-            Get Started
+            Sign Up
+          </Link>
+          <Link
+            href="/#offerings"
+            className="liquid-glass cursor-pointer rounded-full px-6 py-2 text-sm text-white transition-transform hover:scale-[1.03]"
+          >
+            Login
           </Link>
         </div>
 
@@ -81,7 +96,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="border-t border-white/10 px-6 pb-6 md:hidden">
+        <div className="mx-auto mt-3 max-w-5xl rounded-2xl border border-white/10 bg-black/80 px-6 pb-6 backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-4 pt-4">
             {navLinks.map((link) => (
               <Link
@@ -98,7 +113,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               </Link>
             ))}
             <Link
-              href="/#domains"
+              href="/#offerings"
               onClick={() => setMobileOpen(false)}
               className="liquid-glass mt-2 rounded-full px-6 py-2.5 text-center text-sm text-white"
             >

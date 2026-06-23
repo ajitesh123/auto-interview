@@ -8,17 +8,16 @@ import SearchButton from './SearchButton'
 
 const Header = () => {
   let headerClass =
-    'flex items-center w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 justify-between py-4 px-4 sm:py-6 sm:px-8'
+    'flex items-center w-full bg-black/95 backdrop-blur-sm border-b border-white/[0.08] justify-between py-4 px-4 sm:py-6 sm:px-8'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
 
   const featureTools = [
-    { href: '/build-resume', title: 'Create Resume', icon: '📝' },
-    { href: '/ats-score', title: 'Check ATS Score', icon: '📊' },
+    { href: '/build-resume', title: 'Resume Builder', icon: '📝' },
+    { href: '/ats-score', title: 'ATS Score', icon: '📊' },
     { href: '/find-jobs', title: 'Find Jobs', icon: '🔍' },
-    { href: '/cover-letter', title: 'Cover Letter', icon: '✍️' },
-    { href: '/free-resources', title: 'Free Resources', icon: '🎁' },
+    { href: '/free-mock-interview', title: 'Mock Interview', icon: '🎤' },
   ]
 
   return (
@@ -31,7 +30,7 @@ const Header = () => {
               <Logo width={48} height={48} />
             </div>
             {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold text-black sm:block">
+              <div className="hidden h-6 text-2xl font-semibold text-white sm:block">
                 {siteMetadata.headerTitle}
               </div>
             ) : (
@@ -47,7 +46,7 @@ const Header = () => {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="block font-medium text-gray-700 hover:text-black"
+                  className="block font-medium text-white/70 hover:text-white transition-colors"
                 >
                   {link.title}
                 </Link>
@@ -68,7 +67,7 @@ const Header = () => {
                 <div className="mr-2 h-10 w-10">
                   <Logo width={40} height={40} />
                 </div>
-                <span className="text-chatgpt-text text-lg font-semibold">
+                <span className="text-lg font-semibold text-white">
                   {typeof siteMetadata.headerTitle === 'string'
                     ? siteMetadata.headerTitle
                     : 'Auto Interview AI'}
@@ -83,13 +82,13 @@ const Header = () => {
 
           {/* Feature Tools */}
           <div className="mb-3">
-            <p className="mb-2 text-xs font-medium text-gray-400">AI-powered career tools</p>
+            <p className="mb-2 text-xs font-medium text-white/40">Career Intelligence Tools</p>
             <div className="grid grid-cols-2 gap-2">
               {featureTools.map((tool) => (
                 <Link
                   key={tool.href}
                   href={tool.href}
-                  className="flex items-center space-x-2 rounded-lg border border-gray-700 bg-gray-800 px-2 py-1.5 text-xs text-gray-300 transition-colors hover:border-primary hover:text-white"
+                  className="flex items-center space-x-2 rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-xs text-white/70 transition-colors hover:border-white/20 hover:text-white"
                 >
                   <span className="text-sm">{tool.icon}</span>
                   <span className="font-medium">{tool.title}</span>

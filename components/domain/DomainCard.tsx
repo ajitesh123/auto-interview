@@ -13,7 +13,7 @@ const DomainCard: React.FC<DomainCardProps> = ({ domain }) => {
 
   return (
     <Link href={`/${domain.slug}`} className="group block">
-      <div className="domain-card rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
+      <div className="domain-card flex h-full flex-col rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8">
         {/* Icon + Badge */}
         <div className="mb-5 flex items-start justify-between">
           <span className="text-4xl">{domain.icon}</span>
@@ -42,8 +42,8 @@ const DomainCard: React.FC<DomainCardProps> = ({ domain }) => {
         </p>
 
         {/* Sub-domains preview */}
-        <div className="flex flex-wrap gap-2">
-          {domain.subDomains.slice(0, 4).map((sd) => (
+        <div className="mb-6 flex flex-wrap gap-2">
+          {domain.subDomains.slice(0, 3).map((sd) => (
             <span
               key={sd.slug}
               className="rounded-full border border-white/10 px-3 py-1 text-xs text-[hsl(240,4%,66%)]"
@@ -51,15 +51,15 @@ const DomainCard: React.FC<DomainCardProps> = ({ domain }) => {
               {sd.name}
             </span>
           ))}
-          {subDomainCount > 4 && (
+          {subDomainCount > 3 && (
             <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-[hsl(240,4%,66%)]">
-              +{subDomainCount - 4} more
+              +{subDomainCount - 3} more
             </span>
           )}
         </div>
 
         {/* Arrow */}
-        <div className="mt-6 flex items-center text-sm text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
+        <div className="mt-auto flex items-center text-sm text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
           Explore {domain.name}
           <svg
             className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"

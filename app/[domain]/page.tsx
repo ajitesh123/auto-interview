@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const domain = getDomainBySlug(domainSlug)
   if (!domain) return {}
 
-  const title = `${domain.name} Interview Preparation Resources | Auto Interview AI`
+  const title = `${domain.name} Interview Resources — Free Prep Kits | Auto Interview AI`
   const description = domain.aeoSummary
 
   return {
@@ -71,7 +71,7 @@ export default async function DomainPage({ params }: Props) {
             className="animate-fade-rise mb-4 text-5xl text-white sm:text-6xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            {domain.name} Interview Prep
+            {domain.name} Prep Kit
           </h1>
           <p className="animate-fade-rise-delay max-w-3xl text-lg leading-relaxed text-[hsl(240,4%,66%)]">
             {domain.description}

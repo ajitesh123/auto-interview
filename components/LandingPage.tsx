@@ -128,13 +128,13 @@ const LandingPage = () => {
 
       <div className="flex min-h-screen flex-col lg:flex-row">
         {/* Left Sidebar Menu - Compact height */}
-        <div className="flex w-full flex-col border-b border-matte-gray bg-matte-dark p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
+        <div className="flex w-full flex-col border-b border-white/[0.08] bg-black p-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
           <div className="mb-6">
             <div className="mb-2 flex items-center">
               <Logo width={40} height={40} className="mr-1" />
-              <h1 className="text-lg font-bold text-chatgpt-text sm:text-xl">Auto Interview AI</h1>
+              <h1 className="text-lg font-bold text-white sm:text-xl">Auto Interview AI</h1>
             </div>
-            <p className="text-xs text-chatgpt-textSecondary sm:text-sm">AI-powered career tools</p>
+            <p className="text-xs text-white/40 sm:text-sm">Career Intelligence Platform</p>
           </div>
 
           <nav className="flex-1 space-y-1">
@@ -153,10 +153,10 @@ const LandingPage = () => {
                     setBuildResumeKey((prev) => prev + 1)
                   }
                 }}
-                className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20 sm:text-sm ${
+                className={`group relative w-full animate-slide-up rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 hover:translate-x-2 hover:scale-105 hover:shadow-lg hover:shadow-black/20 sm:text-sm ${
                   activeMenu === item
-                    ? 'bg-matte-gray/20 text-white'
-                    : 'text-gray-400 hover:bg-matte-gray hover:text-white'
+                    ? 'bg-white/[0.08] text-white'
+                    : 'text-white/50 hover:bg-white/[0.05] hover:text-white'
                 }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
@@ -172,32 +172,32 @@ const LandingPage = () => {
         {/* Main Content Area - Full width */}
         <div className="flex min-h-screen flex-1 flex-col">
           {/* Top Navigation - Moved to right */}
-          <div className="flex items-center justify-end border-b border-matte-gray p-4 sm:p-6">
+          <div className="flex items-center justify-end border-b border-white/[0.08] p-4 sm:p-6">
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
                 onClick={() => {
                   setActiveMenu('Build Resume')
                   setBuildResumeKey((prev) => prev + 1)
                 }}
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
+                className="text-sm font-medium text-white/60 transition-colors hover:text-white sm:text-base"
               >
                 Home
               </button>
               <Link
                 href="/blog"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
+                className="text-sm font-medium text-white/60 transition-colors hover:text-white sm:text-base"
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
+                className="text-sm font-medium text-white/60 transition-colors hover:text-white sm:text-base"
               >
                 About
               </Link>
               <Link
                 href="/free-mock-interview"
-                className="text-sm font-medium text-chatgpt-textSecondary transition-colors hover:text-chatgpt-text sm:text-base"
+                className="text-sm font-medium text-white/60 transition-colors hover:text-white sm:text-base"
               >
                 Free Mock Interview
               </Link>
