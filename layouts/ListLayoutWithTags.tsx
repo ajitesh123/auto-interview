@@ -257,10 +257,11 @@ export default function ListLayoutWithTags({
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-[30px] font-bold leading-[1.20] text-black transition-colors group-hover:text-replicate-red">
+                      <h2 className="text-[30px] font-bold leading-[1.20] transition-colors group-hover:text-replicate-red">
                         <Link
                           href={`/${path}`}
-                          className="hover:underline hover:decoration-[#bbbbbb] hover:decoration-dotted hover:underline-offset-4"
+                          className="!text-black hover:!text-replicate-red hover:underline hover:decoration-[#bbbbbb] hover:decoration-dotted hover:underline-offset-4"
+                          style={{ color: '#000000' }}
                         >
                           {title}
                         </Link>
