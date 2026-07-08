@@ -24,7 +24,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['basier-square', 'var(--font-space-grotesk)', ...fontFamily.sans],
-        display: ['rb-freigeist-neue', 'ui-sans-serif', 'system-ui'],
+        display: ['var(--font-instrument-serif)', 'Instrument Serif', 'Georgia', 'serif'],
         mono: ['jetbrains-mono', ...fontFamily.mono],
         'instrument-serif': ['Instrument Serif', 'serif'],
         inter: ['Inter', 'sans-serif'],
