@@ -24,6 +24,7 @@ const HomePage = () => {
     { id: 'resume', label: 'Resume Tools' },
     { id: 'jobs', label: 'Job Search' },
     { id: 'interview', label: 'Interview Prep' },
+    { id: 'insights', label: 'Blog & Insights' },
   ]
 
   const featuresByCategory = {
@@ -63,6 +64,14 @@ const HomePage = () => {
         icon: '🎤',
       },
     ],
+    insights: [
+      {
+        title: 'Career & Tech Blog',
+        description: 'Deep research into AI calling, hiring trends, and interview strategies',
+        href: '/blog',
+        icon: '📚',
+      },
+    ],
   }
 
   return (
@@ -93,6 +102,12 @@ const HomePage = () => {
               className="liquid-glass inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-white/5"
             >
               Free Resources
+            </Link>
+            <Link
+              href="/blog"
+              className="liquid-glass inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-white/5"
+            >
+              Read Our Blog
             </Link>
           </div>
         </div>
