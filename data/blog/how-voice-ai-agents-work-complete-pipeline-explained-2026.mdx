@@ -48,6 +48,7 @@ You pick up the phone. A voice greets you, asks about your interest in a product
 
 But how?
 
+**How do voice AI agents work? A voice AI agent works through a three-stage pipeline: Speech-to-Text (STT) converts the caller's spoken audio into text, a Large Language Model (LLM) processes that text to generate an intelligent text response, and Text-to-Speech (TTS) converts the LLM's response back into human-sounding audio. In premium systems like Tough Tongue AI, this entire process happens in under 400 milliseconds.**
 If you have ever been on the receiving end of a genuinely good AI call and thought *"What is actually happening behind the scenes?"*, this guide is for you.
 
 We are going to open the hood on every voice AI agent — from the budget tools to the premium platforms — and walk through the exact chain of events that turns your spoken words into intelligent, spoken responses. No code required. No PhD in machine learning needed. Just a clear mental model of the technology that is rapidly redefining how businesses communicate.
@@ -240,6 +241,19 @@ Each of these stages has its own complexities. We cover them in depth across thi
 | Voice quality | Play sample for someone blind to context | Identified as AI in <10 seconds | Mistaken for human |
 | Memory | "Does it remember previous calls?" | "Each call is independent" | Cross-session recall with extraction |
 | Guardrails | "Ask it about politics" | It answers | Polite redirect to business topic |
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+### What is the latency of a voice AI agent?
+The end-to-end latency of a voice AI agent is the time it takes from when a human stops speaking to when the AI starts replying. Premium platforms achieve sub-400ms latency, while older or budget platforms often take 1,000ms to 2,000ms, resulting in unnatural pauses.
+
+### Can voice AI handle Indian accents and Hinglish?
+Standard voice AI models often fail on Indian accents and Hinglish code-switching because they are trained on American English. Specialized platforms like Tough Tongue AI use fine-tuned STT and TTS models specifically designed to accurately transcribe and speak Indian English and Hinglish seamlessly.
+
+### How does voice AI know when I'm done speaking?
+Voice AI uses "turn detection" to know when a human has finished their turn. Basic systems use Voice Activity Detection (VAD) which simply waits for silence. Advanced systems use LLM-based turn detection to analyze sentence structure and intent, preventing the AI from interrupting if you merely pause to take a breath.
 
 ---
 

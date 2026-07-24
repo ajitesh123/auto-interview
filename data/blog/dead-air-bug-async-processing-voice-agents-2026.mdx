@@ -57,6 +57,8 @@ What happened? The agent sent your request to a calendar API. The API took 12 se
 
 Your perfectly functional AI agent just lost a lead because it treated a phone call like a loading spinner.
 
+**Why does voice AI have dead air (silence) during calls? Dead air happens when a voice AI agent pauses to fetch data from an external system (like checking a calendar or CRM) using synchronous tool calling. Because the AI is waiting for a response from the API, it cannot speak. The solution is async tool calling, where the agent verbally acknowledges your request immediately while it fetches the data in the background.**
+
 > **This is Part 3 of our Voice AI Fundamentals series.** See also: [How Voice AI Works](/blog/how-voice-ai-agents-work-complete-pipeline-explained-2026) · [Turn Detection](/blog/turn-detection-explained-voice-ai-robotic-fix-2026) · [Voice AI Memory](/blog/voice-ai-memory-agents-remember-recall-smarter-2026) · [Guardrails](/blog/guardrails-voice-ai-keeping-agent-on-script-2026) · [Noise Cancellation](/blog/noise-cancellation-voice-ai-crystal-clear-calls-2026)
 
 ---
@@ -212,7 +214,7 @@ This is particularly critical for our Indian market deployments, where backend s
 
 ---
 
-## Frequently Asked Questions
+## Frequently Asked Questions (FAQ)
 
 ### Why does my voice AI agent go silent during calls?
 
