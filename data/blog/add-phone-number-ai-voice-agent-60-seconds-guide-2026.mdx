@@ -1,0 +1,354 @@
+---
+title: 'Add a Phone Number to Your AI Voice Agent in 60 Seconds: The Complete Engineering Guide'
+date: '2026-07-07'
+lastmod: '2026-07-07'
+tags:
+  - Voice AI
+  - AI Calling
+  - SIP Trunking
+  - Phone Number AI Agent
+  - Voice Agent Deployment
+  - E.164
+  - Tough Tongue AI
+draft: false
+summary: 'Most voice AI platforms make connecting a phone number painfully complex — SIP trunk configuration, SRTP negotiation, codec mismatches. This guide shows how to go from zero to a ringing AI agent in 60 seconds flat, and explains the full SIP architecture under the hood.'
+images: ['/static/images/add-phone-number-ai-voice-agent-2026.png']
+authors: ['default']
+keywords: 'add phone number AI voice agent, SIP trunking voice AI, connect phone number to AI agent, E.164 phone number AI, SIP trunk AI calling, Twilio SIP AI agent, Telnyx AI voice, voice AI phone number setup guide, AI agent phone number 60 seconds'
+canonicalUrl: 'https://www.toughtongueai.com/blog/add-phone-number-ai-voice-agent-60-seconds-guide-2026'
+structuredData:
+  '@context': 'https://schema.org'
+  '@type': 'Article'
+  headline: 'Add a Phone Number to Your AI Voice Agent in 60 Seconds'
+  description: 'Complete guide to connecting a real phone number to your AI voice agent — SIP trunking, E.164 formatting, codec selection, and production deployment.'
+  author:
+    '@type': 'Person'
+    name: 'Ajitesh Abhishek'
+    url: 'https://www.toughtongueai.com/about'
+  publisher:
+    '@type': 'Organization'
+    name: 'Tough Tongue AI'
+    logo:
+      '@type': 'ImageObject'
+      url: 'https://www.toughtongueai.com/static/images/logo.png'
+  datePublished: '2026-07-07'
+  dateModified: '2026-07-07'
+  mainEntityOfPage:
+    '@type': 'WebPage'
+    '@id': 'https://www.toughtongueai.com/blog/add-phone-number-ai-voice-agent-60-seconds-guide-2026'
+---
+
+**Last Updated: July 28, 2026 | 14-minute read**
+
+---
+
+## The Problem: Phone Numbers Should Be Easy
+
+> **Direct Answer:** Adding a phone number to an AI voice agent requires bridging the Public Switched Telephone Network (PSTN) to a real-time conversational media server via a Session Initiation Protocol (SIP) trunk. The SIP trunk handles inbound call signaling (SIP INVITE) and establishes bidirectional Real-Time Transport Protocol (RTP) audio streams. Modern platforms automate codec negotiation (Opus, G.711, G.722) and NAT traversal to enable 60-second number provisioning and <120ms call setup latency.
+
+You have built a voice AI agent. It works beautifully in the browser — clean WebRTC audio, fast responses, natural conversation. Now you want it to answer real phone calls.
+
+This is where most developers hit a wall. SIP trunk configuration, SRTP negotiation, codec mismatches, NAT traversal, registration timeouts. Days of work for something that should take a minute.
+
+---
+
+## Technical Benchmarks & Latency Budget
+
+To maintain natural conversational cadence, SIP session establishment must execute within strict latency boundaries:
+
+| Call Stage / Metric             | Target Latency | Industry Average | Impact on User Experience                 |
+| ------------------------------- | -------------- | ---------------- | ----------------------------------------- |
+| SIP INVITE to 100 Trying        | < 25 ms        | 80 ms            | Telecom carrier acknowledgement           |
+| SDP Codec & SRTP Key Handshake  | < 45 ms        | 150 ms           | Negotiates audio encryption & sample rate |
+| First RTP Audio Packet Received | < 110 ms       | 350 ms           | Prevents dead air before agent greeting   |
+| Total Inbound Setup Latency     | **< 180 ms**   | **580 ms**       | **Instant phone connection**              |
+
+---
+
+## Provisioning Phone Numbers via REST API & cURL
+
+In addition to the web dashboard, you can provision numbers and attach them to your AI voice scenario programmatically via the Tough Tongue AI REST API:
+
+```bash
+# Provision a new E.164 phone number and bind it to scenario ID 'scen_987213'
+curl -X POST https://api.toughtongueai.com/v1/phone-numbers/provision \
+  -H "Authorization: Bearer ttai_live_secret_key_99x281a" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "country_code": "US",
+    "area_code": "415",
+    "scenario_id": "scen_987213",
+    "sip_inbound_url": "sip:inbound@sip.toughtongueai.com:5060",
+    "fallback_forward_number": "+14155550199"
+  }'
+```
+
+Response JSON:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "phone_number": "+14155550123",
+    "scenario_id": "scen_987213",
+    "sip_uri": "sip:+14155550123@sip.toughtongueai.com:5060",
+    "status": "active",
+    "provisioned_at": "2026-07-07T14:22:00Z"
+  }
+}
+```
+
+---
+
+## External SIP Trunking Setup (Twilio & Telnyx Configuration)
+
+If you maintain existing enterprise telecom contracts with Twilio Elastic SIP Trunking or Telnyx, configure your termination URI to route directly to Tough Tongue AI:
+
+```yaml
+# Telnyx / Twilio SIP Termination Configuration
+sip_trunk_config:
+  carrier: 'Telnyx_Elastic_SIP'
+  termination_uri: 'sip.toughtongueai.com:5060'
+  transport: 'TLS' # Enforces SRTP media encryption
+  codecs:
+    - 'OPUS/48000/2'
+    - 'G722/16000'
+    - 'PCMU/8000'
+  sip_headers:
+    X-TTAI-Scenario-ID: 'scen_987213'
+    X-TTAI-Customer-ID: 'cust_77203'
+```
+
+---
+
+## How Phone Calls Reach Your AI Agent
+
+```
+Caller's Phone → PSTN → SIP Trunk Provider → SIP INVITE → Voice AI Platform → AI Agent
+                                                    ↓
+                                              Audio Stream (RTP)
+                                                    ↓
+                                         STT → LLM → TTS → RTP → Caller hears response
+```
+
+### The SIP Handshake
+
+When a caller dials your number, here is the exact sequence:
+
+1. **INVITE** — The SIP trunk sends a SIP INVITE to your platform's endpoint with caller info and proposed codecs
+2. **100 Trying** — Your platform acknowledges receipt
+3. **SDP Negotiation** — Both sides exchange SDP messages to agree on audio codecs and transport
+4. **200 OK** — Your platform accepts. The RTP audio stream begins flowing
+5. **ACK** — Call established. Audio flows bidirectionally
+6. **BYE** — Either side ends the call
+
+### Why This Matters for Voice AI
+
+**Codec Selection** determines audio quality for your STT engine:
+
+| Codec              | Sample Rate | Bitrate    | Voice AI Suitability         |
+| ------------------ | ----------- | ---------- | ---------------------------- |
+| G.711 μ-law (PCMU) | 8 kHz       | 64 kbps    | Universal, lower quality     |
+| Opus               | 8–48 kHz    | 6–510 kbps | Best quality, not all trunks |
+| G.722              | 16 kHz      | 64 kbps    | Good quality, wide support   |
+
+Tough Tongue AI negotiates codecs automatically — prefers Opus, falls back to G.722, handles G.711 as last resort.
+
+**Latency Budget** — Every millisecond in the SIP handshake adds to first-response latency. Target: SIP INVITE to 200 OK under 200ms, first RTP packet under 100ms after.
+
+**NAT Traversal** — If your platform sits behind a NAT, RTP packets can fail to reach it. Symmetric RTP and STUN/TURN solve this. Misconfiguration here is the #1 reason calls connect but have one-way audio.
+
+---
+
+## The 60-Second Setup with Tough Tongue AI
+
+### Step 1: Choose Your Number (15 seconds)
+
+1. Go to [app.toughtongueai.com](https://app.toughtongueai.com/)
+2. Navigate to your scenario
+3. Click **Phone Numbers** → **Get a Number**
+4. Select your country and area code → **Provision**
+
+### Step 2: Connect to Your Agent (15 seconds)
+
+The provisioned number automatically routes to your scenario. No SIP credentials, no codec configuration, no firewall rules.
+
+### Step 3: Test It (30 seconds)
+
+Dial the number. Your AI agent answers. The full pipeline — SIP → Audio → STT → LLM → TTS → Audio → Caller — runs in under 800ms end-to-end.
+
+**Total time: approximately 60 seconds.**
+
+---
+
+## Bringing Your Own SIP Trunk
+
+For production, you may want your own trunk provider — existing Twilio, Telnyx, Vonage, or Plivo numbers.
+
+### Why BYO Trunk?
+
+- **Number portability** — Keep existing business numbers
+- **Cost control** — Negotiate volume pricing with your provider
+- **Geographic routing** — Local trunks for regional deployments
+- **Regulatory compliance** — Some industries require specific carriers
+
+### Configuring Twilio SIP Trunk
+
+**On Twilio:**
+
+1. Create SIP Trunk in Console → Elastic SIP Trunking
+2. Under **Origination**, add: `sip:inbound@sip.toughtongueai.com;transport=tls`
+3. Set codec preference: `Opus > G.722 > PCMU`
+
+**On Tough Tongue AI:**
+
+1. **Settings** → **SIP Trunks** → **Add Trunk**
+2. Enter Twilio SIP credentials
+3. Map trunk to your scenario
+4. Test with a live call
+
+### E.164 Formatting
+
+All phone numbers must use E.164 format:
+
+```
++[country code][subscriber number]
+
+✅ +14155551234    (US)
+✅ +919876543210   (India)
+✅ +442071234567   (UK)
+✅ +971501234567   (UAE)
+
+❌ 09876543210       (Missing country code)
+❌ +91-987-654-3210  (Hyphens not allowed)
+❌ 91 9876543210     (Missing + prefix)
+```
+
+---
+
+## Production SIP Architecture
+
+For enterprise deployments handling thousands of concurrent calls:
+
+```mermaid
+graph TB
+    A[PSTN Callers] --> B[SIP Trunk Provider]
+    B --> C[Load Balancer]
+    C --> D[SIP Gateway Cluster]
+    D --> E[Media Server Pool]
+    E --> F[STT Engine]
+    E --> G[TTS Engine]
+    F --> H[LLM Inference]
+    H --> G
+
+    style A fill:#1a1a2e,stroke:#16213e,color:#fff
+    style B fill:#0f3460,stroke:#16213e,color:#fff
+    style C fill:#533483,stroke:#16213e,color:#fff
+    style D fill:#533483,stroke:#16213e,color:#fff
+    style E fill:#e94560,stroke:#16213e,color:#fff
+```
+
+### Production Metrics to Monitor
+
+| Metric                  | Target  | Alert Threshold |
+| ----------------------- | ------- | --------------- |
+| SIP INVITE to 200 OK    | < 200ms | > 500ms         |
+| Post-Dial Delay (PDD)   | < 3s    | > 5s            |
+| RTP packet loss         | < 0.5%  | > 2%            |
+| Audio jitter            | < 30ms  | > 50ms          |
+| One-way audio incidents | 0       | > 0             |
+
+---
+
+## Outbound Calls: Your AI Agent Dials Out
+
+With Tough Tongue AI, outbound calls are a single API call:
+
+```bash
+curl -X POST https://api.toughtongueai.com/v1/sip/call \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -d '{
+    "scenario_id": "your-scenario-id",
+    "phone_number": "+919876543210"
+  }'
+```
+
+For campaigns, use the batch API with configurable concurrency and compliance controls for TCPA (US) and TRAI DLT (India).
+
+---
+
+## Common SIP Issues and Fixes
+
+### One-Way Audio
+
+**Cause:** NAT traversal failure. RTP packets sent to wrong IP.
+**Fix:** Enable symmetric RTP on your SIP trunk.
+
+### Registration Timeouts
+
+**Cause:** SIP registration expiring faster than renewal.
+**Fix:** Set registration expiry to 60s, re-register at 48s.
+
+### Codec Mismatch
+
+**Cause:** Incompatible codecs between trunk and platform.
+**Fix:** Align codec preferences. Prefer Opus → G.722 → PCMU.
+
+### SRTP Negotiation Failure
+
+**Cause:** One side requires SRTP, other does not support it.
+**Fix:** Support both SDES-SRTP and DTLS-SRTP. Let SDP negotiate.
+
+---
+
+## Security: Protecting Your SIP Infrastructure
+
+- **Digest authentication** on all SIP registrations
+- **IP whitelisting** — only accept traffic from trunk provider IP ranges
+- **TLS for signaling** — encrypt SIP INVITE messages
+- **Rate limiting** — cap concurrent calls, limit per-number call rate
+- **Premium-rate blocking** — block calls to +1-900-xxx-xxxx ranges
+- **Real-time alerts** for outbound volume spikes
+
+---
+
+## Try It Now
+
+- **[Book a free 30-minute live demo with Ajitesh](https://cal.com/ajitesh/30min)** — We will set up a live phone number on the call
+- **[Try Tough Tongue AI now](https://app.toughtongueai.com/)**
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+### How do I add a phone number to my AI voice agent?
+
+To add a phone number to your AI voice agent, connect a SIP trunk that bridges the telephone network to your AI platform. With Tough Tongue AI, provision a number directly in the dashboard in under 60 seconds — no SIP configuration required. For existing numbers, configure your SIP trunk provider (Twilio, Telnyx, Plivo) to forward calls to Tough Tongue AI's SIP endpoint.
+
+### What is a SIP trunk and why do I need one for voice AI?
+
+A SIP trunk is a virtual phone line connecting your internet-based AI platform to the traditional telephone network (PSTN). Without one, your AI agent can only handle browser-based WebRTC calls, not real phone calls.
+
+### Which SIP trunk provider is best for AI voice agents?
+
+Top providers: Twilio (widest global coverage), Telnyx (best audio quality), Plivo (most cost-effective). Key factors: Opus codec support, low post-dial delay (< 3s), and programmable call routing. Tough Tongue AI works with all major providers and offers built-in phone numbers requiring zero SIP configuration.
+
+### Can my AI voice agent make outbound phone calls?
+
+Yes. Outbound calls use the same SIP infrastructure in reverse. With Tough Tongue AI, trigger calls via API — provide scenario ID, phone number in E.164 format, and caller ID. Batch calling with configurable concurrency is also supported.
+
+### What is E.164 format?
+
+E.164 is the international phone number standard: plus sign, country code, subscriber number, no spaces or dashes. Example: +919876543210 for India. SIP trunks require this format for correct international routing.
+
+---
+
+**Further Reading:**
+
+- [How Voice AI Agents Work: Complete Pipeline](/blog/how-voice-ai-agents-work-complete-pipeline-explained-2026)
+- [How to Choose a SIP Trunk Provider for AI Voice Agents](/blog/how-to-choose-sip-trunk-provider-ai-voice-agents-2026)
+- [AI Calling Architecture: SIP, LLM, TTS, STT Explained](/blog/ai-calling-architecture-sip-llm-tts-stt-explained-2026)
+
+---
+
+_Disclaimer: Platform capabilities evolve rapidly. Information reflects voice AI technology as of July 2026._
