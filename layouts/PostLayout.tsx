@@ -1299,20 +1299,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         />
       )}
 
-      <ScrollTopAndComment />
-
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6 lg:px-8">
         <div className="lg:flex lg:gap-8">
           {/* Main Content */}
-          <main className="flex-1 lg:max-w-4xl">
+          <main className="min-w-0 flex-1">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="overflow-hidden rounded-3xl border border-replicate-dark bg-white px-8 py-24 sm:px-24 sm:py-32"
+              className="overflow-hidden rounded-3xl border border-replicate-dark bg-white px-6 py-12 sm:px-12 sm:py-16"
               itemScope
               itemType="https://schema.org/Article"
             >
               {/* Article Header */}
-              <header className="bg-replicate-hero -mx-4 mb-24 rounded-3xl px-8 py-24 text-center text-white sm:-mx-16 sm:px-16 sm:py-32">
+              <header className="bg-replicate-hero -mx-2 mb-12 rounded-3xl px-6 py-12 text-center text-white sm:-mx-6 sm:px-12 sm:py-20">
                 <div className="space-y-6">
                   <div>
                     <time
@@ -1578,7 +1576,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </main>
 
           {/* Sidebar with Table of Contents - Google SEO: Internal linking and better UX */}
-          <aside className="hidden lg:block lg:w-80">
+          <aside className="hidden lg:block lg:w-72 lg:shrink-0">
             <TableOfContents />
           </aside>
         </div>

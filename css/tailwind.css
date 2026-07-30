@@ -176,6 +176,19 @@
   @apply rounded-xl border border-replicate-dark bg-replicate-githubDark p-6 font-mono text-[#fcfcfc];
 }
 
+/* Heading anchor link - embedded inline, visible on hover */
+.prose .content-header {
+  @apply group relative inline-flex flex-wrap items-center gap-2;
+}
+
+.prose .content-header-link {
+  @apply ml-2 inline-flex items-center align-middle text-gray-400 opacity-0 transition-all duration-200 hover:text-black group-hover:opacity-100;
+}
+
+.prose .content-header-link svg {
+  @apply inline-block h-4 w-4 align-middle;
+}
+
 /* ========================================
    CUSTOM UTILITIES
    ======================================== */
