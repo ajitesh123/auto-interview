@@ -87,7 +87,7 @@
   .card {
     @apply bg-white;
     @apply border border-replicate-dark;
-    @apply rounded-[9999px];
+    @apply rounded-2xl;
     @apply p-8 sm:p-12;
     @apply transition-shadow duration-200;
     @apply hover:border-replicate-red;
@@ -169,11 +169,11 @@
 }
 
 .prose code {
-  @apply rounded-[9999px] bg-replicate-githubDark px-3 py-1 font-mono text-[#fcfcfc];
+  @apply rounded-md bg-replicate-githubDark px-2 py-0.5 font-mono text-[#fcfcfc];
 }
 
 .prose pre {
-  @apply rounded-[9999px] border border-replicate-dark bg-replicate-githubDark p-8 font-mono text-[#fcfcfc];
+  @apply rounded-xl border border-replicate-dark bg-replicate-githubDark p-6 font-mono text-[#fcfcfc];
 }
 
 /* ========================================
