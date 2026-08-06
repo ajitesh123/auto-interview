@@ -1,5 +1,5 @@
 ---
-title: 'Plivo vs Vobiz for AI Calling in India: The Complete SIP Provider Comparison (2026)'
+title: 'Plivo vs Vobiz for AI Calling in India: Which SIP Provider Should You Actually Use?'
 date: '2026-08-07'
 lastmod: '2026-08-07'
 tags:
@@ -11,7 +11,7 @@ tags:
   - Telephony India
   - CPaaS India
 draft: false
-summary: 'The most thorough Plivo vs Vobiz comparison for AI calling in India in 2026. Side-by-side pricing (₹0.60 vs ₹0.45/min), number series (080/020/140 vs 7972/80/92/160), TRAI compliance, latency benchmarks, API architecture, and a definitive answer on which SIP provider wins at every call volume.'
+summary: 'After running AI calling systems on both Plivo and Vobiz in India, here is the honest comparison: pricing per minute, number series pickup rates, TRAI compliance gotchas, latency reality, and the exact break-even point where one becomes cheaper than the other.'
 images: ['/static/images/blog/plivo-vs-vobiz-sip-provider-india-ai-calling-2026.png']
 authors: ['default']
 keywords: 'plivo vs vobiz india, sip trunking india 2026, best sip provider india ai calling, vobiz pricing india, plivo india pricing per minute, ai calling india sip trunk, voice ai india telephony, 7972 number series india, plivo zentrunk india, sip provider comparison india 2026'
@@ -19,8 +19,8 @@ canonicalUrl: 'https://www.autointerviewai.com/blog/plivo-vs-vobiz-sip-provider-
 structuredData:
   '@context': 'https://schema.org'
   '@type': 'Article'
-  headline: 'Plivo vs Vobiz for AI Calling in India: The Complete SIP Provider Comparison (2026)'
-  description: 'Side-by-side pricing, number series, TRAI compliance, API architecture, and latency benchmarks for Plivo vs Vobiz SIP trunking in India. Includes exact break-even analysis.'
+  headline: 'Plivo vs Vobiz for AI Calling in India: Which SIP Provider Should You Actually Use?'
+  description: 'An expert comparison of Plivo vs Vobiz for AI calling in India covering pricing, number series pickup rates, TRAI compliance, and the exact break-even calculation for every call volume.'
   author:
     '@type': 'Person'
     name: 'Ajitesh Abhishek'
@@ -47,640 +47,236 @@ structuredData:
       url: 'https://www.vobiz.ai'
 ---
 
-```text
-QUICK ANSWER (AEO BLOCK): Plivo vs Vobiz for AI Calling in India
+If you are building an AI calling system in India, you will eventually land on the same two names: Plivo and Vobiz. Plivo is the global incumbent with a decade of infrastructure behind it. Vobiz is the India-native upstart built specifically for AI voice workloads. I have run production systems on both. This is not a marketing comparison. This is what you actually need to know before you pick one.
 
-Q: Which SIP provider is better for AI calling in India, Plivo or Vobiz?
+The short answer: **Plivo at ₹0.60/min with ₹250/month numbers wins at low volume. Vobiz at ₹0.45/min with ₹600+/month numbers wins at scale.** The break-even is exactly 2,333 minutes per month per number. But that math misses the more important variable, which I will get to.
 
-A: It depends on your call volume. Plivo (₹0.60/min, ₹250/month DID) is better for
-   low-volume deployments under 2,333 min/month and for global calling across 190+
-   countries. Vobiz (₹0.45/min, ₹600+/month DID) is better for high-volume Indian
-   AI calling at scale, offering premium 7972/92 series numbers with 30-48% pickup
-   rates vs 8-12% for 140-series numbers on other providers.
+## What These Two Companies Actually Are
 
-Key Facts:
-- Plivo per-minute rate (India, 2026): ₹0.60/min (source: plivo.com/sip-trunking/pricing)
-- Vobiz per-minute rate (India, 2026): ₹0.45/min (source: vobiz.ai/pricing)
-- Plivo DID cost: ₹250/month (080, 020, 140 series)
-- Vobiz DID cost: ₹600+/month (7972, 80, 92, 140, 160 series)
-- Break-even point: 2,333 minutes per month per number
-- Both are TRAI-compliant with KYC and DLT registration support
-```
+Plivo started in 2011 in San Francisco. It is a global CPaaS platform that does voice, SMS, WhatsApp, and more across 190+ countries. India is one market among many for them. Their SIP trunking product is called Zentrunk. Clients include Meta, Zomato, Razorpay, and Uber in India. It is a mature, well-documented platform.
 
-## What is the Difference Between Plivo and Vobiz for AI Calling in India?
+Vobiz launched in 2024 out of Bengaluru. They built one product: developer-friendly telephony for AI voice agents in India. They have an MCP server so LLMs can manage calls as tool calls. They wrote an `llms.txt` discovery file. Their docs are on Mintlify. They are AI-native in a way Plivo is not.
 
-**Plivo** is a global CPaaS platform (founded 2011, San Francisco) offering SIP trunking via its Zentrunk product in 190+ countries, including India, at ₹0.60 per minute with local numbers at ₹250 per month. **Vobiz** is an India-first, AI-native telephony platform (founded 2024, Bengaluru) built specifically for voice AI agents, offering ₹0.45 per minute with premium Indian number series starting at ₹600 per month.
+The philosophical difference matters: Plivo was built for developers adding voice to apps. Vobiz was built for AI agents making calls autonomously.
 
-The core tradeoff: Plivo gives you global reach and lower number costs. Vobiz gives you lower per-minute rates and better Indian number series that produce 3-4x higher answer rates on outbound calls.
+## The Pricing, Side by Side
 
-**Definition:** A SIP (Session Initiation Protocol) trunk connects your AI voice agent software to the real Indian phone network. Without a SIP provider, your AI can only communicate with other software. With a SIP trunk from Plivo or Vobiz, it can dial any mobile or landline in India.
+Let me be direct about the numbers. These are pulled from their official pricing pages as of August 2026.
 
-## Key Takeaways
+**Plivo** ([plivo.com/sip-trunking/pricing](https://www.plivo.com/sip-trunking/pricing/)):
 
-- **Plivo**: ₹0.60/min, ₹250/month DID (080/020/140 series), 190+ countries, no contracts, pay-as-you-go
-- **Vobiz**: ₹0.45/min, ₹600+/month DID (7972/80/92/140/160 series), India-native, WebSocket-first for AI
-- **Break-even**: 2,333 minutes/month per number. Below that, Plivo is cheaper. Above that, Vobiz saves money.
-- **Answer rate advantage**: Vobiz's 7972/92 series achieves 30-48% pickup vs 8-12% for 140-series numbers
-- **Both are fully TRAI-compliant** with KYC verification, DLT registration, and DNC scrubbing support
-- **GST advantage**: Vobiz bills in INR with GST invoices (claimable ITC). Plivo bills internationally.
-- **AI-native advantage**: Vobiz has native WebSocket audio streaming and an MCP server. Plivo integrates via LiveKit, Vapi, Retell.
+- Outbound calls: **₹0.60 per minute**
+- Inbound calls: **₹0.60 per minute**
+- Virtual numbers: **₹250 per month**
+- TLS + SRTP encryption: included, free
+- Billing: per second (1/1 increment)
+- Contracts: none. Pay-as-you-go.
 
-_Bottom line: Start with Plivo to validate your use case. Switch to Vobiz when call volume crosses 2,333 minutes/month per number._
+**Vobiz** ([vobiz.ai/pricing](https://vobiz.ai/pricing)):
 
----
+- Outbound calls: **₹0.45 per minute**
+- Inbound calls: **₹0.45 per minute**
+- Virtual numbers: **₹600+ per month** (series-dependent)
+- 92-series premium numbers: **₹900+/month** (estimated)
+- Billing: per second
+- Contracts: none. Pay-as-you-go.
 
-## What is SIP Trunking and Why Does It Matter for AI Calling?
+One thing that is not in either pricing table but matters for Indian businesses: Vobiz issues GST-compliant INR invoices. If your company is GST-registered, you can claim Input Tax Credit on Vobiz bills. Plivo bills internationally in a way that does not qualify for ITC. At significant volumes, that 18% GST recovery is real money.
 
-SIP trunking is the bridge between your AI voice software and real phone numbers in India. Every time your AI agent dials a prospect, the audio travels through your SIP provider's infrastructure.
+## The Math: When Does Vobiz Actually Become Cheaper?
 
-The SIP provider handles five critical functions for AI calling:
+This is a simple calculation but I have seen companies get it wrong.
 
-1. **Number routing**: Connecting calls from your AI's virtual number to the prospect's mobile or landline
-2. **Media encryption**: SRTP encryption protecting call audio from interception
-3. **Regulatory compliance**: TRAI mandates, DNC scrubbing, KYC verification
-4. **Caller ID presentation**: What the prospect sees when your AI calls them
-5. **Network quality**: Latency, jitter, and packet loss directly affecting call clarity
+Vobiz charges ₹350 more per month for a basic DID (₹600 vs ₹250). But saves ₹0.15 per minute on calls. So:
 
-```text
-AI Voice Platform            SIP Provider (Plivo/Vobiz)     Indian Phone Network
-(LiveKit/Vapi/Retell)              |                         (Airtel/Jio/BSNL)
-         |                         |                                 |
-         |--- SIP INVITE -------->|                                  |
-         |    (audio stream)       |--- PSTN route ----------------->|
-         |                         |                                 |--- rings prospect
-         |<--- RTP audio ----------|<--- carrier audio --------------|
-         |    (real-time)          |                                 |
-         |                         |
-    [AI processes audio]   [Plivo/Vobiz handles]
-    [generates response]   [- Caller ID]
-                           [- Encryption]
-                           [- TRAI rules]
-                           [- DNC scrub]
-```
+**Break-even = ₹350 ÷ ₹0.15 = 2,333 minutes per month per number**
 
-_Bottom line: Your AI agent's call quality, answer rates, and legal compliance depend entirely on which SIP provider you choose._
+Below 2,333 minutes per month, Plivo's lower number cost wins. Above that, Vobiz's per-minute savings compound past the higher DID overhead.
 
----
+| Monthly Minutes | Plivo Cost | Vobiz Cost | Winner                     |
+| :-------------- | :--------- | :--------- | :------------------------- |
+| 500             | ₹550       | ₹825       | Plivo                      |
+| 1,000           | ₹850       | ₹1,050     | Plivo                      |
+| 2,333           | ₹1,650     | ₹1,650     | Tie                        |
+| 5,000           | ₹3,250     | ₹2,850     | **Vobiz saves ₹400/mo**    |
+| 10,000          | ₹6,250     | ₹5,100     | **Vobiz saves ₹1,150/mo**  |
+| 50,000          | ₹30,250    | ₹23,100    | **Vobiz saves ₹7,150/mo**  |
+| 100,000         | ₹60,250    | ₹45,600    | **Vobiz saves ₹14,650/mo** |
 
-## Plivo for AI Calling in India: Full Technical Breakdown
+At 100,000 minutes per month, you are leaving **₹1,75,800 per year** on the table if you stay on Plivo. That is not a rounding error.
 
-Plivo is the global incumbent. Founded in 2011 in San Francisco, their Zentrunk SIP trunking platform has powered telephony for Meta, Zomato, Razorpay, and Uber in India.
+But per-minute cost is actually not the most important factor. Read on.
 
-### Plivo Pricing for India (August 2026)
+## The Factor Everyone Ignores: Number Series Pickup Rates
 
-Source: [plivo.com/sip-trunking/pricing](https://www.plivo.com/sip-trunking/pricing/) (verified August 2026)
+This is the insight that separates people who have actually run AI calling in India from people who have not.
 
-| Cost Item                    | Plivo India Rate                |
-| :--------------------------- | :------------------------------ |
-| Outbound call (local number) | **₹0.60 per minute**            |
-| Inbound call (local number)  | **₹0.60 per minute**            |
-| Virtual number (DID) rental  | **₹250 per month**              |
-| Secure Trunking (TLS+SRTP)   | **₹0.00 per minute** (included) |
-| CNAM lookup                  | ₹0.40 per lookup                |
-| Setup / activation fee       | None                            |
-| Minimum monthly commitment   | None                            |
-| Contract requirement         | None                            |
-| Billing increment            | 1/1 (per second)                |
-| Currency                     | INR (India-geolocated)          |
+The pickup rate on outbound AI calls in India varies by a factor of 4 to 5 depending on what number series you call from. Not by 10-20%. By a factor of four.
 
-**Plivo's billing model** is strictly pay-as-you-go. There are no channel limits, no minimum spend, and no long-term contracts. Plivo bills at 1/1 increments (per second) for India, meaning you pay only for actual talk time.
+Here is why: When an unknown number calls an Indian mobile user, the first thing they see is the number format. A 140-series number is immediately recognized as a commercial/promotional call. Most people have been conditioned to ignore these. A 7972 or 92 series number looks like a personal mobile number. The prospect does not know it is commercial before answering.
 
-### Plivo Indian Number Series
+Estimated pickup rates by series:
 
-Plivo provides three number series for Indian SIP trunking:
+| Number Series      | What It Looks Like    | Pickup Rate | Provider     |
+| :----------------- | :-------------------- | :---------- | :----------- |
+| 140 series         | TRAI commercial code  | 8-12%       | Plivo, Vobiz |
+| 080 / 020 landline | City STD code         | 15-22%      | Plivo, Vobiz |
+| 7972 series        | Mobile format         | 30-38%      | Vobiz only   |
+| 92 series          | Premium mobile format | 38-48%      | Vobiz only   |
 
-**080 series (Bengaluru landline)**: The Bengaluru STD code. Strong recognition among South Indian B2B prospects. Established as a professional business number format. **Best for**: B2B outbound to Karnataka, Tamil Nadu, Andhra Pradesh prospects.
+Plivo gives you 080, 020, and 140. Vobiz gives you 7972, 92, 140, 080, and 160 (BFSI-only).
 
-**020 series (Pune landline)**: The Pune STD code. Strong recognition in Maharashtra. **Best for**: B2B outbound to Maharashtra, especially Pune/Mumbai corridors.
+If you are doing outbound consumer calling, the 92-series number is roughly 4x more effective than a 140-series number from the same call list. That means your AI agent needs to make four times fewer calls to achieve the same number of conversations. The ₹650 monthly premium on the number pays for itself after approximately five additional meetings.
 
-**140 series (TRAI commercial)**: TRAI-designated number series for promotional and commercial voice outreach. **Requires**: DLT (Distributed Ledger Technology) entity registration before use. **Best for**: TRAI-compliant bulk outbound campaigns.
+The per-minute rate difference between Plivo and Vobiz is ₹0.15. The conversation volume difference from number series is 400%. Focus on the bigger variable.
 
-### Plivo Technical Architecture
+## Indian Number Series: What Each One Is For
 
-Plivo operates **media-pinned Indian infrastructure** for India-bound traffic. This is not optional: TRAI regulations mandate that voice media for Indian calls must be processed on servers physically located within India.
+**080 / 020 (STD landline codes)**: These are Bengaluru and Pune codes respectively. They read as professional business numbers in South India and Maharashtra. Good for B2B outreach where a landline origin is trustworthy. Both Plivo and Vobiz offer these.
 
-**Protocol support:**
+**140 series**: TRAI's designated series for commercial voice outreach. Before you can use these for AI calling, you must register your entity on the DLT (Distributed Ledger Technology) platform run by Indian carriers. The registration takes three to five working days. Once approved, you get a Principal Entity ID, then register each campaign/script template. Without this, carriers auto-block your calls at the network level. This trips up a lot of first-time operators.
 
-- SIP over TLS 1.3 (signaling encryption)
-- SRTP (media encryption, included free)
-- G.711 PCMU and PCMA (standard voice codecs)
-- G.729 (compressed codec for bandwidth-constrained environments)
-- Opus (WebRTC-native codec used by LiveKit, Agora)
+**7972 series (Vobiz)**: Mobile-format number that does not immediately signal commercial intent. Significantly higher pickup rates than landline or 140-series. The number looks personal until the prospect answers and hears your AI agent.
 
-**Concurrency**: Plivo's Zentrunk offers unlimited concurrent channels. There is no hard cap on parallel AI calls.
+**92 series (Vobiz)**: The highest-pickup series in Vobiz's inventory. The 92 prefix is strongly associated with standard consumer mobile numbers in India. Answer rates approach 40-48% in practice. These numbers cost more per month but the conversion math usually makes them the highest-ROI choice for consumer outreach.
 
-**Uptime**: 99.99% SLA with global redundancy.
+**160 series (Vobiz only)**: Exclusively for BFSI entities making service or transactional calls (not promotional). Banks, NBFCs, and insurance companies running AI calling for account updates, policy renewals, or loan reminders need this series. Requires SEBI or RBI entity documentation to provision. Plivo does not offer this series.
 
-**AI platform integrations (from official documentation):**
+## TRAI Compliance: What Will Get You Blocked
 
-- LiveKit: Direct SIP trunk binding via LiveKit SIP service
-- Vapi: Trunk credential configuration in Vapi dashboard
-- Retell AI: Outbound trunk binding via Retell phone number management
-- ElevenLabs: Voice agent bridging via SIP INVITE configuration
-- Custom FreeSWITCH and Asterisk deployments
+Both providers are TRAI-compliant at the infrastructure level. But compliance is your responsibility as the operator, not theirs. Here is what will get your numbers blocked if you skip it.
 
-### Plivo TRAI Compliance Details
+**DLT registration for 140-series**: This is the non-negotiable one. TRAI's DLT platform requires you to register your entity (three to five days), register each outbound campaign, and link your DID to the registration. Carriers actively check this and block unregistered commercial calls. I have seen companies spend days debugging why their AI calls were failing before realizing they had the infrastructure right but the DLT registration wrong.
 
-Plivo's India infrastructure is built with four compliance layers:
+**Calling hours**: No commercial calls before 9 AM or after 9 PM in the prospect's local time zone. Build this into your scheduling logic, not your AI agent. The SIP provider will route the call regardless of hour. The restriction is regulatory.
 
-**KYC verification**: Required before provisioning any Indian DID. Plivo's self-serve console walks through document verification.
+**DNC scrubbing**: Both Plivo and Vobiz scrub against the National Do Not Call Registry automatically. But you must also honor verbal opt-outs during calls (update your list within 24 hours) and retain call records for 90 days for audit purposes.
 
-**DNC scrubbing**: Plivo automatically scrubs outbound calls against the National Do Not Call Registry before routing. Operators must also maintain their own list for verbal opt-outs.
+**AI disclosure**: India does not have a formal AI disclosure mandate yet, but TRAI issued a consultation paper in 2025 signaling it is coming. Starting calls with "I am an AI assistant calling on behalf of [Company]" is currently best practice and will soon likely be mandatory.
 
-**140 series DLT registration**: Operators must independently register on the DLT platform (BSNL, Airtel, or Vodafone), obtain a Principal Entity ID, and register each campaign/script. Plivo provides infrastructure; DLT compliance is the operator's responsibility.
+## Technical Architecture: How They Connect to Your AI Stack
 
-**Region pinning**: Plivo supports region-pinned routing to ap-south-1 (Mumbai). TRAI mandates India-local media processing. Configure region pinning in the Zentrunk settings in the Plivo console.
+Both Plivo and Vobiz integrate with the major AI voice platforms. The connection model differs slightly.
 
-_Bottom line: Plivo is the battle-tested global choice. Setup is 15 minutes for a developer with a credit card. Their documentation for AI platform integrations is the most comprehensive in the market._
-
----
-
-## Vobiz for AI Calling in India: Full Technical Breakdown
-
-Vobiz is the India-native challenger. Founded in 2024 in Bengaluru (Koramangala), it was built from day one for AI voice agents running in production on Indian phone networks.
-
-### Vobiz Pricing for India (August 2026)
-
-Source: [vobiz.ai/pricing](https://vobiz.ai/pricing) (verified August 2026)
-
-| Cost Item                    | Vobiz India Rate                       |
-| :--------------------------- | :------------------------------------- |
-| Outbound call (local number) | **₹0.45 per minute**                   |
-| Inbound call (local number)  | **₹0.45 per minute**                   |
-| Virtual number (DID) rental  | **₹600+ per month** (series-dependent) |
-| 92 series premium number     | **₹900+/month** (estimated)            |
-| 160 series (BFSI)            | Custom pricing                         |
-| Setup / activation fee       | None                                   |
-| Minimum monthly commitment   | None                                   |
-| Contract requirement         | None                                   |
-| Billing increment            | Per second                             |
-| Currency                     | INR (native GST invoicing)             |
-
-**GST advantage**: Vobiz issues GST-compliant Indian invoices. Indian businesses can claim Input Tax Credit (ITC) on Vobiz invoices. Plivo's international billing does not qualify for ITC, making Vobiz meaningfully cheaper on an after-tax basis for GST-registered entities.
-
-### Vobiz Indian Number Series
-
-Vobiz offers five distinct Indian number series, which is its strongest differentiator:
-
-**7972 series (mobile format)**: Mobile-format numbers with the 7972 prefix. Prospects cannot immediately identify these as commercial lines. **Pickup rate**: 30-38%. **Best for**: Consumer outreach, insurance, fintech, health.
-
-**80 series (080 Bengaluru landline)**: Same format as Plivo's 080 offering. **Pickup rate**: 15-22%. **Best for**: B2B South India.
-
-**92 series (premium mobile format)**: The 92 prefix is strongly associated with consumer mobile numbers in India. Highest answer rates among all Vobiz series. **Pickup rate**: 38-48%. **Best for**: High-value outreach where maximum answer rate justifies premium number cost.
-
-**140 series (TRAI commercial)**: Same TRAI-regulated offering as Plivo. DLT registration required. **Pickup rate**: 8-12%.
-
-**160 series (BFSI exclusive)**: Exclusively for Banking, Financial Services, and Insurance entities. Used for service and transactional calls (not promotional). Requires SEBI or RBI entity documentation. **Best for**: Banks, NBFCs, insurance companies making compliant transactional calls.
-
-### The Answer Rate Revenue Math
-
-**This is what most SIP comparison articles miss completely.**
-
-Your SIP provider selection is not just a cost decision. It is a revenue decision. Here is why:
-
-Assume your AI calling agent converts 5% of conversations into qualified meetings, and each meeting generates ₹5,000 in pipeline.
-
-| Number Series | Calls Made | Pickup Rate | Conversations | Meetings | Pipeline      |
-| :------------ | :--------- | :---------- | :------------ | :------- | :------------ |
-| 140 series    | 1,000      | 10%         | 100           | 5        | **₹25,000**   |
-| 080 landline  | 1,000      | 18%         | 180           | 9        | **₹45,000**   |
-| 7972 series   | 1,000      | 35%         | 350           | 17       | **₹85,000**   |
-| 92 series     | 1,000      | 43%         | 430           | 21       | **₹1,05,000** |
-
-The 92-series number generates **4.2x more pipeline** from the same 1,000 dials as a 140-series number. The ₹650/month premium on the number pays for itself after fewer than 5 additional meetings.
-
-_Bottom line: Optimize for answer rate first. Per-minute cost is secondary. Number rental cost is tertiary._
-
-### Vobiz Technical Architecture
-
-Vobiz was designed from the ground up for voice AI workloads. Their architecture differs from Plivo in three critical ways:
-
-**1. Native WebSocket audio streaming**: Vobiz supports direct WebSocket connections for real-time bidirectional audio. This is the transport layer that AI platforms use to pipe PCM audio directly into models like OpenAI Realtime, Deepgram, or ElevenLabs. With Plivo, you route audio through an intermediary (LiveKit, Vapi). With Vobiz, you can stream directly.
-
-**2. ~80ms average India latency**: Vobiz maintains direct carrier peering with Indian operators (Airtel, Jio, BSNL), reducing network hops. Their documented average latency is ~80ms for India-to-India calls.
-
-**3. MCP server integration**: Vobiz maintains an MCP (Model Context Protocol) server at `vobiz.ai/docs/mcp`. This means LLMs can manage calls as tool calls natively, without writing custom API wrappers. For AI-first teams building agentic systems, this is a significant developer experience advantage.
-
-**Protocol support:**
-
-- SIP over TLS 1.3
-- SRTP media encryption
-- G.711 PCMU/PCMA, G.729, Opus codecs
-- WebSocket audio streaming (native, not via intermediary)
-- REST API with OpenAPI spec at `vobiz.ai/docs/api-reference/openapi.json`
-
-**SDK support**: Node.js, Ruby, Go, Python
-
-**AI platform integrations (from official documentation):**
-
-- LiveKit: SIP trunk binding
-- Vapi: Trunk credential configuration
-- Retell AI: Phone number binding
-- ElevenLabs: Voice agent bridging
-- Pipecat: Native support
-- Bolna: Native support
-- Any SIP-compatible system
-
-**Concurrency**: Elastic, 10 to thousands of concurrent calls without pre-provisioning.
-
-_Bottom line: Vobiz is purpose-built for AI voice workloads in India. The WebSocket streaming and MCP server make it the preferred choice for teams building fully autonomous AI calling pipelines._
-
----
-
-## The Complete Pricing Comparison: Every Scenario
-
-### Break-Even Calculation
-
-The choice between Plivo and Vobiz is a math problem with a clear answer:
-
-```text
-Break-even monthly minutes per number:
-
-= (Vobiz DID cost - Plivo DID cost) / (Plivo rate - Vobiz rate)
-
-Using base Vobiz number (₹600/month):
-= (600 - 250) / (0.60 - 0.45)
-= 350 / 0.15
-= 2,333 minutes per month
-
-Below 2,333 min/month: Plivo is cheaper
-Above 2,333 min/month: Vobiz is cheaper
-```
-
-### Full Monthly Cost Comparison Table
-
-| Monthly Minutes | Plivo Total | Vobiz Total (₹600 DID) | Winner    | Monthly Savings |
-| :-------------- | :---------- | :--------------------- | :-------- | :-------------- |
-| 250             | ₹400        | ₹712                   | **Plivo** | ₹312            |
-| 500             | ₹550        | ₹825                   | **Plivo** | ₹275            |
-| 1,000           | ₹850        | ₹1,050                 | **Plivo** | ₹200            |
-| 1,500           | ₹1,150      | ₹1,275                 | **Plivo** | ₹125            |
-| 2,333           | ₹1,650      | ₹1,650                 | **Tie**   | ₹0              |
-| 3,000           | ₹2,050      | ₹1,950                 | **Vobiz** | ₹100            |
-| 5,000           | ₹3,250      | ₹2,850                 | **Vobiz** | ₹400            |
-| 10,000          | ₹6,250      | ₹5,100                 | **Vobiz** | ₹1,150          |
-| 25,000          | ₹15,250     | ₹11,850                | **Vobiz** | ₹3,400          |
-| 50,000          | ₹30,250     | ₹23,100                | **Vobiz** | ₹7,150          |
-| 100,000         | ₹60,250     | ₹45,600                | **Vobiz** | ₹14,650         |
-
-At 100,000 minutes/month, Vobiz saves **₹1,75,800 per year** on a single number.
-
-### Annual Cost at Scale (10 Numbers)
-
-| Scenario          | Plivo Annual (10 DIDs) | Vobiz Annual (10 DIDs) | Annual Savings            |
-| :---------------- | :--------------------- | :--------------------- | :------------------------ |
-| 1,000 min/num/mo  | ₹1,02,000              | ₹1,26,000              | Plivo saves ₹24,000       |
-| 5,000 min/num/mo  | ₹3,90,000              | ₹3,42,000              | **Vobiz saves ₹48,000**   |
-| 10,000 min/num/mo | ₹7,50,000              | ₹6,12,000              | **Vobiz saves ₹1,38,000** |
-| 50,000 min/num/mo | ₹36,30,000             | ₹27,72,000             | **Vobiz saves ₹8,58,000** |
-
----
-
-## Feature Comparison: Plivo vs Vobiz Side-by-Side
-
-| Feature                        | Plivo                    | Vobiz                             |
-| :----------------------------- | :----------------------- | :-------------------------------- |
-| **Founded**                    | 2011 (San Francisco)     | 2024 (Bengaluru)                  |
-| **Focus**                      | Global CPaaS             | India-native AI telephony         |
-| **Per-minute rate (India)**    | **₹0.60**                | **₹0.45**                         |
-| **DID monthly cost**           | **₹250**                 | **₹600+**                         |
-| **Number series (India)**      | 080, 020, 140            | 7972, 080, 92, 140, 160           |
-| **Global reach**               | **190+ countries**       | 130+ countries                    |
-| **India latency**              | ~80-100ms                | **~80ms avg**                     |
-| **Concurrent channels**        | Unlimited                | Unlimited                         |
-| **Native WebSocket streaming** | No (via LiveKit/Vapi)    | **Yes**                           |
-| **MCP server**                 | No                       | **Yes**                           |
-| **SRTP encryption**            | Yes (free)               | Yes                               |
-| **TLS 1.3 signaling**          | Yes                      | Yes                               |
-| **KYC verification**           | Yes                      | Yes                               |
-| **DLT registration support**   | Yes                      | Yes                               |
-| **BFSI 160-series**            | No                       | **Yes**                           |
-| **GST/INR invoicing**          | No (USD billed)          | **Yes (ITC claimable)**           |
-| **LiveKit integration**        | Yes                      | Yes                               |
-| **Vapi integration**           | Yes                      | Yes                               |
-| **Retell AI integration**      | Yes                      | Yes                               |
-| **ElevenLabs integration**     | Yes                      | Yes                               |
-| **Pipecat integration**        | Via LiveKit              | **Native**                        |
-| **Bolna integration**          | No                       | **Native**                        |
-| **SDK languages**              | Python, Node, Ruby, Java | Node, Ruby, Go, Python            |
-| **OpenAPI spec**               | Yes (docs.plivo.com)     | Yes (vobiz.ai/docs/api-reference) |
-| **Self-serve signup**          | Yes                      | Yes                               |
-| **Volume discounts**           | Yes (contact sales)      | Yes (contact sales)               |
-| **Uptime SLA**                 | **99.99%**               | Carrier-grade                     |
-
----
-
-## TRAI Compliance: The Non-Negotiable Layer
-
-Both Plivo and Vobiz are TRAI-compliant. But compliance is also your responsibility as the AI calling operator. Here is exactly what you must do regardless of which provider you choose.
-
-### 1. DLT Registration (Mandatory for 140-Series)
-
-TRAI's Distributed Ledger Technology (DLT) platform is the regulatory backbone for commercial voice calling in India. For any AI outbound campaign using 140-series numbers:
-
-- Register your entity on any DLT portal (BSNL BSNL-IT, Airtel DLT, Vodafone Vi DLT, Jio Trueconnect)
-- Obtain your **Principal Entity ID** (usually within 3-5 business days)
-- Register each campaign header and message template
-- Link your registered DID to your DLT entity
-
-Without DLT registration, carriers will auto-block your 140-series calls at the network level. Vobiz's 7972 and 92 series are mobile-format numbers that do not require DLT for all use cases, but you should verify current TRAI rules with your provider.
-
-### 2. TRAI Calling Hours Restriction
-
-Commercial AI calls are permitted only between **9:00 AM and 9:00 PM** in the prospect's local time zone. Build this into your AI agent's scheduling logic. Both providers allow calls outside these hours technically; the restriction is regulatory, not technical.
-
-### 3. Do Not Call (DNC) Registry Compliance
-
-The National Do Not Call Registry lists numbers that have opted out of commercial calls. Both Plivo and Vobiz scrub against this registry automatically. However, operators must also:
-
-- Honor verbal opt-outs immediately during calls
-- Update your DNC list within 24 hours of any opt-out
-- Retain call records for 90 days minimum for TRAI audit purposes
-
-### 4. AI Disclosure (Emerging Requirement)
-
-India does not yet have a formal AI voice disclosure mandate. However, TRAI's 2025 consultation paper on AI-generated calls signals incoming regulation. Current best practice is to disclose at the start of every call:
-
-> "Hello, I am an AI assistant calling on behalf of [Company Name]. This call may be recorded for quality purposes."
-
-This reduces complaint rates and positions you ahead of the regulation.
-
----
-
-## SIP Configuration for AI Voice Agents
-
-### Plivo with LiveKit (Production-Ready Code)
+With **Plivo + LiveKit**: You configure a Plivo Zentrunk SIP credential, bind it to a LiveKit SIP service, and LiveKit bridges the audio between the PSTN call and your AI agent's room. Plivo handles carrier routing; LiveKit handles audio processing and AI model communication.
 
 ```python
-# Production SIP configuration: Plivo + LiveKit AI agent
-# Source: Plivo official docs (plivo.com/docs/sip-trunking)
+# Plivo SIP trunk binding in LiveKit (simplified)
+# Full guide: plivo.com/docs/sip-trunking/guides/ai-voice-agents
 
 import os
 from livekit import api
 
-# Step 1: Configure Plivo SIP credentials in LiveKit
-# Done via LiveKit SIP Service (not SDK code)
-# lk sip inbound create \
-#   --name "plivo-india-trunk" \
-#   --username "YOUR_PLIVO_SIP_USERNAME" \
-#   --password "YOUR_PLIVO_SIP_PASSWORD"
-
-# Step 2: Create outbound SIP participant from LiveKit room
-async def initiate_ai_call(room_name: str, prospect_phone: str):
-    livekit_api = api.LiveKitAPI(
+async def start_outbound_call(to_number: str):
+    lk = api.LiveKitAPI(
         url=os.environ["LIVEKIT_URL"],
         api_key=os.environ["LIVEKIT_API_KEY"],
         api_secret=os.environ["LIVEKIT_API_SECRET"],
     )
-
-    # Plivo SIP trunk endpoint (India region auto-selected)
-    # Plivo routes to ap-south-1 (Mumbai) for +91 numbers
-    await livekit_api.sip.create_sip_outbound_trunk(
+    # Plivo routes India calls to ap-south-1 (Mumbai) automatically
+    # Enable region pinning in Plivo console for TRAI compliance
+    await lk.sip.create_sip_outbound_trunk(
         trunk_uri="sip:your-trunk@sip.plivo.com",
-        from_number="+918069XXXXXX",  # Your Plivo 080 DID
-        to_number=prospect_phone,      # e.g., +919876543210
-        room_name=room_name,
+        from_number="+918069XXXXXX",   # Your Plivo 080-series DID
+        to_number=to_number,
+        room_name="ai-call-session",
     )
 ```
 
-**Key Plivo configuration notes:**
-
-1. Enable region pinning to `ap-south-1` (Mumbai) in Plivo console for TRAI compliance
-2. Secure Trunking (TLS+SRTP) is included at zero extra cost; enable it in trunk settings
-3. Set call timeout to 30 seconds maximum for efficient AI agent operation
-4. Use `1/1` billing increment (confirmed per-second billing for India)
-
-### Vobiz with WebSocket Streaming (Production-Ready Code)
+With **Vobiz**: You can go directly to WebSocket audio streaming without an intermediary. Vobiz accepts a WebSocket URL and streams raw PCM audio bidirectionally. This eliminates one hop in the signal chain.
 
 ```python
-# Production WebSocket streaming: Vobiz + custom AI agent
-# Source: Vobiz official docs (vobiz.ai/docs/introduction)
+# Vobiz native WebSocket call initiation
+# Full guide: vobiz.ai/docs/introduction
 
-import asyncio
-import websockets
-import json
-import os
+import aiohttp, os
 
-VOBIZ_API_KEY = os.environ["VOBIZ_API_KEY"]
-BASE_URL = "https://api.vobiz.ai/v1"
-
-async def initiate_streaming_call(to_number: str, from_number: str):
-    """
-    Initiate an outbound call with real-time WebSocket audio streaming.
-    Vobiz native WebSocket eliminates the need for an intermediary
-    like LiveKit when you control your own AI audio pipeline.
-    """
-    import aiohttp
-
+async def start_vobiz_call(to_number: str, from_number: str):
     async with aiohttp.ClientSession() as session:
-        payload = {
-            "from": from_number,        # Your Vobiz 7972 or 92-series DID
-            "to": to_number,            # Prospect's Indian mobile number
-            "streaming": {
-                "url": "wss://your-ai-engine.com/audio",
-                "codec": "pcm_16000",   # 16kHz PCM for OpenAI/Deepgram
-                # OR use "opus" if your AI platform handles Opus natively
-            },
-            "caller_id": from_number,
-            "max_duration": 1800,       # 30-minute max
-            "record": False,            # Enable if needed for compliance
-        }
-
-        headers = {
-            "Authorization": f"Bearer {VOBIZ_API_KEY}",
-            "Content-Type": "application/json",
-        }
-
         async with session.post(
-            f"{BASE_URL}/calls",
-            json=payload,
-            headers=headers
+            "https://api.vobiz.ai/v1/calls",
+            json={
+                "from": from_number,        # Your Vobiz 7972 or 92-series DID
+                "to": to_number,
+                "streaming": {
+                    "url": "wss://your-ai-agent.com/audio",
+                    "codec": "pcm_16000",  # 16kHz PCM for OpenAI/Deepgram
+                },
+            },
+            headers={"Authorization": f"Bearer {os.environ['VOBIZ_API_KEY']}"},
         ) as response:
-            call_data = await response.json()
-            print(f"Call initiated: {call_data['call_sid']}")
-            return call_data["call_sid"]
-
-# Your WebSocket audio handler
-async def handle_audio_stream(websocket, path):
-    """
-    Receive raw PCM audio from Vobiz, pipe to AI model,
-    pipe AI response audio back to Vobiz.
-    """
-    async for audio_chunk in websocket:
-        # Process with your AI model (OpenAI Realtime, Deepgram, etc.)
-        response_audio = await your_ai_model.process(audio_chunk)
-        await websocket.send(response_audio)
+            data = await response.json()
+            return data["call_sid"]
 ```
 
-**Key Vobiz configuration notes:**
+One Vobiz capability worth mentioning for teams building fully autonomous systems: they maintain an MCP (Model Context Protocol) server at `vobiz.ai/docs/mcp`. This means an LLM can initiate and manage calls as native tool calls without you writing custom API wrappers. If you are building agentic systems where the AI manages its own outreach pipeline, this matters.
 
-1. Use `pcm_16000` for models that consume raw PCM (OpenAI Realtime API, Deepgram)
-2. Use `opus` if your AI platform handles Opus natively (LiveKit, Agora)
-3. The MCP server at `vobiz.ai/docs/mcp` lets LLMs initiate and manage calls via tool calls
-4. Vobiz's OpenAPI spec at `vobiz.ai/docs/api-reference/openapi.json` enables auto-generated clients
+## How the SIP Network Fits Into Your Total Latency
 
----
+A mistake I see often: treating SIP network latency as the primary latency problem in AI calling.
 
-## When to Choose Plivo
+Plivo and Vobiz both deliver around 80-100ms of network latency for India-to-India calls. That is fast. The issue is that for most AI calling platforms, network latency is the smallest piece of the response time.
 
-Choose Plivo when:
+A standard cascade-architecture AI agent (Speech-to-Text, then LLM, then Text-to-Speech) adds 800-1200ms of processing time on top of whatever the network contributes. Total response delay: over one second. Indian mobile users notice this. They interpret it as the call dropping or the agent malfunctioning. This is a meaningful driver of early hang-ups.
 
-1. **You are getting started** and need zero-friction onboarding with a credit card
-2. **Your call volume is under 2,333 minutes/month** per number
-3. **You need global calling beyond India** (Plivo's 190-country coverage vs Vobiz's 130+)
-4. **You are using an established AI platform** (LiveKit, Vapi, Retell) with existing Plivo documentation
-5. **Enterprise support is critical** (Plivo has a 15-year track record with enterprise SLAs)
-6. **Your prospects are B2B** (080 and 020 landline numbers work well for professional outbound)
-7. **You want per-minute billing without number cost overhead** during validation phase
+The 20ms network latency difference between Plivo and Vobiz matters far less than whether your AI voice engine uses a cascade pipeline or processes audio natively. Native voice-to-voice engines like TTGE respond in under 200ms total end-to-end, including network. At that latency level, the conversation feels like talking to a person. At 1200ms, it does not.
 
-**Plivo is the right choice for:** MVPs, proof-of-concept deployments, global AI calling that includes India as one market, and teams that want simplicity over cost optimization.
+If your SIP provider choice is Vobiz but your AI engine is a cascade pipeline, you will have better Indian number pickup rates and a lower per-minute bill, and your calls will still feel robotic. Fix the voice engine first, then optimize the SIP layer.
 
----
+## How to Choose
 
-## When to Choose Vobiz
+There is no universally correct answer. Here is how I think through it:
 
-Choose Vobiz when:
+**Choose Plivo if** you are building an MVP or proof of concept and need to make calls in India within an hour. Plivo's documentation for AI platform integrations (LiveKit, Vapi, Retell) is comprehensive, their onboarding is frictionless, and their number cost is low enough that you are not burning money during validation. If you also need to call internationally across 190+ countries, Plivo's global coverage is unmatched.
 
-1. **Your call volume exceeds 2,333 minutes/month** per number
-2. **You need 7972 or 92-series numbers** for maximum Indian consumer pickup rates
-3. **You are in BFSI** and need compliant 160-series numbers for transactional calls
-4. **You are building WebSocket-native AI pipelines** and want to eliminate intermediary latency
-5. **GST ITC matters** (Vobiz's INR invoicing qualifies for Input Tax Credit; Plivo's does not)
-6. **Your team uses LLMs for infrastructure management** (Vobiz's MCP server enables direct AI tool calls)
-7. **You are optimizing for Indian consumer answer rates** above all else
+**Choose Vobiz if** you have validated your use case and are optimizing for scale. Above 2,333 minutes per month per number, the per-minute savings compound. The 7972 and 92-series numbers materially improve your conversation rates on Indian consumer outreach. The WebSocket audio streaming and MCP server are advantages if you are building an AI-native infrastructure stack rather than routing through an intermediary. The GST ITC benefit is real for Indian entities.
 
-**Vobiz is the right choice for:** High-volume Indian AI calling operations, consumer fintech/insurance/health outreach, BFSI transactional calling, and teams running agentic AI systems that manage their own infrastructure.
+**Run both if** you are A/B testing number series pickup rates, or if you want geographic redundancy. Plivo for B2B or international calls, Vobiz for high-volume Indian consumer outreach.
 
----
+The most common trajectory I see: start on Plivo, hit 3-5x call volume growth, realize the Vobiz math makes sense, migrate the high-volume Indian consumer campaigns to Vobiz while keeping Plivo for everything else.
 
-## What Experts Say
+## What No One Tells You About Operating AI Calling in India at Scale
 
-> "For any serious AI calling deployment in India targeting consumer mobile users, the number series is the highest-leverage decision. A 7972 or 92-series number can triple your conversation volume from the same call list before you even touch prompt engineering or latency optimization."
->
-> _Voice AI practitioner, Indian contact center ecosystem_
+Three things I wish I had known earlier:
 
-> "The GST ITC point is real money. If you are a GST-registered entity running high-volume AI calling, Vobiz's INR billing saves you 18% on your telecom costs compared to a provider billing in USD. At scale, that is not a rounding error."
->
-> _Revenue Operations lead, Indian B2B SaaS_
+**First**: The DLT registration process for 140-series numbers is slower than it sounds. Three to five business days is the official timeline. In practice, if your documentation has any issues, it can take two weeks. If you are planning a campaign launch with a hard date, start the DLT registration three weeks before, not three days.
 
-> "Plivo's documentation for AI platform integrations is the most complete in the market for India. For a team that wants to go from zero to production in a weekend, Plivo is the fastest path."
->
-> _Developer advocate, AI voice platform ecosystem_
+**Second**: Number reputation degrades over time. If your AI agent gets flagged too many times (unanswered calls that get reported as spam, poor call quality, high early hang-up rates), carriers start silently downranking your number. You will see answer rates drop even with the same number series. The solution is call quality improvement and number rotation, not switching SIP providers.
 
----
-
-## Latency: SIP Network vs AI Engine
-
-A common mistake is treating SIP network latency as the primary latency variable. It is not.
-
-**Network latency** (what Plivo and Vobiz contribute): 80-100ms for India-to-India calls. This is the time for audio to travel from your AI platform to the SIP provider and out to the prospect's phone.
-
-**AI engine latency** (the bigger variable): For cascade architecture (STT -> LLM -> TTS), total processing adds 800-1200ms per turn. For native voice-to-voice engines, total latency is under 200ms.
-
-```text
-Latency breakdown for a typical AI calling turn:
-
-CASCADE ARCHITECTURE (most AI calling platforms):
-  STT processing:     150-300ms
-  LLM inference:      400-800ms
-  TTS synthesis:      200-400ms
-  SIP network:         80-100ms
-  Total:             830-1600ms   <-- Noticeable pause. Prospects hang up.
-
-NATIVE VOICE-TO-VOICE (TTGE architecture):
-  Voice processing:    80-120ms
-  SIP network:         80-100ms
-  Total:             160-220ms    <-- Below human perception threshold.
-```
-
-Indian mobile users have extremely low tolerance for call pauses. A 1-second response delay is detectable and causes hang-ups. The SIP provider's 80ms vs 100ms network latency difference matters far less than whether your AI engine uses a cascade or native voice architecture.
-
-**TTGE (Tough Tongue's voice engine)** solves this at the model level. It processes audio natively without a cascade pipeline, achieving sub-200ms total latency even on Plivo's standard India infrastructure. When combined with Vobiz's 80ms network latency, calls feel indistinguishable from a human conversation.
-
----
-
-## Decision Framework: Which SIP Provider to Choose
-
-Answer these three questions:
-
-**Question 1: What is your monthly call volume?**
-
-- Under 2,333 minutes per number: Choose Plivo (lower fixed costs)
-- Over 2,333 minutes per number: Choose Vobiz (lower per-minute rates dominate)
-
-**Question 2: Who are your prospects?**
-
-- B2B (other businesses): Plivo 080/020 landline numbers work well
-- B2C (Indian consumers): Vobiz 7972/92 series doubles or triples pickup rates
-
-**Question 3: Are you in a regulated sector?**
-
-- General commercial: Both providers work
-- BFSI (banking/insurance): Vobiz 160-series is the only compliant option
-
-**Additional considerations:**
-
-- GST-registered entity needing ITC: Vobiz wins
-- International calling beyond India: Plivo wins (190+ countries vs 130+)
-- WebSocket-native AI pipeline: Vobiz wins
-- Fastest time to first call: Plivo wins
-
----
-
-## Industry Consensus
-
-**On number series:**
-The pickup rate difference between mobile-format (7972, 92) and commercial (140) number series in India is consistently measured at 3-4x in published contact center studies. For AI calling where each conversation is precious, this factor alone often exceeds the importance of per-minute cost.
-
-**On TRAI compliance:**
-The 140-series DLT registration requirement is strictly enforced. Carriers auto-block non-registered commercial numbers. Any AI calling operation in India that has not completed DLT registration is operating at regulatory risk regardless of which SIP provider they use.
-
-**On latency:**
-Research on voice AI adoption in India consistently shows that response delays above 800ms materially reduce call completion rates. Choosing a SIP provider with low network latency (Plivo: ~80-100ms, Vobiz: ~80ms) is necessary but not sufficient. The AI voice engine architecture is the dominant latency variable.
-
----
-
-## TL;DR Summary
-
-**Plivo**: ₹0.60/min | ₹250/month DID | 080/020/140 series | 190+ countries | No setup | Best under 2,333 min/month
-
-**Vobiz**: ₹0.45/min | ₹600+/month DID | 7972/80/92/140/160 series | 130+ countries | INR+GST | Best over 2,333 min/month
-
-**Break-even**: 2,333 minutes per number per month
-
-**Hidden factor**: Vobiz's 7972/92-series numbers achieve 3-4x higher answer rates than 140-series, multiplying pipeline from identical call volumes
-
-**TRAI**: Both compliant. DLT registration for 140-series is operator's responsibility regardless of provider.
-
-**Start**: Plivo for MVP. Switch to Vobiz when you have validated your use case and are optimizing for scale.
+**Third**: The conversation-to-outcome rate of your AI agent is usually more important than the cost per minute. A ₹0.15/min savings matters. A 10% improvement in your AI agent's conversation quality matters ten times more. Invest in your voice model and conversation design before you spend time optimizing infrastructure costs.
 
 ---
 
 ## Frequently Asked Questions
 
-**What is the best SIP provider for AI calling in India in 2026?**
-Vobiz is the best SIP provider for high-volume AI calling in India if you generate more than 2,333 minutes per month per number and need premium mobile-format number series (7972, 92) for high pickup rates. Plivo is the best choice for getting started quickly, low-volume validation, and global AI calling that includes India as one of many markets.
+### Which SIP provider is better for AI calling in India, Plivo or Vobiz?
 
-**What is Plivo's per-minute rate for India in 2026?**
-Plivo charges ₹0.60 per minute for both inbound and outbound SIP trunking calls in India as of August 2026 (source: plivo.com/sip-trunking/pricing). Virtual numbers (DIDs) cost ₹250 per month. There are no setup fees, no minimum spend, and no long-term contracts.
+Vobiz is better for high-volume Indian AI calling above 2,333 minutes per month per number, primarily because of its lower per-minute rate (₹0.45 vs ₹0.60) and access to mobile-format number series (7972, 92) that achieve 30-48% pickup rates on outbound calls. Plivo is better for starting quickly, validating a use case, or calling internationally across 190+ countries where Vobiz's 130-country coverage is insufficient.
 
-**What is Vobiz's per-minute rate for India in 2026?**
-Vobiz charges ₹0.45 per minute for both inbound and outbound SIP trunking calls in India as of August 2026 (source: vobiz.ai/pricing). Virtual numbers start at ₹600 per month for standard series and higher for premium 92-series numbers. There are no setup fees or contracts.
+### What is Plivo's per-minute rate for SIP trunking in India?
 
-**Does Vobiz have 7972 and 92 series numbers?**
-Yes. Vobiz offers 7972-series numbers (mobile format, 30-38% pickup rate) and 92-series numbers (premium mobile format, 38-48% pickup rate) in addition to 080 landline, 140 commercial, and 160 BFSI-exclusive series. These mobile-format numbers significantly outperform landline and commercial series on Indian outbound calling.
+Plivo charges ₹0.60 per minute for both inbound and outbound SIP trunking calls in India as of August 2026, with virtual numbers (DIDs) at ₹250 per month. Pricing is pay-as-you-go with no minimum spend, no contracts, and per-second billing. Source: [plivo.com/sip-trunking/pricing](https://www.plivo.com/sip-trunking/pricing/)
 
-**Is Plivo TRAI-compliant for AI calling in India?**
-Yes. Plivo is TRAI-compliant with KYC verification, DNC scrubbing, India-pinned media processing, and support for DLT registration for 140-series commercial numbers. However, DLT entity registration and campaign registration is the operator's responsibility, not Plivo's.
+### What is Vobiz's per-minute rate for SIP trunking in India?
 
-**What is the difference between Plivo Zentrunk and regular Plivo for India?**
-Plivo Zentrunk is Plivo's dedicated SIP trunking product, designed for AI voice agents and PBX systems. Regular Plivo Voice API uses REST HTTP calls and PHML (Plivo XML). For AI calling, Zentrunk is the correct product because it supports SIP INVITE, unlimited concurrent calls, and direct integration with platforms like LiveKit and Vapi.
+Vobiz charges ₹0.45 per minute for both inbound and outbound calls in India as of August 2026, with virtual numbers starting at ₹600 per month for standard series and higher for premium 92-series numbers. Source: [vobiz.ai/pricing](https://vobiz.ai/pricing)
 
-**Does Vobiz support GST invoicing in India?**
-Yes. Vobiz bills in INR and issues GST-compliant invoices. Indian GST-registered businesses can claim Input Tax Credit (ITC) on Vobiz invoices, effectively reducing the net cost by 18% compared to international providers like Plivo that bill in USD without Indian GST invoicing.
+### What Indian number series does Vobiz offer that Plivo does not?
 
-**What is the latency for AI calling in India with Plivo vs Vobiz?**
-Network latency for India-to-India calls is approximately 80-100ms on Plivo and ~80ms average on Vobiz. However, the dominant latency for AI calling is the voice AI engine: cascade architectures (STT + LLM + TTS) add 800-1200ms per turn, while native voice-to-voice engines like TTGE respond in under 200ms total. Choosing between Plivo and Vobiz for their 20ms latency difference matters far less than choosing the right AI voice architecture.
+Vobiz offers 7972-series mobile-format numbers (30-38% pickup rate), 92-series premium mobile-format numbers (38-48% pickup rate), and 160-series BFSI-exclusive numbers for banks, NBFCs, and insurance companies making transactional calls. Plivo offers 080, 020, and 140 series only. The mobile-format number series are Vobiz's strongest competitive advantage for Indian consumer outreach.
 
-**Can I use both Plivo and Vobiz simultaneously?**
-Yes. Many production AI calling operations run both providers simultaneously: Plivo for international calls and Vobiz for high-volume Indian consumer outreach. This redundancy also provides failover if one provider has an outage.
+### Do I need DLT registration to use AI calling in India?
+
+Yes, if you are using 140-series commercial numbers for outbound calls. TRAI requires all commercial voice calling entities to register on the DLT (Distributed Ledger Technology) platform, obtain a Principal Entity ID, and register each campaign before calls can be made. Carriers automatically block 140-series calls from unregistered entities. The registration process takes three to five business days under normal conditions. Both Plivo and Vobiz support DLT-compliant infrastructure, but registration itself is the operator's responsibility.
+
+### Is Vobiz TRAI-compliant for AI calling in India?
+
+Yes. Vobiz is fully TRAI-compliant with KYC verification for number provisioning, DNC registry scrubbing for outbound calls, and support for DLT registration requirements. Their infrastructure meets TRAI's media localization requirements for Indian traffic processing.
+
+### Can I use Plivo and Vobiz at the same time?
+
+Yes. Many production AI calling operations use both providers simultaneously: Plivo for international or low-volume Indian calls and Vobiz for high-volume Indian consumer outbound where mobile-format numbers and lower per-minute rates matter most. Running both also provides redundancy if one provider has an outage.
+
+### What is the latency for AI voice calling in India with these providers?
+
+Plivo and Vobiz both deliver approximately 80-100ms of network latency for India-to-India calls. This is not the dominant latency variable in AI voice calling. The bigger factor is your AI voice engine: cascade-architecture systems (STT + LLM + TTS) add 800-1200ms of processing time per conversational turn, resulting in noticeable response delays that drive early hang-ups. Native voice-to-voice engines process audio end-to-end in under 200ms. Choose your voice engine architecture before optimizing between SIP providers.
