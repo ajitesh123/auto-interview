@@ -1377,13 +1377,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {children}
               </section>
 
-              {/* Manifesto Section */}
-              <div className="my-24 flex items-center justify-center overflow-hidden rounded-3xl border border-replicate-dark bg-replicate-dark p-12 text-center text-white sm:p-24">
-                <div className="font-display text-[60px] font-bold leading-[1.0] tracking-tight sm:text-[128px]">
-                  Imagine what you can build.
-                </div>
-              </div>
-
               {/* Article Footer */}
               <footer className="pt-8">
                 {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
