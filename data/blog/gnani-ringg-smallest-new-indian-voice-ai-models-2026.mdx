@@ -1,0 +1,434 @@
+---
+title: 'Gnani, Ringg, and Smallest: The New Indian Voice AI Models Changing the Game in 2026'
+date: '2026-08-12'
+slug: gnani-ringg-smallest-new-indian-voice-ai-models-2026
+tags:
+  [
+    'Voice AI India',
+    'Gnani AI',
+    'Ringg AI',
+    'Smallest AI',
+    'STT India',
+    'TTS India',
+    'Indian AI Models',
+  ]
+summary: 'Three Indian companies — Gnani AI (Prisma v2.5 ASR), Ringg AI (Parrot STT V1, 60ms latency), and Smallest.ai (Lightning V3 TTS, sub-100ms) — are building voice AI infrastructure that rivals global giants for Indian languages and telephony conditions.'
+keywords: 'gnani ai, ringg ai, smallest.ai, indian voice ai models 2026, best indian STT model, best indian TTS model, Hinglish ASR, voice AI India'
+authors: ['Ajitesh Abhishek']
+structuredData:
+  '@context': 'https://schema.org'
+  '@type': 'Article'
+  headline: 'Gnani, Ringg, and Smallest: The New Indian Voice AI Models Changing the Game in 2026'
+  datePublished: '2026-08-12T00:00:00.000Z'
+  dateModified: '2026-08-12T00:00:00.000Z'
+  author:
+    - '@type': 'Person'
+      name: 'Ajitesh Abhishek'
+      url: 'https://auto-interview.ai/about'
+      knowsAbout:
+        [
+          'Voice AI',
+          'Speech-to-Text',
+          'Text-to-Speech',
+          'Artificial Intelligence',
+          'Indian AI Models',
+        ]
+  mentions:
+    - '@type': 'Organization'
+      name: 'Gnani AI'
+    - '@type': 'Organization'
+      name: 'Ringg AI'
+    - '@type': 'Organization'
+      name: 'Smallest.ai'
+    - '@type': 'Organization'
+      name: 'Tough Tongue AI'
+---
+
+Indian voice AI has a fundamental problem global providers don't solve well — Hinglish, telephony-grade 8kHz audio, regional accents, and seamless code-switching. Building voice agents for the Indian subcontinent requires confronting these harsh realities of telecom networks where global state-of-the-art models routinely break down. Three companies are actively fixing this gap: Gnani AI, Ringg AI, and Smallest.ai.
+
+Building conversational AI systems that actually work in India is entirely different from building them for US-based VoIP calls. When you pass a typical SIP trunk call—originating from a low-end Android device traversing rural cellular networks—into Deepgram or OpenAI Whisper, the word error rate (WER) skyrockets. You get latency spikes, hallucinated transcriptions due to heavy background noise, and catastrophic failures when callers rapidly switch between Hindi and English (code-switching).
+
+This is the exact operational bottleneck that Gnani AI, Ringg AI, and Smallest.ai are designed to remove. They aren't just wrappers around open-source models; they are proprietary infrastructure engines built natively on local datasets.
+
+## Gnani AI: The Enterprise Heavyweight for 8kHz Telephony
+
+The story of Gnani AI begins long before the current generative AI hype cycle. Founded in 2016 by Ganesh Gopalan and Shan Ranganathan, Gnani was born out of a very specific frustration. They saw that global ASR (Automatic Speech Recognition) models failed catastrophically on Indian telephony audio and code-mixed speech. While many competitors tried to take off-the-shelf models and fine-tune them on small Indian datasets, Gopalan and Ranganathan realized this approach was fundamentally flawed. Instead of putting a band-aid on models designed for pristine 16kHz microphone audio, they built from scratch for the 8kHz constraint.
+
+To understand why this is such a massive competitive advantage, we have to look deeply at the Prisma v2.5 architecture. Why does 8kHz matter so much? Telephony networks compress audio far more aggressively than any standard microphone or VoIP app. When audio is sampled at 8kHz, the maximum reproducible frequency is 4kHz (due to the Nyquist theorem). The human voice, especially consonants and fricatives like 's', 'f', and 'th', often contains vital acoustic information above 4kHz. Models trained on high-fidelity 16kHz or 44.1kHz audio learn to rely on these higher frequencies to distinguish sounds. When you downsample that audio to 8kHz for a phone call, you throw away all that data. The global foundational models suddenly become deaf to the nuances they depend on. Prisma v2.5, however, was trained explicitly on massive datasets of 8kHz audio. It learned to reconstruct meaning and transcribe accurately using only the narrow frequency band available on a standard phone line, making it robust against the harsh realities of the Indian PSTN (Public Switched Telephone Network).
+
+Another critical area where Gnani AI outshines global models is in handling code-mixed Hinglish. This is a genuinely hard problem in speech recognition. Indians do not speak pure Hindi or pure English in typical business transactions; they switch languages mid-sentence constantly, a phenomenon known as intra-sentential code-switching. Consider a common phrase: _"Kal mera meeting hai at 3 PM, kya aap available honge?"_ If you feed this into an English-trained ASR model, it completely misses "kal", "mera", and "kya aap", often hallucinating bizarre English phonetic equivalents. If you feed it into a pure Hindi ASR model, it fails on "meeting" and "PM". Gnani’s Prisma handles this natively. Its acoustic model is trained on a unified phoneme set that maps across both languages, and its language model is specifically weighted with n-grams derived from conversational Hinglish. This ensures that the boundaries between languages do not cause transcription failure.
+
+Beyond just transcription, voice biometrics is a massive cornerstone of Gnani's enterprise offering. I'm adding a specific focus here because speaker ID is paramount for banks. Banks use voice biometrics to authenticate users dynamically as they speak, matching their voiceprint against a stored cryptographic hash. Gnani's biometric engine processes the audio stream in parallel with the ASR, analyzing vocal tract shape, pitch dynamics, and speaking rate to confirm identity in under 3 seconds. This effectively eliminates knowledge-based authentication questions (like "What is your mother's maiden name?"), slashing average handle time (AHT) and improving security against deepfakes.
+
+Furthermore, BFSI entities demand absolute data sovereignty. Deploying on-premise is non-negotiable for organizations governed by the Reserve Bank of India (RBI) and the Telecom Regulatory Authority of India (TRAI). Gnani addresses this by allowing deployments directly within an enterprise's VPC or even on bare-metal servers. Architecturally, this means providing containerized, orchestrator-agnostic deployments (usually Kubernetes) that can operate completely air-gapped from the public internet. Audio never leaves the bank's internal network, ensuring total compliance with privacy laws.
+
+Here is a Python API code example demonstrating how one might stream audio to an on-premise Gnani ASR endpoint:
+
+```python
+import asyncio
+import websockets
+import pyaudio
+
+# Example connection to an on-premise Gnani ASR deployment
+GNANI_WS_URL = "ws://internal.vpc.gnani.ai:8080/v2.5/asr/stream"
+API_KEY = "enterprise-secret-token"
+
+async def stream_audio_to_gnani():
+    async with websockets.connect(
+        GNANI_WS_URL,
+        extra_headers={"Authorization": f"Bearer {API_KEY}", "x-language": "hi-IN-code-mixed"}
+    ) as websocket:
+
+        # Audio configuration for telephony (8kHz, Mono, 16-bit PCM)
+        chunk_size = 1024
+        audio_format = pyaudio.paInt16
+        channels = 1
+        rate = 8000
+
+        p = pyaudio.PyAudio()
+        stream = p.open(format=audio_format, channels=channels, rate=rate, input=True, frames_per_buffer=chunk_size)
+
+        print("Listening for Hinglish input...")
+        try:
+            while True:
+                data = stream.read(chunk_size, exception_on_overflow=False)
+                await websocket.send(data)
+
+                # Non-blocking receive for real-time partial transcripts
+                try:
+                    response = await asyncio.wait_for(websocket.recv(), timeout=0.01)
+                    print(f"Partial Transcript: {response}")
+                except asyncio.TimeoutError:
+                    pass
+        except KeyboardInterrupt:
+            print("Stopping stream.")
+        finally:
+            stream.stop_stream()
+            stream.close()
+            p.terminate()
+
+asyncio.run(stream_audio_to_gnani())
+```
+
+## Ringg AI: The Mid-Market Platform Engine
+
+Ringg AI's platform vision is distinctly different from Gnani's. Ringg was not built just as an STT company; it was built as a complete Indian AI calling platform. The STT engine, known as Parrot V1, is only one piece of the puzzle. Ringg saw that most teams building Indian AI calling solutions had to stitch together five different providers: a telephony provider like Vobiz or Plivo for SIP trunks, an STT provider for transcription, an LLM provider for reasoning, a TTS provider for speech synthesis, and custom orchestration logic to handle WebRTC/SIP streaming, turn-taking, and state management. Ringg decided to provide the full stack in one unified environment.
+
+Let's dive deep into their Parrot STT V1 model, because this is where the technical magic happens. Parrot V1 boasts a staggering 60ms streaming latency. How is this physically possible? Traditional ASR systems wait for a significant chunk of audio (often 300ms to 500ms) or an entire utterance before running inference to generate a transcript. Parrot V1 employs aggressive streaming acoustic models that emit tokens incrementally as the audio frames arrive, rather than waiting for context. They utilize localized connectionist temporal classification (CTC) and highly optimized transformer layers that run on bare-metal GPUs positioned in Mumbai-based data centers. By bringing the compute physically closer to the Indian user and optimizing the model architecture to emit words before the sentence finishes, they achieve that 60ms latency benchmark.
+
+The orchestration advantage cannot be overstated. When you stitch together disparate providers, network hops kill your latency budget. STT takes 300ms, sending it to OpenAI takes 500ms, synthesizing TTS takes another 400ms, and then playing it back over a SIP trunk takes 200ms. Suddenly, you have a 1.4-second delay, which ruins the conversational experience. Ringg's unified platform co-locates these services. The output of Parrot STT feeds directly into the LLM context window in GPU memory, and the LLM's streaming tokens feed directly into the TTS engine, completely bypassing external HTTP round trips.
+
+Barge-in detection is a critical feature that Ringg handles exceptionally well. What is barge-in? It is when the user interrupts the AI mid-sentence. In standard human conversation, especially in India, back-channeling (saying "haan", "theek hai", "achha" while the other person is speaking) or abruptly cutting the person off is incredibly common. If an AI agent does not handle barge-in correctly, it will keep speaking over the user, creating a jarring, robotic experience. Ringg solves this through frame-level audio processing. Their engine analyzes incoming audio in real-time for Voice Activity Detection (VAD). If it detects the user is speaking, it instantly halts the TTS playback and the LLM generation, sending an interruption signal to the orchestration layer. This ensures the bot stops on a dime and listens to the user.
+
+For developers, this full-stack approach is liberating. Ringg uses a usage-based, per-minute pricing model that is entirely transparent. There is no lengthy enterprise sales process or massive minimum commitments required to get started. You can sign up, get an API key, and launch an AI caller in minutes.
+
+Here is a full Python code example demonstrating how to initiate an outbound call and manage the conversation using the `ringglabs` SDK, showcasing how simple the orchestration is compared to a DIY approach:
+
+```python
+import asyncio
+from ringglabs import RinggClient, VoiceConfig
+
+async def initiate_outbound_campaign():
+    # Initialize the unified Ringg Client
+    client = RinggClient(api_key="sk_ringg_live_xyz123")
+
+    # Configure the voice pipeline
+    config = VoiceConfig(
+        language="hi-IN",
+        stt_model="parrot-v1",          # 60ms STT
+        llm_model="meta-llama/Llama-3-70b-instruct", # Local inference
+        tts_model="ringg-neural-hi",    # Co-located TTS
+        latency_profile="ultra-low",
+        enable_barge_in=True,           # Frame-level interruption detection
+        barge_in_sensitivity=0.8
+    )
+
+    system_prompt = """
+    You are an outbound sales representative for a credit card company.
+    You speak Hinglish. Be polite but persistent.
+    If the user says they are busy, ask for a better time to call.
+    """
+
+    # The platform provisions the SIP trunk and initiates the call natively
+    call_session = await client.create_outbound_call(
+        to_phone_number="+919876543210",
+        from_phone_number="+918045678901",
+        system_prompt=system_prompt,
+        config=config,
+        record_call=True
+    )
+
+    print(f"Call initiated. Session ID: {call_session.id}")
+
+    # Event loop to handle call state and webhooks
+    async for event in call_session.stream_events():
+        if event.type == "call_connected":
+            print("User picked up the phone. Ringg AI is now speaking.")
+        elif event.type == "user_barge_in":
+            print(f"User interrupted the bot! Transcript: {event.data['transcript']}")
+        elif event.type == "call_ended":
+            print(f"Call ended. Duration: {event.data['duration']} seconds. Total Cost: ₹{event.data['cost']}")
+            break
+
+asyncio.run(initiate_outbound_campaign())
+```
+
+## Smallest.ai: The Native TTS Powerhouse
+
+While ASR solves the listening part of the equation, speaking naturally is equally complex. Smallest.ai, an AI-native Indian TTS startup, is revolutionizing the space with their Lightning V3 architecture. Let's explore why this architecture is so groundbreaking.
+
+Traditional Text-to-Speech systems operate in a two-step process: they first generate a mel-spectrogram from text, and then use a vocoder to convert that spectrogram into audio waveforms. This process is computationally heavy and typically requires the engine to synthesize a large chunk of text before it can output any audio. Lightning V3 utilizes a fundamentally different approach, heavily leaning on State Space Models (SSMs) and highly optimized autoregressive architectures. These models are designed for sequence-to-sequence generation that is inherently streaming. Instead of waiting for a full sentence, Lightning V3 begins synthesizing and streaming raw PCM audio chunks the millisecond it receives the first few text tokens. This is how they achieve a staggering sub-100ms Time-To-First-Byte (TTFB).
+
+Language support is where Smallest.ai truly differentiates itself. They don't just "support 15 languages" in a generic sense; they have engineered high-fidelity, culturally accurate voices for each. What does quality mean in this context? Take Hindi, for example. Smallest.ai trained their Hindi acoustic models not just on sterile audiobooks, but on vast corpora of Bollywood dialogue, news broadcasts, and casual conversational podcasts. This gives the AI the ability to inflect properly based on context. For a language like Tamil, which possesses a distinct phoneme set filled with retroflex consonants (sounds produced with the tongue curled back), English-centric TTS models utterly butcher the pronunciation. Smallest.ai trained bespoke models that capture the precise phonetic nuances of Tamil, Kannada, Telugu, Malayalam, Marathi, and Gujarati. Each language represents a distinct training challenge that they have solved natively.
+
+Code-switching TTS is genuinely novel and perhaps their most impressive feature. Consider the sentence: _"Main aapko call kar raha hun regarding your EMI payment."_ A traditional TTS engine requires developers to laboriously tag this with SSML (Speech Synthesis Markup Language): `<lang xml:lang="hi-IN">Main aapko call kar raha hun</lang> <lang xml:lang="en-US">regarding your EMI payment.</lang>`. If you don't do this, a Hindi voice will try to pronounce English words with terrible Hindi phonetics, or vice versa. Smallest.ai's model automatically identifies the language boundaries mid-sentence. It seamlessly switches the underlying acoustic representation while maintaining the exact same voice identity and natural prosody across the switch. This eliminates a massive amount of engineering overhead.
+
+Furthermore, Lightning V3 supports deep instruction following for emotion control. You don't have to rely on complex SSML pitch adjustments; you can use semantic tags. You can instruct the model using tags like `<whisper>This is confidential</whisper>`, or you can use prompt-based controls, telling the API: "Say this warmly: Welcome back!" The model understands the semantic intent and adjusts the prosody, pitch, and speed accordingly.
+
+Their voice cloning capability is equally impressive. You don't need 30 minutes of studio-recorded audio to create a custom voice. Smallest.ai can perform zero-shot voice cloning from just a 3 to 5-second audio clip. However, to get production-grade quality, the source audio requires a high Signal-to-Noise Ratio (SNR), consistent speaker volume, and an environment free of background reverberation. When these conditions are met, the cloned voice retains the speaker's unique timbre and can immediately speak in all 15 supported languages, even if the source speaker only spoke one.
+
+Here is a full Python streaming code example demonstrating how to interface with Smallest.ai for a Hindi voice agent:
+
+```python
+import websockets
+import asyncio
+import json
+import pyaudio
+
+# The Lightning V3 WebSocket API endpoint
+SMALLEST_WS_URL = "wss://api.smallest.ai/v1/tts/lightning-v3/stream"
+API_KEY = "sm_live_secret_key"
+
+async def stream_smallest_tts():
+    async with websockets.connect(SMALLEST_WS_URL, extra_headers={"Authorization": f"Bearer {API_KEY}"}) as ws:
+
+        # We will stream the text chunk by chunk to simulate an LLM output
+        text_chunks = [
+            "Namaste! ",
+            "Main aapka personal banking assistant bol raha hun. ",
+            "<whisper>Yeh ek secure line hai.</whisper> ",
+            "Aapka loan approve ho gaya hai!"
+        ]
+
+        # Audio configuration for playing back the stream
+        p = pyaudio.PyAudio()
+        stream = p.open(format=pyaudio.paInt16, channels=1, rate=24000, output=True)
+
+        # Send initialization payload
+        init_payload = {
+            "action": "initialize",
+            "voice_id": "hi-IN-aditi-conversational",
+            "sample_rate": 24000,
+            "enable_code_switching": True
+        }
+        await ws.send(json.dumps(init_payload))
+
+        # Send text chunks
+        for chunk in text_chunks:
+            await ws.send(json.dumps({"action": "speak", "text": chunk}))
+            await asyncio.sleep(0.1) # Simulate token generation delay
+
+        await ws.send(json.dumps({"action": "flush"}))
+
+        # Receive and play the audio chunks as they arrive
+        print("Receiving and playing audio stream (sub-100ms TTFB)...")
+        while True:
+            try:
+                message = await ws.recv()
+                if isinstance(message, bytes):
+                    # Play the raw PCM audio bytes
+                    stream.write(message)
+                else:
+                    data = json.loads(message)
+                    if data.get("status") == "completed":
+                        print("Audio generation completed.")
+                        break
+            except websockets.exceptions.ConnectionClosed:
+                break
+
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
+asyncio.run(stream_smallest_tts())
+```
+
+## Head-to-Head Comparison
+
+To truly understand how these three providers stack up, we must evaluate them across a comprehensive set of dimensions. Here is a 20-feature comparison table:
+
+| Feature                   | Gnani AI                    | Ringg AI                    | Smallest.ai                 |
+| ------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| **Core Offering**         | Enterprise ASR & Biometrics | Full-stack Voice Platform   | Ultra-fast TTS API          |
+| **Primary Model**         | Prisma v2.5 ASR             | Parrot STT V1               | Lightning V3 TTS            |
+| **Audio Optimization**    | 8kHz telephony              | 16kHz WebRTC/SIP            | 44.1kHz high-fidelity       |
+| **STT Latency**           | ~300ms                      | 60ms (Streaming)            | N/A                         |
+| **TTS TTFB Latency**      | N/A                         | ~150ms                      | sub-100ms                   |
+| **Languages Supported**   | 10-12 major Indian          | Hindi/Hinglish focused      | 15+ Indian languages        |
+| **Code-Switching**        | Excellent (ASR)             | Excellent (ASR)             | Excellent (TTS)             |
+| **Barge-in Detection**    | Custom via NLP              | Native (Frame-level VAD)    | N/A                         |
+| **Voice Biometrics**      | Yes (Enterprise Grade)      | No                          | No                          |
+| **Voice Cloning**         | No                          | Basic                       | Yes (Zero-shot, 3s clip)    |
+| **Emotion Control**       | N/A                         | Basic                       | Yes (Semantic/Prompt based) |
+| **Orchestration**         | External                    | Native                      | External                    |
+| **Telephony Integration** | SIP REC, Custom Gateways    | Plivo, Vobiz, Native SIP    | External                    |
+| **Deployment Model**      | Cloud, On-Premise, VPC      | Cloud API                   | Cloud API, Edge SDK         |
+| **VRAM Requirement**      | High (Server Grade)         | High (Server Grade)         | <1GB (Edge Feasible)        |
+| **Pricing Model**         | Custom Enterprise Contracts | Usage-based (per-minute)    | Usage-based ($0.09-$0.21/m) |
+| **Free Tier**             | No                          | Trial credits               | Generous Developer Tier     |
+| **Data Sovereignty**      | Total (On-Premise)          | Standard Cloud Security     | Standard Cloud Security     |
+| **Target Audience**       | Banks, Insurance, BPOs      | Startups, Mid-Market        | Developers, Researchers     |
+| **Developer SDK**         | Custom Enterprise APIs      | Python (Pipecat compatible) | REST, WebSocket, Python     |
+
+## Integrating with Tough Tongue AI (TTGE)
+
+The true holy grail of Indian voice AI is achieving sub-200ms total conversational latency. While connecting disparate STT and TTS models usually prevents this, integrating these models into a Tough Tongue AI (TTGE) architecture changes the game.
+
+Explain the exact architecture: TTGE is a native voice-to-voice reasoning engine. It does not transcribe speech to text, generate text responses, and synthesize that text back to audio (the standard STT → LLM → TTS cascade). Instead, it operates directly on acoustic features. By pairing TTGE's voice-to-voice engine with Smallest.ai's Lightning V3 (as a high-fidelity fallback or specialized regional output node) and utilizing Vobiz 7972-series SIP trunks (which offer specialized edge routing in India), you can build an incredibly fast system.
+
+The architecture looks like this: A caller dials in via a Vobiz SIP trunk. The audio is streamed simultaneously to the TTGE Voice-to-Voice Engine and, optionally, to Ringg's Parrot STT for logging. TTGE reasons natively on the audio and can stream its output generation directly, or hand off the generation to Smallest.ai if a specific hyper-local voice clone is required. This effectively bypasses the text bottleneck, resulting in a sub-200ms total latency Indian voice agent.
+
+Here is how you might wire this together conceptually using a combined configuration:
+
+```python
+from ttge import ToughTongueClient
+from smallest import SmallestTTSNode
+from vobiz import VobizTrunk
+
+# Initialize the TTGE Voice-to-Voice client
+ttge_engine = ToughTongueClient(api_key="ttge_secret", region="ap-south-1")
+
+# Initialize Smallest.ai as the specialized output node for Hindi
+smallest_node = SmallestTTSNode(api_key="sm_secret", voice_id="hi-IN-custom")
+
+# Configure the Vobiz SIP Trunk
+sip_trunk = VobizTrunk(trunk_id="7972-series-mumbai")
+
+# Wire them together
+async def start_hyper_fast_agent():
+    # TTGE handles the direct acoustic reasoning
+    session = await ttge_engine.create_session(
+        input_trunk=sip_trunk,
+        output_synthesizer=smallest_node, # Hand off synthesis to Smallest
+        fallback_stt="ringg-parrot-v1"    # Use Ringg for async transcript logging
+    )
+
+    print("Agent live. Expected latency: < 200ms.")
+    await session.listen()
+```
+
+This stack beats any global provider for Indian language AI calling because it eliminates the fundamental architectural flaws of the cascade model. Global providers force Indian accents through models optimized for American English, incurring massive latency and error rates. The TTGE + Smallest.ai + Vobiz stack operates entirely within Indian data centers, reasons directly on the native acoustic properties of Indian speakers, and synthesizes culturally accurate audio in under 200ms. It is currently the most formidable combination in the voice AI space.
+
+## Setting Up a Complete Indian Voice Agent Stack
+
+Building a production Indian voice AI calling system requires making the right choices at each layer of the stack. Here is a complete reference architecture that combines all three providers we have covered.
+
+The optimal stack for Indian AI calling in 2026:
+
+- **Telephony layer**: Vobiz (7972 or 92-series numbers for 30-48% pickup rates)
+- **STT layer**: Gnani Prisma v2.5 for BFSI/regulated environments; Ringg Parrot V1 for mid-market
+- **Voice orchestration**: Ringg's complete platform or a custom LiveKit + Pipecat pipeline
+- **TTS layer**: Smallest.ai Lightning V3 for all Indian-language output
+- **Voice engine**: TTGE for native voice-to-voice processing
+
+The key insight here is that each layer is independently replaceable. Start with Ringg's complete platform (which bundles telephony, STT, LLM, and TTS) to validate your use case quickly. Once you have a working product, you can unbundle the layers and optimize each one independently.
+
+### Architecture for Regulated Industries (BFSI)
+
+Banks, insurance companies, and NBFCs have additional constraints. Their call recordings and transcripts must stay within India's borders (DPDP Act, RBI data residency guidelines). For these entities:
+
+Replace cloud STT with Gnani Prisma v2.5 deployed on-premise inside the entity's private cloud or a SEBI-approved data center. Gnani's on-premise deployment runs as a containerized service that receives audio over gRPC and returns transcripts. No audio ever leaves the internal network.
+
+```python
+# Gnani on-premise STT integration via gRPC
+import grpc
+import gnani_pb2
+import gnani_pb2_grpc
+
+def create_gnani_stub(host: str = "gnani-internal.bank.com", port: int = 50051):
+    """Connect to on-premise Gnani ASR service."""
+    channel = grpc.secure_channel(
+        f"{host}:{port}",
+        grpc.ssl_channel_credentials()
+    )
+    return gnani_pb2_grpc.ASRServiceStub(channel)
+
+async def transcribe_telephony_audio(audio_bytes: bytes, language: str = "hi-IN"):
+    """
+    Transcribe 8kHz telephony audio using Gnani Prisma v2.5 on-premise.
+    Returns Hinglish-aware transcript.
+    """
+    stub = create_gnani_stub()
+    request = gnani_pb2.StreamingRecognizeRequest(
+        audio=audio_bytes,
+        config=gnani_pb2.RecognitionConfig(
+            encoding="MULAW",  # G.711 PCMU, standard Indian telephony
+            sample_rate_hertz=8000,
+            language_code=language,
+            enable_code_mixed=True,  # Hinglish support
+            enable_word_time_offsets=True,
+        )
+    )
+    response = await stub.StreamingRecognize(request)
+    return response.results[0].alternatives[0].transcript
+```
+
+### Scaling from 100 to 10,000 Daily Calls
+
+The architecture that works at 100 calls per day breaks in specific ways when you scale to 10,000. Here is what breaks and how to fix it.
+
+**STT concurrency**: Ringg Parrot V1 handles concurrent streams elastically. Gnani on-premise requires pre-provisioned GPU capacity. At 10,000 calls per day with an average 4-minute call duration and staggered timing, peak concurrency might be 200-500 simultaneous calls. Capacity plan for 500 concurrent Gnani ASR streams if using on-premise.
+
+**TTS throughput**: Smallest.ai Lightning V3 is a cloud API. At 10,000 calls per day with TTS generating 3-4 minutes of audio per call, you are synthesizing 30,000-40,000 minutes of audio per day. At this volume, contact Smallest.ai for enterprise pricing and dedicated infrastructure to guarantee sub-100ms TTFB at scale.
+
+**Number rotation**: at 10,000 outbound calls per day, a single DID number accumulates enough call history that Indian carriers start flagging it as commercial. Rotate across 10-20 DIDs, tracking the call-to-pickup ratio per number and retiring numbers when their pickup rate drops below 15%.
+
+**Monitoring**: instrument every layer with latency percentiles. The metric that matters most for call quality is p99 latency (the 99th percentile). If your p50 latency is 180ms but your p99 is 1,400ms, 1% of your calls feel broken — that is 100 calls per day at 10,000 scale.
+
+## Why Indian Voice AI Is a Different Problem Than Global Voice AI
+
+Global voice AI providers (OpenAI, ElevenLabs, Deepgram) were built primarily for English. They then added language support by training on whatever data was available for other languages — often formal text-to-speech recordings, news broadcasts, or dubbed content. This is fundamentally not how Indians speak.
+
+Three characteristics of Indian spoken language that global models consistently get wrong:
+
+**Code-mixing is the default, not the exception.** A typical middle-class Indian does not speak pure Hindi or pure English. They speak a fluid mix where the language switches based on domain: technical terms in English, emotional expressions in the mother tongue, brand names in English, relationship terms in Hindi. "Mujhe actually doubt hai ki is plan mein hidden charges toh nahi hai?" — this sentence is grammatically neither Hindi nor English but is perfectly natural to 400 million Indians. Global STT models parse it as broken Hindi or broken English. Gnani and Ringg handle it as a distinct dialect.
+
+**Telephony audio is the primary channel.** Most Indian AI calling happens over PSTN calls compressed to 8kHz. Global models trained on 16kHz or 44kHz microphone audio degrade on telephony audio in measurable ways. WER on 8kHz can be 2-4x worse than on clean audio for a model not designed for telephony.
+
+**Regional accent variation is extreme.** Hindi spoken by a native Tamil speaker sounds different from Hindi spoken by a native Punjabi speaker or a Mumbaikar. Both are correct Hindi. Global models trained primarily on Bollywood dialogue (Mumbai Hindi) perform well on some accents and poorly on others. Gnani's training data includes regional accent diversity that global providers simply have not invested in.
+
+This is not a criticism of global providers. They are optimizing for a global English-primary market. It is a recognition that Indian voice AI is a distinct engineering problem that requires specialized solutions. Gnani, Ringg, and Smallest.ai are building those solutions.
+
+## FAQ
+
+### What is Gnani AI's Prisma model?
+
+Prisma v2.5 is an enterprise-grade Automatic Speech Recognition (ASR) model heavily optimized for 8kHz telephony audio. Unlike global models trained on high-fidelity audio, Prisma is built to understand the highly compressed, noisy audio characteristic of Indian phone networks, while seamlessly handling complex Hinglish code-switching for massive BFSI deployments.
+
+### What is Ringg AI's Parrot STT?
+
+Parrot STT V1 is an ultra-fast streaming speech-to-text model developed by Ringg AI that achieves an astonishing 60ms latency. It accomplishes this by utilizing localized connectionist temporal classification and emitting word tokens before the speaker even finishes a sentence, making it ideal for full-duplex, real-time conversational calling applications.
+
+### What is Smallest.ai Lightning?
+
+Lightning V3 is a revolutionary Text-to-Speech (TTS) architecture by Smallest.ai built on State Space Models. It delivers a sub-100ms Time-to-First-Byte (TTFB) and supports over 15 Indian languages natively. Its standout feature is the ability to automatically detect and handle mid-sentence language switching without requiring complex SSML markup.
+
+### Which Indian STT model has lowest latency?
+
+Ringg AI's Parrot STT V1 currently leads the market with its 60ms streaming latency. By bringing compute to Indian data centers and utilizing streaming acoustic models, it severely undercuts traditional STT engines, providing a massive advantage for developers building real-time voice orchestration.
+
+### Does Gnani AI support Hindi?
+
+Yes, Gnani AI fully supports Hindi, along with 10-12 other major Indian languages. More importantly, it is explicitly trained to handle the complex, intra-sentential code-switching between Hindi and English that characterizes natural business conversations across the subcontinent.
+
+### Can I use Smallest.ai with LiveKit?
+
+Absolutely. Smallest.ai's Lightning V3 exposes standard WebSocket streaming endpoints that integrate perfectly into LiveKit pipelines. It is also highly compatible with orchestration frameworks like Pipecat, making it easy to drop into modern, real-time WebRTC architectures.
+
+### What is the best Indian TTS for voice agents?
+
+Smallest.ai is currently regarded as the best Indian TTS for voice agents. Its combination of sub-100ms TTFB, deep instruction-following for emotional prosody (like whispering or sounding urgent), and natural handling of English loan words in regional languages makes it sonically superior to legacy TTS systems.
+
+### How do Gnani, Ringg, and Smallest compare to global providers?
+
+Global providers like Deepgram or OpenAI Whisper often struggle with 8kHz telephony audio, heavy Indian regional accents, and seamless code-switching. Gnani, Ringg, and Smallest have built their architectures and datasets entirely around these local constraints, resulting in significantly lower Word Error Rates, lower latency, and much more natural conversations tailored specifically for the Indian market.
