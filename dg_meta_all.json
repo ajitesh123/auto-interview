@@ -1,0 +1,4027 @@
+[
+  {
+    "url": "https://deepgram.com/learn/2021-state-of-automatic-speech-recognition-infographic",
+    "title": "2021 State of Automatic Speech Recognition Infographic Blog ⚡️",
+    "slug": "2021-state-of-automatic-speech-recognition-infographic"
+  },
+  {
+    "url": "https://deepgram.com/learn/5-reasons-to-keep-contributing-to-open-source-projects",
+    "title": "5 Reasons to Keep Contributing to Open-Source Projects Blog ⚡️",
+    "slug": "5-reasons-to-keep-contributing-to-open-source-projects"
+  },
+  {
+    "url": "https://deepgram.com/learn/5-use-cases-for-voice-ai-agents-for-business-part-2",
+    "title": "5 More AI Voice Agent Use Cases for You and Your Business Right Now",
+    "slug": "5-use-cases-for-voice-ai-agents-for-business-part-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/6-challenges-asr-hindi",
+    "title": "6 Biggest Challenges of Automatic Speech Recognition (ASR) for Hindi Blog ⚡️",
+    "slug": "6-challenges-asr-hindi"
+  },
+  {
+    "url": "https://deepgram.com/learn/GCP-outage-and-Deepgram-Architecture",
+    "title": "The Importance of Resilient Architecture: Google Cloud&#x27;s Outage",
+    "slug": "GCP-outage-and-Deepgram-Architecture"
+  },
+  {
+    "url": "https://deepgram.com/learn/a-conversation-with-asian-american-pacific-islander-deepgrammers",
+    "title": "A Conversation with Asian American &amp; Pacific Islander Deepgrammers Blog ⚡️",
+    "slug": "a-conversation-with-asian-american-pacific-islander-deepgrammers"
+  },
+  {
+    "url": "https://deepgram.com/learn/a-note-to-our-customers-openai-whispers-entrance-into-voice",
+    "title": "A Note to our Customers: OpenAI Whisper&#x27;s Entrance into Voice Blog ⚡️",
+    "slug": "a-note-to-our-customers-openai-whispers-entrance-into-voice"
+  },
+  {
+    "url": "https://deepgram.com/learn/a-voice-destin-ation-project-voice-x-2021",
+    "title": "A Voice Destin-ation: Project Voice X 2021 Blog ⚡️",
+    "slug": "a-voice-destin-ation-project-voice-x-2021"
+  },
+  {
+    "url": "https://deepgram.com/learn/accelerating-streaming-stt-inference-through-custom-kernels",
+    "title": "Accelerating Streaming STT Inference Through Custom Kernels",
+    "slug": "accelerating-streaming-stt-inference-through-custom-kernels"
+  },
+  {
+    "url": "https://deepgram.com/learn/accent-detection-ai-how-it-works",
+    "title": "Accent Detection AI: How It Works &amp; When Developers Need It",
+    "slug": "accent-detection-ai-how-it-works"
+  },
+  {
+    "url": "https://deepgram.com/learn/accuracy-matters-improving-speech-recognition-through-data-processes-esteban-gorupicz-ceo-atexto-project-voice-x",
+    "title": "Accuracy Matters: Improving Speech Recognition Through Data Processes - Esteban Gorupicz, CEO, Atexto- Project Voice X Blog ⚡️",
+    "slug": "accuracy-matters-improving-speech-recognition-through-data-processes-esteban-gorupicz-ceo-atexto-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/adapting-keyterm-boosting-for-flux",
+    "title": "Adapting Keyterm Boosting For Flux",
+    "slug": "adapting-keyterm-boosting-for-flux"
+  },
+  {
+    "url": "https://deepgram.com/learn/adding-subtitles-to-html-video-element",
+    "title": "How to Add Captions and Subtitles to HTML5 Videos Blog ⚡️",
+    "slug": "adding-subtitles-to-html-video-element"
+  },
+  {
+    "url": "https://deepgram.com/learn/agentic-ai-explained",
+    "title": "High-Level Explanations: Agentic AI Deep-Dive",
+    "slug": "agentic-ai-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/agentic-engineering-tools-for-voice-ai-builders",
+    "title": "Deepgram Agentic Engineering Tools for Voice AI Builders",
+    "slug": "agentic-engineering-tools-for-voice-ai-builders"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-agents-for-healthcare-what-works-and-what-obstacles-may-come",
+    "title": "AI Agents for Healthcare: What Works and What Obstacles May Come",
+    "slug": "ai-agents-for-healthcare-what-works-and-what-obstacles-may-come"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-and-neural-networks-what-founders-need-to-know",
+    "title": "AI and Neural Networks: What Founders Need to Know",
+    "slug": "ai-and-neural-networks-what-founders-need-to-know"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-beat-human-creativity",
+    "title": "Human vs. Machine: A Comparative Study on Creativity in the Age of AI",
+    "slug": "ai-beat-human-creativity"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-bias-why-it-happens-and-how-to-stop-it",
+    "title": "AI Bias: Why It Happens and How to Stop It Blog ⚡️",
+    "slug": "ai-bias-why-it-happens-and-how-to-stop-it"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-business-directory",
+    "title": "How the AI Business Really Works: A Directory",
+    "slug": "ai-business-directory"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-call-center-voice-agent-production-orchestration",
+    "title": "AI Call Center Voice Agent: Production Orchestration Guide",
+    "slug": "ai-call-center-voice-agent-production-orchestration"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-coding-secrets-exposed-with-gorilla-starcoder-chatgpt-github-copilot",
+    "title": "AI-Fueled Coding Secrets Exposed with Gorilla, StarCoder, Copilot, ChatGPT",
+    "slug": "ai-coding-secrets-exposed-with-gorilla-starcoder-chatgpt-github-copilot"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-concierge-redefines-hospitality-and-customer-loyalty-worldwide",
+    "title": "Reimagining Loyalty: How Voice AI Concierge Can Redefine Hospitality Worldwide",
+    "slug": "ai-concierge-redefines-hospitality-and-customer-loyalty-worldwide"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-designer-blog",
+    "title": "We Hired an AI Art Generator for Our Blog and I&#x27;m Not Mad at It Blog ⚡️",
+    "slug": "ai-designer-blog"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-drive-thru-voice-ai-order-taking",
+    "title": "AI Drive-Thru: Voice AI for QSR Order Taking",
+    "slug": "ai-drive-thru-voice-ai-order-taking"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-explained-a-mental-model-of-neural-networks",
+    "title": "AI Explained: A Mental Model of Neural Networks Blog ⚡️",
+    "slug": "ai-explained-a-mental-model-of-neural-networks"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-for-call-centers-guide",
+    "title": "AI for Call Centers: Benefits and Best Practice Guide",
+    "slug": "ai-for-call-centers-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-game-strategies",
+    "title": "How our inventions beat us at our own games: AI Game Strategies",
+    "slug": "ai-game-strategies"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-hallucinations-bad-or-misunderstood",
+    "title": "AI Hallucinations: Bad or Misunderstood? Blog ⚡️",
+    "slug": "ai-hallucinations-bad-or-misunderstood"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-in-finance",
+    "title": "AI in Finance: Money Making Machines",
+    "slug": "ai-in-finance"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-medical-agents-in-healthcare-part-1",
+    "title": "The Dawn of AI Agents in Healthcare: Why Now?",
+    "slug": "ai-medical-agents-in-healthcare-part-1"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-medical-agents-in-healthcare-part-2",
+    "title": "Beyond Simple Automation - What Exactly Are AI Agents in Healthcare?",
+    "slug": "ai-medical-agents-in-healthcare-part-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-phone-agent-patient-intake",
+    "title": "AI Phone Agent for Patient Intake: What Happens Before the Appointment",
+    "slug": "ai-phone-agent-patient-intake"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-plagiarism",
+    "title": "ChatGPT: Putting the “AI” in “Plagiarism” worldwide?",
+    "slug": "ai-plagiarism"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-should-empower-not-replace-workers-mosaicvoice-deepgram",
+    "title": "AI should empower (not replace) workers: MosaicVoice &amp; Deepgram",
+    "slug": "ai-should-empower-not-replace-workers-mosaicvoice-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-bias-in-machine-learning",
+    "title": "What Role Does Bias Have in Machine Learning? — AI Show",
+    "slug": "ai-show-bias-in-machine-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-different-types-of-machine-learning",
+    "title": "What are the different types of machine learning? - AI Show Blog ⚡️",
+    "slug": "ai-show-different-types-of-machine-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-how-do-you-use-a-neural-network-in-your-business",
+    "title": "How Do You Use a Neural Network in Your Business?—AI Show Blog ⚡️",
+    "slug": "ai-show-how-do-you-use-a-neural-network-in-your-business"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-how-will-data-influence-the-future-of-machine-learning",
+    "title": "How will data influence the future of machine learning? — AI Show Blog ⚡️",
+    "slug": "ai-show-how-will-data-influence-the-future-of-machine-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-what-does-an-ai-tranformation-look-like",
+    "title": "What Does an AI Transformation Look Like?",
+    "slug": "ai-show-what-does-an-ai-tranformation-look-like"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-show-what-does-it-mean-for-a-machine-to-learn",
+    "title": "What Does it Mean for a Machine to Learn? — AI Show Blog ⚡️",
+    "slug": "ai-show-what-does-it-mean-for-a-machine-to-learn"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-speech-audio-intelligence-sentiment-analysis-intent-recognition-topic-detection-api",
+    "title": "Audio Intelligence Models for Sentiment Analysis, Intent Recognition, and Topic Detection",
+    "slug": "ai-speech-audio-intelligence-sentiment-analysis-intent-recognition-topic-detection-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-speech-summarization-api",
+    "title": "Introducing Speech Summarization Powered by DSLMs",
+    "slug": "ai-speech-summarization-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-still-feels-artificial-what-are-we-missing",
+    "title": "AI Still Feels Artificial. What Are We Missing? Blog ⚡️",
+    "slug": "ai-still-feels-artificial-what-are-we-missing"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-stock-market",
+    "title": "How good, really, is AI at predicting the stock market?",
+    "slug": "ai-stock-market"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-summit-recap-2023",
+    "title": "AI Summit NYC Recap: Deepgram (and Robodoge) take on the Big Apple",
+    "slug": "ai-summit-recap-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-tools-every-startup-should-be-using",
+    "title": "AI Tools Every Startup Should Be Using",
+    "slug": "ai-tools-every-startup-should-be-using"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-agent-benefits-verification",
+    "title": "AI Voice Agent for Benefits Verification: How It Works",
+    "slug": "ai-voice-agent-benefits-verification"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-agent-call-center-guide",
+    "title": "AI Voice Agents: Complete Guide to Call Center Automation",
+    "slug": "ai-voice-agent-call-center-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-agent-services-for-businesses",
+    "title": "AI Voice Agent Services for Business: A 2026 Guide",
+    "slug": "ai-voice-agent-services-for-businesses"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-agents",
+    "title": "Unlock the Power of Voice: Everything You Need to Know About AI Voice Agents",
+    "slug": "ai-voice-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-agents-healthcare-production-use-cases",
+    "title": "AI Voice Agents in Healthcare: 7 Production Use Cases",
+    "slug": "ai-voice-agents-healthcare-production-use-cases"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-recognition-beginners-guide",
+    "title": "AI Voice Recognition: A Beginner&#x27;s Guide (2026)",
+    "slug": "ai-voice-recognition-beginners-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-recognition-beginners-guide-2026",
+    "title": "How AI Voice Agents Work: A Beginner&#x27;s Guide",
+    "slug": "ai-voice-recognition-beginners-guide-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/ai-voice-synthesis-the-early-days-and-implications-of-text-to-speech",
+    "title": "AI Voice Synthesis: The Early Days and Implications of Text-to-Speech Blog ⚡️",
+    "slug": "ai-voice-synthesis-the-early-days-and-implications-of-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/all-about-transcription-for-real-time-audio-streaming",
+    "title": "All About Transcription for Real-Time (Live) Audio Streaming Blog ⚡️",
+    "slug": "all-about-transcription-for-real-time-audio-streaming"
+  },
+  {
+    "url": "https://deepgram.com/learn/alphanumeric-pronunciation-tts-quality-benchmark",
+    "title": "Alphanumeric Pronunciation: TTS Quality Benchmark 2026",
+    "slug": "alphanumeric-pronunciation-tts-quality-benchmark"
+  },
+  {
+    "url": "https://deepgram.com/learn/ambient-intelligence-healthcare-technology-stack",
+    "title": "Ambient Intelligence in Healthcare: The Full Tech Stack",
+    "slug": "ambient-intelligence-healthcare-technology-stack"
+  },
+  {
+    "url": "https://deepgram.com/learn/amp-up-your-privacy-controls-new-redaction-features-from-deepgram",
+    "title": "Amp Up Your Privacy: New Redaction Features from Deepgram",
+    "slug": "amp-up-your-privacy-controls-new-redaction-features-from-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/announcing-deepgram-on-aws-bedrock-unlock-fast-accurate-speech-ai-for-enterprise",
+    "title": "Announcing Deepgram Voice Agent API Integration with AWS Bedrock",
+    "slug": "announcing-deepgram-on-aws-bedrock-unlock-fast-accurate-speech-ai-for-enterprise"
+  },
+  {
+    "url": "https://deepgram.com/learn/announcing-deepgram-on-prem-speech-understanding",
+    "title": "Announcing Deepgram On-prem Speech Understanding, Cloud API &amp; SDK Compatibility Blog ⚡️",
+    "slug": "announcing-deepgram-on-prem-speech-understanding"
+  },
+  {
+    "url": "https://deepgram.com/learn/announcing-deepgram-saga-voice-os",
+    "title": "Announcing Deepgram Saga: The Voice OS for Developers",
+    "slug": "announcing-deepgram-saga-voice-os"
+  },
+  {
+    "url": "https://deepgram.com/learn/announcing-official-go-support-v1-0-0-released-for-general-availability",
+    "title": "Announcing Official Go Support: v1.0 Released for General Availability",
+    "slug": "announcing-official-go-support-v1-0-0-released-for-general-availability"
+  },
+  {
+    "url": "https://deepgram.com/learn/api-back-off-strategies",
+    "title": "A Guide to Respectful API Back-Off Strategies",
+    "slug": "api-back-off-strategies"
+  },
+  {
+    "url": "https://deepgram.com/learn/apibank-llm-benchmark",
+    "title": "API-Bank: Benchmarking Language Models’ Tool Use",
+    "slug": "apibank-llm-benchmark"
+  },
+  {
+    "url": "https://deepgram.com/learn/applications-of-transformer-models-beyond-gpt-and-chat",
+    "title": "Transformer Models: Versatile Uses in Machine Learning Blog ⚡️",
+    "slug": "applications-of-transformer-models-beyond-gpt-and-chat"
+  },
+  {
+    "url": "https://deepgram.com/learn/ar-note-taking-airnote",
+    "title": "Collaborative Augmented Reality Note-Taking with AiRNote Blog ⚡️",
+    "slug": "ar-note-taking-airnote"
+  },
+  {
+    "url": "https://deepgram.com/learn/arc-llm-benchmark-guide",
+    "title": "ARC Benchmark Guide for Evaluating LLMs",
+    "slug": "arc-llm-benchmark-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/article",
+    "title": "Deepgram Blog | AI, Engineering &amp; More",
+    "slug": "article"
+  },
+  {
+    "url": "https://deepgram.com/learn/asr-buyers-guide-benchmarks-to-production-tests",
+    "title": "ASR Buyer&#x27;s Guide: From Benchmarks to Production Tests 2026",
+    "slug": "asr-buyers-guide-benchmarks-to-production-tests"
+  },
+  {
+    "url": "https://deepgram.com/learn/asr-important-deaf-hoh-community",
+    "title": "Why ASR is Important for the Deaf and Hard-of-Hearing Community Blog ⚡️",
+    "slug": "asr-important-deaf-hoh-community"
+  },
+  {
+    "url": "https://deepgram.com/learn/asr-vs-speech-to-text",
+    "title": "Automatic Speech Recognition vs Speech-to-Text: Key Differences and Use Cases",
+    "slug": "asr-vs-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/assemblyai-vs-deepgram",
+    "title": "AssemblyAI vs Deepgram: Which Speech-to-Text API Handles Production Scale?",
+    "slug": "assemblyai-vs-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/asynchronous-logic-to-write-a-vue-3-and-deepgram-captions-component",
+    "title": "Asynchronous Logic to Write a Vue 3 and Deepgram Captions Component Blog ⚡️",
+    "slug": "asynchronous-logic-to-write-a-vue-3-and-deepgram-captions-component"
+  },
+  {
+    "url": "https://deepgram.com/learn/audio-playback-across-browsers-and-devices",
+    "title": "Auto-Playback Across Devices (especially iOS)",
+    "slug": "audio-playback-across-browsers-and-devices"
+  },
+  {
+    "url": "https://deepgram.com/learn/audiocodes-voicebots-integration",
+    "title": "Deepgram Integrates with AudioCodes to Power Real-Time Voicebots and Analytics Blog ⚡️",
+    "slug": "audiocodes-voicebots-integration"
+  },
+  {
+    "url": "https://deepgram.com/learn/augmenting-llms-beyond-basic-text-completion-and-transformation",
+    "title": "Augmenting LLMs Beyond Basic Text Completion and Transformation Blog ⚡️",
+    "slug": "augmenting-llms-beyond-basic-text-completion-and-transformation"
+  },
+  {
+    "url": "https://deepgram.com/learn/aura-2-leads-coval-real-time-tts-benchmarks",
+    "title": "Aura-2 Leads Coval’s Real-Time TTS Benchmarks",
+    "slug": "aura-2-leads-coval-real-time-tts-benchmarks"
+  },
+  {
+    "url": "https://deepgram.com/learn/aura-2-now-speaks-dutch-french-german-italian-japanese",
+    "title": "Aura-2 (TTS) Now Speaks Dutch, French, German, Italian, and Japanese",
+    "slug": "aura-2-now-speaks-dutch-french-german-italian-japanese"
+  },
+  {
+    "url": "https://deepgram.com/learn/aura-text-to-speech-adds-websocket-support-for-input-streaming",
+    "title": "Now Available: Deepgram Aura&#x27;s WebSocket Text-to-Speech",
+    "slug": "aura-text-to-speech-adds-websocket-support-for-input-streaming"
+  },
+  {
+    "url": "https://deepgram.com/learn/aura-text-to-speech-api-waitlist",
+    "title": "Coming Soon: Deepgram Aura, Conversational Text-to-Speech for Voice AI Agents",
+    "slug": "aura-text-to-speech-api-waitlist"
+  },
+  {
+    "url": "https://deepgram.com/learn/aura-text-to-speech-tts-api-voice-ai-agents-launch",
+    "title": "Introducing Deepgram Aura: Lightning Fast Text-to-Speech for Voice AI Agents",
+    "slug": "aura-text-to-speech-tts-api-voice-ai-agents-launch"
+  },
+  {
+    "url": "https://deepgram.com/learn/autobubble-youtube-speech-bubbles",
+    "title": "Add Live Speech Bubbles To YouTube Videos with Autobubble Blog ⚡️",
+    "slug": "autobubble-youtube-speech-bubbles"
+  },
+  {
+    "url": "https://deepgram.com/learn/automate-audio-transcription-with-zapier-deepgram",
+    "title": "Automate Audio Transcription with Zapier + Deepgram",
+    "slug": "automate-audio-transcription-with-zapier-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/automated-patient-reminders-ai-voice-agents",
+    "title": "AI Voice Agents for Automated Patient Reminders",
+    "slug": "automated-patient-reminders-ai-voice-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/automatic-speech-recognition-asr-future-communication",
+    "title": "ASR Unveiled: How and Why Machines Understand Human Speech",
+    "slug": "automatic-speech-recognition-asr-future-communication"
+  },
+  {
+    "url": "https://deepgram.com/learn/automatic-speech-recognition-education",
+    "title": "How Automatic Speech Recognition Can Help Educators Blog ⚡️",
+    "slug": "automatic-speech-recognition-education"
+  },
+  {
+    "url": "https://deepgram.com/learn/automatically-transcribe-summarize-and-send-phone-call-summaries",
+    "title": "Automatically Transcribe, Summarize, and Send Phone Call Summaries Blog ⚡️",
+    "slug": "automatically-transcribe-summarize-and-send-phone-call-summaries"
+  },
+  {
+    "url": "https://deepgram.com/learn/automatically-transcribing-podcast-episodes-with-pipedream-and-python",
+    "title": "Automatically Transcribing Podcast Episodes With Pipedream And Python",
+    "slug": "automatically-transcribing-podcast-episodes-with-pipedream-and-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/aws-and-deepgram-the-foundation-that-makes-voice-ai-scale",
+    "title": "AWS and Deepgram: The Foundation That Makes Voice AI Scale",
+    "slug": "aws-and-deepgram-the-foundation-that-makes-voice-ai-scale"
+  },
+  {
+    "url": "https://deepgram.com/learn/aws-connect-partnership-expansion-unlocks-voice-data-scale",
+    "title": "Deepgram Expands Amazon Connect Partnership for Speech-to-Text and Speech AI",
+    "slug": "aws-connect-partnership-expansion-unlocks-voice-data-scale"
+  },
+  {
+    "url": "https://deepgram.com/learn/banking-next-front-door-is-voice-how-cx-leaders-are-rewiring-service-for-speed",
+    "title": "Banking Next Front Door Is Voice How Cx Leaders Are Rewiring Service For Speed",
+    "slug": "banking-next-front-door-is-voice-how-cx-leaders-are-rewiring-service-for-speed"
+  },
+  {
+    "url": "https://deepgram.com/learn/batch-text-to-speech-scalable-voice-generation-guide",
+    "title": "Batch Text-to-Speech: High-Volume Voice Generation Guide",
+    "slug": "batch-text-to-speech-scalable-voice-generation-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/bayesian-machine-learning",
+    "title": "Bayesian Machine Learning: Probabilistic AI Framework Guide",
+    "slug": "bayesian-machine-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/benchmark-medical-speech-recognition-accuracy-production",
+    "title": "How to Benchmark Medical Speech Recognition Accuracy for Clinical Use",
+    "slug": "benchmark-medical-speech-recognition-accuracy-production"
+  },
+  {
+    "url": "https://deepgram.com/learn/benchmarking-openai-whisper-for-non-english-asr",
+    "title": "Benchmarking Openai Whisper For Non English Asr",
+    "slug": "benchmarking-openai-whisper-for-non-english-asr"
+  },
+  {
+    "url": "https://deepgram.com/learn/benchmarking-top-open-source-speech-models",
+    "title": "3 Best Open-Source ASR Models Compared: Whisper, wav2vec 2.0, Kaldi – Insights &amp; Usability",
+    "slug": "benchmarking-top-open-source-speech-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-8-deepgram-projects-hack-cambridge",
+    "title": "The Best 8 Deepgram Projects from Hack Cambridge Blog ⚡️",
+    "slug": "best-8-deepgram-projects-hack-cambridge"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-ai-api-playgrounds-2023",
+    "title": "Best Ai Api Playgrounds 2023",
+    "slug": "best-ai-api-playgrounds-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-ai-tools-for-business",
+    "title": "Best AI Tools for Business: Complete List and Case Study",
+    "slug": "best-ai-tools-for-business"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-ai-tools-for-transcribing-meetings-in-2023",
+    "title": "Best Ai Tools For Transcribing Meetings In 2023",
+    "slug": "best-ai-tools-for-transcribing-meetings-in-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-coding-ai-copilots-other-than-github-copilot",
+    "title": "The 4 Best Coding AI CoPilots (Other than GitHub Copilot)",
+    "slug": "best-coding-ai-copilots-other-than-github-copilot"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-local-coding-llm",
+    "title": "Best Local Coding Llm",
+    "slug": "best-local-coding-llm"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-medical-transcription-with-nova-2-medical-speech-to-text-api",
+    "title": "Best Medical Transcription With Nova 2 Medical Speech To Text Api",
+    "slug": "best-medical-transcription-with-nova-2-medical-speech-to-text-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-python-audio-libraries-for-speech-recognition-in-2023",
+    "title": "The Developer&#x27;s Guide to Speech Recognition in Python",
+    "slug": "best-python-audio-libraries-for-speech-recognition-in-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-python-audio-manipulation-tools",
+    "title": "Best Python Tools for Manipulating Audio Data Blog ⚡️",
+    "slug": "best-python-audio-manipulation-tools"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-speech-recognition-model-business",
+    "title": "Best Speech Recognition Model Business",
+    "slug": "best-speech-recognition-model-business"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-speech-to-text-apis",
+    "title": "Best Speech To Text Apis",
+    "slug": "best-speech-to-text-apis"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-speech-to-text-apis-2026",
+    "title": "Best Speech To Text Apis 2026",
+    "slug": "best-speech-to-text-apis-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-text-to-speech-apis",
+    "title": "The Best Text to Speech APIs",
+    "slug": "best-text-to-speech-apis"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-text-to-speech-apis-2026",
+    "title": "Best Text To Speech Apis 2026",
+    "slug": "best-text-to-speech-apis-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-vapi-ai-alternatives",
+    "title": "Best 5 vapi AI alternatives for voice apps in 2026",
+    "slug": "best-vapi-ai-alternatives"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-voice-ai-agents-2026-buyers-guide",
+    "title": "Top Voice AI Agents for 2026: The Ultimate Buyer’s Guide",
+    "slug": "best-voice-ai-agents-2026-buyers-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-voice-ai-platforms-banking",
+    "title": "Best Voice AI for Banking in 2026: Platform Guide",
+    "slug": "best-voice-ai-platforms-banking"
+  },
+  {
+    "url": "https://deepgram.com/learn/best-voice-ai-platforms-enterprise-comparison",
+    "title": "Best Voice Ai Platforms Enterprise Comparison",
+    "slug": "best-voice-ai-platforms-enterprise-comparison"
+  },
+  {
+    "url": "https://deepgram.com/learn/beyond-chat-what-else-can-large-language-models-do",
+    "title": "Beyond Chat What Else Can Large Language Models Do",
+    "slug": "beyond-chat-what-else-can-large-language-models-do"
+  },
+  {
+    "url": "https://deepgram.com/learn/big-bench-llm-benchmark-guide",
+    "title": "BIG-Bench: The New Benchmark for Language Models",
+    "slug": "big-bench-llm-benchmark-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/breaking-the-gradient-supervised-learning-with-non-differentiable-loss-functions",
+    "title": "Breaking The Gradient Supervised Learning With Non Differentiable Loss Functions",
+    "slug": "breaking-the-gradient-supervised-learning-with-non-differentiable-loss-functions"
+  },
+  {
+    "url": "https://deepgram.com/learn/brian-barrow-hello",
+    "title": "Brian Barrow Hello",
+    "slug": "brian-barrow-hello"
+  },
+  {
+    "url": "https://deepgram.com/learn/browser-agent-sdk",
+    "title": "Browser Agent SDK: Ship a Voice Agent on Any Web App in Minutes",
+    "slug": "browser-agent-sdk"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-livestream-web-application-vue-and-express-setup",
+    "title": "Build A Livestream Web Application Vue And Express Setup",
+    "slug": "build-a-livestream-web-application-vue-and-express-setup"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-livestream-web-application-with-amazon-ivs-and-deepgram",
+    "title": "How to Build a Live Streaming Web Application with Amazon IVS and Deepgram Blog ⚡️",
+    "slug": "build-a-livestream-web-application-with-amazon-ivs-and-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-presentation-coaching-application-with-recall",
+    "title": "Build a Presentation Coaching Application with Recall Blog ⚡️",
+    "slug": "build-a-presentation-coaching-application-with-recall"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-real-time-transcription-app-with-react-and-deepgram",
+    "title": "Build a Real-Time Transcription App with React and Deepgram",
+    "slug": "build-a-real-time-transcription-app-with-react-and-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-todo-list-with-pinia-and-vue-3",
+    "title": "Build a To-do List App with Pinia and Vue 3 Blog ⚡️",
+    "slug": "build-a-todo-list-with-pinia-and-vue-3"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-voice-controlled-to-do-list-app-with-deepgram-and-vue-3",
+    "title": "Project Upgrade: Voice Controlled To-Do List App with Deepgram and Vue 3 Blog ⚡️",
+    "slug": "build-a-voice-controlled-to-do-list-app-with-deepgram-and-vue-3"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-a-youtube-video-downloader-with-python",
+    "title": "Build a YouTube Video Downloader with Python Blog ⚡️",
+    "slug": "build-a-youtube-video-downloader-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-an-agent-assist-bot-with-python",
+    "title": "Build an Agent Assist Bot with Python Blog ⚡️",
+    "slug": "build-an-agent-assist-bot-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-npm-packages",
+    "title": "Building an npm Package Blog ⚡️",
+    "slug": "build-npm-packages"
+  },
+  {
+    "url": "https://deepgram.com/learn/build-with-the-official-deepgram-sdks",
+    "title": "Build With the Official Deepgram SDKs Blog ⚡️",
+    "slug": "build-with-the-official-deepgram-sdks"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-404-pages-that-bring-joy",
+    "title": "Building 404 Pages That Bring Joy Blog ⚡️",
+    "slug": "building-404-pages-that-bring-joy"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-a-conversational-ai-flow-with-deepgram",
+    "title": "Building a Conversational AI Flow with Deepgram Blog ⚡️",
+    "slug": "building-a-conversational-ai-flow-with-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-an-end-to-end-llm-chatbot",
+    "title": "Building An End To End Llm Chatbot",
+    "slug": "building-an-end-to-end-llm-chatbot"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-an-llm-stack-1-implementing-encoders-and-decoders",
+    "title": "Building An Llm Stack 1 Implementing Encoders And Decoders",
+    "slug": "building-an-llm-stack-1-implementing-encoders-and-decoders"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-an-llm-stack-part-2-pre-training-tips-data-processing-tricks",
+    "title": "Building An Llm Stack Part 2 Pre Training Tips Data Processing Tricks",
+    "slug": "building-an-llm-stack-part-2-pre-training-tips-data-processing-tricks"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-an-llm-stack-part-3-fine-tuning",
+    "title": "Building An Llm Stack Part 3 Fine Tuning",
+    "slug": "building-an-llm-stack-part-3-fine-tuning"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-the-future-of-voice-scott-stephenson-ceo-deepgram-project-voice-x",
+    "title": "Building The Future Of Voice Scott Stephenson Ceo Deepgram Project Voice X",
+    "slug": "building-the-future-of-voice-scott-stephenson-ceo-deepgram-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/building-voice-archive-search-tool-with-deepgram-cohere-pinecone",
+    "title": "Building Voice Archive Search Tool With Deepgram Cohere Pinecone",
+    "slug": "building-voice-archive-search-tool-with-deepgram-cohere-pinecone"
+  },
+  {
+    "url": "https://deepgram.com/learn/call-center-compliance-regulations-2026",
+    "title": "Call Center Compliance Regulations 2026",
+    "slug": "call-center-compliance-regulations-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/call-your-open-claw-over-the-phone-with-deepgram-voice-agent-api",
+    "title": "Call Your Open Claw Over The Phone With Deepgram Voice Agent Api",
+    "slug": "call-your-open-claw-over-the-phone-with-deepgram-voice-agent-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/calling-your-video-game-with-your-phone-part-1",
+    "title": "Calling Your Video Game With Your Phone Part 1",
+    "slug": "calling-your-video-game-with-your-phone-part-1"
+  },
+  {
+    "url": "https://deepgram.com/learn/calling-your-video-game-with-your-phone-part-2",
+    "title": "Calling Your Video Game With Your Phone Part 2",
+    "slug": "calling-your-video-game-with-your-phone-part-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/calling-your-video-game-with-your-phone-part-3",
+    "title": "Calling Your Video Game With Your Phone Part 3",
+    "slug": "calling-your-video-game-with-your-phone-part-3"
+  },
+  {
+    "url": "https://deepgram.com/learn/capturing-attention-decoding-the-success-of-transformer-models-in-natural-language-processing",
+    "title": "Capturing Attention Decoding The Success Of Transformer Models In Natural Language Processing",
+    "slug": "capturing-attention-decoding-the-success-of-transformer-models-in-natural-language-processing"
+  },
+  {
+    "url": "https://deepgram.com/learn/celebrating-black-history-month-with-a-vision-of-more-inclusive-speech-recognition",
+    "title": "Celebrating Black History Month With A Vision Of More Inclusive Speech Recognition",
+    "slug": "celebrating-black-history-month-with-a-vision-of-more-inclusive-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/celebrating-jewish-american-history-month",
+    "title": "Celebrating Jewish American History Month",
+    "slug": "celebrating-jewish-american-history-month"
+  },
+  {
+    "url": "https://deepgram.com/learn/celebrating-women-building-the-future-of-ai",
+    "title": "Celebrating Women Building The Future Of Ai",
+    "slug": "celebrating-women-building-the-future-of-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/censor-profanity-nodejs",
+    "title": "Censor Profanity Nodejs",
+    "slug": "censor-profanity-nodejs"
+  },
+  {
+    "url": "https://deepgram.com/learn/chain-of-thought-prompting-guide",
+    "title": "Chain Of Thought Prompting Guide",
+    "slug": "chain-of-thought-prompting-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/chatbot-improvements-and-regressions-since-chatgpt",
+    "title": "Chatbot Improvements And Regressions Since Chatgpt",
+    "slug": "chatbot-improvements-and-regressions-since-chatgpt"
+  },
+  {
+    "url": "https://deepgram.com/learn/chatbot-vs-conversational-ai-key-differences-explained",
+    "title": "Chatbot Vs Conversational Ai Key Differences Explained",
+    "slug": "chatbot-vs-conversational-ai-key-differences-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/chatgpt-vs-bard-what-can-we-expect",
+    "title": "Chatgpt Vs Bard What Can We Expect",
+    "slug": "chatgpt-vs-bard-what-can-we-expect"
+  },
+  {
+    "url": "https://deepgram.com/learn/child-to-adult-voice-style-transfer-auditory-ai-case-study",
+    "title": "Child To Adult Voice Style Transfer Auditory Ai Case Study",
+    "slug": "child-to-adult-voice-style-transfer-auditory-ai-case-study"
+  },
+  {
+    "url": "https://deepgram.com/learn/chili-pepper",
+    "title": "Chili Pepper",
+    "slug": "chili-pepper"
+  },
+  {
+    "url": "https://deepgram.com/learn/chromium-kiosk-pi",
+    "title": "Chromium Kiosk Pi",
+    "slug": "chromium-kiosk-pi"
+  },
+  {
+    "url": "https://deepgram.com/learn/classroom-captioner",
+    "title": "Classroom Captioner",
+    "slug": "classroom-captioner"
+  },
+  {
+    "url": "https://deepgram.com/learn/close-source-ai-vs-open-source-ai-case-study",
+    "title": "Close Source Ai Vs Open Source Ai Case Study",
+    "slug": "close-source-ai-vs-open-source-ai-case-study"
+  },
+  {
+    "url": "https://deepgram.com/learn/closed-captioning-companies-use-asr",
+    "title": "Closed Captioning Companies Use Asr",
+    "slug": "closed-captioning-companies-use-asr"
+  },
+  {
+    "url": "https://deepgram.com/learn/cloud-to-butt",
+    "title": "Cloud To Butt",
+    "slug": "cloud-to-butt"
+  },
+  {
+    "url": "https://deepgram.com/learn/code-llama-explained",
+    "title": "Code Llama Explained",
+    "slug": "code-llama-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/coding-website-with-voice",
+    "title": "Coding Website With Voice",
+    "slug": "coding-website-with-voice"
+  },
+  {
+    "url": "https://deepgram.com/learn/comic-books-videos-yack",
+    "title": "Comic Books Videos Yack",
+    "slug": "comic-books-videos-yack"
+  },
+  {
+    "url": "https://deepgram.com/learn/common-tts-pronunciation-errors",
+    "title": "Common Tts Pronunciation Errors",
+    "slug": "common-tts-pronunciation-errors"
+  },
+  {
+    "url": "https://deepgram.com/learn/complete-guide-punctuation-capitalization-speech-to-text",
+    "title": "Complete Guide Punctuation Capitalization Speech To Text",
+    "slug": "complete-guide-punctuation-capitalization-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/compliance-monitoring-for-call-centers",
+    "title": "Compliance Monitoring For Call Centers",
+    "slug": "compliance-monitoring-for-call-centers"
+  },
+  {
+    "url": "https://deepgram.com/learn/conformer-models-asr-accuracy-benchmarks-production-tradeoffs",
+    "title": "Conformer Models Asr Accuracy Benchmarks Production Tradeoffs",
+    "slug": "conformer-models-asr-accuracy-benchmarks-production-tradeoffs"
+  },
+  {
+    "url": "https://deepgram.com/learn/considerations-for-building-ai-agents",
+    "title": "Considerations For Building Ai Agents",
+    "slug": "considerations-for-building-ai-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/contact-center-as-a-service-utilize-solutions",
+    "title": "Contact Center As A Service Utilize Solutions",
+    "slug": "contact-center-as-a-service-utilize-solutions"
+  },
+  {
+    "url": "https://deepgram.com/learn/contextual-video-overlay-tomscottplus",
+    "title": "Contextual Video Overlay Tomscottplus",
+    "slug": "contextual-video-overlay-tomscottplus"
+  },
+  {
+    "url": "https://deepgram.com/learn/conversation-intelligence-voice-agents-post-call-real-time-analytics",
+    "title": "Conversation Intelligence Voice Agents Post Call Real Time Analytics",
+    "slug": "conversation-intelligence-voice-agents-post-call-real-time-analytics"
+  },
+  {
+    "url": "https://deepgram.com/learn/conversational-ai-platforms-utilize-top-asr-tools",
+    "title": "Conversational Ai Platforms Utilize Top Asr Tools",
+    "slug": "conversational-ai-platforms-utilize-top-asr-tools"
+  },
+  {
+    "url": "https://deepgram.com/learn/conversational-ai-vs-generative-ai",
+    "title": "Conversational Ai Vs Generative Ai",
+    "slug": "conversational-ai-vs-generative-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/conversational-intelligence-for-enterprise-sales",
+    "title": "Conversational Intelligence For Enterprise Sales",
+    "slug": "conversational-intelligence-for-enterprise-sales"
+  },
+  {
+    "url": "https://deepgram.com/learn/conversational-intelligence-podcast-with-scott-stephenson",
+    "title": "Conversational Intelligence Podcast With Scott Stephenson",
+    "slug": "conversational-intelligence-podcast-with-scott-stephenson"
+  },
+  {
+    "url": "https://deepgram.com/learn/coval-validates-flux-no-tradeoff-between-latency-and-interruption",
+    "title": "Coval Validates Flux No Tradeoff Between Latency And Interruption",
+    "slug": "coval-validates-flux-no-tradeoff-between-latency-and-interruption"
+  },
+  {
+    "url": "https://deepgram.com/learn/create-readable-transcripts-for-podcasts",
+    "title": "Create Readable Transcripts For Podcasts",
+    "slug": "create-readable-transcripts-for-podcasts"
+  },
+  {
+    "url": "https://deepgram.com/learn/creating-speaker-labeled-transcripts-with-google-colab",
+    "title": "Creating Speaker Labeled Transcripts With Google Colab",
+    "slug": "creating-speaker-labeled-transcripts-with-google-colab"
+  },
+  {
+    "url": "https://deepgram.com/learn/cross-platform-nuget-dotnet",
+    "title": "Cross Platform Nuget Dotnet",
+    "slug": "cross-platform-nuget-dotnet"
+  },
+  {
+    "url": "https://deepgram.com/learn/customer-story-rideshare-smartrhino-deepgram",
+    "title": "Customer Story Rideshare Smartrhino Deepgram",
+    "slug": "customer-story-rideshare-smartrhino-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/customer-story-stanford-moves-education-forward-with-deepgram",
+    "title": "Customer Story Stanford Moves Education Forward With Deepgram",
+    "slug": "customer-story-stanford-moves-education-forward-with-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/customer-success-reimagined-for-ai",
+    "title": "Customer Success Reimagined For Ai",
+    "slug": "customer-success-reimagined-for-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/czesc-we-re-releasing-a-base-polish-beta-speech-to-text-language-model",
+    "title": "Czesc We Re Releasing A Base Polish Beta Speech To Text Language Model",
+    "slug": "czesc-we-re-releasing-a-base-polish-beta-speech-to-text-language-model"
+  },
+  {
+    "url": "https://deepgram.com/learn/daily-video-live-transcription",
+    "title": "Daily Video Live Transcription",
+    "slug": "daily-video-live-transcription"
+  },
+  {
+    "url": "https://deepgram.com/learn/deep-learning-101-building-blocks-of-machine-intelligence",
+    "title": "Deep Learning 101 Building Blocks Of Machine Intelligence",
+    "slug": "deep-learning-101-building-blocks-of-machine-intelligence"
+  },
+  {
+    "url": "https://deepgram.com/learn/deep-learning-asr-for-business",
+    "title": "Deep Learning Asr For Business",
+    "slug": "deep-learning-asr-for-business"
+  },
+  {
+    "url": "https://deepgram.com/learn/deep-learning-speech-recognition",
+    "title": "Deep Learning Speech Recognition",
+    "slug": "deep-learning-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-2025-contact-center-technology-award",
+    "title": "Deepgram 2025 Contact Center Technology Award",
+    "slug": "deepgram-2025-contact-center-technology-award"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-72-million-series-b-defines-future-of-AI-speech-understanding",
+    "title": "Deepgram 72 Million Series B Defines Future Of Ai Speech Understanding",
+    "slug": "deepgram-72-million-series-b-defines-future-of-AI-speech-understanding"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-accelerates-into-2025",
+    "title": "Deepgram Accelerates Into 2025",
+    "slug": "deepgram-accelerates-into-2025"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-achieves-aws-generative-ai-competency",
+    "title": "Deepgram Achieves Aws Generative Ai Competency",
+    "slug": "deepgram-achieves-aws-generative-ai-competency"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-acquires-poised-elevating-real-time-voice-ai-communication",
+    "title": "Deepgram Acquires Poised Elevating Real Time Voice Ai Communication",
+    "slug": "deepgram-acquires-poised-elevating-real-time-voice-ai-communication"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-and-aws-accelerate-global-development-of-voice-ai",
+    "title": "Deepgram And Aws Accelerate Global Development Of Voice Ai",
+    "slug": "deepgram-and-aws-accelerate-global-development-of-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-and-genesys-partnership-transcription-connector-integration",
+    "title": "Deepgram And Genesys Partnership Transcription Connector Integration",
+    "slug": "deepgram-and-genesys-partnership-transcription-connector-integration"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-and-ibm-introduce-advanced-voice-capabilities-for-enterprise-ai",
+    "title": "Deepgram And Ibm Introduce Advanced Voice Capabilities For Enterprise Ai",
+    "slug": "deepgram-and-ibm-introduce-advanced-voice-capabilities-for-enterprise-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-and-pytorch-the-origins-of-our-foundational-ai-company",
+    "title": "Deepgram And Pytorch The Origins Of Our Foundational Ai Company",
+    "slug": "deepgram-and-pytorch-the-origins-of-our-foundational-ai-company"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-and-recall-ai-partner-to-make-it-easier-for-developers-to-extract-insights-from-meeting-audio-and-automate-tedious-workflows",
+    "title": "Deepgram And Recall Ai Partner To Make It Easier For Developers To Extract Insights From Meeting Audio And Automate Tedious Workflows",
+    "slug": "deepgram-and-recall-ai-partner-to-make-it-easier-for-developers-to-extract-insights-from-meeting-audio-and-automate-tedious-workflows"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-announces-unimrcp-integration-to-power-modern-customer-experience",
+    "title": "Deepgram Announces Unimrcp Integration To Power Modern Customer Experience",
+    "slug": "deepgram-announces-unimrcp-integration-to-power-modern-customer-experience"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-annual-company-offsite-strikes-again",
+    "title": "Deepgram Annual Company Offsite Strikes Again",
+    "slug": "deepgram-annual-company-offsite-strikes-again"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-australia-endpoint-now-generally-available",
+    "title": "Deepgram Australia Endpoint Now Generally Available",
+    "slug": "deepgram-australia-endpoint-now-generally-available"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-brings-real-time-speech-intelligence-to-amazon-sagemaker",
+    "title": "Deepgram Brings Real Time Speech Intelligence To Amazon Sagemaker",
+    "slug": "deepgram-brings-real-time-speech-intelligence-to-amazon-sagemaker"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-brings-voice-ai-to-amazon-connect-and-lex",
+    "title": "Deepgram Brings Voice Ai To Amazon Connect And Lex",
+    "slug": "deepgram-brings-voice-ai-to-amazon-connect-and-lex"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-diversity-inclusion",
+    "title": "Deepgram Diversity Inclusion",
+    "slug": "deepgram-diversity-inclusion"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-enables-developers-to-build-the-future-of-voice-with-suite-of-new-features-and-10-million-in-free-speech-recognition",
+    "title": "Deepgram Enables Developers To Build The Future Of Voice With Suite Of New Features And 10 Million In Free Speech Recognition",
+    "slug": "deepgram-enables-developers-to-build-the-future-of-voice-with-suite-of-new-features-and-10-million-in-free-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-enters-strategic-investment-agreement-with-in-q-tel-2",
+    "title": "Deepgram Enters Strategic Investment Agreement With In Q Tel 2",
+    "slug": "deepgram-enters-strategic-investment-agreement-with-in-q-tel-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-eu-endpoint-now-generally-available",
+    "title": "Deepgram Eu Endpoint Now Generally Available",
+    "slug": "deepgram-eu-endpoint-now-generally-available"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-expands-nova-3-with-10-new-languages-and-multilingual-keyterm-prompting",
+    "title": "Deepgram Expands Nova 3 With 10 New Languages And Multilingual Keyterm Prompting",
+    "slug": "deepgram-expands-nova-3-with-10-new-languages-and-multilingual-keyterm-prompting"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-expands-nova-3-with-11-new-languages-across-europe-and-asia",
+    "title": "Deepgram Expands Nova 3 With 11 New Languages Across Europe And Asia",
+    "slug": "deepgram-expands-nova-3-with-11-new-languages-across-europe-and-asia"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-expands-nova-3-with-german-dutch-swedish-and-danish-support",
+    "title": "Deepgram Expands Nova 3 With German Dutch Swedish And Danish Support",
+    "slug": "deepgram-expands-nova-3-with-german-dutch-swedish-and-danish-support"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-expands-nova-3-with-italian-turkish-norwegian-and-indonesian-support",
+    "title": "Deepgram Expands Nova 3 With Italian Turkish Norwegian And Indonesian Support",
+    "slug": "deepgram-expands-nova-3-with-italian-turkish-norwegian-and-indonesian-support"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-expands-nova-3-with-spanish-french-and-portuguese-support",
+    "title": "Deepgram Expands Nova 3 With Spanish French And Portuguese Support",
+    "slug": "deepgram-expands-nova-3-with-spanish-french-and-portuguese-support"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-featured-on-fast-company-seventh-annual-list-of-100-best-workplaces",
+    "title": "Deepgram Featured On Fast Company Seventh Annual List Of 100 Best Workplaces",
+    "slug": "deepgram-featured-on-fast-company-seventh-annual-list-of-100-best-workplaces"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-for-restaurants-engineering-culture",
+    "title": "Deepgram For Restaurants Engineering Culture",
+    "slug": "deepgram-for-restaurants-engineering-culture"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-for-restaurants-engineering-culture-part-2",
+    "title": "Deepgram For Restaurants Engineering Culture Part 2",
+    "slug": "deepgram-for-restaurants-engineering-culture-part-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-fortanix-press-release",
+    "title": "Deepgram Fortanix Press Release",
+    "slug": "deepgram-fortanix-press-release"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-g2-customer-service",
+    "title": "Deepgram G2 Customer Service",
+    "slug": "deepgram-g2-customer-service"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-g2-review-winter-2022",
+    "title": "Deepgram G2 Review Winter 2022",
+    "slug": "deepgram-g2-review-winter-2022"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-godot-tutorial",
+    "title": "Deepgram Godot Tutorial",
+    "slug": "deepgram-godot-tutorial"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-goes-global",
+    "title": "Deepgram Goes Global",
+    "slug": "deepgram-goes-global"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-is-a-founding-member-of-callminers-open-voice-transcription-standard-ovts",
+    "title": "Deepgram Is A Founding Member Of Callminers Open Voice Transcription Standard Ovts",
+    "slug": "deepgram-is-a-founding-member-of-callminers-open-voice-transcription-standard-ovts"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-javascript-sdk-v5-python-sdk-v6",
+    "title": "Deepgram Javascript Sdk V5 Python Sdk V6",
+    "slug": "deepgram-javascript-sdk-v5-python-sdk-v6"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-language-detection-conlang-experiment",
+    "title": "Deepgram Language Detection Conlang Experiment",
+    "slug": "deepgram-language-detection-conlang-experiment"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-language-speech-models",
+    "title": "Deepgram Language Speech Models",
+    "slug": "deepgram-language-speech-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-launches-flux-multilingual-press-release",
+    "title": "Deepgram Launches Flux Multilingual Press Release",
+    "slug": "deepgram-launches-flux-multilingual-press-release"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-launches-voice-agent-api",
+    "title": "Deepgram Launches Voice Agent Api",
+    "slug": "deepgram-launches-voice-agent-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-milestone-enterprise-speech-to-speech",
+    "title": "Deepgram Milestone Enterprise Speech To Speech",
+    "slug": "deepgram-milestone-enterprise-speech-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-named-a-high-performer-for-voice-recognition-software-in-g2-fall-report",
+    "title": "Deepgram Named A High Performer For Voice Recognition Software In G2 Fall Report",
+    "slug": "deepgram-named-a-high-performer-for-voice-recognition-software-in-g2-fall-report"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-nova-3-expands-speech-to-text-support-across-asia-pacific",
+    "title": "Deepgram Nova 3 Expands Speech To Text Support Across Asia Pacific",
+    "slug": "deepgram-nova-3-expands-speech-to-text-support-across-asia-pacific"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-pioneers-novel-training-approach-setting-new-standard-for-ai-companies",
+    "title": "Deepgram Pioneers Novel Training Approach Setting New Standard For Ai Companies",
+    "slug": "deepgram-pioneers-novel-training-approach-setting-new-standard-for-ai-companies"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-projectvoicex-transcription-aicontactcenter-artcoombs",
+    "title": "Deepgram Projectvoicex Transcription Aicontactcenter Artcoombs",
+    "slug": "deepgram-projectvoicex-transcription-aicontactcenter-artcoombs"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-reached-soc-2-type-1-certification",
+    "title": "Deepgram Reached Soc 2 Type 1 Certification",
+    "slug": "deepgram-reached-soc-2-type-1-certification"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-receives-2025-voice-ai-technology-excellence-award",
+    "title": "Deepgram Receives 2025 Voice Ai Technology Excellence Award",
+    "slug": "deepgram-receives-2025-voice-ai-technology-excellence-award"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-receives-customer-experience-innovation-award-for-aura-2-text-to-speech",
+    "title": "Deepgram Receives Customer Experience Innovation Award For Aura 2 Text To Speech",
+    "slug": "deepgram-receives-customer-experience-innovation-award-for-aura-2-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-reliability-playbook-performance-without-compromise",
+    "title": "Deepgram Reliability Playbook Performance Without Compromise",
+    "slug": "deepgram-reliability-playbook-performance-without-compromise"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-s-remote-first-mindset-how-we-work-and-why-it-matters",
+    "title": "Deepgram S Remote First Mindset How We Work And Why It Matters",
+    "slug": "deepgram-s-remote-first-mindset-how-we-work-and-why-it-matters"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-s-startup-program-growth",
+    "title": "Deepgram S Startup Program Growth",
+    "slug": "deepgram-s-startup-program-growth"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-series-a",
+    "title": "Deepgram Series A",
+    "slug": "deepgram-series-a"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-summit-speaker-lineup-2021",
+    "title": "Deepgram Summit Speaker Lineup 2021",
+    "slug": "deepgram-summit-speaker-lineup-2021"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-twilio-streaming",
+    "title": "Deepgram Twilio Streaming",
+    "slug": "deepgram-twilio-streaming"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-twilio-streaming-rust",
+    "title": "Deepgram Twilio Streaming Rust",
+    "slug": "deepgram-twilio-streaming-rust"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-unispeech-integrate-asr-unimrcp",
+    "title": "Deepgram Unispeech Integrate Asr Unimrcp",
+    "slug": "deepgram-unispeech-integrate-asr-unimrcp"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-unity-tutorial",
+    "title": "Deepgram Unity Tutorial",
+    "slug": "deepgram-unity-tutorial"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-universal--transcriber-translator-tutorial",
+    "title": "Deepgram Universal  Transcriber Translator Tutorial",
+    "slug": "deepgram-universal--transcriber-translator-tutorial"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-versus-amazon-google",
+    "title": "Deepgram Versus Amazon Google",
+    "slug": "deepgram-versus-amazon-google"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-voice-agent-api-vs-openai-realtime-api",
+    "title": "Deepgram Voice Agent Api Vs Openai Realtime Api",
+    "slug": "deepgram-voice-agent-api-vs-openai-realtime-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-amazon-transcribe",
+    "title": "Deepgram Vs Amazon Transcribe",
+    "slug": "deepgram-vs-amazon-transcribe"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-assemblyai-vs-whisper",
+    "title": "Deepgram Vs Assemblyai Vs Whisper",
+    "slug": "deepgram-vs-assemblyai-vs-whisper"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-aws-transcribe-vs-azure",
+    "title": "Deepgram Vs Aws Transcribe Vs Azure",
+    "slug": "deepgram-vs-aws-transcribe-vs-azure"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-elevenlabs",
+    "title": "Deepgram Vs Elevenlabs",
+    "slug": "deepgram-vs-elevenlabs"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-google-speech-to-text-comparison",
+    "title": "Deepgram Vs Google Speech To Text Comparison",
+    "slug": "deepgram-vs-google-speech-to-text-comparison"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-google-vs-assemblyai",
+    "title": "Deepgram Vs Google Vs Assemblyai",
+    "slug": "deepgram-vs-google-vs-assemblyai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-google-vs-azure-speech-to-text",
+    "title": "Deepgram Vs Google Vs Azure Speech To Text",
+    "slug": "deepgram-vs-google-vs-azure-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-openai-vs-google-stt-accuracy-latency-price-compared",
+    "title": "Deepgram Vs Openai Vs Google Stt Accuracy Latency Price Compared",
+    "slug": "deepgram-vs-openai-vs-google-stt-accuracy-latency-price-compared"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-rev-ai",
+    "title": "Deepgram Vs Rev Ai",
+    "slug": "deepgram-vs-rev-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-rev-ai-vs-whisper",
+    "title": "Deepgram Vs Rev Ai Vs Whisper",
+    "slug": "deepgram-vs-rev-ai-vs-whisper"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-speechmatics-vs-assemblyai",
+    "title": "Deepgram Vs Speechmatics Vs Assemblyai",
+    "slug": "deepgram-vs-speechmatics-vs-assemblyai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-speechmatics-vs-rev-ai",
+    "title": "Deepgram Vs Speechmatics Vs Rev Ai",
+    "slug": "deepgram-vs-speechmatics-vs-rev-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-vs-twilio-real-time-transcription",
+    "title": "Deepgram Vs Twilio Real Time Transcription",
+    "slug": "deepgram-vs-twilio-real-time-transcription"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-with-vonage",
+    "title": "Deepgram With Vonage",
+    "slug": "deepgram-with-vonage"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgram-year-of-voice-ai-at-scale",
+    "title": "Deepgram Year Of Voice Ai At Scale",
+    "slug": "deepgram-year-of-voice-ai-at-scale"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgrams-slack-bot-an-unexpected-automation",
+    "title": "Deepgrams Slack Bot An Unexpected Automation",
+    "slug": "deepgrams-slack-bot-an-unexpected-automation"
+  },
+  {
+    "url": "https://deepgram.com/learn/deepgrams-speech-to-text-api-number-1-for-developers-g2",
+    "title": "Deepgrams Speech To Text Api Number 1 For Developers G2",
+    "slug": "deepgrams-speech-to-text-api-number-1-for-developers-g2"
+  },
+  {
+    "url": "https://deepgram.com/learn/defensibility",
+    "title": "Defensibility",
+    "slug": "defensibility"
+  },
+  {
+    "url": "https://deepgram.com/learn/democratizing-speech-analytics-deepgram-callbi",
+    "title": "Democratizing Speech Analytics Deepgram Callbi",
+    "slug": "democratizing-speech-analytics-deepgram-callbi"
+  },
+  {
+    "url": "https://deepgram.com/learn/deploy-a-serverless-transcription-workflow-with-aws-lambda-deepgram-stt",
+    "title": "Deploy A Serverless Transcription Workflow With Aws Lambda Deepgram Stt",
+    "slug": "deploy-a-serverless-transcription-workflow-with-aws-lambda-deepgram-stt"
+  },
+  {
+    "url": "https://deepgram.com/learn/design-principles-for-conversational-ai-a-primer",
+    "title": "Design Principles For Conversational Ai A Primer",
+    "slug": "design-principles-for-conversational-ai-a-primer"
+  },
+  {
+    "url": "https://deepgram.com/learn/designing-voice-ai-workflows-using-stt-nlp-tts",
+    "title": "Designing Voice Ai Workflows Using Stt Nlp Tts",
+    "slug": "designing-voice-ai-workflows-using-stt-nlp-tts"
+  },
+  {
+    "url": "https://deepgram.com/learn/detect-intent-from-audio",
+    "title": "Detect Intent From Audio",
+    "slug": "detect-intent-from-audio"
+  },
+  {
+    "url": "https://deepgram.com/learn/detect-non-inclusive-language-with-retext-and-node-js",
+    "title": "Detect Non Inclusive Language With Retext And Node Js",
+    "slug": "detect-non-inclusive-language-with-retext-and-node-js"
+  },
+  {
+    "url": "https://deepgram.com/learn/detecting-and-reducing-bias-in-speech-recognition",
+    "title": "Detecting And Reducing Bias In Speech Recognition",
+    "slug": "detecting-and-reducing-bias-in-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/diffusion-models-reimagining-game-environments-diamond",
+    "title": "Diffusion Models Reimagining Game Environments Diamond",
+    "slug": "diffusion-models-reimagining-game-environments-diamond"
+  },
+  {
+    "url": "https://deepgram.com/learn/diving-into-vue-3-getting-started",
+    "title": "Diving Into Vue 3 Getting Started",
+    "slug": "diving-into-vue-3-getting-started"
+  },
+  {
+    "url": "https://deepgram.com/learn/diving-into-vue-3-methods-watch-and-computed",
+    "title": "Diving Into Vue 3 Methods Watch And Computed",
+    "slug": "diving-into-vue-3-methods-watch-and-computed"
+  },
+  {
+    "url": "https://deepgram.com/learn/diving-into-vue-3-reactivity-api",
+    "title": "Diving Into Vue 3 Reactivity Api",
+    "slug": "diving-into-vue-3-reactivity-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/diving-into-vue-3-reusability-with-composables",
+    "title": "Diving Into Vue 3 Reusability With Composables",
+    "slug": "diving-into-vue-3-reusability-with-composables"
+  },
+  {
+    "url": "https://deepgram.com/learn/diving-into-vue-3-setup-function",
+    "title": "Diving Into Vue 3 Setup Function",
+    "slug": "diving-into-vue-3-setup-function"
+  },
+  {
+    "url": "https://deepgram.com/learn/do-your-call-transcripts-read-like-mad-libs",
+    "title": "Do Your Call Transcripts Read Like Mad Libs",
+    "slug": "do-your-call-transcripts-read-like-mad-libs"
+  },
+  {
+    "url": "https://deepgram.com/learn/docllm",
+    "title": "Docllm",
+    "slug": "docllm"
+  },
+  {
+    "url": "https://deepgram.com/learn/does-unsupervised-learning-create-superior-speech-recognition",
+    "title": "Does Unsupervised Learning Create Superior Speech Recognition",
+    "slug": "does-unsupervised-learning-create-superior-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/downloading-podcast-transcripts-from-terminal",
+    "title": "Downloading Podcast Transcripts From Terminal",
+    "slug": "downloading-podcast-transcripts-from-terminal"
+  },
+  {
+    "url": "https://deepgram.com/learn/draw-with-your-voice-articulate",
+    "title": "Draw With Your Voice Articulate",
+    "slug": "draw-with-your-voice-articulate"
+  },
+  {
+    "url": "https://deepgram.com/learn/dynamic-range-compression-voice-ai",
+    "title": "Dynamic Range Compression Voice Ai",
+    "slug": "dynamic-range-compression-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/early-lessons-from-public-service-to-tech",
+    "title": "Early Lessons From Public Service To Tech",
+    "slug": "early-lessons-from-public-service-to-tech"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-barge-in-interruptions-turn-taking",
+    "title": "Elevenlabs Barge In Interruptions Turn Taking",
+    "slug": "elevenlabs-barge-in-interruptions-turn-taking"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-custom-voices-production-risks",
+    "title": "Elevenlabs Custom Voices Production Risks",
+    "slug": "elevenlabs-custom-voices-production-risks"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-languages-vs-accents-support",
+    "title": "Elevenlabs Languages Vs Accents Support",
+    "slug": "elevenlabs-languages-vs-accents-support"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-production-limits-concurrency-credits-compliance",
+    "title": "Elevenlabs Production Limits Concurrency Credits Compliance",
+    "slug": "elevenlabs-production-limits-concurrency-credits-compliance"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-real-time-voice-agent",
+    "title": "Elevenlabs Real Time Voice Agent",
+    "slug": "elevenlabs-real-time-voice-agent"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-security-review-enterprise-guide",
+    "title": "Elevenlabs Security Review Enterprise Guide",
+    "slug": "elevenlabs-security-review-enterprise-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-speech-to-text",
+    "title": "Elevenlabs Speech To Text",
+    "slug": "elevenlabs-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/elevenlabs-transcription-vs-deepgram",
+    "title": "Elevenlabs Transcription Vs Deepgram",
+    "slug": "elevenlabs-transcription-vs-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/email-phone-call-transcripts-with-twilio-studio-and-pipedream",
+    "title": "Email Phone Call Transcripts With Twilio Studio And Pipedream",
+    "slug": "email-phone-call-transcripts-with-twilio-studio-and-pipedream"
+  },
+  {
+    "url": "https://deepgram.com/learn/embracing-the-diversity-of-spanish",
+    "title": "Embracing The Diversity Of Spanish",
+    "slug": "embracing-the-diversity-of-spanish"
+  },
+  {
+    "url": "https://deepgram.com/learn/enable-numeral-formatting-in-real-time",
+    "title": "Enable Numeral Formatting In Real Time",
+    "slug": "enable-numeral-formatting-in-real-time"
+  },
+  {
+    "url": "https://deepgram.com/learn/engineering-real-time-low-latency-voice-ai-at-scale",
+    "title": "Engineering Real Time Low Latency Voice Ai At Scale",
+    "slug": "engineering-real-time-low-latency-voice-ai-at-scale"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhance-audio-with-dolby-and-deepgram",
+    "title": "Enhance Audio With Dolby And Deepgram",
+    "slug": "enhance-audio-with-dolby-and-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhance-your-voice-ai-windows-applications-with-the-deepgram-net-4-0-sdk",
+    "title": "Enhance Your Voice Ai Windows Applications With The Deepgram Net 4 0 Sdk",
+    "slug": "enhance-your-voice-ai-windows-applications-with-the-deepgram-net-4-0-sdk"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-french",
+    "title": "Enhanced French",
+    "slug": "enhanced-french"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-german",
+    "title": "Enhanced German",
+    "slug": "enhanced-german"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-italian",
+    "title": "Enhanced Italian",
+    "slug": "enhanced-italian"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-japanese",
+    "title": "Enhanced Japanese",
+    "slug": "enhanced-japanese"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-korean",
+    "title": "Enhanced Korean",
+    "slug": "enhanced-korean"
+  },
+  {
+    "url": "https://deepgram.com/learn/enhanced-messaging-in-streaming",
+    "title": "Enhanced Messaging In Streaming",
+    "slug": "enhanced-messaging-in-streaming"
+  },
+  {
+    "url": "https://deepgram.com/learn/enterprise-ai-voice-agents",
+    "title": "Enterprise Ai Voice Agents",
+    "slug": "enterprise-ai-voice-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/enterprise-ai-voice-agents-guide",
+    "title": "Enterprise Ai Voice Agents Guide",
+    "slug": "enterprise-ai-voice-agents-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/enterprise-restaurant-brands-deserve-frontier-voice-ai-models",
+    "title": "Enterprise Restaurant Brands Deserve Frontier Voice Ai Models",
+    "slug": "enterprise-restaurant-brands-deserve-frontier-voice-ai-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/enterprise-voice-ai-accelerator-program",
+    "title": "Enterprise Voice Ai Accelerator Program",
+    "slug": "enterprise-voice-ai-accelerator-program"
+  },
+  {
+    "url": "https://deepgram.com/learn/enterprise-voice-ai-use-cases",
+    "title": "Enterprise Voice Ai Use Cases",
+    "slug": "enterprise-voice-ai-use-cases"
+  },
+  {
+    "url": "https://deepgram.com/learn/environment-aware-text-to-speech-research-deep-dive",
+    "title": "Environment Aware Text To Speech Research Deep Dive",
+    "slug": "environment-aware-text-to-speech-research-deep-dive"
+  },
+  {
+    "url": "https://deepgram.com/learn/environment-aware-tts-just-sounds-better-the-key-to-natural-sounding-ai",
+    "title": "Environment Aware Tts Just Sounds Better The Key To Natural Sounding Ai",
+    "slug": "environment-aware-tts-just-sounds-better-the-key-to-natural-sounding-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/equitable-voice-tech",
+    "title": "Equitable Voice Tech",
+    "slug": "equitable-voice-tech"
+  },
+  {
+    "url": "https://deepgram.com/learn/ethics-of-voice-cloning-and-deepfakes",
+    "title": "Ethics Of Voice Cloning And Deepfakes",
+    "slug": "ethics-of-voice-cloning-and-deepfakes"
+  },
+  {
+    "url": "https://deepgram.com/learn/evaluating-end-of-turn-detection-models",
+    "title": "Evaluating End Of Turn Detection Models",
+    "slug": "evaluating-end-of-turn-detection-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/evaluating-healthcare-ai-agents-building-trustworthy-machines",
+    "title": "Evaluating Healthcare Ai Agents Building Trustworthy Machines",
+    "slug": "evaluating-healthcare-ai-agents-building-trustworthy-machines"
+  },
+  {
+    "url": "https://deepgram.com/learn/everything-about-voice-ai-agents",
+    "title": "Everything About Voice Ai Agents",
+    "slug": "everything-about-voice-ai-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/everything-you-need-to-know-about-keywords-for-speech-recognition",
+    "title": "Everything You Need To Know About Keywords For Speech Recognition",
+    "slug": "everything-you-need-to-know-about-keywords-for-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/evolution-of-asr",
+    "title": "Evolution Of Asr",
+    "slug": "evolution-of-asr"
+  },
+  {
+    "url": "https://deepgram.com/learn/evolution-of-gpu",
+    "title": "Evolution Of Gpu",
+    "slug": "evolution-of-gpu"
+  },
+  {
+    "url": "https://deepgram.com/learn/evolution-of-speech-synthesis-tts",
+    "title": "Evolution Of Speech Synthesis Tts",
+    "slug": "evolution-of-speech-synthesis-tts"
+  },
+  {
+    "url": "https://deepgram.com/learn/exploring-whisper",
+    "title": "Exploring Whisper",
+    "slug": "exploring-whisper"
+  },
+  {
+    "url": "https://deepgram.com/learn/exposing-ai-generated-videos-technological-secrets-revealed",
+    "title": "Exposing Ai Generated Videos Technological Secrets Revealed",
+    "slug": "exposing-ai-generated-videos-technological-secrets-revealed"
+  },
+  {
+    "url": "https://deepgram.com/learn/exposing-ai-voice-agents-a-case-study",
+    "title": "Exposing Ai Voice Agents A Case Study",
+    "slug": "exposing-ai-voice-agents-a-case-study"
+  },
+  {
+    "url": "https://deepgram.com/learn/fetch-hosted-audio-streams-in-the-browser",
+    "title": "Fetch Hosted Audio Streams In The Browser",
+    "slug": "fetch-hosted-audio-streams-in-the-browser"
+  },
+  {
+    "url": "https://deepgram.com/learn/ffmpeg-beginners",
+    "title": "Ffmpeg Beginners",
+    "slug": "ffmpeg-beginners"
+  },
+  {
+    "url": "https://deepgram.com/learn/fine-tuning-your-ai",
+    "title": "Fine Tuning Your Ai",
+    "slug": "fine-tuning-your-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/five-language-ai-startups-africa-2023",
+    "title": "Five Language Ai Startups Africa 2023",
+    "slug": "five-language-ai-startups-africa-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/five-use-cases-for-voice-ai-agents-for-business-part-1",
+    "title": "Five Use Cases For Voice Ai Agents For Business Part 1",
+    "slug": "five-use-cases-for-voice-ai-agents-for-business-part-1"
+  },
+  {
+    "url": "https://deepgram.com/learn/five9-partnership-revolutionizes-contact-center-ai",
+    "title": "Five9 Partnership Revolutionizes Contact Center Ai",
+    "slug": "five9-partnership-revolutionizes-contact-center-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/flutter-speech-to-text-tutorial",
+    "title": "Flutter Speech To Text Tutorial",
+    "slug": "flutter-speech-to-text-tutorial"
+  },
+  {
+    "url": "https://deepgram.com/learn/flux-just-got-a-little-smarter",
+    "title": "Flux Just Got A Little Smarter",
+    "slug": "flux-just-got-a-little-smarter"
+  },
+  {
+    "url": "https://deepgram.com/learn/flux-multilingual-technical-deep-dive",
+    "title": "Flux Multilingual Technical Deep Dive",
+    "slug": "flux-multilingual-technical-deep-dive"
+  },
+  {
+    "url": "https://deepgram.com/learn/flux-on-the-fly-configuration",
+    "title": "Flux On The Fly Configuration",
+    "slug": "flux-on-the-fly-configuration"
+  },
+  {
+    "url": "https://deepgram.com/learn/fluxing-conversational-state-and-speech-to-text",
+    "title": "Fluxing Conversational State And Speech To Text",
+    "slug": "fluxing-conversational-state-and-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/foreign-language-practice-triolingo",
+    "title": "Foreign Language Practice Triolingo",
+    "slug": "foreign-language-practice-triolingo"
+  },
+  {
+    "url": "https://deepgram.com/learn/forests-and-machine-learning",
+    "title": "Forests And Machine Learning",
+    "slug": "forests-and-machine-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/foundational-courses-to-learn-large-language-models",
+    "title": "Foundational Courses To Learn Large Language Models",
+    "slug": "foundational-courses-to-learn-large-language-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/fountain-podcast-transcripts",
+    "title": "Fountain Podcast Transcripts",
+    "slug": "fountain-podcast-transcripts"
+  },
+  {
+    "url": "https://deepgram.com/learn/from-asr-to-csr-why-conversation-changes-everything",
+    "title": "From Asr To Csr Why Conversation Changes Everything",
+    "slug": "from-asr-to-csr-why-conversation-changes-everything"
+  },
+  {
+    "url": "https://deepgram.com/learn/generate-webvtt-srt-captions-nodejs",
+    "title": "Generate Webvtt Srt Captions Nodejs",
+    "slug": "generate-webvtt-srt-captions-nodejs"
+  },
+  {
+    "url": "https://deepgram.com/learn/generic-asr-will-never-be-accurate-enough-for-conversational-ai",
+    "title": "Generic Asr Will Never Be Accurate Enough For Conversational Ai",
+    "slug": "generic-asr-will-never-be-accurate-enough-for-conversational-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/genesys-partner-powers-contact-center-conversational-ai",
+    "title": "Genesys Partner Powers Contact Center Conversational Ai",
+    "slug": "genesys-partner-powers-contact-center-conversational-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/german-benchmarks",
+    "title": "German Benchmarks",
+    "slug": "german-benchmarks"
+  },
+  {
+    "url": "https://deepgram.com/learn/get-snappy-silence-detection-with-deepgram-endpointing",
+    "title": "Get Snappy Silence Detection With Deepgram Endpointing",
+    "slug": "get-snappy-silence-detection-with-deepgram-endpointing"
+  },
+  {
+    "url": "https://deepgram.com/learn/get-started-with-the-streaming-test-suite",
+    "title": "Get Started With The Streaming Test Suite",
+    "slug": "get-started-with-the-streaming-test-suite"
+  },
+  {
+    "url": "https://deepgram.com/learn/getting-started-live-transcription-vue",
+    "title": "Getting Started Live Transcription Vue",
+    "slug": "getting-started-live-transcription-vue"
+  },
+  {
+    "url": "https://deepgram.com/learn/getting-started-with-apis",
+    "title": "Getting Started With Apis",
+    "slug": "getting-started-with-apis"
+  },
+  {
+    "url": "https://deepgram.com/learn/getting-started-with-json",
+    "title": "Getting Started With Json",
+    "slug": "getting-started-with-json"
+  },
+  {
+    "url": "https://deepgram.com/learn/getting-started-with-mediastream-api",
+    "title": "Getting Started With Mediastream Api",
+    "slug": "getting-started-with-mediastream-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/getting-started-with-supabase",
+    "title": "Getting Started With Supabase",
+    "slug": "getting-started-with-supabase"
+  },
+  {
+    "url": "https://deepgram.com/learn/gladia-vs-deepgram",
+    "title": "Gladia Vs Deepgram",
+    "slug": "gladia-vs-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/google-vs-nvidia-losing-the-ai-innovation-competition",
+    "title": "Google Vs Nvidia Losing The Ai Innovation Competition",
+    "slug": "google-vs-nvidia-losing-the-ai-innovation-competition"
+  },
+  {
+    "url": "https://deepgram.com/learn/gpt-5-and-the-future-of-voice-ai",
+    "title": "Gpt 5 And The Future Of Voice Ai",
+    "slug": "gpt-5-and-the-future-of-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/happy-national-native-american-heritage-month",
+    "title": "Happy National Native American Heritage Month",
+    "slug": "happy-national-native-american-heritage-month"
+  },
+  {
+    "url": "https://deepgram.com/learn/healthcare-future-ai-agents-in-action-throughout-a-patient-journey",
+    "title": "Healthcare Future Ai Agents In Action Throughout A Patient Journey",
+    "slug": "healthcare-future-ai-agents-in-action-throughout-a-patient-journey"
+  },
+  {
+    "url": "https://deepgram.com/learn/hell-yes-we-have-sdks-apis-and-docs",
+    "title": "Hell Yes We Have Sdks Apis And Docs",
+    "slug": "hell-yes-we-have-sdks-apis-and-docs"
+  },
+  {
+    "url": "https://deepgram.com/learn/hellaswag-llm-benchmark-guide",
+    "title": "Hellaswag Llm Benchmark Guide",
+    "slug": "hellaswag-llm-benchmark-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/hello-world",
+    "title": "Hello World",
+    "slug": "hello-world"
+  },
+  {
+    "url": "https://deepgram.com/learn/hidden-markov-models",
+    "title": "Hidden Markov Models",
+    "slug": "hidden-markov-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/highlight-read-aloud-app-coding-tutorial-voice-ai-text-to-speech",
+    "title": "Highlight Read Aloud App Coding Tutorial Voice Ai Text To Speech",
+    "slug": "highlight-read-aloud-app-coding-tutorial-voice-ai-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/hipaa-business-associate-amendment-voice-ai",
+    "title": "Hipaa Business Associate Amendment Voice Ai",
+    "slug": "hipaa-business-associate-amendment-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/history-of-text-to-speech",
+    "title": "History Of Text To Speech",
+    "slug": "history-of-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/history-of-transcription-ai",
+    "title": "History Of Transcription Ai",
+    "slug": "history-of-transcription-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/history-of-voice-technology-critique",
+    "title": "History Of Voice Technology Critique",
+    "slug": "history-of-voice-technology-critique"
+  },
+  {
+    "url": "https://deepgram.com/learn/holding-streams-open-with-stream-keepalive",
+    "title": "Holding Streams Open With Stream Keepalive",
+    "slug": "holding-streams-open-with-stream-keepalive"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-adversarial-examples-build-resilient-machine-learning-models",
+    "title": "How Adversarial Examples Build Resilient Machine Learning Models",
+    "slug": "how-adversarial-examples-build-resilient-machine-learning-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-ai-agents-evolve-beyond-rule-based-systems-immediate-impacts",
+    "title": "How Ai Agents Evolve Beyond Rule Based Systems Immediate Impacts",
+    "slug": "how-ai-agents-evolve-beyond-rule-based-systems-immediate-impacts"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-ai-business-works",
+    "title": "How Ai Business Works",
+    "slug": "how-ai-business-works"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-ai-contact-centers-detect-caller-intent",
+    "title": "How Ai Contact Centers Detect Caller Intent",
+    "slug": "how-ai-contact-centers-detect-caller-intent"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-ai-reduces-costs-in-healthcare",
+    "title": "How Ai Reduces Costs In Healthcare",
+    "slug": "how-ai-reduces-costs-in-healthcare"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-chatbots-and-conversational-ai-are-improving-accessibility",
+    "title": "How Chatbots And Conversational Ai Are Improving Accessibility",
+    "slug": "how-chatbots-and-conversational-ai-are-improving-accessibility"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-computing-hardware-drives-ai-progress",
+    "title": "How Computing Hardware Drives Ai Progress",
+    "slug": "how-computing-hardware-drives-ai-progress"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-do-language-models-handle-obscure-words",
+    "title": "How Do Language Models Handle Obscure Words",
+    "slug": "how-do-language-models-handle-obscure-words"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-do-voice-ai-agents-work",
+    "title": "How Do Voice Ai Agents Work",
+    "slug": "how-do-voice-ai-agents-work"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-does-microsofts-purchase-of-nuance-communications-affect-the-market",
+    "title": "How Does Microsofts Purchase Of Nuance Communications Affect The Market",
+    "slug": "how-does-microsofts-purchase-of-nuance-communications-affect-the-market"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-elevenlabs-api-works-a-developers-guide",
+    "title": "How Elevenlabs Api Works A Developers Guide",
+    "slug": "how-elevenlabs-api-works-a-developers-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-enterprises-can-unlock-voice-ai-through-the-deepgram-partner-ecosystem",
+    "title": "How Enterprises Can Unlock Voice Ai Through The Deepgram Partner Ecosystem",
+    "slug": "how-enterprises-can-unlock-voice-ai-through-the-deepgram-partner-ecosystem"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-game-design-can-influence-your-voice-interface",
+    "title": "How Game Design Can Influence Your Voice Interface",
+    "slug": "how-game-design-can-influence-your-voice-interface"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-gender-shows-up-in-language",
+    "title": "How Gender Shows Up In Language",
+    "slug": "how-gender-shows-up-in-language"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-is-machine-learning-or-deep-learning-affecting-science-ai-show",
+    "title": "How Is Machine Learning Or Deep Learning Affecting Science Ai Show",
+    "slug": "how-is-machine-learning-or-deep-learning-affecting-science-ai-show"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-is-todays-ai-boom-different-from-those-of-the-past-ai-show",
+    "title": "How Is Todays Ai Boom Different From Those Of The Past Ai Show",
+    "slug": "how-is-todays-ai-boom-different-from-those-of-the-past-ai-show"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-non-tech-companies-use-ai-right-now",
+    "title": "How Non Tech Companies Use Ai Right Now",
+    "slug": "how-non-tech-companies-use-ai-right-now"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-non-tech-companies-use-voice-ai-and-ai-agents",
+    "title": "How Non Tech Companies Use Voice Ai And Ai Agents",
+    "slug": "how-non-tech-companies-use-voice-ai-and-ai-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-openai-s-text-normalization-hides-whisper-s-true-word-error-rate-for-south-asian-and-southeast-asian-languages",
+    "title": "How Openai S Text Normalization Hides Whisper S True Word Error Rate For South Asian And Southeast Asian Languages",
+    "slug": "how-openai-s-text-normalization-hides-whisper-s-true-word-error-rate-for-south-asian-and-southeast-asian-languages"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-speech-to-text-transformed-healthcare-and-medical-transcription",
+    "title": "How Speech To Text Transformed Healthcare And Medical Transcription",
+    "slug": "how-speech-to-text-transformed-healthcare-and-medical-transcription"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-text-to-speech-ai-revolutionized-call-centers",
+    "title": "How Text To Speech Ai Revolutionized Call Centers",
+    "slug": "how-text-to-speech-ai-revolutionized-call-centers"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-add-end-to-end-tests-to-your-react-project",
+    "title": "How To Add End To End Tests To Your React Project",
+    "slug": "how-to-add-end-to-end-tests-to-your-react-project"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-add-speech-recognition-to-your-react-project",
+    "title": "How To Add Speech Recognition To Your React Project",
+    "slug": "how-to-add-speech-recognition-to-your-react-project"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-build-a-speech-to-text-stt-note-taking-app-in-python",
+    "title": "How To Build A Speech To Text Stt Note Taking App In Python",
+    "slug": "how-to-build-a-speech-to-text-stt-note-taking-app-in-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-build-a-virtual-medical-scribe-using-deepgram-and-openai",
+    "title": "How To Build A Virtual Medical Scribe Using Deepgram And Openai",
+    "slug": "how-to-build-a-virtual-medical-scribe-using-deepgram-and-openai"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-build-a-voice-ai-agent",
+    "title": "How To Build A Voice Ai Agent",
+    "slug": "how-to-build-a-voice-ai-agent"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-build-a-voice-ai-video-game-in-python",
+    "title": "How To Build A Voice Ai Video Game In Python",
+    "slug": "how-to-build-a-voice-ai-video-game-in-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-build-an-openai-whisper-api",
+    "title": "How To Build An Openai Whisper Api",
+    "slug": "how-to-build-an-openai-whisper-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-delete-multiple-entries-that-match-a-given-regex-in-faunadb",
+    "title": "How To Delete Multiple Entries That Match A Given Regex In Faunadb",
+    "slug": "how-to-delete-multiple-entries-that-match-a-given-regex-in-faunadb"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-easily-debug-live-stream-requests",
+    "title": "How To Easily Debug Live Stream Requests",
+    "slug": "how-to-easily-debug-live-stream-requests"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-get-a-job-in-deep-learning",
+    "title": "How To Get A Job In Deep Learning",
+    "slug": "how-to-get-a-job-in-deep-learning"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-loop-through-a-podcast-episode-list-using-async-io-with-python",
+    "title": "How To Loop Through A Podcast Episode List Using Async Io With Python",
+    "slug": "how-to-loop-through-a-podcast-episode-list-using-async-io-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-make-the-most-of-gpt-4o",
+    "title": "How To Make The Most Of Gpt 4O",
+    "slug": "how-to-make-the-most-of-gpt-4o"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-migrate-your-react-project-to-typescript",
+    "title": "How To Migrate Your React Project To Typescript",
+    "slug": "how-to-migrate-your-react-project-to-typescript"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-monitor-media-mentions-in-podcasts-with-python",
+    "title": "How To Monitor Media Mentions In Podcasts With Python",
+    "slug": "how-to-monitor-media-mentions-in-podcasts-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-run-openai-whisper-in-command-line",
+    "title": "How To Run Openai Whisper In Command Line",
+    "slug": "how-to-run-openai-whisper-in-command-line"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-run-openai-whisper-in-google-colab",
+    "title": "How To Run Openai Whisper In Google Colab",
+    "slug": "how-to-run-openai-whisper-in-google-colab"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-speak-ai-a-beginners-dictionary",
+    "title": "How To Speak Ai A Beginners Dictionary",
+    "slug": "how-to-speak-ai-a-beginners-dictionary"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-speak-ai-revisited-an-intermediate-dictionary",
+    "title": "How To Speak Ai Revisited An Intermediate Dictionary",
+    "slug": "how-to-speak-ai-revisited-an-intermediate-dictionary"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-test-automatic-speech-recognition-asr-providers-for-your-business",
+    "title": "How To Test Automatic Speech Recognition Asr Providers For Your Business",
+    "slug": "how-to-test-automatic-speech-recognition-asr-providers-for-your-business"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-train-baidus-deepspeech-model-with-kur",
+    "title": "How To Train Baidus Deepspeech Model With Kur",
+    "slug": "how-to-train-baidus-deepspeech-model-with-kur"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-transcribe-and-analyze-any-youtube-video",
+    "title": "How To Transcribe And Analyze Any Youtube Video",
+    "slug": "how-to-transcribe-and-analyze-any-youtube-video"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-transcribe-only-what-you-need-with-python-listening-before-connected",
+    "title": "How To Transcribe Only What You Need With Python Listening Before Connected",
+    "slug": "how-to-transcribe-only-what-you-need-with-python-listening-before-connected"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-use-whisper-openais-speech-recognition-model-in-1-minute",
+    "title": "How To Use Whisper Openais Speech Recognition Model In 1 Minute",
+    "slug": "how-to-use-whisper-openais-speech-recognition-model-in-1-minute"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-to-write-vue-3-composables-for-a-third-party-api-integration",
+    "title": "How To Write Vue 3 Composables For A Third Party Api Integration",
+    "slug": "how-to-write-vue-3-composables-for-a-third-party-api-integration"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-tts-works-production-guide",
+    "title": "How Tts Works Production Guide",
+    "slug": "how-tts-works-production-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-voice-ai-can-transform-utilities-powering-up-cx",
+    "title": "How Voice Ai Can Transform Utilities Powering Up Cx",
+    "slug": "how-voice-ai-can-transform-utilities-powering-up-cx"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-voice-ai-transforms-mcp-beyond-interface-improvements",
+    "title": "How Voice Ai Transforms Mcp Beyond Interface Improvements",
+    "slug": "how-voice-ai-transforms-mcp-beyond-interface-improvements"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-voice-ai-works",
+    "title": "How Voice Ai Works",
+    "slug": "how-voice-ai-works"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-voice-makes-conversational-ai-usable",
+    "title": "How Voice Makes Conversational Ai Usable",
+    "slug": "how-voice-makes-conversational-ai-usable"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-voice-technology-creates-accessible-world",
+    "title": "How Voice Technology Creates Accessible World",
+    "slug": "how-voice-technology-creates-accessible-world"
+  },
+  {
+    "url": "https://deepgram.com/learn/how-we-built-a-top-tier-sales-culture-7-core-beliefs-behind-deepgram-repvue-score",
+    "title": "How We Built A Top Tier Sales Culture 7 Core Beliefs Behind Deepgram Repvue Score",
+    "slug": "how-we-built-a-top-tier-sales-culture-7-core-beliefs-behind-deepgram-repvue-score"
+  },
+  {
+    "url": "https://deepgram.com/learn/humaneval-llm-benchmark",
+    "title": "Humaneval Llm Benchmark",
+    "slug": "humaneval-llm-benchmark"
+  },
+  {
+    "url": "https://deepgram.com/learn/identify-sales-insights-from-meeting-audio",
+    "title": "Identify Sales Insights From Meeting Audio",
+    "slug": "identify-sales-insights-from-meeting-audio"
+  },
+  {
+    "url": "https://deepgram.com/learn/identifying-the-best-agent-to-respond-in-your-ivr-system",
+    "title": "Identifying The Best Agent To Respond In Your Ivr System",
+    "slug": "identifying-the-best-agent-to-respond-in-your-ivr-system"
+  },
+  {
+    "url": "https://deepgram.com/learn/if-the-third-party-web-cookie-crumbles-can-ai-replace-it",
+    "title": "If The Third Party Web Cookie Crumbles Can Ai Replace It",
+    "slug": "if-the-third-party-web-cookie-crumbles-can-ai-replace-it"
+  },
+  {
+    "url": "https://deepgram.com/learn/implementing-a-virtual-veterinarian-using-deepgram-api",
+    "title": "Implementing A Virtual Veterinarian Using Deepgram Api",
+    "slug": "implementing-a-virtual-veterinarian-using-deepgram-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/import-a-docker-container-in-python",
+    "title": "Import A Docker Container In Python",
+    "slug": "import-a-docker-container-in-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/improve-ivr-prompts-with-custom-reporting",
+    "title": "Improve Ivr Prompts With Custom Reporting",
+    "slug": "improve-ivr-prompts-with-custom-reporting"
+  },
+  {
+    "url": "https://deepgram.com/learn/improved-whisper-api",
+    "title": "Improved Whisper Api",
+    "slug": "improved-whisper-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/improvement-or-stagnant-llama-3-1-and-mistral-nemo",
+    "title": "Improvement Or Stagnant Llama 3 1 And Mistral Nemo",
+    "slug": "improvement-or-stagnant-llama-3-1-and-mistral-nemo"
+  },
+  {
+    "url": "https://deepgram.com/learn/information-retrieval-experiment",
+    "title": "Information Retrieval Experiment",
+    "slug": "information-retrieval-experiment"
+  },
+  {
+    "url": "https://deepgram.com/learn/integrate-voice-agents-salesforce",
+    "title": "Integrate Voice Agents Salesforce",
+    "slug": "integrate-voice-agents-salesforce"
+  },
+  {
+    "url": "https://deepgram.com/learn/interactive-ai",
+    "title": "Interactive Ai",
+    "slug": "interactive-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/international-womens-day-2023",
+    "title": "International Womens Day 2023",
+    "slug": "international-womens-day-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-ai-voice-agent-api",
+    "title": "Introducing Ai Voice Agent Api",
+    "slug": "introducing-ai-voice-agent-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-api-playground",
+    "title": "Introducing the Deepgram API Playground Blog ⚡️",
+    "slug": "introducing-api-playground"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-aura-2-enterprise-text-to-speech",
+    "title": "Introducing Aura-2: Enterprise-Grade Text-to-Speech",
+    "slug": "introducing-aura-2-enterprise-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-auto-generated-summaries-for-audio-content",
+    "title": "Introducing Auto-Generated Summaries for Audio Content Blog ⚡️",
+    "slug": "introducing-auto-generated-summaries-for-audio-content"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-automatic-language-detection-capabilities",
+    "title": "Introducing Automatic Language Detection Capabilities Blog ⚡️",
+    "slug": "introducing-automatic-language-detection-capabilities"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-batch-diarization-v2",
+    "title": "Introducing Batch Diarization V2",
+    "slug": "introducing-batch-diarization-v2"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-flux-conversational-speech-recognition",
+    "title": "Introducing Flux: Conversational Speech Recognition to Solve the Biggest Problem in Voice Agents – Interruptions",
+    "slug": "introducing-flux-conversational-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-flux-multilingual",
+    "title": "Introducing Flux Multilingual: One Conversational Speech Model for Global Voice Agents",
+    "slug": "introducing-flux-multilingual"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-nova-3-medical-speech-to-text-api",
+    "title": "Introducing Nova-3 Medical: The Future of AI-Powered Medical Transcription",
+    "slug": "introducing-nova-3-medical-speech-to-text-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-nova-3-speech-to-text-api",
+    "title": "Introducing Nova-3: Setting a New Standard for AI-Driven Speech-to-Text",
+    "slug": "introducing-nova-3-speech-to-text-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-real-time-streaming-and-solutions-for-conversational-ai-sales-and-support-enablement",
+    "title": "Introducing Real-Time Streaming and Solutions for Conversational AI, Sales and Support Enablement Blog ⚡️",
+    "slug": "introducing-real-time-streaming-and-solutions-for-conversational-ai-sales-and-support-enablement"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-self-serve-on-premise-solution-and-user-guide",
+    "title": "Introducing Deepgram&#x27;s Self-Serve On-Premise Solution: A Guide to API Keys and Credentials",
+    "slug": "introducing-self-serve-on-premise-solution-and-user-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-shortcut-by-poised-voice-ai-tool",
+    "title": "Introducing Shortcut: Work at the Speed of Voice",
+    "slug": "introducing-shortcut-by-poised-voice-ai-tool"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-the-deepgram-starter-apps",
+    "title": "Introducing Deepgram Starter Apps Blog ⚡️",
+    "slug": "introducing-the-deepgram-starter-apps"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-the-new-deepgram-developer-portal",
+    "title": "Introducing the New Deepgram Developer Portal Blog ⚡️",
+    "slug": "introducing-the-new-deepgram-developer-portal"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-topic-detection-feature",
+    "title": "Introducing Topic Detection Feature Blog ⚡️",
+    "slug": "introducing-topic-detection-feature"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-verbatim-transcription-with-filler-words",
+    "title": "Introducing: Verbatim Transcription With Deepgram Filler Words",
+    "slug": "introducing-verbatim-transcription-with-filler-words"
+  },
+  {
+    "url": "https://deepgram.com/learn/introducing-vibe-coder-voice-driven-coding",
+    "title": "Introducing Vibe Coder: Our Take on Voice-Driven Coding",
+    "slug": "introducing-vibe-coder-voice-driven-coding"
+  },
+  {
+    "url": "https://deepgram.com/learn/ios-live-transcription",
+    "title": "Live Transcriptions with iOS and Deepgram Blog ⚡️",
+    "slug": "ios-live-transcription"
+  },
+  {
+    "url": "https://deepgram.com/learn/is-elevenlabs-real-time-what-developers-need-to-know",
+    "title": "Is ElevenLabs Real-Time? What Developers Need to Know in 2026",
+    "slug": "is-elevenlabs-real-time-what-developers-need-to-know"
+  },
+  {
+    "url": "https://deepgram.com/learn/is-there-an-asr-gender-gap",
+    "title": "Is There an ASR Gender Gap? Blog ⚡️",
+    "slug": "is-there-an-asr-gender-gap"
+  },
+  {
+    "url": "https://deepgram.com/learn/ivr-systems",
+    "title": "AI in plain sight: IVR Systems and their hidden complexities",
+    "slug": "ivr-systems"
+  },
+  {
+    "url": "https://deepgram.com/learn/join-deepgram-at-nvidia-gtc-2024",
+    "title": "Join Deepgram at NVIDIA GTC 2024",
+    "slug": "join-deepgram-at-nvidia-gtc-2024"
+  },
+  {
+    "url": "https://deepgram.com/learn/just-released-new-version-of-on-premises",
+    "title": "Just Released: New Version of On-Premises Blog ⚡️",
+    "slug": "just-released-new-version-of-on-premises"
+  },
+  {
+    "url": "https://deepgram.com/learn/keywords-vs-search",
+    "title": "Keywords vs Search Blog ⚡️",
+    "slug": "keywords-vs-search"
+  },
+  {
+    "url": "https://deepgram.com/learn/language-ai-cultural-preservation",
+    "title": "Reviving Lost Tongues: How AI Battles Language Extinction",
+    "slug": "language-ai-cultural-preservation"
+  },
+  {
+    "url": "https://deepgram.com/learn/large-vocabulary-speech-recognition",
+    "title": "Large Vocabulary Speech Recognition: A Practical Guide",
+    "slug": "large-vocabulary-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/legalbench-the-llm-benchmark-for-legal-reasoning",
+    "title": "LegalBench: The LLM Benchmark for Legal Reasoning",
+    "slug": "legalbench-the-llm-benchmark-for-legal-reasoning"
+  },
+  {
+    "url": "https://deepgram.com/learn/lemon-slice-live-launch-with-deepgram",
+    "title": "Lemon Slice Live + Deepgram: Real-Time AI Character Chat",
+    "slug": "lemon-slice-live-launch-with-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/lies-damn-lies-and-benchmarks",
+    "title": "Lies, damn lies, and benchmarks",
+    "slug": "lies-damn-lies-and-benchmarks"
+  },
+  {
+    "url": "https://deepgram.com/learn/limited-vocabulary-speech-recognition-production-accuracy",
+    "title": "Limited Vocabulary ASR: 20-30% Better Accuracy in Production",
+    "slug": "limited-vocabulary-speech-recognition-production-accuracy"
+  },
+  {
+    "url": "https://deepgram.com/learn/lindy-gaia-launches-with-deepgram-flux",
+    "title": "Smarter, Faster Calls for Every Business: Lindy Gaia Launches with Deepgram Flux",
+    "slug": "lindy-gaia-launches-with-deepgram-flux"
+  },
+  {
+    "url": "https://deepgram.com/learn/liquid-neural-networks",
+    "title": "Liquid Neural Networks: Fluid, Flexible Neurons",
+    "slug": "liquid-neural-networks"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcribing-radio-feeds-js",
+    "title": "Transcribing Radio Broadcasts With Node.js Blog ⚡️",
+    "slug": "live-transcribing-radio-feeds-js"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-badge-video",
+    "title": "Video: Building a Live Transcription Badge With Deepgram Blog ⚡️",
+    "slug": "live-transcription-badge-video"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-django",
+    "title": "Live Transcription With Python and Django Blog ⚡️",
+    "slug": "live-transcription-django"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-fastapi",
+    "title": "Live Transcription With Python and FastAPI Blog ⚡️",
+    "slug": "live-transcription-fastapi"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-flask",
+    "title": "Live Transcription With Python and Flask Blog ⚡️",
+    "slug": "live-transcription-flask"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-mic-browser",
+    "title": "Get Live Speech Transcriptions In Your Browser Blog ⚡️",
+    "slug": "live-transcription-mic-browser"
+  },
+  {
+    "url": "https://deepgram.com/learn/live-transcription-quart",
+    "title": "Live Transcription With Python and Quart Blog ⚡️",
+    "slug": "live-transcription-quart"
+  },
+  {
+    "url": "https://deepgram.com/learn/llama-2-llm-explained",
+    "title": "What You Need to Know About Meta’s Llama 2 Model",
+    "slug": "llama-2-llm-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/llama-2-paper-explained",
+    "title": "AI Breakdown or: Takeaways From the 78-page Llama-2 Paper",
+    "slug": "llama-2-paper-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/llm-benchmarks-guide-to-evaluating-language-models",
+    "title": "LLM Benchmarks Guide: Evaluating Language Models",
+    "slug": "llm-benchmarks-guide-to-evaluating-language-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/llm-jailbreaking",
+    "title": "From DAN to Universal Prompts: LLM Jailbreaking",
+    "slug": "llm-jailbreaking"
+  },
+  {
+    "url": "https://deepgram.com/learn/llms-101-everything-you-need-to-know-about-large-language-models",
+    "title": "LLMs 101: Large Language Models Explained. Blog ⚡️",
+    "slug": "llms-101-everything-you-need-to-know-about-large-language-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/llms-the-rubber-duck-debugger-for-creative-work",
+    "title": "LLMs: The Rubber Duck Debugger for Creative Work Blog ⚡️",
+    "slug": "llms-the-rubber-duck-debugger-for-creative-work"
+  },
+  {
+    "url": "https://deepgram.com/learn/local-llm-chatbot-that-can-run-code-searches",
+    "title": "Implementing a local LLM chatbot that can run code and searches",
+    "slug": "local-llm-chatbot-that-can-run-code-searches"
+  },
+  {
+    "url": "https://deepgram.com/learn/log-deepgram-call-summaries-in-salesforce",
+    "title": "Log Deepgram Call Summaries In Salesforce",
+    "slug": "log-deepgram-call-summaries-in-salesforce"
+  },
+  {
+    "url": "https://deepgram.com/learn/lonewolf-vs-community-the-benefits-of-open-source-software",
+    "title": "Lone Wolf vs Community: The Benefits of Open Source Software",
+    "slug": "lonewolf-vs-community-the-benefits-of-open-source-software"
+  },
+  {
+    "url": "https://deepgram.com/learn/low-latency-voice-ai",
+    "title": "Low Latency Voice AI: What It Is and How to Achieve It",
+    "slug": "low-latency-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/low-latency-voice-ai-and-how-to-achieve-it",
+    "title": "What Is Low Latency Voice AI &amp; How To Achieve It",
+    "slug": "low-latency-voice-ai-and-how-to-achieve-it"
+  },
+  {
+    "url": "https://deepgram.com/learn/luke-oliff-joins-deepgram",
+    "title": "Luke Oliff Joins the Developer Relations Team Blog ⚡️",
+    "slug": "luke-oliff-joins-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/machine-learning-for-front-end-developers-get-started-with-tensorflow-js",
+    "title": "Machine Learning for Front-end Developers: Get Started with TensorFlow.js Blog ⚡️",
+    "slug": "machine-learning-for-front-end-developers-get-started-with-tensorflow-js"
+  },
+  {
+    "url": "https://deepgram.com/learn/make-transcripts-easy-to-read-with-smart-formatting",
+    "title": "Make Transcripts Easy to Read with Smart Formatting Blog ⚡️",
+    "slug": "make-transcripts-easy-to-read-with-smart-formatting"
+  },
+  {
+    "url": "https://deepgram.com/learn/march-12-17th-the-week-that-redefined-ai-s-future-landscape",
+    "title": "March 12-17th 2023: The Week That Redefined AI’s Future Landscape Blog ⚡️",
+    "slug": "march-12-17th-the-week-that-redefined-ai-s-future-landscape"
+  },
+  {
+    "url": "https://deepgram.com/learn/master-real-time-transcription-for-any-workflow",
+    "title": "How to Master Real-Time Transcription for Any Workflow",
+    "slug": "master-real-time-transcription-for-any-workflow"
+  },
+  {
+    "url": "https://deepgram.com/learn/measuring-quality-word-error-rate-explained",
+    "title": "Measuring Quality: Word Error Rate Explained Blog ⚡️",
+    "slug": "measuring-quality-word-error-rate-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/medical-speech-to-text-deepgram-aws-demo",
+    "title": "Deepgram + AWS Voice AI Demo: Real-Time Medical Speech-to-Text in Action",
+    "slug": "medical-speech-to-text-deepgram-aws-demo"
+  },
+  {
+    "url": "https://deepgram.com/learn/medical-transcription-ai-vs-legacy-clinical-scale",
+    "title": "Medical Transcription in 2026: AI vs Legacy Services",
+    "slug": "medical-transcription-ai-vs-legacy-clinical-scale"
+  },
+  {
+    "url": "https://deepgram.com/learn/medical-voice-recognition-a-beginners-guide",
+    "title": "Medical Voice Recognition for Healthcare Teams: A Practical Guide",
+    "slug": "medical-voice-recognition-a-beginners-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/meet-kevin-lewis",
+    "title": "Kevin Lewis Joins the Developer Relations Team Blog ⚡️",
+    "slug": "meet-kevin-lewis"
+  },
+  {
+    "url": "https://deepgram.com/learn/meet-sandra-rodgers",
+    "title": "Sandra Rodgers Joins the Developer Relations Team Blog ⚡️",
+    "slug": "meet-sandra-rodgers"
+  },
+  {
+    "url": "https://deepgram.com/learn/meeting-analysis-platforms-automatic-speech-recognition-solutions",
+    "title": "How Meeting Analysis Platforms Utilize ASR Solutions Blog ⚡️",
+    "slug": "meeting-analysis-platforms-automatic-speech-recognition-solutions"
+  },
+  {
+    "url": "https://deepgram.com/learn/michael-jolley-joins-deepgram",
+    "title": "Michael Jolley Joins the Developer Relations Team Blog ⚡️",
+    "slug": "michael-jolley-joins-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/migrating-speech-to-text-playground-to-python-sdk-v6",
+    "title": "When the docs write the code: migrating my Speech-to-Text playground to Python SDK v6",
+    "slug": "migrating-speech-to-text-playground-to-python-sdk-v6"
+  },
+  {
+    "url": "https://deepgram.com/learn/mind-the-gap-the-chasm-between-ai-fiction-and-fact",
+    "title": "Mind the Gap: The Chasm Between AI Fiction and Fact Blog ⚡️",
+    "slug": "mind-the-gap-the-chasm-between-ai-fiction-and-fact"
+  },
+  {
+    "url": "https://deepgram.com/learn/mixture-of-experts-ml-model-guide",
+    "title": "Mixture of Experts: How an Ensemble of AI Models Act as One",
+    "slug": "mixture-of-experts-ml-model-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/mmlu-llm-benchmark-guide",
+    "title": "MMLU: Better Benchmarking for LLM Language Understanding",
+    "slug": "mmlu-llm-benchmark-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/model-comparison-when-to-use-nova-2-vs-nova-3-for-devs",
+    "title": "Model Comparison: When to Use Nova‑2 vs Nova‑3 (for Devs)",
+    "slug": "model-comparison-when-to-use-nova-2-vs-nova-3-for-devs"
+  },
+  {
+    "url": "https://deepgram.com/learn/model-pruning-distillation-and-quantization-part-1",
+    "title": "Model Pruning, Distillation, and Quantization, Part 1",
+    "slug": "model-pruning-distillation-and-quantization-part-1"
+  },
+  {
+    "url": "https://deepgram.com/learn/model-selection-adaptation-and-tuning-for-enterprise-speech-data-1",
+    "title": "What Developers Should Know About Model Selection, Adaptation, and Tuning for Enterprise Speech Data (Part 1)",
+    "slug": "model-selection-adaptation-and-tuning-for-enterprise-speech-data-1"
+  },
+  {
+    "url": "https://deepgram.com/learn/model-selection-adaptation-and-tuning-part-3",
+    "title": "What Developers Should Know About Model Selection, Adaptation, and Tuning for Enterprise Speech Data",
+    "slug": "model-selection-adaptation-and-tuning-part-3"
+  },
+  {
+    "url": "https://deepgram.com/learn/money-does-not-grow-on-trees-the-environmental-cost-of-ai",
+    "title": "Money doesn&#x27;t grow on trees: The Environmental Cost of AI",
+    "slug": "money-does-not-grow-on-trees-the-environmental-cost-of-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/multi-language-speech-recognition-production-architecture",
+    "title": "Choosing the Right Architecture for Multi-Language Speech Recognition in Production",
+    "slug": "multi-language-speech-recognition-production-architecture"
+  },
+  {
+    "url": "https://deepgram.com/learn/multichannel-vs-diarization",
+    "title": "Multichannel vs Diarization Blog ⚡️",
+    "slug": "multichannel-vs-diarization"
+  },
+  {
+    "url": "https://deepgram.com/learn/multilingual-speech-to-text-guide",
+    "title": "Multilingual Speech-to-Text: Production Implementation Guide 2025",
+    "slug": "multilingual-speech-to-text-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/multimodal-ai-in-practice",
+    "title": "What multimodal AI really looks like in practice",
+    "slug": "multimodal-ai-in-practice"
+  },
+  {
+    "url": "https://deepgram.com/learn/multimodal-graph-of-thoughts",
+    "title": "Multimodal Graph-of-Thoughts: How Text, Images, and Graphs Lead to Better Reasoning",
+    "slug": "multimodal-graph-of-thoughts"
+  },
+  {
+    "url": "https://deepgram.com/learn/must-know-ai-use-cases-in-medicine",
+    "title": "Must-Know AI Use Cases in Medicine",
+    "slug": "must-know-ai-use-cases-in-medicine"
+  },
+  {
+    "url": "https://deepgram.com/learn/must-know-building-and-applying-conversational-ai",
+    "title": "Must Know: Building and Applying Conversational AI",
+    "slug": "must-know-building-and-applying-conversational-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/naively-training-a-wake-word-model-from-scratch",
+    "title": "Naively Training a Wake Word Model from Scratch",
+    "slug": "naively-training-a-wake-word-model-from-scratch"
+  },
+  {
+    "url": "https://deepgram.com/learn/named-entity-recognition-voice-transcripts",
+    "title": "Named Entity Recognition for Voice Transcripts",
+    "slug": "named-entity-recognition-voice-transcripts"
+  },
+  {
+    "url": "https://deepgram.com/learn/new-releases-five-new-languages-and-three-new-use-case-speech-models",
+    "title": "New Releases - Five New Languages and Three New Use Case Speech Models Blog ⚡️",
+    "slug": "new-releases-five-new-languages-and-three-new-use-case-speech-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/new-spanish-and-turkish-language-models-and-updated-general-models",
+    "title": "New Spanish and Turkish Language Models and Updated General Models Blog ⚡️",
+    "slug": "new-spanish-and-turkish-language-models-and-updated-general-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/new-tech-lets-journalists-find-damning-soundbites",
+    "title": "New Tech Lets Journalists Find Damning Soundbites Blog ⚡️",
+    "slug": "new-tech-lets-journalists-find-damning-soundbites"
+  },
+  {
+    "url": "https://deepgram.com/learn/nextgen-speaker-diarization-and-language-detection-models",
+    "title": "Trained on 100,000+ Voices: Deepgram Unveils Next-Gen Speaker Diarization and Language Detection Models Blog ⚡️",
+    "slug": "nextgen-speaker-diarization-and-language-detection-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/nlp-on-the-edge-voice-ai-and-hardware-robert-daigle-and-andi-huels-lenovo-project-voice-x",
+    "title": "NLP on the Edge: Voice, AI and Hardware - Robert Daigle and Andi Huels, Lenovo - Project Voice X Blog ⚡️",
+    "slug": "nlp-on-the-edge-voice-ai-and-hardware-robert-daigle-and-andi-huels-lenovo-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/no-code-transcription-simplifying-workflows-with-deepgram-and-make-com",
+    "title": "No Code Transcription: Simplifying Workflows with Deepgram and Make.com",
+    "slug": "no-code-transcription-simplifying-workflows-with-deepgram-and-make-com"
+  },
+  {
+    "url": "https://deepgram.com/learn/no-more-zapier-timeouts-transcribe-large-audio-files-with-deepgram-and-zapier-s-w",
+    "title": "No More Zapier Timeouts: Transcribe Large Audio Files with Deepgram and Zapier’s Webhooks",
+    "slug": "no-more-zapier-timeouts-transcribe-large-audio-files-with-deepgram-and-zapier-s-w"
+  },
+  {
+    "url": "https://deepgram.com/learn/nodejs-voice-ai-production-guide",
+    "title": "Node.js Voice AI: Production Implementation Guide 2026",
+    "slug": "nodejs-voice-ai-production-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/noise-robust-speech-recognition-methods-best-practices",
+    "title": "Noise-Robust Speech Recognition: 2025 Methods &amp; Best Practices",
+    "slug": "noise-robust-speech-recognition-methods-best-practices"
+  },
+  {
+    "url": "https://deepgram.com/learn/noise-robust-speech-recognition-techniques",
+    "title": "Noise-Robust Speech Recognition Techniques: Benchmark to Production Guide",
+    "slug": "noise-robust-speech-recognition-techniques"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-2-best-speech-to-text-api-multiple-languages",
+    "title": "Nova-2: #1 Speech-to-Text API Now Available in Multiple Languages",
+    "slug": "nova-2-best-speech-to-text-api-multiple-languages"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-2-speech-to-text-api",
+    "title": "Introducing Nova-2: The Fastest, Most Accurate Speech-to-Text API",
+    "slug": "nova-2-speech-to-text-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-2-speech-to-text-api-expands-to-36-languages",
+    "title": "Deepgram Nova-2 speech-to-text expands to 36 languages",
+    "slug": "nova-2-speech-to-text-api-expands-to-36-languages"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-3-adds-12-new-languages-across-europe-and-south-asia",
+    "title": "Nova-3 Adds 12 New Speech-to-Text Languages",
+    "slug": "nova-3-adds-12-new-languages-across-europe-and-south-asia"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-3-arabic-speech-to-text-production-grade-stt",
+    "title": "Nova-3 Arabic Speech-to-Text | Production-Grade STT Across Dialects",
+    "slug": "nova-3-arabic-speech-to-text-production-grade-stt"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-3-medical-streaming-update",
+    "title": "Nova-3 Medical Streaming: Pushing Real-Time Medical Transcription to New Heights",
+    "slug": "nova-3-medical-streaming-update"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-3-multilingual-major-wer-improvements-across-languages",
+    "title": "Nova-3 Multilingual: Major WER Improvements Across Languages",
+    "slug": "nova-3-multilingual-major-wer-improvements-across-languages"
+  },
+  {
+    "url": "https://deepgram.com/learn/nova-speech-to-text-whisper-api",
+    "title": "Introducing Nova: World&#x27;s Most Powerful Speech-to-Text API Blog ⚡️",
+    "slug": "nova-speech-to-text-whisper-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/now-available-deepgram-speech-recognition-for-twilio-programmable-voice-api",
+    "title": "Now Available: Deepgram Speech Recognition for Twilio Programmable Voice Blog ⚡️",
+    "slug": "now-available-deepgram-speech-recognition-for-twilio-programmable-voice-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/npx-script",
+    "title": "Creating an npx Command Blog ⚡️",
+    "slug": "npx-script"
+  },
+  {
+    "url": "https://deepgram.com/learn/nuxt-expand-nested-navigation",
+    "title": "Generating Collapsable Navigation from Nuxt Content Blog ⚡️",
+    "slug": "nuxt-expand-nested-navigation"
+  },
+  {
+    "url": "https://deepgram.com/learn/nvidia-ai-hardware-revolution",
+    "title": "From ENIAC to NVIDIA: The Epic Saga of AI Hardware Revolution",
+    "slug": "nvidia-ai-hardware-revolution"
+  },
+  {
+    "url": "https://deepgram.com/learn/ola-enhanced-portuguese-beta-speech-to-text-language-model-now-available",
+    "title": "Olá! Enhanced Portuguese (beta) Speech-to-Text Language Model Now Available Blog ⚡️",
+    "slug": "ola-enhanced-portuguese-beta-speech-to-text-language-model-now-available"
+  },
+  {
+    "url": "https://deepgram.com/learn/on-premise-stt-comparison",
+    "title": "On-Premise Speech-to-Text: Which STT API Offers True Data Control?",
+    "slug": "on-premise-stt-comparison"
+  },
+  {
+    "url": "https://deepgram.com/learn/onereach-conversational-ai-partnership",
+    "title": "OneReach.ai and Deepgram Partner to Revolutionize Conversational AI Blog ⚡️",
+    "slug": "onereach-conversational-ai-partnership"
+  },
+  {
+    "url": "https://deepgram.com/learn/open-source-text-to-speech-production-guide",
+    "title": "Open Source Text to Speech: A Production Deployment Guide",
+    "slug": "open-source-text-to-speech-production-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/open-source-vs-closed-source-in-ai",
+    "title": "Battle of the Models: Open-Source vs. Closed-Source in AI Applications!",
+    "slug": "open-source-vs-closed-source-in-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/opening-keynote-bradley-metrock-ceo-project-voice-project-voice-x",
+    "title": "Opening Keynote - Bradley Metrock, CEO, Project Voice - Project Voice X Blog ⚡️",
+    "slug": "opening-keynote-bradley-metrock-ceo-project-voice-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/opening-keynote-jeff-blankenberg-principal-technical-evangelist-amazon-alexa-project-voice-x",
+    "title": "Opening Keynote - Jeff Blankenberg, Principal Technical Evangelist, Amazon Alexa - Project Voice X Blog ⚡️",
+    "slug": "opening-keynote-jeff-blankenberg-principal-technical-evangelist-amazon-alexa-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/p5js-deepgram-game",
+    "title": "Playing With P5.js: Creating a Voice-Controlled Game Blog ⚡️",
+    "slug": "p5js-deepgram-game"
+  },
+  {
+    "url": "https://deepgram.com/learn/p5js-game-logic",
+    "title": "Playing With P5.js: Implementing Game Logic Blog ⚡️",
+    "slug": "p5js-game-logic"
+  },
+  {
+    "url": "https://deepgram.com/learn/p5js-getting-started",
+    "title": "Playing With P5.js: Getting Started Blog ⚡️",
+    "slug": "p5js-getting-started"
+  },
+  {
+    "url": "https://deepgram.com/learn/parse-podcasts-with-python-deepgram-asr-text-analysis",
+    "title": "Parsing Podcasts with Python Using Deepgram&#x27;s ASR API and The Text API Blog ⚡️",
+    "slug": "parse-podcasts-with-python-deepgram-asr-text-analysis"
+  },
+  {
+    "url": "https://deepgram.com/learn/partners-drive-contact-center-transformation-with-voice-ai",
+    "title": "Deepgram’s Partners Drive Contact Center Transformation with Voice AI",
+    "slug": "partners-drive-contact-center-transformation-with-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/penguin-solutions-deepgram-partnership",
+    "title": "Penguin Solutions Selected by Deepgram to Enable Deployment of Optimized AI Inference Infrastructure for Enterprise Voice AI",
+    "slug": "penguin-solutions-deepgram-partnership"
+  },
+  {
+    "url": "https://deepgram.com/learn/phoneme-error-rate-guide-evaluating-speech-models",
+    "title": "How to Use Phoneme Error Rate to Debug Acoustic Model Weaknesses",
+    "slug": "phoneme-error-rate-guide-evaluating-speech-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/pii-redaction-developer-guide-speech-api-setup",
+    "title": "PII Redaction Developer Guide: Speech API Setup 2026",
+    "slug": "pii-redaction-developer-guide-speech-api-setup"
+  },
+  {
+    "url": "https://deepgram.com/learn/podcast-search-engine",
+    "title": "How to Build the World&#x27;s Ugliest Podcast Search Engine with Python Blog ⚡️",
+    "slug": "podcast-search-engine"
+  },
+  {
+    "url": "https://deepgram.com/learn/practice-spelling-bees-hero",
+    "title": "Practice Spelling Bees with Spelling Hero Blog ⚡️",
+    "slug": "practice-spelling-bees-hero"
+  },
+  {
+    "url": "https://deepgram.com/learn/press-release-deepgram-raises-series-c",
+    "title": "Deepgram Raises $130M Series C at $1.3B Valuation to Power the Voice AI Economy",
+    "slug": "press-release-deepgram-raises-series-c"
+  },
+  {
+    "url": "https://deepgram.com/learn/production-ready-voice-agents-demo-vs-enterprise-deployment",
+    "title": "Production-Ready Voice Agents: Demo vs. Enterprise",
+    "slug": "production-ready-voice-agents-demo-vs-enterprise-deployment"
+  },
+  {
+    "url": "https://deepgram.com/learn/programming-libraries-efficiency-numpy-deepgram-pytorch",
+    "title": "Programming Libraries &amp; Efficiency: NumPy, Deepgram, PyTorch, and More Blog ⚡️",
+    "slug": "programming-libraries-efficiency-numpy-deepgram-pytorch"
+  },
+  {
+    "url": "https://deepgram.com/learn/prompt-engineering-masterclass",
+    "title": "Masterclass in Prompt Engineering: A Directory",
+    "slug": "prompt-engineering-masterclass"
+  },
+  {
+    "url": "https://deepgram.com/learn/propelled-by-product-customer-and-industry-momentum-deepgram-continues-to-build-the-future-of-speech-recognition",
+    "title": "Propelled by Product, Customer and Industry Momentum, Deepgram Continues to Build the Future of Speech Recognition Blog ⚡️",
+    "slug": "propelled-by-product-customer-and-industry-momentum-deepgram-continues-to-build-the-future-of-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/protecting-api-key",
+    "title": "Browser Live Transcription - Protecting Your API Key Blog ⚡️",
+    "slug": "protecting-api-key"
+  },
+  {
+    "url": "https://deepgram.com/learn/putting-the-talk-in-talk-show-an-analysis-of-late-night-tv",
+    "title": "Putting the &quot;Talk&quot; in Talk Show: An Analysis of Late-Night TV Blog ⚡️",
+    "slug": "putting-the-talk-in-talk-show-an-analysis-of-late-night-tv"
+  },
+  {
+    "url": "https://deepgram.com/learn/pycon-deepgram-usecases",
+    "title": "Deepgram Speech-to-Text Use Cases That Will Transform Your Life - (Special PyCon Edition) Blog ⚡️",
+    "slug": "pycon-deepgram-usecases"
+  },
+  {
+    "url": "https://deepgram.com/learn/pycon-python-speech-to-text",
+    "title": "Using Python With Speech-to-Text (Special PyCon Edition) Blog ⚡️",
+    "slug": "pycon-python-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-deepgram-roundup",
+    "title": "Starting Out with Python and Deepgram Live Streaming Audio Blog ⚡️",
+    "slug": "python-deepgram-roundup"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-deepgram-twilio",
+    "title": "Speech Recognition with Twilio and Python Blog ⚡️",
+    "slug": "python-deepgram-twilio"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-graphing-transcripts",
+    "title": "How to Turn Transcripts into Data Visualizations with Python Blog ⚡️",
+    "slug": "python-graphing-transcripts"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-script-compliance",
+    "title": "Speech Recognition to Monitor Script Compliance in Python Blog ⚡️",
+    "slug": "python-script-compliance"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-speech-recognition-locally-torchaudio",
+    "title": "Python Speech Recognition Locally with TorchAudio Blog ⚡️",
+    "slug": "python-speech-recognition-locally-torchaudio"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-talk-time-analytics",
+    "title": "Speech Recognition Analytics for Audio with Python Blog ⚡️",
+    "slug": "python-talk-time-analytics"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-text-to-speech-api-production-guide",
+    "title": "Python Text-to-Speech APIs: Complete 2026 Production Guide",
+    "slug": "python-text-to-speech-api-production-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-topic-modeling-with-a-bert-model",
+    "title": "Python Topic Modeling With a BERT Model Blog ⚡️",
+    "slug": "python-topic-modeling-with-a-bert-model"
+  },
+  {
+    "url": "https://deepgram.com/learn/python-virtual-environments",
+    "title": "Virtual Environments in Python Blog ⚡️",
+    "slug": "python-virtual-environments"
+  },
+  {
+    "url": "https://deepgram.com/learn/pytorch-intro-with-torchaudio",
+    "title": "Introduction to PyTorch Audio Data via TorchAudio Blog ⚡️",
+    "slug": "pytorch-intro-with-torchaudio"
+  },
+  {
+    "url": "https://deepgram.com/learn/radiology-speech-recognition-dictation-accuracy",
+    "title": "Radiology Speech Recognition: Dictation Accuracy Guide",
+    "slug": "radiology-speech-recognition-dictation-accuracy"
+  },
+  {
+    "url": "https://deepgram.com/learn/rag-vs-finetuning",
+    "title": "RAG vs. Finetuning: Enhancing LLMs with new knowledge",
+    "slug": "rag-vs-finetuning"
+  },
+  {
+    "url": "https://deepgram.com/learn/real-time-ai-is-inevitable",
+    "title": "Real-time AI Is Inevitable",
+    "slug": "real-time-ai-is-inevitable"
+  },
+  {
+    "url": "https://deepgram.com/learn/real-time-routing-of-conversational-data-is-table-stakes-for-enterprises",
+    "title": "Real-time routing of conversational data is table stakes for enterprises Blog ⚡️",
+    "slug": "real-time-routing-of-conversational-data-is-table-stakes-for-enterprises"
+  },
+  {
+    "url": "https://deepgram.com/learn/real-time-sentiment-analysis-streaming-audio",
+    "title": "How to Build Real-Time Sentiment Analysis for Streaming Audio",
+    "slug": "real-time-sentiment-analysis-streaming-audio"
+  },
+  {
+    "url": "https://deepgram.com/learn/real-time-speech-analytics-live-dashboards",
+    "title": "Real-Time Speech Analytics: Live Dashboard Guide",
+    "slug": "real-time-speech-analytics-live-dashboards"
+  },
+  {
+    "url": "https://deepgram.com/learn/real-time-speech-to-speech-translation",
+    "title": "Real-Time Speech-to-Speech Translation: Architecture Guide",
+    "slug": "real-time-speech-to-speech-translation"
+  },
+  {
+    "url": "https://deepgram.com/learn/rebuilding-trust-in-public-services-with-voice-ai",
+    "title": "Rebuilding Trust in Public Services: How Voice AI Can Transform Citizen Interactions",
+    "slug": "rebuilding-trust-in-public-services-with-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/redaction-just-got-better",
+    "title": "Deepgram&#x27;s Redaction Feature Just Got Better Blog ⚡️",
+    "slug": "redaction-just-got-better"
+  },
+  {
+    "url": "https://deepgram.com/learn/restaurant-voice-ai-asr-accent-variability-multi-region-ordering",
+    "title": "Restaurant Voice AI: Why ASR Accent Coverage Matters",
+    "slug": "restaurant-voice-ai-asr-accent-variability-multi-region-ordering"
+  },
+  {
+    "url": "https://deepgram.com/learn/restaurants-stack-audio-quality-problems",
+    "title": "Restaurants stack every audio quality problem at once, and Deepgram is fixing it",
+    "slug": "restaurants-stack-audio-quality-problems"
+  },
+  {
+    "url": "https://deepgram.com/learn/retail-restaurants-and-travel-shilp-agarwal-ceo-blutag-project-voice-x",
+    "title": "Retail, Restaurants and Travel - Shilp Agarwal, CEO, Blutag - Project Voice X Blog ⚡️",
+    "slug": "retail-restaurants-and-travel-shilp-agarwal-ceo-blutag-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/saving-transcripts-from-terminal",
+    "title": "Saving Transcripts From Your Terminal Blog ⚡️",
+    "slug": "saving-transcripts-from-terminal"
+  },
+  {
+    "url": "https://deepgram.com/learn/say-what-you-mean-navigating-critical-conversations-scott-sandland-ceo-cyrano-ai-project-voice-x",
+    "title": "Say What You Mean: Navigating Critical Conversations - Scott Sandland, CEO, Cyrano.ai - Project Voice X Blog ⚡️",
+    "slug": "say-what-you-mean-navigating-critical-conversations-scott-sandland-ceo-cyrano-ai-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/scalable-voice-ai-platforms-contact-centers",
+    "title": "Best Scalable Voice AI Platforms for Contact Centers 2026",
+    "slug": "scalable-voice-ai-platforms-contact-centers"
+  },
+  {
+    "url": "https://deepgram.com/learn/scott-announcement-deepgram-raises-series-c",
+    "title": "Today We Start the Next Chapter of the Voice AI Economy",
+    "slug": "scott-announcement-deepgram-raises-series-c"
+  },
+  {
+    "url": "https://deepgram.com/learn/scrape-a-website-with-your-voice-using-python",
+    "title": "Build a Web Scraper With Your Voice Using Python Blog ⚡️",
+    "slug": "scrape-a-website-with-your-voice-using-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/search-through-sound-finding-phrases-in-audio",
+    "title": "Search Through Sound: Finding Phrases in Audio Blog ⚡️",
+    "slug": "search-through-sound-finding-phrases-in-audio"
+  },
+  {
+    "url": "https://deepgram.com/learn/self-service-support-slackbot",
+    "title": "We Built a Self-Service Support Bot That Customers Install Themselves",
+    "slug": "self-service-support-slackbot"
+  },
+  {
+    "url": "https://deepgram.com/learn/selling-in-the-age-of-ai-why-your-sales-stack-needs-a-neural-upgrade",
+    "title": "Selling in the Age of AI: Why Your Sales Stack Needs a Neural Upgrade",
+    "slug": "selling-in-the-age-of-ai-why-your-sales-stack-needs-a-neural-upgrade"
+  },
+  {
+    "url": "https://deepgram.com/learn/semantic-error-rate-asr-accuracy-metric",
+    "title": "Semantic Error Rate: The Next ASR Accuracy Metric for Platform Builders",
+    "slug": "semantic-error-rate-asr-accuracy-metric"
+  },
+  {
+    "url": "https://deepgram.com/learn/sending-audio-files-to-expressjs-server",
+    "title": "Sending Audio Files to Your Express.js Server Blog ⚡️",
+    "slug": "sending-audio-files-to-expressjs-server"
+  },
+  {
+    "url": "https://deepgram.com/learn/sentiment-analysis-deepdive",
+    "title": "Sentiment Analysis Deep-Dive: Teaching Machines about Emotions",
+    "slug": "sentiment-analysis-deepdive"
+  },
+  {
+    "url": "https://deepgram.com/learn/sentiment-analysis-emotion-regulation-difference",
+    "title": "Sentiment Analysis and Emotion Recognition: What&#x27;s the Difference? Blog ⚡️",
+    "slug": "sentiment-analysis-emotion-regulation-difference"
+  },
+  {
+    "url": "https://deepgram.com/learn/sentiment-analysis-with-hugging-face-and-deepgram",
+    "title": "Sentiment Analysis with Hugging Face and Deepgram",
+    "slug": "sentiment-analysis-with-hugging-face-and-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/should-ai-be-regulated-ai-show",
+    "title": "Should AI be Regulated? — AI Show Blog ⚡️",
+    "slug": "should-ai-be-regulated-ai-show"
+  },
+  {
+    "url": "https://deepgram.com/learn/slot-error-rate-developer-guide-asr-accuracy",
+    "title": "Slot Error Rate Explained: Measure What Matters for Voice AI",
+    "slug": "slot-error-rate-developer-guide-asr-accuracy"
+  },
+  {
+    "url": "https://deepgram.com/learn/song-search-js",
+    "title": "Building a Voice-Powered Song Search Blog ⚡️",
+    "slug": "song-search-js"
+  },
+  {
+    "url": "https://deepgram.com/learn/sonic-branding-in-the-enterprise-audrey-arbeeny-ceo-audiobrain-project-voice-x",
+    "title": "Sonic Branding in the Enterprise - Audrey Arbeeny, CEO, Audiobrain - Project Voice X Blog ⚡️",
+    "slug": "sonic-branding-in-the-enterprise-audrey-arbeeny-ceo-audiobrain-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/sparking-the-future-of-conversation-design-braden-ream-ceo-voiceflow-project-voice-x",
+    "title": "Sparking the Future of Conversation Design - Braden Ream, CEO, Voiceflow - Project Voice X Blog ⚡️",
+    "slug": "sparking-the-future-of-conversation-design-braden-ream-ceo-voiceflow-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/speaker-labels-stt-output-formats-configuration-accuracy",
+    "title": "Speaker Labels in STT: Formats, Config, and Accuracy",
+    "slug": "speaker-labels-stt-output-formats-configuration-accuracy"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-recognition-accuracy-production-metrics",
+    "title": "Speech Recognition Accuracy: Production Metrics &amp; Optimization 2025",
+    "slug": "speech-recognition-accuracy-production-metrics"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-recognition-ai-beginners-guide",
+    "title": "AI Speech Recognition: A Beginner’s Practical Guide",
+    "slug": "speech-recognition-ai-beginners-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-recognition-how-it-works-and-key-applications",
+    "title": "Speech Recognition: How It Works and Applications",
+    "slug": "speech-recognition-how-it-works-and-key-applications"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-recognition-in-ai-a-beginners-guide",
+    "title": "Speech Recognition in AI: A Beginner&#x27;s Guide",
+    "slug": "speech-recognition-in-ai-a-beginners-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-speech-models-enterprise-explained",
+    "title": "Speech-to-Speech Models for Enterprise: Real-Time Voice AI Guide",
+    "slug": "speech-to-speech-models-enterprise-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-speech-vs-cascade-voice-agent-architecture",
+    "title": "Speech-to-Speech vs Cascade: Voice Agent Architecture",
+    "slug": "speech-to-speech-vs-cascade-voice-agent-architecture"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-api-pricing-breakdown-2025",
+    "title": "Speech-to-Text API Pricing Breakdown: Which Tool is Most Cost-Effective? (2025 Edition)",
+    "slug": "speech-to-text-api-pricing-breakdown-2025"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-automatic-punctuation-guide",
+    "title": "Speech-to-Text Automatic Punctuation for Real-World Accuracy and Scale",
+    "slug": "speech-to-text-automatic-punctuation-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-benchmarks",
+    "title": "Speech-to-Text API Benchmarks: Accuracy, Speed, and Cost Compared",
+    "slug": "speech-to-text-benchmarks"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-contact-centers-api-call-volume",
+    "title": "Speech-to-Text for Contact Centers: Best APIs 2026",
+    "slug": "speech-to-text-contact-centers-api-call-volume"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-content-moderation-companies",
+    "title": "How Speech-to-Text Supports Content Moderation Companies Blog ⚡️",
+    "slug": "speech-to-text-content-moderation-companies"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-for-hebrew-persian-urdu-on-nova-3",
+    "title": "Speech-to-Text for Hebrew, Persian, and Urdu on Nova-3",
+    "slug": "speech-to-text-for-hebrew-persian-urdu-on-nova-3"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-model-ukrainian",
+    "title": "Speech-to-Text Model for Ukrainian Released Blog ⚡️",
+    "slug": "speech-to-text-model-ukrainian"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-on-premise-production-deployment",
+    "title": "Speech-To-Text On Premise: Production Deployment Guide 2025",
+    "slug": "speech-to-text-on-premise-production-deployment"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-privacy",
+    "title": "Speech-to-Text Privacy: Enterprise Security, Compliance and Data Protection",
+    "slug": "speech-to-text-privacy"
+  },
+  {
+    "url": "https://deepgram.com/learn/speech-to-text-sentiment-enterprise-analysis",
+    "title": "Speech-to-Text Sentiment Analysis: Building Production-Grade Voice Infrastructure",
+    "slug": "speech-to-text-sentiment-enterprise-analysis"
+  },
+  {
+    "url": "https://deepgram.com/learn/spoken-language-understanding-architecture",
+    "title": "What Is Spoken Language Understanding? Architecture Guide for Platform Builders",
+    "slug": "spoken-language-understanding-architecture"
+  },
+  {
+    "url": "https://deepgram.com/learn/standard-compliance-speech-to-text",
+    "title": "Standard Compliance speech-to-text: HIPAA, SOC 2, GDPR Production Guide",
+    "slug": "standard-compliance-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/state-of-speech-our-new-data-report-reveals-asrs-untapped-potential",
+    "title": "State of Speech: Our New Data Report Reveals ASR’s Untapped Potential Blog ⚡️",
+    "slug": "state-of-speech-our-new-data-report-reveals-asrs-untapped-potential"
+  },
+  {
+    "url": "https://deepgram.com/learn/state-of-voice-2023-report",
+    "title": "State of Voice 2023: Language AI Takes Center Stage Blog ⚡️",
+    "slug": "state-of-voice-2023-report"
+  },
+  {
+    "url": "https://deepgram.com/learn/state-of-voice-ai-2025",
+    "title": "Introducing “State of Voice AI 2025”: The Year of Human-like Voice AI Agents",
+    "slug": "state-of-voice-ai-2025"
+  },
+  {
+    "url": "https://deepgram.com/learn/state-of-voice-coding",
+    "title": "Our dev team tried replacing typing with talking and it&#x27;s working",
+    "slug": "state-of-voice-coding"
+  },
+  {
+    "url": "https://deepgram.com/learn/state-of-voice-report-2022",
+    "title": "State of Voice Tech 2022: New Report Highlights Biggest Voice Tech Adoption Motivators Blog ⚡️",
+    "slug": "state-of-voice-report-2022"
+  },
+  {
+    "url": "https://deepgram.com/learn/streaming-speech-recognition-api",
+    "title": "Streaming Speech Recognition API for Real-Time Transcription",
+    "slug": "streaming-speech-recognition-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/subtitles-made-easy-deepgram-s-new-open-source-captioning-packages",
+    "title": "Subtitles Made Easy: Deepgram&#x27;s New Open Source Captioning Packages",
+    "slug": "subtitles-made-easy-deepgram-s-new-open-source-captioning-packages"
+  },
+  {
+    "url": "https://deepgram.com/learn/supabase-authentication-vue",
+    "title": "How to Add Supabase Authentication to a Vue App Blog ⚡️",
+    "slug": "supabase-authentication-vue"
+  },
+  {
+    "url": "https://deepgram.com/learn/supabase-podcast-player-vue",
+    "title": "How to Build a Podcast Player with Transcriptions using Vue and Supabase Blog ⚡️",
+    "slug": "supabase-podcast-player-vue"
+  },
+  {
+    "url": "https://deepgram.com/learn/superglue-llm-benchmark-explained",
+    "title": "SuperGLUE: Understanding a Sticky Benchmark for LLMs",
+    "slug": "superglue-llm-benchmark-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/take-audio-notes-in-obsidian-with-deepgram",
+    "title": "Power Up Your Obsidian Notes with Audio Transcription Blog ⚡️",
+    "slug": "take-audio-notes-in-obsidian-with-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/taking-notes-with-voice-in-python",
+    "title": "Taking Notes with Voice in Python Blog ⚡️",
+    "slug": "taking-notes-with-voice-in-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/teleconnx-stt-asterisk-freepbx-partnership",
+    "title": "TeleConnx and Deepgram Bring Speech-to-Text to Asterisk/FreePBX Blog ⚡️",
+    "slug": "teleconnx-stt-asterisk-freepbx-partnership"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-cleaning-asr-turkish",
+    "title": "Text Cleaning for ASR: The Case of Turkish Blog ⚡️",
+    "slug": "text-cleaning-asr-turkish"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-to-speech-ai",
+    "title": "Challenging LLMs: An in-depth look at Text-to-Speech AI",
+    "slug": "text-to-speech-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-to-speech-ai-use-cases",
+    "title": "Top Four Use-cases for Text-to-Speech AI",
+    "slug": "text-to-speech-ai-use-cases"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-to-speech-architecture-production-tradeoffs",
+    "title": "Text-to-Speech Architecture: Production Trade-Offs &amp; Best Practices",
+    "slug": "text-to-speech-architecture-production-tradeoffs"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-to-speech-elevenlabs-alternatives",
+    "title": "Top 10 Text-to-Speech ElevenLabs Alternatives for Production Use",
+    "slug": "text-to-speech-elevenlabs-alternatives"
+  },
+  {
+    "url": "https://deepgram.com/learn/text-to-speech-uses-in-entertainment-media",
+    "title": "Top 4 Text-to-Speech Uses in Entertainment &amp; Media: When AI blends in",
+    "slug": "text-to-speech-uses-in-entertainment-media"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-7-best-arxiv-papers-to-learn-how-llms-work",
+    "title": "The 7 best arXiv papers to learn how LLMs work",
+    "slug": "the-7-best-arxiv-papers-to-learn-how-llms-work"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-accuracy-tax-of-emotional-voices-in-tts",
+    "title": "The Accuracy Tax of Emotional Voices in TTS 2026",
+    "slug": "the-accuracy-tax-of-emotional-voices-in-tts"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-benefits-of-ai-medical-transcription",
+    "title": "The Benefits of AI Medical Transcription",
+    "slug": "the-benefits-of-ai-medical-transcription"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-benefits-of-voice-ai-agents-for-call-centers",
+    "title": "The Benefits of Voice AI Agents for Call Centers",
+    "slug": "the-benefits-of-voice-ai-agents-for-call-centers"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-best-and-worst-of-voice-ai-technology",
+    "title": "The Best (and Worst?) of Voice AI Technology",
+    "slug": "the-best-and-worst-of-voice-ai-technology"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-code-revolution-python-sdk-v3-0-now-available",
+    "title": "The Code Revolution: Python SDK v3.0 Now Available",
+    "slug": "the-code-revolution-python-sdk-v3-0-now-available"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-contact-center-of-the-future-with-real-time-ai",
+    "title": "The Contact Center of the Future with Real-time AI Blog ⚡️",
+    "slug": "the-contact-center-of-the-future-with-real-time-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-future-of-claims-and-insurance-through-voice-ai",
+    "title": "When Accidents Happen: The Future of Claims Through Voice AI",
+    "slug": "the-future-of-claims-and-insurance-through-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-future-of-healthcare-enhancing-patient-experience-with-voice-enabled-ai-copil",
+    "title": "The Future of Healthcare: Enhancing Patient Experience with Voice-Enabled AI Copilots",
+    "slug": "the-future-of-healthcare-enhancing-patient-experience-with-voice-enabled-ai-copil"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-hidden-truth-behind-self-driving-cars-an-overview",
+    "title": "The Hidden Truth Behind Self-Driving Cars: An Overview",
+    "slug": "the-hidden-truth-behind-self-driving-cars-an-overview"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-history-of-automatic-speech-recognition",
+    "title": "The History of Automatic Speech Recognition Blog ⚡️",
+    "slug": "the-history-of-automatic-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-importance-of-testing-with-voice-experiences-and-conversational-ai-john-kelvie-ceo-bespoken-project-voice-x",
+    "title": "The Importance of Testing with Voice Experiences and Conversational AI - John Kelvie, CEO, Bespoken - Project Voice X Blog ⚡️",
+    "slug": "the-importance-of-testing-with-voice-experiences-and-conversational-ai-john-kelvie-ceo-bespoken-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-language-of-lgbtq-inclusion-and-allyship",
+    "title": "The Language of LGBTQ Inclusion and Allyship Blog ⚡️",
+    "slug": "the-language-of-lgbtq-inclusion-and-allyship"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-map-for-voice-ai-for-restaurants",
+    "title": "Everybody&#x27;s building Voice AI for restaurants right now. Let&#x27;s draw the map.",
+    "slug": "the-map-for-voice-ai-for-restaurants"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-most-important-work-in-ai-training-is-also-the-most-overlooked",
+    "title": "The Most Important Work in AI Training Is Also the Most Overlooked Blog ⚡️",
+    "slug": "the-most-important-work-in-ai-training-is-also-the-most-overlooked"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-new-age-of-voice-commerce-mike-zagorsek-coo-soundhound-project-voice-x",
+    "title": "The New Age of Voice Commerce - Mike Zagorsek, COO, SoundHound - Project Voice X Blog ⚡️",
+    "slug": "the-new-age-of-voice-commerce-mike-zagorsek-coo-soundhound-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-noise-reduction-paradox-why-it-may-hurt-speech-to-text-accuracy",
+    "title": "The Noise Reduction Paradox in Speech-to-Text Accuracy",
+    "slug": "the-noise-reduction-paradox-why-it-may-hurt-speech-to-text-accuracy"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-power-of-sentiment-analysis",
+    "title": "Predicting the Stock Market &amp; Improving Healthcare: The Power of Sentiment Analysis",
+    "slug": "the-power-of-sentiment-analysis"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-simplest-possible-neural-network",
+    "title": "The Simplest Possible Neural Network, Explained Blog ⚡️",
+    "slug": "the-simplest-possible-neural-network"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-tests-that-tricked-gpt-4o",
+    "title": "The Tests that Tricked GPT-4o",
+    "slug": "the-tests-that-tricked-gpt-4o"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-top-6-most-underrated-ai-models-of-2024",
+    "title": "The Top 6 Most Underrated AI Models of 2024",
+    "slug": "the-top-6-most-underrated-ai-models-of-2024"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-trouble-with-wer",
+    "title": "The Trouble with Word Error Rate (WER) Blog ⚡️",
+    "slug": "the-trouble-with-wer"
+  },
+  {
+    "url": "https://deepgram.com/learn/the-weak-link-in-your-multichannel-strategy",
+    "title": "Is Speech the Weak Link in Your Multichannel Strategy? Blog ⚡️",
+    "slug": "the-weak-link-in-your-multichannel-strategy"
+  },
+  {
+    "url": "https://deepgram.com/learn/think41-deepgram-partnership-ai-agent-assist",
+    "title": "Transforming Customer Interactions in Real Time: Think41 Partners with Deepgram to Power AI Agent Assist",
+    "slug": "think41-deepgram-partnership-ai-agent-assist"
+  },
+  {
+    "url": "https://deepgram.com/learn/three-more-incredible-ai-products-to-check-out",
+    "title": "Three more incredible AI Products to check out!",
+    "slug": "three-more-incredible-ai-products-to-check-out"
+  },
+  {
+    "url": "https://deepgram.com/learn/tips-on-choosing-a-call-analytics-development-path",
+    "title": "Tips on Choosing a Call Analytics Development Path Blog ⚡️",
+    "slug": "tips-on-choosing-a-call-analytics-development-path"
+  },
+  {
+    "url": "https://deepgram.com/learn/tips-on-choosing-a-conversational-ai-development-path",
+    "title": "Tips on Choosing a Conversational AI Development Path Blog ⚡️",
+    "slug": "tips-on-choosing-a-conversational-ai-development-path"
+  },
+  {
+    "url": "https://deepgram.com/learn/tips-on-choosing-a-sales-and-support-enablement-development-path",
+    "title": "Tips on Choosing a Sales and Support Enablement Development Path Blog ⚡️",
+    "slug": "tips-on-choosing-a-sales-and-support-enablement-development-path"
+  },
+  {
+    "url": "https://deepgram.com/learn/together-ai-deepgram-voice-partnership",
+    "title": "Deepgram STT, Now Native on Together AI",
+    "slug": "together-ai-deepgram-voice-partnership"
+  },
+  {
+    "url": "https://deepgram.com/learn/tonya-sims-joins-deepgram",
+    "title": "Tonya Sims Joins the Developer Relations Team Blog ⚡️",
+    "slug": "tonya-sims-joins-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-10-most-influential-arxiv-papers-in-ai-computer-vision",
+    "title": "Top 10 Most Influential arXiv Papers in AI Computer Vision",
+    "slug": "top-10-most-influential-arxiv-papers-in-ai-computer-vision"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-11-text-to-speech-ai-models",
+    "title": "Top 11 Text-to-Speech AI models of 2025",
+    "slug": "top-11-text-to-speech-ai-models"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-3-use-cases-speech-to-text-gaming",
+    "title": "Top 3 Use Cases for Speech-to-Text in Gaming Blog ⚡️",
+    "slug": "top-3-use-cases-speech-to-text-gaming"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-5-arxiv-papers-on-ai-and-medicine",
+    "title": "Top 5 arXiv Papers on AI and Medicine",
+    "slug": "top-5-arxiv-papers-on-ai-and-medicine"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-5-machine-learning-frameworks-for-2023",
+    "title": "Top 5 Machine Learning Frameworks for 2023 Blog ⚡️",
+    "slug": "top-5-machine-learning-frameworks-for-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-5-youtubers-that-will-teach-you-langchain",
+    "title": "Top 5 Youtubers That Will Teach You LangChain",
+    "slug": "top-5-youtubers-that-will-teach-you-langchain"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-6-dutch-asr-challenges",
+    "title": "Top 6 Dutch ASR Challenges: Diverse Dialects, Data, and Dictionaries Blog ⚡️",
+    "slug": "top-6-dutch-asr-challenges"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-6-medical-ai-models-that-you-need-to-know",
+    "title": "Top 6 Medical AI Models that You Need to Know",
+    "slug": "top-6-medical-ai-models-that-you-need-to-know"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-7-uses-speech-to-text-education",
+    "title": "Top 7 Uses for Speech-to-Text in Education Blog ⚡️",
+    "slug": "top-7-uses-speech-to-text-education"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-8-most-influential-arxiv-papers-on-multimodal-ai",
+    "title": "Top 8 most influential arXiv papers on multimodal AI",
+    "slug": "top-8-most-influential-arxiv-papers-on-multimodal-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-ai-models-for-medical-and-biotech-applications",
+    "title": "Top AI Models for Medical and Biotech Applications",
+    "slug": "top-ai-models-for-medical-and-biotech-applications"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-ai-substack-newsletters-2023",
+    "title": "Best AI-Focused Substack Newsletters In 2023",
+    "slug": "top-ai-substack-newsletters-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-ai-text-to-speech-and-voice-cloning-startups",
+    "title": "The Top 7 AI Text-to-speech and Voice-cloning Startups of 2023",
+    "slug": "top-ai-text-to-speech-and-voice-cloning-startups"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-ai-video-generation-models-of-2024",
+    "title": "Top AI Video Generation Models of 2024",
+    "slug": "top-ai-video-generation-models-of-2024"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-apis-programmable-voice-agents",
+    "title": "Top APIs for Programmable Voice Agents in 2026",
+    "slug": "top-apis-programmable-voice-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-arxiv-papers-about-ai-agents-and-voice-ai-agents",
+    "title": "The Top 10 arXiv Papers About AI Agents (especially Voice AI Agents)",
+    "slug": "top-arxiv-papers-about-ai-agents-and-voice-ai-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-eight-conversational-ai-conferences-in-2023",
+    "title": "Top 8 Conversational AI Conferences in 2023 And Beyond",
+    "slug": "top-eight-conversational-ai-conferences-in-2023"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-medical-ai-models-2026",
+    "title": "Medical AI Models Transforming Healthcare | 2026 Guide",
+    "slug": "top-medical-ai-models-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-must-know-names-in-ai-research",
+    "title": "Top Must-Know Names in AI Research",
+    "slug": "top-must-know-names-in-ai-research"
+  },
+  {
+    "url": "https://deepgram.com/learn/top-six-use-cases-for-asr-social-media",
+    "title": "Top Six Uses Cases for Automatic Speech Recognition (ASR) in Social Media Blog ⚡️",
+    "slug": "top-six-use-cases-for-asr-social-media"
+  },
+  {
+    "url": "https://deepgram.com/learn/topic-detection-with-python",
+    "title": "Topic Detection in Podcast Episodes with Python Blog ⚡️",
+    "slug": "topic-detection-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/tortoise-tts-alternative",
+    "title": "9 Faster, Scalable Tortoise TTS Alternative Options",
+    "slug": "tortoise-tts-alternative"
+  },
+  {
+    "url": "https://deepgram.com/learn/track-brand-mentions-across-podcast-episodes",
+    "title": "Track Brand Mentions Across Podcast Episodes Blog ⚡️",
+    "slug": "track-brand-mentions-across-podcast-episodes"
+  },
+  {
+    "url": "https://deepgram.com/learn/train-a-deep-learning-speech-recognition-model-to-understand-your-voice",
+    "title": "Train a Deep Learning Speech Recognition Model to Understand Your Voice Blog ⚡️",
+    "slug": "train-a-deep-learning-speech-recognition-model-to-understand-your-voice"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-audio-google-colab-deepgram",
+    "title": "Transcribe Audio Quickly With Google Colab and Deepgram Blog ⚡️",
+    "slug": "transcribe-audio-google-colab-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-google-drive-files-pipedream",
+    "title": "Automatically Transcribe Google Drive Files with Pipedream Blog ⚡️",
+    "slug": "transcribe-google-drive-files-pipedream"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-phone-calls-with-twilio-functions-and-deepgram",
+    "title": "Transcribe Phone Calls with Twilio Functions and Deepgram Blog ⚡️",
+    "slug": "transcribe-phone-calls-with-twilio-functions-and-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-videos-nodejs",
+    "title": "Transcribe Videos With Node.js Blog ⚡️",
+    "slug": "transcribe-videos-nodejs"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-youtube-videos-from-terminal",
+    "title": "How To Transcribe YouTube Videos From Your Terminal Blog ⚡️",
+    "slug": "transcribe-youtube-videos-from-terminal"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribe-youtube-videos-nodejs",
+    "title": "Transcribe YouTube Videos with Node.js Blog ⚡️",
+    "slug": "transcribe-youtube-videos-nodejs"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcribing-browser-tab-audio-chrome-extensions",
+    "title": "Transcribing Browser Tab Audio with Chrome Extensions Blog ⚡️",
+    "slug": "transcribing-browser-tab-audio-chrome-extensions"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcription-netlify-functions",
+    "title": "Transcriptions Without a Server Using Netlify and Deepgram Blog ⚡️",
+    "slug": "transcription-netlify-functions"
+  },
+  {
+    "url": "https://deepgram.com/learn/transcription-quality-monitoring-production",
+    "title": "Transcription Quality Monitoring: How to Know Your STT Still Works",
+    "slug": "transcription-quality-monitoring-production"
+  },
+  {
+    "url": "https://deepgram.com/learn/transfer-learning-spanish-portuguese",
+    "title": "Transfer Learning from Spanish to Portuguese: How Neighbors on the Map Also Share Vectors Blog ⚡️",
+    "slug": "transfer-learning-spanish-portuguese"
+  },
+  {
+    "url": "https://deepgram.com/learn/transfer-learning-speech-recognition-dev-guide",
+    "title": "Noise-Robust Speech Recognition Techniques: Benchmark to Production Guide",
+    "slug": "transfer-learning-speech-recognition-dev-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/transforming-healthcare-and-delivering-roi-with-the-nova-2-medical-transcription-api",
+    "title": "Transforming Healthcare and Delivering ROI with the Nova-2 Medical Transcription API",
+    "slug": "transforming-healthcare-and-delivering-roi-with-the-nova-2-medical-transcription-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/translation-itranslate",
+    "title": "Adding Translation to Your Transcription Project Blog ⚡️",
+    "slug": "translation-itranslate"
+  },
+  {
+    "url": "https://deepgram.com/learn/tree-of-thoughts-prompting",
+    "title": "Advanced Prompt Engineering Techniques: Tree-of-Thoughts Prompting",
+    "slug": "tree-of-thoughts-prompting"
+  },
+  {
+    "url": "https://deepgram.com/learn/tripling-default-concurrency-to-power-the-voice-ai-economy",
+    "title": "We’re Tripling Default Concurrency to Power the Voice AI Economy",
+    "slug": "tripling-default-concurrency-to-power-the-voice-ai-economy"
+  },
+  {
+    "url": "https://deepgram.com/learn/truthfulqa-llm-benchmark-guide",
+    "title": "Parsing Fact From Fiction: Benchmarking LLM Accuracy With TruthfulQA",
+    "slug": "truthfulqa-llm-benchmark-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/tts-playground-vs-api-pronunciation-gap",
+    "title": "Playground vs API: The Hidden Pronunciation Gap in Modern TTS",
+    "slug": "tts-playground-vs-api-pronunciation-gap"
+  },
+  {
+    "url": "https://deepgram.com/learn/tune-in-deepgram-summit-11-18-21",
+    "title": "Tune In to Our Inaugural Deepgram Summit on 11/18 [and on demand!] Blog ⚡️",
+    "slug": "tune-in-deepgram-summit-11-18-21"
+  },
+  {
+    "url": "https://deepgram.com/learn/turbulence-free-service-how-voice-ai-is-redefining-the-airline-experience",
+    "title": "Turbulence-Free Service: How Voice AI is Redefining the Airline Experience",
+    "slug": "turbulence-free-service-how-voice-ai-is-redefining-the-airline-experience"
+  },
+  {
+    "url": "https://deepgram.com/learn/turning-recipes-into-data-with-named-entity-recognition",
+    "title": "Turn Recipes into Data with Named Entity Recognition Blog ⚡️",
+    "slug": "turning-recipes-into-data-with-named-entity-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/twilio-crm-log-js",
+    "title": "Build a Searchable Phone Call Dashboard with Twilio Blog ⚡️",
+    "slug": "twilio-crm-log-js"
+  },
+  {
+    "url": "https://deepgram.com/learn/twilio-tts-audio-encoding-streaming-guide",
+    "title": "Twilio TTS Integration: Audio Encoding and Streaming Guide",
+    "slug": "twilio-tts-audio-encoding-streaming-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/uncovering-voicebots-secrets-to-building-voice-ai-agents",
+    "title": "Uncovering Voicebots: Secrets to building voice AI agents",
+    "slug": "uncovering-voicebots-secrets-to-building-voice-ai-agents"
+  },
+  {
+    "url": "https://deepgram.com/learn/underrated-ai-tools-may-2024",
+    "title": "Top 5 Underrated AI Tools of May 2024",
+    "slug": "underrated-ai-tools-may-2024"
+  },
+  {
+    "url": "https://deepgram.com/learn/understanding-and-reducing-latency-in-speech-to-text-apis",
+    "title": "Understanding and Reducing Latency in Speech-to-Text APIs",
+    "slug": "understanding-and-reducing-latency-in-speech-to-text-apis"
+  },
+  {
+    "url": "https://deepgram.com/learn/understanding-webhooks",
+    "title": "Understanding Webhooks Blog ⚡️",
+    "slug": "understanding-webhooks"
+  },
+  {
+    "url": "https://deepgram.com/learn/unified-end-to-end-text-to-speech-architecture-cuts-latency",
+    "title": "End-to-End Text-to-Speech: Cut Voice Latency by 50-70%",
+    "slug": "unified-end-to-end-text-to-speech-architecture-cuts-latency"
+  },
+  {
+    "url": "https://deepgram.com/learn/unveiling-icml-2023-the-truth-behind-the-worlds-latest-ai-research",
+    "title": "ICML 2023: The Truth Behind the World’s Latest AI Research",
+    "slug": "unveiling-icml-2023-the-truth-behind-the-worlds-latest-ai-research"
+  },
+  {
+    "url": "https://deepgram.com/learn/unveiling-rag",
+    "title": "Unveiling RAG: The latest AI’s gateway to current knowledge",
+    "slug": "unveiling-rag"
+  },
+  {
+    "url": "https://deepgram.com/learn/upcoming-january-releases",
+    "title": "Upcoming January Releases Blog ⚡️",
+    "slug": "upcoming-january-releases"
+  },
+  {
+    "url": "https://deepgram.com/learn/upgraded-the-deepgram-javascript-sdk-v3",
+    "title": "Upgraded - The Deepgram JavaScript SDK v3",
+    "slug": "upgraded-the-deepgram-javascript-sdk-v3"
+  },
+  {
+    "url": "https://deepgram.com/learn/use-openai-whisper-speech-recognition-with-the-deepgram-api",
+    "title": "Use OpenAI Whisper Speech Recognition with the Deepgram API Blog ⚡️",
+    "slug": "use-openai-whisper-speech-recognition-with-the-deepgram-api"
+  },
+  {
+    "url": "https://deepgram.com/learn/using-ai-to-help-me-get-into-medical-school",
+    "title": "Using AI to Help Me Get into Medical School Blog ⚡️",
+    "slug": "using-ai-to-help-me-get-into-medical-school"
+  },
+  {
+    "url": "https://deepgram.com/learn/using-elevenlabs-multilingual-voice-agents-limitations",
+    "title": "Using ElevenLabs for Multilingual Voice Agents: Limitations",
+    "slug": "using-elevenlabs-multilingual-voice-agents-limitations"
+  },
+  {
+    "url": "https://deepgram.com/learn/using-next-js-for-speech-to-text",
+    "title": "How to Add Speech AI Into Your Next.JS App Blog ⚡️",
+    "slug": "using-next-js-for-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/using-stt-for-meeting-transcripts-action-items-and-auto-summarization",
+    "title": "Using STT for Meeting Transcripts, Action Items, and Auto-Summarization",
+    "slug": "using-stt-for-meeting-transcripts-action-items-and-auto-summarization"
+  },
+  {
+    "url": "https://deepgram.com/learn/vaqi-openai-gpt-realtime-test-with-sensitivity-analysis",
+    "title": "VAQI, Revisited: How OpenAI’s gpt‑realtime Stacks Up — With Sensitivity Analysis for Real‑World Priorities",
+    "slug": "vaqi-openai-gpt-realtime-test-with-sensitivity-analysis"
+  },
+  {
+    "url": "https://deepgram.com/learn/visualizing-and-explaining-transformer-models-from-the-ground-up",
+    "title": "Visualizing and Explaining Transformer Models From the Ground Up Blog ⚡️",
+    "slug": "visualizing-and-explaining-transformer-models-from-the-ground-up"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-activity-detection",
+    "title": "Voice Activity Detection: An Overview for Production Voice Applications",
+    "slug": "voice-activity-detection"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agent-api-architecture-bundled-vs-assembled",
+    "title": "Voice Agent API Architecture: Bundled vs Assembled",
+    "slug": "voice-agent-api-architecture-bundled-vs-assembled"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agent-api-generally-available",
+    "title": "Inside Deepgram’s Voice Agent API: Real-Time STT, TTS, and Orchestration in One API",
+    "slug": "voice-agent-api-generally-available"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agent-api-gpt-5-gpt-oss-20b",
+    "title": "Voice Agent API Just Leveled Up: GPT-5 + GPT-OSS-20B",
+    "slug": "voice-agent-api-gpt-5-gpt-oss-20b"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agent-platform-tax-true-cost",
+    "title": "Voice Agent Platform Tax: True Costs Explained (2026)",
+    "slug": "voice-agent-platform-tax-true-cost"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agent-quality-index",
+    "title": "From Gut Feel to Hard Numbers: Meet the Voice Agent Quality Index (VAQI)",
+    "slug": "voice-agent-quality-index"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-agents-deepgram-nvidia-nemotron",
+    "title": "Voice Agents That Prioritize Data Security and Run Where Your Data Lives",
+    "slug": "voice-agents-deepgram-nvidia-nemotron"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-agent-speed-benchmarks-metrics-impact",
+    "title": "Why Speed is Everything for Voice AI Agents: Benchmarks, Metrics, and Real-World Impact",
+    "slug": "voice-ai-agent-speed-benchmarks-metrics-impact"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-agents-exposed-what-is-conversational-ai",
+    "title": "Voice AI Agents Exposed: What is Conversational AI?",
+    "slug": "voice-ai-agents-exposed-what-is-conversational-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-deployment-cost-cloud-dedicated-self-hosted",
+    "title": "Voice AI Deployment Cost: Cloud vs Dedicated vs Self-Hosted",
+    "slug": "voice-ai-deployment-cost-cloud-dedicated-self-hosted"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-explained",
+    "title": "What Is Voice AI &amp; How It Works",
+    "slug": "voice-ai-explained"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-explained-and-how-it-works",
+    "title": "What is Voice AI and How Does It Work?",
+    "slug": "voice-ai-explained-and-how-it-works"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-healthcare-compliance-accuracy-checklist",
+    "title": "Voice AI in Healthcare: Compliance &amp; Accuracy Checklist",
+    "slug": "voice-ai-healthcare-compliance-accuracy-checklist"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-in-quick-service-restaurants",
+    "title": "Loyalty on Autopilot: Voice AI in Quick-Service Restaurants",
+    "slug": "voice-ai-in-quick-service-restaurants"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-ai-saves-margin-doomspiral-in-qsr",
+    "title": "A margin doomspiral is happening in QSR, and voice AI is here to save your P&amp;L",
+    "slug": "voice-ai-saves-margin-doomspiral-in-qsr"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-apis-vs-voice-agent-platforms",
+    "title": "Voice APIs vs. Voice Agent Platforms: Real Tradeoffs",
+    "slug": "voice-apis-vs-voice-agent-platforms"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-automated-drive-thru",
+    "title": "Voice-Automated Drive-Thru: How Artificial Intelligence Speech Recognition Transforms Quick Service Restaurant Operations",
+    "slug": "voice-automated-drive-thru"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-cloning-everything-to-know",
+    "title": "Everything you need to know about voice cloning",
+    "slug": "voice-cloning-everything-to-know"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-cloning-synthetic-voices",
+    "title": "Exposing Voice Cloning: How Synthetic Voices Shape Futures",
+    "slug": "voice-cloning-synthetic-voices"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-control-browser-stemm",
+    "title": "Voice Control Your Browser with Stëmm Blog ⚡️",
+    "slug": "voice-control-browser-stemm"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-controlled-music-with-python",
+    "title": "How to Use Voice to Control Music with Python and Deepgram Blog ⚡️",
+    "slug": "voice-controlled-music-with-python"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-in-healthcare-dr-yared-alemu-ceo-tqintelligence-project-voice-x",
+    "title": "Voice in Healthcare- Dr. Yared Alemu, CEO, TQIntelligence- Project Voice X Blog ⚡️",
+    "slug": "voice-in-healthcare-dr-yared-alemu-ceo-tqintelligence-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-in-healthcare-henry-oconnell-ceo-canary-speech-project-voice-x",
+    "title": "Voice in Healthcare - Henry OConnell, CEO, Canary Speech - Project Voice X Blog ⚡️",
+    "slug": "voice-in-healthcare-henry-oconnell-ceo-canary-speech-project-voice-x"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-intent-detection-guide",
+    "title": "Building Voice Intent Detection Systems That Scale",
+    "slug": "voice-intent-detection-guide"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-recognition-in-healthcare-compliance-accuracy-deployment",
+    "title": "Voice Recognition in Healthcare: Compliance Guide 2026",
+    "slug": "voice-recognition-in-healthcare-compliance-accuracy-deployment"
+  },
+  {
+    "url": "https://deepgram.com/learn/voice-technology-customer-experience",
+    "title": "Voice Technology and the Changing Landscape of Customer Experience Blog ⚡️",
+    "slug": "voice-technology-customer-experience"
+  },
+  {
+    "url": "https://deepgram.com/learn/voicebots-will-enhance-your-life-not-destroy-it",
+    "title": "Voicebots Will Enhance Your Life (Not Destroy It) Blog ⚡️",
+    "slug": "voicebots-will-enhance-your-life-not-destroy-it"
+  },
+  {
+    "url": "https://deepgram.com/learn/vonage-and-deepgram-enabling-real-time-translation-for-contact-centers",
+    "title": "Vonage and Deepgram: Enabling Real-Time Translation for Contact Centers",
+    "slug": "vonage-and-deepgram-enabling-real-time-translation-for-contact-centers"
+  },
+  {
+    "url": "https://deepgram.com/learn/vonage-voice-communications-partnership",
+    "title": "Vonage and Deepgram Partner to Unlock the Power of Voice",
+    "slug": "vonage-voice-communications-partnership"
+  },
+  {
+    "url": "https://deepgram.com/learn/we-raised-25-million",
+    "title": "We Raised $25 Million from Tiger Global and Others to Unlock the Power of Voice Data and Fuel the World’s Big Ideas Blog ⚡️",
+    "slug": "we-raised-25-million"
+  },
+  {
+    "url": "https://deepgram.com/learn/web-summit-qatar-panel-era-of-enterprise-voice-ai",
+    "title": "Web Summit Qatar Panel: The Era of Enterprise Voice AI",
+    "slug": "web-summit-qatar-panel-era-of-enterprise-voice-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/websocket-vs-rest-text-to-speech",
+    "title": "WebSocket vs REST for TTS: When to Use Which",
+    "slug": "websocket-vs-rest-text-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-developers-need-to-know-about-wer-ker-and-krr",
+    "title": "What Developers Need to Know About WER, KER, and KRR",
+    "slug": "what-developers-need-to-know-about-wer-ker-and-krr"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-devs-should-know-about-models-adaptation-tuning-for-enterprise-part-2",
+    "title": "Part 2: What Developers Should Know About Model Selection, Adaptation, and Tuning for Enterprise Speech Data",
+    "slug": "what-devs-should-know-about-models-adaptation-tuning-for-enterprise-part-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-does-the-ai-dystopia-look-like-ai-show-2",
+    "title": "What Does the AI Dystopia Look Like? — AI Show Blog ⚡️",
+    "slug": "what-does-the-ai-dystopia-look-like-ai-show-2"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-exactly-is-an-ai-agent",
+    "title": "What exactly is an AI Agent?",
+    "slug": "what-exactly-is-an-ai-agent"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-exactly-is-an-ai-voice-agent",
+    "title": "What exactly is an AI Voice Agent? An In-depth Guide to Voice AI Technologies and Applications",
+    "slug": "what-exactly-is-an-ai-voice-agent"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-a-voice-ai-agent",
+    "title": "What is a Voice AI Agent?",
+    "slug": "what-is-a-voice-ai-agent"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-a-voice-ai-agent-2026",
+    "title": "What Is a Voice AI Agent? The Complete Guide for 2026",
+    "slug": "what-is-a-voice-ai-agent-2026"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-an-ai-receptionist",
+    "title": "What is an AI Receptionist?",
+    "slug": "what-is-an-ai-receptionist"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-an-ai-scribe",
+    "title": "What is an AI Scribe?",
+    "slug": "what-is-an-ai-scribe"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-asr",
+    "title": "What Is Automatic Speech Recognition?",
+    "slug": "what-is-asr"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-automatic-speech-recognition-past-present-and-future-ebook",
+    "title": "What is Automatic Speech Recognition: Past, Present, and Future? ebook Blog ⚡️",
+    "slug": "what-is-automatic-speech-recognition-past-present-and-future-ebook"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-automl-how-the-technology-paves-the-way-for-the-future-of-asr",
+    "title": "What is AutoML? How the Technology Paves the Way for the Future of ASR Blog ⚡️",
+    "slug": "what-is-automl-how-the-technology-paves-the-way-for-the-future-of-asr"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-machine-unlearning-and-why-does-it-matter",
+    "title": "What is Machine Unlearning, and Why Does It Matter?",
+    "slug": "what-is-machine-unlearning-and-why-does-it-matter"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-prompt-engineering",
+    "title": "What is Prompt Engineering? Blog ⚡️",
+    "slug": "what-is-prompt-engineering"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-speaker-diarization",
+    "title": "What is Speaker Diarization? Blog ⚡️",
+    "slug": "what-is-speaker-diarization"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-speech-to-speech",
+    "title": "What Is Speech-to-Speech? Uses, Benefits &amp; How It Works",
+    "slug": "what-is-speech-to-speech"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-speech-to-text",
+    "title": "What Is Speech-to-Text and How Does It Work?",
+    "slug": "what-is-speech-to-text"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-text-to-speech-software-production",
+    "title": "What Is Text-to-Speech Software? Production Implementation Guide",
+    "slug": "what-is-text-to-speech-software-production"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-the-most-important-channel-to-engage-your-customers-on",
+    "title": "What is the Most Important Channel to Engage Your Customers On? Blog ⚡️",
+    "slug": "what-is-the-most-important-channel-to-engage-your-customers-on"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-is-word-error-rate",
+    "title": "What is Word Error Rate (WER)? Blog ⚡️",
+    "slug": "what-is-word-error-rate"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-makes-your-voice-uniquely-yours",
+    "title": "What Makes Your Voice Uniquely Yours? Blog ⚡️",
+    "slug": "what-makes-your-voice-uniquely-yours"
+  },
+  {
+    "url": "https://deepgram.com/learn/what-you-need-to-know-about-openai-s-new-3d-model-making-ai-point-e",
+    "title": "What You Need To Know About OpenAI’s New 3D Model-Making AI, Point-E Blog ⚡️",
+    "slug": "what-you-need-to-know-about-openai-s-new-3d-model-making-ai-point-e"
+  },
+  {
+    "url": "https://deepgram.com/learn/when-ai-eats-itself",
+    "title": "What Happens When AI Eats Itself",
+    "slug": "when-ai-eats-itself"
+  },
+  {
+    "url": "https://deepgram.com/learn/whisper-issues-smart-formatting",
+    "title": "OpenAI&#x27;s Whisper: Reading the Fine Print Blog ⚡️",
+    "slug": "whisper-issues-smart-formatting"
+  },
+  {
+    "url": "https://deepgram.com/learn/whisper-v3-results",
+    "title": "Whisper-v3 Hallucinations on Real World Data",
+    "slug": "whisper-v3-results"
+  },
+  {
+    "url": "https://deepgram.com/learn/whisper-vs-deepgram",
+    "title": "Whisper vs Deepgram 2025: Which Speech API Fits Your Stack?",
+    "slug": "whisper-vs-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/who-explains-the-most-an-analysis-of-educational-youtubers",
+    "title": "Who Explains the Most? An Analysis of Educational YouTubers Blog ⚡️",
+    "slug": "who-explains-the-most-an-analysis-of-educational-youtubers"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-agentic-ai-is-such-a-big-deal",
+    "title": "Why Agentic AI is Such A Big Deal",
+    "slug": "why-agentic-ai-is-such-a-big-deal"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-ai-fluency-matters-even-if-you-re-not-technical",
+    "title": "Why AI Fluency Matters — Even If You’re Not Technical",
+    "slug": "why-ai-fluency-matters-even-if-you-re-not-technical"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-ai-is-the-future-of-medical-documentation",
+    "title": "Why AI is the Future of Medical Documentation",
+    "slug": "why-ai-is-the-future-of-medical-documentation"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-deepgram-built-its-platform-in-rust",
+    "title": "Why Deepgram Built its Platform in Rust Blog ⚡️",
+    "slug": "why-deepgram-built-its-platform-in-rust"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-does-your-speech-recognition-need-context",
+    "title": "Why Does Your Speech Recognition Need Context? Blog ⚡️",
+    "slug": "why-does-your-speech-recognition-need-context"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-enterprise-audio-requirements-are-more-nuanced-at-real-time-speeds",
+    "title": "Why Enterprise Audio Requirements are More “Nuanced” at Real-time Speeds Blog ⚡️",
+    "slug": "why-enterprise-audio-requirements-are-more-nuanced-at-real-time-speeds"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-enterprises-are-moving-to-streaming-and-why-whisper-can-t-keep-up",
+    "title": "Why Enterprises Are Moving to Streaming — and Why Whisper Can’t Keep Up",
+    "slug": "why-enterprises-are-moving-to-streaming-and-why-whisper-can-t-keep-up"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-i-use-voice-ai-when-i-work",
+    "title": "I Type 107 WPM and I Still Use Voice AI When I Work. Here&#x27;s Why.",
+    "slug": "why-i-use-voice-ai-when-i-work"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-iot-means-speech-recognition",
+    "title": "Why IoT Means Speech Recognition Blog ⚡️",
+    "slug": "why-iot-means-speech-recognition"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-medical-transcription-is-hard-for-humans-and-machines",
+    "title": "Why Medical Transcription is Hard for Humans and Machines",
+    "slug": "why-medical-transcription-is-hard-for-humans-and-machines"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-the-deepgram-cloudflare-tie-up-actually-solves-real-problems",
+    "title": "Why the Deepgram + Cloudflare tie‑up actually solves real problems",
+    "slug": "why-the-deepgram-cloudflare-tie-up-actually-solves-real-problems"
+  },
+  {
+    "url": "https://deepgram.com/learn/why-your-beautiful-ui-is-about-to-be-replaced-with-a-chatty-ai",
+    "title": "Why Your Beautiful UI is About to Be Replaced With a Chatty AI (And Why That&#x27;s Actually Amazing)",
+    "slug": "why-your-beautiful-ui-is-about-to-be-replaced-with-a-chatty-ai"
+  },
+  {
+    "url": "https://deepgram.com/learn/word-vectorization-how-llms-learned-to-write-like-humans",
+    "title": "Word Vectorization: How LLMs Learned to Write Like Humans Blog ⚡️",
+    "slug": "word-vectorization-how-llms-learned-to-write-like-humans"
+  },
+  {
+    "url": "https://deepgram.com/learn/working-with-timestamps-utterances-and-speaker-diarization-in-deepgram",
+    "title": "Working with Timestamps, Utterances, and Speaker Diarization in Deepgram",
+    "slug": "working-with-timestamps-utterances-and-speaker-diarization-in-deepgram"
+  },
+  {
+    "url": "https://deepgram.com/learn/your-misbehaving-agent-is-likely-an-audio-quality-problem",
+    "title": "Your misbehaving agent is likely an audio quality problem",
+    "slug": "your-misbehaving-agent-is-likely-an-audio-quality-problem"
+  },
+  {
+    "url": "https://deepgram.com/learn/your-personal-shopper-reimagined-the-rise-of-voice-ai-in-e-commerce",
+    "title": "Your Personal Shopper, Reimagined: The Rise of Voice AI in E-Commerce",
+    "slug": "your-personal-shopper-reimagined-the-rise-of-voice-ai-in-e-commerce"
+  },
+  {
+    "url": "https://deepgram.com/learn/your-restaurant-needs-to-speak-spanish",
+    "title": "Your restaurant needs to speak Spanish, y ahora puede.",
+    "slug": "your-restaurant-needs-to-speak-spanish"
+  },
+  {
+    "url": "https://deepgram.com/learn/zero-to-ai-hero-python-notebooks",
+    "title": "From Zero to AI Hero: How Python Notebooks Empower Your Deepgram Journey Blog ⚡️",
+    "slug": "zero-to-ai-hero-python-notebooks"
+  }
+]

@@ -1,0 +1,537 @@
+[
+  {
+    "url": "https://livekit.com/blog/adaptive-interruption-handling",
+    "title": "Solving unwanted interruptions with Adaptive Interruption Handling",
+    "slug": "adaptive-interruption-handling"
+  },
+  {
+    "url": "https://livekit.com/blog/agent-console-debugging-dashboard",
+    "title": "Debug voice agents in real time with Agent Console",
+    "slug": "agent-console-debugging-dashboard"
+  },
+  {
+    "url": "https://livekit.com/blog/agent-logs",
+    "title": "Where to find your Agent Logs",
+    "slug": "agent-logs"
+  },
+  {
+    "url": "https://livekit.com/blog/an-introduction-to-webrtc-simulcast",
+    "title": "An introduction to WebRTC Simulcast",
+    "slug": "an-introduction-to-webrtc-simulcast"
+  },
+  {
+    "url": "https://livekit.com/blog/and-were-live-kit",
+    "title": "And\u2026we\u2019re Live(Kit)!",
+    "slug": "and-were-live-kit"
+  },
+  {
+    "url": "https://livekit.com/blog/announcing-agent-builder-a-pathway-to-code",
+    "title": "Announcing Agent Builder: a pathway to code",
+    "slug": "announcing-agent-builder-a-pathway-to-code"
+  },
+  {
+    "url": "https://livekit.com/blog/announcing-livekit-cloud",
+    "title": "Announcing LiveKit Cloud",
+    "slug": "announcing-livekit-cloud"
+  },
+  {
+    "url": "https://livekit.com/blog/answering-machine-detection",
+    "title": "Detect voicemail and IVR with outbound phone agents",
+    "slug": "answering-machine-detection"
+  },
+  {
+    "url": "https://livekit.com/blog/async-tools-voice-agents",
+    "title": "Async Tools for Voice Agents: Keep Talking While Work Runs",
+    "slug": "async-tools-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/audio-quality",
+    "title": "Measuring LiveKit audio quality with video and screen share enabled",
+    "slug": "audio-quality"
+  },
+  {
+    "url": "https://livekit.com/blog/avoiding-crosstalk-shared-dev-environments",
+    "title": "Avoiding crosstalk when multiple developers share a LiveKit project",
+    "slug": "avoiding-crosstalk-shared-dev-environments"
+  },
+  {
+    "url": "https://livekit.com/blog/bringing-ai-avatars-to-voice-agents",
+    "title": "Bringing AI avatars to voice agents",
+    "slug": "bringing-ai-avatars-to-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/build-agent-experiences-faster-with-session-apis",
+    "title": "Build agent experiences faster with Session APIs",
+    "slug": "build-agent-experiences-faster-with-session-apis"
+  },
+  {
+    "url": "https://livekit.com/blog/build-healthcare-intake-assistant-anam-avatar",
+    "title": "Build a healthcare intake assistant with an Anam avatar",
+    "slug": "build-healthcare-intake-assistant-anam-avatar"
+  },
+  {
+    "url": "https://livekit.com/blog/build-multilingual-voice-agent-automatic-language-switching",
+    "title": "Build a multilingual voice agent that automatically switches languages",
+    "slug": "build-multilingual-voice-agent-automatic-language-switching"
+  },
+  {
+    "url": "https://livekit.com/blog/build-salary-negotiation-coach-lemonslice-avatar",
+    "title": "Build a salary negotiation coach with a LemonSlice avatar",
+    "slug": "build-salary-negotiation-coach-lemonslice-avatar"
+  },
+  {
+    "url": "https://livekit.com/blog/build-your-first-ai-voice-agent-python",
+    "title": "Build Your First AI Voice Agent in Python: Complete Tutorial",
+    "slug": "build-your-first-ai-voice-agent-python"
+  },
+  {
+    "url": "https://livekit.com/blog/building-performant-voice-agents-india",
+    "title": "Building Performant Voice Agents in India",
+    "slug": "building-performant-voice-agents-india"
+  },
+  {
+    "url": "https://livekit.com/blog/checklist-for-regional-deployments",
+    "title": "Checklist for Regional Deployments",
+    "slug": "checklist-for-regional-deployments"
+  },
+  {
+    "url": "https://livekit.com/blog/cloud-100-rising-star",
+    "title": "Cloud 100 Rising Star",
+    "slug": "cloud-100-rising-star"
+  },
+  {
+    "url": "https://livekit.com/blog/collect-structured-data-with-livekit-agents",
+    "title": "Collect structured data with LiveKit Agents",
+    "slug": "collect-structured-data-with-livekit-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/configuring-livekit-agents-at-dispatch",
+    "title": "Configuring LiveKit Agents at Dispatch with Metadata",
+    "slug": "configuring-livekit-agents-at-dispatch"
+  },
+  {
+    "url": "https://livekit.com/blog/decentralands-catalyst-using-webrtc-to-power-real-time-interactions-in-the-metaverse",
+    "title": "Decentraland&#x27;s Catalyst: using WebRTC to interact in the metaverse",
+    "slug": "decentralands-catalyst-using-webrtc-to-power-real-time-interactions-in-the-metaverse"
+  },
+  {
+    "url": "https://livekit.com/blog/deploy-and-scale-agents-on-livekit-cloud",
+    "title": "Deploy and scale agents on LiveKit Cloud",
+    "slug": "deploy-and-scale-agents-on-livekit-cloud"
+  },
+  {
+    "url": "https://livekit.com/blog/deployment-reliability-cloud",
+    "title": "Deployment reliability on LiveKit Cloud",
+    "slug": "deployment-reliability-cloud"
+  },
+  {
+    "url": "https://livekit.com/blog/design-voice-ai-interfaces-with-agents-ui",
+    "title": "Design beautiful voice AI experiences with Agents UI",
+    "slug": "design-voice-ai-interfaces-with-agents-ui"
+  },
+  {
+    "url": "https://livekit.com/blog/diagnosing-blocked-event-loops",
+    "title": "Diagnosing Blocked Event Loops in LiveKit Agents",
+    "slug": "diagnosing-blocked-event-loops"
+  },
+  {
+    "url": "https://livekit.com/blog/esp32-custom-hardware-quickstart",
+    "title": "Building a voice agent frontend on custom ESP32 hardware",
+    "slug": "esp32-custom-hardware-quickstart"
+  },
+  {
+    "url": "https://livekit.com/blog/frame-metadata",
+    "title": "Introducing Video Frame Metadata",
+    "slug": "frame-metadata"
+  },
+  {
+    "url": "https://livekit.com/blog/gemini-3.1-flash-tts-prompting-guide",
+    "title": "A Practical Guide to Prompting Gemini 3.1 Flash TTS",
+    "slug": "gemini-3.1-flash-tts-prompting-guide"
+  },
+  {
+    "url": "https://livekit.com/blog/going-beyond-a-single-core",
+    "title": "Going beyond a single-core",
+    "slug": "going-beyond-a-single-core"
+  },
+  {
+    "url": "https://livekit.com/blog/handoff-pattern-voice-agents",
+    "title": "The Handoff Pattern for Voice Agents That Replaces IVR Menus",
+    "slug": "handoff-pattern-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/how-assort-health-uses-livekit-to-scale-patient-communication",
+    "title": "24/7 Front-Office Support: How Assort Health Uses LiveKit to Scale Patient Communication",
+    "slug": "how-assort-health-uses-livekit-to-scale-patient-communication"
+  },
+  {
+    "url": "https://livekit.com/blog/how-casper-studios-built-the-stranger-things-doritos-interactive-telethon",
+    "title": "Stranger Things \u00d7 Doritos: How LiveKit and Casper Studios Powered an Interactive Telethon for 400,000 Fans",
+    "slug": "how-casper-studios-built-the-stranger-things-doritos-interactive-telethon"
+  },
+  {
+    "url": "https://livekit.com/blog/how-playback-built-a-global-stadium-for-watching-sports-together",
+    "title": "How Playback built a global stadium for watching sports together",
+    "slug": "how-playback-built-a-global-stadium-for-watching-sports-together"
+  },
+  {
+    "url": "https://livekit.com/blog/how-polymath-robotics-uses-livekit-to-remotely-operate-heavy-machinery",
+    "title": "How Polymath Robotics Uses LiveKit to Remotely Operate Heavy Machinery",
+    "slug": "how-polymath-robotics-uses-livekit-to-remotely-operate-heavy-machinery"
+  },
+  {
+    "url": "https://livekit.com/blog/human-in-the-loop-voice-agents",
+    "title": "The Human-in-the-Loop (HITL) Pattern for Voice Agents",
+    "slug": "human-in-the-loop-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/improved-end-of-turn-model-cuts-voice-ai-interruptions-39",
+    "title": "Improved end-of-turn model cuts Voice AI interruptions 39%",
+    "slug": "improved-end-of-turn-model-cuts-voice-ai-interruptions-39"
+  },
+  {
+    "url": "https://livekit.com/blog/introducing-livekit-inference",
+    "title": "Introducing LiveKit Inference: A unified model interface for voice AI",
+    "slug": "introducing-livekit-inference"
+  },
+  {
+    "url": "https://livekit.com/blog/introducing-livekit-phone-numbers-zero-to-ringing-in-60-seconds",
+    "title": "Introducing LiveKit Phone Numbers: zero to ringing in 60 seconds",
+    "slug": "introducing-livekit-phone-numbers-zero-to-ringing-in-60-seconds"
+  },
+  {
+    "url": "https://livekit.com/blog/keep-your-agent-in-the-room-on-reconnect",
+    "title": "Why Your Agent Leaves on Browser Refresh (and When to Keep It)",
+    "slug": "keep-your-agent-in-the-room-on-reconnect"
+  },
+  {
+    "url": "https://livekit.com/blog/keeping-your-agent-conversation-on-track",
+    "title": "Build a Voice Agent That Won&#x27;t Go Off Script",
+    "slug": "keeping-your-agent-conversation-on-track"
+  },
+  {
+    "url": "https://livekit.com/blog/langchain-to-livekit",
+    "title": "Bring your LangChain Agents to LiveKit",
+    "slug": "langchain-to-livekit"
+  },
+  {
+    "url": "https://livekit.com/blog/latency-optimized-inference-gemma-4-on-livekit",
+    "title": "Latency Optimized Inference: Gemma 4 on LiveKit",
+    "slug": "latency-optimized-inference-gemma-4-on-livekit"
+  },
+  {
+    "url": "https://livekit.com/blog/launch-week-2022-05-13",
+    "title": "Launch Week! \ud83d\ude80",
+    "slug": "launch-week-2022-05-13"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-community-day",
+    "title": "LiveKit Community Day",
+    "slug": "livekit-community-day"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-cpp-sdk-official-release",
+    "title": "Introducing the C++ SDK",
+    "slug": "livekit-cpp-sdk-official-release"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-data-tracks-realtime-streaming",
+    "title": "Introducing data tracks: realtime streaming beyond audio and video",
+    "slug": "livekit-data-tracks-realtime-streaming"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-one-dot-zero",
+    "title": "Bringing Zoom&#x27;s end-to-end optimizations to WebRTC",
+    "slug": "livekit-one-dot-zero"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-partners-with-sap-to-deliver-intelligent-voice-for-joule",
+    "title": "LiveKit partners with SAP to deliver intelligent voice for Joule",
+    "slug": "livekit-partners-with-sap-to-deliver-intelligent-voice-for-joule"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-sdk-for-esp32-bringing-voice-ai-to-embedded-devices",
+    "title": "LiveKit SDK for ESP32: bringing voice AI to embedded devices",
+    "slug": "livekit-sdk-for-esp32-bringing-voice-ai-to-embedded-devices"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-series-a",
+    "title": "LiveKit&#x27;s Series A: Infra for the AI computing era",
+    "slug": "livekit-series-a"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-series-c",
+    "title": "LiveKit&#x27;s Series C: Towards the voice-driven era of computing",
+    "slug": "livekit-series-c"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-universal-egress-launch",
+    "title": "Universal Egress",
+    "slug": "livekit-universal-egress-launch"
+  },
+  {
+    "url": "https://livekit.com/blog/livekit-wakeword",
+    "title": "Open-source wake word training in a single command",
+    "slug": "livekit-wakeword"
+  },
+  {
+    "url": "https://livekit.com/blog/livekits-series-b",
+    "title": "LiveKit\u2019s Series B: Building the all-in-one platform for voice AI agents",
+    "slug": "livekits-series-b"
+  },
+  {
+    "url": "https://livekit.com/blog/managing-webhook-event-streams",
+    "title": "Best practices for managing webhook event streams",
+    "slug": "managing-webhook-event-streams"
+  },
+  {
+    "url": "https://livekit.com/blog/meet-kitt",
+    "title": "Live conversations with AI using ChatGPT and WebRTC",
+    "slug": "meet-kitt"
+  },
+  {
+    "url": "https://livekit.com/blog/mini-tutorial-setting-up-a-livekit-cloud-project",
+    "title": "Mini tutorial: setting up a LiveKit Cloud project",
+    "slug": "mini-tutorial-setting-up-a-livekit-cloud-project"
+  },
+  {
+    "url": "https://livekit.com/blog/mongodb-voice-agent-memory",
+    "title": "MongoDB Vector Search for Voice Agents: Build Persistent Memory in Python",
+    "slug": "mongodb-voice-agent-memory"
+  },
+  {
+    "url": "https://livekit.com/blog/nemotron-3.5-asr-multilingual-teleprompter",
+    "title": "Multilingual speech-to-text on your laptop: NVIDIA&#x27;s Nemotron 3.5 ASR",
+    "slug": "nemotron-3.5-asr-multilingual-teleprompter"
+  },
+  {
+    "url": "https://livekit.com/blog/no-observability-data-available",
+    "title": "Why is my Agent insights data missing?",
+    "slug": "no-observability-data-available"
+  },
+  {
+    "url": "https://livekit.com/blog/noise-cancellation",
+    "title": "LiveKit noise cancellation: what it is and how it works",
+    "slug": "noise-cancellation"
+  },
+  {
+    "url": "https://livekit.com/blog/observer-pattern-voice-agent-guardrails",
+    "title": "How to Build a Background Observer for Voice AI Guardrails",
+    "slug": "observer-pattern-voice-agent-guardrails"
+  },
+  {
+    "url": "https://livekit.com/blog/open-source-realtime-multimodal-ai",
+    "title": "An open source stack for real-time multimodal AI",
+    "slug": "open-source-realtime-multimodal-ai"
+  },
+  {
+    "url": "https://livekit.com/blog/openai-livekit-partnership-advanced-voice-realtime-api",
+    "title": "OpenAI and LiveKit partner to turn Advanced Voice into an API",
+    "slug": "openai-livekit-partnership-advanced-voice-realtime-api"
+  },
+  {
+    "url": "https://livekit.com/blog/prompting-voice-agents-to-sound-more-realistic",
+    "title": "Prompting voice agents to sound more realistic",
+    "slug": "prompting-voice-agents-to-sound-more-realistic"
+  },
+  {
+    "url": "https://livekit.com/blog/react-core-components",
+    "title": "React Core and Components",
+    "slug": "react-core-components"
+  },
+  {
+    "url": "https://livekit.com/blog/react-native-beta-launch",
+    "title": "LiveKit coming to React Native!",
+    "slug": "react-native-beta-launch"
+  },
+  {
+    "url": "https://livekit.com/blog/react-pattern-voice-agents",
+    "title": "The ReAct Pattern for Voice Agents and How AI Agents Think, Act, and Respond",
+    "slug": "react-pattern-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/real-time-audio-and-video-in-the-metaverse",
+    "title": "Real-time audio and video in the metaverse",
+    "slug": "real-time-audio-and-video-in-the-metaverse"
+  },
+  {
+    "url": "https://livekit.com/blog/real-time-voice-agents-vs-model-apis",
+    "title": "Why You Shouldn\u2019t Build Real-Time Voice Agents Directly on Model APIs",
+    "slug": "real-time-voice-agents-vs-model-apis"
+  },
+  {
+    "url": "https://livekit.com/blog/realtime-vs-cascade",
+    "title": "Pipeline vs. Realtime - Which is the better Voice Agent Architecture?",
+    "slug": "realtime-vs-cascade"
+  },
+  {
+    "url": "https://livekit.com/blog/running-livekit-on-aws",
+    "title": "Running LiveKit on AWS",
+    "slug": "running-livekit-on-aws"
+  },
+  {
+    "url": "https://livekit.com/blog/say-hello-to-improved-cloud-analytics",
+    "title": "Say hello to improved Cloud analytics",
+    "slug": "say-hello-to-improved-cloud-analytics"
+  },
+  {
+    "url": "https://livekit.com/blog/scaling-webrtc-with-distributed-mesh",
+    "title": "How we built a globally distributed mesh network to scale WebRTC",
+    "slug": "scaling-webrtc-with-distributed-mesh"
+  },
+  {
+    "url": "https://livekit.com/blog/sequential-pipeline-architecture-voice-agents",
+    "title": "Sequential Pipeline Architecture for Voice Agents",
+    "slug": "sequential-pipeline-architecture-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/ship-voice-agent-on-any-website-script-tag",
+    "title": "Embed a voice agent on any website",
+    "slug": "ship-voice-agent-on-any-website-script-tag"
+  },
+  {
+    "url": "https://livekit.com/blog/solving-end-of-turn-detection",
+    "title": "Solving end-of-turn detection: LiveKit Turn Detector v1.0",
+    "slug": "solving-end-of-turn-detection"
+  },
+  {
+    "url": "https://livekit.com/blog/stream-music-over-webrtc-using-react-and-webaudio",
+    "title": "Stream music over WebRTC using React and WebAudio",
+    "slug": "stream-music-over-webrtc-using-react-and-webaudio"
+  },
+  {
+    "url": "https://livekit.com/blog/streaming-video-from-a-canvas-with-webrtc-and-react",
+    "title": "Streaming video from a canvas with WebRTC and React",
+    "slug": "streaming-video-from-a-canvas-with-webrtc-and-react"
+  },
+  {
+    "url": "https://livekit.com/blog/streamline-troubleshooting-with-agent-observability",
+    "title": "Streamline troubleshooting with Agent Observability",
+    "slug": "streamline-troubleshooting-with-agent-observability"
+  },
+  {
+    "url": "https://livekit.com/blog/supabase-voice-agent-memory",
+    "title": "Build a voice AI agent with memory using LiveKit and Supabase",
+    "slug": "supabase-voice-agent-memory"
+  },
+  {
+    "url": "https://livekit.com/blog/supervisor-pattern-voice-agents",
+    "title": "How to Implement the Supervisor Pattern for Voice AI",
+    "slug": "supervisor-pattern-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/talker-reasoner-pattern-voice-agents",
+    "title": "The Talker-Reasoner Pattern for Voice Agents",
+    "slug": "talker-reasoner-pattern-voice-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/teleoperate-and-collect-robot-data-with-livekit-portal",
+    "title": "Teleoperate and collect robot data with LiveKit Portal",
+    "slug": "teleoperate-and-collect-robot-data-with-livekit-portal"
+  },
+  {
+    "url": "https://livekit.com/blog/telli-automates-high-volume-enterprise-phone-operations-with-livekit-ai-coustics",
+    "title": "How telli automates high-volume enterprise phone operations with LiveKit and ai-coustics",
+    "slug": "telli-automates-high-volume-enterprise-phone-operations-with-livekit-ai-coustics"
+  },
+  {
+    "url": "https://livekit.com/blog/the-end-of-participant-minute",
+    "title": "The end of Participant Minute pricing",
+    "slug": "the-end-of-participant-minute"
+  },
+  {
+    "url": "https://livekit.com/blog/the-metaverse-needs-open-infrastructure",
+    "title": "The metaverse needs open infrastructure",
+    "slug": "the-metaverse-needs-open-infrastructure"
+  },
+  {
+    "url": "https://livekit.com/blog/token-troubleshooting",
+    "title": "Troubleshooting 401 Unauthorized and Token Errors",
+    "slug": "token-troubleshooting"
+  },
+  {
+    "url": "https://livekit.com/blog/towards-a-future-aligned-pricing-model",
+    "title": "Towards a future-aligned pricing model",
+    "slug": "towards-a-future-aligned-pricing-model"
+  },
+  {
+    "url": "https://livekit.com/blog/turn-detection-and-interruption-handling",
+    "title": "Configuring Turn Detection and Interruptions in LiveKit Agents",
+    "slug": "turn-detection-and-interruption-handling"
+  },
+  {
+    "url": "https://livekit.com/blog/turn-detection-voice-agents-vad-endpointing-model-based-detection",
+    "title": "Turn Detection for Voice Agents: VAD, Endpointing, and Model-Based Detection",
+    "slug": "turn-detection-voice-agents-vad-endpointing-model-based-detection"
+  },
+  {
+    "url": "https://livekit.com/blog/tutorial-using-webrtc-react-webaudio-to-create-spatial-audio",
+    "title": "Using WebRTC + React + WebAudio to create spatial audio",
+    "slug": "tutorial-using-webrtc-react-webaudio-to-create-spatial-audio"
+  },
+  {
+    "url": "https://livekit.com/blog/understand-and-improve-agent-latency",
+    "title": "Understand and Improve Voice Agent Latency",
+    "slug": "understand-and-improve-agent-latency"
+  },
+  {
+    "url": "https://livekit.com/blog/understanding-tls-in-sip",
+    "title": "Understanding TLS in SIP",
+    "slug": "understanding-tls-in-sip"
+  },
+  {
+    "url": "https://livekit.com/blog/unity-sdk-production-launch",
+    "title": "LiveKit Unity SDK 2.0.0: out of Developer Preview",
+    "slug": "unity-sdk-production-launch"
+  },
+  {
+    "url": "https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection",
+    "title": "Using a transformer to improve end of turn detection",
+    "slug": "using-a-transformer-to-improve-end-of-turn-detection"
+  },
+  {
+    "url": "https://livekit.com/blog/verify-sip-caller-identity",
+    "title": "Layered Caller Verification for LiveKit SIP Calls",
+    "slug": "verify-sip-caller-identity"
+  },
+  {
+    "url": "https://livekit.com/blog/voice-agent-architecture-stt-llm-tts-pipelines-explained",
+    "title": "Voice Agent Architecture: STT, LLM, and TTS Pipelines Explained",
+    "slug": "voice-agent-architecture-stt-llm-tts-pipelines-explained"
+  },
+  {
+    "url": "https://livekit.com/blog/voice-agent-skills-for-coding-assistants",
+    "title": "Voice agent skills for coding assistants",
+    "slug": "voice-agent-skills-for-coding-assistants"
+  },
+  {
+    "url": "https://livekit.com/blog/voice-cloning-livekit-inference",
+    "title": "Give your agents custom voices on LiveKit Inference",
+    "slug": "voice-cloning-livekit-inference"
+  },
+  {
+    "url": "https://livekit.com/blog/webrtc-vs-hls-livestreaming",
+    "title": "A tale of two protocols: comparing WebRTC against HLS for live streaming",
+    "slug": "webrtc-vs-hls-livestreaming"
+  },
+  {
+    "url": "https://livekit.com/blog/why-webrtc-beats-websockets-for-voice-ai-agents",
+    "title": "Why WebRTC beats WebSockets for realtime voice AI",
+    "slug": "why-webrtc-beats-websockets-for-voice-ai-agents"
+  },
+  {
+    "url": "https://livekit.com/blog/xai-livekit-partnership-grok-voice-agent-api",
+    "title": "Xai Livekit Partnership Grok Voice Agent Api",
+    "slug": "xai-livekit-partnership-grok-voice-agent-api"
+  },
+  {
+    "url": "https://livekit.com/blog/yeah-but-can-it-run-doom",
+    "title": "Yeah, but can it run DOOM?",
+    "slug": "yeah-but-can-it-run-doom"
+  },
+  {
+    "url": "https://livekit.com/blog/your-model-isnt-bad-at-tool-calling",
+    "title": "Your Model Isn\u2019t Bad at Tool Calling. Your Serving Stack Is.",
+    "slug": "your-model-isnt-bad-at-tool-calling"
+  }
+]

@@ -1,4 +1,4 @@
----
+﻿---
 title: 'LiveKit vs Pipecat: Which Voice AI Framework Should You Build On in 2026?'
 date: '2026-08-12'
 tags: ['LiveKit', 'Pipecat', 'Voice AI Framework', 'WebRTC', 'Voice Agent Development']
@@ -431,7 +431,7 @@ Cold starts are a major differentiator. LiveKit agent worker pods stay "warm" be
 | **Built-in WebRTC**        | Yes (Custom SFU)                         | Yes (via Daily.co plugin)                |
 | **Local Testing**          | Moderate (requires local SFU instance)   | Excellent (Local audio transport)        |
 | **LLM Context Management** | Automatic via Agent SDK                  | Explicit via Context Aggregators         |
-| **Latency Overhead**       | <2ms (Tight integration)                 | <5ms (Frame passing)                     |
+| **Latency Overhead**       | &lt;2ms (Tight integration)              | &lt;5ms (Frame passing)                  |
 | **Provider Support**       | Deepgram, OpenAI, Cartesia, 11Labs, etc. | Deepgram, OpenAI, Cartesia, 11Labs, etc. |
 | **Multimodal Support**     | Yes (`MultimodalAgent`)                  | Yes (Vision/Video frames supported)      |
 | **State Machine Control**  | Opaque/Abstracted                        | Transparent/Explicit                     |
@@ -471,7 +471,7 @@ graph TD
 
 When building voice agents, every single millisecond counts. A natural human conversation requires a response time under 700ms. If you hit 1000ms, the user feels like they are talking to a robot over a bad cell connection, leading to extreme frustration and early hang-ups.
 
-From a pure framework perspective, both LiveKit and Pipecat introduce absolutely negligible overhead. LiveKit's tight integration with its Go-based SFU means packet handoffs from the network to the Python worker happen in **<2ms**. Pipecat's frame passing in Python is highly optimized with internal memory buffers and adds maybe **<5ms** of overhead to the total round trip.
+From a pure framework perspective, both LiveKit and Pipecat introduce absolutely negligible overhead. LiveKit's tight integration with its Go-based SFU means packet handoffs from the network to the Python worker happen in **&lt;2ms**. Pipecat's frame passing in Python is highly optimized with internal memory buffers and adds maybe **&lt;5ms** of overhead to the total round trip.
 
 The real latency differences come from how you architect the pipeline externally, not the framework itself. If you use a cascade (STT → LLM → TTS), your latency is bound by the time it takes the TTS to synthesize the first byte of audio after the LLM generates the first valid token.
 
