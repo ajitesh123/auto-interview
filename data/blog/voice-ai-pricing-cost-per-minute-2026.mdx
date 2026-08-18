@@ -1,0 +1,322 @@
+---
+title: 'Voice AI Pricing in 2026: The Complete Cost Breakdown (Cascade vs Voice-to-Voice)'
+date: '2026-08-18'
+tags:
+  [
+    'Voice AI Pricing',
+    'AI Calling Cost',
+    'Cascade Pricing',
+    'Voice to Voice Cost',
+    'Tough Tongue AI',
+  ]
+summary: 'The exact cost breakdown of AI voice calling in 2026. Cascade architecture costs $0.018 to $0.035 per minute across STT, LLM, TTS, and SIP. Voice-to-voice costs more on global models but Tough Tongue AI delivers an all-in price of Rs 3.50 per minute for Indian calling.'
+keywords: 'voice AI pricing 2026, AI calling cost per minute, cascade voice AI cost, voice to voice AI cost, how much does AI calling cost, Deepgram pricing, Cartesia pricing, OpenAI realtime pricing, Tough Tongue AI pricing'
+authors: ['Ajitesh Abhishek']
+canonicalUrl: 'https://www.autointerviewai.com/blog/voice-ai-pricing-cost-per-minute-2026'
+structuredData:
+  '@context': 'https://schema.org'
+  '@type': 'Article'
+  'headline': 'Voice AI Pricing in 2026: The Complete Cost Breakdown'
+  'author':
+    '@type': 'Person'
+    'name': 'Ajitesh Abhishek'
+---
+
+The "cheapest" cascade stack costs **$0.018 per minute**. TTGE costs **Rs 3.50 per minute** (about **$0.042**). On the surface, cascade looks **57%** cheaper.
+
+Here is what that comparison misses. A cascade stack at **940ms** response latency has a **38%** first-response hang-up rate on Indian mobile calls. TTGE at sub-**200ms** has an **8%** hang-up rate.
+
+Cost per real conversation is the right metric:
+
+```
+Cost per real conversation = (cost/min x avg duration) / (1 - hang-up rate)
+
+Cascade: ($0.018 x 3 min) / (1 - 0.38) = $0.087 per real conversation
+TTGE:    (Rs 3.50 x 3 min) / (1 - 0.08) = Rs 11.41 = $0.136 per real conversation
+```
+
+At lower call volumes, cascade is cheaper per conversation if you already have the engineers. At scale, once you factor in the team maintaining three APIs, TTGE is competitive. That is the honest framing. Everything below is the math behind the decision.
+
+---
+
+## The Rs 2.8 Lakh Deepgram Bill
+
+A fintech startup built their own cascade stack. Three months in, they received a Deepgram bill for **Rs 2.8 lakh**. Their Voice Activity Detection threshold was misconfigured.
+
+Every call was sending **3 to 4 seconds** of silence before speech started. Deepgram billed for all of it. The fix was one configuration line.
+
+By the time they found it, they had spent **Rs 2.8 lakh** on silence. This is not a hypothetical. This is what happens in production, and the pricing pages do not warn you about it.
+
+---
+
+## Cascade vs Voice-to-Voice: The Core Difference
+
+**Cascade** means three separate API bills. STT converts speech to text. LLM generates a text response. TTS converts that response back to audio. Three sequential calls, three vendors, total latency of **630 to 1200ms**.
+
+**Voice-to-Voice** means one model handles audio end-to-end. One vendor, one bill, total latency of **80 to 220ms**.
+
+Why it matters for pricing: cascade looks cheaper per minute but carries hidden costs in hang-up rate, engineering overhead from managing three failure modes, and billing surprises that this post documents in detail.
+
+---
+
+## Cascade Pricing: Every Component
+
+### STT (Speech-to-Text)
+
+Speech-to-text models charge per minute of audio processed. The baseline for English is **$0.004 to $0.007 per minute**. Specialized models for Indian telephony cost more.
+
+| Provider   | Model         | Price           | Notes                                 |
+| ---------- | ------------- | --------------- | ------------------------------------- |
+| Deepgram   | Nova-3        | **$0.0043/min** | Best for English real-time            |
+| AssemblyAI | Universal-3.5 | **$0.0066/min** | Better for post-call analytics        |
+| OpenAI     | Whisper       | **$0.006/min**  | Batch only, not real-time             |
+| Gladia     | v2            | **$0.0077/min** | Best for multilingual                 |
+| Gnani AI   | Prisma v2.5   | Enterprise      | Only option for 8kHz Indian telephony |
+
+Deepgram's Word Error Rate on Indian 8kHz PSTN audio is **2 to 4x** worse than on clean 16kHz audio. Gnani Prisma v2.5 was trained natively on 8kHz and performs significantly better on real Indian phone calls. If you are building for Indian telephony and using Deepgram, you are paying for worse accuracy.
+
+### LLM (Language Model)
+
+A typical voice call has approximately **130 words per minute** spoken by the user, which is roughly **169 tokens**. The AI generates approximately **150 words per response**, or **195 tokens**. Conversation history accumulates to about **500 tokens of average context** per turn.
+
+Total token processing runs around **800 to 900 tokens per minute**. Here is how that prices out:
+
+| Model            | Input                | Output               | Est. Cost/Min    |
+| ---------------- | -------------------- | -------------------- | ---------------- |
+| Gemini 1.5 Flash | **$0.075/1M** tokens | **$0.30/1M** tokens  | ~**$0.0001/min** |
+| GPT-4o-mini      | **$0.15/1M** tokens  | **$0.60/1M** tokens  | ~**$0.0003/min** |
+| Claude 3.5 Haiku | **$0.80/1M** tokens  | **$4.00/1M** tokens  | ~**$0.0014/min** |
+| GPT-4o           | **$2.50/1M** tokens  | **$10.00/1M** tokens | ~**$0.004/min**  |
+
+LLM cost looks tiny per minute. The real cost grows with context. Most teams cap context at **15 to 20 turns** and summarize older turns. On a 20-minute call without summarization, you are paying for 400 tokens of accumulated history on every turn by the end of the call.
+
+### TTS (Text-to-Speech)
+
+An AI speaks approximately **130 words per minute**, which is roughly **650 characters per minute**.
+
+| Provider    | Model        | Price              | Per-Min Cost   | First Audio   |
+| ----------- | ------------ | ------------------ | -------------- | ------------- |
+| Cartesia    | Sonic        | ~**$0.008/min**    | **$0.008**     | **40-100ms**  |
+| OpenAI      | tts-1        | **$15/1M** chars   | ~**$0.010**    | ~**200ms**    |
+| ElevenLabs  | Flash v2.5   | **$0.18/1K** chars | ~**$0.117**    | ~**75ms**     |
+| ElevenLabs  | Eleven v3    | **$0.30/1K** chars | ~**$0.195**    | **200-300ms** |
+| Smallest.ai | Lightning V3 | **$0.09-0.21/min** | **$0.09-0.21** | &lt;**100ms** |
+
+For English real-time agents, Cartesia at **$0.008/min** is the correct answer. ElevenLabs at **$0.117 to $0.195/min** makes sense for content, narration, and high-end products where voice quality is the differentiator. For outbound calling where the quality difference does not move conversion rates, it is not justified.
+
+### SIP Trunk (India)
+
+| Provider | Rate                         | Best Number Series     | Pickup Rate |
+| -------- | ---------------------------- | ---------------------- | ----------- |
+| Vobiz    | **Rs 0.45/min** (**$0.005**) | 7972-series, 92-series | **30-48%**  |
+| Plivo    | **Rs 0.60/min** (**$0.007**) | 080, 020-series        | **15-20%**  |
+| Exotel   | **Rs 0.80/min** (**$0.010**) | 1800, 080-series       | **15-25%**  |
+
+---
+
+## What Three Cascade Stacks Actually Cost
+
+**Stack 1: Budget English**
+
+- STT: Deepgram Nova-3: **$0.0043/min**
+- LLM: Gemini 1.5 Flash: **$0.0001/min**
+- TTS: Cartesia Sonic: **$0.0080/min**
+- SIP: Vobiz: **$0.0054/min**
+- **API total: $0.0178/min (Rs 1.50/min)**
+- With 40% infrastructure overhead: **$0.025/min (Rs 2.10/min)**
+
+**Stack 2: Balanced English (Most Common)**
+
+- STT: Deepgram Nova-3: **$0.0043/min**
+- LLM: GPT-4o-mini: **$0.0003/min**
+- TTS: Cartesia Sonic: **$0.0080/min**
+- SIP: Plivo: **$0.0071/min**
+- **API total: $0.0197/min (Rs 1.65/min)**
+- With 40% infrastructure overhead: **$0.028/min (Rs 2.35/min)**
+
+**Stack 3: Indian Language**
+
+- STT: Gnani Prisma v2.5: est. **$0.010/min**
+- LLM: GPT-4o-mini: **$0.0003/min**
+- TTS: Smallest.ai Lightning V3: **$0.090/min**
+- SIP: Vobiz: **$0.0054/min**
+- **API total: $0.1057/min (Rs 8.90/min)**
+- With 40% infrastructure overhead: **$0.148/min (Rs 12.40/min)**
+
+The Indian language stack costs **6x more** than the English stack because Smallest.ai is **10x more expensive** than Cartesia. This is the real cost of Indian language support that most vendor comparisons do not show.
+
+---
+
+## Three Billing Gotchas Nobody Warns You About
+
+### Deepgram Charges for Silence
+
+If your Voice Activity Detection threshold is misconfigured, Deepgram receives and bills for seconds of dead audio before the user speaks. On **100,000 minutes** of calls, this adds **5% to 8%** to your STT bill.
+
+At **$0.0043/min** on **100,000 minutes** (**$430** base), silence billing costs you an extra **$22 to $34 per month**. At **1,000,000 minutes**, that is **$220 to $340/month** billed for silence.
+
+The fix: set `endpointing: 300` and `utterance_end_ms: 1000` in your Deepgram config. Test your VAD sensitivity before going to production, not after.
+
+### ElevenLabs Bills by Character, Not by Minute
+
+Your TTS bill is partly a prompt engineering problem. Consider:
+
+"Your balance is Rs 25,000." = **26 characters**
+
+"Your outstanding balance as of today stands at approximately Rupees twenty-five thousand." = **90 characters**
+
+Same information. **3.5x** the TTS cost. At **$0.30 per 1,000 characters** for Eleven v3, that difference on **10,000 utterances per day** is **$2,190 per month**.
+
+If you are using ElevenLabs in production, audit your response templates for character count. Every unnecessary word is a billing line item.
+
+### OpenAI Realtime API Bills Both Sides of the Conversation
+
+Audio input: **$0.06/min**. Audio output: **$0.24/min**.
+
+For a **4-minute call** where the human speaks 2 minutes and the AI speaks 2 minutes:
+
+- Input (entire call duration, including when AI is speaking): **$0.06 x 4 = $0.24**
+- Output (when AI is speaking): **$0.24 x 2 = $0.48**
+- Total: **$0.72 for one 4-minute call**
+
+At **10,000 calls per month**: **$7,200 in model costs alone**, before SIP or infrastructure. With overhead, you are at **$10,000 to $12,000/month** for 10,000 calls.
+
+This is not hidden in the fine print. It is on the OpenAI pricing page. Most teams do not do this multiplication before they start building.
+
+---
+
+## Voice-to-Voice Pricing
+
+| Model                      | Latency             | Cost/Min                     | Notes                                  |
+| -------------------------- | ------------------- | ---------------------------- | -------------------------------------- |
+| OpenAI GPT-4o Realtime     | **80-120ms**        | **$0.18-0.30/min**           | Best English quality, expensive        |
+| Google Gemini Live         | **100-200ms**       | **$0.05-0.12/min**           | Broader language support               |
+| Hume EVI 2                 | **100-300ms**       | **$0.10-0.20/min**           | Best emotional intelligence            |
+| Kyutai Moshi (self-hosted) | **160-200ms**       | **$0.01-0.05/min**           | Requires A100 GPU                      |
+| TTGE                       | &lt;**200ms** total | **Rs 3.50/min** (**$0.042**) | Indian SIP, analytics, support bundled |
+
+OpenAI Realtime at **$0.18 to $0.30/min** is not viable for high-volume Indian outbound calling. TTGE achieves comparable latency at **$0.042/min** because it runs on India-region infrastructure, not a general-purpose model routed from overseas. OpenAI Realtime called from an Indian server to a US endpoint and back adds **180 to 280ms** of API round-trip before any model processing happens.
+
+---
+
+## TTGE Pricing: What Is Included and What Is Not
+
+**Rs 3.50 per minute. All-in.**
+
+What that includes:
+
+- Native voice-to-voice processing (sub-**200ms** total response latency)
+- SIP trunk via Vobiz 7972 or 92-series (**30 to 48%** pickup rate on Indian calls)
+- Post-call transcription and analytics
+- Guardrails and compliance logging
+- LiveKit session management
+- Indian language support via Smallest.ai integration
+- Infrastructure, monitoring, failover, and IST-timezone support
+
+What is NOT included: your LLM if you bring a custom model, your CRM integration, your call list management.
+
+**When TTGE makes sense:**
+
+- You want V2V latency (**8%** hang-up rate) without OpenAI Realtime pricing (**$0.18 to $0.30/min**)
+- Your team cannot spare 2 engineers to maintain a cascade stack
+- You are doing Indian outbound calling where SIP, pickup rate, and Indian languages need to work together
+- You want one vendor to call when something breaks at 11 PM
+
+**When to build your own cascade instead:**
+
+- You have 2 or more dedicated infrastructure engineers who can own it
+- You need a custom STT model for specialized vocabulary or rare language
+- You process under **30,000 minutes per month** (engineering cost does not amortize at low volume)
+- You need maximum flexibility in provider selection
+
+Most Indian B2B startups should not build their own cascade stack. The API costs look cheap on a spreadsheet. The **2,000 engineering hours** to make it production-reliable do not appear on that spreadsheet.
+
+---
+
+## Cost at Scale
+
+At **3-minute average call duration**:
+
+| Monthly Calls | Minutes     | DIY Cascade (**$0.028/min**) | TTGE (**Rs 3.50/min**)     |
+| ------------- | ----------- | ---------------------------- | -------------------------- |
+| **10,000**    | **30,000**  | **$840** (Rs 70,560)         | **Rs 1,05,000** ($1,250)   |
+| **50,000**    | **150,000** | **$4,200** (Rs 3,52,800)     | **Rs 5,25,000** ($6,250)   |
+| **100,000**   | **300,000** | **$8,400** (Rs 7,05,600)     | **Rs 10,50,000** ($12,500) |
+
+DIY cascade looks cheaper at every volume. Add **2 engineers at Rs 3,00,000/month** combined and the numbers flip below **150,000 minutes/month**. That is the break-even point.
+
+---
+
+## The ROI Calculation: AI vs Human SDRs
+
+Replacing **5 human SDRs** with TTGE:
+
+**Human cost:**
+
+- Salary, PF, benefits, office: **Rs 56,000/SDR/month**
+- 5 SDRs: **Rs 2,80,000/month**
+- Dials: **5,280/SDR/month x 5 = 26,400 dials**
+- At **15%** pickup on 140-series: **3,960 conversations**
+
+**TTGE:**
+
+- Same **26,400 dials** at **43%** pickup on 7972-series: **11,352 conversations**
+- Avg **3 min/call**: 34,056 minutes x **Rs 3.50 = Rs 1,19,196/month**
+
+**Result:**
+
+- Humans: **Rs 2,80,000** for **3,960 conversations**
+- TTGE: **Rs 1,19,196** for **11,352 conversations**
+- **2.87x more conversations at 57% lower cost**
+
+At **5%** conversion and **Rs 50,000** average deal:
+
+- Human pipeline: **Rs 99,00,000/month**
+- TTGE pipeline: **Rs 2,83,80,000/month**
+- **Additional pipeline: Rs 1,84,80,000/month**
+
+---
+
+## Frequently Asked Questions
+
+**What is the average cost per minute for AI calling in India?**
+
+A budget cascade stack costs **$0.025/min (Rs 2.10/min)** for English. An Indian language cascade stack using Gnani and Smallest.ai costs **$0.148/min (Rs 12.40/min)**. TTGE bundles everything including Indian language support at **Rs 3.50/min ($0.042/min)**.
+
+**Why is ElevenLabs so much more expensive than Cartesia for voice agents?**
+
+ElevenLabs bills per character of text generated. Cartesia bills per minute of audio output. For conversational AI where the AI speaks in short sentences, per-minute billing is substantially cheaper. The difference is **$0.008/min** for Cartesia vs **$0.117 to $0.195/min** for ElevenLabs.
+
+**How much does OpenAI Realtime API actually cost per call?**
+
+A **4-minute call** costs approximately **$0.72** in model fees alone. OpenAI bills **$0.06/min** for all audio input across the entire call duration, plus **$0.24/min** for audio output. Add SIP and infrastructure and a 4-minute call runs **$0.80 to $0.90** total.
+
+**What hidden costs do most AI calling pricing breakdowns miss?**
+
+Three main ones: silence billing from misconfigured VAD (adds **5-8%** to STT bills), character-based TTS billing that rewards shorter prompts, and the engineering cost of managing three vendor APIs. Infrastructure overhead adds **30-50%** to raw API costs in production.
+
+**Is cascade or voice-to-voice more cost-effective for Indian outbound calling?**
+
+It depends on call volume and team size. Below **30,000 minutes/month**, DIY cascade is cheaper. Above that, the engineering cost of maintaining cascade infrastructure makes TTGE competitive. V2V also generates **2.87x more conversations per dial** due to lower hang-up rates, which changes the per-conversation economics entirely.
+
+**What does Tough Tongue AI pricing include?**
+
+Native voice-to-voice processing, Vobiz SIP trunking with **30-48%** pickup rate on Indian calls, post-call transcription, analytics, guardrails, compliance logging, LiveKit session management, Indian language support, infrastructure management, and IST-timezone support. All at **Rs 3.50/min**.
+
+**At what call volume does AI calling pay back vs human SDRs?**
+
+Immediately, in most cases. At the same dial volume, TTGE generates **2.87x more conversations** at **57% lower cost** than a 5-person SDR team. The break-even in pipeline terms happens in the first month.
+
+**Does Deepgram charge for silence and background noise?**
+
+Yes. Deepgram charges for all audio received before the endpointing threshold fires. Misconfigured VAD settings can add **5% to 8%** to your monthly bill. Set `endpointing: 300` and test in staging before production.
+
+---
+
+## Experience the Latency Difference
+
+The pricing math above is accurate but abstract. What it cannot show is how **sub-200ms** response latency feels on an actual call versus **940ms** cascade latency.
+
+Schedule a live demo call with TTGE. You will hear the difference in the first 30 seconds.
+
+[Book a Demo](https://www.autointerviewai.com)
