@@ -51,17 +51,35 @@ This architecture also allows the model to perceive background noise and breathi
 
 ## WebSocket Protocol & Session Lifecycle
 
-The Realtime API relies entirely on stateful WebSocket connections. It does not support standard stateless HTTP requests. You begin by sending a `session.update` payload upon connection.
+The Realtime API relies entirely on stateful WebSocket connections at `wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview`. You configure session parameters upon connection using the nested `session.update` payload.
 
-This payload configures voices, tool definitions, and turn detection parameters. You then continuously stream chunks of base64-encoded PCM audio. These chunks are sent via `input_audio_buffer.append` events.
+```json
+{
+  "type": "session.update",
+  "session": {
+    "modalities": ["audio", "text"],
+    "voice": "alloy",
+    "input_audio_format": "pcm16",
+    "output_audio_format": "pcm16",
+    "turn_detection": {
+      "type": "server_vad",
+      "threshold": 0.5,
+      "prefix_padding_ms": 300,
+      "silence_duration_ms": 200
+    }
+  }
+}
+```
 
-The server handles Voice Activity Detection internally by default. When it detects the end of user speech, it fires a `response.create` event automatically. The model then streams back `response.audio.delta` packets containing synthesized audio.
+Available native voices include **alloy, ash, ballad, coral, echo, sage, shimmer, and verse**. The API natively supports both **24kHz PCM16** and **8kHz G.711 u-law/a-law** for direct telephony bridging.
 
-Mid-utterance interruption is handled elegantly by the protocol state machine. If the user speaks while the model is responding, the server emits an `input_audio_buffer.speech_started` event. You must immediately send a `response.cancel` message to stop the current generation.
+Client audio streams via `input_audio_buffer.append` events. When the server VAD detects the end of user speech, it emits `input_audio_buffer.speech_stopped` and automatically triggers `response.create`. The model then streams back synthesized audio via `response.audio.delta` packets.
 
-This bidirectional signaling is crucial for natural conversations. It prevents the model from talking over the user. It also saves money by halting token generation immediately.
+### Handling Interruptions (Barge-In)
 
-The session lifecycle requires careful state tracking on the client side. You must maintain the current response ID and item ID. This ensures you cancel the correct response during interruptions.
+Mid-utterance interruption is coordinated via bidirectional events. When the caller speaks while the model is responding, the server emits `input_audio_buffer.speech_started`.
+
+Your client application must immediately dispatch a `response.cancel` event to halt server audio generation, and flush any unplayed local audio buffers within **50ms**.
 
 ## Production Python Implementation
 

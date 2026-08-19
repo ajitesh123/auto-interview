@@ -27,29 +27,41 @@ If you are building voice AI applications for tier-2 and tier-3 Indian cities, S
 
 ## The Core Models in the Sarvam Voice Stack
 
-### Bulbul v1: Text-to-Speech (TTS)
+### Bulbul v3: Text-to-Speech (TTS)
 
-Bulbul v1 is Sarvam's high-naturalness Indic text-to-speech engine. Unlike standard auto-regressive transformers that map characters to spectrograms, Bulbul uses a specialized grapheme-to-phoneme mapping. This mapping respects the complex morphophonemic rules of Dravidian and Indo-Aryan language families.
+Bulbul v3 (`model="bulbul:v3"`) is Sarvam's flagship Indic text-to-speech engine. Unlike standard autoregressive models, Bulbul v3 is specifically engineered for Indian linguistic prosody, supporting up to **2,500 characters** per synthesis request.
 
-The model generates natural Indian prosody without relying on excessive pitch shifting. It understands intonation markers native to Indian speaking patterns. Our tests show it generates output in **under 200ms** time-to-first-byte (TTFB).
+Key official API parameters include:
 
-This low latency is critical for conversational agents. The synthesis handles mixed scripts flawlessly. A prompt written in English script but containing Hindi words will be synthesized with the correct phonetic rules.
+- **`language_code`:** Standard BCP-47 identifiers (`hi-IN`, `ta-IN`, `te-IN`, `bn-IN`, `kn-IN`, `ml-IN`, `mr-IN`, `gu-IN`, `pa-IN`, `od-IN`).
+- **`speaker`:** Over **30 native voices** available, defaulting to `shubh` for male speech and `ananya`/`meera` for female speech.
+- **`pace`:** Speed multiplier from **0.5x to 2.0x** (default **1.0x**).
+- **`temperature`:** Controls acoustic variability and expressive cadence.
+- **`dict_id`:** Custom enterprise pronunciation dictionaries for industry-specific terminology.
 
-### Saaras v1: Automatic Speech Recognition (ASR)
+Bulbul generates audio with a Time-to-First-Byte (TTFB) of **under 200ms**. It synthesizes code-mixed sentences (e.g. English script containing Hindi words) with native phonetic accuracy.
 
-Saaras v1 is the automatic speech recognition component of the stack. It is specifically tuned for Indian regional accents and heavy code-switching. Traditional ASR models use sub-word tokenization optimized for English. Saaras uses a tokenizer that better represents Indic syllables.
+### Saaras v3: Automatic Speech Recognition (ASR)
 
-The model is highly tolerant of background noise typical in Indian environments. It filters out street noise and network artifacts common in cellular calls. We measured an average latency of **180ms** for streaming recognition.
+Saaras v3 (`model="saaras:v3"`) is the automatic speech recognition component of the stack. It processes Indian regional accents and heavy conversational code-switching without requiring manual language tags.
 
-Saaras effectively handles Hinglish and Tanglish naturally. It does not force the transcript into a single language. This prevents the catastrophic translation errors seen in standard Whisper models.
+Official processing modes include:
+
+- **`transcribe`:** Standard verbatim transcription in native Indic scripts.
+- **`codemix`:** Optimized transcription for mixed Hindi-English and Tamil-English conversations.
+- **`translit`:** Direct transliteration to Romanized Latin script.
+- **`translate`:** Direct speech-to-text translation into English.
+- **`verbatim`:** Captures exact filler words and repetitions for call auditing.
+
+Streaming latency averages **180ms** over WebSockets, making it suitable for live telephony pipelines.
 
 ### Shuka v1: Speech-to-Speech Architecture
 
-Shuka v1 is Sarvam's foundation speech model. It integrates discrete audio tokens directly with a Llama-based backbone. This direct speech-to-speech architecture bypasses the traditional ASR-LLM-TTS cascade.
+Shuka v1 is Sarvam's foundation audio language model. It integrates discrete audio representations from the Saaras encoder directly into a Meta Llama 3 decoder backbone.
 
-By eliminating intermediate text generation, Shuka reduces overall system latency significantly. It processes acoustic features directly into semantic representations. This preserves paralinguistic information like emotion and speech rate.
+This end-to-end architecture eliminates intermediate text generation. By processing acoustic features directly into semantic representations, Shuka preserves paralinguistic cues such as emotional inflection and speech rate.
 
-The model responds in **under 500ms** total latency. It is trained entirely on Indian conversational data. This makes it highly effective for unstructured, conversational phone calls.
+The model responds in **under 500ms** total latency. It is trained entirely on Indian conversational data, making it effective for vernacular voice agents.
 
 ## Indic Language Benchmarks: Sarvam vs Global Providers
 

@@ -31,13 +31,19 @@ When compared to the OpenAI Realtime API, Gemini 2.0 Flash offers competitive ec
   network round-trip reduction.
 </div>
 
-## The Architecture: How Gemini 2.0 Flash Live Works
+## The Architecture: Bidirectional WebSockets and BidiGenerateContent
 
-Traditional voice AI systems use a cascade pipeline architecture. This involves sending audio to a speech-to-text model, processing the text through an LLM, and generating speech with a text-to-speech model. Each step adds sequential latency that makes conversations feel robotic and slow.
+Gemini Live operates over the **`BidiGenerateContent`** bidirectional streaming RPC. You connect via WebSocket directly to Google's real-time infrastructure:
 
-Gemini 2.0 Flash Live replaces this pipeline with a single native multimodal model. The model ingests raw audio directly as tokens and outputs audio tokens in the same forward pass. This native audio tokenization preserves prosody, emotion, and conversational cadence perfectly.
+```text
+# Google AI Studio / Generative Language API Endpoint:
+wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=$GEMINI_API_KEY
 
-The entire communication layer runs over a bidirectional WebSocket session. Developers initiate a connection via the Google AI SDK and maintain an open channel. This persistent connection allows continuous streaming of raw PCM audio chunks without HTTP request overhead.
+# Vertex AI Endpoint (with regional edge routing):
+wss://{LOCATION}-aiplatform.googleapis.com/ws/google.cloud.aiplatform.v1beta1.LlmBidiService/BidiGenerateContent
+```
+
+Client audio is transmitted in real time as linear PCM16 chunks using `realtimeInput` messages, while model audio streams back continuously inside `serverContent.modelTurn.parts`. When the user begins speaking, the server emits `serverContent.interrupted: true` so the client can immediately drop the current playback buffer.
 
 ### Native Audio Tokenization
 
