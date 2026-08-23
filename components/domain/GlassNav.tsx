@@ -23,9 +23,11 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
     <nav className="nav-bar sticky top-0 z-50">
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
         {/* Logo + Wordmark */}
-        <Link href="/" className="flex items-center gap-2">
-          <CubeLogo size={20} />
-          <span className="text-sm font-medium text-[#171717]">Auto Interview AI</span>
+        <Link href="/" className="flex items-center gap-2.5">
+          <CubeLogo size={22} />
+          <span className="text-sm font-medium tracking-tight text-[#171717]">
+            Auto Interview AI
+          </span>
         </Link>
 
         {/* Desktop Nav — Center-left */}
@@ -35,7 +37,9 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               key={link.href}
               href={link.href}
               className={`text-sm font-normal transition-colors ${
-                currentPath === link.href ? 'text-[#171717]' : 'text-[#666666] hover:text-[#171717]'
+                currentPath === link.href
+                  ? 'font-medium !text-[#171717]'
+                  : '!text-[#666666] hover:!text-[#171717]'
               }`}
             >
               {link.label}
@@ -47,14 +51,14 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/about"
-            className="rounded-[6px] px-3 py-1.5 text-sm text-[#4d4d4d] transition-colors hover:text-[#171717]"
+            className="inline-flex items-center justify-center rounded-[6px] px-3.5 py-1.5 text-sm !text-[#171717] transition-colors hover:bg-[#f0f0f0]"
             style={{ boxShadow: '0 0 0 1px #ebebeb' }}
           >
             About
           </Link>
           <Link
             href="/build-resume"
-            className="rounded-[6px] bg-[#171717] px-3 py-1.5 text-sm text-white transition-colors hover:bg-[#383838]"
+            className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-4 py-1.5 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
           >
             Get Started
           </Link>
@@ -100,8 +104,8 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
                 onClick={() => setMobileOpen(false)}
                 className={`text-sm transition-colors ${
                   currentPath === link.href
-                    ? 'text-[#171717]'
-                    : 'text-[#666666] hover:text-[#171717]'
+                    ? 'font-medium !text-[#171717]'
+                    : '!text-[#666666] hover:!text-[#171717]'
                 }`}
               >
                 {link.label}
@@ -111,7 +115,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               <Link
                 href="/about"
                 onClick={() => setMobileOpen(false)}
-                className="flex-1 rounded-[6px] py-2 text-center text-sm text-[#4d4d4d]"
+                className="flex-1 rounded-[6px] py-2 text-center text-sm !text-[#171717]"
                 style={{ boxShadow: '0 0 0 1px #ebebeb' }}
               >
                 About
@@ -119,7 +123,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               <Link
                 href="/build-resume"
                 onClick={() => setMobileOpen(false)}
-                className="flex-1 rounded-[6px] bg-[#171717] py-2 text-center text-sm text-white"
+                className="flex-1 rounded-[6px] bg-[#171717] py-2 text-center text-sm font-medium !text-white"
               >
                 Get Started
               </Link>

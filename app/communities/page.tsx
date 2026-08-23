@@ -72,25 +72,61 @@ export default function CommunitiesPage() {
   const communities = [
     {
       title: 'Computer Science & Software Engineering',
-      icon: '💻',
+      icon: (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+          />
+        </svg>
+      ),
       desc: 'System design deep-dives, coding interview problem teardowns, architecture reviews, and hiring trends.',
       tags: ['CS', 'SWE', 'DSA', 'System Design'],
     },
     {
       title: 'AI & Machine Learning Engineers',
-      icon: '🤖',
+      icon: (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      ),
       desc: 'LLM agents, generative AI workflows, model deployment, ML research discussions, and AI engineering interviews.',
       tags: ['AI', 'LLMs', 'MLOps', 'GenAI'],
     },
     {
       title: 'Job Referrals & Internal Openings',
-      icon: '🤝',
+      icon: (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+        </svg>
+      ),
       desc: 'Verified employee referrals, priority interview loops, warm introductions, and insider hiring tips.',
       tags: ['Referrals', 'Hiring', 'FAANG', 'Startups'],
     },
     {
       title: 'MBA & Product Management Network',
-      icon: '🎓',
+      icon: (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      ),
       desc: 'Case interview practice partners, consulting frameworks, product sense mock loops, and placement prep.',
       tags: ['MBA', 'Consulting', 'Product Management', 'Strategy'],
     },
@@ -145,11 +181,16 @@ export default function CommunitiesPage() {
           {communities.map((comm) => (
             <div
               key={comm.title}
-              className="flex flex-col rounded-[6px] bg-white p-6 transition-all"
+              className="flex flex-col rounded-[6px] bg-white p-7 transition-all"
               style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
             >
-              <div className="mb-4 flex items-start justify-between">
-                <span className="text-3xl">{comm.icon}</span>
+              <div className="mb-5 flex items-start justify-between">
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  {comm.icon}
+                </div>
                 <span
                   className="rounded-full px-2 py-0.5 font-mono text-[10px] uppercase text-[#666666]"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -194,13 +235,13 @@ export default function CommunitiesPage() {
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/cv-templates"
-              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm text-white transition-colors hover:bg-[#383838]"
+              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
             >
               Explore CV Templates
             </Link>
             <Link
               href="/resources"
-              className="inline-flex items-center justify-center rounded-[6px] px-5 py-2.5 text-sm text-[#4d4d4d] transition-colors hover:text-[#171717]"
+              className="inline-flex items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-colors hover:bg-[#fafafa]"
               style={{ boxShadow: '0 0 0 1px #ebebeb' }}
             >
               Browse Domain Resources

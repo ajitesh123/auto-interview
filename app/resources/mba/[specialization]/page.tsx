@@ -125,15 +125,15 @@ export default async function SpecializationPage({ params }: Props) {
       <div className="mx-auto max-w-5xl px-6 py-20">
         {/* Breadcrumb */}
         <nav className="mb-8 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
-          <Link href="/" className="hover:text-[#171717]">
+          <Link href="/" className="hover:!text-[#171717]">
             Home
           </Link>{' '}
           /{' '}
-          <Link href="/resources" className="hover:text-[#171717]">
+          <Link href="/resources" className="hover:!text-[#171717]">
             Resources
           </Link>{' '}
           /{' '}
-          <Link href="/resources/mba" className="hover:text-[#171717]">
+          <Link href="/resources/mba" className="hover:!text-[#171717]">
             MBA
           </Link>{' '}
           / <span className="text-[#171717]">{spec.name}</span>
@@ -141,7 +141,6 @@ export default async function SpecializationPage({ params }: Props) {
 
         <header className="mb-16 max-w-3xl">
           <div className="mb-3 inline-flex items-center gap-2">
-            <span className="text-3xl">{spec.icon}</span>
             <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
               MBA Track
             </span>
@@ -172,7 +171,7 @@ export default async function SpecializationPage({ params }: Props) {
             </p>
             <Link
               href="/resources/mba/consulting"
-              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm text-white transition-colors hover:bg-[#383838]"
+              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
             >
               View Consulting Casebooks →
             </Link>
@@ -183,12 +182,12 @@ export default async function SpecializationPage({ params }: Props) {
               {spec.resources.map((resource) => (
                 <div
                   key={resource.slug}
-                  className="flex flex-col rounded-[6px] bg-white p-6"
+                  className="flex flex-col rounded-[6px] bg-white p-7"
                   style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
                 >
                   <div className="mb-4 flex items-start justify-between">
                     <span
-                      className="rounded-full bg-[#fafafa] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#171717]"
+                      className="rounded-full bg-[#fafafa] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#171717]"
                       style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                     >
                       {resource.source}
@@ -219,7 +218,7 @@ export default async function SpecializationPage({ params }: Props) {
 
                   <a
                     href={resource.downloadUrl}
-                    className="block rounded-[6px] bg-[#171717] px-5 py-2.5 text-center text-sm text-white transition-colors hover:bg-[#383838]"
+                    className="block rounded-[6px] bg-[#171717] px-5 py-2.5 text-center text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
                   >
                     Download {resource.format}
                   </a>

@@ -108,11 +108,23 @@ export default function ResourcesHubPage() {
           {/* MBA Card */}
           <Link href="/resources/mba" className="group block h-full">
             <div
-              className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all hover:shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
+              className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all hover:shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
               style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
             >
-              <div className="mb-4 flex items-start justify-between">
-                <span className="text-4xl">🎓</span>
+              <div className="mb-5 flex items-start justify-between">
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                    />
+                  </svg>
+                </div>
                 <span
                   className="rounded-full bg-[#fafafa] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#171717]"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -120,12 +132,12 @@ export default function ResourcesHubPage() {
                   6 SPECIALIZATIONS
                 </span>
               </div>
-              <h2 className="mb-2 text-[26px] font-normal tracking-[-1px] text-[#171717]">MBA</h2>
+              <h2 className="mb-2 text-[24px] font-normal tracking-[-0.5px] text-[#171717]">MBA</h2>
               <p className="mb-6 flex-grow text-sm leading-relaxed text-[#4d4d4d]">
                 Consulting, general management, finance, marketing, HR, and PM. Curated casebooks
                 from top Indian B-Schools.
               </p>
-              <div className="mt-auto flex items-center text-sm text-[#171717] transition-transform group-hover:translate-x-0.5">
+              <div className="mt-auto flex items-center text-sm font-medium text-[#171717] transition-transform group-hover:translate-x-1">
                 Explore MBA Resources →
               </div>
             </div>
@@ -133,11 +145,23 @@ export default function ResourcesHubPage() {
 
           {/* Engineering Card */}
           <div
-            className="flex h-full flex-col rounded-[6px] bg-white p-6"
+            className="flex h-full flex-col rounded-[6px] bg-white p-7"
             style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
           >
-            <div className="mb-4 flex items-start justify-between">
-              <span className="text-4xl">⚙️</span>
+            <div className="mb-5 flex items-start justify-between">
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+              </div>
               <span
                 className="rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#666666]"
                 style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -145,7 +169,7 @@ export default function ResourcesHubPage() {
                 COMING SOON
               </span>
             </div>
-            <h2 className="mb-2 text-[26px] font-normal tracking-[-1px] text-[#171717]">
+            <h2 className="mb-2 text-[24px] font-normal tracking-[-0.5px] text-[#171717]">
               Engineering
             </h2>
             <p className="text-sm leading-relaxed text-[#4d4d4d]">
@@ -156,11 +180,23 @@ export default function ResourcesHubPage() {
 
           {/* Commerce Card */}
           <div
-            className="flex h-full flex-col rounded-[6px] bg-white p-6"
+            className="flex h-full flex-col rounded-[6px] bg-white p-7"
             style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
           >
-            <div className="mb-4 flex items-start justify-between">
-              <span className="text-4xl">📊</span>
+            <div className="mb-5 flex items-start justify-between">
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+              </div>
               <span
                 className="rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#666666]"
                 style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -168,7 +204,7 @@ export default function ResourcesHubPage() {
                 COMING SOON
               </span>
             </div>
-            <h2 className="mb-2 text-[26px] font-normal tracking-[-1px] text-[#171717]">
+            <h2 className="mb-2 text-[24px] font-normal tracking-[-0.5px] text-[#171717]">
               Commerce & CA
             </h2>
             <p className="text-sm leading-relaxed text-[#4d4d4d]">
@@ -179,11 +215,23 @@ export default function ResourcesHubPage() {
 
           {/* Other Streams Card */}
           <div
-            className="flex h-full flex-col rounded-[6px] bg-white p-6"
+            className="flex h-full flex-col rounded-[6px] bg-white p-7"
             style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
           >
-            <div className="mb-4 flex items-start justify-between">
-              <span className="text-4xl">📋</span>
+            <div className="mb-5 flex items-start justify-between">
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  />
+                </svg>
+              </div>
               <span
                 className="rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#666666]"
                 style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -191,7 +239,7 @@ export default function ResourcesHubPage() {
                 COMING SOON
               </span>
             </div>
-            <h2 className="mb-2 text-[26px] font-normal tracking-[-1px] text-[#171717]">
+            <h2 className="mb-2 text-[24px] font-normal tracking-[-0.5px] text-[#171717]">
               Other Streams
             </h2>
             <p className="text-sm leading-relaxed text-[#4d4d4d]">

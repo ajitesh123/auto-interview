@@ -30,10 +30,7 @@ const DomainHomePage: React.FC = () => {
             {/* Left — Headline stack */}
             <div>
               {/* Eyebrow */}
-              <p
-                className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
-                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
-              >
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                 FOR JOB SEEKERS
               </p>
 
@@ -53,13 +50,13 @@ const DomainHomePage: React.FC = () => {
               <div className="animate-fade-rise-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="#pillars"
-                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm text-white transition-colors hover:bg-[#383838]"
+                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium !text-white transition-all hover:bg-[#333333] hover:shadow-sm"
                 >
                   Explore the Platform
                 </Link>
                 <Link
                   href="/cv-templates"
-                  className="inline-flex items-center justify-center rounded-[6px] px-5 py-2.5 text-sm text-[#4d4d4d] transition-colors hover:text-[#171717]"
+                  className="inline-flex items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-all hover:bg-[#f5f5f5]"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                 >
                   Download CV Templates
@@ -82,9 +79,9 @@ const DomainHomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right — Cube Logo as hero mark */}
+            {/* Right — 4x4x4 3D Isometric Cube Logo */}
             <div className="hidden lg:flex lg:items-center lg:justify-center">
-              <CubeLogo size={140} className="opacity-90" />
+              <CubeLogo size={160} className="transition-transform duration-300 hover:scale-105" />
             </div>
           </div>
         </div>
@@ -95,10 +92,7 @@ const DomainHomePage: React.FC = () => {
         <div className="mx-auto max-w-[1280px] px-6">
           {/* Section header */}
           <div className="mb-12">
-            <p
-              className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
-              style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
-            >
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
               EVERYTHING YOU NEED
             </p>
             <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
@@ -107,11 +101,11 @@ const DomainHomePage: React.FC = () => {
           </div>
 
           {/* 2×2 Grid */}
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {/* Pillar 1 — Stellar CVs */}
             <Link href="/cv-templates" className="group block">
               <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
                 style={{
                   boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
                 }}
@@ -122,20 +116,30 @@ const DomainHomePage: React.FC = () => {
                   e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
                 }}
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
-                  📄
+                <div
+                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
                 </div>
-                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
                   Stellar CVs
                 </h3>
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   ATS-optimized resume templates from Harvard, IIM Ahmedabad, and Resume Worded.
                   Download and customize — free, no signup.
                 </p>
-                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Download Templates
                   <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -154,7 +158,7 @@ const DomainHomePage: React.FC = () => {
             {/* Pillar 2 — Expert Resources */}
             <Link href="/resources" className="group block">
               <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
                 style={{
                   boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
                 }}
@@ -165,20 +169,30 @@ const DomainHomePage: React.FC = () => {
                   e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
                 }}
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
-                  📚
+                <div
+                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    />
+                  </svg>
                 </div>
-                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
                   Expert Resources
                 </h3>
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   Domain-specific prep kits. Casebooks, frameworks, and playbooks for MBA,
                   Engineering, and more — curated by practitioners.
                 </p>
-                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Explore Resources
                   <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -197,7 +211,7 @@ const DomainHomePage: React.FC = () => {
             {/* Pillar 3 — Mock Interviews */}
             <Link href="/free-mock-interview" className="group block">
               <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
                 style={{
                   boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
                 }}
@@ -208,20 +222,30 @@ const DomainHomePage: React.FC = () => {
                   e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
                 }}
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
-                  🎙️
+                <div
+                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
+                  </svg>
                 </div>
-                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
                   Mock Interviews
                 </h3>
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   AI-powered practice that adapts to your domain, seniority level, and target role.
                   Real-time feedback in seconds, not days.
                 </p>
-                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Start Practicing
                   <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -240,7 +264,7 @@ const DomainHomePage: React.FC = () => {
             {/* Pillar 4 — Communities */}
             <Link href="/communities" className="group block">
               <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
                 style={{
                   boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
                 }}
@@ -251,29 +275,37 @@ const DomainHomePage: React.FC = () => {
                   e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
                 }}
               >
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
-                    👥
+                <div className="mb-5 flex items-center justify-between">
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
                   </div>
                   <span
-                    className="coming-soon-pulse rounded-full px-2.5 py-0.5 text-[11px] uppercase text-[#666666]"
+                    className="coming-soon-pulse rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase text-[#666666]"
                     style={{
-                      fontFamily: 'var(--font-mono)',
-                      letterSpacing: '0.071em',
                       boxShadow: '0 0 0 1px #ebebeb',
                     }}
                   >
                     Coming Soon
                   </span>
                 </div>
-                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
                   Communities
                 </h3>
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   Role-specific communities for CS, AI discussion, and referrals. Connect with
                   peers, share opportunities, and grow together.
                 </p>
-                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Join Early Access →
                 </span>
               </div>
@@ -288,10 +320,7 @@ const DomainHomePage: React.FC = () => {
           <div className="grid gap-16 lg:grid-cols-[1fr_1fr]">
             {/* Left — Steps */}
             <div>
-              <p
-                className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
-                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
-              >
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                 THE METHOD
               </p>
               <h2 className="mb-12 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
@@ -349,7 +378,7 @@ const DomainHomePage: React.FC = () => {
                     mock-interview --role &quot;Product Manager&quot; --level senior
                   </div>
                   <div className="cli-success">Interview session ready. 12 questions queued.</div>
-                  <div className="mt-4 border-t border-[#ebebeb] pt-4 text-[#297a3a]">
+                  <div className="mt-4 border-t border-[#ebebeb] pt-4 font-mono text-[12px] text-[#297a3a]">
                     ✓ You&apos;re prepared. Go get that offer.
                   </div>
                 </div>
@@ -412,30 +441,29 @@ const DomainHomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ===== CTA BANNER — Inverted card ===== */}
+      {/* ===== CTA BANNER — Inverted card with visible text buttons ===== */}
       <section className="py-24">
         <div className="mx-auto max-w-[1280px] px-6">
-          <div className="rounded-[6px] bg-[#171717] px-8 py-16 text-center sm:px-16">
-            <h2 className="mb-4 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-white">
+          <div className="rounded-[6px] bg-[#171717] px-8 py-20 text-center sm:px-16">
+            <h2 className="mb-4 text-[32px] font-normal leading-[1.1] tracking-[-1.5px] text-white">
               The job market is tough.
               <br />
               We make it easier.
             </h2>
-            <p className="mx-auto mb-8 max-w-lg text-sm leading-relaxed text-[#a8a8a8]">
+            <p className="mx-auto mb-10 max-w-lg text-sm leading-relaxed text-[#a8a8a8]">
               Free CV templates, domain-specific resources, AI mock interviews, and career
               communities. Everything you need — zero gatekeeping.
             </p>
-            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/build-resume"
-                className="inline-flex items-center justify-center rounded-[6px] bg-white px-5 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+                className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-all hover:bg-[#f0f0f0]"
               >
                 Get Started — Free
               </Link>
               <Link
                 href="/resources"
-                className="inline-flex items-center justify-center rounded-[6px] px-5 py-2.5 text-sm text-[#a8a8a8] transition-colors hover:text-white"
-                style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.2)' }}
+                className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] border border-white/30 bg-transparent px-6 py-3 text-sm font-medium !text-white transition-all hover:bg-white/10"
               >
                 Browse Resources
               </Link>

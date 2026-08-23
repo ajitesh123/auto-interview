@@ -38,6 +38,78 @@ export const metadata: Metadata = {
   },
 }
 
+function getSpecializationIcon(slug: string) {
+  switch (slug) {
+    case 'consulting':
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      )
+    case 'general-management':
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+      )
+    case 'finance':
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          />
+        </svg>
+      )
+    case 'marketing':
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+          />
+        </svg>
+      )
+    case 'hr':
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      )
+    case 'product-management':
+    default:
+      return (
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+          />
+        </svg>
+      )
+  }
+}
+
 export default function MBAResourcesPage() {
   const structuredData = {
     '@context': 'https://schema.org',
@@ -121,13 +193,18 @@ export default function MBAResourcesPage() {
           {mbaSpecializations.map((spec) => {
             const cardContent = (
               <div
-                className={`flex h-full flex-col rounded-[6px] bg-white p-6 ${
+                className={`flex h-full flex-col rounded-[6px] bg-white p-7 ${
                   !spec.comingSoon ? 'transition-all hover:shadow-[0_0_0_1px_rgba(0,0,0,0.15)]' : ''
                 }`}
                 style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
               >
-                <div className="mb-4 flex items-start justify-between">
-                  <span className="text-4xl">{spec.icon}</span>
+                <div className="mb-5 flex items-start justify-between">
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  >
+                    {getSpecializationIcon(spec.slug)}
+                  </div>
                   {spec.comingSoon && (
                     <span
                       className="rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#666666]"
@@ -152,7 +229,7 @@ export default function MBAResourcesPage() {
                   {spec.description}
                 </p>
                 {!spec.comingSoon && (
-                  <div className="mt-auto flex items-center text-sm text-[#171717] transition-transform group-hover:translate-x-0.5">
+                  <div className="mt-auto flex items-center text-sm font-medium text-[#171717] transition-transform group-hover:translate-x-1">
                     Explore {spec.name} →
                   </div>
                 )}

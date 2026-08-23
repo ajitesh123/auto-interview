@@ -31,13 +31,9 @@
     font-family: var(--font-display);
   }
 
-  /* Links — Obsidian with transition */
+  /* Default link behavior without overriding class utilities */
   a {
-    @apply text-[#171717] transition-colors duration-200;
-  }
-
-  a:hover {
-    @apply text-[#4d4d4d];
+    @apply transition-colors duration-200;
   }
 }
 
@@ -49,7 +45,7 @@
   .btn-primary {
     @apply inline-flex items-center justify-center;
     @apply px-5 py-2.5;
-    @apply bg-[#171717] text-white;
+    @apply bg-[#171717] !text-white;
     @apply rounded-[6px];
     @apply text-sm font-normal;
     @apply transition-all duration-200;
@@ -61,11 +57,11 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center;
     @apply px-5 py-2.5;
-    @apply bg-transparent text-[#4d4d4d];
+    @apply bg-transparent !text-[#171717];
     @apply rounded-[6px];
     @apply text-sm font-normal;
     @apply transition-all duration-200;
-    @apply hover:bg-[#fafafa];
+    @apply hover:bg-[#f5f5f5];
     @apply focus:outline-none focus:ring-2 focus:ring-[#171717] focus:ring-offset-2;
     box-shadow: 0 0 0 1px #ebebeb;
   }
@@ -80,11 +76,11 @@
   }
 
   .btn-pill-filled {
-    @apply btn-pill bg-[#171717] text-white hover:bg-[#383838];
+    @apply btn-pill bg-[#171717] !text-white hover:bg-[#383838];
   }
 
   .btn-pill-ghost {
-    @apply btn-pill bg-transparent text-[#4d4d4d] hover:bg-[#fafafa];
+    @apply btn-pill bg-transparent !text-[#171717] hover:bg-[#fafafa];
     box-shadow: 0 0 0 1px #ebebeb;
   }
 
@@ -92,10 +88,10 @@
   .btn-tertiary {
     @apply inline-flex items-center justify-center;
     @apply px-0 py-0;
-    @apply bg-transparent text-[#171717];
+    @apply bg-transparent !text-[#171717];
     @apply text-sm font-normal;
     @apply transition-colors duration-200;
-    @apply hover:text-[#4d4d4d];
+    @apply hover:!text-[#4d4d4d];
     @apply focus:outline-none;
   }
 
@@ -248,7 +244,7 @@
    ======================================== */
 .nav-bar {
   height: var(--nav-height);
-  background: rgba(250, 250, 250, 0.8);
+  background: rgba(250, 250, 250, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -279,7 +275,7 @@
   background: #ffffff;
   border: 1px solid #ebebeb;
   border-radius: 6px;
-  padding: 16px;
+  padding: 20px;
   font-family: var(--font-mono);
   font-size: 13px;
   color: #171717;
@@ -316,7 +312,7 @@
 }
 
 /* ========================================
-   DOMAIN PAGES — Now Light Theme
+   DOMAIN PAGES — Light Theme
    ======================================== */
 
 /* Domain page wrapper */
@@ -335,14 +331,6 @@
 .domain-page h6 {
   font-family: var(--font-display);
   color: var(--color-obsidian);
-}
-
-.domain-page a {
-  color: var(--color-obsidian);
-}
-
-.domain-page a:hover {
-  color: var(--color-charcoal);
 }
 
 /* ========================================
