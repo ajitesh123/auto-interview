@@ -23,114 +23,142 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['basier-square', 'var(--font-space-grotesk)', ...fontFamily.sans],
-        display: ['var(--font-instrument-serif)', 'Instrument Serif', 'Georgia', 'serif'],
-        mono: ['jetbrains-mono', ...fontFamily.mono],
-        'instrument-serif': ['Instrument Serif', 'serif'],
-        inter: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'var(--font-inter)', ...fontFamily.sans],
+        display: ['Inter', 'var(--font-inter)', ...fontFamily.sans],
+        mono: ['JetBrains Mono', 'var(--font-jetbrains-mono)', ...fontFamily.mono],
+        inter: ['Inter', 'var(--font-inter)', 'sans-serif'],
+        'instrument-serif': ['Inter', 'var(--font-inter)', 'sans-serif'],
       },
       colors: {
-        // ElevenLabs Clean Palette
+        // Vercel Monochrome Scale
+        'paper-white': '#fafafa',
+        'pure-white': '#ffffff',
+        hairline: '#ebebeb',
+        ash: '#c9c9c9',
+        smoke: '#a8a8a8',
+        graphite: '#8f8f8f',
+        slate: '#7d7d7d',
+        stone: '#666666',
+        charcoal: '#4d4d4d',
+        obsidian: '#171717',
+        carbon: '#000000',
+        'terminal-green': '#297a3a',
+
+        // Keep white/black
         white: '#FFFFFF',
         black: '#000000',
 
-        // Replicate Core Colors
+        // Replicate colors (preserved for blog pages backward compat)
         replicate: {
-          dark: '#202020',
+          dark: '#171717',
           red: '#ea2804',
-          green: '#2b9a66',
+          green: '#297a3a',
           secondaryRed: '#dd4425',
-          githubDark: '#24292e',
+          githubDark: '#1a1a1a',
         },
 
-        // Domain Cinematic Dark Theme
+        // Domain — now light theme
         domain: {
-          bg: 'hsl(201, 100%, 13%)',
-          fg: '#ffffff',
-          muted: 'hsl(240, 4%, 66%)',
-          border: 'hsl(0, 0%, 18%)',
-          card: 'rgba(255, 255, 255, 0.03)',
-          'card-hover': 'rgba(255, 255, 255, 0.06)',
+          bg: '#fafafa',
+          fg: '#171717',
+          muted: '#666666',
+          border: '#ebebeb',
+          card: '#ffffff',
+          'card-hover': '#ffffff',
         },
 
         // Clean Gray Scale
         gray: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EB',
-          300: '#D1D5DB',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937',
-          900: '#111827',
-          950: '#030712',
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#ebebeb',
+          300: '#c9c9c9',
+          400: '#a8a8a8',
+          500: '#8f8f8f',
+          600: '#666666',
+          700: '#4d4d4d',
+          800: '#2a2a2a',
+          900: '#171717',
+          950: '#0a0a0a',
         },
 
-        // Primary is now just black for buttons
+        // Primary — obsidian for buttons
         primary: {
-          DEFAULT: '#000000',
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          500: '#000000',
-          600: '#1F2937',
-          700: '#111827',
-          800: '#000000',
+          DEFAULT: '#171717',
+          50: '#fafafa',
+          100: '#f5f5f5',
+          500: '#171717',
+          600: '#2a2a2a',
+          700: '#171717',
+          800: '#0a0a0a',
           900: '#000000',
         },
 
-        // Accent for rare highlights
+        // Accent (rare use only)
         accent: {
-          DEFAULT: '#00D9FF',
-          50: '#E6FAFF',
-          100: '#CCF5FF',
-          500: '#00D9FF',
-          600: '#00B8DB',
-          700: '#00A8CC',
+          DEFAULT: '#297a3a',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          500: '#297a3a',
+          600: '#1e6b2e',
+          700: '#166534',
         },
 
         // Status colors
-        success: '#10B981',
-        warning: '#F59E0B',
-        error: '#EF4444',
-        info: '#3B82F6',
+        success: '#297a3a',
+        warning: '#f59e0b',
+        error: '#ef4444',
+        info: '#3b82f6',
+      },
+      borderRadius: {
+        nav: '2px',
+        card: '6px',
+        button: '6px',
+        pill: '9999px',
+      },
+      boxShadow: {
+        subtle: 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgb(250, 250, 250) 0px 0px 0px 2px',
+        'subtle-2': 'rgb(235, 235, 235) 0px 0px 0px 1px',
+        'ghost-border': '0 0 0 1px #ebebeb',
       },
       zIndex: {
         60: '60',
         70: '70',
         80: '80',
       },
+      maxWidth: {
+        page: '1280px',
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             a: {
-              color: theme('colors.gray.500'),
+              color: theme('colors.obsidian'),
               '&:hover': {
-                color: `${theme('colors.gray.600')}`,
+                color: theme('colors.charcoal'),
               },
-              code: { color: theme('colors.gray.400') },
+              code: { color: theme('colors.obsidian') },
             },
             'h1,h2': {
-              fontWeight: '700',
+              fontWeight: '500',
               letterSpacing: theme('letterSpacing.tight'),
             },
             h3: {
-              fontWeight: '600',
+              fontWeight: '500',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: theme('colors.obsidian'),
             },
           },
         },
         invert: {
           css: {
             a: {
-              color: theme('colors.gray.500'),
+              color: theme('colors.gray.300'),
               '&:hover': {
-                color: `${theme('colors.gray.400')}`,
+                color: theme('colors.gray.200'),
               },
-              code: { color: theme('colors.gray.400') },
+              code: { color: theme('colors.gray.300') },
             },
             'h1,h2,h3,h4,h5,h6': {
               color: theme('colors.gray.100'),

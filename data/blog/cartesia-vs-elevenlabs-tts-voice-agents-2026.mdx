@@ -121,7 +121,7 @@ agent = VoicePipelineAgent(
 
 In our high-volume production environments, we tested Cartesia at **500 concurrent streams**. The results were remarkable. Cartesia maintained a **&lt;100ms TTFA** consistently. We pushed it further; at 2,000 concurrent streams, the TTFA increased to roughly 150-200ms, which is still highly usable. This predictable performance under massive load is the direct result of the Mamba architecture.
 
-Pricing is transparent and developer-friendly, utilizing a straightforward credit system. Let's look at the math. Cartesia charges roughly 1 credit per character. Assuming an average English conversation pace of 150 words per minute (about 750 characters), one minute of synthesized audio costs 750 credits. With their pricing tiers, $100 per month buys you roughly 11 million credits. That equates to about **14,600 minutes** of synthesized speech, or roughly **$0.0068 per minute**. This is aggressively priced for high-volume enterprise workloads.
+Pricing is transparent and developer-friendly, utilizing a straightforward credit system. Let's look at the math. Cartesia charges roughly 1 credit per character. Assuming an average English conversation pace of 150 words per minute (about 750 characters), one minute of synthesized audio costs 750 credits. With their pricing tiers, \$100 per month buys you roughly 11 million credits. That equates to about **14,600 minutes** of synthesized speech, or roughly **\$0.0068 per minute**. This is aggressively priced for high-volume enterprise workloads.
 
 ### Weaknesses: Variety and Emotion
 
@@ -194,9 +194,9 @@ def stream_tts(text: str, voice_id: str = "21m00Tcm4TlvDq8ikWAM"):
 
 ### Pricing Breakdown and Cost Per Minute
 
-ElevenLabs pricing scales differently than Cartesia, focusing on character counts across rigid tiers. The breakdown is: Free (10,000 chars/mo), Starter $5 (30,000 chars), Creator $22 (100,000 chars), Pro $99 (500,000 chars), and Scale $330 (2M chars). The per-character cost drops significantly at higher tiers, incentivizing heavy usage.
+ElevenLabs pricing scales differently than Cartesia, focusing on character counts across rigid tiers. The breakdown is: Free (10,000 chars/mo), Starter \$5 (30,000 chars), Creator \$22 (100,000 chars), Pro \$99 (500,000 chars), and Scale \$330 (2M chars). The per-character cost drops significantly at higher tiers, incentivizing heavy usage.
 
-Let's calculate the cost per call minute to compare apples to apples. An average English conversation generates roughly 150 words per minute, which equals about 750 characters per minute. At the Pro tier ($99 for 500,000 chars), the cost is $0.000198 per character. Multiply that by 750 characters, and you get **~$0.15 per minute of TTS**. This is substantially more expensive than Cartesia's ~$0.0068 per minute. You are paying a premium for that absolute realism.
+Let's calculate the cost per call minute to compare apples to apples. An average English conversation generates roughly 150 words per minute, which equals about 750 characters per minute. At the Pro tier (\$99 for 500,000 chars), the cost is \$0.000198 per character. Multiply that by 750 characters, and you get **~\$0.15 per minute of TTS**. This is substantially more expensive than Cartesia's ~\$0.0068 per minute. You are paying a premium for that absolute realism.
 
 ## Head-to-Head Comparison Table
 
@@ -211,7 +211,7 @@ Here is the definitive technical comparison across 20 critical features for prod
 | **Emotional Expressiveness**       | Low-Medium (Polite, consistent)         | **High (Dynamic, nuanced)**          |
 | **Language Support**               | 17 Languages                            | **31 Languages**                     |
 | **Concurrency Scaling**            | **Excellent (Linear compute)**          | Moderate (Heavy compute)             |
-| **Cost per 1000 Chars**            | **~$0.009**                             | ~$0.30 (Starter tier)                |
+| **Cost per 1000 Chars**            | **~\$0.009**                            | ~\$0.30 (Starter tier)               |
 | **Voice Cloning Speed**            | **Instant (3 sec sample)**              | Fast (1 min sample for Pro)          |
 | **Voice Cloning Quality**          | Good                                    | **Indistinguishable**                |
 | **Voice Library Size**             | ~100+ standard voices                   | **3,000+ community/curated**         |
@@ -264,10 +264,10 @@ Latency is not a single number. It varies wildly based on the model, the languag
 
 | Engine / Model            | TTFA (ms) | Audio Quality (MOS) | Cost/Min (Normalized) | Best For                   |
 | :------------------------ | :-------- | :------------------ | :-------------------- | :------------------------- |
-| **Cartesia Sonic**        | 40-90ms   | 4.2                 | $0.005                | Extreme low-latency agents |
-| **ElevenLabs Flash**      | 75-120ms  | 4.5                 | $0.100                | Fast, high-quality agents  |
-| **ElevenLabs Turbo v2.5** | 150-250ms | 4.6                 | $0.150                | Balanced speed/quality     |
-| **ElevenLabs Eleven v3**  | 300-500ms | 4.8                 | $0.180                | Asynchronous generation    |
+| **Cartesia Sonic**        | 40-90ms   | 4.2                 | \$0.005               | Extreme low-latency agents |
+| **ElevenLabs Flash**      | 75-120ms  | 4.5                 | \$0.100               | Fast, high-quality agents  |
+| **ElevenLabs Turbo v2.5** | 150-250ms | 4.6                 | \$0.150               | Balanced speed/quality     |
+| **ElevenLabs Eleven v3**  | 300-500ms | 4.8                 | \$0.180               | Asynchronous generation    |
 
 _Note: Cost per minute assumes ~150 words (800 characters) per minute of generated speech._
 
@@ -285,7 +285,7 @@ Technology choices do not exist in a vacuum. Let's look at how these engines per
 
 **Parameters:** 500 concurrent callers checking billing status and password resets.
 **Winner:** Cartesia.
-**Why:** The latency math is brutal here. Inbounds are impatient. If they ask a quick question, they want a quick answer. Cartesia guarantees &lt;100ms TTFA at this concurrency. Furthermore, the cost at this scale with Cartesia ($0.0068/min) keeps the support center profitable, whereas ElevenLabs ($0.15/min) would burn through the operational budget rapidly for simple transactional queries.
+**Why:** The latency math is brutal here. Inbounds are impatient. If they ask a quick question, they want a quick answer. Cartesia guarantees &lt;100ms TTFA at this concurrency. Furthermore, the cost at this scale with Cartesia (\$0.0068/min) keeps the support center profitable, whereas ElevenLabs (\$0.15/min) would burn through the operational budget rapidly for simple transactional queries.
 
 ### Scenario 3: English-Language Sales Training Simulation
 
@@ -402,7 +402,7 @@ Cartesia uses State Space Models (specifically Mamba) which compress historical 
 
 ### Is ElevenLabs worth the enterprise price for voice agents?
 
-It depends entirely on your unit economics. At roughly $0.15 per minute of TTS on the Pro tier, it is prohibitively expensive for high-volume, low-margin outbound calling. However, it is easily justifiable for premium inbound customer support or low-volume, high-value interactions where brand perception is critical.
+It depends entirely on your unit economics. At roughly \$0.15 per minute of TTS on the Pro tier, it is prohibitively expensive for high-volume, low-margin outbound calling. However, it is easily justifiable for premium inbound customer support or low-volume, high-value interactions where brand perception is critical.
 
 ### Can I switch between Cartesia and ElevenLabs dynamically?
 

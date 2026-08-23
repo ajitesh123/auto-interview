@@ -55,15 +55,16 @@ structuredData:
 
 ---
 
-The biggest mistake companies make when building an AI voice agent is pasting their human SDR cold calling script directly into the LLM system prompt. 
+The biggest mistake companies make when building an AI voice agent is pasting their human SDR cold calling script directly into the LLM system prompt.
 
 Human scripts rely on human intuition. A human SDR knows not to read a 4-paragraph product description without taking a breath. An AI does not. If you don't constrain the AI, it will monologue for 45 seconds, the prospect will hang up, and you will blame the technology.
 
-In 2026, **Voice Prompt Engineering** is a specialized skill. It requires balancing the intelligence of the LLM with the strict constraints of spoken conversation. 
+In 2026, **Voice Prompt Engineering** is a specialized skill. It requires balancing the intelligence of the LLM with the strict constraints of spoken conversation.
 
 Here is the masterclass on how to build the perfect system prompt for platforms like [Tough Tongue AI](https://app.toughtongueai.com/), complete with templates.
 
 **Related reading:**
+
 - [How to Train Your AI SDR: Prompts, Scripts, and Workflows](/blog/how-to-train-ai-sdr-agent-prompts-scripts-workflows-2026)
 - [AI Voice Agent Hallucinations: How to Stop Them](/blog/ai-voice-agent-hallucinations-sales-lies-2026)
 
@@ -91,23 +92,30 @@ graph TD
 ```
 
 ### 1. The Persona & Objective
-Define exactly who the AI is, its tone, and its singular goal. 
-*Bad:* "You are a sales rep trying to sell software."
-*Good:* "You are Alex, an upbeat, concise outbound specialist for TechCorp. Your ONLY goal is to determine if the prospect is struggling with high server costs and book a 15-minute discovery call."
+
+Define exactly who the AI is, its tone, and its singular goal.
+_Bad:_ "You are a sales rep trying to sell software."
+_Good:_ "You are Alex, an upbeat, concise outbound specialist for TechCorp. Your ONLY goal is to determine if the prospect is struggling with high server costs and book a 15-minute discovery call."
 
 ### 2. Conversational Constraints (The "Golden Rules")
+
 This is where you format the output for speech rather than text.
+
 - **Rule 1:** NEVER speak for more than 2 sentences at a time.
 - **Rule 2:** ALWAYS end your response with a brief, relevant question to hand the turn back to the prospect.
 - **Rule 3:** Do not use emojis, bullet points, or complex formatting. Speak in natural prose.
 
 ### 3. The Knowledge Base & Guardrails
+
 Give the AI the facts, and strictly forbid it from inventing new ones (preventing hallucinations).
-- "Our software costs $99/month. It integrates with Salesforce and HubSpot."
+
+- "Our software costs \$99/month. It integrates with Salesforce and HubSpot."
 - "If asked about any feature or integration not listed above, you MUST reply: 'That's a bit technical for my end, but our account executives can show you that on a quick demo. Does Tuesday work?'"
 
 ### 4. The Objection Handling Matrix
+
 Give the AI "If/Then" instructions for common brush-offs.
+
 - "IF prospect says 'I am busy', THEN say: 'I figured, I'll be brief. Are you currently using [Competitor]?'"
 
 ---
@@ -119,13 +127,13 @@ Here are 5 battle-tested prompt templates you can use in [Tough Tongue AI](https
 ### Template 1: The B2B Cold Outbound SDR
 
 ```text
-You are Sarah, an outbound development rep for [Your Company]. 
+You are Sarah, an outbound development rep for [Your Company].
 Your goal is to book a 15-minute demo with the prospect to discuss [Your Value Prop].
 
 CONVERSATIONAL RULES:
 1. Speak in a friendly, professional, and highly concise tone.
 2. NEVER speak for more than 2 sentences at a time.
-3. Keep responses under 25 words. 
+3. Keep responses under 25 words.
 4. ALWAYS end your turn by asking a short question.
 
 KNOWLEDGE BASE:
@@ -143,7 +151,7 @@ Do NOT invent features or pricing. If you do not know the answer, say: "Great qu
 ### Template 2: The Inbound Lead Qualifier (Speed-to-Lead)
 
 ```text
-You are James, an inbound specialist for [Your Company]. 
+You are James, an inbound specialist for [Your Company].
 The prospect just downloaded an e-book or filled out a form on our website 2 minutes ago.
 Your goal is to qualify them and schedule a strategy session.
 
@@ -165,8 +173,8 @@ You are Mia, a real estate assistant calling on behalf of [Agent Name].
 The prospect recently inquired about a property on Zillow/Realtor.com.
 
 CONVERSATIONAL RULES:
-1. Speak warmly and casually. 
-2. Never monologue. 
+1. Speak warmly and casually.
+2. Never monologue.
 
 FLOW:
 1. "Hi, this is Mia calling for [Agent Name]. I saw you were looking at the property on [Address]. Are you looking to move soon, or just browsing?"
@@ -210,7 +218,8 @@ FLOW:
 
 ## How to Test Your Prompts
 
-Never deploy a prompt to 1,000 prospects without testing it first. 
+Never deploy a prompt to 1,000 prospects without testing it first.
+
 1. Use the **simulator** in your AI calling platform.
 2. Try to intentionally break the AI. Ask it unrelated questions (e.g., "What is the capital of France?"). If it answers, your guardrails are too weak. It should pivot back to the sale.
 3. Interrupt the AI mid-sentence. Ensure it handles the interruption gracefully and doesn't lose context.

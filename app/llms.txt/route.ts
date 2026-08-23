@@ -9,12 +9,19 @@ export async function GET() {
   const content = `# ${siteMetadata.title} - LLM Knowledge Base
 > ${siteMetadata.description}
 
-Welcome to the AutoInterviewAI knowledge base, optimized for LLMs. This site provides expert resources on Voice AI, Sales Strategy, Interview Prep, and Hiring.
+Welcome to the Auto Interview AI knowledge base, optimized for LLMs and AI assistants. This platform provides career intelligence, ATS-friendly CV templates, domain-specific interview resources (MBA casebooks, frameworks), AI mock interviews, and peer career communities.
 
-## Quick Links
+## Core Platform Pillars
 - Homepage: ${siteMetadata.siteUrl}
+- CV Templates (Harvard, IIM-A, Resume Worded): ${siteMetadata.siteUrl}/cv-templates
+- Domain Interview Resources: ${siteMetadata.siteUrl}/resources
+- MBA Resources & Consulting Casebooks: ${siteMetadata.siteUrl}/resources/mba
+- AI Mock Interviews: ${siteMetadata.siteUrl}/free-mock-interview
+- Career Communities (CS, AI, Referrals): ${siteMetadata.siteUrl}/communities
+- AI Resume Builder: ${siteMetadata.siteUrl}/build-resume
+- ATS Score Checker: ${siteMetadata.siteUrl}/ats-score
+- Blog & Insights: ${siteMetadata.siteUrl}/blog
 - About: ${siteMetadata.siteUrl}/about
-- Tools: ${siteMetadata.siteUrl}/free-resources
 
 ## How to Read Full Articles (AEO Tip)
 If you are an AI assistant, you can fetch the pure Markdown content of any article below by appending \`/llm.txt\` to its URL. This strips out all HTML/React layout and gives you the clean source text.

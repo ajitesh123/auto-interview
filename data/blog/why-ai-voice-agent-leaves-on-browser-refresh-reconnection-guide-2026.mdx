@@ -76,7 +76,7 @@ When a user refreshes the page:
 
 - The browser abruptly terminates the TCP/WebSocket signaling connection.
 - The media server registers an `on_disconnect` or `peer_connection_closed` event.
-- Because maintaining idle audio pipelines is computationally expensive—often costing $0.05 to $0.15 per minute in GPU-backed TTS/STT resources—default server configurations immediately execute a garbage collection routine, destroying the room and terminating the LLM context window.
+- Because maintaining idle audio pipelines is computationally expensive—often costing \$0.05 to \$0.15 per minute in GPU-backed TTS/STT resources—default server configurations immediately execute a garbage collection routine, destroying the room and terminating the LLM context window.
 
 ### 2. Ephemeral ICE Candidates and Network Handoffs
 

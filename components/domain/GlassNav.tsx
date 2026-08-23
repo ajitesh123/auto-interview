@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import CubeLogo from '@/components/CubeLogo'
 
 interface GlassNavProps {
   currentPath?: string
@@ -11,37 +12,30 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/#domains', label: 'Resources' },
-    { href: '/build-resume', label: 'Resume Builder' },
-    { href: '/blog', label: 'Insights' },
-    { href: '/about', label: 'About' },
+    { href: '/cv-templates', label: 'CVs' },
+    { href: '/resources', label: 'Resources' },
+    { href: '/free-mock-interview', label: 'Mock Interview' },
+    { href: '/communities', label: 'Communities' },
+    { href: '/blog', label: 'Blog' },
   ]
 
   return (
-    <nav className="relative z-20 py-6 pl-6 pr-6">
-      <div className="liquid-glass mx-auto flex max-w-5xl items-center justify-between rounded-full px-6 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-        {/* Logo */}
+    <nav className="nav-bar sticky top-0 z-50">
+      <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
+        {/* Logo + Wordmark */}
         <Link href="/" className="flex items-center gap-2">
-          <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
-            <path
-              strokeLinecap="round"
-              strokeWidth={1.5}
-              d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
-            />
-          </svg>
-          <span className="text-lg font-semibold text-white tracking-wide" style={{ fontFamily: "'Instrument Serif', serif" }}>Auto Interview AI</span>
+          <CubeLogo size={20} />
+          <span className="text-sm font-medium text-[#171717]">Auto Interview AI</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Desktop Nav — Center-left */}
+        <div className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors ${
-                currentPath === link.href ? 'text-white' : 'text-white/80 hover:text-white'
+              className={`text-sm font-normal transition-colors ${
+                currentPath === link.href ? 'text-[#171717]' : 'text-[#666666] hover:text-[#171717]'
               }`}
             >
               {link.label}
@@ -49,41 +43,42 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
           ))}
         </div>
 
-        {/* Right Side */}
-        <div className="hidden items-center gap-4 md:flex">
+        {/* Right Action Cluster */}
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/about"
-            className="text-sm font-medium text-white transition-colors hover:text-white/80"
+            className="rounded-[6px] px-3 py-1.5 text-sm text-[#4d4d4d] transition-colors hover:text-[#171717]"
+            style={{ boxShadow: '0 0 0 1px #ebebeb' }}
           >
-            Sign Up
+            About
           </Link>
           <Link
-            href="/#offerings"
-            className="liquid-glass cursor-pointer rounded-full px-6 py-2 text-sm text-white transition-transform hover:scale-[1.03]"
+            href="/build-resume"
+            className="rounded-[6px] bg-[#171717] px-3 py-1.5 text-sm text-white transition-colors hover:bg-[#383838]"
           >
-            Login
+            Get Started
           </Link>
         </div>
 
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-white md:hidden"
+          className="text-[#171717] md:hidden"
           aria-label="Toggle navigation menu"
         >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileOpen ? (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 d="M6 18L18 6M6 6l12 12"
               />
             ) : (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 d="M4 6h16M4 12h16M4 18h16"
               />
             )}
@@ -93,7 +88,10 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="mx-auto mt-3 max-w-5xl rounded-2xl border border-white/10 bg-black/80 px-6 pb-6 backdrop-blur-xl md:hidden">
+        <div
+          className="mx-6 mt-1 rounded-[6px] bg-white px-6 pb-6 md:hidden"
+          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+        >
           <div className="flex flex-col gap-4 pt-4">
             {navLinks.map((link) => (
               <Link
@@ -102,20 +100,30 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
                 onClick={() => setMobileOpen(false)}
                 className={`text-sm transition-colors ${
                   currentPath === link.href
-                    ? 'text-white'
-                    : 'text-[hsl(240,4%,66%)] hover:text-white'
+                    ? 'text-[#171717]'
+                    : 'text-[#666666] hover:text-[#171717]'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/#offerings"
-              onClick={() => setMobileOpen(false)}
-              className="liquid-glass mt-2 rounded-full px-6 py-2.5 text-center text-sm text-white"
-            >
-              Get Started
-            </Link>
+            <div className="mt-2 flex gap-3 border-t border-[#ebebeb] pt-4">
+              <Link
+                href="/about"
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 rounded-[6px] py-2 text-center text-sm text-[#4d4d4d]"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                About
+              </Link>
+              <Link
+                href="/build-resume"
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 rounded-[6px] bg-[#171717] py-2 text-center text-sm text-white"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
         </div>
       )}

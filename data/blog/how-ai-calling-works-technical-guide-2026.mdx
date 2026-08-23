@@ -38,7 +38,7 @@ structuredData:
           name: 'What technology does AI calling use?'
           acceptedAnswer:
             '@type': 'Answer'
-            text: 'AI calling uses a four-layer technology stack: (1) Telephony (SIP/WebRTC) to route the call, (2) Speech-to-Text (STT) to transcribe the prospect''s words, (3) a Large Language Model (LLM) to generate a response, and (4) Text-to-Speech (TTS) to speak the response aloud. These four systems run in sequence and must complete in under 1-2 seconds for the conversation to feel natural.'
+            text: "AI calling uses a four-layer technology stack: (1) Telephony (SIP/WebRTC) to route the call, (2) Speech-to-Text (STT) to transcribe the prospect's words, (3) a Large Language Model (LLM) to generate a response, and (4) Text-to-Speech (TTS) to speak the response aloud. These four systems run in sequence and must complete in under 1-2 seconds for the conversation to feel natural."
         - '@type': 'Question'
           name: 'Why do AI calls have a delay before responding?'
           acceptedAnswer:
@@ -48,7 +48,7 @@ structuredData:
           name: 'What is Voice Activity Detection (VAD) in AI calling?'
           acceptedAnswer:
             '@type': 'Answer'
-            text: 'VAD (Voice Activity Detection) is the system that determines when a caller has finished speaking. It distinguishes between speech, silence, and background noise to know when to trigger the AI''s response. Poor VAD causes AI to interrupt callers mid-sentence or pause too long before responding.'
+            text: "VAD (Voice Activity Detection) is the system that determines when a caller has finished speaking. It distinguishes between speech, silence, and background noise to know when to trigger the AI's response. Poor VAD causes AI to interrupt callers mid-sentence or pause too long before responding."
 ---
 
 **Last Updated: May 26, 2026 | 20-minute read**
@@ -82,17 +82,21 @@ Each step introduces latency. The sum of all seven is what the prospect experien
 Before any AI can process a call, the phone infrastructure must connect. AI calling platforms use two protocols:
 
 ### SIP (Session Initiation Protocol)
+
 The industry standard for VoIP calls. An AI calling platform connects to the phone network through a **SIP trunk** — a digital pipeline from their servers to the PSTN (Public Switched Telephone Network).
 
 Key components:
-- **SIP Trunk Provider:** Twilio, Telnyx, Vonage, or Bandwidth. This is where per-minute telephony costs originate ($0.005-$0.03/min).
+
+- **SIP Trunk Provider:** Twilio, Telnyx, Vonage, or Bandwidth. This is where per-minute telephony costs originate (\$0.005-\$0.03/min).
 - **DID (Direct Inward Dial):** The actual phone number that appears on caller ID. Platforms provision DIDs in bulk for simultaneous outbound campaigns.
 - **Call pacing:** Predictive dialers regulate how many calls initiate per second to avoid overwhelming agent capacity or triggering carrier spam filters.
 
 ### WebRTC (Web Real-Time Communication)
+
 An alternative protocol used when calls are browser-originated (click-to-call, web widgets). Handles audio encoding natively in the browser, removing the need for SIP infrastructure. Lower latency within controlled environments; less reliable for outbound at scale.
 
 ### The Carrier Spam Filter Problem
+
 Mobile carriers (AT&T, Verizon, T-Mobile) use STIR/SHAKEN call authentication to flag calls from numbers with poor reputation. AI calling campaigns from new or unregistered numbers get labeled "Scam Likely" — immediately reducing connect rates by 30-60%.
 
 **What good platforms do:** Register numbers with carriers in advance, use number warming (low-volume calls before campaigns), and rotate DID pools to avoid reputation damage.
@@ -115,18 +119,19 @@ Once connected, the phone call's audio stream is captured and encoded. This happ
 VAD is the technology that answers the question: **"Has the human stopped talking, and should I respond now?"**
 
 This sounds simple. It is not. VAD must distinguish:
+
 - Speech vs. silence vs. background noise
 - End of utterance vs. mid-sentence pause ("I was thinking... yeah, go ahead")
 - Interruption intent vs. filler word ("um, yeah, uh-huh")
 
 ### VAD Implementations
 
-| VAD Type | Latency | Accuracy | Used By |
-|----------|---------|----------|---------|
-| **Energy-based VAD** | 0-50ms | 70-80% | Legacy systems |
-| **Silero VAD** | 30-80ms | 88-93% | Most modern platforms |
-| **WebRTC VAD** | 10-30ms | 82-87% | Browser-based agents |
-| **LLM-guided VAD** | 200-500ms | 94-97% | Premium platforms |
+| VAD Type             | Latency   | Accuracy | Used By               |
+| -------------------- | --------- | -------- | --------------------- |
+| **Energy-based VAD** | 0-50ms    | 70-80%   | Legacy systems        |
+| **Silero VAD**       | 30-80ms   | 88-93%   | Most modern platforms |
+| **WebRTC VAD**       | 10-30ms   | 82-87%   | Browser-based agents  |
+| **LLM-guided VAD**   | 200-500ms | 94-97%   | Premium platforms     |
 
 ### The Three VAD Failure Modes
 
@@ -146,14 +151,14 @@ STT converts the raw audio stream into text that the LLM can process. This is on
 
 ### Major STT Providers in 2026
 
-| Provider | Model | Accuracy (English) | Latency | Best For |
-|----------|-------|-------------------|---------|---------|
-| **Deepgram** | Nova-3 | 95-97% | 150-300ms | Real-time streaming |
-| **OpenAI** | Whisper Large v3 | 96-98% | 400-900ms | Batch, high accuracy |
-| **Google** | Chirp 2 | 94-96% | 200-400ms | Multilingual |
-| **AssemblyAI** | Universal-1 | 93-96% | 200-350ms | Speaker diarization |
-| **Microsoft** | Azure Fast Transcription | 93-95% | 150-250ms | Azure ecosystem |
-| **Speechmatics** | Flow | 91-94% | 180-320ms | Accented speech |
+| Provider         | Model                    | Accuracy (English) | Latency   | Best For             |
+| ---------------- | ------------------------ | ------------------ | --------- | -------------------- |
+| **Deepgram**     | Nova-3                   | 95-97%             | 150-300ms | Real-time streaming  |
+| **OpenAI**       | Whisper Large v3         | 96-98%             | 400-900ms | Batch, high accuracy |
+| **Google**       | Chirp 2                  | 94-96%             | 200-400ms | Multilingual         |
+| **AssemblyAI**   | Universal-1              | 93-96%             | 200-350ms | Speaker diarization  |
+| **Microsoft**    | Azure Fast Transcription | 93-95%             | 150-250ms | Azure ecosystem      |
+| **Speechmatics** | Flow                     | 91-94%             | 180-320ms | Accented speech      |
 
 ### Streaming vs. Batch STT
 
@@ -168,6 +173,7 @@ There are two modes:
 ### STT Accuracy on Phone Calls
 
 Phone audio is not podcast quality. STT must handle:
+
 - 8kHz narrowband audio (standard PSTN)
 - Background noise (offices, cars, street)
 - Heavy accents and non-native English
@@ -205,14 +211,14 @@ The LLM processes this and generates the next AI response. LLM inference is **us
 
 ### LLM Latency (Time to First Token)
 
-| Model | Provider | TTFT (p50) | Cost/Min (est.) | Intelligence |
-|-------|----------|-----------|-----------------|-------------|
-| GPT-4o-mini | OpenAI | 400-600ms | $0.01-0.03 | Good |
-| GPT-4o | OpenAI | 600-1,200ms | $0.08-0.15 | Excellent |
-| Claude 3.5 Haiku | Anthropic | 300-500ms | $0.005-0.01 | Good |
-| Claude 3.5 Sonnet | Anthropic | 500-900ms | $0.06-0.12 | Excellent |
-| Llama 3.3 70B | Groq | 150-250ms | $0.02-0.05 | Good |
-| Gemini 2.0 Flash | Google | 250-450ms | $0.01-0.03 | Good |
+| Model             | Provider  | TTFT (p50)  | Cost/Min (est.) | Intelligence |
+| ----------------- | --------- | ----------- | --------------- | ------------ |
+| GPT-4o-mini       | OpenAI    | 400-600ms   | \$0.01-0.03     | Good         |
+| GPT-4o            | OpenAI    | 600-1,200ms | \$0.08-0.15     | Excellent    |
+| Claude 3.5 Haiku  | Anthropic | 300-500ms   | \$0.005-0.01    | Good         |
+| Claude 3.5 Sonnet | Anthropic | 500-900ms   | \$0.06-0.12     | Excellent    |
+| Llama 3.3 70B     | Groq      | 150-250ms   | \$0.02-0.05     | Good         |
+| Gemini 2.0 Flash  | Google    | 250-450ms   | \$0.01-0.03     | Good         |
 
 **Why Groq (Llama on dedicated hardware) is popular for low-latency AI calling:** 150-250ms TTFT is 3-5x faster than cloud LLM providers. The trade-off is slightly lower reasoning capability than GPT-4o.
 
@@ -221,6 +227,7 @@ The LLM processes this and generates the next AI response. LLM inference is **us
 Just as streaming STT reduces latency, **streaming LLM output** reduces TTS latency. Instead of waiting for the full response to generate, the TTS system begins synthesizing audio as soon as the first sentence token arrives.
 
 With streaming:
+
 - LLM begins outputting: "That's a great question—"
 - TTS begins synthesizing "That's" simultaneously
 - By the time LLM outputs the full response, "That's a great question—" is already buffered for playback
@@ -230,6 +237,7 @@ This technique reduces perceived latency by 200-400ms.
 ### RAG (Retrieval-Augmented Generation) in AI Calling
 
 RAG allows the AI to "look up" information during a call rather than relying solely on what's in the system prompt. The knowledge base might contain:
+
 - Product pricing and features
 - Case studies and proof points
 - Objection handling playbooks
@@ -245,18 +253,19 @@ The LLM's text response is converted to audio by a TTS engine. This is where the
 
 ### Major TTS Providers in 2026
 
-| Provider | Model | Quality | Latency | Cost/1M chars | Emotion Control |
-|----------|-------|---------|---------|----------------|-----------------|
-| **ElevenLabs** | Turbo v3 | ⭐⭐⭐⭐⭐ | 80-150ms | $11-18 | Yes |
-| **OpenAI** | TTS-1-HD | ⭐⭐⭐⭐ | 100-200ms | $30 | Limited |
-| **PlayHT** | PlayDialog | ⭐⭐⭐⭐ | 70-120ms | $8-15 | Yes |
-| **Cartesia** | Sonic | ⭐⭐⭐⭐⭐ | 50-90ms | $15-25 | Yes |
-| **Azure** | Neural TTS | ⭐⭐⭐ | 100-250ms | $4-8 | Limited |
-| **Google** | WaveNet | ⭐⭐⭐ | 80-180ms | $4-16 | Minimal |
+| Provider       | Model      | Quality    | Latency   | Cost/1M chars | Emotion Control |
+| -------------- | ---------- | ---------- | --------- | ------------- | --------------- |
+| **ElevenLabs** | Turbo v3   | ⭐⭐⭐⭐⭐ | 80-150ms  | \$11-18       | Yes             |
+| **OpenAI**     | TTS-1-HD   | ⭐⭐⭐⭐   | 100-200ms | \$30          | Limited         |
+| **PlayHT**     | PlayDialog | ⭐⭐⭐⭐   | 70-120ms  | \$8-15        | Yes             |
+| **Cartesia**   | Sonic      | ⭐⭐⭐⭐⭐ | 50-90ms   | \$15-25       | Yes             |
+| **Azure**      | Neural TTS | ⭐⭐⭐     | 100-250ms | \$4-8         | Limited         |
+| **Google**     | WaveNet    | ⭐⭐⭐     | 80-180ms  | \$4-16        | Minimal         |
 
 ### What Makes a Voice Sound Human
 
 Human speech contains:
+
 - **Prosody:** Natural rhythm, stress, and intonation
 - **Micro-pauses:** Brief hesitations between phrases
 - **Emphasis variation:** Key words spoken slightly louder/slower
@@ -267,6 +276,7 @@ Modern neural TTS models (ElevenLabs Turbo v3, Cartesia Sonic) can reproduce all
 ### Voice Cloning for AI Calling
 
 Most premium TTS providers offer voice cloning — creating a custom voice from 30-60 seconds of audio. This allows:
+
 - AI agent sounds like a specific salesperson
 - Consistent brand voice across all AI calls
 - Localized voices for different markets
@@ -313,18 +323,23 @@ TOTAL:   590ms – 2,030ms
 ## How AI Calling Platforms Optimize Latency
 
 ### Technique 1: Parallel Processing
+
 Start TTS as soon as the first LLM sentence token arrives. Don't wait for the full response.
 
 ### Technique 2: Speculative Responses
+
 Pre-compute likely responses for common utterances ("yes", "I understand", "tell me more"). Cache TTS audio for instant playback on these high-frequency turns.
 
 ### Technique 3: Edge Inference
+
 Run LLM inference on servers geographically close to the caller. Moving from US West to a regional edge server reduces network latency by 30-80ms for APAC or European callers.
 
 ### Technique 4: Dynamic VAD Tuning
+
 Shorter end-of-utterance timeout (250ms) for quick-turn conversations. Longer (700ms) for complex questions where callers naturally pause while thinking.
 
 ### Technique 5: STT Confidence Thresholding
+
 Begin LLM processing when STT transcript confidence crosses 85% — don't wait for 100% certainty. Re-run if the final transcript differs from the preliminary.
 
 ---
@@ -332,6 +347,7 @@ Begin LLM processing when STT transcript confidence crosses 85% — don't wait f
 ## What Happens When Things Go Wrong
 
 ### Scenario 1: STT Mishears a Word
+
 Prospect says: "We need better compliance with HIPAA."
 STT outputs: "We need better compliance with hip-hop."
 
@@ -340,12 +356,14 @@ LLM response might: Respond sensibly to context, ignoring the mis-transcription,
 **Fix:** Confidence scoring + custom vocabulary for domain terms.
 
 ### Scenario 2: LLM Hallucination
+
 Prospect asks: "What does your platform cost?"
 LLM responds with pricing it invented that doesn't match reality.
 
 **Fix:** RAG retrieval for pricing data, LLM guardrails ("Do not answer pricing questions. Say: 'I'll connect you with the right person for pricing specifics.'")
 
 ### Scenario 3: Double Interruption
+
 AI and prospect both start speaking at the same moment.
 VAD triggers response.
 Prospect hears garbled audio from competing streams.
@@ -353,6 +371,7 @@ Prospect hears garbled audio from competing streams.
 **Fix:** Full-duplex audio handling with audio mixing + priority logic (human speech always wins).
 
 ### Scenario 4: Call Drops Mid-Conversation
+
 SIP connection drops at 45 seconds.
 AI session state is lost.
 No callback, no CRM record, no follow-up.
@@ -377,20 +396,25 @@ These capabilities add latency but enable more sophisticated conversations. Expe
 ## Frequently Asked Questions
 
 ### What technology does AI calling use?
+
 AI calling uses a four-layer stack: Telephony (SIP/WebRTC) to route calls, Speech-to-Text (STT) to transcribe speech, a Large Language Model (LLM) to generate responses, and Text-to-Speech (TTS) to speak the response. These run sequentially and must complete in under 1-2 seconds for natural conversation.
 
 ### Why do AI calls have a delay before responding?
+
 The delay comes from four sequential processing steps: STT transcription (150-400ms), LLM inference (400-1,200ms), TTS synthesis (100-300ms), and network transmission (80-200ms). Best-in-class platforms achieve under 800ms through streaming STT, edge LLM inference, and pre-buffered TTS.
 
 ### What is the best LLM for AI calling?
+
 For low-latency outbound sales calls, Llama 3.3 70B on Groq (150-250ms TTFT) or Claude 3.5 Haiku (300-500ms) offer the best speed-quality trade-off. For complex enterprise calls requiring high reasoning, GPT-4o or Claude 3.5 Sonnet deliver better conversation quality at the cost of 600-1,200ms additional latency.
 
 ### How accurate is speech recognition in AI calling?
+
 Modern STT systems like Deepgram Nova-3 achieve 95-97% word accuracy on clear English audio. Accuracy drops to 88-93% with background noise, heavy accents, or narrow-band phone audio. Custom vocabulary fine-tuning can recover 5-8% accuracy on domain-specific terms.
 
 ### Can AI calling be done without a cloud LLM?
+
 Yes. Some platforms support on-premise or private cloud LLM deployment using open-source models like Llama 3 or Mistral. This reduces per-call LLM cost but requires significant infrastructure investment and sacrifices the latest model capabilities.
 
 ---
 
-*Technical specifications cited in this article are based on published API documentation, community benchmarks, and first-party testing as of May 2026. Specific latency numbers will vary based on infrastructure geography, audio quality, and LLM model selection. This article is updated as the technology evolves.*
+_Technical specifications cited in this article are based on published API documentation, community benchmarks, and first-party testing as of May 2026. Specific latency numbers will vary based on infrastructure geography, audio quality, and LLM model selection. This article is updated as the technology evolves._

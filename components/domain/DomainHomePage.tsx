@@ -1,477 +1,445 @@
 'use client'
 
-import React, { useRef, useEffect, useCallback } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import DomainLayout from './DomainLayout'
-import DomainCard from './DomainCard'
-import { getAllDomains } from '@/lib/domainUtils'
-
-const VIDEO_SRC =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4'
+import CubeLogo from '@/components/CubeLogo'
 
 const DomainHomePage: React.FC = () => {
-  const allDomains = getAllDomains()
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const animFrameRef = useRef<number | null>(null)
-  const fadingOutRef = useRef(false)
-
-  // Cancel any running animation frame
-  const cancelAnim = useCallback(() => {
-    if (animFrameRef.current !== null) {
-      cancelAnimationFrame(animFrameRef.current)
-      animFrameRef.current = null
-    }
-  }, [])
-
-  // Smooth fade using requestAnimationFrame (500ms duration)
-  const animateOpacity = useCallback(
-    (el: HTMLVideoElement, from: number, to: number, duration: number, onDone?: () => void) => {
-      cancelAnim()
-      const start = performance.now()
-      el.style.opacity = String(from)
-      const step = (now: number) => {
-        const elapsed = now - start
-        const progress = Math.min(elapsed / duration, 1)
-        el.style.opacity = String(from + (to - from) * progress)
-        if (progress < 1) {
-          animFrameRef.current = requestAnimationFrame(step)
-        } else {
-          animFrameRef.current = null
-          onDone?.()
-        }
-      }
-      animFrameRef.current = requestAnimationFrame(step)
-    },
-    [cancelAnim]
-  )
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    // Fade in on first load
-    video.style.opacity = '0'
-    const handleCanPlay = () => {
-      animateOpacity(video, 0, 1, 500)
-    }
-
-    const handleTimeUpdate = () => {
-      if (!video.duration || fadingOutRef.current) return
-      const remaining = video.duration - video.currentTime
-      if (remaining <= 0.55) {
-        fadingOutRef.current = true
-        const currentOp = parseFloat(video.style.opacity) || 1
-        animateOpacity(video, currentOp, 0, 500)
-      }
-    }
-
-    const handleEnded = () => {
-      video.style.opacity = '0'
-      fadingOutRef.current = false
-      setTimeout(() => {
-        video.currentTime = 0
-        video.play().then(() => {
-          const currentOp = parseFloat(video.style.opacity) || 0
-          animateOpacity(video, currentOp, 1, 500)
-        })
-      }, 100)
-    }
-
-    video.addEventListener('canplay', handleCanPlay, { once: true })
-    video.addEventListener('timeupdate', handleTimeUpdate)
-    video.addEventListener('ended', handleEnded)
-
-    return () => {
-      cancelAnim()
-      video.removeEventListener('canplay', handleCanPlay)
-      video.removeEventListener('timeupdate', handleTimeUpdate)
-      video.removeEventListener('ended', handleEnded)
-    }
-  }, [animateOpacity, cancelAnim])
-
-  const offerings = [
+  const homeFaqs = [
     {
-      title: 'Resources',
-      tagline: 'Domain-Specific Prep Kits',
-      description:
-        'Curated frameworks, case studies, and interview playbooks for MBA, Engineering, Commerce, and CA — built by practitioners, not professors.',
-      href: '#domains',
-      cta: 'Explore Resources',
-      icon: (
-        <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-          />
-        </svg>
-      ),
+      q: 'What is Auto Interview AI?',
+      a: 'Auto Interview AI is a free career intelligence platform offering battle-tested CV templates (Harvard, IIM-A, Resume Worded), domain-specific interview resources & casebooks, AI-driven mock interviews, and role-specific peer communities.',
     },
     {
-      title: 'Mock Interviews',
-      tagline: 'AI-Powered Practice',
-      description:
-        'Real-time AI interview simulations that adapt to your domain, seniority level, and target role. Feedback in seconds, not days.',
-      href: '/free-mock-interview',
-      cta: 'Coming Soon',
-      comingSoon: true,
-      icon: (
-        <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-      ),
+      q: 'How does Auto Interview AI help crack job interviews?',
+      a: 'Auto Interview AI covers the three critical phases of hiring: 1) Stellar ATS-compliant CVs that pass recruiter filters, 2) Curated domain study kits and casebooks to master the technical material, and 3) Adaptive AI mock interviews for realistic live practice.',
     },
     {
-      title: 'Resume Builder',
-      tagline: 'ATS-Ready in 2 Minutes',
-      description:
-        'AI-generated resumes that pass 99% of ATS filters. Upload, optimize, and export — professionally formatted, keyword-optimized, recruiter-approved.',
-      href: '/build-resume',
-      cta: 'Build Your Resume',
-      icon: (
-        <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-          />
-        </svg>
-      ),
+      q: 'Are all templates and resources completely free?',
+      a: 'Yes. Auto Interview AI is 100% free with zero paywalls, zero gatekeeping, and no mandatory subscriptions.',
     },
   ]
 
   return (
     <DomainLayout currentPath="/">
-      {/* ===== FULL-SCREEN VIDEO HERO ===== */}
-      <section className="relative min-h-screen overflow-hidden bg-black">
-        {/* Background Video */}
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          className="absolute inset-0 z-0 h-full w-full translate-y-[17%] object-cover"
-          style={{ opacity: 0 }}
-        >
-          <source src={VIDEO_SRC} type="video/mp4" />
-        </video>
-
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
-        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-
-        {/* Hero Content */}
-        <div className="relative z-10 flex min-h-screen -translate-y-[10%] flex-col items-center justify-center px-6 py-12 text-center">
-          <h1
-            className="animate-fade-rise max-w-5xl text-5xl font-normal leading-[0.95] tracking-[-2.46px] text-white md:text-6xl lg:text-7xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            Your career. <em className="not-italic text-[hsl(240,4%,66%)]">Engineered,</em>{' '}
-            <br className="hidden sm:block" />
-            not left to chance.
-          </h1>
-
-          <p className="animate-fade-rise-delay mt-8 max-w-2xl text-base leading-relaxed text-[hsl(240,4%,66%)] sm:text-lg">
-            The definitive career intelligence platform. Domain-specific resources, AI mock
-            interviews, and resumes that open doors — built for professionals who refuse to be
-            unprepared.
-          </p>
-
-          <div className="animate-fade-rise-delay-2 mt-12 flex flex-col items-center gap-4 sm:flex-row">
-            <Link
-              href="#offerings"
-              className="liquid-glass cursor-pointer rounded-full px-14 py-5 text-base text-white transition-transform hover:scale-[1.03]"
-            >
-              Explore the Platform
-            </Link>
-            <Link
-              href="/build-resume"
-              className="rounded-full bg-white px-14 py-5 text-base font-medium text-black transition-all hover:bg-white/90"
-            >
-              Build Resume — Free
-            </Link>
-          </div>
-
-          {/* Trust Signal */}
-          <div className="animate-fade-rise-delay-3 mt-16 flex items-center gap-6 text-sm text-[hsl(240,4%,66%)]">
-            <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-green-400" />
-              14,000+ resumes analyzed
-            </span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">100% free. Zero gatekeeping.</span>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-shuttle">
-          <svg
-            className="h-6 w-6 text-white/40"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </div>
-      </section>
-
-      {/* ===== THREE OFFERINGS ===== */}
-      <section
-        id="offerings"
-        className="relative overflow-hidden border-t border-white/[0.08] py-24"
-      >
-        {/* Glow Element */}
-        <div className="glow-bg left-1/2 top-0 -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
-
-        <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="mb-16 max-w-3xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
-              The Platform
-            </p>
-            <h2
-              className="animate-fade-rise mb-6 text-4xl text-white sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: "'Instrument Serif', serif" }}
-            >
-              Engineered for the elite.
-            </h2>
-            <p className="animate-fade-rise-delay text-base leading-relaxed text-[hsl(240,4%,66%)]">
-              Outperform 95% of candidates with domain-specific intelligence, AI-powered
-              simulations, and a resume that commands authority.
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {offerings.map((offer, idx) => (
-              <Link
-                key={offer.title}
-                href={offer.href}
-                className="group relative block"
-                style={{ animationDelay: `${idx * 0.1}s` }}
+      {/* ===== HERO — Vercel asymmetric composition ===== */}
+      <section className="py-24 sm:py-32 lg:py-40">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="grid items-center gap-16 lg:grid-cols-[1fr_auto]">
+            {/* Left — Headline stack */}
+            <div>
+              {/* Eyebrow */}
+              <p
+                className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
+                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
-                <div className="glass-card flex h-full flex-col p-10">
-                  {/* Icon */}
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/5 text-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                    {offer.icon}
-                  </div>
+                FOR JOB SEEKERS
+              </p>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <div className="mb-2 flex items-center gap-3">
-                      <h3
-                        className="text-2xl text-white"
-                        style={{ fontFamily: "'Instrument Serif', serif" }}
-                      >
-                        {offer.title}
-                      </h3>
-                      {offer.comingSoon && (
-                        <span className="coming-soon-pulse rounded-full border border-white/20 bg-white/[0.05] px-3 py-0.5 text-xs text-[hsl(240,4%,66%)]">
-                          Soon
-                        </span>
-                      )}
-                    </div>
-                    <p className="mb-1 text-sm font-medium text-white/60">{offer.tagline}</p>
-                    <p className="mb-6 text-sm leading-relaxed text-[hsl(240,4%,66%)]">
-                      {offer.description}
-                    </p>
-                  </div>
+              {/* Hero Headline — 56px, weight ~450, tight tracking */}
+              <h1 className="animate-fade-rise max-w-3xl text-[40px] font-normal leading-[1] tracking-[-2px] text-[#171717] sm:text-[48px] sm:tracking-[-2.88px] lg:text-[56px] lg:tracking-[-3.36px]">
+                Your dream job. <br className="hidden sm:block" />
+                Engineered.
+              </h1>
 
-                  {/* CTA */}
-                  <div className="flex items-center text-sm text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
-                    {offer.cta}
-                    <svg
-                      className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
+              {/* Supporting text — 16px, charcoal */}
+              <p className="animate-fade-rise-delay mt-6 max-w-xl text-base leading-relaxed text-[#4d4d4d]">
+                Stellar CVs. Expert resources. Realistic practice. Everything you need to crack your
+                next role — in one place.
+              </p>
+
+              {/* CTA Row */}
+              <div className="animate-fade-rise-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="#pillars"
+                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm text-white transition-colors hover:bg-[#383838]"
+                >
+                  Explore the Platform
+                </Link>
+                <Link
+                  href="/cv-templates"
+                  className="inline-flex items-center justify-center rounded-[6px] px-5 py-2.5 text-sm text-[#4d4d4d] transition-colors hover:text-[#171717]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  Download CV Templates
+                </Link>
+              </div>
+
+              {/* Trust signals — monospace */}
+              <div
+                className="animate-fade-rise-delay-3 mt-8 flex flex-wrap items-center gap-4 text-[11px] text-[#666666]"
+                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
+              >
+                <span className="flex items-center gap-1.5 uppercase">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#297a3a]" />
+                  14,000+ resumes analyzed
+                </span>
+                <span className="text-[#ebebeb]">·</span>
+                <span className="uppercase">100% free</span>
+                <span className="text-[#ebebeb]">·</span>
+                <span className="uppercase">Zero gatekeeping</span>
+              </div>
+            </div>
+
+            {/* Right — Cube Logo as hero mark */}
+            <div className="hidden lg:flex lg:items-center lg:justify-center">
+              <CubeLogo size={140} className="opacity-90" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== DOMAIN SELECTOR ===== */}
-      <section id="domains" className="relative overflow-hidden border-t border-white/[0.08] py-24">
-        <div className="glow-bg right-0 top-0 bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)]" />
-
-        <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
-          {/* AEO Summary */}
-          <p className="seo-only-content">
-            Auto Interview AI provides free, downloadable interview preparation resources organized
-            by academic and professional domain. Choose your domain below to access curated study
-            materials, case frameworks, and practice guides.
-          </p>
-
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
-            Resources
-          </p>
-          <h2
-            className="animate-fade-rise mb-4 text-4xl text-white sm:text-5xl lg:text-6xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            Choose your domain
-          </h2>
-          <p className="animate-fade-rise-delay mb-12 max-w-2xl text-base leading-relaxed text-[hsl(240,4%,66%)]">
-            Industry-specific intelligence. Download the playbook and secure your unfair advantage.
-          </p>
-
-          <div className="animate-fade-rise-delay-2 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {allDomains.map((domain) => (
-              <DomainCard key={domain.slug} domain={domain} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="relative overflow-hidden border-t border-white/[0.08] py-24">
-        <div className="glow-bg left-0 top-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,transparent_70%)]" />
-
-        <div className="relative mx-auto max-w-3xl px-6 sm:px-8">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
-              The Methodology
-            </h2>
-            <h3
-              className="text-4xl text-white sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: "'Instrument Serif', serif" }}
+      {/* ===== FOUR PILLARS — Feature Card Grid ===== */}
+      <section id="pillars" className="py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          {/* Section header */}
+          <div className="mb-12">
+            <p
+              className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
+              style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
             >
-              How you win.
-            </h3>
+              EVERYTHING YOU NEED
+            </p>
+            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
+              Four pillars to crack your dream job.
+            </h2>
           </div>
 
-          <div className="space-y-12">
-            {[
-              {
-                step: '01',
-                title: 'Pick Your Domain',
-                desc: 'MBA, Engineering, Commerce, or CA — select the arena where you compete.',
-              },
-              {
-                step: '02',
-                title: 'Download the Intel',
-                desc: 'Case frameworks, question banks, and strategy guides — all free, all ungated, all actionable.',
-              },
-              {
-                step: '03',
-                title: 'Build Your Resume',
-                desc: 'Upload an existing resume or start from scratch. Our AI creates ATS-optimized resumes in under 2 minutes.',
-              },
-              {
-                step: '04',
-                title: 'Own the Room',
-                desc: 'Walk into every interview prepared, polished, and playing to win.',
-              },
-            ].map((item, i) => (
-              <div key={item.step} className="group relative flex gap-8">
-                {/* Connecting Line */}
-                {i !== 3 && (
-                  <div className="absolute bottom-[-3rem] left-6 top-16 w-px bg-gradient-to-b from-white/20 to-transparent" />
-                )}
-
-                <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-black text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] transition-all group-hover:scale-110 group-hover:border-white/40 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                  <span className="text-sm font-medium">{item.step}</span>
+          {/* 2×2 Grid */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {/* Pillar 1 — Stellar CVs */}
+            <Link href="/cv-templates" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
+                }}
+              >
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
+                  📄
                 </div>
-                <div className="flex-1 pb-4">
-                  <div className="mb-2 text-xs font-bold tracking-widest text-white/40">
-                    STEP {item.step}
-                  </div>
-                  <h3
-                    className="mb-3 text-3xl text-white"
-                    style={{ fontFamily: "'Instrument Serif', serif" }}
+                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                  Stellar CVs
+                </h3>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                  ATS-optimized resume templates from Harvard, IIM Ahmedabad, and Resume Worded.
+                  Download and customize — free, no signup.
+                </p>
+                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                  Download Templates
+                  <svg
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {item.title}
-                  </h3>
-                  <p className="text-base leading-relaxed text-[hsl(240,4%,66%)]">{item.desc}</p>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+
+            {/* Pillar 2 — Expert Resources */}
+            <Link href="/resources" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
+                }}
+              >
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
+                  📚
+                </div>
+                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                  Expert Resources
+                </h3>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                  Domain-specific prep kits. Casebooks, frameworks, and playbooks for MBA,
+                  Engineering, and more — curated by practitioners.
+                </p>
+                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                  Explore Resources
+                  <svg
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+
+            {/* Pillar 3 — Mock Interviews */}
+            <Link href="/free-mock-interview" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
+                }}
+              >
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
+                  🎙️
+                </div>
+                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                  Mock Interviews
+                </h3>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                  AI-powered practice that adapts to your domain, seniority level, and target role.
+                  Real-time feedback in seconds, not days.
+                </p>
+                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                  Start Practicing
+                  <svg
+                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+
+            {/* Pillar 4 — Communities */}
+            <Link href="/communities" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
+                }}
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-lg">
+                    👥
+                  </div>
+                  <span
+                    className="coming-soon-pulse rounded-full px-2.5 py-0.5 text-[11px] uppercase text-[#666666]"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.071em',
+                      boxShadow: '0 0 0 1px #ebebeb',
+                    }}
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+                <h3 className="mb-1 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
+                  Communities
+                </h3>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
+                  Role-specific communities for CS, AI discussion, and referrals. Connect with
+                  peers, share opportunities, and grow together.
+                </p>
+                <span className="flex items-center text-sm text-[#666666] transition-colors group-hover:text-[#171717]">
+                  Join Early Access →
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== HOW IT WORKS — 3-step method ===== */}
+      <section className="py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="grid gap-16 lg:grid-cols-[1fr_1fr]">
+            {/* Left — Steps */}
+            <div>
+              <p
+                className="mb-3 text-[11px] font-normal uppercase text-[#171717]"
+                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
+              >
+                THE METHOD
+              </p>
+              <h2 className="mb-12 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
+                Three steps to your next offer.
+              </h2>
+
+              <div className="space-y-8">
+                {[
+                  {
+                    step: '01',
+                    title: 'Build your CV',
+                    desc: 'Pick a battle-tested template from Harvard, IIM-A, or Resume Worded. Customize it. Pass every ATS filter.',
+                  },
+                  {
+                    step: '02',
+                    title: 'Master the material',
+                    desc: 'Download domain-specific playbooks and case frameworks. MBA, Engineering, Commerce — all free, all ungated.',
+                  },
+                  {
+                    step: '03',
+                    title: 'Practice until perfect',
+                    desc: 'Run AI mock interviews tailored to your target role. Get feedback in seconds. Walk in ready.',
+                  },
+                ].map((item) => (
+                  <div key={item.step} className="flex gap-4">
+                    <div
+                      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-[11px] text-[#666666]"
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        boxShadow: '0 0 0 1px #ebebeb',
+                      }}
+                    >
+                      {item.step}
+                    </div>
+                    <div>
+                      <h3 className="mb-1 text-sm font-medium text-[#171717]">{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#4d4d4d]">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — CLI Output Panel */}
+            <div className="flex items-center">
+              <div className="cli-panel w-full">
+                <div className="space-y-2">
+                  <div className="cli-command">download --template harvard-2025.docx</div>
+                  <div className="cli-success">Template downloaded successfully</div>
+                  <div className="cli-command">
+                    resources --domain mba --specialization consulting
+                  </div>
+                  <div className="cli-success">4 casebooks ready (IIM-A, IIM-B, IIM-C, FMS)</div>
+                  <div className="cli-command">
+                    mock-interview --role &quot;Product Manager&quot; --level senior
+                  </div>
+                  <div className="cli-success">Interview session ready. 12 questions queued.</div>
+                  <div className="mt-4 border-t border-[#ebebeb] pt-4 text-[#297a3a]">
+                    ✓ You&apos;re prepared. Go get that offer.
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== SOCIAL PROOF ===== */}
-      <section className="border-t border-white/[0.08] py-24">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
-          <h2
-            className="mb-16 text-center text-4xl text-white sm:text-5xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            The numbers speak
-          </h2>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* ===== SOCIAL PROOF / STATS ===== */}
+      <section className="py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { value: '14,363', label: 'Resumes analyzed by our Hiring Index' },
-              { value: '3.4×', label: 'Higher callback rate with ATS optimization' },
-              { value: '58%', label: 'Of rejections due to missing keywords' },
-              { value: '2 min', label: 'Average time to build an AI resume' },
+              { value: '14,363', label: 'Resumes analyzed' },
+              { value: '3.4×', label: 'Higher callback rate' },
+              { value: '58%', label: 'Fail on missing keywords' },
+              { value: '2 min', label: 'Average build time' },
             ].map((stat) => (
               <div
                 key={stat.value}
-                className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 text-center"
+                className="rounded-[6px] bg-white p-6 text-center"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
               >
-                <div
-                  className="mb-3 text-4xl text-white"
-                  style={{ fontFamily: "'Instrument Serif', serif" }}
-                >
+                <div className="mb-2 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
                   {stat.value}
                 </div>
-                <p className="text-sm leading-relaxed text-[hsl(240,4%,66%)]">{stat.label}</p>
+                <p className="text-sm text-[#666666]">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
-      <section className="border-t border-white/[0.08] py-24 text-center">
-        <div className="mx-auto max-w-3xl px-6">
-          <h2
-            className="mb-6 text-4xl text-white sm:text-5xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            The prepared always win.
-          </h2>
-          <p className="mb-10 text-base leading-relaxed text-[hsl(240,4%,66%)]">
-            Free resources, zero gatekeeping. Pick a domain, build your resume, and start preparing
-            like the top 5%.
-          </p>
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="#domains"
-              className="liquid-glass inline-block cursor-pointer rounded-full px-14 py-5 text-base text-white transition-transform hover:scale-[1.03]"
-            >
-              Explore Domains
-            </Link>
-            <Link
-              href="/build-resume"
-              className="inline-block rounded-full bg-white px-14 py-5 text-base font-medium text-black transition-all hover:bg-white/90"
-            >
-              Build Resume — 2 Min
-            </Link>
+      {/* ===== HOMEPAGE FAQ SECTION (AEO & GEO BOOST) ===== */}
+      <section className="border-t border-[#ebebeb] py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="mb-12 max-w-3xl">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              FAQ
+            </p>
+            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {homeFaqs.map((faq) => (
+              <div
+                key={faq.q}
+                className="rounded-[6px] bg-white p-6"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+              >
+                <h3 className="mb-2 text-base font-medium text-[#171717]">{faq.q}</h3>
+                <p className="text-sm leading-relaxed text-[#4d4d4d]">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CTA BANNER — Inverted card ===== */}
+      <section className="py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="rounded-[6px] bg-[#171717] px-8 py-16 text-center sm:px-16">
+            <h2 className="mb-4 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-white">
+              The job market is tough.
+              <br />
+              We make it easier.
+            </h2>
+            <p className="mx-auto mb-8 max-w-lg text-sm leading-relaxed text-[#a8a8a8]">
+              Free CV templates, domain-specific resources, AI mock interviews, and career
+              communities. Everything you need — zero gatekeeping.
+            </p>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href="/build-resume"
+                className="inline-flex items-center justify-center rounded-[6px] bg-white px-5 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+              >
+                Get Started — Free
+              </Link>
+              <Link
+                href="/resources"
+                className="inline-flex items-center justify-center rounded-[6px] px-5 py-2.5 text-sm text-[#a8a8a8] transition-colors hover:text-white"
+                style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.2)' }}
+              >
+                Browse Resources
+              </Link>
+            </div>
           </div>
         </div>
       </section>

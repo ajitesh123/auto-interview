@@ -6,123 +6,149 @@
 @tailwind utilities;
 
 /* ========================================
-   BASE LAYER - Clean & Minimal
+   BASE LAYER — Vercel Monochrome Light
    ======================================== */
 @layer base {
-  /* Body - Dark cinematic background */
+  /* Body — Paper-white canvas */
   body {
-    @apply bg-black text-white;
+    @apply bg-[#fafafa] text-[#171717] antialiased;
     font-family:
-      var(--font-space-grotesk),
+      var(--font-body),
       -apple-system,
       BlinkMacSystemFont,
       'Segoe UI',
       sans-serif;
   }
 
-  /* Headings - White text */
+  /* Headings — Obsidian text, tight tracking */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-bold text-white;
+    @apply font-normal text-[#171717];
+    font-family: var(--font-display);
   }
 
-  /* Links - Clean */
+  /* Links — Obsidian with transition */
   a {
-    @apply text-white/80 transition-colors duration-200;
+    @apply text-[#171717] transition-colors duration-200;
   }
 
   a:hover {
-    @apply text-white;
+    @apply text-[#4d4d4d];
   }
 }
 
 /* ========================================
-   COMPONENT LAYER - Reusable Components
+   COMPONENT LAYER — Vercel System
    ======================================== */
 @layer components {
-  /* PRIMARY BUTTON - Dark Pill */
+  /* FILLED BLACK BUTTON — Primary action, strongest visual weight */
   .btn-primary {
     @apply inline-flex items-center justify-center;
-    @apply px-[4px] py-[4px];
-    /* Replicate pill compact padding logic */
-    @apply bg-replicate-dark text-[#fcfcfc];
-    @apply border-[4px] border-replicate-dark;
-    @apply rounded-[9999px];
-    @apply text-base font-semibold;
+    @apply px-5 py-2.5;
+    @apply bg-[#171717] text-white;
+    @apply rounded-[6px];
+    @apply text-sm font-normal;
     @apply transition-all duration-200;
-    @apply hover:opacity-90;
-    @apply focus:outline-none focus:ring-2 focus:ring-replicate-dark focus:ring-offset-2;
+    @apply hover:bg-[#383838];
+    @apply focus:outline-none focus:ring-2 focus:ring-[#171717] focus:ring-offset-2;
   }
 
-  /* SECONDARY BUTTON - Outlined Pill */
+  /* GHOST OUTLINE BUTTON — Secondary action */
   .btn-secondary {
     @apply inline-flex items-center justify-center;
-    @apply px-6 py-2;
-    @apply bg-white text-replicate-dark;
-    @apply border border-replicate-dark;
-    @apply rounded-[9999px];
-    @apply text-base font-semibold;
+    @apply px-5 py-2.5;
+    @apply bg-transparent text-[#4d4d4d];
+    @apply rounded-[6px];
+    @apply text-sm font-normal;
     @apply transition-all duration-200;
-    @apply hover:bg-gray-50;
-    @apply focus:outline-none focus:ring-2 focus:ring-replicate-dark focus:ring-offset-2;
+    @apply hover:bg-[#fafafa];
+    @apply focus:outline-none focus:ring-2 focus:ring-[#171717] focus:ring-offset-2;
+    box-shadow: 0 0 0 1px #ebebeb;
   }
 
-  /* TERTIARY BUTTON - Text Only */
+  /* PILL BUTTON — Compact nav actions */
+  .btn-pill {
+    @apply inline-flex items-center justify-center;
+    @apply px-4 py-1.5;
+    @apply rounded-full;
+    @apply text-sm font-normal;
+    @apply transition-all duration-200;
+  }
+
+  .btn-pill-filled {
+    @apply btn-pill bg-[#171717] text-white hover:bg-[#383838];
+  }
+
+  .btn-pill-ghost {
+    @apply btn-pill bg-transparent text-[#4d4d4d] hover:bg-[#fafafa];
+    box-shadow: 0 0 0 1px #ebebeb;
+  }
+
+  /* TEXT LINK BUTTON — Lowest weight */
   .btn-tertiary {
     @apply inline-flex items-center justify-center;
-    @apply px-6 py-2;
-    @apply bg-transparent text-gray-700;
-    @apply rounded-full;
-    @apply text-base font-medium;
+    @apply px-0 py-0;
+    @apply bg-transparent text-[#171717];
+    @apply text-sm font-normal;
     @apply transition-colors duration-200;
-    @apply hover:bg-gray-100 hover:text-black;
+    @apply hover:text-[#4d4d4d];
     @apply focus:outline-none;
   }
 
-  /* CARD - Clean White with Subtle Shadow */
+  /* BORDERED CARD — Depth via hairline border, never shadow */
   .card {
     @apply bg-white;
-    @apply border border-replicate-dark;
-    @apply rounded-2xl;
-    @apply p-8 sm:p-12;
-    @apply transition-shadow duration-200;
-    @apply hover:border-replicate-red;
-  }
-
-  /* PILL TABS - Like ElevenLabs */
-  .pill-tab {
-    @apply px-6 py-2;
-    @apply rounded-full;
-    @apply text-sm font-medium;
+    @apply rounded-[6px];
+    @apply p-4;
     @apply transition-all duration-200;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 0 0 2px #fafafa;
   }
 
-  .pill-tab-active {
-    @apply bg-white text-black shadow-sm;
+  .card:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.15),
+      0 0 0 2px #fafafa;
   }
 
-  .pill-tab-inactive {
-    @apply text-gray-600 hover:text-black;
+  /* INVERTED CARD — Visual punctuation */
+  .card-inverted {
+    @apply bg-[#171717] text-white;
+    @apply rounded-[6px];
+    @apply p-4;
   }
 
-  /* INPUT - Clean Minimal */
+  /* EYEBROW LABEL — Monospace stamp */
+  .eyebrow {
+    font-family: var(--font-mono);
+    @apply text-[11px] font-normal uppercase text-[#171717];
+    letter-spacing: 0.071em;
+  }
+
+  /* INPUT — Clean minimal */
   .input {
-    @apply w-full px-7 py-3;
-    @apply bg-white/10;
-    @apply border border-transparent ring-1 ring-[#bbbbbb];
-    @apply rounded-[9999px];
-    @apply text-replicate-dark placeholder-gray-400;
+    @apply w-full px-4 py-2.5;
+    @apply bg-white;
+    @apply rounded-[6px];
+    @apply text-[#171717] placeholder-[#a8a8a8];
+    @apply text-sm;
     @apply transition-colors duration-200;
-    @apply focus:border-transparent focus:outline-none focus:ring-replicate-dark;
+    @apply focus:outline-none;
+    box-shadow: 0 0 0 1px #ebebeb;
+  }
+
+  .input:focus {
+    box-shadow: 0 0 0 1px #171717;
   }
 }
 
 /* ========================================
-   UTILITY LAYER - Helper Classes
+   UTILITY LAYER — Helper Classes
    ======================================== */
 @layer utilities {
   /* Hide content visually but keep for screen readers */
@@ -140,40 +166,45 @@
 
   /* Clean Focus Ring */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-[#171717] focus:ring-offset-2;
   }
 }
 
 /* ========================================
-   PROSE - Blog Content Styling
+   PROSE — Blog Content Styling (Light Theme)
    ======================================== */
 .prose {
   @apply max-w-none;
 }
 
 .prose a {
-  @apply text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4;
-  @apply hover:decoration-replicate-red;
+  @apply text-[#171717] underline decoration-[#ebebeb] decoration-dotted underline-offset-4;
+  @apply hover:decoration-[#171717];
   @apply transition-colors duration-200;
 }
 
 .prose a:visited {
-  @apply text-replicate-dark;
+  @apply text-[#171717];
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  @apply font-display font-bold tracking-tight text-replicate-dark;
+  @apply font-medium tracking-tight text-[#171717];
+  font-family: var(--font-display);
 }
 
 .prose code {
-  @apply rounded-md bg-replicate-githubDark px-2 py-0.5 font-mono text-[#fcfcfc];
+  @apply rounded-[4px] bg-[#f5f5f5] px-2 py-0.5 text-[#171717];
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 .prose pre {
-  @apply rounded-xl border border-replicate-dark bg-replicate-githubDark p-6 font-mono text-[#fcfcfc];
+  @apply rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-6 text-[#171717];
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 /* Heading anchor link - embedded inline, visible on hover */
@@ -190,7 +221,7 @@
   transition:
     opacity 200ms ease,
     color 200ms ease;
-  color: #9ca3af;
+  color: #a8a8a8;
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
@@ -202,7 +233,7 @@
 }
 
 .prose .content-header-link:hover {
-  color: #000000;
+  color: #171717;
 }
 
 .prose .content-header-link svg {
@@ -213,37 +244,85 @@
 }
 
 /* ========================================
+   VERCEL NAV BAR
+   ======================================== */
+.nav-bar {
+  height: var(--nav-height);
+  background: rgba(250, 250, 250, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ========================================
+   BORDERED CARD — Feature cards
+   ======================================== */
+.bordered-card {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 0 0 2px #fafafa;
+}
+
+.bordered-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.15),
+    0 0 0 2px #fafafa;
+}
+
+/* ========================================
+   CLI OUTPUT PANEL
+   ======================================== */
+.cli-panel {
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #171717;
+}
+
+.cli-panel .cli-command::before {
+  content: '▲ ';
+  color: #171717;
+}
+
+.cli-panel .cli-success::before {
+  content: '✓ ';
+  color: #297a3a;
+}
+
+/* ========================================
    CUSTOM UTILITIES
    ======================================== */
 
 /* Container with max width */
 .container-custom {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply mx-auto max-w-[1280px] px-6;
 }
 
-/* Section spacing */
+/* Section spacing — 96-128px vertical gaps */
 .section {
-  @apply py-16 md:py-24;
+  @apply py-24;
 }
 
-/* Gradient text (minimal use) */
-.gradient-text {
-  @apply bg-gradient-to-r from-replicate-dark to-gray-700 bg-clip-text text-transparent;
-}
-
-/* Replicate Brand Elements */
-.bg-replicate-hero {
-  @apply bg-gradient-to-r from-replicate-red via-[#ff2a5f] to-[#ff4b9c];
+/* Spectrum gradient bar */
+.spectrum-bar {
+  height: 1px;
+  background: var(--gradient-spectrum);
 }
 
 /* ========================================
-   DOMAIN PAGES — Cinematic Dark Theme
+   DOMAIN PAGES — Now Light Theme
    ======================================== */
 
 /* Domain page wrapper */
 .domain-page {
-  background: var(--domain-bg);
-  color: var(--domain-fg);
+  background: var(--color-paper-white);
+  color: var(--color-obsidian);
   font-family: var(--font-body);
   min-height: 100vh;
 }
@@ -255,100 +334,20 @@
 .domain-page h5,
 .domain-page h6 {
   font-family: var(--font-display);
-  color: var(--domain-fg);
+  color: var(--color-obsidian);
 }
 
 .domain-page a {
-  color: var(--domain-fg);
+  color: var(--color-obsidian);
 }
 
 .domain-page a:hover {
-  color: var(--domain-muted);
+  color: var(--color-charcoal);
 }
 
-/* Liquid Glass Effect - Premium Upgrade */
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
-    0 4px 24px -4px rgba(0, 0, 0, 0.5);
-  position: relative;
-  overflow: hidden;
-}
-
-.liquid-glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Glass Card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.glass-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.03), transparent);
-  transform: skewX(-20deg);
-  transition: all 0.5s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow:
-    0 20px 40px -10px rgba(0, 0, 0, 0.9),
-    0 0 20px rgba(255, 255, 255, 0.05);
-}
-
-.glass-card:hover::after {
-  left: 150%;
-}
-
-/* Glow Backgrounds */
-.glow-bg {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Fade Rise Animations */
+/* ========================================
+   FADE RISE ANIMATIONS (preserved)
+   ======================================== */
 @keyframes fade-rise {
   from {
     opacity: 0;
@@ -373,26 +372,14 @@
   animation: fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
 }
 
-/* Domain card hover (Legacy) */
-.domain-card {
-  transition: all 0.3s ease;
-}
-
-.domain-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
 /* Coming soon pulse */
 @keyframes coming-soon-pulse {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
   50% {
-    opacity: 0.6;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    opacity: 0.5;
   }
 }
 
@@ -400,27 +387,14 @@
   animation: coming-soon-pulse 2.5s ease-in-out infinite;
 }
 
-/* Resource card */
-.resource-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.resource-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-2px);
-}
-
 /* FAQ accordion */
 .faq-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #ebebeb;
   transition: background-color 0.2s ease;
 }
 
 .faq-item:hover {
-  background: rgba(255, 255, 255, 0.01);
+  background: rgba(0, 0, 0, 0.01);
 }
 
 .faq-item:last-child {

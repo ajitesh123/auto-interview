@@ -52,7 +52,7 @@ It is critical to distinguish between Time-to-First-Audio (TTFA) and Time-to-Fir
 
 Streaming TTS is the only viable architecture for voice agents, as opposed to waiting for full synthesis. Consider a 50-word response: at a non-streaming endpoint, a model like ElevenLabs takes to synthesize roughly 3 seconds of audio (assuming a speaking rate of 150 words/min) before sending anything back. That is a massive 3-second delay. Streaming sends 100ms chunks as they generate, meaning the audio starts playing at roughly 75ms while the rest of the sentence is still being synthesized. The playback time of the early words masks the generation time of the later words.
 
-However, aggressive streaming introduces the uncanny valley of TTS. Slightly wrong prosody is worse than robotic TTS because it triggers a psychological repulsion in the listener. They expect a human, but the micro-inflections are wrong. If the model synthesizes "Your account BALANCE is $500" instead of "Your account balance is $500", the emphasis sounds AI-generated even if the audio quality is perfect. Modern TTS engines must balance the low latency of aggressive streaming with the contextual lookahead required for natural prosody.
+However, aggressive streaming introduces the uncanny valley of TTS. Slightly wrong prosody is worse than robotic TTS because it triggers a psychological repulsion in the listener. They expect a human, but the micro-inflections are wrong. If the model synthesizes "Your account BALANCE is \$500" instead of "Your account balance is \$500", the emphasis sounds AI-generated even if the audio quality is perfect. Modern TTS engines must balance the low latency of aggressive streaming with the contextual lookahead required for natural prosody.
 
 ## Cartesia: The Speed Demon of Voice Agents
 
@@ -90,7 +90,7 @@ async def tts_stream(text: str, output_callback):
 
 If you are using modern voice agent frameworks, Cartesia integrates seamlessly. For example, with the LiveKit plugin integration, you simply import `from livekit.plugins import cartesia` and configure it in your `VoicePipelineAgent`.
 
-Pricing for Cartesia uses API credits, which typically translate to a ballpark of **~$0.008/min** of synthesized audio for standard usage. This makes it highly cost-effective for high-volume deployments.
+Pricing for Cartesia uses API credits, which typically translate to a ballpark of **~\$0.008/min** of synthesized audio for standard usage. This makes it highly cost-effective for high-volume deployments.
 
 The primary weakness of Cartesia is its language coverage. It supports 17 languages, compared to ElevenLabs' 31. Furthermore, for specific regional dialects like Indian languages, the quality is noticeably inferior to specialized providers like Smallest.ai.
 
@@ -122,7 +122,7 @@ def stream_for_voice_agent(text: str):
 
 ElevenLabs supports a subset of SSML (Speech Synthesis Markup Language), allowing for granular prosody control. You can add breaks to simulate natural pauses. For example: `<break time="1.5s" />` will force a one-and-a-half-second pause, which is incredibly useful for simulating thoughtful hesitation in an AI agent.
 
-Let's break down the pricing math. A Pro plan costs $99 per month and grants 500,000 characters. The average English sentence is about 50 characters, meaning you get roughly 10,000 sentences per month. A typical 5-minute customer service call involves around 30 exchanges, totaling approximately 1,500 characters. Therefore, 500,000 characters divided by 1,500 characters per call equals roughly **333 calls per month** on the Pro plan. This is significantly more expensive than Cartesia or OpenAI, but the quality is unmatched.
+Let's break down the pricing math. A Pro plan costs \$99 per month and grants 500,000 characters. The average English sentence is about 50 characters, meaning you get roughly 10,000 sentences per month. A typical 5-minute customer service call involves around 30 exchanges, totaling approximately 1,500 characters. Therefore, 500,000 characters divided by 1,500 characters per call equals roughly **333 calls per month** on the Pro plan. This is significantly more expensive than Cartesia or OpenAI, but the quality is unmatched.
 
 ElevenLabs is also the industry leader in voice cloning. They offer an instant clone (requiring just a 30-second sample for very good quality) and a Professional Voice Clone (requiring a 30-minute studio-quality sample for flawless, indistinguishable replication). For premium brand avatars, this capability is invaluable.
 
@@ -159,7 +159,7 @@ async def smallest_tts_stream(text: str, language: str = "hi"):
                 yield chunk  # raw PCM chunks
 ```
 
-Pricing is highly competitive for the region, ranging from **$0.09 to $0.21 per minute** for agent calls, and they offer a free tier of 30 minutes per month for developers.
+Pricing is highly competitive for the region, ranging from **\$0.09 to \$0.21 per minute** for agent calls, and they offer a free tier of 30 minutes per month for developers.
 
 Why does no global provider match this for Indian languages? Because when ElevenLabs speaks Hindi, it sounds like an American speaking perfect Hindi—the accent is subtly wrong. Smallest.ai was trained on massive datasets of native Indian speech, capturing the exact inflections, breath patterns, and tonalities of local dialects.
 
@@ -198,7 +198,7 @@ def stream_openai_tts(text):
     p.terminate()
 ```
 
-Cost is a major selling point: **$0.015/1000 chars** for `tts-1`, and **$0.030/1000 chars** for `tts-1-hd`. Compared to ElevenLabs at ~$0.30/1000 chars, OpenAI is an order of magnitude cheaper.
+Cost is a major selling point: **\$0.015/1000 chars** for `tts-1`, and **\$0.030/1000 chars** for `tts-1-hd`. Compared to ElevenLabs at ~\$0.30/1000 chars, OpenAI is an order of magnitude cheaper.
 
 However, the hard limitations are significant: there is no voice cloning, no SSML support, you are strictly limited to the 6 preset voices, and the Indian language support is poor.
 
@@ -210,7 +210,7 @@ Its standout feature is the 3-second voice cloning capability, which is the fast
 
 PlayHT also features an advanced Emotion API. Instead of relying purely on text context, developers can explicitly specify the emotional register in the API request, ensuring the voice agent sounds exactly as intended (e.g., empathetic, urgent, or cheerful).
 
-Pricing is very competitive for streaming use cases, at roughly **$0.008 per minute**.
+Pricing is very competitive for streaming use cases, at roughly **\$0.008 per minute**.
 
 ```python
 import requests
@@ -249,8 +249,8 @@ def playht_streaming(text):
 | **Code-Switching**        | Poor                 | Average               | Excellent (Hinglish) | Poor                | Average              |
 | **Streaming Support**     | SSE/WebSockets/gRPC  | WebSockets            | WebSockets/HTTP      | HTTP Streaming      | WebSockets/gRPC      |
 | **Supported Codecs**      | PCM, MP3, Opus, uLaw | PCM, MP3, uLaw        | PCM, WAV             | PCM, MP3, Opus, AAC | PCM, MP3, OGG        |
-| **Pricing (per 1k char)** | ~$0.009              | ~$0.30                | ~$0.015              | $0.015 - $0.030     | ~$0.012              |
-| **Pricing (per minute)**  | ~$0.008              | ~$1.20                | $0.09 - $0.21        | $0.06               | $0.008               |
+| **Pricing (per 1k char)** | ~\$0.009             | ~\$0.30               | ~\$0.015             | \$0.015 - \$0.030   | ~\$0.012             |
+| **Pricing (per minute)**  | ~\$0.008             | ~\$1.20               | \$0.09 - \$0.21      | \$0.06              | \$0.008              |
 | **Free Tier**             | Yes                  | Yes                   | 30 mins/month        | No                  | Yes                  |
 | **SSML Support**          | No                   | Subset                | No                   | No                  | No                   |
 | **Context Length Deg.**   | No (Linear)          | Yes (Quadratic)       | No                   | Yes                 | Yes                  |
@@ -377,19 +377,19 @@ Assumptions: voice agent with 10,000 calls/month, 4 minutes average duration, AI
 At 150 words/minute speaking rate = 240 words/call = 1,200 characters/call.
 Total characters/month: 1,200 × 10,000 = 12,000,000 characters (12M chars/month).
 
-| Provider              | Billing Unit               | Rate               | Monthly Cost (12M chars) | Notes                         |
-| :-------------------- | :------------------------- | :----------------- | :----------------------- | :---------------------------- |
-| Cartesia Sonic        | Credits (per min of audio) | ~$0.008/min        | **~$128/mo**             | 16,000 min × $0.008           |
-| ElevenLabs Eleven v3  | Characters                 | $0.30/1,000 chars  | **~$3,600/mo**           | 12M × $0.0003                 |
-| ElevenLabs Flash v2.5 | Characters                 | ~$0.18/1,000 chars | **~$2,160/mo**           | Estimated, check pricing page |
-| OpenAI tts-1          | Characters                 | $0.015/1,000 chars | **$180/mo**              | 12M × $0.000015               |
-| OpenAI tts-1-hd       | Characters                 | $0.030/1,000 chars | **$360/mo**              | Better quality                |
-| PlayHT 3.0            | Minutes                    | $0.008/min         | **~$128/mo**             | 16,000 min × $0.008           |
-| Smallest.ai           | Minutes                    | $0.09-0.21/min     | **$1,440-$3,360/mo**     | Hindi-optimized               |
+| Provider              | Billing Unit               | Rate                | Monthly Cost (12M chars) | Notes                         |
+| :-------------------- | :------------------------- | :------------------ | :----------------------- | :---------------------------- |
+| Cartesia Sonic        | Credits (per min of audio) | ~\$0.008/min        | **~\$128/mo**            | 16,000 min × \$0.008          |
+| ElevenLabs Eleven v3  | Characters                 | \$0.30/1,000 chars  | **~\$3,600/mo**          | 12M × \$0.0003                |
+| ElevenLabs Flash v2.5 | Characters                 | ~\$0.18/1,000 chars | **~\$2,160/mo**          | Estimated, check pricing page |
+| OpenAI tts-1          | Characters                 | \$0.015/1,000 chars | **\$180/mo**             | 12M × \$0.000015              |
+| OpenAI tts-1-hd       | Characters                 | \$0.030/1,000 chars | **\$360/mo**             | Better quality                |
+| PlayHT 3.0            | Minutes                    | \$0.008/min         | **~\$128/mo**            | 16,000 min × \$0.008          |
+| Smallest.ai           | Minutes                    | \$0.09-0.21/min     | **\$1,440-\$3,360/mo**   | Hindi-optimized               |
 
-The numbers reveal two clear clusters: **Cartesia and PlayHT at ~$128/mo** for pure English, and **ElevenLabs at $2,160-$3,600/mo** for premium quality. OpenAI TTS is surprisingly affordable at $180/mo but without voice cloning or Indian language support. Smallest.ai is expensive relative to English TTS but justified for Indian language accuracy.
+The numbers reveal two clear clusters: **Cartesia and PlayHT at ~\$128/mo** for pure English, and **ElevenLabs at \$2,160-\$3,600/mo** for premium quality. OpenAI TTS is surprisingly affordable at \$180/mo but without voice cloning or Indian language support. Smallest.ai is expensive relative to English TTS but justified for Indian language accuracy.
 
-The right framing: TTS cost is not a fixed line item — it scales with call volume. At 1,000 calls/month, the $300 difference between Cartesia and ElevenLabs Flash is irrelevant. At 100,000 calls/month, that difference becomes $30,000/month. Choose based on current volume but build your stack so provider switching requires only an environment variable change.
+The right framing: TTS cost is not a fixed line item — it scales with call volume. At 1,000 calls/month, the \$300 difference between Cartesia and ElevenLabs Flash is irrelevant. At 100,000 calls/month, that difference becomes \$30,000/month. Choose based on current volume but build your stack so provider switching requires only an environment variable change.
 
 ## FAQ
 
@@ -415,7 +415,7 @@ Smallest.ai Lightning V3 is definitively the best for Indian languages. It handl
 
 ### How much more expensive is ElevenLabs compared to OpenAI?
 
-Significantly. OpenAI `tts-1` costs $0.015 per 1,000 characters, whereas ElevenLabs averages ~$0.30 per 1,000 characters on standard API tiers. ElevenLabs is roughly 20x more expensive, justified by its premium, human-indistinguishable quality.
+Significantly. OpenAI `tts-1` costs \$0.015 per 1,000 characters, whereas ElevenLabs averages ~\$0.30 per 1,000 characters on standard API tiers. ElevenLabs is roughly 20x more expensive, justified by its premium, human-indistinguishable quality.
 
 ### What is TTGE native voice-to-voice?
 

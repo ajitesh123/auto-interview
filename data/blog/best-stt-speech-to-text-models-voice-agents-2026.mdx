@@ -112,7 +112,7 @@ async def transcribe_stream(audio_stream):
         await dg_connection.send(chunk)
 ```
 
-Pricing is highly competitive at **$0.0043/min** for Nova-3 streaming and **$0.0059/min** for pre-recorded audio. Custom pricing is available at high volumes. For high-volume enterprise deployments, this cost efficiency combined with unparalleled speed makes Deepgram the default choice for English-primary real-time voice agents.
+Pricing is highly competitive at **\$0.0043/min** for Nova-3 streaming and **\$0.0059/min** for pre-recorded audio. Custom pricing is available at high volumes. For high-volume enterprise deployments, this cost efficiency combined with unparalleled speed makes Deepgram the default choice for English-primary real-time voice agents.
 
 However, Deepgram's weakness lies in its Indian language support. While it handles English flawlessly, its grasp on deep regional dialects, Hinglish, and code-switching is not as robust as specialized providers like Gnani.
 
@@ -151,7 +151,7 @@ def analyze_completed_call(audio_url: str):
     return result.response
 ```
 
-Pricing for streaming sits slightly higher at **$0.0066/min**. While they offer streaming endpoints, their latency is generally not as optimized for ultra-fast real-time voice agents compared to Deepgram. AssemblyAI is better suited as a powerful backend intelligence layer rather than the front-line streaming STT for a sub-500ms voice bot.
+Pricing for streaming sits slightly higher at **\$0.0066/min**. While they offer streaming endpoints, their latency is generally not as optimized for ultra-fast real-time voice agents compared to Deepgram. AssemblyAI is better suited as a powerful backend intelligence layer rather than the front-line streaming STT for a sub-500ms voice bot.
 
 ## OpenAI Whisper: The Multilingual Standard
 
@@ -169,7 +169,7 @@ Gladia has carved out a fascinating niche with native code-switching support. If
 
 It also offers exceptional speaker diarization across **100+ languages** in real-time. Distinguishing who said what in a chaotic multi-speaker environment is notoriously difficult, but Gladia’s API manages this gracefully while maintaining low latency.
 
-Crucially, Gladia bundles audio intelligence at no extra cost. Real-time translation, sentiment tracking, and entity extraction are part of the core transcription payload. At **$0.0077/min** for streaming, you get an incredibly feature-dense offering.
+Crucially, Gladia bundles audio intelligence at no extra cost. Real-time translation, sentiment tracking, and entity extraction are part of the core transcription payload. At **\$0.0077/min** for streaming, you get an incredibly feature-dense offering.
 
 Gladia is best for multilingual contact centers, diarization-heavy use cases, and agents deployed in regions like Europe where users frequently jump between languages. Their latency is highly competitive, though deeply specialized for complex linguistic environments rather than pure English speed.
 
@@ -190,15 +190,15 @@ Let us do the actual math for a mid-sized Indian AI calling operation: 5,000 cal
 Total daily audio: 5,000 calls × 4 min = 20,000 minutes per day.
 Monthly: 20,000 × 30 = 600,000 minutes.
 
-| Provider                    | Rate                 | Monthly Cost (600K min) | Notes                              |
-| :-------------------------- | :------------------- | :---------------------- | :--------------------------------- |
-| Deepgram Nova-3 (streaming) | $0.0043/min          | **$2,580/mo**           | Best-in-class English real-time    |
-| AssemblyAI (streaming)      | $0.0066/min          | **$3,960/mo**           | Includes audio intelligence        |
-| Gladia                      | $0.0077/min          | **$4,620/mo**           | Includes diarization               |
-| OpenAI Whisper (API)        | ~$0.006/min          | **$3,600/mo**           | Not streaming; batch only          |
-| Self-hosted Whisper         | GPU cost ~$0.001/min | **~$600/mo**            | Requires GPU infra management      |
-| Gnani Prisma v2.5           | Custom enterprise    | **Custom**              | On-premise option available        |
-| Ringg Parrot V1             | Per-minute (contact) | **Bundled**             | Included in Ringg platform pricing |
+| Provider                    | Rate                  | Monthly Cost (600K min) | Notes                              |
+| :-------------------------- | :-------------------- | :---------------------- | :--------------------------------- |
+| Deepgram Nova-3 (streaming) | \$0.0043/min          | **\$2,580/mo**          | Best-in-class English real-time    |
+| AssemblyAI (streaming)      | \$0.0066/min          | **\$3,960/mo**          | Includes audio intelligence        |
+| Gladia                      | \$0.0077/min          | **\$4,620/mo**          | Includes diarization               |
+| OpenAI Whisper (API)        | ~\$0.006/min          | **\$3,600/mo**          | Not streaming; batch only          |
+| Self-hosted Whisper         | GPU cost ~\$0.001/min | **~\$600/mo**           | Requires GPU infra management      |
+| Gnani Prisma v2.5           | Custom enterprise     | **Custom**              | On-premise option available        |
+| Ringg Parrot V1             | Per-minute (contact)  | **Bundled**             | Included in Ringg platform pricing |
 
 The cost comparison reveals an interesting dynamic: self-hosted Whisper is 4-6x cheaper than any cloud provider if you can manage the GPU infrastructure. But for real-time streaming voice agents, Whisper is not the right architecture. You end up paying 4-6x more for real-time capability (Deepgram), or you build your own real-time serving layer around faster-whisper — which is an engineering project, not a provider swap.
 
@@ -254,7 +254,7 @@ This ordering is not absolute — it reflects the training data and optimization
 | **Built-in Intel**      | No                | **Yes (LeMUR)**     | No               | Yes (Free)          | Yes                |
 | **Languages Supported** | 30+               | 80+                 | **99+**          | 100+                | 15+ (Indian focus) |
 | **Self-Hosted Option**  | Enterprise        | Enterprise          | **Yes (Free)**   | Enterprise          | **Yes (BFSI)**     |
-| **Pricing (Streaming)** | **$0.0043/min**   | $0.0066/min         | API or Compute   | $0.0077/min         | Enterprise         |
+| **Pricing (Streaming)** | **\$0.0043/min**  | \$0.0066/min        | API or Compute   | \$0.0077/min        | Enterprise         |
 | **Best Use Case**       | Real-time English | Intelligence/QA     | Batch/Post-call  | Multilingual stream | Indian Telephony   |
 
 ## Latency Benchmark Table

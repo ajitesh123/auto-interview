@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
 1. **Perceptual Evaluation of Speech Quality (PESQ)**: Measures audio distortion on scale from 1.0 (poor) to 4.5 (crystal clear).
 2. **Time-to-First-Audio (TTFA)**: Tracks streaming audio synthesis latency. Target TTFA is under 200ms.
-3. **Word Accuracy (WAcc)**: Calculated as $100\% - \text{WER}$.
+3. **Word Accuracy (WAcc)**: Calculated as `100% - WER`.
 
 ---
 
@@ -210,4 +210,4 @@ Yes. If an STT model generates excessive insertions (hallucinating extra words),
 
 ### Why is text normalization necessary before calculating WER?
 
-## Normalization strips out punctuation, capitalization, and formatting differences (e.g. converting "$50" to "fifty dollars"), ensuring fair speech recognition evaluation.
+## Normalization strips out punctuation, capitalization, and formatting differences (e.g. converting "\$50" to "fifty dollars"), ensuring fair speech recognition evaluation.

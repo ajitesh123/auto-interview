@@ -4,36 +4,28 @@ import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 // Import necessary dependencies and components
-import { Space_Grotesk, Instrument_Serif, Inter } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
-import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
-import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react'
 
-// Initialize fonts
-const space_grotesk = Space_Grotesk({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-grotesk',
-})
-
-const instrument_serif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-  variable: '--font-instrument-serif',
-})
-
+// Initialize fonts — Geist Sans substitute (Inter) + Geist Mono substitute (JetBrains Mono)
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500'],
   display: 'swap',
   variable: '--font-inter',
+  weight: ['400', '500'],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+  weight: ['400', '500', '600'],
 })
 
 /**
@@ -107,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} ${instrument_serif.variable} ${inter.variable} scroll-smooth`}
+      className={`${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}
       suppressHydrationWarning // Suppress hydration warnings for client/server mismatch
     >
       {/* Favicon and PWA configurations */}
@@ -117,9 +109,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="apple-touch-icon" href={`${basePath}/static/images/logo.png`} />
 
       {/* Theme and display configurations */}
-      <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
-      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+      <meta name="msapplication-TileColor" content="#fafafa" />
+      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
+      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#fafafa" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
 
       {/* Google Search Console Verification */}
@@ -129,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="msvalidate.01" content="DCE0AC8E258C8B66E1E4F10414746DCF" />
 
       {/* Main body content */}
-      <body className="bg-black pl-[calc(100vw-100%)] text-white antialiased">
+      <body className="bg-[#fafafa] pl-[calc(100vw-100%)] text-[#171717] antialiased">
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
@@ -145,7 +137,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ],
               url: 'https://www.autointerviewai.com/',
               description:
-                'Auto Interview AI (Autointerviewai) is the one-stop platform for job preparation: resume builder, ATS checker, mock interviews, job search, and cover letter generator.',
+                'Auto Interview AI is the one-stop platform for cracking your dream job: CV templates, interview resources, AI mock interviews, and career communities.',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: 'https://www.autointerviewai.com/?q={search_term_string}',
@@ -189,7 +181,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://www.autointerviewai.com/',
               image: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
               description:
-                'Auto Interview AI (Autointerviewai) - AI-driven mock interviews, resume builder, ATS checker, job search and cover letter generator.',
+                'Auto Interview AI — CV templates, interview resources, AI mock interviews, and career communities. Your dream job, engineered.',
             }),
           }}
         />
@@ -204,7 +196,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               name: 'Ajitesh Abhishek',
               jobTitle: 'AI & Career Tools Developer',
               description:
-                'Creator of Auto Interview AI - helping job seekers with AI-powered resume building, ATS optimization, interview preparation, and job search tools.',
+                'Creator of Auto Interview AI - helping job seekers with CV templates, interview resources, AI mock interviews, and career communities.',
               url: 'https://www.autointerviewai.com/about',
               image: 'https://www.autointerviewai.com/static/images/avatar.png',
               sameAs: [
@@ -243,26 +235,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: 'Resume Builder',
-                  item: 'https://www.autointerviewai.com/build-resume',
+                  name: 'CV Templates',
+                  item: 'https://www.autointerviewai.com/cv-templates',
                 },
                 {
                   '@type': 'ListItem',
                   position: 3,
-                  name: 'ATS Score Checker',
-                  item: 'https://www.autointerviewai.com/ats-score',
+                  name: 'Resources',
+                  item: 'https://www.autointerviewai.com/resources',
                 },
                 {
                   '@type': 'ListItem',
                   position: 4,
-                  name: 'Job Search',
-                  item: 'https://www.autointerviewai.com/find-jobs',
+                  name: 'Mock Interview',
+                  item: 'https://www.autointerviewai.com/free-mock-interview',
                 },
                 {
                   '@type': 'ListItem',
                   position: 5,
-                  name: 'Cover Letter Generator',
-                  item: 'https://www.autointerviewai.com/cover-letter',
+                  name: 'Blog',
+                  item: 'https://www.autointerviewai.com/blog',
                 },
               ],
             }),
@@ -283,7 +275,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
-        {/* Theme provider wrapper for dark/light mode */}
+        {/* Theme provider wrapper — forced light mode */}
         <ThemeProviders>
           {/* Analytics component for tracking - disabled in development */}
           {process.env.NODE_ENV === 'production' && (

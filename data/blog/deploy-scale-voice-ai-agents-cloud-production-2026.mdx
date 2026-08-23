@@ -245,14 +245,14 @@ A single GPU instance (NVIDIA A10G, 24GB VRAM) handles approximately:
 
 For 10,000 calls/day (average 5 minutes each, peak 500 concurrent):
 
-| Component       | Infrastructure          | Monthly Cost (est.)      |
-| --------------- | ----------------------- | ------------------------ |
-| SIP Trunking    | 500 concurrent channels | $2,000 - $5,000          |
-| Media Servers   | 10x c5.2xlarge          | $3,000 - $5,000          |
-| STT (Cloud API) | ~833 hours audio/day    | $5,000 - $15,000         |
-| LLM (Cloud API) | ~50M tokens/day         | $3,000 - $10,000         |
-| TTS (Cloud API) | ~833 hours audio/day    | $5,000 - $15,000         |
-| **Total**       |                         | **$18,000 - $50,000/mo** |
+| Component       | Infrastructure          | Monthly Cost (est.)        |
+| --------------- | ----------------------- | -------------------------- |
+| SIP Trunking    | 500 concurrent channels | \$2,000 - \$5,000          |
+| Media Servers   | 10x c5.2xlarge          | \$3,000 - \$5,000          |
+| STT (Cloud API) | ~833 hours audio/day    | \$5,000 - \$15,000         |
+| LLM (Cloud API) | ~50M tokens/day         | \$3,000 - \$10,000         |
+| TTS (Cloud API) | ~833 hours audio/day    | \$5,000 - \$15,000         |
+| **Total**       |                         | **\$18,000 - \$50,000/mo** |
 
 **Or use Tough Tongue AI:** All infrastructure managed. Pay per minute of conversation. No GPU provisioning, no scaling configuration, no infrastructure operations.
 
@@ -363,7 +363,7 @@ The LLM inference layer is typically the bottleneck. A self-hosted 8B model hand
 
 ### How much does it cost to run voice AI at scale?
 
-For 10,000 calls/day (5 min average), self-hosted infrastructure costs $18,000-$50,000/month including SIP trunking, media servers, and AI processing. Managed platforms like Tough Tongue AI charge per-minute, typically $0.05-$0.15/minute, which at 10,000 calls/day equals roughly $25,000-$75,000/month but with zero infrastructure management.
+For 10,000 calls/day (5 min average), self-hosted infrastructure costs \$18,000-\$50,000/month including SIP trunking, media servers, and AI processing. Managed platforms like Tough Tongue AI charge per-minute, typically \$0.05-\$0.15/minute, which at 10,000 calls/day equals roughly \$25,000-\$75,000/month but with zero infrastructure management.
 
 ### Can voice AI handle traffic spikes?
 

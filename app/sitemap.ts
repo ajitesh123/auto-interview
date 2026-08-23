@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllDomains } from '@/lib/domainUtils'
+import { mbaSpecializations } from '@/data/mbaResources'
 
 const POSTS_PER_PAGE = 10
 
@@ -28,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: i === 0 ? 0.9 : 0.5,
   }))
 
-  // ===== Domain routes (auto-generated from data) =====
+  // ===== Domain routes (legacy domain utils) =====
   const domains = getAllDomains()
 
   const domainRoutes = domains.map((d) => ({
@@ -58,11 +59,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
     )
   )
 
+  // ===== New Resource Hub & MBA Specialization Routes =====
+  const resourceHubRoutes = [
+    {
+      url: `${siteUrl}/resources`,
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+    {
+      url: `${siteUrl}/resources/mba`,
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    ...mbaSpecializations.map((spec) => ({
+      url: `${siteUrl}/resources/mba/${spec.slug}`,
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
+  ]
+
   // ===== Static pages =====
   const getRoutePriority = (route: string) => {
     if (route === '') return 1.0
-    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter', 'free-resources'].includes(route))
-      return 0.9
+    if (
+      [
+        'cv-templates',
+        'resources',
+        'free-mock-interview',
+        'build-resume',
+        'ats-score',
+        'find-jobs',
+        'cover-letter',
+        'free-resources',
+      ].includes(route)
+    )
+      return 0.95
+    if (route === 'communities') return 0.85
     if (route === 'blog') return 0.9
     if (route === 'about') return 0.85
     if (['privacy-policy', 'terms-conditions'].includes(route)) return 0.6
@@ -71,7 +106,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const getChangeFrequency = (route: string) => {
     if (route === '') return 'daily' as const
-    if (['build-resume', 'ats-score', 'find-jobs', 'cover-letter', 'free-resources'].includes(route))
+    if (
+      [
+        'cv-templates',
+        'resources',
+        'free-mock-interview',
+        'build-resume',
+        'ats-score',
+        'find-jobs',
+        'cover-letter',
+        'free-resources',
+      ].includes(route)
+    )
       return 'weekly' as const
     if (route === 'blog') return 'daily' as const
     return 'monthly' as const
@@ -79,6 +125,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     '',
+    'cv-templates',
+    'resources',
+    'free-mock-interview',
+    'communities',
     'blog',
     'about',
     'build-resume',
@@ -110,6 +160,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...routes,
+    ...resourceHubRoutes,
     ...domainRoutes,
     ...subDomainRoutes,
     ...resourceRoutes,

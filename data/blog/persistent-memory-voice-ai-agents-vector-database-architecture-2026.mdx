@@ -33,7 +33,7 @@ structuredData:
   'url': 'https://www.autointerviewai.com/blog/persistent-memory-voice-ai-agents-vector-database-architecture-2026'
 ---
 
-A user called our voice agent for the fourth time about the same billing issue. Each time, the agent asked "Can you tell me your account number?" from scratch. On the fourth call, the user said "I'm done with this" and churned. We lost a $2,400/year customer because our agent had the memory of a goldfish.
+A user called our voice agent for the fourth time about the same billing issue. Each time, the agent asked "Can you tell me your account number?" from scratch. On the fourth call, the user said "I'm done with this" and churned. We lost a \$2,400/year customer because our agent had the memory of a goldfish.
 
 I have spent the last 10 years building production voice systems. I have shipped voice agents that handle millions of calls for enterprise clients. I have debugged 3 AM production incidents where memory leaks brought down entire SIP trunks. If there is one absolute truth I have learned the hard way, it is this: building a five-minute voice demo is trivial. Building a conversational agent that actually remembers a user across a dozen sessions, without destroying your latency budget, is where the real engineering starts.
 
@@ -311,15 +311,15 @@ On the flip side, if you set the threshold too high (for example, 0.95), your sy
 Let us talk about the unit economics. Is running persistent memory expensive? Executives often assume that vector databases and embedding APIs will break the bank. The reality is quite the opposite.
 
 **Embedding Costs:**
-OpenAI's `text-embedding-3-small` model is aggressively priced at $0.02 per 1 million tokens.
+OpenAI's `text-embedding-3-small` model is aggressively priced at \$0.02 per 1 million tokens.
 If a user generates 10 unique facts per call that need to be embedded, that represents roughly 200 tokens total.
 For 1,000 distinct voice calls, you use approximately 200,000 tokens.
-Total embedding cost for 1,000 calls: $0.004. It is virtually free.
+Total embedding cost for 1,000 calls: \$0.004. It is virtually free.
 
 **Storage Costs:**
 Supabase's Pro tier gives you 100GB of storage. A single vector of 1536 dimensions takes about 6KB of disk space. You can store roughly 16 million discrete memories before you even begin to worry about scaling your storage limits.
 
-The primary cost driver will actually be the LLM you use for the asynchronous Memory Extraction step. Using a smaller, faster model like `gpt-4o-mini` or Anthropic's `claude-3-haiku` will keep your extraction costs down to around $0.05 to $0.10 per 1,000 calls. The ROI on retaining a user through personalized memory vastly outweighs these micro-cents.
+The primary cost driver will actually be the LLM you use for the asynchronous Memory Extraction step. Using a smaller, faster model like `gpt-4o-mini` or Anthropic's `claude-3-haiku` will keep your extraction costs down to around \$0.05 to \$0.10 per 1,000 calls. The ROI on retaining a user through personalized memory vastly outweighs these micro-cents.
 
 ## How Tough Tongue AI Helps
 

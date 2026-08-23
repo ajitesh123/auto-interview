@@ -112,11 +112,11 @@ Latency is not the only problem with cascade architecture; the financial and ope
 Let us look at a cost calculation example for 1,000 outbound calls, averaging 5 minutes each.
 For a cascade system:
 
-- Deepgram STT: $0.0043/min × 5000 mins = **$21.50**
-- GPT-4o-mini LLM: $0.0002/1K tokens × ~500 tokens/turn × ~10 turns × 1000 calls = **$1.00**
-- Cartesia TTS: ~$0.008/min × 5000 mins = **$40.00**
-  The total cascade cost is roughly **$62.50**.
-  In contrast, a native voice-to-voice API at comparable volume typically costs **$25 to $35**. The cascade architecture is inherently more expensive because you are paying for three separate inference processes.
+- Deepgram STT: \$0.0043/min × 5000 mins = **\$21.50**
+- GPT-4o-mini LLM: \$0.0002/1K tokens × ~500 tokens/turn × ~10 turns × 1000 calls = **\$1.00**
+- Cartesia TTS: ~\$0.008/min × 5000 mins = **\$40.00**
+  The total cascade cost is roughly **\$62.50**.
+  In contrast, a native voice-to-voice API at comparable volume typically costs **\$25 to \$35**. The cascade architecture is inherently more expensive because you are paying for three separate inference processes.
 
 You also introduce three distinct points of failure. What happens when ElevenLabs goes down mid-call? The STT works, the LLM generates a brilliant response, and then the system crashes trying to speak it. The error handling complexity of a cascade system is a nightmare compared to a single-model system. You have to write fallback logic, retry mechanisms, and timeout handlers for three different external services.
 

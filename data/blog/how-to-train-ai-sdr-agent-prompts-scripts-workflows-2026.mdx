@@ -178,11 +178,11 @@ The AI needs to understand exactly who it is targeting. Generic ICP definitions 
 
 | ICP Element               | Specificity Level            | Example                                                                                   |
 | ------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
-| Company size              | Revenue and headcount ranges | "$5M to $50M ARR, 50 to 500 employees"                                                    |
+| Company size              | Revenue and headcount ranges | "\$5M to \$50M ARR, 50 to 500 employees"                                                  |
 | Industry                  | Specific verticals           | "B2B SaaS, fintech, healthcare IT"                                                        |
 | Decision maker titles     | Exact titles                 | "VP of Sales, CRO, Head of Revenue Operations"                                            |
 | Pain signals              | Observable triggers          | "Recently hired 5+ SDRs, posted job for RevOps, mentioned 'scaling outbound' on LinkedIn" |
-| Disqualification criteria | Explicit exclusions          | "Companies under $2M ARR, consumer businesses, government agencies"                       |
+| Disqualification criteria | Explicit exclusions          | "Companies under \$2M ARR, consumer businesses, government agencies"                      |
 
 **Prompt template:**
 
@@ -207,7 +207,7 @@ The AI needs different value propositions for different personas. A one-size-fit
 | Persona        | Primary Pain        | Value Statement                                   | Proof Point                                    |
 | -------------- | ------------------- | ------------------------------------------------- | ---------------------------------------------- |
 | VP of Sales    | SDR productivity    | "Increase outbound meetings by 3x without hiring" | "[Customer] went from 15 to 45 meetings/month" |
-| CRO            | Pipeline efficiency | "Reduce cost per qualified meeting by 60%"        | "[Customer] cut CPM from $420 to $165"         |
+| CRO            | Pipeline efficiency | "Reduce cost per qualified meeting by 60%"        | "[Customer] cut CPM from \$420 to \$165"       |
 | Head of RevOps | Process automation  | "Automate 80% of SDR operational tasks"           | "[Customer] saved 20 hours/week per SDR"       |
 | SDR Manager    | Team performance    | "Cut SDR ramp time from 6 months to 6 weeks"      | "[Customer] onboarded 8 SDRs in 6 weeks"       |
 
@@ -386,7 +386,7 @@ The most critical component. Define exactly when the AI stops and the human take
 **Immediate escalation triggers (transfer to human within 1 hour):**
 
 - Prospect asks a technical question beyond AI's knowledge boundary
-- Deal size exceeds $25,000 ACV based on conversation context
+- Deal size exceeds \$25,000 ACV based on conversation context
 - Prospect mentions a competitor and wants detailed comparison
 - Prospect is angry, frustrated, or uses hostile language
 - Prospect asks to speak with a human

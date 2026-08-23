@@ -4,9 +4,9 @@ const siteMetadata = {
   author: 'Auto Interview AI',
   headerTitle: 'Auto Interview AI',
   description:
-    'Auto Interview AI: Free AI-powered job prep platform. Build ATS-friendly resumes, check scores, search jobs, and practice interviews to land your dream job.',
+    'Your dream job, engineered. The one-stop platform for cracking your next role — stellar CV templates, expert resources, AI mock interviews, and career communities. Free, ungated, built for the ambitious.',
   keywords:
-    'Auto Interview AI, Autointerviewai, job preparation, resume builder, ATS checker, job search, cover letter generator, skill assessment, mock interview, career tools, free resume builder, ATS score, job application tools, AI interview practice, automated interview prep, resume optimization, job matching, professional resume, interview preparation, career development, job hunting, employment search, resume templates, cover letter templates, interview skills, career coaching',
+    'Auto Interview AI, Autointerviewai, job preparation, resume templates, ATS resume, CV templates, Harvard resume template, MBA interview resources, consulting casebook, mock interview AI, career preparation, free resume download, interview practice, job cracking platform, career intelligence, case interview framework',
   language: 'en-us',
   theme: 'light', // system, dark or light
   siteUrl: 'https://www.autointerviewai.com',
@@ -21,7 +21,7 @@ const siteMetadata = {
   linkedin: 'https://www.linkedin.com/in/ajiteshnandan/',
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
-  stickyNav: false,
+  stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

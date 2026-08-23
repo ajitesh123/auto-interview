@@ -117,7 +117,7 @@ OpenAI's open-weights Whisper v3 model, when combined with speculative decoding 
 
 ## 2. Local LLM Inference: Gemma 4, Llama 3, and Sub-200ms TTFT
 
-Once speech is converted to text, the system must generate an intelligent conversational response. In 2024, self-hosting a 70-billion parameter model required $30,000 of GPU hardware and still took 1,500ms to generate the first token.
+Once speech is converted to text, the system must generate an intelligent conversational response. In 2024, self-hosting a 70-billion parameter model required \$30,000 of GPU hardware and still took 1,500ms to generate the first token.
 
 In 2026, **Latency-Optimized Inference** has democratized local cognitive processing:
 
@@ -301,7 +301,7 @@ Which architectural deployment model is right for your organization's security p
 | ---------------------------------- | ----------------------------------------- | ---------------------------------------------- | ------------------------------------------------------ |
 | **Data Privacy & Sovereignty**     | Low; data crosses external API boundaries | High; all PII processed inside private VPC     | Absolute; zero internet connectivity required          |
 | **End-to-End Latency**             | 500ms to 900ms (Network RTT dependent)    | 300ms to 450ms (Optimized internal routing)    | 250ms to 350ms (Zero external network hop)             |
-| **Infrastructure Setup Cost**      | $0 upfront; pay-per-minute SaaS billing   | Moderate; cloud VPC hosting & GPU instances    | High; capital expenditure on NVIDIA H100/L40S clusters |
+| **Infrastructure Setup Cost**      | \$0 upfront; pay-per-minute SaaS billing  | Moderate; cloud VPC hosting & GPU instances    | High; capital expenditure on NVIDIA H100/L40S clusters |
 | **Maintenance & Scaling Overhead** | Handled entirely by vendor                | Managed via automated Kubernetes charts        | Internal DevOps & MLOps team required                  |
 | **Regulatory Compliance**          | Requires complex DPA agreements           | Compliant with DPDP, GDPR, HIPAA, SOC-2        | Fully compliant with Defense & Banking mandates        |
 
@@ -325,7 +325,7 @@ Here is the realistic hardware blueprint for self-hosting a 100-channel concurre
 - **Hardware Allocation:** 2x NVIDIA H100 (80GB VRAM) or 4x NVIDIA A100 (40GB VRAM) running vLLM or TensorRT-LLM.
 - **Throughput:** Delivers >80 tokens per second per user with an average TTFT of 120ms.
 
-**Total Hardware Footprint:** A dedicated 4-GPU server rack (roughly $3,500/month in cloud infrastructure costs or $45,000 in bare-metal capital expenditure). For enterprise organizations running 50,000+ call minutes per day, self-hosting is often **40% cheaper** than commercial SaaS API token billing.
+**Total Hardware Footprint:** A dedicated 4-GPU server rack (roughly \$3,500/month in cloud infrastructure costs or \$45,000 in bare-metal capital expenditure). For enterprise organizations running 50,000+ call minutes per day, self-hosting is often **40% cheaper** than commercial SaaS API token billing.
 
 ---
 
