@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import DomainLayout from './DomainLayout'
 import CubeLogo from '@/components/CubeLogo'
+import HeroGlassCube from '@/components/HeroGlassCube'
 
 const DomainHomePage: React.FC = () => {
   const homeFaqs = [
@@ -79,9 +80,9 @@ const DomainHomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right — 4x4x4 3D Isometric Cube Logo */}
+            {/* Right — Apple-Style Glass 4x4x4 3D Isometric Cube with Entrance Animation */}
             <div className="hidden lg:flex lg:items-center lg:justify-center">
-              <CubeLogo size={160} className="transition-transform duration-300 hover:scale-105" />
+              <HeroGlassCube />
             </div>
           </div>
         </div>
