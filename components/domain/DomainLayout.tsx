@@ -24,7 +24,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               </span>
               <p className="text-sm leading-relaxed text-[#666666]">
                 Your dream job, engineered. CV templates, expert resources, AI mock interviews, and
-                career communities — all free, all ungated.
+                career communities. All free, all ungated.
               </p>
             </div>
 

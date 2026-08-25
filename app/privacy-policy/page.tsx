@@ -1,141 +1,127 @@
-import { genPageMetadata } from 'app/seo'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import Link from '@/components/Link'
+import { Metadata } from 'next'
+import Link from 'next/link'
+import DomainLayout from '@/components/domain/DomainLayout'
 
-export const metadata = genPageMetadata({ title: 'Privacy Policy' })
+export const metadata: Metadata = {
+  title: 'Privacy Policy — Auto Interview AI',
+  description:
+    'Read the Privacy Policy for Auto Interview AI to understand how we collect, safeguard, and respect your personal career data.',
+  alternates: {
+    canonical: 'https://www.autointerviewai.com/privacy-policy',
+  },
+  openGraph: {
+    title: 'Privacy Policy — Auto Interview AI',
+    description: 'Understand how we collect, safeguard, and respect your personal career data.',
+    url: 'https://www.autointerviewai.com/privacy-policy',
+    siteName: 'Auto Interview AI',
+    locale: 'en_US',
+    type: 'website',
+  },
+}
 
-export default function Page() {
+export default function PrivacyPolicyPage() {
   return (
-    <>
-      <Header />
-      <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
-        <div className="mx-auto max-w-4xl px-4 py-16">
-          <div className="mb-12 text-center">
-            <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Privacy Policy</h1>
-            <p className="text-lg text-chatgpt-textSecondary">
-              Last updated: {new Date().toLocaleDateString()}
+    <DomainLayout currentPath="/privacy-policy">
+      <div className="mx-auto max-w-4xl px-6 py-20">
+        <header className="mb-16">
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            LEGAL &amp; PRIVACY
+          </p>
+          <h1 className="mb-4 text-4xl font-normal tracking-tight text-[#171717] sm:text-5xl">
+            Privacy Policy
+          </h1>
+          <p className="text-sm text-[#666666]">Last updated: August 2026</p>
+        </header>
+
+        <div className="space-y-8 text-sm leading-relaxed text-[#4d4d4d]">
+          {/* Section 1 */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              1. Information We Collect
+            </h2>
+            <p className="mb-3">
+              We collect information that you directly provide to us when creating resumes,
+              downloading templates, or taking AI mock interviews. This includes:
+            </p>
+            <ul className="list-inside list-disc space-y-1.5 pl-2">
+              <li>Contact details such as your name, email address, and phone number</li>
+              <li>
+                Career data including work history, educational background, and technical skills
+              </li>
+              <li>
+                Session analytics, browser data, and device information to optimize site performance
+              </li>
+              <li>Communication preferences when you opt into our role community announcements</li>
+            </ul>
+          </div>
+
+          {/* Section 2 */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              2. How We Use Your Information
+            </h2>
+            <p className="mb-3">We use the collected information exclusively to:</p>
+            <ul className="list-inside list-disc space-y-1.5 pl-2">
+              <li>
+                Generate and format ATS-optimized resume files and structured career documents
+              </li>
+              <li>Conduct real-time AI mock interview simulations and speech analytics feedback</li>
+              <li>
+                Diagnose resume parsing compatibility against major applicant tracking algorithms
+              </li>
+              <li>Maintain the security, uptime, and integrity of our web services</li>
+            </ul>
+          </div>
+
+          {/* Section 3 */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              3. Data Security &amp; Retention
+            </h2>
+            <p className="mb-3">
+              We implement industry-standard encryption protocols (TLS in transit and AES at rest)
+              to protect your uploaded documents. We never sell, rent, or trade your personal career
+              data to third-party advertisers.
             </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">
-                Information We Collect
-              </h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  We collect information you provide directly to us, such as when you create an
-                  account, use our services, or contact us for support.
-                </p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Personal information (name, email address, phone number)</li>
-                  <li>Resume and career-related information</li>
-                  <li>Usage data and analytics</li>
-                  <li>Communication preferences</li>
-                </ul>
-              </div>
-            </div>
+          {/* Section 4 */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              4. Contact Privacy Officer
+            </h2>
+            <p className="mb-3">
+              If you have any questions regarding your data rights or wish to request data deletion,
+              contact our privacy team:
+            </p>
+            <p className="font-mono text-xs text-[#171717]">
+              Email: contact@autointerviewai.com | Phone: +91 7972238133
+            </p>
+          </div>
 
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">
-                How We Use Your Information
-              </h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>We use the information we collect to:</p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Provide and improve our AI-powered career services</li>
-                  <li>Generate personalized resumes and cover letters</li>
-                  <li>Analyze resume compatibility with ATS systems</li>
-                  <li>Send you relevant job opportunities</li>
-                  <li>Communicate with you about our services</li>
-                  <li>Ensure the security and integrity of our platform</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Data Security</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  We implement appropriate technical and organizational measures to protect your
-                  personal information against unauthorized access, alteration, disclosure, or
-                  destruction.
-                </p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Encryption of data in transit and at rest</li>
-                  <li>Regular security assessments and updates</li>
-                  <li>Access controls and authentication</li>
-                  <li>Secure data storage and backup procedures</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Data Sharing</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  We do not sell, trade, or otherwise transfer your personal information to third
-                  parties without your consent, except as described in this policy.
-                </p>
-                <p>We may share your information with:</p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Service providers who assist in our operations</li>
-                  <li>Legal authorities when required by law</li>
-                  <li>Business partners with your explicit consent</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Your Rights</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>You have the right to:</p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Access and update your personal information</li>
-                  <li>Request deletion of your data</li>
-                  <li>Opt-out of marketing communications</li>
-                  <li>Export your data in a portable format</li>
-                  <li>Withdraw consent for data processing</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Contact Us</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  If you have any questions about this Privacy Policy or our data practices, please
-                  contact us:
-                </p>
-                <div className="rounded-lg bg-chatgpt-input p-4">
-                  <p>
-                    <strong>Email:</strong> shantanu@tough-tongue.com
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/about"
-                className="inline-flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
-              >
-                Back to About
-                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </Link>
-            </div>
+          {/* Back Navigation */}
+          <div className="pt-4 text-center">
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
+            >
+              ← Back to About
+            </Link>
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </DomainLayout>
   )
 }

@@ -1,83 +1,71 @@
-import { genPageMetadata } from 'app/seo'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import Link from '@/components/Link'
+import { Metadata } from 'next'
+import Link from 'next/link'
+import DomainLayout from '@/components/domain/DomainLayout'
 
-export const metadata = genPageMetadata({ title: 'Shipping Policy' })
+export const metadata: Metadata = {
+  title: 'Shipping Policy — Auto Interview AI',
+  description: 'Digital delivery and service fulfillment information for Auto Interview AI.',
+  alternates: {
+    canonical: 'https://www.autointerviewai.com/shipping-policy',
+  },
+}
 
-export default function Page() {
+export default function ShippingPolicyPage() {
   return (
-    <>
-      <Header />
-      <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
-        <div className="mx-auto max-w-4xl px-4 py-16">
-          <div className="mb-12 text-center">
-            <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Shipping Policy</h1>
-            <p className="text-lg text-chatgpt-textSecondary">
-              Last updated: {new Date().toLocaleDateString()}
+    <DomainLayout currentPath="/shipping-policy">
+      <div className="mx-auto max-w-4xl px-6 py-20">
+        <header className="mb-16">
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            FULFILLMENT
+          </p>
+          <h1 className="mb-4 text-4xl font-normal tracking-tight text-[#171717] sm:text-5xl">
+            Shipping &amp; Delivery Policy
+          </h1>
+          <p className="text-sm text-[#666666]">Last updated: August 2026</p>
+        </header>
+
+        <div className="space-y-8 text-sm leading-relaxed text-[#4d4d4d]">
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              1. Digital Service Fulfillment
+            </h2>
+            <p>
+              Auto Interview AI is a software and digital content platform. All resume templates,
+              casebooks, and AI mock interview simulations are delivered electronically and
+              instantaneously via the web. No physical goods or shipments are dispatched.
             </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Digital Services</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  Auto Interview AI provides digital services including resume building, ATS
-                  analysis, and job search assistance. All services are delivered instantly upon
-                  completion.
-                </p>
-              </div>
-            </div>
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
+              2. Download Access &amp; Availability
+            </h2>
+            <p className="mb-3">
+              Resume templates (DOCX / Google Docs) and casebooks (PDF) are accessible 24/7 without
+              wait times. If you experience an issue downloading a file, please check your network
+              connection or contact our support team.
+            </p>
+            <p className="font-mono text-xs text-[#171717]">
+              Support Phone: +91 7972238133 | Email: contact@autointerviewai.com
+            </p>
+          </div>
 
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Delivery Method</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  All services are delivered digitally through our web platform. No physical
-                  shipping is required.
-                </p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Instant access to resume builder</li>
-                  <li>Immediate ATS analysis results</li>
-                  <li>Real-time job search results</li>
-                  <li>Downloadable resume files</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Contact Information</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>For questions about our digital services, please contact us:</p>
-                <div className="rounded-lg bg-chatgpt-input p-4">
-                  <p>
-                    <strong>Email:</strong> shantanu@tough-tongue.com
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/about"
-                className="inline-flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
-              >
-                Back to About
-                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </Link>
-            </div>
+          <div className="pt-4 text-center">
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
+            >
+              ← Back to About
+            </Link>
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </DomainLayout>
   )
 }

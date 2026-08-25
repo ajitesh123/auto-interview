@@ -1,160 +1,174 @@
-import { genPageMetadata } from 'app/seo'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import Link from '@/components/Link'
+import { Metadata } from 'next'
+import Link from 'next/link'
+import DomainLayout from '@/components/domain/DomainLayout'
 
-export const metadata = genPageMetadata({ title: 'Contact Us' })
+export const metadata: Metadata = {
+  title: 'Contact Us — Auto Interview AI',
+  description:
+    'Get in touch with the Auto Interview AI team for support, partnership inquiries, or platform feedback. Reach out via phone or email.',
+  alternates: {
+    canonical: 'https://www.autointerviewai.com/contact-policy',
+  },
+  openGraph: {
+    title: 'Contact Us — Auto Interview AI',
+    description: 'Get in touch with the Auto Interview AI team for support or inquiries.',
+    url: 'https://www.autointerviewai.com/contact-policy',
+    siteName: 'Auto Interview AI',
+    locale: 'en_US',
+    type: 'website',
+  },
+}
 
-export default function Page() {
+export default function ContactPolicyPage() {
   return (
-    <>
-      <Header />
-      <div className="min-h-screen bg-chatgpt-dark text-chatgpt-text">
-        <div className="mx-auto max-w-4xl px-4 py-16">
-          <div className="mb-12 text-center">
-            <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Contact Us</h1>
-            <p className="text-lg text-chatgpt-textSecondary">Get in touch with our support team</p>
-          </div>
+    <DomainLayout currentPath="/contact-policy">
+      <div className="mx-auto max-w-4xl px-6 py-20">
+        <header className="mb-16">
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            SUPPORT &amp; INQUIRIES
+          </p>
+          <h1 className="mb-4 text-4xl font-normal tracking-tight text-[#171717] sm:text-5xl">
+            Contact Us
+          </h1>
+          <p className="text-lg leading-relaxed text-[#4d4d4d]">
+            Have a question, feedback, or need assistance? Our support team is here to help you.
+          </p>
+        </header>
 
-          <div className="space-y-8">
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Get Support</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>
-                  Our dedicated support team is here to help you with any questions or issues you
-                  may have. We're committed to providing excellent customer service and ensuring
-                  your success with our platform.
+        <div className="space-y-8">
+          {/* Direct Reach Out Highlight Card */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              DIRECT CONTACT
+            </p>
+            <h2 className="mb-6 text-2xl font-normal tracking-tight text-[#171717]">
+              Reach out directly
+            </h2>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div
+                className="rounded-[6px] bg-[#fafafa] p-6"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                <div className="mb-2 flex items-center gap-2">
+                  <svg
+                    className="h-4 w-4 text-[#171717]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
+                    Phone &amp; WhatsApp
+                  </span>
+                </div>
+                <p className="text-xl font-medium text-[#171717]">+91 7972238133</p>
+                <p className="mt-1 text-xs text-[#666666]">
+                  Available for phone and messaging inquiries
                 </p>
               </div>
-            </div>
 
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Contact Methods</h2>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium text-chatgpt-text">Email Support</h3>
-                  <div className="rounded-lg bg-chatgpt-input p-4">
-                    <p className="mb-2 text-chatgpt-textSecondary">Contact:</p>
-                    <p className="text-chatgpt-accent">shantanu@tough-tongue.com</p>
-                    <p className="mt-2 text-sm text-chatgpt-textSecondary">
-                      Response time: 24-48 hours
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Support Hours</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div>
-                    <h3 className="mb-2 text-lg font-medium text-chatgpt-text">Email Support</h3>
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM EST</p>
-                    <p>Saturday: 10:00 AM - 4:00 PM EST</p>
-                    <p>Sunday: Closed</p>
-                  </div>
-                  <div>
-                    <h3 className="mb-2 text-lg font-medium text-chatgpt-text">
-                      Emergency Support
-                    </h3>
-                    <p>Critical issues: 24/7 response</p>
-                    <p>Service outages: Immediate response</p>
-                    <p>Security issues: Immediate response</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">
-                What to Include in Your Message
-              </h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <p>To help us assist you more effectively, please include:</p>
-                <ul className="ml-4 list-inside list-disc space-y-2">
-                  <li>Your account email address</li>
-                  <li>Detailed description of the issue or question</li>
-                  <li>Steps you've already taken to resolve the issue</li>
-                  <li>Screenshots or error messages (if applicable)</li>
-                  <li>Browser and device information (for technical issues)</li>
-                  <li>Expected vs. actual behavior</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">
-                Frequently Asked Questions
-              </h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-lg font-medium text-chatgpt-text">
-                      How do I reset my password?
-                    </h3>
-                    <p>
-                      Use the "Forgot Password" link on the login page, or contact support for
-                      assistance.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-chatgpt-text">
-                      Can I export my resume data?
-                    </h3>
-                    <p>
-                      Yes, you can download your resume in multiple formats from your dashboard.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-chatgpt-text">Is my data secure?</h3>
-                    <p>
-                      Yes, we use industry-standard encryption and security measures to protect your
-                      information.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-chatgpt-text">Do you offer refunds?</h3>
-                    <p>
-                      Yes, we offer a 7-day money-back guarantee for premium services. See our
-                      refund policy for details.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <h2 className="mb-4 text-2xl font-semibold text-chatgpt-text">Mailing Address</h2>
-              <div className="space-y-4 text-chatgpt-textSecondary">
-                <div className="rounded-lg bg-chatgpt-input p-4">
-                  <p>
-                    <strong>Email:</strong> shantanu@tough-tongue.com
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/about"
-                className="inline-flex items-center rounded-lg bg-chatgpt-accent px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-green/80"
+              <div
+                className="rounded-[6px] bg-[#fafafa] p-6"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
               >
-                Back to About
-                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </Link>
+                <div className="mb-2 flex items-center gap-2">
+                  <svg
+                    className="h-4 w-4 text-[#171717]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
+                    Email Support
+                  </span>
+                </div>
+                <p className="text-lg font-medium text-[#171717]">contact@autointerviewai.com</p>
+                <p className="mt-1 text-xs text-[#666666]">Response time: Within 24-48 hours</p>
+              </div>
             </div>
+          </div>
+
+          {/* Support Hours */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-2xl font-normal tracking-tight text-[#171717]">
+              Operating Hours
+            </h2>
+            <div className="grid gap-6 text-sm text-[#4d4d4d] sm:grid-cols-2">
+              <div>
+                <h3 className="mb-1 font-medium text-[#171717]">General Support</h3>
+                <p>Monday – Friday: 9:00 AM – 6:00 PM IST</p>
+                <p>Saturday: 10:00 AM – 4:00 PM IST</p>
+                <p>Sunday: Closed</p>
+              </div>
+              <div>
+                <h3 className="mb-1 font-medium text-[#171717]">Technical System Issues</h3>
+                <p>Critical platform issues and automated service checks are monitored 24/7.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Tips for contacting */}
+          <div
+            className="rounded-[6px] bg-white p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          >
+            <h2 className="mb-4 text-2xl font-normal tracking-tight text-[#171717]">
+              What to include in your message
+            </h2>
+            <p className="mb-4 text-sm text-[#4d4d4d]">
+              To help us assist you promptly, please provide:
+            </p>
+            <ul className="space-y-2 text-sm text-[#4d4d4d]">
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#171717]" />
+                Your name and registered email address
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#171717]" />A detailed description of
+                the question, issue, or feedback
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#171717]" />
+                Screenshots or relevant links if reporting a technical glitch
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#171717]" />
+                Browser and operating system details for rendering inquiries
+              </li>
+            </ul>
+          </div>
+
+          {/* Back Navigation */}
+          <div className="pt-4 text-center">
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
+            >
+              ← Back to About
+            </Link>
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </DomainLayout>
   )
 }

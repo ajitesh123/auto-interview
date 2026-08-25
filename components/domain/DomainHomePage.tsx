@@ -9,7 +9,7 @@ const DomainHomePage: React.FC = () => {
   const homeFaqs = [
     {
       q: 'What is Auto Interview AI?',
-      a: 'Auto Interview AI is a free career intelligence platform offering battle-tested CV templates (Harvard, IIM-A, Resume Worded), domain-specific interview resources & casebooks, AI-driven mock interviews, and role-specific peer communities.',
+      a: 'Auto Interview AI is a free career intelligence platform offering battle-tested CV templates (Harvard, IIM-A, Resume Worded), domain-specific interview resources, casebooks, AI-driven mock interviews, and role-specific peer communities.',
     },
     {
       q: 'How does Auto Interview AI help crack job interviews?',
@@ -40,10 +40,10 @@ const DomainHomePage: React.FC = () => {
                 Engineered.
               </h1>
 
-              {/* Supporting text — 16px, charcoal */}
+              {/* Supporting text — 16px, charcoal without emdash */}
               <p className="animate-fade-rise-delay mt-6 max-w-xl text-base leading-relaxed text-[#4d4d4d]">
                 Stellar CVs. Expert resources. Realistic practice. Everything you need to crack your
-                next role — in one place.
+                next role in one place.
               </p>
 
               {/* CTA Row */}
@@ -134,7 +134,7 @@ const DomainHomePage: React.FC = () => {
                 </h3>
                 <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   ATS-optimized resume templates from Harvard, IIM Ahmedabad, and Resume Worded.
-                  Download and customize — free, no signup.
+                  Download and customize. Free, no signup required.
                 </p>
                 <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Download Templates
@@ -187,7 +187,7 @@ const DomainHomePage: React.FC = () => {
                 </h3>
                 <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
                   Domain-specific prep kits. Casebooks, frameworks, and playbooks for MBA,
-                  Engineering, and more — curated by practitioners.
+                  Engineering, and more, curated by practitioners.
                 </p>
                 <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Explore Resources
@@ -337,7 +337,7 @@ const DomainHomePage: React.FC = () => {
                   {
                     step: '02',
                     title: 'Master the material',
-                    desc: 'Download domain-specific playbooks and case frameworks. MBA, Engineering, Commerce — all free, all ungated.',
+                    desc: 'Download domain-specific playbooks and case frameworks. MBA, Engineering, Commerce. All free, all ungated.',
                   },
                   {
                     step: '03',
@@ -415,7 +415,7 @@ const DomainHomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ===== HOMEPAGE FAQ SECTION (AEO & GEO BOOST) ===== */}
+      {/* ===== HOMEPAGE FAQ SECTION ===== */}
       <section className="border-t border-[#ebebeb] py-24">
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="mb-12 max-w-3xl">
@@ -441,29 +441,37 @@ const DomainHomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ===== CTA BANNER — Inverted card with visible text buttons ===== */}
+      {/* ===== CTA BANNER — Inverted black card with 100% bright white text ===== */}
       <section className="py-24">
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="rounded-[6px] bg-[#171717] px-8 py-20 text-center sm:px-16">
-            <h2 className="mb-4 text-[32px] font-normal leading-[1.1] tracking-[-1.5px] text-white">
+            <h2
+              className="mb-4 text-[32px] font-normal leading-[1.15] tracking-[-1.5px] !text-white sm:text-[38px]"
+              style={{ color: '#ffffff' }}
+            >
               The job market is tough.
               <br />
               We make it easier.
             </h2>
-            <p className="mx-auto mb-10 max-w-lg text-sm leading-relaxed text-[#a8a8a8]">
+            <p
+              className="mx-auto mb-10 max-w-lg text-sm leading-relaxed !text-[#a8a8a8]"
+              style={{ color: '#a8a8a8' }}
+            >
               Free CV templates, domain-specific resources, AI mock interviews, and career
-              communities. Everything you need — zero gatekeeping.
+              communities. Everything you need with zero gatekeeping.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/build-resume"
                 className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-all hover:bg-[#f0f0f0]"
+                style={{ color: '#171717', backgroundColor: '#ffffff' }}
               >
-                Get Started — Free
+                Get Started Free
               </Link>
               <Link
                 href="/resources"
                 className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] border border-white/30 bg-transparent px-6 py-3 text-sm font-medium !text-white transition-all hover:bg-white/10"
+                style={{ color: '#ffffff' }}
               >
                 Browse Resources
               </Link>

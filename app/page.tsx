@@ -3,15 +3,15 @@ import DomainHomePage from '@/components/domain/DomainHomePage'
 
 export const metadata: Metadata = {
   title:
-    'Auto Interview AI — Your Dream Job, Engineered | CV Templates, Resources & Mock Interviews',
+    'Auto Interview AI | Your Dream Job, Engineered | CV Templates, Resources & Mock Interviews',
   description:
     'The one-stop platform for cracking your dream job. Download ATS-optimized CV templates from Harvard and IIM-A, access domain-specific interview resources, practice with AI mock interviews, and join career communities. Free, ungated, built for the ambitious.',
   keywords:
     'Auto Interview AI, CV templates, ATS resume template, Harvard resume template, IIM Ahmedabad resume, MBA interview resources, consulting casebook, mock interview AI, career preparation, job cracking platform, free resume download, interview practice, career intelligence',
   openGraph: {
-    title: 'Auto Interview AI — Your Dream Job, Engineered',
+    title: 'Auto Interview AI | Your Dream Job, Engineered',
     description:
-      'CV templates, domain-specific resources, AI mock interviews, and career communities. Everything you need to crack your next role — in one place.',
+      'CV templates, domain-specific resources, AI mock interviews, and career communities. Everything you need to crack your next role in one place.',
     type: 'website',
     url: 'https://www.autointerviewai.com',
     images: [
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
         url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
         width: 1200,
         height: 630,
-        alt: 'Auto Interview AI — Your Dream Job, Engineered',
+        alt: 'Auto Interview AI | Your Dream Job, Engineered',
       },
     ],
   },
   twitter: {
-    title: 'Auto Interview AI — Your Dream Job, Engineered',
+    title: 'Auto Interview AI | Your Dream Job, Engineered',
     description:
-      'CV templates, resources, mock interviews & communities. Crack your dream job — free.',
+      'CV templates, resources, mock interviews & communities. Crack your dream job. 100% free.',
     images: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
     creator: '@ajiteshleo',
   },

@@ -20,12 +20,12 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   ]
 
   return (
-    <nav className="nav-bar sticky top-0 z-50">
+    <nav className="nav-bar sticky top-0 z-50 border-b border-[#ebebeb]/80 bg-[#fafafa]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
-        {/* Logo + Wordmark */}
-        <Link href="/" className="flex items-center gap-2.5">
-          <CubeLogo size={22} />
-          <span className="text-sm font-medium tracking-tight text-[#171717]">
+        {/* Logo + Wordmark — Perfectly centered horizontally and vertically */}
+        <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-90">
+          <CubeLogo size={24} />
+          <span className="text-[15px] font-medium tracking-[-0.01em] text-[#171717]">
             Auto Interview AI
           </span>
         </Link>

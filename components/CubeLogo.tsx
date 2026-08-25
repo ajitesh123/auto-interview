@@ -7,24 +7,23 @@ interface CubeLogoProps {
 
 /**
  * 4x4x4 Isometric 3D Geometric Cube Logo
- * Represents structured career intelligence with an architectural absent block at the top corner.
+ * Perfectly centered in a 100x100 viewBox for exact baseline alignment with text.
+ * Features an absent top-corner sub-cube and directional matte shading.
  */
-export default function CubeLogo({ size = 24, className = '' }: CubeLogoProps) {
-  // 4x4x4 Isometric parameters
+export default function CubeLogo({ size = 22, className = '' }: CubeLogoProps) {
   const N = 4
-  const unit = 14
+  const u = 10 // unit size
   const cos30 = 0.866025
   const sin30 = 0.5
-  const originX = 100
-  const originY = 62
+  const cx = 50
+  const cy = 50
 
   const project = (x: number, y: number, z: number) => {
-    const px = originX + (x - y) * unit * cos30
-    const py = originY + (x + y) * unit * sin30 - z * unit
+    const px = cx + (x - y) * u * cos30
+    const py = cy + (x + y) * u * sin30 - z * u
     return `${px.toFixed(2)},${py.toFixed(2)}`
   }
 
-  // Polygon path for a diamond/rhombus top face at (x, y, z)
   const topFace = (x: number, y: number, z: number) => {
     const p1 = project(x, y, z)
     const p2 = project(x + 1, y, z)
@@ -33,7 +32,6 @@ export default function CubeLogo({ size = 24, className = '' }: CubeLogoProps) {
     return `M${p1} L${p2} L${p3} L${p4} Z`
   }
 
-  // Polygon path for a left face at (x, y, z)
   const leftFace = (x: number, y: number, z: number) => {
     const p1 = project(x, y, z)
     const p2 = project(x, y + 1, z)
@@ -42,7 +40,6 @@ export default function CubeLogo({ size = 24, className = '' }: CubeLogoProps) {
     return `M${p1} L${p2} L${p3} L${p4} Z`
   }
 
-  // Polygon path for a right face at (x, y, z)
   const rightFace = (x: number, y: number, z: number) => {
     const p1 = project(x + 1, y, z)
     const p2 = project(x + 1, y + 1, z)
@@ -51,43 +48,39 @@ export default function CubeLogo({ size = 24, className = '' }: CubeLogoProps) {
     return `M${p1} L${p2} L${p3} L${p4} Z`
   }
 
-  // Absent block coordinates (top corner at (0, 0, 3))
   const absent = { x: 0, y: 0, z: 3 }
 
   const topPolys: string[] = []
   const leftPolys: string[] = []
   const rightPolys: string[] = []
 
-  // Generate outer top faces (z = 4)
+  // Generate top faces
   for (let x = 0; x < N; x++) {
     for (let y = 0; y < N; y++) {
       if (x === absent.x && y === absent.y) {
-        // Render the inner floor of the cavity at z = 3
-        topPolys.push(topFace(x, y, 3))
+        topPolys.push(topFace(x, y, 3)) // Cavity floor
       } else {
         topPolys.push(topFace(x, y, 4))
       }
     }
   }
 
-  // Generate outer left faces (x = 0)
+  // Generate left faces (x = 0)
   for (let y = 0; y < N; y++) {
     for (let z = 1; z <= N; z++) {
       if (y === absent.y && z === absent.z + 1) {
-        // Cavity back-left wall (at x = 1)
-        leftPolys.push(leftFace(1, y, z - 1))
+        leftPolys.push(leftFace(1, y, z - 1)) // Cavity back-left wall
       } else {
         leftPolys.push(leftFace(0, y, z))
       }
     }
   }
 
-  // Generate outer right faces (y = 0)
+  // Generate right faces (y = 0)
   for (let x = 0; x < N; x++) {
     for (let z = 1; z <= N; z++) {
       if (x === absent.x && z === absent.z + 1) {
-        // Cavity back-right wall (at y = 1)
-        rightPolys.push(rightFace(x, 1, z - 1))
+        rightPolys.push(rightFace(x, 1, z - 1)) // Cavity back-right wall
       } else {
         rightPolys.push(rightFace(x, 0, z))
       }
@@ -98,13 +91,13 @@ export default function CubeLogo({ size = 24, className = '' }: CubeLogoProps) {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 200 200"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`inline-block flex-shrink-0 align-middle ${className}`}
       aria-label="Auto Interview AI 3D Cube Logo"
     >
-      <g stroke="#ffffff" strokeWidth="0.75" strokeLinejoin="round" strokeLinecap="round">
+      <g stroke="#ffffff" strokeWidth="0.6" strokeLinejoin="round" strokeLinecap="round">
         {/* Left Faces (Mid-tone Obsidian) */}
         {leftPolys.map((d, i) => (
           <path key={`left-${i}`} d={d} fill="#1a1a1a" />
