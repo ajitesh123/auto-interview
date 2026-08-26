@@ -7,30 +7,36 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
       // Explicitly allow AI crawlers for ChatGPT, Claude, Perplexity, etc.
       {
         userAgent: ['GPTBot', 'ChatGPT-User'],
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: 'Google-Extended',
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: 'ClaudeBot',
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: 'PerplexityBot',
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: 'Bytespider',
         allow: '/',
+        disallow: ['/api/', '/*?*'],
       },
     ],
-    sitemap: [`${siteMetadata.siteUrl}/sitemap.xml`, `${siteMetadata.siteUrl}/feed.xml`],
+    sitemap: `${siteMetadata.siteUrl}/sitemap.xml`,
     host: siteMetadata.siteUrl,
   }
 }

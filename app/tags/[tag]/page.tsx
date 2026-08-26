@@ -6,19 +6,23 @@ import { allBlogs } from 'contentlayer/generated'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
-export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>
+}): Promise<Metadata> {
   const { tag: tagParam } = await params
-  const tag = decodeURI(tagParam)
+  const rawTag = decodeURI(tagParam)
+  const normalizedTag = slug(rawTag)
+  const displayTitle = rawTag.charAt(0).toUpperCase() + rawTag.slice(1)
+
   return genPageMetadata({
-    title: tag,
-    description: `${siteMetadata.title} ${tag} tagged content`,
+    title: `${displayTitle} Articles & Resources`,
+    description: `Browse all articles, guides, and interview prep materials tagged with ${rawTag} on Auto Interview AI.`,
     alternates: {
-      canonical: './',
-      types: {
-        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
-      },
+      canonical: `https://www.autointerviewai.com/tags/${encodeURI(normalizedTag)}`,
     },
   })
 }
@@ -26,22 +30,34 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
 export const generateStaticParams = async () => {
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
-  const paths = tagKeys.map((tag) => ({
-    tag: encodeURI(tag),
+  return tagKeys.map((tag) => ({
+    tag: encodeURI(slug(tag)),
   }))
-  return paths
 }
 
 export default async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const { tag: tagParam } = await params
-  const tag = decodeURI(tagParam)
-  // Capitalize first letter and convert space to dash
-  const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
+  const rawTag = decodeURI(tagParam)
+  const targetSlug = slug(rawTag)
+
+  // Capitalize first letter for display title
+  const title =
+    rawTag.length > 0 ? rawTag[0].toUpperCase() + rawTag.split('-').join(' ').slice(1) : 'Topics'
+
+  // Match posts by slugified tag comparison
   const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
+    sortPosts(
+      allBlogs.filter(
+        (post) =>
+          post.tags && post.tags.some((t) => slug(t) === targetSlug || slug(t) === slug(rawTag))
+      )
+    )
   )
+
+  // Graceful redirect to /blog if tag has no posts (prevents 404 in Search Console)
   if (filteredPosts.length === 0) {
-    return notFound()
+    redirect('/blog')
   }
+
   return <ListLayout posts={filteredPosts} title={title} />
 }

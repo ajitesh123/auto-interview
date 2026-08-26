@@ -1,11 +1,10 @@
-// Next.js configuration - Updated Oct 2025
+// Next.js configuration - Updated Aug 2026
 const { withContentlayer } = require('next-contentlayer2')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-// You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is www.googletagmanager.com www.google-analytics.com;
@@ -18,37 +17,30 @@ const ContentSecurityPolicy = `
 `
 
 const securityHeaders = [
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
     key: 'Content-Security-Policy',
     value: ContentSecurityPolicy.replace(/\n/g, ''),
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
   {
     key: 'Referrer-Policy',
     value: 'strict-origin-when-cross-origin',
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
   {
     key: 'X-Frame-Options',
     value: 'DENY',
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
   {
     key: 'X-Content-Type-Options',
     value: 'nosniff',
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on',
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=31536000; includeSubDomains',
   },
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
   {
     key: 'Permissions-Policy',
     value:
@@ -73,11 +65,9 @@ module.exports = () => {
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
-    // Performance optimizations for development
     experimental: {
       optimizePackageImports: ['framer-motion', 'recharts', '@headlessui/react'],
     },
-    // CSS optimization
     compiler: {
       removeConsole: process.env.NODE_ENV === 'production',
     },
@@ -100,19 +90,45 @@ module.exports = () => {
     },
     async redirects() {
       return [
+        // Legacy Brand & 404 URL Redirects reported in Search Console
         {
           source: '/tough-tongue-ai',
-          destination: 'https://app.toughtongueai.com',
-          permanent: true,
-        },
-        {
-          source: '/ats-checker',
-          destination: '/ats-score',
-          permanent: true,
-        },
-        {
-          source: '/community',
           destination: '/',
+          permanent: true,
+        },
+        {
+          source: '/tags/e.164',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/tl:dv-alternative',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/tl;dv-alternative',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/fireflies.ai',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: "/tags/buyer's-guide",
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/otter.ai',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/tags/read.ai-alternative',
+          destination: '/blog',
           permanent: true,
         },
         {
@@ -122,7 +138,27 @@ module.exports = () => {
         },
         {
           source: '/tags/ats-data',
-          destination: '/blog',
+          destination: '/ats-score',
+          permanent: true,
+        },
+        {
+          source: '/blog/agentic-ai-training-beyond-voice-chatbots',
+          destination: '/blog/agentic-ai-calling-autonomous-sales-agent-actions-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/agentic-ai-training-beyond-voice-chatbots/',
+          destination: '/blog/agentic-ai-calling-autonomous-sales-agent-actions-2026',
+          permanent: true,
+        },
+        {
+          source: '/ats-checker',
+          destination: '/ats-score',
+          permanent: true,
+        },
+        {
+          source: '/community',
+          destination: '/communities',
           permanent: true,
         },
         {
@@ -142,19 +178,17 @@ module.exports = () => {
         },
         {
           source: '/blog/ai-mock-interviews-guide',
-          destination: '/blog',
+          destination: '/free-mock-interview',
           permanent: true,
         },
       ]
     },
     webpack: (config, { dev, isServer }) => {
-      // SVG handling
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       })
 
-      // CSS optimization for production
       if (!dev && !isServer) {
         config.optimization.splitChunks = {
           chunks: 'all',

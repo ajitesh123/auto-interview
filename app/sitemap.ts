@@ -3,6 +3,8 @@ import { allBlogs } from 'contentlayer/generated'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllDomains } from '@/lib/domainUtils'
 import { mbaSpecializations } from '@/data/mbaResources'
+import { slug } from 'github-slugger'
+import tagData from 'app/tag-data.json'
 
 const POSTS_PER_PAGE = 10
 
@@ -29,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: i === 0 ? 0.9 : 0.5,
   }))
 
-  // ===== Domain routes (legacy domain utils) =====
+  // ===== Domain routes =====
   const domains = getAllDomains()
 
   const domainRoutes = domains.map((d) => ({
@@ -59,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     )
   )
 
-  // ===== New Resource Hub & MBA Specialization Routes =====
+  // ===== Resource Hub & MBA Specialization Routes =====
   const resourceHubRoutes = [
     {
       url: `${siteUrl}/resources`,
@@ -81,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
-  // ===== Static pages =====
+  // ===== Static Core Pages =====
   const getRoutePriority = (route: string) => {
     if (route === '') return 1.0
     if (
@@ -148,11 +150,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: getRoutePriority(route),
   }))
 
-  // Tags
-  const tagRoutes = Array.from(
-    new Set(allBlogs.filter((post) => !post.draft).flatMap((post) => post.tags || []))
-  ).map((tag) => ({
-    url: `${siteUrl}/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`,
+  // Normalized Tags from tag-data.json with github-slugger
+  const tagCounts = tagData as Record<string, number>
+  const tagRoutes = Object.keys(tagCounts).map((tagKey) => ({
+    url: `${siteUrl}/tags/${encodeURI(slug(tagKey))}`,
     lastModified: today,
     changeFrequency: 'weekly' as const,
     priority: 0.5,

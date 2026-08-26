@@ -140,7 +140,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'Auto Interview AI is the one-stop platform for cracking your dream job: CV templates, interview resources, AI mock interviews, and career communities.',
               potentialAction: {
                 '@type': 'SearchAction',
-                target: 'https://www.autointerviewai.com/?q={search_term_string}',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.autointerviewai.com/blog?q={search_term_string}',
+                },
                 'query-input': 'required name=search_term_string',
               },
             }),
