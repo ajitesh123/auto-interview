@@ -1355,7 +1355,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   </div>
                   <Link
                     href="/ai-calling-roi-calculator"
-                    className="bg-replicate-hero relative z-10 inline-flex items-center justify-center rounded-full px-12 py-6 text-xl font-bold text-white shadow-xl shadow-pink-500/30 transition-transform hover:scale-105 hover:opacity-95"
+                    className="relative z-10 inline-flex items-center justify-center rounded-full border-2 border-pink-300 bg-white px-12 py-5 text-xl font-bold text-pink-600 shadow-xl transition-all hover:scale-105 hover:border-pink-400 hover:bg-pink-50"
                   >
                     Calculate Your Savings Now
                   </Link>

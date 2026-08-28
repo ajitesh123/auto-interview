@@ -187,7 +187,7 @@ export default function ListLayoutWithTags({
 
           <Link
             href="/ai-calling-roi-calculator"
-            className="bg-replicate-hero relative z-10 inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-bold text-white shadow-md shadow-pink-500/20 transition-transform hover:scale-105 hover:opacity-95"
+            className="relative z-10 inline-flex items-center justify-center rounded-full border-2 border-pink-300 bg-white px-8 py-3 text-base font-bold text-pink-600 shadow-md transition-all hover:scale-105 hover:border-pink-400 hover:bg-pink-50"
           >
             Calculate Your Savings Now
           </Link>

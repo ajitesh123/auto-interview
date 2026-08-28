@@ -3,13 +3,11 @@
 import React, { useState, useEffect } from 'react'
 
 const TIER_THRESHOLDS = [
-  { min: 1, max: 5000, label: '< 5k', inr: 9, usd: 0.1 },
-  { min: 5001, max: 12000, label: '5k-12k', inr: 7, usd: 0.08 },
-  { min: 12001, max: 10000000, label: '12k+', inr: 6, usd: 0.07 },
+  { min: 1, max: 5000, label: '< 5k', inr: 5, usd: 0.06, othersInr: 6, othersUsd: 0.07 },
+  { min: 5001, max: 12000, label: '5k-12k', inr: 4.2, usd: 0.05, othersInr: 5, othersUsd: 0.055 },
+  { min: 12001, max: 10000000, label: '12k+', inr: 3.5, usd: 0.04, othersInr: 4, othersUsd: 0.045 },
 ]
 
-const OTHERS_RATE_INR = 15
-const OTHERS_RATE_USD = 0.18
 const MINS_PER_CALL = 1
 const CONVERSION_RATE = 0.05
 const OTHERS_CONVERSION_RATE = 0.025
@@ -93,7 +91,7 @@ export default function Calculator() {
     TIER_THRESHOLDS[TIER_THRESHOLDS.length - 1]
 
   const ttaiRate = isINR ? activeTier.inr : activeTier.usd
-  const othersRate = isINR ? OTHERS_RATE_INR : OTHERS_RATE_USD
+  const othersRate = isINR ? activeTier.othersInr : activeTier.othersUsd
 
   const othersDailyCost = totalMinutesPerDay * othersRate
   const othersMonthlyCost = othersDailyCost * 30
@@ -268,7 +266,7 @@ export default function Calculator() {
             href="https://cal.com/ajitesh/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-replicate-hero shrink-0 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
+            className="shrink-0 rounded-full border-2 border-pink-300 bg-white px-5 py-2.5 text-sm font-bold text-pink-600 shadow-sm transition-all hover:scale-105 hover:border-pink-400 hover:bg-pink-50"
           >
             Schedule a Demo
           </a>
