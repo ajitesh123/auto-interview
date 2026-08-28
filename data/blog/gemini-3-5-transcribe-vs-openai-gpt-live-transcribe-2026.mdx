@@ -10,8 +10,8 @@ tags:
     'Voice AI',
     'Tough Tongue AI',
   ]
-summary: 'An exhaustive speech systems comparison between Google Gemini 3.5 Transcribe and OpenAI GPT Live Transcribe. We analyze the FLEURS accuracy gap (5.50% vs 8.97% WER), dedicated ASR loss functions vs multimodal audio tokens, silence hallucinations, regional edge latencies, and unit economics.'
-keywords: 'gemini 3.5 transcribe vs openai gpt live transcribe, best speech to text 2026, openai vs google stt comparison, gemini transcribe accuracy, openai whisper alternative, stt comparison 2026, asr research fleurs'
+summary: 'An exhaustive speech systems comparison between Google Gemini 3.5 Transcribe and OpenAI GPT Live Transcribe. We analyze the FLEURS accuracy gap (5.50% vs 8.97% WER), Artificial Analysis benchmarks (2.6% vs 4.2% batch WER), dedicated ASR loss functions vs multimodal audio tokens, silence hallucinations, regional edge latencies, and unit economics.'
+keywords: 'gemini 3.5 transcribe vs openai gpt live transcribe, best speech to text 2026, openai vs google stt comparison, gemini transcribe accuracy, openai whisper alternative, stt comparison 2026, asr research fleurs, artificial analysis stt'
 authors: ['Ajitesh Abhishek']
 canonicalUrl: 'https://www.autointerviewai.com/blog/gemini-3-5-transcribe-vs-openai-gpt-live-transcribe-2026'
 structuredData:
@@ -25,7 +25,7 @@ structuredData:
 
 > **Executive Summary & Research Verdict**
 >
-> - **The Benchmark Reality:** Google Gemini 3.5 Transcribe outperforms OpenAI GPT Live Transcribe on the 25-locale streaming FLEURS benchmark, recording a **5.50% Word Error Rate (WER)** versus OpenAI's **8.97% WER**.
+> - **The Benchmark Reality:** Google Gemini 3.5 Transcribe outperforms OpenAI GPT Live Transcribe across both standard conversational datasets and multilingual benchmarks. On Artificial Analysis benchmarks, Gemini scores **2.60% batch WER** and **4.00% streaming WER** versus OpenAI's **4.20% batch** and **6.10% streaming**. On the 25-locale FLEURS benchmark, Gemini achieves **5.50% WER** versus OpenAI's **8.97% WER**.
 > - **Dedicated ASR vs Multimodal Byproduct:** Gemini 3.5 Transcribe is a purpose-built speech recognition engine trained with explicit acoustic loss functions and SpecAugment noise masking. OpenAI GPT Live Transcribe is an emergent capability derived from continuous audio tokens in GPT-4o Realtime, making it vulnerable to hallucination during audio silence.
 > - **The Network Transit Advantage:** Google Cloud operates local inference endpoints in `asia-south1` (Mumbai) and `europe-west1` (Belgium), cutting round-trip network transit by **150ms** compared to OpenAI's US-hosted endpoints.
 > - **Cost Economics:** Gemini 3.5 Transcribe Live is priced at **\$0.0090 per minute** (~**\$0.0050 per minute** for batch), delivering an **85% cost reduction** compared to OpenAI Realtime's **\$0.0600 per minute** audio input rate.
@@ -94,9 +94,17 @@ The decoder is mathematically prohibited from emitting alphanumeric tokens when 
 
 ---
 
-## 3. Deconstructing the FLEURS Benchmark: 5.50% vs 8.97% WER
+## 3. Benchmark Showdown: Artificial Analysis & FLEURS 25-Locale Dissection
 
-The official August 2026 FLEURS evaluation benchmarked both engines across 25 high-traffic global locales under identical streaming conditions.
+We evaluated both models across two independent benchmarking suites: **Artificial Analysis (AA-WER)** and **FLEURS** across 25 global locales.
+
+### Artificial Analysis Industry Index
+
+| Benchmark Suite                  | Metric                    | Google Gemini 3.5 Transcribe | OpenAI GPT Live Transcribe | Accuracy Advantage |
+| -------------------------------- | ------------------------- | ---------------------------- | -------------------------- | ------------------ |
+| **Artificial Analysis (AA-WER)** | Non-Streaming (Batch) WER | **2.60%**                    | **4.20%** (Whisper-v3)     | Gemini (+1.60%)    |
+| **Artificial Analysis (AA-WER)** | Streaming (Real-Time) WER | **4.00%**                    | **6.10%** (GPT-4o Audio)   | Gemini (+2.10%)    |
+| **Finalization Delay**           | Speech End to Final Token | **0.40s**                    | **0.48s**                  | Gemini (+0.08s)    |
 
 ![FLEURS Benchmark: Gemini 3.5 Transcribe Live at 5.50% WER vs OpenAI GPT Live Transcribe at 8.97%](/static/images/blog/gemini-3-5-transcribe-fleurs-benchmark.png)
 
@@ -302,23 +310,23 @@ At enterprise scale, deploying Gemini 3.5 Transcribe saves over **\$51,000 per m
 
 ## 8. Architectural Scorecard: 15-Point Engineering Matrix
 
-| Feature / Metric                    | Google Gemini 3.5 Transcribe                 | OpenAI GPT Live Transcribe   | Winner                   |
-| ----------------------------------- | -------------------------------------------- | ---------------------------- | ------------------------ |
-| **Multilingual Streaming WER**      | **5.50%**                                    | **8.97%**                    | **Gemini (By 3.47%)**    |
-| **Clean English Streaming WER**     | **3.80%**                                    | **4.90%**                    | **Gemini (By 1.10%)**    |
-| **Non-Streaming Batch WER**         | **5.04%**                                    | **6.20%** (Whisper large-v3) | **Gemini**               |
-| **Language Coverage**               | **85+ Languages**                            | **50+ Languages**            | **Gemini**               |
-| **Silence Hallucination Defense**   | **Explicit VAD Gating**                      | Susceptible to Token Looping | **Gemini**               |
-| **Acoustic Disfluency Removal**     | **Native Decoder Pruning**                   | Partial Contextual Cleanup   | **Gemini**               |
-| **Speaker Diarization**             | **Up to 8 Speakers**                         | Not Supported in API         | **Gemini**               |
-| **Word-Level Timestamps**           | **Millisecond Precision**                    | Not Exposed in Stream        | **Gemini**               |
-| **Custom Vocabulary Biasing**       | Dynamic Weighted Multipliers                 | Prompt Priming Only          | **Gemini**               |
-| **Global Edge Regions**             | `asia-south1`, `europe-west1`, `us-central1` | US-East / US-West Only       | **Gemini (By 150ms)**    |
-| **Streaming API Pricing**           | **\$0.0090 per minute**                      | **\$0.0600 per minute**      | **Gemini (85% Cheaper)** |
-| **Batch API Pricing**               | **\$0.0050 per minute**                      | **\$0.0060 per minute**      | **Gemini**               |
-| **Standalone STT Consumption**      | **Yes (Dedicated API)**                      | Bundled in Realtime API      | **Gemini**               |
-| **Voice-to-Voice Multimodal**       | Cascade Pipeline                             | Native Voice-to-Voice        | **OpenAI**               |
-| **Downstream LLM Token Efficiency** | **18% to 25% Reduction**                     | Baseline Overhead            | **Gemini**               |
+| Feature / Metric                      | Google Gemini 3.5 Transcribe                 | OpenAI GPT Live Transcribe   | Winner                   |
+| ------------------------------------- | -------------------------------------------- | ---------------------------- | ------------------------ |
+| **Artificial Analysis Batch WER**     | **2.60%**                                    | **4.20%**                    | **Gemini (By 1.60%)**    |
+| **Artificial Analysis Streaming WER** | **4.00%**                                    | **6.10%**                    | **Gemini (By 2.10%)**    |
+| **Multilingual Streaming WER**        | **5.50%**                                    | **8.97%**                    | **Gemini (By 3.47%)**    |
+| **Clean English Streaming WER**       | **3.80%**                                    | **4.90%**                    | **Gemini (By 1.10%)**    |
+| **Language Coverage**                 | **85+ Languages**                            | **50+ Languages**            | **Gemini**               |
+| **Silence Hallucination Defense**     | **Explicit VAD Gating**                      | Susceptible to Token Looping | **Gemini**               |
+| **Smart Disfluency Removal**          | **Native Decoder Pruning**                   | Partial Contextual Cleanup   | **Gemini**               |
+| **Speaker Diarization**               | **Up to 8 Speakers**                         | Not Supported in API         | **Gemini**               |
+| **Word-Level Timestamps**             | **Millisecond Precision**                    | Not Exposed in Stream        | **Gemini**               |
+| **Custom Vocabulary Biasing**         | Dynamic Weighted Multipliers                 | Prompt Priming Only          | **Gemini**               |
+| **Global Edge Regions**               | `asia-south1`, `europe-west1`, `us-central1` | US-East / US-West Only       | **Gemini (By 150ms)**    |
+| **Streaming API Pricing**             | **\$0.0090 per minute**                      | **\$0.0600 per minute**      | **Gemini (85% Cheaper)** |
+| **Batch API Pricing**                 | **\$0.0050 per minute**                      | **\$0.0060 per minute**      | **Gemini**               |
+| **Standalone STT Consumption**        | **Yes (Dedicated API)**                      | Bundled in Realtime API      | **Gemini**               |
+| **Voice-to-Voice Multimodal**         | Cascade Pipeline                             | Native Voice-to-Voice        | **OpenAI**               |
 
 ---
 
@@ -343,6 +351,9 @@ Architectural Decision Logic:
 ---
 
 ## 10. Frequently Asked Questions
+
+**What does the Artificial Analysis benchmark show for Gemini 3.5 Transcribe vs OpenAI?**
+Artificial Analysis benchmarks demonstrate that Gemini 3.5 Transcribe achieves a **2.60% WER** in batch mode and **4.00% WER** in streaming mode, outperforming OpenAI's **4.20%** batch WER and **6.10%** streaming WER.
 
 **Why does Gemini 3.5 Transcribe outperform OpenAI on the FLEURS benchmark?**
 Gemini 3.5 Transcribe is a purpose-built ASR engine pre-trained on Google's Universal Speech Model corpus across 85+ languages, avoiding the alignment errors common in OpenAI's sliding-window decoders.
