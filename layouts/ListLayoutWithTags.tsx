@@ -164,12 +164,12 @@ export default function ListLayoutWithTags({
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         {/* Page Header */}
-        <div className="bg-replicate-hero -mx-4 mb-10 px-4 py-24 text-center text-white sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <h1 className="font-display text-[48px] font-bold leading-tight tracking-[-1.8px] sm:text-[72px]">
+        <div className="mb-8 pt-4 text-center">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             {title}
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl font-sans text-xl opacity-90 sm:text-2xl">
-            Discover insights, tips, and strategies for your career journey
+          <p className="mx-auto mt-3 max-w-2xl text-base text-gray-500 sm:text-lg">
+            Discover insights, tips, and strategies for your voice AI and career journey
           </p>
         </div>
 
