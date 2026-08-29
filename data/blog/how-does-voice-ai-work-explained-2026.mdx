@@ -98,11 +98,11 @@ Continuous Analog Soundwave ──► 16-bit ADC Quantization ──► 16kHz Li
 
 ### 1. Voice Activity Detection (VAD)
 
-The system must distinguish between human speech and background artifacts (dog barking, keyboard clicks, office hiss). Modern systems use deep learning models like **Silero VAD** running in 30ms frame increments.
+The system must distinguish between human speech and background artifacts (dog barking, keyboard clicks, office hiss). Modern systems use deep learning models like **Silero VAD** running in **30ms** frame increments with an activation confidence threshold above **85%**.
 
 ### 2. End-of-Turn Detection (The Turn-Taking Problem)
 
-Knowing when a human is finished speaking is difficult. If the AI responds too early, it interrupts the caller. If it waits too long, the silence feels unnatural. Modern systems combine energy silence thresholds with semantic LLM token boundaries to finalize turns in **150ms to 250ms**.
+Knowing when a human is finished speaking is difficult. If the AI responds too early, it interrupts the caller. If it waits too long, the silence feels unnatural. Modern systems combine energy silence thresholds of **150ms** with semantic LLM token boundaries to finalize turns in **180ms to 250ms**.
 
 ---
 
