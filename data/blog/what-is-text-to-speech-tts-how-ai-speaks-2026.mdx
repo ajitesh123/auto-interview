@@ -20,7 +20,7 @@ structuredData:
 >
 > - **What is Text-to-Speech (TTS)?** Text-to-Speech (speech synthesis) is the computer technology that converts written text tokens into natural, human-sounding acoustic waveforms. Modern systems generate high-fidelity **24kHz / 48kHz audio** with realistic emotional prosody, breath pauses, and pitch modulation.
 > - **The Core 2-Stage Neural Architecture:** Modern neural TTS consists of two decoupled components:
->   1. **Acoustic Model (State Space SSM / Transformer):** Maps text characters and phonemes into intermediate acoustic feature representations (such as 80-channel Mel-spectrograms).
+>   1. **Acoustic Model (State Space SSM / Transformer):** Maps text characters and phonemes into intermediate acoustic feature representations (such as **80-channel** Mel-spectrograms).
 >   2. **Neural Vocoder (HiFi-GAN / BigVGAN):** Converts spectrograms into audible 16-bit linear PCM audio soundwaves.
 > - **The 2026 Latency Breakthrough:** Older diffusion models required **300ms to 600ms** to synthesize speech. Modern **State Space Models (SSMs)** like Cartesia Sonic and ElevenLabs Flash achieve a Time-to-First-Audio (TTFA) of **&lt;90ms**, enabling fluid conversational voice agents.
 
@@ -35,19 +35,19 @@ The Evolution of Speech Synthesis:
 
 1. Formant Synthesis (1960 - 1985):
    Mathematical Rules ──► Resonator Circuits ──► Buzzing Electronic Speech
-   - Example: MITalk, Texas Instruments Speak & Spell (Purely robotic).
+   - Example: MITalk, Texas Instruments Speak & Spell (Purely robotic with **50Hz** fundamental tone).
 
 2. Concatenative / Unit Selection (1990 - 2015):
    Database of Recorded Syllables ──► Diphone Stitching ──► Disjointed Audio
-   - Example: Early Siri, GPS Navigation (Unnatural pitch jumps at stitch points).
+   - Example: Early Siri, GPS Navigation (Unnatural pitch jumps across **10,000 recorded phonemes**).
 
 3. Autoregressive & Diffusion Neural TTS (2016 - 2023):
    Tacotron-2 / FastSpeech ──► WaveNet / Diffusion ──► High Quality, High Latency
-   - Example: Studio voice generation (Natural audio, but 400ms+ synthesis lag).
+   - Example: Studio voice generation (Natural audio, but **400ms+** synthesis lag).
 
 4. State Space Model (SSM) Streaming TTS (2024 - 2026):
    Sub-Word Tokens ──► Mamba SSM Acoustic Engine ──► HiFi-GAN Vocoder (&lt;90ms)
-   - Example: Cartesia Sonic, ElevenLabs Flash (Real-time sub-second streaming).
+   - Example: Cartesia Sonic, ElevenLabs Flash (Real-time sub-second streaming with **&lt;90ms TTFA**).
 ```
 
 Early systems sounded like buzzing appliances because they used electronic oscillators. Concatenative systems recorded voice actors reading thousands of sentences, chopping them into phonetic fragments and gluing them together.
@@ -100,7 +100,7 @@ The acoustic model maps phonemes into intermediate Mel-spectrogram frames, predi
 
 ### 3. The Neural Vocoder
 
-The neural vocoder takes the 2D Mel-spectrogram and generates the continuous 1D audio waveform. Modern vocoders (like HiFi-GAN) use generative adversarial networks (GANs) to synthesize 24,000 audio samples per second in real time.
+The neural vocoder takes the 2D Mel-spectrogram and generates the continuous 1D audio waveform. Modern vocoders (like HiFi-GAN) use generative adversarial networks (GANs) to synthesize **24,000 samples per second** in real time.
 
 ---
 
@@ -112,7 +112,7 @@ For real-time voice agents, the single most important metric is **Time-to-First-
 Synthesis Architecture Latency Comparison:
 
 Diffusion Models (e.g., Stable Audio, Grad-TTS):
-[Text Token] ──► 50 Denoising Iteration Steps ──► [Audio Chunk]
+[Text Token] ──► **50 denoising iteration steps** ──► [Audio Chunk]
 Latency: 350ms - 600ms (Too slow for live conversational turn-taking)
 
 State Space Models (SSM / Mamba - e.g., Cartesia Sonic):
@@ -161,7 +161,7 @@ Reference Audio (10 to 60 Seconds of Clean Speech)
 
 ### How Voice Cloning Works:
 
-1. **Speaker Verification Encoders:** A speaker encoder network analyzes a 10-second reference clip, extracting a 256-dimensional vector embedding representing vocal tract geometry and timbre.
+1. **Speaker Verification Encoders:** A speaker encoder network analyzes a **10-second** reference clip, extracting a **256-dimensional** vector embedding representing vocal tract geometry and timbre.
 2. **Acoustic Conditioning:** During synthesis, this speaker embedding vector is concatenated with the text phoneme embeddings.
 3. **Cross-Lingual Transfer:** Modern zero-shot models can take an English voice sample and synthesize fluent Spanish or Hindi while retaining the original speaker's vocal timbre.
 

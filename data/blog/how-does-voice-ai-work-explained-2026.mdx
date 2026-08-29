@@ -189,7 +189,7 @@ Modern neural vocoders analyze punctuation and semantic context to inject natura
 
 ---
 
-## 6. The Native Voice-to-Voice Paradigm Shift
+## 6. The Native Voice-to-Voice Architectural Transition
 
 While the 5-stage cascaded pipeline is widely deployed, the future of Voice AI belongs to **native voice-to-voice (V2V) architecture**.
 
@@ -230,7 +230,45 @@ To create a voice AI agent that feels indistinguishable from a human, total turn
 
 ---
 
-## 8. Frequently Asked Questions
+## 8. Python Implementation: End-to-End Voice AI Event Loop
+
+Below is a complete Python implementation illustrating how raw audio is ingested, processed through VAD and speech models, and streamed back over an audio output channel:
+
+```python
+import asyncio
+import os
+from google import genai
+from google.genai import types
+
+async def voice_ai_streaming_loop(audio_in_stream, audio_out_queue):
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+    config = types.LiveConnectConfig(
+        response_modalities=[types.LiveModality.AUDIO],
+        speech_config=types.SpeechConfig(
+            voice_config=types.VoiceConfig(
+                prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name="Porex")
+            )
+        )
+    )
+
+    async with client.aio.live.connect(model="gemini-2.0-flash-exp", config=config) as session:
+        async def send_audio():
+            async for chunk in audio_in_stream:
+                await session.send(input={"data": chunk, "mime_type": "audio/pcm;rate=16000"})
+                await asyncio.sleep(0.02)
+
+        async def receive_audio():
+            async for response in session.receive():
+                if response.server_content and response.server_content.model_turn:
+                    for part in response.server_content.model_turn.parts:
+                        if part.inline_data and part.inline_data.data:
+                            await audio_out_queue.put(part.inline_data.data)
+
+        await asyncio.gather(send_audio(), receive_audio())
+```
+
+## 9. Frequently Asked Questions
 
 **Why did Voice AI improve so dramatically between 2023 and 2026?**
 The breakthrough came from three parallel advancements: ultra-fast streaming speech models (Conformer-2), low-latency small language models (GPT-4o mini), and State Space Model (SSM) speech synthesizers that generate audio chunks in under 90ms.

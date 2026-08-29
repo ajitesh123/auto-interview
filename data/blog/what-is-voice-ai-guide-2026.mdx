@@ -236,7 +236,37 @@ Failure to implement native regulatory protections leads to carrier blacklisting
 
 ---
 
-## 8. Frequently Asked Questions
+## 8. Python Implementation: Connecting to a Real-Time Voice AI Endpoint
+
+Below is a complete Python implementation illustrating how to establish a low-latency bidirectional WebSockets stream with a Voice AI platform:
+
+```python
+import asyncio
+import os
+import websockets
+import json
+
+async def connect_voice_ai_agent(audio_stream):
+    uri = "wss://api.autointerviewai.com/v1/voice/stream"
+    headers = {"Authorization": f"Bearer {os.getenv('VOICE_API_KEY')}"}
+
+    async with websockets.connect(uri, extra_headers=headers) as ws:
+        print("[Connected]: Established real-time audio session with Voice AI engine.")
+
+        async def stream_mic():
+            async for pcm_frame in audio_stream:
+                await ws.send(pcm_frame)
+                await asyncio.sleep(0.02)
+
+        async def stream_speaker():
+            async for response_chunk in ws:
+                # Play audio chunks back to caller with sub-200ms turnaround
+                pass
+
+        await asyncio.gather(stream_mic(), stream_speaker())
+```
+
+## 9. Frequently Asked Questions
 
 **What is the primary difference between Voice AI and traditional IVR?**
 Traditional IVR relies on static, pre-recorded audio prompts and numeric keypad choices. Modern Voice AI uses real-time neural models to conduct fluid, unscripted, natural voice conversations with dynamic contextual reasoning.

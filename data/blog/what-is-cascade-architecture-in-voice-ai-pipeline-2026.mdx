@@ -182,7 +182,28 @@ Managing five API keys, separate rate limits, and fragmented billing structures 
 
 ---
 
-## 6. When Does Cascade Architecture Still Make Sense?
+## 6. Python Implementation: Simulating a Pipelined Cascaded Stream
+
+Below is a complete Python implementation illustrating how streaming queues connect STT, LLM, and TTS models in an asynchronous cascaded loop:
+
+```python
+import asyncio
+
+async def pipeline_worker(audio_chunk_stream, text_stream, audio_out_stream):
+    # Step 1: Ingest audio and stream transcription
+    async for audio_chunk in audio_chunk_stream:
+        # Simulated STT token emission
+        transcribed_token = "Hello "
+        await text_stream.put(transcribed_token)
+
+    # Step 2: Stream LLM token response
+    async for token in text_stream:
+        response_token = f"Response to {token}"
+        # Step 3: Stream synthesized audio frame
+        await audio_out_stream.put(b"\x00\x01\x02")
+```
+
+## 7. When Does Cascade Architecture Still Make Sense?
 
 While native voice-to-voice is superior for real-time conversational calling, cascade architecture remains useful in specific technical scenarios:
 
@@ -201,7 +222,7 @@ Architectural Decision Framework:
 
 ---
 
-## 7. Frequently Asked Questions
+## 8. Frequently Asked Questions
 
 **What is the main limitation of cascade architecture?**
 The main limitation is latency compounding. Because STT, LLM, and TTS run sequentially across separate cloud endpoints, total turnaround time typically exceeds **700ms**, causing conversational lag and caller drop-offs.

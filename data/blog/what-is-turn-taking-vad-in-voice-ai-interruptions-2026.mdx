@@ -113,7 +113,7 @@ When the AI speaks, its own voice can leak back into the caller's microphone ove
 
 ### 2. Zero-Latency Buffer Flushing
 
-Upon detecting valid human interruption, the audio transport server must instantly flush its output RTP jitter buffer, preventing the AI from continuing to talk for another 500ms after the caller begins speaking.
+Upon detecting valid human interruption, the audio transport server must instantly flush its output RTP jitter buffer, preventing the AI from continuing to talk for another **500ms** after the caller begins speaking.
 
 ---
 
@@ -142,6 +142,9 @@ class BargeInAudioController:
     """
     Manages full-duplex audio state, detects interruptions, and flushes output buffers.
     """
+    async def start_session(self):
+        pass
+
     def __init__(self, energy_threshold=0.015, min_interrupt_frames=2):
         self.energy_threshold = energy_threshold
         self.min_interrupt_frames = min_interrupt_frames
@@ -192,7 +195,7 @@ To optimize Voice Activity Detection across diverse enterprise calling environme
 VAD Configuration Best Practices:
 
 1. Inbound Customer Support (Noisy Callers, Mobile Phones):
-   - Silence Endpointing Window: 280ms - 350ms (Allows breath pauses).
+   - Silence Endpointing Window: **280ms** - 350ms (Allows breath pauses).
    - VAD Sensitivity: Moderate (Prevents car horns from cutting off the bot).
 
 2. Outbound B2B Sales Calling (Fast-Paced Dialogue):
