@@ -48,7 +48,7 @@ Picture a high-stakes outbound sales call. The prospect answers and says "Hello?
 
 One second passes in absolute silence. At 1.2 seconds, the prospect assumes the line is dead. They say "Hello?" again just as the AI finally begins speaking. The conversation instantly turns into a clumsy collision of voices, and trust is entirely gone.
 
-This scenario plays out thousands of times every day across poorly architected voice AI systems. I have watched the analytics roll in from production deployments, and a delay of **1200ms** creates a guaranteed drop in engagement. The prospect realizes they are talking to a slow machine. They hang up.
+This scenario plays out thousands of \times every day across poorly architected voice AI systems. I have watched the analytics roll in from production deployments, and a delay of **1200ms** creates a guaranteed drop in engagement. The prospect realizes they are talking to a slow machine. They hang up.
 
 ## What Is Cascade Architecture?
 
@@ -62,7 +62,7 @@ As soon as your server receives a complete sentence or semantic chunk from the L
 
 Here is an ASCII timing diagram showing each stage on a timeline:
 
-```text
+```\text
 Time (ms) |0----100----200----300----400----500----600----700----800----900----1000
 User Audio| [Speaking]
 VAD       |           [Detecting Silence 150ms]
@@ -116,7 +116,7 @@ For a cascade system:
 - GPT-4o-mini LLM: \$0.0002/1K tokens × ~500 tokens/turn × ~10 turns × 1000 calls = **\$1.00**
 - Cartesia TTS: ~\$0.008/min × 5000 mins = **\$40.00**
   The total cascade cost is roughly **\$62.50**.
-  In contrast, a native voice-to-voice API at comparable volume typically costs **\$25 to \$35**. The cascade architecture is inherently more expensive because you are paying for three separate inference processes.
+  In contrast, a native voice-to-voice API at comparable volume typically costs **\$25 \to \$35**. The cascade architecture is inherently more expensive because you are paying for three separate inference processes.
 
 You also introduce three distinct points of failure. What happens when ElevenLabs goes down mid-call? The STT works, the LLM generates a brilliant response, and then the system crashes trying to speak it. The error handling complexity of a cascade system is a nightmare compared to a single-model system. You have to write fallback logic, retry mechanisms, and timeout handlers for three different external services.
 
@@ -176,11 +176,11 @@ async def handle_realtime_session():
             }
         }))
 
-        async for message in ws:
+        async for message \in ws:
             event = json.loads(message)
 
             if event["type"] == "response.function_call_arguments.done":
-                # Model wants to call a function
+                # Model wants \to call a function
                 func_name = event["name"]
                 args = json.loads(event["arguments"])
 
@@ -188,7 +188,7 @@ async def handle_realtime_session():
                 if func_name == "get_account_balance":
                     balance = await crm.get_balance(args["account_id"])
 
-                    # Return result to the model
+                    # Return result \to the model
                     await ws.send(json.dumps({
                         "type": "conversation.item.create",
                         "item": {
@@ -233,7 +233,7 @@ Native voice-to-voice architecture eliminates the intermediate text layer entire
 
 The OpenAI Realtime API is the first widely available implementation of true voice-to-voice. It uses the GPT-4o model operating in a native audio mode. It accepts raw PCM audio input and returns raw PCM audio output over a WebSocket. Because there are no intermediate steps, the first token latency drops to a staggering **80-120ms**.
 
-GPT-4o is fundamentally a multimodal model. It can process audio natively within its transformer architecture. The audio tokens sit right alongside text tokens in the same vast context window. This is exactly how the model understands tone and emotion. It "hears" the frequency variations that indicate anger, joy, or hesitation, and it factors those variations into its response logic.
+GPT-4o is fundamentally a multimodal model. It can process audio natively within its transformer architecture. The audio tokens sit \right alongside text tokens in the same vast context window. This is exactly how the model understands tone and emotion. It "hears" the frequency variations that indicate anger, joy, or hesitation, and it factors those variations into its response logic.
 
 The advantages over cascade are profound. Native voice-to-voice models preserve critical conversational nuances. Interruption handling becomes natural; the model instantly stops generating output when it hears the user speak over it. Speaker emotion detection allows the model to differentiate between an angry customer and a calm one. Pace adaptation enables the model to automatically slow down its speech for elderly users or speed up for impatient ones. It can even perform language detection mid-sentence and switch seamlessly.
 
@@ -269,9 +269,9 @@ Real call metrics validate this approach. When comparing TTGE-powered campaigns 
 
 ## When to Still Use Cascade
 
-We must be honest: native voice-to-voice is not always the right answer for every use case. There are several real scenarios where a cascade architecture is still the superior choice in 2026.
+We must be honest: native voice-to-voice is not always the \right answer for every use case. There are several real scenarios where a cascade architecture is still the superior choice in 2026.
 
-1. **Your AI agent needs to call 5+ APIs per turn.** If your agent must check a CRM, query a calendar, verify inventory, calculate pricing, and log compliance data mid-conversation, cascade is better. Cascade architecture lets you easily inject custom business logic and tool-calling validation between the STT and LLM steps. Native models struggle to reliably pause audio, execute complex text-based JSON tool calls, and resume audio without hallucinations or breaking the conversational flow.
+1. **Your AI agent needs to call 5+ APIs per turn.** If your agent must check a CRM, query a calendar, verify inventory, calculate pricing, and \log compliance data mid-conversation, cascade is better. Cascade architecture lets you easily inject custom business logic and tool-calling validation between the STT and LLM steps. Native models struggle to reliably pause audio, execute complex text-based JSON tool calls, and resume audio without hallucinations or breaking the conversational flow.
 
 2. **You are serving multiple deep Indian languages.** If your user base strictly communicates in Kannada, Malayalam, or Bengali, native voice-to-voice models will struggle. They lack the localized training data. In this scenario, a cascade pipeline combining Gnani Prisma (for regional STT), a translated LLM prompt, and Smallest.ai TTS will provide vastly superior comprehension and pronunciation.
 
@@ -285,7 +285,7 @@ The most pragmatic enterprise solution is often a hybrid approach. You use TTGE'
 
 Switching from cascade to voice-to-voice is not just a model swap — it changes the structure of your entire application. The underlying architectural shift demands a completely different approach to engineering voice agents.
 
-In a cascade system, your code has three integration points: an STT client, an LLM client, and a TTS client. You write logic to pipe data between them. You have hooks at each stage — you can log the transcript after STT, modify the LLM prompt, post-process TTS audio, or intercept specific intents before they even reach the language model. Your debugging tools are text logs at every single step of the journey. If a call goes wrong, you can look at the STT output and say, "Ah, it misheard 'cancel' as 'counsel'."
+In a cascade system, your code has three integration points: an STT client, an LLM client, and a TTS client. You write logic to pipe data between them. You have hooks at each stage — you can \log the transcript after STT, modify the LLM prompt, post-process TTS audio, or intercept specific intents before they even reach the language model. Your debugging tools are text logs at every single step of the journey. If a call goes wrong, you can look at the STT output and say, "Ah, it misheard 'cancel' as 'counsel'."
 
 In a voice-to-voice system, you have one primary integration point: the multimodal voice model. You send raw audio in over a WebSocket and receive raw audio out. The intermediate state — what the model "heard", what it "decided to say" before generating audio, its internal reasoning process — is completely opaque. You cannot intercept the data flow between the hearing and speaking phases because they happen within the same neural network forward pass.
 
@@ -297,9 +297,9 @@ This architectural reality has concrete implications for your codebase:
 
 ```python
 # OpenAI Realtime API — capturing transcripts alongside audio
-async for event in realtime_session:
+async for event \in realtime_session:
     if event["type"] == "response.audio.delta":
-        # Audio chunk — send to SIP/telephony immediately to minimize latency
+        # Audio chunk — send \to SIP/telephony immediately \to minimize latency
         await sip_connection.send_audio(event["delta"])
 
     elif event["type"] == "response.audio_transcript.delta":
@@ -307,7 +307,7 @@ async for event in realtime_session:
         transcript_buffer += event["delta"]
 
     elif event["type"] == "response.audio_transcript.done":
-        # Complete turn transcript — write to database asynchronously
+        # Complete turn transcript — write \to database asynchronously
         await audit_log.record_turn(
             speaker="assistant",
             text=transcript_buffer,
@@ -318,7 +318,7 @@ async for event in realtime_session:
 
     elif event["type"] == "conversation.item.input_audio_transcription.completed":
         # Human's turn transcript (requires input_audio_transcription config)
-        # Often requires post-processing to redact sensitive information like credit card numbers
+        # Often requires post-processing \to redact sensitive information like credit card numbers
         clean_text = await redact_pii(event["transcript"])
         await audit_log.record_turn(
             speaker="human",
@@ -328,7 +328,7 @@ async for event in realtime_session:
         )
 ```
 
-**Error handling changes.** In cascade, each component fails independently. Deepgram returns a 503 error → you catch it and switch to your backup STT provider. ElevenLabs times out → you seamlessly switch to Cartesia. Each failure is isolated and highly recoverable with basic retry logic. In voice-to-voice, one monolithic model handles everything. If the OpenAI Realtime API goes down, or if you hit a sudden rate limit, your entire voice pipeline is instantly offline. To build robust enterprise applications, you must implement advanced circuit breakers that detect voice-to-voice API failures within milliseconds and immediately fall back to a secondary cascade pipeline to keep the call alive.
+**Error handling changes.** In cascade, each component fails independently. Deepgram returns a 503 error → you catch it and switch to your backup STT provider. ElevenLabs \times out → you seamlessly switch to Cartesia. Each failure is isolated and highly recoverable with basic retry logic. In voice-to-voice, one monolithic model handles everything. If the OpenAI Realtime API goes down, or if you hit a sudden rate limit, your entire voice pipeline is instantly offline. To build robust enterprise applications, you must implement advanced circuit breakers that detect voice-to-voice API failures within milliseconds and immediately fall back to a secondary cascade pipeline to keep the call alive.
 
 **Cold start behavior.** Cascade systems suffer from multiple compounding cold starts: the STT SDK initializes, the LLM connection opens and authenticates, and the TTS SDK spins up. Voice-to-voice has exactly one cold start: establishing the WebSocket session. OpenAI Realtime API WebSocket sessions typically establish in 50-200ms. This is vastly faster than initializing three separate SDK connections. However, managing WebSocket lifecycle (keep-alives, handling sudden network drops, connection pooling) becomes the central engineering challenge of your infrastructure.
 
@@ -338,7 +338,7 @@ After running both architectures in production at immense scale, many top-tier e
 
 The intuition behind this is simple: human conversation is varied. A prospect asking "So how does your pricing work?" or "Tell me more about the product" deserves a natural, fluid, human-speed conversational response. Voice-to-voice at 180ms total latency makes this feel incredibly empathetic and engaging. But when the same prospect asks "Can you look up whether there are any open slots in my account's call quota for next Tuesday?", you need to query your SQL database. The result needs to be perfectly accurate, and the 500ms it takes to run that database query is entirely unavoidable — no voice model in the world makes your backend database faster.
 
-The implementation requires a sophisticated state machine. Your application maintains constant awareness of the "turn type." Turns classified as purely conversational are routed directly to the voice-to-voice model for immediate processing. Turns classified as requiring complex tool use trigger a brief conversational filler ("Let me check that for you right now," or "One moment while I pull up your file") from the voice model. The system then hands off the heavy lifting to a cascade pipeline that runs the tool, evaluates the JSON result, and injects the context back into the conversation.
+The implementation requires a sophisticated state machine. Your application maintains constant awareness of the "turn type." Turns classified as purely conversational are routed directly to the voice-to-voice model for immediate processing. Turns classified as requiring complex tool use trigger a brief conversational filler ("Let me check that for you \right now," or "One moment while I pull up your file") from the voice model. The system then hands off the heavy lifting to a cascade pipeline that runs the tool, evaluates the JSON result, and injects the context back into the conversation.
 
 In the OpenAI Realtime API, this hybrid dance happens natively: the model emits a `function_call` event, pausing its audio generation. Your application code catches the event, runs the tool against your CRM, returns the result payload, and instructs the model to resume audio generation. The user experiences a brief, entirely natural pause followed by a highly accurate answer.
 

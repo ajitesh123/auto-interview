@@ -58,7 +58,9 @@ This guide details the mathematical foundations of **Word Error Rate (WER)**, **
 
 WER measures the edit distance between reference transcripts ($R$) and hypothesis transcripts ($H$):
 
-$$\text{WER} = \frac{S + D + I}{N}$$
+$$
+\text{WER} = \frac{S + D + I}{N}
+$$
 
 Where:
 
@@ -93,12 +95,12 @@ class SpeechQualityEvaluator:
 
     def normalize_text(self, text: str) -> str:
         """
-        Normalizes text by removing punctuation and lowercasing.
+        Normalizes \text by removing punctuation and lowercasing.
         """
-        text = text.lower()
-        text = re.sub(r"[^\w\s]", "", text)
-        text = re.sub(r"\s+", " ", text).strip()
-        return text
+        \text = text.lower()
+        \text = re.sub(r"[^\w\s]", "", text)
+        \text = re.sub(r"\s+", " ", text).strip()
+        return \text
 
     def compute_detailed_wer(self, reference: str, hypothesis: str) -> Dict[str, Any]:
         ref_words = self.normalize_text(reference).split()
@@ -108,15 +110,15 @@ class SpeechQualityEvaluator:
         h_len = len(hyp_words)
 
         # Dynamic programming Levenshtein matrix
-        dp = [[0] * (h_len + 1) for _ in range(r_len + 1)]
+        dp = [[0] * (h_len + 1) for _ \in range(r_len + 1)]
 
-        for i in range(r_len + 1):
+        for i \in range(r_len + 1):
             dp[i][0] = i
-        for j in range(h_len + 1):
+        for j \in range(h_len + 1):
             dp[0][j] = j
 
-        for i in range(1, r_len + 1):
-            for j in range(1, h_len + 1):
+        for i \in range(1, r_len + 1):
+            for j \in range(1, h_len + 1):
                 if ref_words[i - 1] == hyp_words[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
@@ -126,7 +128,7 @@ class SpeechQualityEvaluator:
                         dp[i - 1][j - 1] + 1   # Substitution
                     )
 
-        # Backtracking to count exact error categories
+        # Backtracking \to count exact error categories
         i, j = r_len, h_len
         substitutions = 0
         deletions = 0

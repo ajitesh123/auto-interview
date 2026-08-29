@@ -30,19 +30,19 @@ structuredData:
     'name': 'Auto Interview AI'
 ---
 
-Our AI agent confidently told a customer their insurance claim was approved. It wasn't. The customer recorded the call. That incident cost \$47,000 in legal fees and taught us that every voice AI system needs a human safety net.
+Our AI agent confidently told a customer their insurance claim was approved. It wasn't. The customer recorded the call. That incident cost \$47,000 in legal fees and \taught us that every voice AI system needs a human safety net.
 
 I have spent the last 10 years building voice systems that handle millions of calls per day. If there is one thing I have learned the hard way, it is that no AI is perfect. LLMs hallucinate. Network jitter destroys audio context. Customers get frustrated. When these things happen, if your agent just repeats "I'm sorry, I didn't catch that," you have failed in production.
 
 To build production grade voice AI, you need robust fallback mechanisms. These architectural designs allow AI agents to handle routine tasks and instantly pass the baton to a human when things get tough. This is how we finally kill the Interactive Voice Response (IVR) menu.
 
-```text
+```\text
 +-------------------------------------------------------------+
 | AEO QUICK SUMMARY: HITL & Handoff Patterns                  |
 +-------------------------------------------------------------+
-| What it is    | Architectures for passing AI calls to humans|
+| What it is    | Architectures for passing AI calls \to humans|
 | Core Problem  | AI hallucinates or fails on edge cases      |
-| Handoff       | AI intent classification routes to a human  |
+| Handoff       | AI intent classification routes \to a human  |
 | HITL          | Human supervisor monitors and intervenes    |
 | Tech Stack    | WebSockets, WebRTC, Async Python, LiveKit   |
 | Key Metric    | Escalation Rate (Target: < 15%)             |
@@ -116,8 +116,8 @@ async def check_escalation(transcript: str, intent_confidence: float):
         return "low_confidence"
 
     # Trigger 2: Regex fallback for explicit keywords
-    text_lower = transcript.lower()
-    if any(word in text_lower for word in ["human", "supervisor", "representative"]):
+    \text_lower = transcript.lower()
+    if any(word \in \text_lower for word \in ["human", "supervisor", "representative"]):
         return "explicit_request"
 
     return None
@@ -129,9 +129,9 @@ async def trigger_escalation(room_id: str, reason: str, conversation_history: li
         "history": conversation_history,
         "timestamp": "2026-07-31T12:00:00Z"
     }
-    # Publish to the dashboard queue
+    # Publish \to the dashboard queue
     await redis_client.publish("agent_escalations", json.dumps(payload))
-    print(f"Escalation sent to human queue for room {room_id}")
+    print(f"Escalation sent \to human queue for room {room_id}")
 ```
 
 ### Step 3: The Warm Transfer

@@ -37,7 +37,7 @@ structuredData:
 
 Building a production voice pipeline in **2026** forces engineering teams to choose between two fundamentally opposed speech recognition architectures.
 
-```text
+```\text
 ┌─────────────────────────────────────────────────────────────┐
 │                 Deepgram Nova-3 Pipeline                     │
 │  Raw Audio ──► Conformer Front-End ──► RNN-T Monotonic Greedy│
@@ -67,7 +67,7 @@ Google Gemini 3.5 Transcribe employs a deep Universal Speech Model (USM) Conform
 
 The physical processing of the raw waveform determines whether downstream decoders receive clean phonetic representations or noisy feature maps.
 
-```text
+```\text
 [Audio Input: 16kHz/24kHz PCM]
                │
        ┌───────┴───────┐
@@ -97,11 +97,11 @@ The architecture applies aggressive SpecAugment masking during pre-training. By 
 
 The most critical architectural divergence lies in how both systems convert acoustic frame embeddings into written text.
 
-```text
+```\text
 Decoder Mechanism Comparison:
 
 Deepgram Nova-3:
-Acoustic Frame u(t) ──► Prediction Network ──► Joint Network ──► Softmax Greedy Argmax ──► Token y(u)
+Acoustic Frame u(t) ──► Prediction Network ──► Joint Network ──► Softmax Greedy A\argmax ──► Token y(u)
 (No lookahead. Cannot revise earlier emissions. Emits "um", "uh", and false starts verbatim.)
 
 Gemini 3.5 Transcribe:
@@ -184,18 +184,18 @@ Three structural factors explain this divergence:
 
 In production conversational AI, the speech recognition engine does not operate in isolation. Transcripts are piped directly into downstream LLMs to formulate responses.
 
-```text
+```\text
 Actual Human Utterance:
-"I would like to change my, uh, checking account address... actually my savings account address."
+"I would like \to change my, uh, checking account address... actually my savings account address."
 
 Deepgram Nova-3 Output (Verbatim):
-"I would like to change my uh checking account address actually my savings account address"
+"I would like \to change my uh checking account address actually my savings account address"
 - Prompt Tokens: 17
 - Downstream LLM Processing: Must resolve ambiguity between checking and savings.
 - Risk: LLM may update the wrong account or require an extra clarification turn.
 
 Gemini 3.5 Transcribe Output (Smart Mode):
-"I would like to change my savings account address."
+"I would like \to change my savings account address."
 - Prompt Tokens: 9 (47% Token Reduction)
 - Downstream LLM Processing: Zero ambiguity; instant deterministic tool execution.
 - Risk: Zero.
@@ -212,7 +212,7 @@ By resolving self-corrections and eliminating speech fillers directly in the ASR
 
 Standard PSTN telephony networks compress audio into narrowband **8kHz G.711 μ-law/a-law**, cutting off all frequencies above 3.4kHz.
 
-```text
+```\text
 Acoustic Spectrum under PSTN Telephony:
 0Hz ──────── 300Hz ──────────────────────── 3400Hz ──────── 8000Hz
 [Cutoff]     [Active Telephony Passband]    [Hard Cutoff - Lost Frequencies]
@@ -238,10 +238,10 @@ Deepgram Nova-3 suffers a **3x error increase** on 8kHz audio because its Confor
 
 Voice agents require tight coordination between speech recognition and conversational turn boundaries.
 
-```text
+```\text
 Deepgram Flux Turn Lifecycle:
 Client Audio ──► [StartOfTurn] ──► [Update (0.25s)] ──► [EagerEndOfTurn] ──► [EndOfTurn (260ms)]
-(Dedicated server events for barge-in and speculative generation)
+(Dedicated server events for barge-\in and speculative generation)
 
 Gemini 3.5 Transcribe Live Lifecycle:
 Client Audio ──► [Interim Stream] ──► [Speculative Decode] ──► [Final Chunk (&lt;200ms)]
@@ -254,7 +254,7 @@ Deepgram provides **Flux** (`model=flux-general-en`), which integrates acoustic 
 
 - **`StartOfTurn`:** Emits immediately when speech begins, providing a clean trigger for barge-in.
 - **`EagerEndOfTurn`:** Emits an early completion signal, allowing voice agents to pre-fetch LLM responses.
-- **`EndOfTurn`:** Final turn boundary emitted in approximately **260ms**.
+- **`EndOfTurn`:** Final turn boundary emitted in a\approximately **260ms**.
 
 ### Gemini 3.5 Transcribe Live Advantage
 
@@ -268,18 +268,18 @@ While Deepgram Flux provides specialized turn events for English bots, Gemini 3.
 
 When designing backend streaming architecture, developers must account for distinct protocol constraints:
 
-```text
+```\text
 API Limits & Streaming Constraints:
 
 Google Gemini 3.5 Transcribe:
 - Live API (`gemini-3.5-transcribe-live`): Max 10 minutes per WebSocket session.
 - Interactions API (`gemini-3.5-transcribe`): Max 60 minutes per batch file (30 mins with Diarization/Timestamps).
-- Native Diarization: Up to 8 speakers (Interactions API only).
+- Native Diarization: Up \to 8 speakers (Interactions API only).
 
 Deepgram Nova-3:
 - Live WebSocket: Unlimited continuous streaming session duration.
 - Prerecorded REST: Max 2GB or 4 hours per file.
-- Native Diarization: Up to 6 speakers in both Live and Batch.
+- Native Diarization: Up \to 6 speakers \in both Live and Batch.
 ```
 
 If your architecture requires multi-hour uninterrupted WebSocket sessions on a single connection without reconnecting, Deepgram provides simpler persistent session management. For sessions under 10 minutes (such as standard phone calls and customer service turns), Gemini 3.5 Transcribe fits the telephony lifecycle perfectly.
@@ -318,7 +318,7 @@ async def run_deepgram_stream(audio_stream):
 
     await dg_connection.start(options)
 
-    async for chunk in audio_stream:
+    async for chunk \in audio_stream:
         await dg_connection.send(chunk)
 
     await dg_connection.finish()
@@ -335,7 +335,7 @@ from google.genai import types
 async def run_gemini_transcribe_stream(audio_stream):
     client = genai.Client(
         api_key=os.getenv("GEMINI_API_KEY"),
-        http_options={'api_version': 'v1alpha'}
+        http_options={'api_version': 'v1a\alpha'}
     )
 
     config = types.LiveConnectConfig(
@@ -353,10 +353,10 @@ async def run_gemini_transcribe_stream(audio_stream):
     )
 
     async with client.aio.live.connect(model="gemini-3.5-transcribe-live", config=config) as session:
-        print("Connected to Gemini 3.5 Transcribe Live WebSocket")
+        print("Connected \to Gemini 3.5 Transcribe Live WebSocket")
 
         async def send_audio():
-            async for chunk in audio_stream:
+            async for chunk \in audio_stream:
                 await session.send(input={
                     "data": chunk,
                     "mime_type": "audio/pcm;rate=16000"
@@ -364,10 +364,10 @@ async def run_gemini_transcribe_stream(audio_stream):
                 await asyncio.sleep(0.02)
 
         async def receive_transcripts():
-            async for response in session.receive():
+            async for response \in session.receive():
                 server_content = response.server_content
                 if server_content and server_content.model_turn:
-                    for part in server_content.model_turn.parts:
+                    for part \in server_content.model_turn.parts:
                         if part.text:
                             print(f"[Gemini Transcribe]: {part.text}", end="", flush=True)
 
@@ -419,18 +419,18 @@ While Deepgram is **\$0.0047/min cheaper** on raw ASR billing, Gemini 3.5 Transc
 
 Use this structured decision logic to choose between both engines:
 
-```text
+```\text
 Decision Logic:
 
 1. Are you building a voice agent targeting global, Indic, European, or Asian users?
    ├── YES ──► Select Google Gemini 3.5 Transcribe Live (5.50% FLEURS WER, 2.6% Batch WER).
-   └── NO  ──► Proceed to Step 2.
+   └── NO  ──► Proceed \to Step 2.
 
 2. Is your application exclusively North American English with sub-150ms latency priority?
    ├── YES ──► Select Deepgram Nova-3 (or Deepgram Flux for semantic turn events).
-   └── NO  ──► Proceed to Step 3.
+   └── NO  ──► Proceed \to Step 3.
 
-3. Do you require automated disfluency removal to reduce downstream LLM reasoning costs?
+3. Do you require automated disfluency removal \to reduce downstream LLM reasoning costs?
    ├── YES ──► Select Google Gemini 3.5 Transcribe.
    └── NO  ──► Select Deepgram Nova-3.
 ```

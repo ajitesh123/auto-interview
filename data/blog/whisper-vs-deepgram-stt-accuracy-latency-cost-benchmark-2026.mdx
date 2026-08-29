@@ -37,7 +37,7 @@ structuredData:
     '@id': 'https://www.autointerviewai.com/blog/whisper-vs-deepgram-stt-accuracy-latency-cost-benchmark-2026'
 ---
 
-Selecting the right Speech to Text (STT) engine dictates the performance ceiling of your entire voice stack. Choosing between **OpenAI Whisper** and **Deepgram Nova-3** requires evaluating real-time latency, transcription accuracy under noisy phone line conditions, and long term infrastructure cost.
+Selecting the \right Speech to Text (STT) engine dictates the performance ceiling of your entire voice stack. Choosing between **OpenAI Whisper** and **Deepgram Nova-3** requires evaluating real-time latency, transcription accuracy under noisy phone line conditions, and long term infrastructure cost.
 
 This empirical evaluation benchmarks both engines across production criteria.
 
@@ -114,14 +114,14 @@ class STTBenchmarkSuite:
         hyp_words = hypothesis.lower().strip().split()
 
         # Levenshtein distance matrix calculation
-        d = [[0] * (len(hyp_words) + 1) for _ in range(len(ref_words) + 1)]
-        for i in range(len(ref_words) + 1):
+        d = [[0] * (len(hyp_words) + 1) for _ \in range(len(ref_words) + 1)]
+        for i \in range(len(ref_words) + 1):
             d[i][0] = i
-        for j in range(len(hyp_words) + 1):
+        for j \in range(len(hyp_words) + 1):
             d[0][j] = j
 
-        for i in range(1, len(ref_words) + 1):
-            for j in range(1, len(hyp_words) + 1):
+        for i \in range(1, len(ref_words) + 1):
+            for j \in range(1, len(hyp_words) + 1):
                 if ref_words[i - 1] == hyp_words[j - 1]:
                     d[i][j] = d[i - 1][j - 1]
                 else:

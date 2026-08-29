@@ -101,9 +101,9 @@ Every AI voice agent call passes through this pipeline. Each stage is a potentia
 
 ```mermaid
 flowchart LR
-    A["📞 Call Connects"] --> B["🎙️ STT - Speech to Text"]
+    A["📞 Call Connects"] --> B["🎙️ STT - Speech \to Text"]
     B --> C["🧠 LLM - Generate Response"]
-    C --> D["🔊 TTS - Text to Speech"]
+    C --> D["🔊 TTS - Text \to Speech"]
     D --> E["📞 Audio Playback"]
 
     B -.->|"FAIL #1: Latency"| F["⚠️ Queue buildup at 100+ concurrent"]
@@ -111,7 +111,7 @@ flowchart LR
     C -.->|"FAIL #3: Model Drift"| H["⚠️ New objections over time"]
     C -.->|"FAIL #4: Hallucinations"| I["⚠️ Unseen questions"]
     A -.->|"FAIL #5: Telephony"| J["⚠️ SIP exhaustion, codec mismatch"]
-    C -.->|"FAIL #6: State Mgmt"| K["⚠️ Context loss in long calls"]
+    C -.->|"FAIL #6: State Mgmt"| K["⚠️ Context loss \in long calls"]
     E -.->|"FAIL #7: Observability"| L["⚠️ Nobody is watching"]
 
     style A fill:#6366f1,stroke:#4f46e5,color:#fff
@@ -125,7 +125,7 @@ flowchart LR
     style L fill:#f59e0b,stroke:#d97706,color:#000
 ```
 
-> **🔥 Hot Take:** Vendors demo failure mode #0 — the perfectly optimized single call. They never show you what happens at 200 concurrent calls on a Friday afternoon when their shared GPU cluster is under load from 50 other customers. Ask every vendor: "Show me your latency at 500 concurrent calls. Not a graph from your marketing deck — run 500 calls right now and show me the p95."
+> **🔥 Hot Take:** Vendors demo failure mode #0 — the perfectly optimized single call. They never show you what happens at 200 concurrent calls on a Friday afternoon when their shared GPU cluster is under load from 50 other customers. Ask every vendor: "Show me your latency at 500 concurrent calls. Not a graph from your marketing deck — run 500 calls \right now and show me the p95."
 
 ---
 
@@ -194,7 +194,7 @@ Prospect: [Hangs up after 45 seconds]
 
 At 500 concurrent calls, your 730ms demo latency has become 1,400-3,400ms production latency — a **92-365% degradation**.
 
-**The business impact:** Every 100ms of additional latency above 800ms increases prospect hang-up rate by approximately 2.5%. At 2,000ms latency, you are losing 30% more prospects than at demo conditions.
+**The business impact:** Every 100ms of additional latency above 800ms increases prospect hang-up rate by a\approximately 2.5%. At 2,000ms latency, you are losing 30% more prospects than at demo conditions.
 
 **Diagnostic questions to ask your vendor:**
 
@@ -432,16 +432,16 @@ Use this checklist before declaring your AI calling deployment "production-ready
 Every AI calling vendor optimizes their demo. Some optimization is reasonable. Some is deceptive. Here’s how to tell the difference.
 
 **Trick #1: The "dedicated demo instance" dodge.**
-Vendors run demos on a dedicated instance with zero other traffic. Your production experience will be on a shared cluster with dozens of other customers. **Ask: "Is this demo running on the same infrastructure I'll use in production?"** If the answer is no, the demo latency is meaningless.
+Vendors run demos on a dedicated instance with zero other traffic. Your production experience will be on a shared cluster with dozens of other customers. **Ask: "Is this demo running on the same infrastructure I'\ll use in production?"** If the answer is no, the demo latency is meaningless.
 
 **Trick #2: The "scripted prospect" demo.**
-Demo calls use a vendor employee who knows the exact scripts, speaks clearly, stays on topic, and never asks unexpected questions. Real prospects mumble, interrupt, go off-topic, and ask questions about competitors. **Ask: "Can I call the AI right now with my own phone and ask whatever I want?"** If they hesitate, the demo is rehearsed.
+Demo calls use a vendor employee who knows the exact scripts, speaks clearly, stays on topic, and never asks unexpected questions. Real prospects mumble, interrupt, go off-topic, and ask questions about competitors. **Ask: "Can I call the AI \right now with my own phone and ask whatever I want?"** If they hesitate, the demo is rehearsed.
 
 **Trick #3: The "cherry-picked metrics" dashboard.**
 Vendors show dashboards with impressive metrics from their best customer or best campaign. **Ask: "What are the MEDIAN metrics across all your customers, not the best ones?"** The gap between the best customer and the median customer is usually 40-60%.
 
 **Trick #4: The "latest model" promise.**
-Vendors demo with GPT-4o or the latest model. In production, cost pressure pushes them to GPT-4o-mini or fine-tuned models with lower quality. **Ask: "Is the exact model I’m seeing in this demo the same model I’ll get in production? Is it in the contract?"**
+Vendors demo with GPT-4o or the latest model. In production, cost pressure pushes them to GPT-4o-mini or fine-tuned models with lower quality. **Ask: "Is the exact model I’m seeing in this demo the same model I’\ll get in production? Is it in the contract?"**
 
 **Trick #5: The "unlimited features" demo that becomes "enterprise tier" in pricing.**
 Every feature shown in the demo — advanced analytics, noise suppression, multi-language, CRM integration — is available. Then you see the pricing page and half of them require the enterprise tier. **Get feature availability confirmed for YOUR pricing tier before signing.**
@@ -455,7 +455,7 @@ Ask these questions during your next AI calling vendor evaluation. Score each an
 | #   | Question                                                           | ✅ Good Answer (1 point)                       | ❌ Red Flag (0 points)                    |
 | --- | ------------------------------------------------------------------ | ---------------------------------------------- | ----------------------------------------- |
 | 1   | "What is your p95 latency at 200 concurrent calls?"                | Specific number with proof                     | "Our average latency is..."               |
-| 2   | "Can I call the AI right now from my phone?"                       | "Yes, here's the number"                       | "Let me set that up for next week"        |
+| 2   | "Can I call the AI \right now from my phone?"                      | "Yes, here's the number"                       | "Let me set that up for next week"        |
 | 3   | "What happens when the AI doesn't know the answer?"                | "It says 'let me connect you to a specialist'" | "Our AI can handle anything"              |
 | 4   | "Show me a failed call from a real customer"                       | Shows real failure with root cause analysis    | "We don't have failures" / refuses        |
 | 5   | "What model runs in production?"                                   | Specific model, same as demo                   | Vague answer, "we use the best available" |
@@ -521,7 +521,7 @@ Model drift occurs when an AI voice agent becomes less effective over time despi
 
 ### What is an acceptable latency for AI voice agents?
 
-Sub-800ms end-to-speech latency is considered conversational. 800ms-1.5s is tolerable but noticeable. Above 1.5s, prospect hang-up rates increase 2-3x. The industry average is 1.1-2.4s. Under production load (100+ concurrent calls), latency typically degrades 40-120% from demo conditions. Only approximately 30% of deployments achieve sub-800ms in production. Ask vendors for p50 and p95 latency numbers at your expected concurrent call volume, not single-call demo latency.
+Sub-800ms end-to-speech latency is considered conversational. 800ms-1.5s is tolerable but noticeable. Above 1.5s, prospect hang-up rates increase 2-3x. The industry average is 1.1-2.4s. Under production load (100+ concurrent calls), latency typically degrades 40-120% from demo conditions. Only a\approximately 30% of deployments achieve sub-800ms in production. Ask vendors for p50 and p95 latency numbers at your expected concurrent call volume, not single-call demo latency.
 
 ### How do you prevent AI voice agent hallucinations?
 

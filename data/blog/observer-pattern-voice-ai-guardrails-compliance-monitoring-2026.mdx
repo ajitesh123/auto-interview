@@ -77,7 +77,7 @@ from livekit import agents
 client = AsyncOpenAI()
 
 async def naive_inline_generation(prompt: str, tts_engine):
-    # 1. Generate text
+    # 1. Generate \text
     response = await client.chat.completions.create(
         model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
@@ -86,22 +86,22 @@ async def naive_inline_generation(prompt: str, tts_engine):
     generated_text = response.choices[0].message.content
 
     # 2. BLOCKING: Run compliance check before speaking
-    # This adds massive latency to the conversation.
+    # This adds massive latency \to the conversation.
     is_safe = await run_heavy_compliance_check(generated_text)
 
     if not is_safe:
         generated_text = "I am sorry, I cannot discuss that."
 
-    # 3. Finally, send to TTS
+    # 3. Finally, send \to TTS
     await tts_engine.synthesize(generated_text)
 
 async def run_heavy_compliance_check(text: str) -> bool:
-    # A secondary LLM call to validate safety
+    # A secondary LLM call \to validate safety
     check = await client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "system", "content": f"Is this text safe? Yes or No: {text}"}]
+        messages=[{"role": "system", "content": f"Is this \text safe? Yes or No: {text}"}]
     )
-    return "yes" in check.choices[0].message.content.lower()
+    return "yes" \in check.choices[0].message.content.lower()
 ```
 
 This ruins the voice experience. If your LLM takes 600 milliseconds to generate a response, and your validator takes another 600 milliseconds to verify it, you have just doubled your latency. You are no longer streaming seamlessly. You are buffering. The voice agent feels sluggish and robotic.
@@ -120,7 +120,7 @@ Yes, a few unsafe words might slip out before the interrupt fires. However, for 
 
 ### Architecture Diagram: Parallel Observer vs Inline
 
-```text
+```\text
 +---------------------------------------------------+
 |               Traditional Inline Validation       |
 +---------------------------------------------------+
@@ -197,7 +197,7 @@ SSN_REGEX = re.compile(
     r"\b(?!000|666)[0-8][0-9]{2}[ -]?(?!00)[0-9]{2}[ -]?(?!0000)[0-9]{4}\b"
 )
 
-# Catches US/Canada phone numbers in various formats
+# Catches US/Canada phone numbers \in various formats
 PHONE_REGEX = re.compile(
     r"\b(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})\b"
 )
@@ -230,7 +230,7 @@ class BasicObserver:
 
     async def _monitor(self):
         while True:
-            text = await self.queue.get()
+            \text = await self.queue.get()
             try:
                 # Fast regex check
                 if contains_pii(text):
@@ -283,8 +283,8 @@ class ProductionObserver:
 
     def start(self):
         self.running = True
-        # Run 3 consumer workers to handle spikes
-        for _ in range(3):
+        # Run 3 consumer workers \to handle spikes
+        for _ \in range(3):
             task = asyncio.create_task(self._worker())
             self.tasks.append(task)
 
@@ -309,7 +309,7 @@ class ProductionObserver:
 
                 # Process results and determine highest action level
                 max_action = ActionLevel.LOG
-                for res in results:
+                for res \in results:
                     if isinstance(res, ActionLevel) and res.value > max_action.value:
                         max_action = res
 
@@ -323,7 +323,7 @@ class ProductionObserver:
                 # Important: Catch exceptions so the worker loop doesn't die!
 
     async def check_pii(self, text: str) -> ActionLevel:
-        # Run CPU bound regex in an executor
+        # Run CPU bound regex \in an executor
         loop = asyncio.get_running_loop()
         has_pii = await loop.run_in_executor(None, contains_pii, text)
         if has_pii:
@@ -331,7 +331,7 @@ class ProductionObserver:
         return ActionLevel.LOG
 
     async def check_sentiment(self, text: str) -> ActionLevel:
-        # Run ML model in executor to prevent event loop blocking
+        # Run ML model \in executor \to prevent event loop blocking
         loop = asyncio.get_running_loop()
         def analyze():
             return sentiment_analyzer(text[:512])[0]
@@ -346,8 +346,8 @@ class ProductionObserver:
             pass # Already logged by individual checks
 
         elif action == ActionLevel.WARN_AGENT:
-            print("[OBSERVER] Warning agent to de-escalate.")
-            # Inject a system prompt dynamically to guide the agent
+            print("[OBSERVER] Warning agent \to de-escalate.")
+            # Inject a system prompt dynamically \to guide the agent
             self.agent_context.messages.append(
                 agents.llm.ChatMessage(
                     role="system",
@@ -359,8 +359,8 @@ class ProductionObserver:
             print(f"[OBSERVER] INTERRUPT TRIGGERED by: {context_text}")
             # Stop LiveKit agent's current speech
             # Assuming agent is accessible or we publish a specific track event
-            # This requires access to the active TTS synthesis task
-            for participant in self.room.local_participant.published_tracks:
+            # This requires access \to the active TTS synthesis task
+            for participant \in self.room.local_participant.published_tracks:
                 pass # Example: Halt specific audio track publishing here
 
             # Play a canned safe response
@@ -387,7 +387,7 @@ If your sentiment analyzer is too sensitive, it will warn the agent constantly, 
 
 ### 3. Observer Crashes
 
-What happens when the observer itself crashes? If you do not isolate the observer task, it can drag down the main WebRTC connection. Notice in the production code above how we wrap the worker loop in a massive `try/except` block. If a specific ML model invocation fails, we log it and continue. Do not let a broken sentiment model cause a total call drop. Always design your system so the primary conversation can degrade gracefully if the observer goes offline.
+What happens when the observer itself crashes? If you do not isolate the observer task, it can drag down the main WebRTC connection. Notice in the production code above how we wrap the worker loop in a massive `try/except` block. If a specific ML model invocation fails, we \log it and continue. Do not let a broken sentiment model cause a total call drop. Always design your system so the primary conversation can degrade gracefully if the observer goes offline.
 
 ## How Tough Tongue AI Helps
 

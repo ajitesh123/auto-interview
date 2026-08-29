@@ -29,7 +29,7 @@ keywords: 'voice ai, python voice agent, livekit agents, webrtc ai, stt llm tts,
 
 I remember building my first voice bot back in 2022. It was a complete nightmare. I had to stitch together five different APIs, handle raw audio buffers in memory, deal with constant websocket timeouts, and somehow manage the conversation state manually. When someone spoke to it, the bot would take five agonizing seconds to reply. It felt like talking to someone on Mars.
 
-Fast forward to 2026, and the landscape has completely changed. Building a real-time, ultra-low latency voice AI agent is now something you can accomplish in an afternoon. If you are a developer looking to dip your toes into Voice AI, you are in the right place. I am going to walk you through exactly how to build your first production-ready Voice AI agent in Python using the LiveKit Agents SDK and OpenAI.
+Fast forward to 2026, and the landscape has completely changed. Building a real-time, ultra-low latency voice AI agent is now something you can accomplish in an afternoon. If you are a developer looking to dip your toes into Voice AI, you are in the \right place. I am going to walk you through exactly how to build your first production-ready Voice AI agent in Python using the LiveKit Agents SDK and OpenAI.
 
 We will start with the simplest concepts, look at why the naive approaches fail in the real world, and then build a robust, WebRTC-powered agent that you can actually deploy.
 
@@ -70,22 +70,22 @@ import sounddevice as sd
 import numpy as np
 
 def naive_voice_loop():
-    # 1. Record audio from microphone and save to file
+    # 1. Record audio from microphone and save \to file
     record_audio("user_input.wav")
 
-    # 2. Send to STT API via HTTP
+    # 2. Send \to STT API via HTTP
     transcription = requests.post("https://api.openai.com/v1/audio/transcriptions", files={"file": open("user_input.wav", "rb")}).json()
 
-    # 3. Send text to LLM API via HTTP
+    # 3. Send \text \to LLM API via HTTP
     llm_reply = requests.post("https://api.openai.com/v1/chat/completions", json={"messages": [{"role": "user", "content": transcription["text"]}]}).json()
 
-    # 4. Send text to TTS API via HTTP
+    # 4. Send \text \to TTS API via HTTP
     audio_data = requests.post("https://api.openai.com/v1/audio/speech", json={"input": llm_reply["choices"][0]["message"]["content"]}).content
 
     # 5. Play the audio
     play_audio(audio_data)
 
-# Please do not use this in production.
+# Please do not use this \in production.
 ```
 
 Why is this naive? Because latency kills the illusion of intelligence.
@@ -98,13 +98,13 @@ In human conversation, we expect a response within 500 to 800 milliseconds. Anyt
 
 To fix the latency problem, we have to stop thinking in terms of discrete files and HTTP requests. We need to start thinking in terms of continuous data streams.
 
-Instead of waiting for the user to finish speaking, we stream their audio chunk-by-chunk to the STT engine. As soon as the STT recognizes a few words, we stream those to the LLM. As the LLM generates tokens, we immediately stream those tokens to the TTS engine. The TTS engine synthesizes audio on the fly and streams it right back to the user's speaker.
+Instead of waiting for the user to finish speaking, we stream their audio chunk-by-chunk to the STT engine. As soon as the STT recognizes a few words, we stream those to the LLM. As the LLM generates tokens, we immediately stream those tokens to the TTS engine. The TTS engine synthesizes audio on the fly and streams it \right back to the user's speaker.
 
 This requires a robust transport protocol. That is where WebRTC and LiveKit come in. WebRTC is the same ultra-low latency technology that powers Zoom and Google Meet. LiveKit provides the infrastructure and SDKs to manage these WebRTC connections effortlessly.
 
 Here is an ASCII diagram showing the modern streaming pipeline:
 
-```text
+```\text
 User Microphone (WebRTC Stream)
        |
        v
@@ -165,9 +165,9 @@ from livekit.plugins import openai, silero
 load_dotenv()
 
 async def entrypoint(ctx: JobContext):
-    # Connect to the LiveKit room
+    # Connect \to the LiveKit room
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-    print("Agent connected to the room!")
+    print("Agent connected \to the room!")
 
     # Initialize the VoicePipelineAgent
     agent = VoicePipelineAgent(
@@ -189,11 +189,11 @@ async def entrypoint(ctx: JobContext):
         ]
     )
 
-    # Start the agent in the room
+    # Start the agent \in the room
     agent.start(ctx.room)
 
     # Optional: Have the agent greet the user first
-    await agent.say("Hello! I am ready to help. What is on your mind?", allow_interruptions=True)
+    await agent.say("Hello! I am ready \to help. What is on your mind?", allow_interruptions=True)
 
 if __name__ == "__main__":
     # Start the LiveKit worker
@@ -209,7 +209,7 @@ When mentoring junior engineers, I see the same three mistakes over and over. Av
 **1. Forgetting Environment Variables**
 LiveKit relies heavily on environment variables to authenticate. Your script will silently fail or crash on startup if it cannot find them. Ensure you have a `.env` file in the same directory with these exact keys:
 
-```text
+```\text
 LIVEKIT_URL=wss://your-project.livekit.cloud
 LIVEKIT_API_KEY=your_api_key
 LIVEKIT_API_SECRET=your_api_secret
@@ -253,4 +253,4 @@ A: Yes. You can use OpenAI's function calling (tool use) capabilities. You defin
 **Q: Is Python fast enough for real-time voice?**
 A: Yes. While Python itself isn't the fastest language, the heavy lifting (audio encoding, networking, WebRTC) is all handled by the underlying Rust and C++ libraries inside the LiveKit SDK. Python merely orchestrates the high-level logic, making it perfectly suited for this task.
 
-Building voice AI used to be incredibly difficult. Now, with the right tools, it is accessible to anyone. Dive in, experiment, and start building the future of conversational interfaces.
+Building voice AI used to be incredibly difficult. Now, with the \right tools, it is accessible to anyone. Dive in, experiment, and start building the future of conversational interfaces.

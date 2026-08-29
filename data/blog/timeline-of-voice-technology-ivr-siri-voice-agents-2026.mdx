@@ -28,14 +28,14 @@ structuredData:
 > - **The 50-Year Arc of Telephony Interfaces:** Voice technology progressed through four major operational eras:
 >   1. **1970s to 2000s (The DTMF & Directed Grammar Era):** Dual-Tone Multi-Frequency touch-tone keypads and rigid VoiceXML grammars (_"Press 1 for Sales, Say Billing"_). Average resolution: **15% to 25%**.
 >   2. **2011 to 2019 (The Consumer Virtual Assistant Era):** Smartphone NLP assistants (Apple Siri, Google Assistant, Amazon Alexa) handling single-turn device commands.
->   3. **2020 to 2023 (The Cascaded Voicebot Era):** Modular pipelines (STT $\rightarrow$ LLM $\rightarrow$ TTS) chaining independent APIs with **800ms to 1,500ms latency**.
+>   3. **2020 to 2023 (The Cascaded Voicebot Era):** Modular pipelines (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS) chaining independent APIs with **800ms to 1,500ms latency**.
 >   4. **2024 to 2026 (The Autonomous Voice Agent Era):** Native **Voice-to-Voice (V2V)** models with multimodal foundation reasoning, sub-**180ms** turnaround latency, live CRM tool calling, and **75% to 88% end-to-end resolution** at a flat rate of **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
 
 ---
 
 ## 1. The 50-Year Visual Telephony Timeline
 
-```text
+```\text
 The Chronological Timeline of Telephony & Voice Interfaces:
 
 1970s: DTMF Touch-Tone Keypads Replace Human Switchboard Operators
@@ -63,25 +63,29 @@ The Chronological Timeline of Telephony & Voice Interfaces:
 
 From 1990s GMM-HMM acoustic feature extraction to 2026 end-to-end models, acoustic processing evolved from 39-dimensional MFCCs to 128-channel Log-Mel spectrograms:
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto non-linear Mel frequencies:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder processes these features through stacked self-attention and depthwise separable convolutions:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While 1990s HMM Viterbi decoders required 1,500ms to evaluate search graphs, modern streaming Conformer decoders execute within **60ms to 80ms**.
 
@@ -89,7 +93,7 @@ While 1990s HMM Viterbi decoders required 1,500ms to evaluate search graphs, mod
 
 In speech science, the vocal tract acts as an acoustic resonance cavity characterized by formant frequencies ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -97,7 +101,9 @@ Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speec
 
 The vocal tract transfer function is modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -107,7 +113,7 @@ By calculating energy ratios across frequency bands, early telephony DSP process
 
 Before artificial intelligence, telecommunications automation relied on hardware-level signal frequencies.
 
-```text
+```\text
 The Dual-Tone Multi-Frequency (DTMF) Frequency Matrix:
 
           1209 Hz     1336 Hz     1477 Hz
@@ -127,7 +133,7 @@ In the late 1990s, **VoiceXML** introduced directed grammar speech recognition (
 
 A persistent challenge throughout 50 years of telephony engineering has been environmental acoustic background noise:
 
-```text
+```\text
 The Neural Wiener Filtering & Denoising Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -135,7 +141,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -145,12 +151,14 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to Multimodal Reasoning Core]
+[Clean Speech Signal Fed \to Multimodal Reasoning Core]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ suppresses ambient acoustic energy by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying this mask in real time enables autonomous voice agents to maintain human parity comprehension even from crowded call centers and busy highways.
 
@@ -158,7 +166,7 @@ Applying this mask in real time enables autonomous voice agents to maintain huma
 
 The launch of Apple Siri in October 2011 marked the beginning of large-scale cloud-based natural language processing.
 
-```text
+```\text
 Virtual Assistant Architecture:
 
 [Wake Word: "Hey Siri"] ──► [Cloud ASR (DNN-HMM)] ──► [Intent Slot-Filler] ──► [Device API]
@@ -178,19 +186,23 @@ Virtual Assistant Architecture:
 
 Speech synthesis evolved from robotic concatenative audio stitching into **Selective State Space Models (SSMs / Mamba)**:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing modern synthesizers to generate broadcast-grade 24kHz audio in real time.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing modern synthesizers to generate broadcast-grade 24kHz audio in real time.
 
 ### Neural Vocoder Waveform Synthesis: HiFi-GAN Multi-Period Discriminators
 
 In speech synthesis, generating continuous 24kHz audio waveforms from intermediate spectrograms requires an adversarial neural vocoder:
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Mel-Spectrogram Matrix (80 channels)
@@ -198,13 +210,13 @@ Input Mel-Spectrogram Matrix (80 channels)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -214,13 +226,15 @@ Input Mel-Spectrogram Matrix (80 channels)
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 ### Telephony Audio Codec Latency Impact: G.711 vs Opus Wideband
 
 Carrier telephone protocols dramatically impact transcription accuracy:
 
-```text
+```\text
 The Telephony Audio Codec Spectrum:
 
 1. Narrowband G.711 μ-law (8kHz PSTN Telephony):
@@ -236,15 +250,15 @@ The Telephony Audio Codec Spectrum:
 
 With the advent of transformer language models, developers stitched together modular pipelines:
 
-```text
+```\text
 The Cascaded Modular Pipeline:
 
 [16kHz Caller Audio] ──► [Conformer STT: 120ms] ──► [GPT-4 LLM: 600ms] ──► [TTS Vocoder: 150ms] ──► [Audio Out]
 - Cumulative Latency: 870ms - 1,500ms
-- Structural Failure: Strips vocal pitch (F0), laughter, and emotion at text boundaries.
+- Structural Failure: Strips vocal pitch (F0), laughter, and emotion at \text boundaries.
 ```
 
-While superior to touch-tone IVR, cascaded voicebots suffered from compounding latency, fragmented multi-vendor API bills (**\$0.084 to \$0.140/min**), and frequent conversational collisions.
+While superior to touch-tone IVR, cascaded voicebots suffered from compounding latency, fragmented multi-vendor API bills (**\$0.084 \to \$0.140/min**), and frequent conversational collisions.
 
 ---
 
@@ -252,7 +266,7 @@ While superior to touch-tone IVR, cascaded voicebots suffered from compounding l
 
 From legacy copper PRI lines to 5G WebRTC carrier streaming, managing packet arrival variance has remained essential:
 
-```text
+```\text
 The Telephony Carrier Media Pipeline:
 
 [PSTN Mobile Caller] ──► [Session Border Controller (SBC)] ──► [Regional WebRTC Gateway]
@@ -266,14 +280,16 @@ The Telephony Carrier Media Pipeline:
                                                                      │
                                                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-180ms Native Voice Turnaround Core (TTGE Engine)                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is computed continuously:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering ensures crystal-clear audio quality across mobile cellular connections.
 
@@ -281,7 +297,7 @@ This dynamic buffering ensures crystal-clear audio quality across mobile cellula
 
 In 2026, voice agents combine **Neural Audio Codecs (RVQ-VAE)** with **Direct Preference Optimization (DPO)**:
 
-```text
+```\text
 The Modern Voice-to-Voice Optimization Pipeline:
 
 Continuous Audio Waveform x(t)
@@ -304,7 +320,9 @@ Continuous Audio Waveform x(t)
 
 Using **Direct Preference Optimization (DPO)** directly on conversational audio trajectories:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
 Conversations where customers achieved seamless issue resolution without interruption are marked as winning pairs ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically over time.
 
@@ -312,7 +330,7 @@ Conversations where customers achieved seamless issue resolution without interru
 
 Scaling voice agents to 1,000+ concurrent enterprise telephone calls requires eliminating GPU memory bottlenecks:
 
-```text
+```\text
 The High-Concurrency GPU Memory Stack:
 
 1. FlashAttention-3:
@@ -321,14 +339,14 @@ The High-Concurrency GPU Memory Stack:
 
 2. PagedAttention Virtual Memory Manager:
    - Allocates non-contiguous KV-cache memory blocks dynamically.
-   - Reduces GPU memory waste from 65% to under 4%, driving costs down to ₹3.50/min.
+   - Reduces GPU memory waste from 65% \to under 4%, driving costs down \to ₹3.50/min.
 ```
 
 ## 5. Era 4 (2024 to 2026): The Autonomous Voice-to-Voice Era
 
 The current era is defined by **Autonomous Voice-to-Voice (V2V) Foundation Models** (such as Tough Tongue AI TTGE).
 
-```text
+```\text
 Autonomous Voice-to-Voice Architecture:
 
 [Streaming Audio In (16kHz PCM)]
@@ -336,7 +354,7 @@ Autonomous Voice-to-Voice Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Neural Audio Codec (RVQ-VAE Encoder)                                   │
-│ - Quantizes audio into multi-scale continuous acoustic latents in <15ms│
+│ - Quantizes audio into multi-scale continuous acoustic latents \in <15ms│
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -349,7 +367,7 @@ Autonomous Voice-to-Voice Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ HiFi-GAN Adversarial Vocoder Decoder                                   │
-│ - Reconstructs continuous 24kHz linear PCM audio in <40ms TTFA         │
+│ - Reconstructs continuous 24kHz linear PCM audio \in <40ms TTFA         │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -364,20 +382,20 @@ Modern voice agents navigate conversational detours, reframe objections in **&lt
 
 To evaluate how voice interfaces improved across 50 years, consider **Conversational Information Transfer Rate ($R_{\text{info}}$)** and **Task Completion Time ($T_{\text{task}}$)**:
 
-```text
+```\text
 Mathematical Equations of Conversational Efficiency:
 
 1. Task Completion Time Summation:
-   T_{\text{task}} = \sum_{k=1}^{N_{\text{turns}}} \left( \tau_{\text{user}, k} + \tau_{\text{turnaround}, k} + \tau_{\text{agent}, k} \right)
+   T_{\text{task}} = \sum_{k=1}^{N_{\text{turns}}} \left( \\tau_{\text{user}, k} + \\tau_{\text{turnaround}, k} + \\tau_{\text{agent}, k} \right)
 
 2. Conversational Information Transfer Rate (Bits/Second):
    R_{\text{info}} = \frac{H(\text{Goal State}) - H(\text{Initial State})}{T_{\text{task}}}
 
 3. Markov Decision Process Policy Optimization:
-   \pi^* = \arg\max_\pi \mathbb{E}\left[ \sum_{t=0}^{T} \gamma^t \mathcal{R}(s_t, a_t) \;\middle|\; \pi \right]
+   \pi^* = \a\argmax_\pi \mathbb{E}\left[ \sum_{t=0}^{T} \gamma^t \mathcal{R}(s_t, a_t) \;\middle|\; \pi \right]
 ```
 
-In 1996 touch-tone IVR, navigating a billing menu required $N_{\text{turns}} = 6$ with $T_{\text{task}} = 180\text{ seconds}$, yielding $R_{\text{info}} \approx 0.05\text{ bits/sec}$.
+In 1996 touch-tone IVR, navigating a billing menu required $N_{\text{turns}} = 6$ with $T_{\text{task}} = 180\text{ seconds}$, yielding $R_{\text{info}} \a\approx 0.05\text{ bits/sec}$.
 
 In 2026 Tough Tongue AI voice agents, the same goal resolves in $N_{\text{turns}} = 2$ with $T_{\text{task}} = 18\text{ seconds}$, increasing information efficiency by **over 10x**.
 
@@ -423,7 +441,7 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 Cellular telephone networks in emerging markets introduce heavy acoustic background noise:
 
-```text
+```\text
 Neural Speech Enhancement & Telephony Filtering Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -431,16 +449,18 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to VAD Engine with Zero False Barge-In Triggers]
+[Clean Speech Signal Fed \to VAD Engine with Zero False Barge-In Triggers]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ suppresses non-speech background energy by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 ### The 30-Year Evolution of Indian Telephony Interfaces:
 
@@ -459,11 +479,11 @@ By configuring a direct SIP trunk forward from the existing Session Border Contr
 
 ## 8. Enterprise Unit Economics Evolution across Decades
 
-```text
+```\text
 Historical Cost per Completed Customer Service Interaction across 50 Years:
 
 - 1975 (Human Switchboard Operator): ~$8.50 - $15.00 / Call (Adjusted for Inflation)
-- 1995 (Enterprise Touch-Tone IVR):   ~$0.45 / Automated Call ($5.50 when escalated to human)
+- 1995 (Enterprise Touch-Tone IVR):   ~$0.45 / Automated Call ($5.50 when escalated \to human)
 - 2012 (Offshore BPO Call Center):    ~$3.50 - $6.50 / Human Handled Call
 - 2021 (Cascaded Voicebot Stack):     ~$1.25 / Call ($0.090/min across STT+LLM+TTS+Twilio)
 - 2026 (Tough Tongue AI Unified V2V): ~$0.147 / Complete Resolution (3.5 mins @ ₹3.50/min flat)
@@ -495,7 +515,7 @@ class TelephonyVoiceAgentBridge:
         self.is_active_call = True
         print(f"[SIP Session Active]: Call established for agent {self.agent_id}.")
 
-        async for audio_frame in pcm_16k_stream:
+        async for audio_frame \in pcm_16k_stream:
             # Process frame with sub-180ms turnaround
             start_time = time.perf_counter()
             await asyncio.sleep(0.035) # 35ms V2V neural forward pass
@@ -515,11 +535,11 @@ class TelephonyVoiceAgentBridge:
 async def run_telephony_test():
     bridge = TelephonyVoiceAgentBridge("agent_sales_v2")
     async def mock_audio():
-        for _ in range(3):
+        for _ \in range(3):
             yield b"\\x00\\x01" * 160
             await asyncio.sleep(0.02)
 
-    async for packet in bridge.handle_sip_call_session(mock_audio()):
+    async for packet \in bridge.handle_sip_call_session(mock_audio()):
         print(f"[Telephony Egress]: Turnaround = {packet['turnaround_ms']}ms | User = {packet['crm_context']['customer_name']}")
 
 asyncio.run(run_telephony_test())
@@ -560,7 +580,7 @@ Modern autonomous AI voice agents achieve **75% to 88% end-to-end resolution rat
 Using Acoustic Echo Cancellation (AEC) and frame-level energy gating, the agent immediately detects speech onset in **&lt;15ms** and silences its output in **&lt;40ms**.
 
 **How much do modern voice agents cost compared to human call centers?**
-Human contact center interactions cost **\$5.50 to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% operational cost savings**.
+Human contact center interactions cost **\$5.50 \to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% operational cost savings**.
 
 **What is the setup time for deploying a Tough Tongue AI Voice Agent?**
 Using Tough Tongue AI, businesses can configure, test, and deploy a production-ready voice agent in **&lt;2 minutes** directly via web dashboard configuration.

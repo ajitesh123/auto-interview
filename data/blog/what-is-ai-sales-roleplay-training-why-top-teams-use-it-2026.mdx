@@ -38,7 +38,7 @@ structuredData:
 
 Traditional enterprise sales onboarding suffers from severe structural bottlenecks:
 
-```text
+```\text
 The Legacy Sales Onboarding Breakdown:
 
 Day 1 - 30: Passive Video Courses & PDF Battlecards (Low Retention: <20%)
@@ -60,25 +60,29 @@ RESULT: 3-Month Ramp Delay, High Rep Churn, & Substantial Lost Pipeline Revenue.
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame gating must operate in **&lt;15ms** to prevent clipping the sales rep's speech onset.
 
@@ -86,7 +90,7 @@ While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame ga
 
 In vocal tract acoustics, representative voice characteristics are defined by resonant formant frequencies ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -94,7 +98,9 @@ Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speec
 
 The vocal tract transfer function is modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -104,12 +110,12 @@ By tracking formant shifts alongside fundamental frequency ($F_0$), modern AI co
 
 In high-stakes B2B sales negotiations, buyers subconsciously evaluate representative confidence and firmness based on acoustic formant smoothness.
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue advancement.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue advancement.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 When representatives speak with genuine conviction, formant transitions remain steady and resonant. Under pressure or price pushback, vocal tract tension causes abrupt formant shifts and pitch tremors.
@@ -120,7 +126,7 @@ Tough Tongue AI coaching models quantify these micro-transitions $(\Delta F_1, \
 
 Modern AI roleplay platforms simulate authentic enterprise buying committees:
 
-```text
+```\text
 The Multi-Persona Simulation Pipeline:
 
 [Representative Speaks Audio via WebRTC / SIP]
@@ -152,7 +158,7 @@ The Multi-Persona Simulation Pipeline:
 
 Processing continuous audio features alongside large language reasoning requires high-throughput GPU memory management:
 
-```text
+```\text
 The High-Concurrency GPU Memory Stack:
 
 1. FlashAttention-3:
@@ -164,7 +170,7 @@ The High-Concurrency GPU Memory Stack:
    - Enables 500+ concurrent sales roleplay training sessions on a single NVIDIA L40S GPU node.
 
 3. Speculative Decoding:
-   - A high-speed draft model predicts upcoming words in parallel with the target model,
+   - A high-speed draft model predicts upcoming words \in parallel with the target model,
      accelerating generation speed by 40%.
 ```
 
@@ -172,8 +178,8 @@ The High-Concurrency GPU Memory Stack:
 
 Audio capture fidelity directly affects prosodic analysis precision:
 
-```text
-The Audio Codec Spectrum in Sales Roleplay:
+```\text
+The Audio Codec Spectrum \in Sales Roleplay:
 
 1. Narrowband G.711 μ-law (8kHz PSTN Telephony):
    - Sampling Rate: 8,000 samples/sec (300 Hz - 3,400 Hz).
@@ -186,7 +192,7 @@ The Audio Codec Spectrum in Sales Roleplay:
 
 ## 3. The 5 Acoustic & Negotiation Evaluation Dimensions
 
-```text
+```\text
 The 5 Real-Time Roleplay Evaluation Dimensions:
 
 1. Discovery Depth & Qualification:
@@ -213,17 +219,21 @@ When synthesizing speech in full-duplex systems, the vocoder must support instan
 
 Selective State Space Models (SSMs / Mamba) compute audio frames with linear complexity $\mathcal{O}(N)$:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the simulated buyer to start and stop instantly without phase distortion.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the simulated buyer to start and stop instantly without phase distortion.
 
 ## 4. Mathematical Modeling of Sales Enablement Efficiency
 
-```text
+```\text
 The Mathematical Formulations:
 
 1. Rep Competency Ramp Curve:
@@ -250,7 +260,7 @@ Because simulated AI practice enables $n = 50$ practice conversations in week on
 
 Deploying real-time Voice-to-Voice models across sales reps' laptops and mobile devices requires managing packet arrival variance:
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [Rep Browser Microphone] ──► [WebRTC DataChannel / Audio Stream] ──► [Regional WebRTC Gateway]
@@ -264,14 +274,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                           │
                                                                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-180ms Native Voice Turnaround Core (TTGE Engine)                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is dynamically regulated:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile connections while maintaining instantaneous responsiveness.
 
@@ -279,7 +291,7 @@ This dynamic buffering prevents stuttering on mobile connections while maintaini
 
 In neural speech synthesis, generating continuous 24kHz audio waveforms from intermediate latents requires an adversarial neural vocoder:
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Acoustic Latent Vector Matrix
@@ -287,13 +299,13 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -303,13 +315,17 @@ Input Acoustic Latent Vector Matrix
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 ### Deep Noise Suppression (DNS) & Wiener Filtering
 
 In practice environments, background acoustic noise from sales floors and home offices can degrade roleplay evaluation:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying real-time Wiener acoustic filtering isolates sales rep vocal formants while suppressing non-speech ambient noise by up to **24 dB**.
 
@@ -317,7 +333,7 @@ Applying real-time Wiener acoustic filtering isolates sales rep vocal formants w
 
 Enterprise negotiations require reps to maintain composure when buyers challenge pricing:
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [Representative Vocalizing Pricing Pitch via Microphone]
@@ -342,12 +358,12 @@ Full-Duplex Interruption Architecture:
 
 ### 2026 Comprehensive AI Sales Roleplay Benchmark Matrix
 
-| Sales Roleplay Platform     | Underlying Audio Engine                         | Response Latency (P50) | Buyer Persona Realism         | MEDDPICC Rubric Depth     | Pricing per Rep Month              |
-| --------------------------- | ----------------------------------------------- | ---------------------- | ----------------------------- | ------------------------- | ---------------------------------- |
-| **Generic Chatbot Prompt**  | Text Generation API                             | **1,500ms**            | None (Static Text)            | 22.4% (Basic Text)        | \$20 / month sub                   |
-| **First-Gen Voice Wrapper** | Chained STT $\rightarrow$ LLM $\rightarrow$ TTS | **650ms**              | Basic WPM count               | 45.8%                     | \$75 / rep month                   |
-| **OpenAI Realtime API**     | Cloud Multimodal Audio                          | **250ms**              | Moderate Pushback             | 78.5%                     | \$0.120 - \$0.300 / min            |
-| **Tough Tongue AI (TTGE)**  | **Native Multimodal V2V**                       | **&lt;180ms**          | **Extreme Hostile/Skeptical** | **91.4% Objective Depth** | **₹3.50 / min (\$0.042/min flat)** |
+| Sales Roleplay Platform     | Underlying Audio Engine                                 | Response Latency (P50) | Buyer Persona Realism         | MEDDPICC Rubric Depth     | Pricing per Rep Month              |
+| --------------------------- | ------------------------------------------------------- | ---------------------- | ----------------------------- | ------------------------- | ---------------------------------- |
+| **Generic Chatbot Prompt**  | Text Generation API                                     | **1,500ms**            | None (Static Text)            | 22.4% (Basic Text)        | \$20 / month sub                   |
+| **First-Gen Voice Wrapper** | Chained STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **650ms**              | Basic WPM count               | 45.8%                     | \$75 / rep month                   |
+| **OpenAI Realtime API**     | Cloud Multimodal Audio                                  | **250ms**              | Moderate Pushback             | 78.5%                     | \$0.120 - \$0.300 / min            |
+| **Tough Tongue AI (TTGE)**  | **Native Multimodal V2V**                               | **&lt;180ms**          | **Extreme Hostile/Skeptical** | **91.4% Objective Depth** | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Enterprise Migration Blueprint: Scaling Enablement with AI Roleplays
 
@@ -365,7 +381,7 @@ By deploying Tough Tongue AI TTGE across onboarding cohorts, enablement teams re
 | **Acoustic Pitch ($F_0$) Tracking** | None                     | Subjective impression    | **Real-Time Fundamental Frequency Analysis**   |
 | **Objection Complexity**            | Repetitive scripts       | Inconsistent scenarios   | **Adaptive Socratic Escalation Drills**        |
 | **MEDDPICC / BANT Scoring**         | None                     | Manual checklist         | **Automated Multi-Dimensional Rubric Grading** |
-| **Filler Word Density ($\Phi$)**    | None                     | Approximate feedback     | **Millisecond Acoustic Filler Detection**      |
+| **Filler Word Density ($\Phi$)**    | None                     | A\approximate feedback   | **Millisecond Acoustic Filler Detection**      |
 | **Pacing / WPM Gauge**              | None                     | Rough estimate           | **Real-Time Syllable Pacing Meter**            |
 | **Real CRM Call Grounding**         | Generic roleplay         | Based on memory          | **Trained on Top 1% Rep Won/Lost Calls**       |
 | **Average Ramp Time**               | **90 - 120 Days**        | **75 - 90 Days**         | **30 - 45 Days (55% Faster Ramp)**             |
@@ -377,7 +393,9 @@ By deploying Tough Tongue AI TTGE across onboarding cohorts, enablement teams re
 
 In 2026, AI sales roleplay agents refine coaching rubrics dynamically using **Direct Preference Optimization (DPO)**:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
 Feedback that accurately guided sales reps to reframe objections while maintaining composure is marked as preferred pairs ($\mathbf{y}_w$), training the coaching model to provide high-signal, actionable feedback.
 
@@ -389,7 +407,7 @@ Modern foundation models evaluate sales reps fairly across global accents (inclu
 
 When sales reps practice using laptop or mobile phone microphones, narrowband compression can mute higher vocal overtones:
 
-```text
+```\text
 The Super-Resolution BWE Pipeline:
 
 Narrowband Audio (300 Hz - 3,400 Hz)
@@ -398,11 +416,11 @@ Narrowband Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Restores studio-grade vocal resonance in <6ms GPU inference time     │
+│ - Restores studio-grade vocal resonance \in <6ms GPU inference time     │
 └────────────────────────────────────────────────────────────────────────┘
                  │
                  ▼
-[High-Fidelity Audio Feed to Multimodal Sales Evaluation Engine]
+[High-Fidelity Audio Feed \to Multimodal Sales Evaluation Engine]
 ```
 
 ### The 2026 Comprehensive Sales Roleplay Scorecard:
@@ -416,17 +434,17 @@ Following each simulated negotiation session, the platform generates a comprehen
 
 ## 7. Enterprise Sales ROI: Accelerating Revenue Quotas
 
-```text
+```\text
 Enterprise ROI Model for a 50-Person Sales Team:
 
 1. Traditional Manager Roleplay Program:
-   - 50 Reps * 60 Days Extra Ramp Lag @ $8,000/mo = $400,000 in Carrying Costs
+   - 50 Reps * 60 Days Extra Ramp Lag @ $8,000/mo = $400,000 \in Carrying Costs
    - Manager Time Lost (15 hrs/wk across 8 managers @ $120/hr) = $76,800 / Quarter
    - Total Cost: $476,800 / Year
 
 2. Tough Tongue AI Sales Roleplay Fleet:
    - 50 Reps Practicing 1 Hour/Day = ₹3.50/min ($2.52/hr) = $2,520 / Month ($30,240 / Year)
-   - Ramp Time Reduced from 90 Days to 35 Days (Unlocks $1.2M in Early Quota Pipeline!)
+   - Ramp Time Reduced from 90 Days \to 35 Days (Unlocks $1.2M \in Early Quota Pipeline!)
 ─────────────────────────────────────────────────────────────────────────────────────────────
 Net Enterprise Financial Impact: >$1,400,000 Annual Value Creation!
 ```
@@ -457,14 +475,14 @@ class SalesRoleplayEngine:
         total_words = len(words)
 
         # Filler word calculation
-        fillers = sum(1 for w in words if w in self.filler_words)
+        fillers = sum(1 for w \in words if w \in self.filler_words)
         filler_pct = round((fillers / max(total_words, 1)) * 100.0, 2)
         wpm = round((total_words / max(duration_sec, 1.0)) * 60.0, 1)
 
         # Value Proposition & Objection Reframing Score
-        has_metric = any(char.isdigit() for char in pitch_text) or "%" in pitch_text
-        has_empathy = any(k in pitch_text.lower() for k in ["understand", "makes sense", "hear you"])
-        has_call_to_action = any(k in pitch_text.lower() for k in ["thursday", "tomorrow", "calendar", "schedule"])
+        has_metric = any(char.isdigit() for char \in pitch_text) or "%" \in pitch_text
+        has_empathy = any(k \in pitch_text.lower() for k \in ["understand", "makes sense", "hear you"])
+        has_call_to_action = any(k \in pitch_text.lower() for k \in ["thursday", "tomorrow", "calendar", "schedule"])
 
         score = (int(has_metric) * 40) + (int(has_empathy) * 30) + (int(has_call_to_action) * 30)
 
@@ -488,7 +506,7 @@ class SalesRoleplayEngine:
 
 async def run_roleplay_session():
     engine = SalesRoleplayEngine("skeptical_cfo")
-    rep_pitch = "I completely understand your concern about budget. We helped CloudTech cut latency by 65% in 3 weeks. Would Thursday at 2 PM work to review the benchmark?"
+    rep_pitch = "I completely understand your concern about budget. We helped CloudTech cut latency by 65% \in 3 weeks. Would Thursday at 2 PM work \to review the benchmark?"
 
     scorecard = engine.evaluate_rep_pitch(rep_pitch, 14.2)
     buyer_reply = await engine.simulate_buyer_turn(rep_pitch)
@@ -544,7 +562,7 @@ The optimal conversational pacing for B2B sales discovery and cold calls is **13
 Tough Tongue AI TTGE delivers sub-**180ms turnaround latency** and full-duplex barge-in, allowing AI buyers to interrupt reps naturally when a pitch runs too long.
 
 **How much does AI sales roleplay software cost?**
-Legacy enterprise coaching platforms charge \$80 to \$150 per rep per month. On Tough Tongue AI, sales teams access native voice training for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
+Legacy enterprise coaching platforms charge \$80 \to \$150 per rep per month. On Tough Tongue AI, sales teams access native voice training for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 **How long does it take to deploy a customized sales roleplay bot?**
 Enablement leaders can upload buyer personas, battlecards, and objection scripts, deploying a fully functional roleplay agent in **&lt;2 minutes**.

@@ -18,7 +18,7 @@ structuredData:
 > **Executive Summary & Quick Comparison**
 >
 > - **The Core Architectural Divergence:**
->   1. **Traditional IVR (1970s to 2010s):** Deterministic touch-tone (DTMF) or rigid VoiceXML keyword flowcharts (_"Press 1 for Sales"_). Operates at **\$0.01 to \$0.05 per call**, but causes **45% call abandonment** due to rigid menus.
+>   1. **Traditional IVR (1970s to 2010s):** Deterministic touch-tone (DTMF) or rigid VoiceXML keyword flowcharts (_"Press 1 for Sales"_). Operates at **\$0.01 \to \$0.05 per call**, but causes **45% call abandonment** due to rigid menus.
 >   2. **Text Chatbots (2016 to 2024):** Asynchronous, screen-based conversational interfaces. Highly cost-effective for web FAQs (**\$0.005 per message**), but ineffective for high-urgency customer support or real-time telephone interactions.
 >   3. **Autonomous Voice AI (2025 to 2026):** Full-duplex conversational reasoning engines operating over live phone lines with sub-**200ms** turnaround latency. Resolves **75% to 88% of customer inquiries end-to-end** for a flat rate of **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
 > - **The Hybrid 2026 Reality:** Modern enterprise contact centers use IVR for basic cryptographic authentication, Chatbots for asynchronous portal tickets, and **Voice AI for autonomous phone resolution**, reducing human escalation labor by **70%**.
@@ -29,13 +29,13 @@ structuredData:
 
 To design an effective contact center stack in **2026**, enterprise leaders must understand how customer communication interfaces evolved through three distinct technological epochs.
 
-```text
+```\text
 The Three Generations of Contact Center Automation:
 
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Generation 1: Touch-Tone & Directed-Dialogue IVR (1990 - 2015)         │
 │ - Tech: Dual-Tone Multi-Frequency (DTMF) relays & VoiceXML grammars    │
-│ - Core Metric: 20% to 35% Containment | 45% Call Abandonment Rate      │
+│ - Core Metric: 20% \to 35% Containment | 45% Call Abandonment Rate      │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
@@ -49,7 +49,7 @@ The Three Generations of Contact Center Automation:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Generation 3: Autonomous Full-Duplex Voice AI (2024 - 2026)            │
 │ - Tech: Native Voice-to-Voice (V2V), sub-200ms streaming WebRTC/SIP    │
-│ - Core Metric: 75% to 88% End-to-End Resolution | ₹3.50/min Flat Cost  │
+│ - Core Metric: 75% \to 88% End-to-End Resolution | ₹3.50/min Flat Cost  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -63,7 +63,7 @@ Modern Voice AI reverses this dynamic: the machine adapts to natural human speec
 
 To understand how Voice AI bridges with enterprise PBX infrastructure (such as Asterisk, FreeSWITCH, Cisco Unified Communications Manager, or Avaya Aura), we must analyze the SIP signaling handshake:
 
-```text
+```\text
 The Enterprise SIP Trunking Handshake:
 
 Enterprise PBX Gateway                          Tough Tongue AI Media SBC
@@ -92,7 +92,7 @@ The Voice AI gateway negotiates the optimal codec in **&lt;15ms**, immediately b
 
 Interactive Voice Response (IVR) systems were introduced in the **1970s** using Dual-Tone Multi-Frequency (DTMF) signaling, later upgraded in the **1990s** with statistical VoiceXML speech recognition.
 
-```text
+```\text
 Traditional IVR Call Flow and Failure Cascade:
 
 [Inbound PSTN Call] ──► [PBX Switch (Avaya / Cisco)] ──► [IVR VoiceXML Engine]
@@ -104,7 +104,7 @@ Traditional IVR Call Flow and Failure Cascade:
 [Customer Input]: Presses '2' (Dual-Tone Multi-Frequency: 770 Hz + 1336 Hz)
                                                               │
                                                               ▼
-[Sub-Menu Prompt]: "Press 1 to Update Address. Press 2 to Cancel Service. Press 3 for Other."
+[Sub-Menu Prompt]: "Press 1 \to Update Address. Press 2 \to Cancel Service. Press 3 for Other."
                                                               │
                                                               ▼
 [Customer Presses '3']: Caller Enters Infinite Hold Queue ──► [45% ABANDON CALL]
@@ -113,7 +113,7 @@ Traditional IVR Call Flow and Failure Cascade:
 ### The Three Inherent Flaws of IVR:
 
 1. **Zero Semantic Adaptability:** IVR cannot understand why a caller is calling unless the issue maps directly to a predefined button, causing over **45% of callers to abandon before resolution**.
-2. **High Cognitive Load:** Callers must listen to **30 to 45 seconds** of spoken options before selecting an option, leading to high frustration and **\$4.50 to \$8.00 per call** in human escalation labor.
+2. **High Cognitive Load:** Callers must listen to **30 to 45 seconds** of spoken options before selecting an option, leading to high frustration and **\$4.50 \to \$8.00 per call** in human escalation labor.
 3. **Cold Context Transfers:** When an IVR transfers a call to a human representative, context is lost. The caller must repeat their name, account number, and problem from scratch.
 
 ---
@@ -122,7 +122,7 @@ Traditional IVR Call Flow and Failure Cascade:
 
 A foundational difference between legacy telephony IVRs and modern Voice AI lies in acoustic signal fidelity and digital codec compression.
 
-```text
+```\text
 The Digital Telephony Codec Spectrum:
 
 Narrowband G.711 μ-law (IVR Standard):
@@ -136,7 +136,9 @@ Wideband Opus Codec (Modern Voice AI & WebRTC):
 
 In traditional public switched telephone networks (PSTN), audio is compressed using the **G.711 $\mu$-law logarithmic companding curve**:
 
-$$F(x) = 	ext{sgn}(x) rac{\ln(1 + \mu |x|)}{\ln(1 + \mu)}, \quad 	ext{where } \mu = 255$$
+$$
+F(x) = \text{sgn}(x) \frac{\ln(1 + \mu |x|)}{\ln(1 + \mu)}, \quad \text{where } \mu = 255
+$$
 
 This mathematical transformation allocates more quantization levels to low-amplitude signals while compressing loud peaks, maintaining dynamic range across 8-bit digital channels.
 
@@ -148,7 +150,7 @@ Modern Voice AI platforms deployed on WebRTC deploy the **Opus audio codec**, ca
 
 Chatbots emerged in the **2010s** to automate web and messaging communication (WhatsApp, SMS, Zendesk web widgets).
 
-```text
+```\text
 The Modern Chatbot RAG Architecture:
 
 [User Types Question into Web Widget]: "How do I update my billing credit card?"
@@ -161,7 +163,7 @@ The Modern Chatbot RAG Architecture:
                                            ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ LLM Synthesis (GPT-4o / Claude 3.5 Sonnet)                             │
-│ - Ingests prompt context and returns markdown formatted text guide     │
+│ - Ingests prompt context and returns markdown formatted \text guide     │
 └────────────────────────────────────────────────────────────────────────┘
                                            │
                                            ▼
@@ -179,7 +181,7 @@ The Modern Chatbot RAG Architecture:
 
 Unlike IVR (which forces users into decision trees) or Chatbots (which require typing), Voice AI conducts fluid, bidirectional verbal conversations over standard phone lines.
 
-```text
+```\text
 Autonomous Voice AI Systems Architecture (TTGE Engine):
 
 [Inbound SIP Phone Call: 8kHz G.711 / 16kHz PCM]
@@ -198,7 +200,7 @@ Autonomous Voice AI Systems Architecture (TTGE Engine):
 └────────────────────────────────────────────────────────────────────────┘
                        │
                        ▼
-[Dynamic Spoken Response Synthesized in Natural Emotional Cadence]
+[Dynamic Spoken Response Synthesized \in Natural Emotional Cadence]
 ```
 
 Voice AI resolves complex, multi-step customer inquiries autonomously, updating backend databases mid-call and executing warm SIP transfers with full transcripts when human intervention is required.
@@ -211,31 +213,34 @@ Voice AI resolves complex, multi-step customer inquiries autonomously, updating 
 
 In contact center operations research, the Average Speed of Answer (ASA) and customer abandonment rate are derived from the Erlang C delay probability $P_W$.
 
-The average waiting time for all incoming callers ($ar{W}$) in a queue with arrival rate $\lambda$, service rate $\mu = 1 / 	ext{AHT}$, and $N$ human agents is given by:
+The average waiting time for all incoming callers ($\bar{W}$) in a queue with arrival rate $\lambda$, service rate $\mu = 1 / \text{AHT}$, and $N$ human agents is given by:
 
-$$ar{W} = rac{P_W}{N\mu - \lambda}$$
+$$
+\bar{W} = \frac{P_W}{N\mu - \lambda}
+$$
 
 The probability that a customer waits longer than target threshold $t$ seconds (e.g., $t = 20$ seconds for service level standards) is:
 
 $$
 P(W > t) = P_W \cdot \exp\left(-(N\mu - \lambda)t
-ight)
+\right)
 $$
 
-Customer patience follows an exponential decay distribution with hazard rate $ heta$. The expected fraction of abandoned calls ($P\_{ ext{abandon}}$) is calculated by integrating the waiting time distribution against caller abandonment probability:
+Customer patience follows an exponential decay distribution with hazard rate $ \theta$. The expected fraction of abandoned calls ($P\_{ ext{abandon}}$) is calculated by integrating the waiting time distribution against caller abandonment probability:
 
-$$P_{	ext{abandon}} = \int_{0}^{\infty} P(W > t) \cdot 	heta e^{-	heta t} \, dt = rac{P_W \cdot 	heta}{(N\mu - \lambda) + 	heta}$$
+$$
+P_{\text{abandon}} = \int_{0}^{\infty} P(W > t) \cdot     \theta e^{-    \theta t} \, dt = \frac{P_W \cdot     \theta}{(N\mu - \lambda) +     \theta}
+$$
 
 As traffic approaches peak staffing capacity ($\lambda 
-ightarrow N\mu$), the denominator collapses toward $ heta$, causing abandonment rates to surge exponentially past **45%**.
+\rightarrow N\mu$), the denominator collapses toward $ \theta$, causing abandonment rates to surge exponentially past **45%**.
 
-By replacing finite human queues with elastic Voice AI workers, arrival rate never exceeds capacity ($\lambda \ll N\mu$), driving $ar{W} 
-ightarrow 0$ and eliminating hold-queue abandonment entirely.
+By replacing finite human queues with elastic Voice AI workers, arrival rate never exceeds capacity ($\lambda \ll N\mu$), driving $\bar{W} \rightarrow 0$ and eliminating hold-queue abandonment entirely.
 of Contact Center Queueing & Erlang C
 
 To understand the financial and operational advantage of Voice AI, contact center operations rely on the **Erlang C Queueing Formula**.
 
-```text
+```\text
 The Erlang C Traffic Equation:
 
 P_W = \frac{\frac{A^N}{N!} \frac{N}{N - A}}{\sum_{k=0}^{N-1} \frac{A^k}{k!} + \frac{A^N}{N!} \frac{N}{N - A}}
@@ -243,9 +248,9 @@ P_W = \frac{\frac{A^N}{N!} \frac{N}{N - A}}{\sum_{k=0}^{N-1} \frac{A^k}{k!} + \f
 
 ### Queueing Probability Analysis
 
-In a traditional human contact center with $N$ human agents and traffic intensity $A$ (Erlangs, where $A = \lambda \cdot \text{AHT}$), the probability that an incoming caller must wait in a hold queue ($P_W$) scales exponentially as traffic approaches agent capacity ($A \rightarrow N$).
+In a traditional human contact center with $N$ human agents and traffic intensity $A$ (Erlangs, where $A = \lambda \cdot \text{AHT}$), the probability that an incoming caller must wait in a hold queue ($P_W$) scales exponentially as traffic approaches agent capacity ($A \r\r\rightarrow N$).
 
-```text
+```\text
 Hold Queue Probability vs Call Volume:
 
 Traffic Intensity A / Agent Capacity N:
@@ -272,24 +277,24 @@ Voice AI operates with elastic cloud concurrency ($N = \infty$). Traffic intensi
 
 ## 6. 25-Point Architectural Comparison Matrix
 
-| System Dimension                  | Traditional Touch-Tone IVR       | Natural Language Chatbots    | Cascaded Voice Pipeline                            | Native Voice AI (TTGE)              |
-| --------------------------------- | -------------------------------- | ---------------------------- | -------------------------------------------------- | ----------------------------------- |
-| **Underlying Architecture**       | Deterministic PBX Switch         | NLU / Vector Database RAG    | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | **Unified Multimodal V2V**          |
-| **Response Latency**              | Instant Tone Relay               | **1,000ms - 3,000ms (Text)** | **650ms - 1,200ms**                                | **&lt;200ms (Human Tempo)**         |
-| **Interaction Modality**          | Telephony DTMF Keypad            | Web Widget, SMS, WhatsApp    | Phone & WebRTC Audio                               | **Carrier SIP & WebRTC**            |
-| **Multi-Turn Context Memory**     | 0 Turns (Flowchart State)        | 5 to 10 Turns (Text)         | 5 to 10 Turns (Text)                               | **Persistent Multi-Turn Context**   |
-| **Paralinguistic Tone**           | Pre-recorded Prompts             | None (Flat text)             | Synthetic TTS Guess                                | **100% Native Emotion Modeling**    |
-| **Barge-In Interruption**         | Keypress interrupts              | Not Applicable               | **180ms - 350ms**                                  | **&lt;40ms (Frame-Level Gating)**   |
-| **Objection Reframing**           | Fails on unscripted options      | Loops fallback message       | Dynamic Text Generation                            | **Dynamic Voice Reframing**         |
-| **Live Database Webhooks**        | Rigid PBX Database Dip           | REST APIs                    | REST APIs & Function Calls                         | **Native Multi-Tool Webhooks**      |
-| **Multi-Dialect & Accents**       | Rigid Language Menu              | Text Translation APIs        | High Phonetic Misrecognition                       | **Native Hinglish & Accents**       |
-| **Average Resolution Rate**       | **15% - 25%**                    | **35% - 50%**                | **60% - 75%**                                      | **75% - 88% End-to-End**            |
-| **Human Escalation Rate**         | **75% - 85%**                    | **50% - 65%**                | **25% - 40%**                                      | **12% - 25% (4x Reduction)**        |
-| **Warm Transfer with Context**    | Cold Transfer (Repeat data)      | Chat-to-Voice Handoff        | Supported via SIP Refer                            | **Instant Transcript & Audio Sync** |
-| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                   | Not Applicable               | Complex Multi-Vendor Setup                         | **Native 140/160 & STIR/SHAKEN**    |
-| **Elastic Concurrency**           | Fixed PRI / T1 Channel Limit     | High Cloud Concurrency       | High (Multi-Vendor Limits)                         | **Infinite Elastic SIP Scale**      |
-| **Setup & Ramp Time**             | **6 to 12 Weeks**                | **2 to 4 Weeks**             | **4 to 8 Weeks**                                   | **&lt;2 Minutes (Prompt-Driven)**   |
-| **All-In Cost per Minute**        | **\$0.015 / min** (Telecom only) | **\$0.005 / message**        | **\$0.084 - \$0.140 / min**                        | **₹3.50 / min (\$0.042/min flat)**  |
+| System Dimension                  | Traditional Touch-Tone IVR       | Natural Language Chatbots    | Cascaded Voice Pipeline                                    | Native Voice AI (TTGE)              |
+| --------------------------------- | -------------------------------- | ---------------------------- | ---------------------------------------------------------- | ----------------------------------- |
+| **Underlying Architecture**       | Deterministic PBX Switch         | NLU / Vector Database RAG    | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **Unified Multimodal V2V**          |
+| **Response Latency**              | Instant Tone Relay               | **1,000ms - 3,000ms (Text)** | **650ms - 1,200ms**                                        | **&lt;200ms (Human Tempo)**         |
+| **Interaction Modality**          | Telephony DTMF Keypad            | Web Widget, SMS, WhatsApp    | Phone & WebRTC Audio                                       | **Carrier SIP & WebRTC**            |
+| **Multi-Turn Context Memory**     | 0 Turns (Flowchart State)        | 5 to 10 Turns (Text)         | 5 to 10 Turns (Text)                                       | **Persistent Multi-Turn Context**   |
+| **Paralinguistic Tone**           | Pre-recorded Prompts             | None (Flat text)             | Synthetic TTS Guess                                        | **100% Native Emotion Modeling**    |
+| **Barge-In Interruption**         | Keypress interrupts              | Not Applicable               | **180ms - 350ms**                                          | **&lt;40ms (Frame-Level Gating)**   |
+| **Objection Reframing**           | Fails on unscripted options      | Loops fallback message       | Dynamic Text Generation                                    | **Dynamic Voice Reframing**         |
+| **Live Database Webhooks**        | Rigid PBX Database Dip           | REST APIs                    | REST APIs & Function Calls                                 | **Native Multi-Tool Webhooks**      |
+| **Multi-Dialect & Accents**       | Rigid Language Menu              | Text Translation APIs        | High Phonetic Misrecognition                               | **Native Hinglish & Accents**       |
+| **Average Resolution Rate**       | **15% - 25%**                    | **35% - 50%**                | **60% - 75%**                                              | **75% - 88% End-to-End**            |
+| **Human Escalation Rate**         | **75% - 85%**                    | **50% - 65%**                | **25% - 40%**                                              | **12% - 25% (4x Reduction)**        |
+| **Warm Transfer with Context**    | Cold Transfer (Repeat data)      | Chat-to-Voice Handoff        | Supported via SIP Refer                                    | **Instant Transcript & Audio Sync** |
+| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                   | Not Applicable               | Complex Multi-Vendor Setup                                 | **Native 140/160 & STIR/SHAKEN**    |
+| **Elastic Concurrency**           | Fixed PRI / T1 Channel Limit     | High Cloud Concurrency       | High (Multi-Vendor Limits)                                 | **Infinite Elastic SIP Scale**      |
+| **Setup & Ramp Time**             | **6 to 12 Weeks**                | **2 to 4 Weeks**             | **4 to 8 Weeks**                                           | **&lt;2 Minutes (Prompt-Driven)**   |
+| **All-In Cost per Minute**        | **\$0.015 / min** (Telecom only) | **\$0.005 / message**        | **\$0.084 - \$0.140 / min**                                | **₹3.50 / min (\$0.042/min flat)**  |
 
 ---
 
@@ -297,7 +302,7 @@ Voice AI operates with elastic cloud concurrency ($N = \infty$). Traffic intensi
 
 Let us examine the total cost of ownership (TCO) for an enterprise handling **250,000 customer inquiries per month**:
 
-```text
+```\text
 Annual Operational Cost Model (250,000 Inquiries / Month = 3,000,000 Inquiries / Year):
 
 1. Legacy IVR + Human Agent Contact Center (80% Human Escalation Rate):
@@ -324,7 +329,7 @@ Net Annual Enterprise Savings: $10,140,000 / Year (76.6% Total Cost Reduction)
 
 When a customer conversation requires specialized human judgment, modern Voice AI platforms do not simply disconnect; they transition directly into **Agent Copilot Mode**.
 
-```text
+```\text
 The Real-Time Voice AI Copilot Workflow:
 
 [Live PSTN Audio Stream: Caller + Human Agent]
@@ -342,7 +347,7 @@ The Real-Time Voice AI Copilot Workflow:
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
-[Human Agent Dashboard Displays Real-Time Suggested Solutions in <200ms]
+[Human Agent Dashboard Displays Real-Time Suggested Solutions \in <200ms]
 ```
 
 During human-assisted interactions, the Voice AI engine transcribes both sides of the telephone dialogue in real time.
@@ -353,23 +358,23 @@ If the customer expresses frustration or asks about complex contract clauses, th
 
 Migrating from on-premise PBX systems (Avaya, Cisco, Genesys) to autonomous Voice AI does not require replacing your entire telecommunications carrier.
 
-```text
+```\text
 Enterprise Telephony Migration Workflow:
 
 Step 1: SIP Trunk Forwarding (Day 1 - 3)
-- Configure your existing Session Border Controller (SBC) to forward inbound SIP traffic
-  directly to Tough Tongue AI endpoints in `asia-south1`.
+- Configure your existing Session Border Controller (SBC) \to forward inbound SIP traffic
+  directly \to Tough Tongue AI endpoints \in `asia-south1`.
 
 Step 2: Knowledge Ingestion & API Webhooks (Day 4 - 7)
 - Ingest company documentation, FAQs, and REST endpoints (Salesforce, Zendesk, Stripe).
 - Establish strict fallback thresholds for warm human transfers.
 
-Step 3: A/B Split Testing (Weeks 2 to 3)
-- Route 15% of inbound queue traffic to Voice AI; benchmark First Contact Resolution (FCR),
+Step 3: A/B Split Testing (Weeks 2 \to 3)
+- Route 15% of inbound queue traffic \to Voice AI; benchmark First Contact Resolution (FCR),
   Average Handle Time (AHT), and CSAT against human agents.
 
 Step 4: 100% Production Rollout (Week 4+)
-- Scale to 100% automated tier-1 support and outbound calling campaigns.
+- Scale \to 100% automated tier-1 support and outbound calling campaigns.
 ```
 
 ---
@@ -391,8 +396,8 @@ class EnterpriseInteractionRouter:
         # Legacy IVR: Fixed deterministic lookup
         start = time.perf_counter()
         menu = {
-            "1": "Routing to Sales Queue (Estimated Hold Time: 8 mins)",
-            "2": "Routing to Billing Queue (Estimated Hold Time: 12 mins)"
+            "1": "Routing \to Sales Queue (Estimated Hold Time: 8 mins)",
+            "2": "Routing \to Billing Queue (Estimated Hold Time: 12 mins)"
         }
         await asyncio.sleep(0.01) # 10ms relay
         return {
@@ -409,7 +414,7 @@ class EnterpriseInteractionRouter:
         return {
             "channel": "chatbot",
             "user_query": user_text,
-            "markdown_response": "To update your credit card, navigate to Settings > Billing.",
+            "markdown_response": "To update your credit card, navigate \to Settings > Billing.",
             "latency_ms": round((time.perf_counter() - start) * 1000, 2)
         }
 
@@ -454,7 +459,7 @@ Using Tough Tongue AI, enterprise teams can configure and deploy a production vo
 Using full-duplex Acoustic Echo Cancellation (AEC) and frame-level energy gating, Voice AI silences its audio output within **&lt;40ms** the moment a human speaks.
 
 **What is the cost difference between human contact center agents and Voice AI?**
-Human contact center interactions cost **\$5.50 to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in total operational savings**.
+Human contact center interactions cost **\$5.50 \to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in total operational savings**.
 
 **Why are native Voice-to-Voice models replacing cascaded pipelines?**
 Native Voice-to-Voice models eliminate intermediate text conversions, reducing turnaround latency to **&lt;200ms** while preserving emotional cadence, laughter, and authentic pronunciation.

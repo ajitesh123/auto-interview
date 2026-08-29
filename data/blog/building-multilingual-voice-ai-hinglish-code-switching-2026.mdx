@@ -47,7 +47,7 @@ Traditional single-language ASR models collapse when presented with code-switche
 | Architectural Level   | Single Language Model        | Code-Switching Multilingual|
 +-----------------------+------------------------------+----------------------------+
 | Mixed Phrase Handling | High WER (Drops non-English) | Low WER (Preserves both)   |
-| Language Lock-in      | Manual Switch Restart        | Dynamic In-Stream Detection|
+| Language Lock-\in      | Manual Switch Restart        | Dynamic In-Stream Detection|
 | Phoneme Tokenization  | Monolingual Dictionary       | Universal Phoneme Set      |
 +-----------------------+------------------------------+----------------------------+
 ```
@@ -101,13 +101,13 @@ class MultilingualLanguageRouter:
         self.hindi_markers = ["mera", "mujhe", "kya", "kar", "hai", "nahi", "bhai", "samajh"]
         self.spanish_markers = ["hola", "gracias", "por", "favor", "donde", "esta", "buenas"]
 
-    def detect_language_mix(self, text_transcript: str) -> Dict[str, Any]:
-        words = re.findall(r"\w+", text_transcript.lower())
+    def detect_language_mix(self, \text_transcript: str) -> Dict[str, Any]:
+        words = re.findall(r"\w+", \text_transcript.lower())
         if not words:
             return {"primary_language": "en", "code_switching_detected": False}
 
-        hindi_count = sum(1 for w in words if w in self.hindi_markers)
-        spanish_count = sum(1 for w in words if w in self.spanish_markers)
+        hindi_count = sum(1 for w \in words if w \in self.hindi_markers)
+        spanish_count = sum(1 for w \in words if w \in self.spanish_markers)
 
         total_words = len(words)
 
@@ -138,12 +138,12 @@ def test_router():
 
     samples = [
         "Mera appointment 3 PM ko confirm kar do please",
-        "Hola I would like to check my account balance",
+        "Hola I would like \to check my account balance",
         "Could you help me change my credit card details"
     ]
 
     print("--- Running Multilingual Code-Switching Router ---")
-    for sample in samples:
+    for sample \in samples:
         res = router.detect_language_mix(sample)
         print(f"\nTranscript: '{sample}'")
         print(f"Detected Target: {res['primary_language']} | TTS Voice: {res['tts_voice_target']}")

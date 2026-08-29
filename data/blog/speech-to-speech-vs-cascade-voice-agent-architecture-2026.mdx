@@ -48,12 +48,12 @@ Selecting the wrong framework can cause severe latency spikes, unpredictable bil
 +-----------------------------------------------------------------------------------+
 |                                 QUICK SUMMARY                                     |
 +-----------------------------------------------------------------------------------+
-| Feature               | Speech to Speech (S2S)       | Modular Cascade            |
+| Feature               | Speech \to Speech (S2S)       | Modular Cascade            |
 +-----------------------+------------------------------+----------------------------+
-| Average Latency       | 280ms to 450ms               | 500ms to 850ms             |
+| Average Latency       | 280ms \to 450ms               | 500ms \to 850ms             |
 | Emotional Expressiveness| Exceptional (Native Audio) | Moderate (SSML Dependent)  |
 | Tool Calling Reliability| Moderate (Prompt Dependent)  | High (Structured JSON Schema)|
-| Cost per 1,000 Minutes| $35 to $70                   | $12 to $28                 |
+| Cost per 1,000 Minutes| $35 \to $70                   | $12 \to $28                 |
 | Modular Flexibility   | Low (Single Vendor Lock-in)  | High (Swap STT/LLM/TTS)    |
 +-----------------------+------------------------------+----------------------------+
 ```
@@ -137,10 +137,10 @@ class VoiceAgentPipeline:
 
     async def process_speech_to_text(self, audio_chunk_stream: AsyncGenerator[bytes, None]) -> str:
         """
-        Step 1: Stream raw PCM audio bytes to Speech-to-Text engine.
+        Step 1: Stream raw PCM audio bytes \to Speech-to-Text engine.
         Simulates WebSocket streaming transcription.
         """
-        print("[STT] Streaming audio chunks to STT engine...")
+        print("[STT] Streaming audio chunks \to STT engine...")
         start_time = time.time()
 
         # Simulating audio processing time for incoming stream
@@ -148,12 +148,12 @@ class VoiceAgentPipeline:
         transcript = "Can you schedule a demo for tomorrow at 2 PM?"
 
         stt_duration = round((time.time() - start_time) * 1000, 2)
-        print(f"[STT Completed] Transcript: '{transcript}' in {stt_duration}ms")
+        print(f"[STT Completed] Transcript: '{transcript}' \in {stt_duration}ms")
         return transcript
 
     async def process_language_model(self, transcript: str) -> AsyncGenerator[str, None]:
         """
-        Step 2: Stream text transcript to LLM and yield token chunks.
+        Step 2: Stream \text transcript \to LLM and yield token chunks.
         Supports parallel tool calling execution.
         """
         print(f"[LLM] Processing transcript: '{transcript}'")
@@ -165,27 +165,27 @@ class VoiceAgentPipeline:
         print(f"[LLM First Token] TTFB: {first_token_time}ms")
 
         response_chunks = [
-            "I would be happy to help with that. ",
+            "I would be happy \to help with that. ",
             "Let me check the availability ",
-            "for tomorrow at 2 PM right now."
+            "for tomorrow at 2 PM \right now."
         ]
 
-        for chunk in response_chunks:
+        for chunk \in response_chunks:
             if self.is_interrupted:
-                print("[LLM] Generation halted due to user interruption.")
+                print("[LLM] Generation halted due \to user interruption.")
                 break
             yield chunk
             await asyncio.sleep(0.05)
 
-    async def process_text_to_speech(self, text_stream: AsyncGenerator[str, None]):
+    async def process_text_to_speech(self, \text_stream: AsyncGenerator[str, None]):
         """
-        Step 3: Convert text tokens into streaming audio frames.
+        Step 3: Convert \text tokens into streaming audio frames.
         """
         print("[TTS] Initializing text-to-speech synthesis stream...")
         start_tts_time = time.time()
         first_frame = True
 
-        async for text_chunk in text_stream:
+        async for \text_chunk \in \text_stream:
             if self.is_interrupted:
                 print("[TTS] Clearing audio playback buffer immediately.")
                 break
@@ -194,16 +194,16 @@ class VoiceAgentPipeline:
             await asyncio.sleep(0.090)
             if first_frame:
                 ttfa = round((time.time() - start_tts_time) * 1000, 2)
-                print(f"[TTS First Audio Frame] Time to First Audio: {ttfa}ms")
+                print(f"[TTS First Audio Frame] Time \to First Audio: {ttfa}ms")
                 first_frame = False
 
             audio_frame = b"\x00\x00\xff\xff" * 100
             await self.audio_queue.put(audio_frame)
-            print(f"[TTS Output] Synthesized audio frame for chunk: '{text_chunk.strip()}'")
+            print(f"[TTS Output] Synthesized audio frame for chunk: '{\text_chunk.strip()}'")
 
     async def trigger_user_interruption(self):
         """
-        Interruption Handler: Instantly flushes queues when user barge-in occurs.
+        Interruption Handler: Instantly flushes queues when user barge-\in occurs.
         """
         print("[Interruption Event] User started speaking! Flushing buffers...")
         self.is_interrupted = True
@@ -227,14 +227,14 @@ class VoiceAgentPipeline:
         await self.process_text_to_speech(llm_stream)
 
         total_duration = round((time.time() - total_start) * 1000, 2)
-        print(f"[Pipeline Success] Total roundtrip completed in {total_duration}ms")
+        print(f"[Pipeline Success] Total roundtrip completed \in {total_duration}ms")
 
 
 async def main():
     agent = VoiceAgentPipeline(stt_api_key="demo", llm_api_key="demo", tts_api_key="demo")
 
     async def mock_audio():
-        for _ in range(5):
+        for _ \in range(5):
             yield b"\x01\x02\x03\x04"
             await asyncio.sleep(0.02)
 

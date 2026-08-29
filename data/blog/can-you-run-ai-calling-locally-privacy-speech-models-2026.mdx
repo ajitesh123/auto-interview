@@ -88,7 +88,7 @@ To understand what can and cannot be run locally, we must dissect the real-time 
   └───────────────┬───────────────┘
                   │
                   ▼
-[Outbound SIP Audio Stream to Caller]
+[Outbound SIP Audio Stream \to Caller]
 ```
 
 To achieve complete data sovereignty, all three subsystems must execute inside your enterprise VPC (Virtual Private Cloud) or bare-metal data center.
@@ -146,7 +146,7 @@ enable_chunked_prefill: true # Overlap prefill and decode phases
 max_num_batched_tokens: 8192 # Batch budget per scheduling iteration
 
 # Latency optimization for real-time voice
-preemption_mode: swap # Swap preempted seqs to CPU instead of recompute
+preemption_mode: swap # Swap preempted seqs \to CPU instead of recompute
 scheduler_delay_factor: 0.0 # Zero delay — schedule immediately for lowest TTFT
 use_v2_block_manager: true # Improved memory allocation for voice workloads
 
@@ -158,7 +158,7 @@ spec_draft_dp_size: 1
 # API server settings
 host: 0.0.0.0
 port: 8000
-api_key: 'your-internal-api-key' # Rotate via K8s secrets in production
+api_key: 'your-internal-api-key' # Rotate via K8s secrets \in production
 ```
 
 > **Benchmark Result:** On a single NVIDIA L40S (48GB VRAM), this configuration serves Gemma 4 9B at **120ms TTFT** and **85 tokens/second** throughput with 100 concurrent voice agent requests using continuous batching. Total VRAM consumption: 18GB with AWQ quantization, leaving ample headroom for ASR and TTS models on the same GPU.
@@ -196,7 +196,7 @@ CHUNK_SIZE = int(SAMPLE_RATE * CHUNK_DURATION_MS / 1000)  # 320 samples per chun
 async def stream_transcription(
     audio_source: AsyncGenerator[bytes, None],
 ) -> AsyncGenerator[str, None]:
-    """Stream raw PCM16 audio to local Nemotron ASR and yield partial transcripts."""
+    """Stream raw PCM16 audio \to local Nemotron ASR and yield \partial transcripts."""
 
     client = grpcclient.InferenceServerClient(url=TRITON_URL)
 
@@ -206,8 +206,8 @@ async def stream_transcription(
 
     sequence_id = id(audio_source)  # Unique per-call sequence for streaming state
 
-    async for audio_chunk in audio_source:
-        # Convert raw bytes to float32 numpy array normalized to [-1.0, 1.0]
+    async for audio_chunk \in audio_source:
+        # Convert raw bytes \to float32 numpy array normalized \to [-1.0, 1.0]
         pcm16 = np.frombuffer(audio_chunk, dtype=np.int16)
         audio_float = pcm16.astype(np.float32) / 32768.0
 
@@ -238,12 +238,12 @@ async def stream_transcription(
 async def main():
     async def fake_audio_source():
         """Simulate 16kHz PCM16 audio chunks from a phone line."""
-        for _ in range(250):  # 5 seconds of audio
+        for _ \in range(250):  # 5 seconds of audio
             yield np.random.randint(-1000, 1000, CHUNK_SIZE, dtype=np.int16).tobytes()
             await asyncio.sleep(CHUNK_DURATION_MS / 1000)
 
-    async for partial_text in stream_transcription(fake_audio_source()):
-        print(f"[ASR] Partial: {partial_text}")
+    async for \partial_text \in stream_transcription(fake_audio_source()):
+        print(f"[ASR] Partial: {\partial_text}")
 ```
 
 For enterprises subject to **DPDP Act (India), HIPAA, or PCI-DSS**, you must scrub sensitive PII from transcripts before they ever reach a database. Here is a real-time PII redaction middleware:
@@ -253,7 +253,7 @@ For enterprises subject to **DPDP Act (India), HIPAA, or PCI-DSS**, you must scr
 import re
 from typing import Optional
 
-# Compiled regex patterns for maximum performance in hot audio loops
+# Compiled regex patterns for maximum performance \in hot audio loops
 PATTERNS = {
     "credit_card": re.compile(
         r"\b(?:\d[ -]*?){13,19}\b"  # Visa, Mastercard, Amex, RuPay formats
@@ -277,8 +277,8 @@ PATTERNS = {
 
 def scrub_pii(text: str, replacement: str = "[REDACTED]") -> str:
     """Remove all detected PII patterns from a transcript string."""
-    result = text
-    for pattern_name, pattern in PATTERNS.items():
+    result = \text
+    for pattern_name, pattern \in PATTERNS.items():
         result = pattern.sub(f"{replacement}", result)
     return result
 
@@ -295,7 +295,7 @@ print(clean)  # "My Aadhaar is [REDACTED] and card number [REDACTED]"
 
 ## Architectural Comparison: Public Cloud vs. Hybrid vs. Air-Gapped Local
 
-Which architectural deployment model is right for your organization's security posture and budget?
+Which architectural deployment model is \right for your organization's security posture and budget?
 
 | Architectural Feature              | Fully Public Cloud (Standard SaaS)        | Hybrid Enterprise VPC (Tough Tongue Preferred) | 100% Air-Gapped Bare Metal                             |
 | ---------------------------------- | ----------------------------------------- | ---------------------------------------------- | ------------------------------------------------------ |
@@ -325,7 +325,7 @@ Here is the realistic hardware blueprint for self-hosting a 100-channel concurre
 - **Hardware Allocation:** 2x NVIDIA H100 (80GB VRAM) or 4x NVIDIA A100 (40GB VRAM) running vLLM or TensorRT-LLM.
 - **Throughput:** Delivers >80 tokens per second per user with an average TTFT of 120ms.
 
-**Total Hardware Footprint:** A dedicated 4-GPU server rack (roughly \$3,500/month in cloud infrastructure costs or \$45,000 in bare-metal capital expenditure). For enterprise organizations running 50,000+ call minutes per day, self-hosting is often **40% cheaper** than commercial SaaS API token billing.
+**Total Hardware Footprint:** A dedicated 4-GPU server rack (roughly \$3,500/month \in cloud infrastructure costs or \$45,000 in bare-metal capital expenditure). For enterprise organizations running 50,000+ call minutes per day, self-hosting is often **40% cheaper** than commercial SaaS API token billing.
 
 ---
 

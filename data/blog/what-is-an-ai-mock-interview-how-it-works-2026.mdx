@@ -39,7 +39,7 @@ structuredData:
 
 Modern AI interview engines evaluate candidates across five synchronized analytical layers:
 
-```text
+```\text
 The 5 Real-Time Interview Evaluation Streams:
 
 Ingress Microphone Stream (Candidate Voice)
@@ -56,7 +56,7 @@ Ingress Microphone Stream (Candidate Voice)
 │ - Flags "um", "ah", "like", "you know", and long thinking pauses       │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Stream 4: Technical Reasoning & Socratic Follow-Up Generator           │
-│ - Probes shallow answers: "How would that scale to 10M daily users?"   │
+│ - Probes shallow answers: "How would that scale \to 10M daily users?"   │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Stream 5: Sub-200ms Voice-to-Voice Conversational Interaction Core     │
 │ - Simulates realistic human interruptions, backchannels, and pacing    │
@@ -69,25 +69,29 @@ Ingress Microphone Stream (Candidate Voice)
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame gating must operate in **&lt;15ms** to prevent clipping candidate speech onset.
 
@@ -95,7 +99,7 @@ While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame ga
 
 In vocal tract acoustics, candidate voice characteristics are defined by resonant formant frequencies ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -103,7 +107,9 @@ Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speec
 
 The vocal tract transfer function is modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -113,12 +119,12 @@ By tracking formant shifts alongside fundamental frequency ($F_0$), modern AI co
 
 Human interviewers subconsciously evaluate candidate authority and poise based on the continuous smooth transition of acoustic formants.
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue advancement.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue advancement.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 When candidates speak with confidence, formant transitions remain steady and resonant. Under acute nervousness, vocal tract tension causes abrupt formant shifts and pitch tremors.
@@ -129,7 +135,7 @@ Auto Interview AI models quantify these micro-transitions $(\Delta F_1, \Delta F
 
 Unlike basic text-based chat tools that only read transcripts, advanced voice interview platforms analyze the raw physical sound waves of your voice:
 
-```text
+```\text
 Acoustic Prosody Processing Pipeline:
 
 Continuous Audio Waveform x(t)
@@ -137,7 +143,7 @@ Continuous Audio Waveform x(t)
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Short-Time Fourier Transform (STFT) & Mel-Spectrogram Extraction    │
-│    - Computes 128-channel spectral energy distribution in 10ms frames  │
+│    - Computes 128-channel spectral energy distribution \in 10ms frames  │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -162,7 +168,7 @@ When a candidate is nervous, their vocal cords tighten, raising their fundamenta
 
 Processing continuous audio features alongside large language reasoning requires high-throughput GPU memory management:
 
-```text
+```\text
 The High-Concurrency GPU Memory Stack:
 
 1. FlashAttention-3:
@@ -174,7 +180,7 @@ The High-Concurrency GPU Memory Stack:
    - Enables 500+ concurrent candidate interview sessions on a single NVIDIA L40S GPU node.
 
 3. Speculative Decoding:
-   - A high-speed draft model predicts upcoming words in parallel with the target model,
+   - A high-speed draft model predicts upcoming words \in parallel with the target model,
      accelerating generation speed by 40%.
 ```
 
@@ -182,8 +188,8 @@ The High-Concurrency GPU Memory Stack:
 
 Audio capture fidelity directly affects prosodic analysis precision:
 
-```text
-The Audio Codec Spectrum in Voice Coaching:
+```\text
+The Audio Codec Spectrum \in Voice Coaching:
 
 1. Narrowband G.711 μ-law (8kHz PSTN Telephony):
    - Sampling Rate: 8,000 samples/sec (300 Hz - 3,400 Hz).
@@ -198,7 +204,7 @@ The Audio Codec Spectrum in Voice Coaching:
 
 Traditional static mock interviews ask a list of pre-scripted questions. In contrast, 2026 AI interview agents deploy **Dynamic Socratic Probing**:
 
-```text
+```\text
 The Adaptive Socratic Questioning Loop:
 
 [AI Interviewer]: "Describe a challenging distributed systems outage you resolved."
@@ -215,7 +221,7 @@ The Adaptive Socratic Questioning Loop:
                                 ▼
 [AI Probes Dynamically (<180ms)]: "Restarting cleared the lock temporarily,
 but what was the underlying query deadlocking the transaction table, and how
-did you prevent recurrence in production?"
+did you prevent recurrence \in production?"
 ```
 
 This dynamic follow-up logic mirrors senior engineering directors and executive hiring managers at Tier-1 technology companies.
@@ -228,24 +234,28 @@ When synthesizing speech in full-duplex systems, the vocoder must support instan
 
 Selective State Space Models (SSMs / Mamba) compute audio frames with linear complexity $\mathcal{O}(N)$:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the AI coach to start and stop instantly without phase distortion.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the AI coach to start and stop instantly without phase distortion.
 
 ## 4. Mathematical Formulations of Interview Speech Evaluation
 
-```text
+```\text
 The Mathematical Formulations:
 
 1. Filler Word Ratio Metric:
    \Phi = \frac{N_{\text{filler}}}{N_{\text{total\_words}}} \times 100\% \quad (\text{Target: } \Phi < 2.0\%)
 
 2. Vocal Confidence Intonation Index:
-   \mathcal{C} = 1.0 - \left( \frac{\sigma(F_0)}{\mu(F_0)} \right) - \lambda \cdot \text{UptalkRatio}
+   \mathcal{C} = 1.0 - \left( \frac{\s\sigma(F_0)}{\mu(F_0)} \right) - \lambda \cdot \text{UptalkRatio}
 
 3. Linear Predictive Coding (LPC) Formant Filter:
    H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
@@ -263,7 +273,7 @@ The Mathematical Formulations:
 
 Deploying real-time Voice-to-Voice models across candidate browsers and mobile apps requires managing packet arrival variance:
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [Candidate Browser Microphone] ──► [WebRTC DataChannel / Audio Stream] ──► [Regional WebRTC Gateway]
@@ -277,14 +287,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                                 │
                                                                                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-180ms Native Voice Turnaround Core (TTGE Engine)                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is dynamically regulated:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile connections while maintaining instantaneous responsiveness.
 
@@ -292,7 +304,7 @@ This dynamic buffering prevents stuttering on mobile connections while maintaini
 
 In neural speech synthesis, generating continuous 24kHz audio waveforms from intermediate latents requires an adversarial neural vocoder:
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Acoustic Latent Vector Matrix
@@ -300,13 +312,13 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -316,13 +328,17 @@ Input Acoustic Latent Vector Matrix
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 ### Deep Noise Suppression (DNS) & Wiener Filtering
 
 In practice environments, background acoustic noise from home offices and cafes can degrade interview evaluation:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying real-time Wiener acoustic filtering isolates candidate vocal formants while suppressing non-speech ambient noise by up to **24 dB**.
 
@@ -330,7 +346,7 @@ Applying real-time Wiener acoustic filtering isolates candidate vocal formants w
 
 In home practice environments, ambient air conditioning hum and keyboard clicks can corrupt acoustic prosody analysis:
 
-```text
+```\text
 The Neural Wiener Filtering & Denoising Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -338,7 +354,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -348,18 +364,20 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to Multimodal Evaluation Core]
+[Clean Speech Signal Fed \to Multimodal Evaluation Core]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ isolates candidate vocal formants while suppressing non-speech noise by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 ## 5. Full-Duplex Audio & Realistic Interruption Drills
 
 High-stakes executive and sales interviews require candidates to handle conversational interruptions calmly.
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [Candidate Vocalizing Answer via Microphone Stream]
@@ -386,12 +404,12 @@ Practicing on full-duplex systems builds candidate poise, training individuals t
 
 ### 2026 Comprehensive AI Mock Interview Benchmark Matrix
 
-| Interview Platform / Model   | Underlying Audio Engine                         | Response Latency (P50) | Prosody Tracking Depth     | Follow-Up Intelligence   | Pricing per Session                |
-| ---------------------------- | ----------------------------------------------- | ---------------------- | -------------------------- | ------------------------ | ---------------------------------- |
-| **Generic Chatbot Prompt**   | Text Generation API                             | **1,500ms**            | None (Text Only)           | 22.4% (Generic)          | \$20 / month sub                   |
-| **First-Gen Voice Wrapper**  | Chained STT $\rightarrow$ LLM $\rightarrow$ TTS | **650ms**              | Basic WPM count            | 45.8%                    | \$35 / month sub                   |
-| **OpenAI Realtime API**      | Cloud Multimodal Audio                          | **250ms**              | Moderate Pitch             | 78.5%                    | \$0.120 - \$0.300 / min            |
-| **Auto Interview AI (TTGE)** | **Native Multimodal V2V**                       | **&lt;180ms**          | **Full F0/F1-F3 Tracking** | **88.6% Socratic Depth** | **₹3.50 / min (\$0.042/min flat)** |
+| Interview Platform / Model   | Underlying Audio Engine                                 | Response Latency (P50) | Prosody Tracking Depth     | Follow-Up Intelligence   | Pricing per Session                |
+| ---------------------------- | ------------------------------------------------------- | ---------------------- | -------------------------- | ------------------------ | ---------------------------------- |
+| **Generic Chatbot Prompt**   | Text Generation API                                     | **1,500ms**            | None (Text Only)           | 22.4% (Generic)          | \$20 / month sub                   |
+| **First-Gen Voice Wrapper**  | Chained STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **650ms**              | Basic WPM count            | 45.8%                    | \$35 / month sub                   |
+| **OpenAI Realtime API**      | Cloud Multimodal Audio                                  | **250ms**              | Moderate Pitch             | 78.5%                    | \$0.120 - \$0.300 / min            |
+| **Auto Interview AI (TTGE)** | **Native Multimodal V2V**                               | **&lt;180ms**          | **Full F0/F1-F3 Tracking** | **88.6% Socratic Depth** | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Enterprise University & Campus Hiring Transformation
 
@@ -421,7 +439,9 @@ By deploying Auto Interview AI across campus recruitment drives, universities ac
 
 In 2026, AI mock interview agents refine coaching rubrics dynamically using **Direct Preference Optimization (DPO)**:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
 Feedback that accurately guided candidates to fix structural rambling while maintaining encouragement is marked as preferred pairs ($\mathbf{y}_w$), training the coaching model to provide high-signal, actionable feedback.
 
@@ -433,7 +453,7 @@ Modern foundation models evaluate candidates fairly across global accents (inclu
 
 When candidates practice using standard smartphone microphones, narrowband audio compression can mute higher vocal overtones.
 
-```text
+```\text
 The Super-Resolution BWE Pipeline:
 
 Narrowband Audio (300 Hz - 3,400 Hz)
@@ -442,11 +462,11 @@ Narrowband Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Restores studio-grade vocal resonance in <6ms GPU inference time     │
+│ - Restores studio-grade vocal resonance \in <6ms GPU inference time     │
 └────────────────────────────────────────────────────────────────────────┘
                  │
                  ▼
-[High-Fidelity Audio Feed to Multimodal Evaluation Engine]
+[High-Fidelity Audio Feed \to Multimodal Evaluation Engine]
 ```
 
 ### The 2026 Comprehensive Candidate Evaluation Scorecard:
@@ -462,7 +482,7 @@ Following each simulated interview session, the platform generates a comprehensi
 
 Data across **50,000 completed mock interviews** demonstrates the quantifiable impact of voice AI coaching:
 
-```text
+```\text
 Impact of Voice AI Practice on Real-World Candidate Outcomes:
 
 Metric Tested                       Before Voice AI Practice    After 5 Targeted Sessions
@@ -499,14 +519,14 @@ class MockInterviewVoiceAnalyzer:
         words = re.findall(r'\b\w+\b', transcript.lower())
         total_words = len(words)
 
-        filler_count = sum(1 for w in words if w in self.filler_lexicon)
+        filler_count = sum(1 for w \in words if w \in self.filler_lexicon)
         filler_density_pct = round((filler_count / max(total_words, 1)) * 100.0, 2)
         wpm = round((total_words / max(duration_sec, 1.0)) * 60.0, 1)
 
-        has_situation = any(k in transcript.lower() for k in ["when i was", "at my previous", "in my role"])
-        has_task = any(k in transcript.lower() for k in ["goal was", "needed to", "tasked with", "objective"])
-        has_action = any(k in transcript.lower() for k in ["i built", "i implemented", "i designed", "i created"])
-        has_result = any(k in transcript.lower() for k in ["increased", "reduced", "delivered", "%", "revenue"])
+        has_situation = any(k \in transcript.lower() for k \in ["when i was", "at my previous", "\in my role"])
+        has_task = any(k \in transcript.lower() for k \in ["goal was", "needed to", "tasked with", "objective"])
+        has_action = any(k \in transcript.lower() for k \in ["i built", "i implemented", "i designed", "i created"])
+        has_result = any(k \in transcript.lower() for k \in ["increased", "reduced", "delivered", "%", "revenue"])
 
         star_score = sum([has_situation, has_task, has_action, has_result]) * 25
 
@@ -521,7 +541,7 @@ class MockInterviewVoiceAnalyzer:
 
     async def run_interview_audit(self):
         print("[Starting Mock Interview Audit]...")
-        sample_answer = "When I was at my previous company, our goal was to scale our voice pipeline. I implemented a native Voice-to-Voice engine which reduced latency by 65%."
+        sample_answer = "When I was at my previous company, our goal was \to scale our voice pipeline. I implemented a native Voice-to-Voice engine which reduced latency by 65%."
         metrics = self.analyze_interview_response(sample_answer, 18.5)
         print(f"[Interview Report]: STAR Score = {metrics['star_completeness_score']}/100 | WPM = {metrics['wpm']} | Fillers = {metrics['filler_density_pct']}%")
 
@@ -562,7 +582,7 @@ Auto Interview AI is powered by Tough Tongue AI TTGE, delivering sub-**180ms tur
 Because the system responds with biological human timing (&lt;200ms) and authentic vocal prosody, candidates quickly enter a natural conversational flow, experiencing realistic interview pressure.
 
 **How much does AI mock interview practice cost?**
-Generic subscriptions cost \$20 to \$50 per month. On Auto Interview AI / Tough Tongue AI, candidate voice practice is accessible at a flat rate of **₹3.50 per minute** (**\$0.042/min**).
+Generic subscriptions cost \$20 \to \$50 per month. On Auto Interview AI / Tough Tongue AI, candidate voice practice is accessible at a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 **How long does it take to start an AI mock interview?**
 Candidates can upload a resume and target job description, generating a personalized interview session in **&lt;2 minutes**.

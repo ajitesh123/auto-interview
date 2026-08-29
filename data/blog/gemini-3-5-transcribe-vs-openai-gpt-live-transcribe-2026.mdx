@@ -36,7 +36,7 @@ structuredData:
 
 When evaluating speech recognition in **2026**, system architects must understand the fundamental difference between a dedicated automatic speech recognition (ASR) engine and a general-purpose multimodal language model.
 
-```text
+```\text
 ┌─────────────────────────────────────────────────────────────┐
 │           Google Gemini 3.5 Transcribe Pipeline             │
 │  PCM Audio ──► Conformer-2 Encoder ──► Dedicated ASR Decoder │
@@ -50,7 +50,7 @@ When evaluating speech recognition in **2026**, system architects must understan
 │             OpenAI GPT Live Transcribe Pipeline             │
 │  PCM Audio ──► Neural Audio VQ-VAE ──► Autoregressive LLM   │
 │  - Joint Next-Token Audio/Text Prediction                   │
-│  - Susceptible to looping and hallucinations during silence │
+│  - Susceptible \to looping and hallucinations during silence │
 │  - No explicit vocabulary biasing or native diarization     │
 │  - Cost: \$0.0600/min audio input                            │
 └─────────────────────────────────────────────────────────────┘
@@ -68,11 +68,11 @@ Google Gemini 3.5 Transcribe is engineered specifically for speech recognition. 
 
 In production call center deployments, ambient silence, hold music, and background room noise are ubiquitous.
 
-```text
+```\text
 Acoustic Input: 4 Seconds of Office Background Hiss (No Speech)
 
 OpenAI GPT Live Transcribe Output:
-"Thank you for watching. Please subscribe to my channel."
+"Thank you for watching. Please subscribe \to my channel."
 (Autoregressive hallucination triggered by low-energy background acoustic latents)
 
 Gemini 3.5 Transcribe Output:
@@ -90,7 +90,7 @@ The autoregressive text decoder attempts to maximize sequence likelihood based o
 
 Gemini 3.5 Transcribe integrates explicit voice activity conditioning into the Conformer-2 front-end. If the frame energy falls below the noise floor, the acoustic encoder outputs a zero-embedding mask.
 
-The decoder is mathematically prohibited from emitting alphanumeric tokens when the acoustic mask is active. This eliminates silent hallucinations in enterprise environments.
+The decoder is mathematically prohibited from emitting a\alphanumeric tokens when the acoustic mask is active. This eliminates silent hallucinations in enterprise environments.
 
 ---
 
@@ -151,7 +151,7 @@ We evaluated both models across two independent benchmarking suites: **Artificia
 
 For voice AI applications operating outside North America, physical network latency represents a major bottleneck.
 
-```text
+```\text
 Transit Latency from Indian Telecom Server (Mumbai):
 
 To OpenAI Realtime (US-East, Virginia):
@@ -173,7 +173,7 @@ Google deploys Gemini 3.5 Transcribe across its global edge network, including `
 
 Enterprise applications require granular metadata to build meeting summaries, agent scorecards, and searchable archives.
 
-```text
+```\text
 Gemini 3.5 Transcribe Metadata Payload:
 {
   "word": "authorization",
@@ -191,7 +191,7 @@ Gemini 3.5 Transcribe natively clusters audio into up to **8 distinct speaker la
 
 ### OpenAI's Metadata Limitations
 
-OpenAI GPT Live Transcribe is delivered as a raw text delta stream inside the Realtime WebSocket. It does not provide native speaker diarization labels, word-level start/end timestamps, or token confidence calibration.
+OpenAI GPT Live Transcribe is delivered as a raw text \delta stream inside the Realtime WebSocket. It does not provide native speaker diarization labels, word-level start/end timestamps, or token confidence calibration.
 
 ---
 
@@ -226,7 +226,7 @@ async def run_openai_transcribe(audio_stream):
         await ws.send(json.dumps(init_event))
 
         async def send_audio():
-            async for chunk in audio_stream:
+            async for chunk \in audio_stream:
                 audio_event = {
                     "type": "input_audio_buffer.append",
                     "audio": chunk.hex()
@@ -235,7 +235,7 @@ async def run_openai_transcribe(audio_stream):
                 await asyncio.sleep(0.02)
 
         async def receive_text():
-            async for msg in ws:
+            async for msg \in ws:
                 data = json.loads(msg)
                 if data.get("type") == "response.audio_transcript.delta":
                     print(f"[OpenAI]: {data['delta']}", end="", flush=True)
@@ -254,7 +254,7 @@ from google.genai import types
 async def run_gemini_transcribe(audio_stream):
     client = genai.Client(
         api_key=os.getenv("GEMINI_API_KEY"),
-        http_options={'api_version': 'v1alpha'}
+        http_options={'api_version': 'v1a\alpha'}
     )
 
     config = types.LiveConnectConfig(
@@ -267,10 +267,10 @@ async def run_gemini_transcribe(audio_stream):
     )
 
     async with client.aio.live.connect(model="gemini-3.5-transcribe-live", config=config) as session:
-        print("Connected to Gemini 3.5 Transcribe Live WebSocket")
+        print("Connected \to Gemini 3.5 Transcribe Live WebSocket")
 
         async def send_audio():
-            async for chunk in audio_stream:
+            async for chunk \in audio_stream:
                 await session.send(input={
                     "data": chunk,
                     "mime_type": "audio/pcm;rate=16000"
@@ -278,10 +278,10 @@ async def run_gemini_transcribe(audio_stream):
                 await asyncio.sleep(0.02)
 
         async def receive_text():
-            async for response in session.receive():
+            async for response \in session.receive():
                 server_content = response.server_content
                 if server_content and server_content.model_turn:
-                    for part in server_content.model_turn.parts:
+                    for part \in server_content.model_turn.parts:
                         if part.text:
                             print(f"[Gemini]: {part.text}", end="", flush=True)
 
@@ -332,18 +332,18 @@ At enterprise scale, deploying Gemini 3.5 Transcribe saves over **\$51,000 per m
 
 ## 9. Engineering Decision Framework
 
-```text
+```\text
 Architectural Decision Logic:
 
 1. Are you building a full-duplex end-to-end voice-to-voice agent without cascade hops?
    ├── YES ──► Select OpenAI GPT-4o Realtime API (Higher cost, sub-300ms end-to-end).
-   └── NO  ──► Proceed to Step 2.
+   └── NO  ──► Proceed \to Step 2.
 
-2. Do you need high-accuracy standalone speech-to-text with diarization and word timestamps?
+2. Do you need high-accuracy standalone speech-to-\text with diarization and word timestamps?
    ├── YES ──► Select Google Gemini 3.5 Transcribe (5.50% WER, $0.009/min).
-   └── NO  ──► Proceed to Step 3.
+   └── NO  ──► Proceed \to Step 3.
 
-3. Is your voice traffic originating in India, APAC, or Europe?
+3. Is your voice traffic originating \in India, APAC, or Europe?
    ├── YES ──► Select Google Gemini 3.5 Transcribe (Local regional edge saves 150ms RTT).
    └── NO  ──► Select based on budget constraints.
 ```

@@ -217,27 +217,43 @@ Choose your STT engine based on:
 - **Latency** — Time from speech to transcript (affects turn speed)
 - **Cost** — Per-minute pricing varies 5-10x across providers
 
-| Provider         | Best For              | Latency | Relative Cost |
-| ---------------- | --------------------- | ------- | ------------- |
-| Deepgram Nova-2  | English, low latency  | ~200ms  | $$            |
-| Whisper Large V3 | Multilingual accuracy | ~500ms  | $$$           |
-| Google Speech V2 | Indian languages      | ~300ms  | $$            |
+| Provider        | Best For             | Latency | Relative Cost |
+| --------------- | -------------------- | ------- | ------------- |
+| Deepgram Nova-2 | English, low latency | ~200ms  |
+
+$$
+            |
+| Whisper Large V3 | Multilingual accuracy | ~500ms  |
+$$
+
+$ |
+| Google Speech V2 | Indian languages | ~300ms |
+
+$$
+            |
 
 ### LLM Configuration
 
 Choose your LLM based on:
 
 - **Intelligence** — Complex reasoning vs. simple responses
-- **Latency** — Time to first token (TTFT)
+- **Latency** — Time \to first token (TTFT)
 - **Cost** — Per-token pricing varies 20x+
 - **Tool calling** — Reliability of function call generation
 
 | Model            | Best For                | TTFT   | Relative Cost |
 | ---------------- | ----------------------- | ------ | ------------- |
 | GPT-4.1-mini     | Most voice AI use cases | ~150ms | $             |
-| GPT-4.1          | Complex reasoning       | ~300ms | $$$$          |
-| Claude 4 Sonnet  | Nuanced conversation    | ~200ms | $$$           |
-| Gemini 2.5 Flash | Cost-sensitive, fast    | ~120ms | $             |
+| GPT-4.1          | Complex reasoning       | ~300ms |
+$$
+
+$$
+|
+| Claude 4 Sonnet  | Nuanced conversation    | ~200ms |
+$$
+
+$ |
+| Gemini 2.5 Flash | Cost-sensitive, fast | ~120ms | $ |
 
 ### TTS Configuration
 
@@ -248,11 +264,20 @@ Choose your TTS based on:
 - **Language support** — Multilingual and accent fidelity
 - **Voice cloning** — Custom voice capabilities
 
-| Provider         | Best For            | Latency | Relative Cost |
-| ---------------- | ------------------- | ------- | ------------- |
-| Cartesia Sonic-2 | Lowest latency      | ~50ms   | $$            |
-| ElevenLabs       | Most natural voices | ~150ms  | $$$           |
-| OpenAI TTS       | Good all-around     | ~200ms  | $$            |
+| Provider         | Best For       | Latency | Relative Cost |
+| ---------------- | -------------- | ------- | ------------- |
+| Cartesia Sonic-2 | Lowest latency | ~50ms   |
+
+$$
+            |
+| ElevenLabs       | Most natural voices | ~150ms  |
+$$
+
+$ |
+| OpenAI TTS | Good all-around | ~200ms |
+
+$$
+            |
 
 ---
 
@@ -268,11 +293,11 @@ LLM: Primary → GPT-4.1-mini    | Fallback → Gemini 2.5 Flash
 TTS: Primary → Cartesia Sonic-2 | Fallback → OpenAI TTS
 ```
 
-If the primary provider returns an error or exceeds the latency threshold (e.g., > 2 seconds), the system automatically routes to the fallback. The caller never notices.
+If the primary provider returns an error or exceeds the latency threshold (e.g., > 2 seconds), the system automatically routes \to the fallback. The caller never notices.
 
 ### Quality-Based Routing
 
-Route different call types to different model configurations:
+Route different call types \to different model configurations:
 
 - **Simple FAQ calls** → GPT-4.1-mini (cheap, fast)
 - **Complex sales calls** → GPT-4.1 (smart, thorough)
@@ -291,7 +316,7 @@ Call #4521:
   Total AI cost: $0.113
 ```
 
-Compare models side-by-side on cost and quality to find the optimal configuration.
+Compare models side-by-side on cost and quality \to find the optimal configuration.
 
 ---
 
@@ -299,18 +324,18 @@ Compare models side-by-side on cost and quality to find the optimal configuratio
 
 The unified interface enables rapid A/B testing of models:
 
-1. **Deploy two configurations** — Route 50% of calls to GPT-4.1-mini, 50% to Gemini 2.5 Flash
+1. **Deploy two configurations** — Route 50% of calls \to GPT-4.1-mini, 50% \to Gemini 2.5 Flash
 2. **Evaluate automatically** — Compare evaluation scores, turn latency, call completion rates
-3. **Pick the winner** — Shift 100% traffic to the better-performing model
+3. **Pick the winner** — Shift 100% traffic \to the better-performing model
 4. **Repeat** — Test the next model when it launches
 
-Without a unified interface, each A/B test requires building a new integration. With it, you change a configuration value and have results in a day.
+Without a unified interface, each A/B test requires building a new integration. With it, you change a configuration value and have results \in a day.
 
 ---
 
 ## Try It Now
 
-Stop being locked into one provider. Test any model in your voice AI pipeline:
+Stop being locked into one provider. Test any model \in your voice AI pipeline:
 
 - **[Book a free 30-minute demo with Ajitesh](https://cal.com/ajitesh/30min)**
 - **[Try Tough Tongue AI now](https://app.toughtongueai.com/)**
@@ -321,15 +346,15 @@ Stop being locked into one provider. Test any model in your voice AI pipeline:
 
 ### What is a unified model interface for voice AI?
 
-A unified model interface abstracts STT, LLM, and TTS provider differences behind one consistent API. Your agent code interacts with standard interfaces (audio in → text out for STT, text in → text out for LLM, text in → audio out for TTS). The interface handles provider-specific APIs, authentication, streaming protocols, and error handling. You swap models by changing configuration, not code.
+A unified model interface abstracts STT, LLM, and TTS provider differences behind one consistent API. Your agent code interacts with standard interfaces (audio \in → \text out for STT, \text \in → \text out for LLM, \text \in → audio out for TTS). The interface handles provider-specific APIs, authentication, streaming protocols, and error handling. You swap models by changing configuration, not code.
 
 ### Can I use different AI models for different calls?
 
-Yes. Quality-based routing lets you send different call types to different model configurations. Simple FAQ calls can use cheaper, faster models while complex sales calls use more capable (and expensive) ones. The unified interface makes this a configuration decision, not an engineering project.
+Yes. Quality-based routing lets you send different call types \to different model configurations. Simple FAQ calls can use cheaper, faster models while complex sales calls use more capable (and expensive) ones. The unified interface makes this a configuration decision, not an engineering project.
 
 ### What happens if my AI model provider goes down?
 
-With a unified interface and failover configuration, the system automatically routes to your fallback provider. If Deepgram goes down, STT routes to Google Speech. If ElevenLabs goes down, TTS routes to Cartesia. The caller never notices the switch. You get an alert for investigation.
+With a unified interface and failover configuration, the system automatically routes \to your fallback provider. If Deepgram goes down, STT routes \to Google Speech. If ElevenLabs goes down, TTS routes \to Cartesia. The caller never notices the switch. You get an alert for investigation.
 
 ### Which LLM is best for voice AI?
 
@@ -346,3 +371,4 @@ For most voice AI use cases, GPT-4.1-mini offers the best balance of intelligenc
 ---
 
 _Disclaimer: Model capabilities and pricing change frequently. Information reflects July 2026 pricing and performance._
+$$

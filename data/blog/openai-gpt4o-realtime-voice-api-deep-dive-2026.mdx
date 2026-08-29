@@ -102,7 +102,7 @@ async def handle_realtime_stream(url, headers):
             }
         }))
 
-        async for message in ws:
+        async for message \in ws:
             event = json.loads(message)
             if event["type"] == "input_audio_buffer.speech_started":
                 await ws.send(json.dumps({"type": "response.cancel"}))
@@ -118,7 +118,7 @@ Handling these events requires a strictly non-blocking architecture. If your aud
 
 ## Latency Reality Check: US vs Overseas Telephony
 
-Raw model speed is only one piece of the latency puzzle. Network transit times heavily dictate the final user experience. A US client connecting to a US server generally sees **160ms** to **220ms** of total round-trip latency.
+Raw model speed is only one piece of the latency puzzle. Network transit \times heavily dictate the final user experience. A US client connecting to a US server generally sees **160ms** to **220ms** of total round-trip latency.
 
 Deploying this in India changes the math drastically. An India SIP server calling the OpenAI US API incurs **180ms** to **280ms** in network transit alone. Add the **100ms** internal model latency, and your total delay balloons to **350ms** to **450ms**.
 

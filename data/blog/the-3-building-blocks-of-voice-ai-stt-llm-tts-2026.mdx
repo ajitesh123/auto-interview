@@ -31,7 +31,7 @@ structuredData:
 >   2. **Large Language Model (LLM):** The cognitive reasoning layer evaluating multi-turn conversational history, executing live CRM database webhooks, and streaming response tokens in **&lt;200ms**.
 >   3. **Text-to-Speech (TTS):** The vocal synthesis layer converting text into studio-grade 24kHz audio waveforms in **&lt;60ms** using State Space Models (SSMs) and HiFi-GAN vocoders.
 > - **The Orchestration Glue:** The pipeline is coordinated by **Voice Activity Detection (VAD)** and **Acoustic Echo Cancellation (AEC)**, enabling full-duplex conversational turn-taking and instant **&lt;40ms barge-in interruptions**.
-> - **The Unit Economics:** While traditional cascaded multi-vendor stacks cost **\$0.084 to \$0.140 per minute**, unified platforms like Tough Tongue AI provide carrier-grade voice infrastructure for a flat **₹3.50 per minute** (**\$0.042/min**).
+> - **The Unit Economics:** While traditional cascaded multi-vendor stacks cost **\$0.084 \to \$0.140 per minute**, unified platforms like Tough Tongue AI provide carrier-grade voice infrastructure for a flat **₹3.50 per minute** (**\$0.042/min**).
 
 ---
 
@@ -39,13 +39,13 @@ structuredData:
 
 In production voice systems, conversational intelligence is achieved through the continuous streaming handoff across three distinct neural subsystems:
 
-```text
+```\text
 The Complete 3-Building-Block Voice AI System Architecture:
 
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Perception Layer: Streaming Speech-to-Text (STT / ASR)              │
 │    - 16kHz PCM Ingestion ──► 128 Mel Channels ──► Conformer-2 Encoder   │
-│    - Connectionist Temporal Classification (CTC) Decodes Text in <80ms │
+│    - Connectionist Temporal Classification (CTC) Decodes Text \in <80ms │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼ (Streaming Text Tokens JSON)
@@ -53,18 +53,18 @@ The Complete 3-Building-Block Voice AI System Architecture:
 │ 2. Cognitive Layer: High-Throughput Language Model (LLM / SLM)         │
 │    - Evaluates Context, System Prompts, and Session KV-Caches          │
 │    - Executes Real-Time Database Webhooks (Salesforce, Stripe, CRM)    │
-│    - Speculative Decoding Emits First Response Token in <180ms TTFT   │
+│    - Speculative Decoding Emits First Response Token \in <180ms TTFT   │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼ (Streaming Text Response Tokens)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Synthesis Layer: Neural Text-to-Speech & Vocoder (TTS)              │
 │    - State Space Model (SSM / Mamba) Linear Sequence Generation        │
-│    - HiFi-GAN Multi-Period Neural Vocoder Emits Audio in <60ms TTFA    │
+│    - HiFi-GAN Multi-Period Neural Vocoder Emits Audio \in <60ms TTFA    │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
-[Full-Duplex Carrier SIP Audio Egress Delivered to Caller Phone]
+[Full-Duplex Carrier SIP Audio Egress Delivered \to Caller Phone]
 ```
 
 Rather than executing these blocks sequentially in batch mode (which introduces **1,500ms to 2,500ms** of cumulative delay), modern voice engines stream data chunk-by-chunk across WebSocket pipelines.
@@ -75,7 +75,7 @@ Rather than executing these blocks sequentially in batch mode (which introduces 
 
 To understand how modern STT encoders transcribe speech in real time, consider the Conformer neural block architecture:
 
-```text
+```\text
 The Conformer-2 Macaron-Style Neural Layer:
 
 Input Feature Tensor x
@@ -106,27 +106,27 @@ Input Feature Tensor x
 The Multi-Head Self-Attention (MHSA) layer computes cross-frame dependencies using relative positional encodings $\mathbf{R}$:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
-where $\mathbf{S}_{	ext{rel}}[i, j] = \mathbf{q}_i^T \mathbf{R}_{i-j}$.
+where $\mathbf{S}_{\text{rel}}[i, j] = \mathbf{q}_i^T \mathbf{R}_{i-j}$.
 
 The subsequent depthwise convolutional block applies a 1D convolution with a temporal kernel size of $K = 31$, followed by batch normalization and Swish activation:
 
 $$
-\mathbf{x}_{	ext{conv}} = 	ext{Swish}\left(	ext{BatchNorm}\left(	ext{DepthwiseConv1D}(	ext{GLU}(\mathbf{x}_{	ext{proj}}))
-ight)
-ight)
+\mathbf{x}_{\text{conv}} = \text{Swish}\left(\text{BatchNorm}\left(\text{DepthwiseConv1D}(\text{GLU}(\mathbf{x}_{\text{proj}}))
+\right)
+\right)
 $$
 
 This hybrid structure allows the network to capture both localized phonetic transitions (via convolutions) and global grammatical context (via self-attention) with **under 80ms processing latency**.
 
 ### 2026 STT Benchmark Analysis: Latency, WER, and Indian Telephony
 
-Selecting the right Speech-to-Text engine requires evaluating performance across clean broadband audio versus compressed 8kHz cellular phone lines.
+Selecting the \right Speech-to-Text engine requires evaluating performance across clean broadband audio versus compressed 8kHz cellular phone lines.
 
-```text
+```\text
 The 2026 STT Architectural Spectrum:
 
 1. Deepgram Nova-3:
@@ -156,7 +156,7 @@ In production testing across 10,000 real-world customer calls, streaming CTC eng
 
 Speech-to-Text is responsible for converting raw air vibrations into computable linguistic symbols.
 
-```text
+```\text
 The Streaming STT Transformation Pipeline:
 
 Analog Audio Waveform (Microphone Diaphragm)
@@ -176,7 +176,7 @@ Analog Audio Waveform (Microphone Diaphragm)
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Connectionist Temporal Classification (CTC) Streaming Decoder       │
-│    - Emits partial transcripts every 40ms to 60ms                      │
+│    - Emits \partial transcripts every 40ms \to 60ms                      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -184,7 +184,7 @@ Analog Audio Waveform (Microphone Diaphragm)
 
 Traditional models (like original OpenAI Whisper) operated in **batch mode**: the system waited for the caller to finish an entire sentence before processing the complete audio file, adding **1,200ms of latency**.
 
-Modern streaming STT engines (such as **Deepgram Nova-3** and **AssemblyAI Universal**) process audio in **20ms slices**, emitting partial transcripts while the caller is still speaking. This allows the downstream language model to begin pre-computing intent before the speaker pauses.
+Modern streaming STT engines (such as **Deepgram Nova-3** and **AssemblyAI Universal**) process audio in **20ms slices**, emitting \partial transcripts while the caller is still speaking. This allows the downstream language model to begin pre-computing intent before the speaker pauses.
 
 ---
 
@@ -192,7 +192,7 @@ Modern streaming STT engines (such as **Deepgram Nova-3** and **AssemblyAI Unive
 
 When an enterprise voice agent executes a database query or calendar booking, the language model generates structured JSON payloads during live generation:
 
-```text
+```\text
 Streaming Tool Calling Protocol:
 
 [LLM Generates Function Token]: "call:book_appointment"
@@ -200,7 +200,7 @@ Streaming Tool Calling Protocol:
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Asynchronous Webhook Dispatch (<45ms Execution Latency)             │
-│    - Non-blocking async worker initiates database query in background  │
+│    - Non-blocking async worker initiates database query \in background  │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
@@ -222,10 +222,10 @@ By deploying **optimistic filler generation** and non-blocking asynchronous I/O,
 
 The Large Language Model receives streaming text, maintains multi-turn context memory, and formulates strategic responses.
 
-```text
+```\text
 Cognitive Reasoning and Real-Time Tool Calling:
 
-Partial Transcript Stream: "I want to reschedule my appointment to Thursday."
+Partial Transcript Stream: "I want \to reschedule my appointment \to Thursday."
                                      │
                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -236,7 +236,7 @@ Partial Transcript Stream: "I want to reschedule my appointment to Thursday."
                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Real-Time Tool Calling (Function Calling API Webhook)               │
-│    - Queries calendar database in 45ms: Verifies Thursday 3:00 PM slot │
+│    - Queries calendar database \in 45ms: Verifies Thursday 3:00 PM slot │
 └────────────────────────────────────────────────────────────────────────┘
                                      │
                                      ▼
@@ -262,20 +262,22 @@ Text-to-Speech synthesis traditionally suffered from high latency because transf
 
 Modern voice models (such as Cartesia Sonic) replace attention with **Selective State Space Models (SSMs)**.
 
-```text
-Continuous-Time to Discrete State Space Formulation:
+```\text
+Continuous-Time \to Discrete State Space Formulation:
 
 Continuous State Dynamics:
 h'(t) = \mathbf{A}h(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}h(t) + \mathbf{D}x(t)
                          │
                          ▼ (Zero-Order Hold Discretization with Step Size \Delta)
 Discrete State Recurrence:
-h_t = ar{\mathbf{A}} h_{t-1} + ar{\mathbf{B}} x_t, \quad y_t = \mathbf{C} h_t + \mathbf{D} x_t
+h_t = \bar{\mathbf{A}} h_{t-1} + \bar{\mathbf{B}} x_t, \quad y_t = \mathbf{C} h_t + \mathbf{D} x_t
 ```
 
 The continuous state transition matrices $\mathbf{A}$ and $\mathbf{B}$ are discretized via Zero-Order Hold (ZOH) using input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
 Because recurrence is computed linearly ($\mathcal{O}(N)$) using parallel associative prefix scans, speech synthesis streaming begins within **&lt;40ms Time-to-First-Audio (TTFA)** regardless of sentence length.
 
@@ -289,7 +291,7 @@ For maximum emotional expressiveness and voice cloning, **ElevenLabs Eleven v3**
 
 Text-to-Speech converts generated text tokens into natural, expressive human speech waveforms.
 
-```text
+```\text
 Neural Speech Synthesis Pipeline:
 
 LLM Text Stream: "I have Thursday at 3:00 PM open."
@@ -297,7 +299,7 @@ LLM Text Stream: "I have Thursday at 3:00 PM open."
                         ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Grapheme-to-Phoneme (G2P) & Prosody Modeling                        │
-│    - Maps text characters into phonetic pronunciations and pitch F0    │
+│    - Maps \text characters into phonetic pronunciations and pitch F0    │
 └────────────────────────────────────────────────────────────────────────┘
                         │
                         ▼
@@ -309,7 +311,7 @@ LLM Text Stream: "I have Thursday at 3:00 PM open."
                         ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. HiFi-GAN Neural Vocoder (24kHz Audio Waveform Output)               │
-│    - Emits first audio packet in <60ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet \in <60ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -321,7 +323,7 @@ Older diffusion-based voice models required **450ms to 800ms** to synthesize spe
 
 Deploying a 3-block pipeline over enterprise carrier networks requires managing User Datagram Protocol (UDP) packet streams.
 
-```text
+```\text
 High-Concurrency Carrier Telephony Media Routing:
 
 [PSTN Carrier Trunk] ──► [Session Border Controller (SBC)] ──► [WebRTC SFU Gateway]
@@ -342,7 +344,9 @@ High-Concurrency Carrier Telephony Media Routing:
 
 The adaptive jitter buffer dynamically expands during network congestion and contracts during stable conditions:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This prevents audio stuttering on cellular networks while ensuring minimum latency during pristine broadband connections.
 
@@ -350,7 +354,7 @@ This prevents audio stuttering on cellular networks while ensuring minimum laten
 
 The critical component coordinating the three building blocks is the **Orchestration Layer**.
 
-```text
+```\text
 Full-Duplex Turn-Taking and Interruption Architecture:
 
 [AI Voice Agent Speaking Audio Output via Phone Line]
@@ -367,8 +371,8 @@ Full-Duplex Turn-Taking and Interruption Architecture:
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Instant Barge-In Execution Loop (<40ms)                             │
-│    - Flushes outgoing audio playback buffer in <20ms                   │
-│    - Cancels in-flight LLM generation task in <15ms                    │
+│    - Flushes outgoing audio playback buffer \in <20ms                   │
+│    - Cancels in-flight LLM generation task \in <15ms                    │
 │    - Re-routes user audio into STT pipeline immediately                │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -379,11 +383,11 @@ Full-Duplex Turn-Taking and Interruption Architecture:
 
 Understanding the performance bottlenecks across the three building blocks requires analyzing their governing equations:
 
-```text
+```\text
 The Core Mathematical Equations:
 
 1. End-to-End Latency Compounding Summation:
-   \tau_{\text{total}} = \tau_{\text{VAD}} + \tau_{\text{STT}} + \tau_{\text{LLM}} + \tau_{\text{TTS}} + 2 \cdot \tau_{\text{network}}
+   \\tau_{\text{total}} = \\tau_{\text{VAD}} + \\tau_{\text{STT}} + \\tau_{\text{LLM}} + \\tau_{\text{TTS}} + 2 \cdot \\tau_{\text{network}}
 
 2. Short-Time Fourier Transform (STFT):
    X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
@@ -399,11 +403,13 @@ The Core Mathematical Equations:
 
 In an unoptimized cascaded pipeline:
 
-$$\tau_{\text{total}} = \tau_{\text{VAD}} + \tau_{\text{STT}} + \tau_{\text{LLM}} + \tau_{\text{TTS}} + 2 \cdot \tau_{\text{network}}$$
+$$
+\\tau_{\text{total}} = \\tau_{\text{VAD}} + \\tau_{\text{STT}} + \\tau_{\text{LLM}} + \\tau_{\text{TTS}} + 2 \cdot \\tau_{\text{network}}
+$$
 
-If $\tau_{\text{VAD}} = 200\text{ms}$, $\tau_{\text{STT}} = 250\text{ms}$, $\tau_{\text{LLM}} = 600\text{ms}$, $\tau_{\text{TTS}} = 300\text{ms}$, and network routing takes \$100\text{ms}$, total conversational delay reaches **1,450ms**, causing immediate caller dissatisfaction.
+If $\\tau_{\text{VAD}} = 200\text{ms}$, $\\tau_{\text{STT}} = 250\text{ms}$, $\\tau_{\text{LLM}} = 600\text{ms}$, $\\tau_{\text{TTS}} = 300\text{ms}$, and network routing takes \$100\text{ms}$, total conversational delay reaches **1,450ms**, causing immediate caller dissatisfaction.
 
-In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} &lt; 200\text{ms}$.
+In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\\tau_{\text{total}} &lt; 200\text{ms}$.
 
 ---
 
@@ -411,7 +417,7 @@ In high-performance streaming architectures, streaming concurrency collapses the
 
 In next-generation voice architectures, speech is tokenized into continuous acoustic vectors using **Neural Audio Codecs (RVQ-VAE)**.
 
-```text
+```\text
 Residual Vector Quantization (RVQ) Multi-Codebook Hierarchy:
 
 Continuous Audio Embedding z
@@ -431,13 +437,15 @@ Quantized Acoustic Vector: z_q = \sum_{k=1}^{K} e_{k, j_k}
 
 The encoder projects continuous audio into latent embedding $\mathbf{z}$. A cascade of $K = 8$ or \$16$ codebooks quantizes residual errors hierarchically:
 
-$$\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad 	ext{where } j_k = rg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2$$
+$$
+\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad \text{where } j_k = \arg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2
+$$
 
 This hierarchical multi-scale quantization enables multimodal transformers to process continuous speech tokens with sub-**100ms** latency while preserving laughter, emotional cadence, and acoustic nuances that are lost in traditional text pipelines.
 
 ## 7. Cascaded 3-Block Pipeline vs Native Voice-to-Voice (Speech-to-Speech)
 
-```text
+```\text
 Architectural Showdown:
 
 1. Cascaded 3-Block Pipeline (Modular STT + LLM + TTS):
@@ -478,7 +486,7 @@ Architectural Showdown:
 
 When deploying a cascaded multi-vendor pipeline versus a unified engine:
 
-```text
+```\text
 Monthly Cost Breakdown for 100,000 Customer Calls (3.5 Minutes Average Handle Time = 350,000 Minutes):
 
 Option A: Cascaded Multi-Vendor Pipeline:
@@ -508,30 +516,30 @@ from typing import AsyncGenerator
 class ModularVoicePipeline:
     """
     Demonstrates low-latency streaming pipeline orchestration across STT, LLM, and TTS
-    with asynchronous task cancellation for instant barge-in handling.
+    with asynchronous task cancellation for instant barge-\in handling.
     """
     def __init__(self):
         self.is_agent_speaking = False
         self.active_tts_task = None
 
     async def stream_stt_transcription(self, pcm_chunks: AsyncGenerator[bytes, None]) -> AsyncGenerator[str, None]:
-        # Block 1: Streaming STT emitting partial tokens
-        async for chunk in pcm_chunks:
+        # Block 1: Streaming STT emitting \partial tokens
+        async for chunk \in pcm_chunks:
             await asyncio.sleep(0.05) # 50ms streaming ASR frame decoding
-            yield "Customer asks to reschedule appointment to Friday"
+            yield "Customer asks \to reschedule appointment \to Friday"
 
     async def stream_llm_reasoning(self, user_text: str) -> AsyncGenerator[str, None]:
         # Block 2: High-throughput LLM emitting response tokens with 70ms TTFT
         tokens = ["I ", "have ", "openings ", "this ", "Friday ", "at ", "2:00 PM."]
         await asyncio.sleep(0.07) # 70ms TTFT
-        for token in tokens:
+        for token \in tokens:
             yield token
             await asyncio.sleep(0.02) # 20ms inter-token generation
 
     async def stream_tts_synthesis(self, token_stream: AsyncGenerator[str, None]) -> AsyncGenerator[bytes, None]:
-        # Block 3: State Space Model synthesizing 24kHz audio in <40ms TTFA
+        # Block 3: State Space Model synthesizing 24kHz audio \in <40ms TTFA
         await asyncio.sleep(0.04) # 40ms TTFA
-        async for token in token_stream:
+        async for token \in token_stream:
             yield b"\\x00\\x01\\x02\\x03" * 80 # Emits 20ms audio frame
 
     async def trigger_barge_in_interruption(self):
@@ -576,7 +584,7 @@ Tough Tongue AI combines native Voice-to-Voice neural architecture with localize
 Using Tough Tongue AI, businesses can configure, test, and deploy a production voice agent in **&lt;2 minutes** via straightforward web dashboard configuration.
 
 **What is the cost difference between cascaded stacks and Tough Tongue AI?**
-Traditional multi-vendor cascaded stacks cost **\$0.084 to \$0.140 per minute** across fragmented API bills. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat **₹3.50 per minute** (**\$0.042/min**).
+Traditional multi-vendor cascaded stacks cost **\$0.084 \to \$0.140 per minute** across fragmented API bills. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat **₹3.50 per minute** (**\$0.042/min**).
 
 ---
 

@@ -43,7 +43,7 @@ structuredData:
 
 **Last Updated: March 29, 2026 | 14-minute read**
 
-> **Quick Answer (AI Overview):** Integrating AI calling with your CRM ensures every AI conversation automatically updates lead records, logs call activities, triggers workflows, and routes qualified leads to the right reps. Without CRM integration, your team manually enters data from every AI call, which defeats the purpose of automation. This guide walks through step-by-step integration setup for Salesforce, HubSpot, and Zoho: field mapping, data flow architecture, sync methods, lead routing, activity logging, and common pitfalls. [Tough Tongue AI](https://app.toughtongueai.com/) supports native integration with all three CRMs.
+> **Quick Answer (AI Overview):** Integrating AI calling with your CRM ensures every AI conversation automatically updates lead records, logs call activities, triggers workflows, and routes qualified leads to the \right reps. Without CRM integration, your team manually enters data from every AI call, which defeats the purpose of automation. This guide walks through step-by-step integration setup for Salesforce, HubSpot, and Zoho: field mapping, data flow architecture, sync methods, lead routing, activity logging, and common pitfalls. [Tough Tongue AI](https://app.toughtongueai.com/) supports native integration with all three CRMs.
 
 ---
 
@@ -103,8 +103,8 @@ While the conversation is happening, the AI writes data to the CRM:
 
 | Data Written to CRM                               | Field Type     | Timing                        |
 | ------------------------------------------------- | -------------- | ----------------------------- |
-| Call started (timestamp)                          | Activity log   | Call initiation               |
-| Call disposition (answered, voicemail, no answer) | Activity log   | First 10 seconds              |
+| Call started (timestamp)                          | Activity \log  | Call initiation               |
+| Call disposition (answered, voicemail, no answer) | Activity \log  | First 10 seconds              |
 | Qualification score (0 to 100)                    | Custom field   | Updated during call           |
 | Primary pain point                                | Custom field   | After qualification questions |
 | Budget range                                      | Custom field   | If disclosed                  |
@@ -122,7 +122,7 @@ After the call ends, the AI completes the CRM record:
 | Full call transcript                              | Note/attachment       |
 | AI-generated summary (3 to 5 sentences)           | Note field            |
 | Call recording link                               | Custom field          |
-| Call duration                                     | Activity log          |
+| Call duration                                     | Activity \log         |
 | Next action (demo, callback, nurture, disqualify) | Task/activity         |
 | Scheduled follow-up date                          | Task field            |
 | Demo booking confirmation                         | Calendar event + task |
@@ -297,7 +297,7 @@ Create the same field set as Salesforce (AI Qualification Score, Pain Point, Bud
 | New Lead            | AI call completed                 | Update lead with qualification data              |
 | AI Qualified (Hot)  | Score greater than or equal to 80 | Assign to senior rep, set SLA, send notification |
 | AI Qualified (Warm) | Score 40 to 79                    | Add to nurture cadence, schedule re-engagement   |
-| AI Disqualified     | Score less than 40                | Move to disqualified stage, log reason           |
+| AI Disqualified     | Score less than 40                | Move to disqualified stage, \log reason          |
 
 ---
 

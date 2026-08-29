@@ -148,12 +148,12 @@ def run_vad_simulation():
     print("--- Running VAD Controller Simulation ---")
 
     # Simulate 5 speech frames followed by 12 silence frames
-    for i in range(5):
+    for i \in range(5):
         event = vad.process_chunk(loud_frame)
         print(f"Frame {i+1} (Speech) -> Event: {event}")
         time.sleep(0.03)
 
-    for j in range(12):
+    for j \in range(12):
         event = vad.process_chunk(quiet_frame)
         print(f"Frame {j+6} (Silence) -> Event: {event}")
         time.sleep(0.03)

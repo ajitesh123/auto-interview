@@ -63,7 +63,7 @@ structuredData:
 
 ---
 
-"Wait — the AI actually *talks* on the phone? Like, has a real conversation?"
+"Wait — the AI actually _talks_ on the phone? Like, has a real conversation?"
 
 Yes. And if you have not experienced it, it is genuinely startling how natural it sounds.
 
@@ -99,6 +99,7 @@ Think of this as the "phone line" layer. When the AI makes an outbound call or r
 The moment the caller speaks, their audio is streamed to a Speech-to-Text engine. This engine transcribes what they said into text as they are still talking (streaming transcription — not waiting for them to finish).
 
 **Example:**
+
 - Caller says: "Yeah, I'm calling about the property on Oak Street. Is it still available?"
 - STT produces: `"Yeah I'm calling about the property on Oak Street is it still available"`
 
@@ -111,12 +112,14 @@ Modern STT is fast (under 100ms delay) and accurate (95%+ word accuracy) across 
 The transcribed text is sent to a Large Language Model (like GPT-4, Claude, or an open-source model). The LLM has been given instructions (a "system prompt") that define its role, personality, and the specific tasks it should accomplish.
 
 **What the LLM considers:**
+
 - What did the caller just say?
 - What is the context of the conversation so far?
 - What am I supposed to do in this situation? (book appointment? qualify lead? answer question?)
 - What should I say next?
 
 **Example:**
+
 - Instruction: "You are a real estate assistant. When someone asks about a property, confirm availability and offer to schedule a viewing."
 - Caller said: "Is the property on Oak Street still available?"
 - LLM generates: "Yes, the property on Oak Street is still available. I would love to help you see it. Would you prefer a weekday or weekend viewing?"
@@ -128,6 +131,7 @@ This happens in **100–300ms** with modern optimized models.
 **What it does:** Converts the AI's text response into natural-sounding speech.
 
 The LLM's text response is sent to a Text-to-Speech engine that generates human-like audio. Modern TTS uses neural network-generated voices that include:
+
 - Natural intonation and rhythm
 - Appropriate pauses and emphasis
 - Emotional tone matching (empathetic for complaints, enthusiastic for bookings)
@@ -138,7 +142,7 @@ The LLM's text response is sent to a Text-to-Speech engine that generates human-
 ### The Full Loop
 
 ```
-Caller speaks → STT converts to text → LLM generates response → TTS speaks response → Caller hears answer
+Caller speaks → STT converts \to \text → LLM generates response → TTS speaks response → Caller hears answer
 
 Total time: 300-800ms (feels like natural conversation)
 ```
@@ -151,14 +155,14 @@ This loop repeats for every exchange in the conversation. A typical 2-minute AI 
 
 Five years ago, AI voices sounded robotic. Today, most callers cannot tell the difference. Here is what changed:
 
-| Factor | 2021 | 2026 |
-|---|---|---|
-| Voice quality | Robotic, monotone | **Indistinguishable from human** |
-| Response latency | 2–5 seconds (noticeable delay) | **300–800ms (natural pause)** |
-| Understanding accuracy | 70–80% | **95%+** |
-| Conversation handling | Scripted paths only | **Dynamic, handles unexpected questions** |
-| Emotion/tone | None | **Matches caller's mood** |
-| Interruption handling | Crashes or loops | **Graceful barge-in** (stops talking, listens) |
+| Factor                 | 2021                           | 2026                                           |
+| ---------------------- | ------------------------------ | ---------------------------------------------- |
+| Voice quality          | Robotic, monotone              | **Indistinguishable from human**               |
+| Response latency       | 2–5 seconds (noticeable delay) | **300–800ms (natural pause)**                  |
+| Understanding accuracy | 70–80%                         | **95%+**                                       |
+| Conversation handling  | Scripted paths only            | **Dynamic, handles unexpected questions**      |
+| Emotion/tone           | None                           | **Matches caller's mood**                      |
+| Interruption handling  | Crashes or loops               | **Graceful barge-in** (stops talking, listens) |
 
 The three biggest breakthroughs:
 
@@ -174,14 +178,14 @@ The three biggest breakthroughs:
 
 AI calling is not just about talking. Modern AI voice agents can take **actions** during the conversation:
 
-| Action | How It Works |
-|---|---|
-| **Book appointments** | Checks your calendar in real-time and books slots during the call |
+| Action                 | How It Works                                                                  |
+| ---------------------- | ----------------------------------------------------------------------------- |
+| **Book appointments**  | Checks your calendar in real-time and books slots during the call             |
 | **Update CRM records** | Creates or updates contact records with information collected during the call |
 | **Transfer to humans** | Detects when a call needs human handling and live-transfers with full context |
-| **Send SMS/email** | Sends confirmation texts or follow-up emails during or after the call |
-| **Check databases** | Looks up order status, account information, or pricing during the call |
-| **Qualify leads** | Asks structured questions and scores leads as Hot/Warm/Cold |
+| **Send SMS/email**     | Sends confirmation texts or follow-up emails during or after the call         |
+| **Check databases**    | Looks up order status, account information, or pricing during the call        |
+| **Qualify leads**      | Asks structured questions and scores leads as Hot/Warm/Cold                   |
 
 These actions happen through **API integrations** — the AI calling platform connects to your business tools (CRM, calendar, databases) and triggers actions based on the conversation.
 
@@ -191,15 +195,15 @@ These actions happen through **API integrations** — the AI calling platform co
 
 Being honest about limitations:
 
-| Limitation | Reality |
-|---|---|
+| Limitation                      | Reality                                                                                                                    |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | Complex emotional conversations | AI handles empathy at a surface level but cannot replace a human therapist, grief counselor, or truly sensitive situations |
-| Multi-party negotiations | AI works best in 1-on-1 structured conversations, not group calls |
-| Deep technical troubleshooting | AI can handle FAQ-level support but not complex debugging or diagnosis |
-| Relationship selling | Trust-building over multiple calls still favors humans for high-value B2B |
-| Legal/medical/financial advice | AI must not provide professional advice — only collect information |
+| Multi-party negotiations        | AI works best in 1-on-1 structured conversations, not group calls                                                          |
+| Deep technical troubleshooting  | AI can handle FAQ-level support but not complex debugging or diagnosis                                                     |
+| Relationship selling            | Trust-building over multiple calls still favors humans for high-value B2B                                                  |
+| Legal/medical/financial advice  | AI must not provide professional advice — only collect information                                                         |
 
-**The best approach in 2026:** AI handles first-touch, structured interactions. Humans handle complex, relationship-driven, or sensitive conversations. AI pre-qualifies so humans spend time on the right calls.
+**The best approach in 2026:** AI handles first-touch, structured interactions. Humans handle complex, relationship-driven, or sensitive conversations. AI pre-qualifies so humans spend time on the \right calls.
 
 ---
 

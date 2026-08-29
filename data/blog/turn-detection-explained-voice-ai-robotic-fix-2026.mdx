@@ -45,7 +45,7 @@ structuredData:
 
 ## The Awkward Silence Problem
 
-You are talking to a voice AI agent. You say, "I would like to order one large pizza..." You pause for a second to think about what else you want. The agent jumps in: "Great! I will place that order for you right away!"
+You are talking to a voice AI agent. You say, "I would like to order one large pizza..." You pause for a second to think about what else you want. The agent jumps in: "Great! I will place that order for you \right away!"
 
 But you were not done. You wanted to add garlic bread.
 
@@ -80,6 +80,7 @@ Get it right, and the conversation flows naturally. Get it wrong, and every exch
 **How it works:** A Voice Activity Detection model detects when you stop talking. After a fixed silence window (say, 700ms), the agent assumes you are done and responds.
 
 **Why it fails:** People pause mid-sentence constantly. Thinking pauses, breathing, looking up information — all register as "silence" to a VAD. The result is an agent that either:
+
 - Cuts in during your pauses (if the timer is too short)
 - Creates dead air after every sentence (if the timer is too long)
 
@@ -113,7 +114,7 @@ Get it right, and the conversation flows naturally. Get it wrong, and every exch
 
 ## The Interruption Problem: The Other Side of Turn Detection
 
-Turn detection determines when the agent should *start* talking. But what about when the agent should *stop*?
+Turn detection determines when the agent should _start_ talking. But what about when the agent should _stop_?
 
 When a caller speaks while the agent is talking, three things could be happening:
 
@@ -133,11 +134,11 @@ As [LiveKit's guide on configuring interruptions](https://livekit.com/blog/turn-
 
 We have seen this pattern repeatedly across voice AI deployments in India:
 
-| Problem | Root Cause | Business Impact |
-|---|---|---|
-| Caller hangs up within 15 seconds | Dead air from slow turn detection | 40-60% drop in lead qualification completion |
-| Agent talks over critical objections | Premature turn firing | Lost deal information, frustrated prospects |
-| Agent responds to TV in background | No noise filtering before VAD | Broken conversation flow, wasted API costs |
+| Problem                                          | Root Cause                                        | Business Impact                               |
+| ------------------------------------------------ | ------------------------------------------------- | --------------------------------------------- |
+| Caller hangs up within 15 seconds                | Dead air from slow turn detection                 | 40-60% drop in lead qualification completion  |
+| Agent talks over critical objections             | Premature turn firing                             | Lost deal information, frustrated prospects   |
+| Agent responds to TV in background               | No noise filtering before VAD                     | Broken conversation flow, wasted API costs    |
 | Agent cuts in during Hinglish code-switch pauses | VAD-only detection without semantic understanding | Mid-sentence interruptions in bilingual calls |
 
 In our [blind test of 150 users](/blog/voice-ai-calling-comparison-blind-test-tough-tongue-vs-gnani-vs-bolna-2026), Tough Tongue AI scored 9.5 on latency (sub-400ms response) and 8.5 on conversational flow. The lowest-scoring platform scored 4.0 on latency with 1.5-2.0 second gaps. That five-point gap is the difference between "Would Use Again: 82%" and "Would Use Again: 29%."
@@ -165,7 +166,7 @@ In our [blind test of 150 users](/blog/voice-ai-calling-comparison-blind-test-to
 Our platform combines multiple signals for turn detection:
 
 - **Audio-level analysis** that captures prosodic cues — intonation drops, rhythm changes, and emphasis patterns
-- **Semantic understanding** of partial transcripts to predict sentence completion
+- **Semantic understanding** of \partial transcripts to predict sentence completion
 - **Indian conversation pattern optimization** — accounting for the naturally longer pauses in Hindi-English code-switching and the different prosodic patterns of Indian English
 - **Adaptive interruption handling** that distinguishes genuine interruptions from backchannels and noise
 
@@ -186,7 +187,7 @@ Experience the difference proper turn detection makes:
 
 ### What is the difference between VAD and turn detection?
 
-VAD (Voice Activity Detection) determines whether someone is speaking right now. Turn detection determines whether someone has *finished* speaking. VAD answers "is there speech?" Turn detection answers "is the speaker done?" VAD is one input to turn detection, but turn detection requires additional semantic and acoustic analysis.
+VAD (Voice Activity Detection) determines whether someone is speaking \right now. Turn detection determines whether someone has _finished_ speaking. VAD answers "is there speech?" Turn detection answers "is the speaker done?" VAD is one input to turn detection, but turn detection requires additional semantic and acoustic analysis.
 
 ### Why does my voice AI agent talk over me?
 

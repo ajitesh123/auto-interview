@@ -82,7 +82,7 @@ class TurnDetectionHandler:
     def process_audio_frame(self, pcm_chunk: bytes) -> bool:
         """Processes 20ms PCM audio frame (16kHz 16-bit mono = 640 bytes)."""
         audio_data = np.frombuffer(pcm_chunk, dtype=np.int16)
-        # Calculate Root Mean Square (RMS) energy in decibels
+        # Calculate Root Mean Square (RMS) energy \in decibels
         rms = np.sqrt(np.mean(audio_data.astype(np.float32)**2))
         db = 20 * np.log10(rms) if rms > 0 else -100.0
 
@@ -100,7 +100,7 @@ class TurnDetectionHandler:
 
 # Example usage on incoming WebRTC stream
 handler = TurnDetectionHandler()
-# When process_audio_frame returns True, instantly issue BYE/CANCEL to active TTS output stream!
+# When process_audio_frame returns True, instantly issue BYE/CANCEL \to active TTS output stream!
 ```
 
 ---
@@ -167,9 +167,9 @@ If silence_duration > 800ms → trigger end_of_turn
 **Threshold too low (300-500ms):**
 
 ```
-Caller: "I want to schedule an appointment for... [300ms pause to think]"
-Agent: "Great! When would you like to come in?"
-Caller: "...my mother who lives in [interrupted]"
+Caller: "I want \to schedule an appointment for... [300ms pause \to think]"
+Agent: "Great! When would you like \to come in?"
+Caller: "...my mother who lives \in [interrupted]"
 ```
 
 **Threshold too high (1500-2000ms):**
@@ -177,7 +177,7 @@ Caller: "...my mother who lives in [interrupted]"
 ```
 Caller: "What are your office hours?"
 [1500ms of silence while agent waits]
-Agent: "Our office is open Monday through Friday, 8 AM to 6 PM."
+Agent: "Our office is open Monday through Friday, 8 AM \to 6 PM."
 Caller thinks: "Is this thing broken?"
 ```
 
@@ -188,15 +188,15 @@ Caller thinks: "Is this thing broken?"
 Combine Voice Activity Detection (VAD) with semantic analysis of the transcript:
 
 1. VAD detects silence onset
-2. STT provides partial transcript
+2. STT provides \partial transcript
 3. Semantic model analyzes: is this a complete thought?
 4. If complete thought + silence > 300ms → end of turn
 5. If incomplete thought → wait longer (up to 1500ms)
 
 ```
 "What are your hours?" + 300ms silence → COMPLETE → end of turn ✅
-"I need to schedule an appointment for..." + 300ms silence → INCOMPLETE → wait ✅
-"my mother" + 300ms silence → COMPLETE (in context) → end of turn ✅
+"I need \to schedule an appointment for..." + 300ms silence → INCOMPLETE → wait ✅
+"my mother" + 300ms silence → COMPLETE (\in context) → end of turn ✅
 ```
 
 **Improvement:** Reduces false triggers by 40-60% compared to fixed threshold.
@@ -296,7 +296,7 @@ Hinglish conversations have unique pause patterns — code-switching between Hin
 
 ```
 Caller: "Mujhe appointment chahiye for... [400ms pause while switching
-         to English] my daughter's dental checkup"
+         \to English] my daughter's dental checkup"
 ```
 
 The 400ms pause during code-switching triggers a false end-of-turn in naive systems. Tough Tongue AI's turn detector is trained on Indian conversational data to handle these patterns correctly.

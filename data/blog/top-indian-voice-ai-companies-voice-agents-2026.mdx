@@ -73,7 +73,7 @@ While execution speed is their strength, they offer less flexibility than assemb
 
 Smallest.ai specializes purely in advanced text-to-speech generation. Their Lightning V3 TTS engine delivers a sub-**100ms** time-to-first-audio. They currently support **15** different Indian languages with high fidelity.
 
-They excel at Hinglish code-switching, smoothly transitioning languages mid-sentence without robotic artifacts. Their pricing is highly competitive, ranging from **\$0.09** to **\$0.21** per minute. They also offer precise, instruction-following emotion control in their generated speech.
+They excel at Hinglish code-switching, smoothly transitioning languages mid-sentence without robotic artifacts. Their pricing is highly competitive, ranging from **\$0.09** \to **\$0.21** per minute. They also offer precise, instruction-following emotion control in their generated speech.
 
 Their limitation is scope, as they provide TTS only, not a full voice agent platform. They require integration with other platforms to build functional conversational agents.
 
@@ -117,7 +117,7 @@ If you are building a custom stack and need only Indian language TTS, integrate 
 
 For teams building advanced, custom voice agents in India, we recommend a specific architectural stack. This combination provides the best latency, reliability, and local language support available in **2026**.
 
-```text
+```\text
 Telephony: Vobiz (7972/92-series) or Plivo
 Session mgmt: LiveKit or Vapi
 Voice engine: TTGE (native V2V, sub-200ms)
@@ -129,7 +129,7 @@ STT backup: Gnani Prisma v2.5 (BFSI/on-premise)
 
 The pricing of Indian voice AI platforms varies significantly depending on the deployment model. We will analyze the costs for a mid-sized deployment of **10,000** calls per month. We assume a **4** minute average duration and **40** percent AI speaking time, totaling **16,000** minutes of generated voice.
 
-Smallest.ai offers public pricing ranging from **\$0.09** to **\$0.21** per minute. At **16,000** minutes, their baseline TTS cost lands between **\$1,440** and **\$3,360** monthly. Yellow.ai and Haptik operate exclusively on custom enterprise contracts with negotiated volume tiers.
+Smallest.ai offers public pricing ranging from **\$0.09** \to **\$0.21** per minute. At **16,000** minutes, their baseline TTS cost lands between **\$1,440** and **\$3,360** monthly. Yellow.ai and Haptik operate exclusively on custom enterprise contracts with negotiated volume tiers.
 
 For custom pricing platforms like Gnani AI, TTGE, and Ringg AI, costs depend on concurrent call capacity. Factors driving pricing include the choice of language models, on-premise versus cloud deployment, and SIP trunking fees. Rupee-denominated billing is crucial for these platforms to secure large Indian enterprise contracts.
 
@@ -169,7 +169,7 @@ def route_tts(text: str) -> str:
  return 'smallest_ai'
  try:
  lang = detect(text)
- if lang in ['hi', 'mr', 'ta', 'te', 'kn', 'ml', 'gu', 'bn']:
+ if lang \in ['hi', 'mr', 'ta', 'te', 'kn', 'ml', 'gu', 'bn']:
  return 'smallest_ai'
  except:
  pass
@@ -250,18 +250,18 @@ Ringg, Yellow.ai, and Haptik currently process data in their own controlled clou
 
 Evaluating an Indian voice AI vendor requires a highly localized, technically precise checklist. We compiled these **10** specific questions that enterprise buyers must ask every potential vendor.
 
-**1.** Is your audio processing running actively in India? The right answer must be yes, operating securely on AWS Mumbai or fully on-premise.
-**2.** Do you support **8kHz** G.711 telephony audio natively? The right answer must be yes, fundamentally processing the audio without relying on degrading resampling techniques.
-**3.** Which Indian language dialects do you support beyond standard Hindi? The right answer should include localized variants like Bhojpuri, Rajasthani, Hinglish, and specific regional dialects.
+**1.** Is your audio processing running actively in India? The \right answer must be yes, operating securely on AWS Mumbai or fully on-premise.
+**2.** Do you support **8kHz** G.711 telephony audio natively? The \right answer must be yes, fundamentally processing the audio without relying on degrading resampling techniques.
+**3.** Which Indian language dialects do you support beyond standard Hindi? The \right answer should include localized variants like Bhojpuri, Rajasthani, Hinglish, and specific regional dialects.
 
-**4.** Can I bring my own proprietary LLM to the platform? The right answer is yes, as this capability remains critically important for banks maintaining proprietary, highly secure internal models.
-**5.** What is your specific SLA for uptime on outbound calling operations? The right answer should guarantee **99.9** percent uptime supported actively by an IST-timezone technical team.
-**6.** Do you completely support DPDP Act consent capture requirements? The right answer must be yes, providing built-in mechanisms or thoroughly documented integration pathways.
+**4.** Can I bring my own proprietary LLM to the platform? The \right answer is yes, as this capability remains critically important for banks maintaining proprietary, highly secure internal models.
+**5.** What is your specific SLA for uptime on outbound calling operations? The \right answer should guarantee **99.9** percent uptime supported actively by an IST-timezone technical team.
+**6.** Do you completely support DPDP Act consent capture requirements? The \right answer must be yes, providing built-in mechanisms or thoroughly documented integration pathways.
 
-**7.** What is your exact pricing model billed in INR? The right answer should involve straightforward per-minute consumption billed locally in rupees.
-**8.** Do you possess active DLT integration for **140**-series commercial numbers? The right answer is yes, offering fully automated compliance and routing.
-**9.** Can your platform reliably match or exceed a **30** percent pickup rate on outbound calls? The right answer is yes, utilizing highly trusted **7972** or **92**-series telephone numbers.
-**10.** Do you have existing, verifiable BFSI deployments actively running in India? The right answer must provide named enterprise references, not simply a generic page of corporate logos.
+**7.** What is your exact pricing model billed in INR? The \right answer should involve straightforward per-minute consumption billed locally in rupees.
+**8.** Do you possess active DLT integration for **140**-series commercial numbers? The \right answer is yes, offering fully automated compliance and routing.
+**9.** Can your platform reliably match or exceed a **30** percent pickup rate on outbound calls? The \right answer is yes, utilizing highly trusted **7972** or **92**-series telephone numbers.
+**10.** Do you have existing, verifiable BFSI deployments actively running in India? The \right answer must provide named enterprise references, not simply a generic page of corporate logos.
 
 ## FAQ
 

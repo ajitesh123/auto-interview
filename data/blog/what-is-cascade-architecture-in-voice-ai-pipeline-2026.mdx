@@ -34,33 +34,37 @@ structuredData:
 
 In the first stage of the cascade, the Speech-to-Text engine converts continuous 1D audio into 2D frequency spectrograms:
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 The power spectral density is mapped onto 128 Mel channels using the non-linear transformation:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder processes these features through stacked blocks combining Multi-Head Self-Attention with relative positional encodings and depthwise separable convolutions:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
-While Conformer CTC decoders achieve processing times under 80ms, the required network serialization to the orchestration server adds **25ms to 50ms of transit delay**.
+While Conformer CTC decoders achieve processing \times under 80ms, the required network serialization to the orchestration server adds **25ms to 50ms of transit delay**.
 
 ## 1. The Cascaded Pipeline: Mechanics and Component Hand-Offs
 
 In the early era of conversational AI, building a voice agent required stitching together three independent specialized APIs:
 
-```text
+```\text
 The Modular Cascaded Voice AI Pipeline:
 
 [Caller Speaks via PSTN / SIP Phone Line]
@@ -90,7 +94,7 @@ The Modular Cascaded Voice AI Pipeline:
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼ (Synthesized 24kHz Audio Stream)
-[Carrier SIP Gateway Delivers Spoken Audio back to Caller Phone]
+[Carrier SIP Gateway Delivers Spoken Audio back \to Caller Phone]
 ```
 
 ### Why Cascade Architecture Made Sense in 2022
@@ -108,13 +112,15 @@ In the speech recognition stage of the cascade, incoming audio is sliced into ov
 The front-end computes 128-channel Log-Mel spectrograms:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}{700}
+\right)
 $$
 
 During neural training, **SpecAugment** randomly masks time strips ($\Delta t$) and frequency bands ($\Delta f$):
 
-$$\mathbf{L}_{	ext{masked}} = \mathbf{L} \odot \mathbf{M}_{	ext{time}} \odot \mathbf{M}_{	ext{freq}}$$
+$$
+\mathbf{L}_{\text{masked}} = \mathbf{L} \odot \mathbf{M}_{\text{time}} \odot \mathbf{M}_{\text{freq}}
+$$
 
 This mathematical regularization ensures the ASR stage remains resilient to background office noise, cellular line distortion, and mobile handoff static.
 
@@ -122,11 +128,11 @@ This mathematical regularization ensures the ASR stage remains resilient to back
 
 The fundamental engineering flaw of cascaded voice architectures is **additive latency compounding**.
 
-```text
+```\text
 The Latency Compounding Cascade:
 
 1. Acoustic Voice Activity Detection (VAD End-of-Turn):  30ms - 60ms
-2. Network Ingress to STT Provider:                     25ms - 50ms
+2. Network Ingress \to STT Provider:                     25ms - 50ms
 3. STT Transcription Processing Delay:                  80ms - 140ms
 4. Network Transit: STT Provider -> Orchestration Server: 25ms - 50ms
 5. LLM Time-to-First-Token (TTFT) Inference:            180ms - 350ms
@@ -139,9 +145,11 @@ Total Cumulative Turnaround Latency:                   455ms - 910ms (Often >1.2
 
 ### Mathematical Latency Summation
 
-Total conversational delay ($\tau_{\text{total}}$) is governed by the linear sum of component latencies and network transit hops:
+Total conversational delay ($\\tau_{\text{total}}$) is governed by the linear \sum of component latencies and network transit hops:
 
-$$\tau_{\text{total}} = \tau_{\text{VAD}} + \tau_{\text{STT}} + \tau_{\text{LLM}} + \tau_{\text{TTS}} + \sum_{i=1}^{K} \tau_{\text{network}, i}$$
+$$
+\\tau_{\text{total}} = \\tau_{\text{VAD}} + \\tau_{\text{STT}} + \\tau_{\text{LLM}} + \\tau_{\text{TTS}} + \sum_{i=1}^{K} \\tau_{\text{network}, i}
+$$
 
 If any single API provider experiences a temporary latency spike (e.g., the LLM provider experiences GPU queue saturation and takes 700ms to emit a token), the entire conversation freezes, causing callers to ask _"Hello?"_ into the dead silence.
 
@@ -153,19 +161,23 @@ In the final stage of the cascade, the Text-to-Speech vocoder synthesizes audio 
 
 To prevent quadratic attention bottlenecks ($\mathcal{O}(N^2)$), modern synthesizers (like Cartesia Sonic) deploy **Selective State Space Models (SSMs / Mamba)**:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) using input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;50ms Time-to-First-Audio (TTFA)**.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;50ms Time-to-First-Audio (TTFA)**.
 
 ## 3. The 4 Hidden Points of Failure in Cascaded Pipelines
 
 Beyond latency compounding, cascaded architectures suffer from four structural engineering vulnerabilities:
 
-```text
+```\text
 The Four Structural Vulnerabilities of Cascades:
 
 1. Acoustic Information Loss (The Text Bottleneck):
@@ -191,7 +203,7 @@ The Four Structural Vulnerabilities of Cascades:
 
 In enterprise telephone operations, cascaded pipelines frequently experience three catastrophic edge-case failures:
 
-```text
+```\text
 The Three Classic Cascaded Failure Modes:
 
 1. The Echo-Loop Barge-In Glitch:
@@ -200,13 +212,13 @@ The Three Classic Cascaded Failure Modes:
      feeding it back into the LLM as user input, creating an infinite self-conversation loop.
 
 2. The Phonetic Hallucination Cascade:
-   - Cause: Cellular line static causes ASR to misrecognize "cancel membership" as "counsel mentorship".
+   - Cause: Cellular line static causes ASR \to misrecognize "cancel membership" as "counsel mentorship".
    - Failure: The LLM generates a long, unprompted explanation about career advisory services,
      causing immediate customer confusion and brand damage.
 
 3. The Cold-Start GPU Latency Spike:
    - Cause: Serverless STT or TTS workers experience a container cold start during traffic surges.
-   - Failure: TTFA jumps from 60ms to 2,400ms, causing the caller to assume the call dropped and hang up.
+   - Failure: TTFA jumps from 60ms \to 2,400ms, causing the caller \to assume the call dropped and hang up.
 ```
 
 In native Voice-to-Voice models, end-to-end continuous latent modeling eliminates discrete text boundary errors, preventing phonetic hallucination cascades and self-echo loops natively.
@@ -215,9 +227,11 @@ In native Voice-to-Voice models, end-to-end continuous latent modeling eliminate
 
 In systems engineering, the overall reliability of a cascaded pipeline with $N = 3$ independent sequential services is the product of their individual availability probabilities:
 
-$$P(\text{System Available}) = \prod_{i=1}^{N} P(\text{Service}_i) = P_{\text{STT}} \cdot P_{\text{LLM}} \cdot P_{\text{TTS}}$$
+$$
+P(\text{System Available}) = \prod_{i=1}^{N} P(\text{Service}_i) = P_{\text{STT}} \cdot P_{\text{LLM}} \cdot P_{\text{TTS}}
+$$
 
-```text
+```\text
 Reliability Compounding Across 3 Chained APIs:
 
 If STT Reliability  = 99.5% (43.8 hours downtime/year)
@@ -232,7 +246,9 @@ Result: 175.2 hours of annual downtime across the combined voice pipeline!
 
 The probability density function (PDF) of total pipeline latency $f_{\text{total}}(t)$ is the **mathematical convolution** of the individual service latency distributions:
 
-$$f_{\text{total}}(t) = (f_{\text{STT}} * f_{\text{LLM}} * f_{\text{TTS}} * f_{\text{network}})(t)$$
+$$
+f_{\text{total}}(t) = (f_{\text{STT}} * f_{\text{LLM}} * f_{\text{TTS}} * f_{\text{network}})(t)
+$$
 
 Even if each individual service maintains an acceptable median latency ($P_{50} = 100\text{ms}$), the 99th percentile tail latency ($P_{99}$) of the convolved distribution stretches past **1,500ms**, resulting in periodic conversational freezes on live customer calls.
 
@@ -242,7 +258,7 @@ Even if each individual service maintains an acceptable median latency ($P_{50} 
 
 In cascaded architectures, the orchestration server must relay audio streams between the carrier SIP trunk and the three independent AI services:
 
-```text
+```\text
 High-Concurrency Cascaded Media Relay:
 
 [PSTN Mobile Caller] ──► [Carrier SIP Gateway] ──► [WebRTC SFU / Media Server Node]
@@ -257,13 +273,15 @@ High-Concurrency Cascaded Media Relay:
                                                               ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Cascaded Stage Dispatcher: Asynchronous Multi-Vendor API Workers       │
-│ - Manages WebSocket pools to STT, LLM, and TTS endpoints               │
+│ - Manages WebSocket pools \to STT, LLM, and TTS endpoints               │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is computed continuously:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile 4G/5G connections but adds **40ms to 60ms of unavoidable transport latency** to the total cascade budget.
 
@@ -271,11 +289,13 @@ This dynamic buffering prevents stuttering on mobile 4G/5G connections but adds 
 
 The fundamental technological shift from cascaded pipelines to native Voice-to-Voice models is the adoption of **Residual Vector Quantization (RVQ-VAE)**.
 
-In cascaded systems, speech is forcibly discretized into alphanumeric text characters, stripping away emotional volume, pitch contour ($F_0$), and conversational laughter.
+In cascaded systems, speech is forcibly discretized into a\alphanumeric text characters, stripping away emotional volume, pitch contour ($F_0$), and conversational laughter.
 
 In native Voice-to-Voice architectures (such as Tough Tongue AI TTGE and Gemini Live), audio is quantized into hierarchical acoustic codebooks:
 
-$$\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}$$
+$$
+\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}
+$$
 
 This allows the multimodal neural network to attend directly over acoustic intonations and linguistic content simultaneously, eliminating the text serialization bottleneck and delivering sub-**200ms** turnaround latency with 100% emotional fidelity.
 
@@ -283,7 +303,7 @@ This allows the multimodal neural network to attend directly over acoustic inton
 
 The limitations of cascaded pipelines led speech scientists to pioneer **Native Voice-to-Voice (V2V)** foundation models (such as **Google Gemini Live** and **Tough Tongue AI TTGE**).
 
-```text
+```\text
 The Unified Voice-to-Voice Architecture:
 
 [Streaming Audio In (16kHz PCM)]
@@ -297,14 +317,14 @@ The Unified Voice-to-Voice Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Multimodal Transformer Reasoning Core (TTGE Engine)                    │
-│ - Jointly processes acoustic latents, text context, and tool webhooks   │
-│ - Generates response audio latents directly without text serialization │
+│ - Jointly processes acoustic latents, \text context, and tool webhooks   │
+│ - Generates response audio latents directly without \text serialization │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Neural Audio Codec Decoder (HiFi-GAN Neural Vocoder)                   │
-│ - Reconstructs continuous 24kHz linear PCM audio waveform in <40ms     │
+│ - Reconstructs continuous 24kHz linear PCM audio waveform \in <40ms     │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -319,7 +339,7 @@ By eliminating intermediate text serialization, native Voice-to-Voice engines pr
 
 When a component in a cascaded pipeline experiences a network timeout or API error, the orchestration layer must recover without dropping the telephone call.
 
-```text
+```\text
 The Cascaded Circuit Breaker & Fallback Architecture:
 
 [Stage 1: STT Layer] ──(Timeout > 250ms)──► [Fallback STT: Secondary Regional Cluster]
@@ -343,11 +363,11 @@ By maintaining existing CRM webhook definitions and REST API business logic whil
 
 Despite the rise of native Voice-to-Voice models, cascaded pipelines remain essential in specific enterprise scenarios:
 
-```text
-When to Deploy Cascaded Architecture in Enterprise:
+```\text
+When \to Deploy Cascaded Architecture \in Enterprise:
 
 1. Regulatory Audit & Compliance Logging (BFSI & Healthcare):
-   - When financial regulators require immutable, certified text transcripts
+   - When financial regulators require immutable, certified \text transcripts
      for every conversational turn before an action is executed.
 
 2. On-Premise Data Sovereignty:
@@ -360,7 +380,7 @@ When to Deploy Cascaded Architecture in Enterprise:
 
 4. The Hybrid Pattern:
    - Deploying Tough Tongue AI TTGE for the ultra-low-latency voice conversation,
-     while streaming audio asynchronously to a parallel cascaded pipeline for QA scoring.
+     while streaming audio asynchronously \to a parallel cascaded pipeline for QA scoring.
 ```
 
 ---
@@ -377,20 +397,20 @@ When to Deploy Cascaded Architecture in Enterprise:
 
 ## 7. 25-Point Head-to-Head Architecture Matrix
 
-| Architectural Dimension         | Traditional Cascaded Pipeline                      | Optimized Streaming Cascade | Native Voice-to-Voice (TTGE)           |
-| ------------------------------- | -------------------------------------------------- | --------------------------- | -------------------------------------- |
-| **Underlying Architecture**     | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | Streaming Websocket Cascade | **Unified Multimodal V2V**             |
-| **Turnaround Latency**          | **1,200ms - 2,500ms**                              | **550ms - 750ms**           | **&lt;200ms (Biological Human Tempo)** |
-| **Emotional Prosody**           | Destroyed at text boundary                         | Simulated via SSML          | **100% Native Empathy & Cadence**      |
-| **Barge-In Interruption Speed** | **250ms - 500ms (Slow)**                           | **120ms - 180ms**           | **&lt;40ms (Frame-Level Gating)**      |
-| **Multi-Dialect & Accents**     | Compounding phonetic errors                        | Good                        | **Native Multilingual & Hinglish**     |
-| **Information Preservation**    | Text only (Flat ASCII)                             | Text only (Flat ASCII)      | **Full Audio Latents + Context**       |
-| **Points of Failure**           | 3 Independent Cloud APIs                           | 3 Independent Cloud APIs    | **Single High-Availability Engine**    |
-| **Tail Latency ($P_{99}$)**     | **2,000ms - 3,500ms**                              | **1,200ms - 1,800ms**       | **&lt;280ms Consistent P99**           |
-| **Compliance Audit Logging**    | Granular per-stage logs                            | Granular per-stage logs     | Asynchronous Streaming Logs            |
-| **Vendor Rate Limit Risk**      | High (3 independent quotas)                        | High (3 independent quotas) | **Single Unified Quota**               |
-| **Carrier Telephony Bridge**    | Requires custom SIP glue                           | LiveKit / Pipecat relay     | **Direct Carrier SIP (asia-south1)**   |
-| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                        | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**     |
+| Architectural Dimension         | Traditional Cascaded Pipeline                              | Optimized Streaming Cascade | Native Voice-to-Voice (TTGE)           |
+| ------------------------------- | ---------------------------------------------------------- | --------------------------- | -------------------------------------- |
+| **Underlying Architecture**     | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | Streaming Websocket Cascade | **Unified Multimodal V2V**             |
+| **Turnaround Latency**          | **1,200ms - 2,500ms**                                      | **550ms - 750ms**           | **&lt;200ms (Biological Human Tempo)** |
+| **Emotional Prosody**           | Destroyed at text boundary                                 | Simulated via SSML          | **100% Native Empathy & Cadence**      |
+| **Barge-In Interruption Speed** | **250ms - 500ms (Slow)**                                   | **120ms - 180ms**           | **&lt;40ms (Frame-Level Gating)**      |
+| **Multi-Dialect & Accents**     | Compounding phonetic errors                                | Good                        | **Native Multilingual & Hinglish**     |
+| **Information Preservation**    | Text only (Flat ASCII)                                     | Text only (Flat ASCII)      | **Full Audio Latents + Context**       |
+| **Points of Failure**           | 3 Independent Cloud APIs                                   | 3 Independent Cloud APIs    | **Single High-Availability Engine**    |
+| **Tail Latency ($P_{99}$)**     | **2,000ms - 3,500ms**                                      | **1,200ms - 1,800ms**       | **&lt;280ms Consistent P99**           |
+| **Compliance Audit Logging**    | Granular per-stage logs                                    | Granular per-stage logs     | Asynchronous Streaming Logs            |
+| **Vendor Rate Limit Risk**      | High (3 independent quotas)                                | High (3 independent quotas) | **Single Unified Quota**               |
+| **Carrier Telephony Bridge**    | Requires custom SIP glue                                   | LiveKit / Pipecat relay     | **Direct Carrier SIP (asia-south1)**   |
+| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                                | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**     |
 
 ---
 
@@ -398,7 +418,7 @@ When to Deploy Cascaded Architecture in Enterprise:
 
 When evaluating operational expenditures for **250,000 monthly customer calls (875,000 calling minutes)**:
 
-```text
+```\text
 Monthly Cost Breakdown: Cascaded Pipeline vs Tough Tongue AI:
 
 Option A: Cascaded Multi-Vendor Stack (Deepgram + GPT-4o mini + Cartesia + LiveKit):
@@ -486,10 +506,10 @@ class CascadedVoicePipeline:
 ## 10. Frequently Asked Questions
 
 **What is the difference between Cascade Architecture and Voice-to-Voice?**
-Cascade architecture chains three separate models together (STT $\rightarrow$ LLM $\rightarrow$ TTS), converting audio into intermediate text and back. Native Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, reducing latency to **&lt;200ms** and preserving emotional tone.
+Cascade architecture chains three separate models together (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS), converting audio into intermediate text and back. Native Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, reducing latency to **&lt;200ms** and preserving emotional tone.
 
 **Why does cascade architecture cause high latency?**
-Each stage in the cascade introduces processing delays and network serialization hops. When chained together, latencies compound additively, resulting in total response times of **650ms to 1,400ms**.
+Each stage in the cascade introduces processing delays and network serialization hops. When chained together, latencies compound additively, resulting in total response \times of **650ms to 1,400ms**.
 
 **What is information loss in cascaded voice pipelines?**
 When the STT layer converts audio into text, it strips away emotional prosody, vocal pitch ($F_0$), laughter, and cadence. The language model receives flat text, making it mathematically impossible to respond to emotional cues naturally.
@@ -510,7 +530,7 @@ Tough Tongue AI provides native Voice-to-Voice infrastructure (TTGE) combined wi
 Using Tough Tongue AI, businesses can build, configure, and deploy an enterprise voice agent in **&lt;2 minutes** via straightforward web dashboard configuration.
 
 **What is the cost difference between cascaded multi-vendor stacks and Tough Tongue AI?**
-Cascaded multi-vendor API stacks cost **\$0.084 to \$0.140 per minute** across fragmented invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat **₹3.50 per minute** (**\$0.042/min**).
+Cascaded multi-vendor API stacks cost **\$0.084 \to \$0.140 per minute** across fragmented invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat **₹3.50 per minute** (**\$0.042/min**).
 
 **How does Tough Tongue AI handle Indian telephony and Hinglish?**
 Tough Tongue AI's neural engine is pre-trained on diverse Indian multilingual speech corpora, accurately understanding colloquial Hinglish phrasing and regional dialects with sub-**200ms** latency.

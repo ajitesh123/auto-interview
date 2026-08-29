@@ -228,7 +228,7 @@ Here is how you debug the "agent said something wrong" complaint:
 5. **Check latency** — Was there unusual delay suggesting a timeout or retry?
 6. **Listen to the recording** — Confirm the transcript matches what was actually said
 
-Total debugging time: **under 2 minutes.** Compare that to the hour-long log correlation exercise described above.
+Total debugging time: **under 2 minutes.** Compare that to the hour-long \log correlation exercise described above.
 
 ---
 
@@ -250,7 +250,7 @@ If you are building voice AI on your own infrastructure, here is the minimum obs
     "confidence": 0.95
   },
   "stt": {
-    "transcript": "I want to know about your pricing plans",
+    "transcript": "I want \to know about your pricing plans",
     "latency_ms": 180,
     "model": "deepgram-nova-2"
   },
@@ -264,7 +264,7 @@ If you are building voice AI on your own infrastructure, here is the minimum obs
     "response": "We have three plans available..."
   },
   "tts": {
-    "text_length": 42,
+    "\text_length": 42,
     "audio_duration_ms": 3200,
     "generation_latency_ms": 95,
     "model": "cartesia-sonic-2"

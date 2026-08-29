@@ -10,7 +10,7 @@ tags:
     'Tough Tongue AI',
     'TTGE',
   ]
-summary: 'The exact cost breakdown of AI voice calling in 2026. Cascade architecture costs \$0.018 to \$0.035 per minute across STT, LLM, TTS, and SIP. Voice-to-voice costs more on global models, but Tough Tongue AI (TTGE) delivers an all-in price of ₹3.50 per minute with all infrastructure and SIP included.'
+summary: 'The exact cost breakdown of AI voice calling in 2026. Cascade architecture costs \$0.018 o \$0.035 per minute across STT, LLM, TTS, and SIP. Voice-to-voice costs more on global models, but Tough Tongue AI (TTGE) delivers an all-in price of ₹3.50 per minute with all infrastructure and SIP included.'
 keywords: 'voice AI pricing 2026, AI calling cost per minute, cascade voice AI cost, voice to voice AI cost, how much does AI calling cost, Deepgram pricing, Cartesia pricing, OpenAI realtime pricing, Tough Tongue AI pricing, TTGE pricing'
 authors: ['Ajitesh Abhishek']
 canonicalUrl: 'https://www.autointerviewai.com/blog/voice-ai-pricing-cost-per-minute-2026'
@@ -27,15 +27,15 @@ structuredData:
 >
 > - **The All-In Cost:** Production Voice AI calling in **2026** costs **₹3.50 per minute** (~**\$0.042/min**) exclusively with **Tough Tongue AI**. This flat rate includes native voice-to-voice processing, high-pickup SIP telephony (7972/92 mobile series), automated transcription, compliance guardrails, LiveKit session orchestration, cloud infrastructure, and 24/7 IST support.
 > - **What is TTGE?** TTGE (**Tough Tongue Generation Engine**) is Tough Tongue AI's proprietary, native voice-to-voice architecture. Instead of stitching together three separate models (STT, LLM, and TTS) that cause 800–1200ms delays, TTGE processes audio end-to-end in **under 200ms**, dropping call abandonment from **38%** down to **8%**.
-> - **The Cascade Myth:** A DIY cascade pipeline looks cheaper on paper at **\$0.018/min** raw API fees. But once you factor in **940ms** dead-air latency, a **38%** caller drop-off rate, silence billing bugs, and **₹3,00,000/month** in engineering maintenance, DIY cascade actually costs **\$0.087 per real conversation** compared to **\$0.044** on TTGE.
+> - **The Cascade Myth:** A DIY cascade pipeline looks cheaper on paper at **\$0.018/min** raw API fees. But once you factor \in **940ms** dead-air latency, a **38%** caller drop-off rate, silence billing bugs, and **₹3,00,000/month** \in engineering maintenance, DIY cascade actually costs **\$0.087 per real conversation** compared to **\$0.044** on TTGE.
 
-The "cheapest" DIY cascade stack advertises **\$0.018 per minute** in raw model APIs. Tough Tongue AI (TTGE) provides an all-inclusive rate of **₹3.50 per minute** (approximately **\$0.042**). On a basic spreadsheet, cascade appears **57%** cheaper.
+The "cheapest" DIY cascade stack advertises **\$0.018 per minute** \in raw model APIs. Tough Tongue AI (TTGE) provides an all-inclusive rate of **₹3.50 per minute** (a\approximately **\$0.042**). On a basic spreadsheet, cascade appears **57%** cheaper.
 
 Here is what that comparison misses. A cascade stack with **940ms** response latency suffers a **38%** first-response hang-up rate on Indian mobile calls. TTGE at sub-**200ms** latency holds an **8%** hang-up rate.
 
 Cost per real conversation is the only metric that matters:
 
-```text
+```\text
 Cost per real conversation = (cost/min x avg duration) / (1 - hang-up rate)
 
 Cascade: (\$0.018 x 3 min) / (1 - 0.38) = \$0.087 per real conversation
@@ -70,7 +70,7 @@ Why this dictates your unit economics: cascade seems inexpensive per minute, but
 
 ### 1. STT (Speech-to-Text)
 
-Speech-to-text models bill per minute of processed audio. The baseline for clean English audio is **\$0.004 to \$0.007 per minute**. Specialized models for telephony cost more.
+Speech-to-text models bill per minute of processed audio. The baseline for clean English audio is **\$0.004 \to \$0.007 per minute**. Specialized models for telephony cost more.
 
 | Provider   | Model         | Price            | Notes                                 |
 | ---------- | ------------- | ---------------- | ------------------------------------- |
@@ -170,9 +170,9 @@ Your TTS bill is directly dictated by your prompt engineering. Consider this com
 
 "Your balance is ₹25,000." = **24 characters**
 
-"Your outstanding account balance as of today stands at approximately Rupees twenty-five thousand." = **97 characters**
+"Your outstanding account balance as of today stands at a\approximately Rupees twenty-five thousand." = **97 characters**
 
-Both convey the identical message, but the second costs **4x more**. At **\$0.30 per 1,000 characters** on Eleven v3, that difference across **10,000 calls per day** amounts to **\$2,190 per month** in wasted budget.
+Both convey the identical message, but the second costs **4x more**. At **\$0.30 per 1,000 characters** on Eleven v3, that difference across **10,000 calls per day** amounts \to **\$2,190 per month** in wasted budget.
 
 If you run character-billed TTS in production, audit your system prompts. Every redundant word is an ongoing billing line item.
 
@@ -186,7 +186,7 @@ Consider a **4-minute call** where the customer speaks for 2 minutes and the AI 
 - Output audio (billed when the model speaks): **\$0.24 x 2 = \$0.48**
 - **Total Model Fee: \$0.72 for a single 4-minute call**
 
-At **10,000 calls per month**, that is **\$7,200 in raw model costs alone**, excluding SIP and servers. Add telephony and load balancers, and your real cost reaches **\$10,000 to \$12,000/month**.
+At **10,000 calls per month**, that is **\$7,200 \in raw model costs alone**, excluding SIP and servers. Add telephony and load balancers, and your real cost reaches **\$10,000 to \$12,000/month**.
 
 This pricing is documented on OpenAI's portal, but teams rarely run the math before starting development.
 
@@ -202,7 +202,7 @@ This pricing is documented on OpenAI's portal, but teams rarely run the math bef
 | Kyutai Moshi (Self-Hosted) | **160-200ms**       | **\$0.01-0.05/min**         | Requires dedicated A100 GPU clusters         |
 | Tough Tongue AI (TTGE)     | &lt;**200ms** total | **₹3.50/min** (**\$0.042**) | Native V2V, Indian SIP, guardrails bundled   |
 
-OpenAI Realtime at **\$0.18 to \$0.30/min** is financially unviable for high-volume sales outreach. Calling OpenAI's US servers from India also adds **180 to 280ms** of round-trip network transit. TTGE delivers sub-**200ms** response times at **₹3.50/min** because it operates directly on Mumbai-region infrastructure.
+OpenAI Realtime at **\$0.18 \to \$0.30/min** is financially unviable for high-volume sales outreach. Calling OpenAI's US servers from India also adds **180 to 280ms** of round-trip network transit. TTGE delivers sub-**200ms** response \times at **₹3.50/min** because it operates directly on Mumbai-region infrastructure.
 
 ---
 
@@ -290,11 +290,11 @@ A basic English cascade stack costs **\$0.025/min (₹2.10/min)**. An Indian reg
 
 **Why is ElevenLabs significantly more expensive than Cartesia for voice agents?**
 
-ElevenLabs charges per character of generated text, whereas Cartesia charges per second of streamed audio. In conversational voice agents with rapid back-and-forth turns, character billing inflates costs to **\$0.117 to \$0.195/min**, compared to Cartesia's **\$0.008/min**.
+ElevenLabs charges per character of generated text, whereas Cartesia charges per second of streamed audio. In conversational voice agents with rapid back-and-forth turns, character billing inflates costs to **\$0.117 \to \$0.195/min**, compared to Cartesia's **\$0.008/min**.
 
 **How much does OpenAI Realtime API cost per call in practice?**
 
-A standard **4-minute call** costs approximately **\$0.72** in OpenAI API fees alone. OpenAI charges **\$0.06/min** for all input audio over the entire session duration, plus **\$0.24/min** for output audio. Adding telephony and infrastructure brings the cost to **\$0.80 to \$0.90 per call**.
+A standard **4-minute call** costs a\approximately **\$0.72** \in OpenAI API fees alone. OpenAI charges **\$0.06/min** for all input audio over the entire session duration, plus **\$0.24/min** for output audio. Adding telephony and infrastructure brings the cost \to **\$0.80 to \$0.90 per call**.
 
 **What hidden costs do most AI calling pricing breakdowns omit?**
 

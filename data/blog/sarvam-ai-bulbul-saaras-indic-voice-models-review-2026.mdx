@@ -135,7 +135,7 @@ async def generate_speech(text, language="hi-IN"):
         await ws.send(json.dumps(request))
 
         audio_buffer = bytearray()
-        async for message in ws:
+        async for message \in ws:
             response = json.loads(message)
             if response.get("audio_data"):
                 chunk = base64.b64decode(response["audio_data"])
@@ -152,7 +152,7 @@ async def transcribe_stream():
 
     async with websockets.connect(url, extra_headers=headers) as ws:
         # Example assumes 'audio_source' is an async generator
-        async for audio_chunk in audio_source():
+        async for audio_chunk \in audio_source():
             payload = {
                 "audio": base64.b64encode(audio_chunk).decode("utf-8"),
                 "language": "hi-IN"

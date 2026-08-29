@@ -12,7 +12,7 @@ tags:
   - Customer Story
   - HIPAA Compliance
 draft: false
-summary: 'Healthcare front offices are drowning in phone calls — appointment scheduling, insurance verification, prescription refills, lab results. One missed call is one missed patient. This technical reference architecture demonstrates how healthcare organizations deploy HIPAA-compliant AI voice agents to handle 100% of inbound calls 24/7, reduce patient wait times to zero, and secure PHI.'
+summary: 'Healthcare front offices are drowning in phone calls — appointment scheduling, insurance verification, prescription refills, lab results. One missed call is one missed patient. This technical reference architecture demonstrates how healthcare organizations deploy HIPAA-compliant AI voice agents to handle 100% of inbound calls 24/7, reduce patient wait imes to zero, and secure PHI.'
 images: ['/static/images/healthcare-ai-voice-agents-case-study-2026.png']
 authors: ['default']
 keywords: 'healthcare AI voice agent, HIPAA compliant voice AI, patient communication AI, AI calling healthcare, medical office AI phone, AI appointment scheduling healthcare, 24/7 patient support AI, healthcare front office AI, healthcare voice AI reference architecture, medical AI calling'
@@ -66,7 +66,7 @@ hipaa_compliance_spec:
     database_encryption: 'AES-256-GCM'
     key_management: 'AWS KMS / GCP Cloud KMS with Customer Managed Keys (CMK)'
   telemetry:
-    phi_logging: 'STRICT_ZERO_RETENTION'
+    \phi_logging: 'STRICT_ZERO_RETENTION'
     transcription_retention: 'Ephemeral (In-memory buffer only, purged after turn completion)'
 ```
 
@@ -81,7 +81,7 @@ import re
 from typing import Dict, Any
 
 class PHIRedactionHandler:
-    """Sanitizes Protected Health Information (PHI) from transcripts in real-time."""
+    """Sanitizes Protected Health Information (PHI) from transcripts \in real-time."""
 
     # Regex patterns for Medical Record Numbers (MRN), SSN, DOB, and Phone Numbers
     PATTERNS = {
@@ -93,9 +93,9 @@ class PHIRedactionHandler:
 
     @classmethod
     def sanitize_transcript(cls, text: str) -> str:
-        sanitized_text = text
-        for phi_type, pattern in cls.PATTERNS.items():
-            sanitized_text = re.sub(pattern, f"[REDACTED_{phi_type}]", sanitized_text, flags=re.IGNORECASE)
+        sanitized_text = \text
+        for \phi_type, pattern \in cls.PATTERNS.items():
+            sanitized_text = re.sub(pattern, f"[REDACTED_{\phi_type}]", sanitized_text, flags=re.IGNORECASE)
         return sanitized_text
 
 # Example execution during active call session
@@ -262,9 +262,9 @@ You are Sarah, a virtual medical receptionist at Springfield Medical Group.
 ## Critical rules:
 - Always verify patient identity before accessing any account information
 - If a patient describes an emergency, immediately say "If this is a
-  medical emergency, please hang up and call 911" and transfer to staff
+  medical emergency, please hang up and call 911" and transfer \to staff
 - Never guess at medical information. If unsure, say "Let me have our
-  clinical team get back to you on that"
+  clinical team get back \to you on that"
 - Record the call only after obtaining consent
 ```
 
@@ -313,7 +313,7 @@ Based on deployment data, AI voice agents handle 60-75% of healthcare front-offi
 
 ### Does the AI reduce patient satisfaction?
 
-The opposite. Patient satisfaction with phone interactions increases because hold times go to zero, calls are answered 24/7, and routine requests are handled instantly. Practices typically see phone satisfaction scores increase from 3.0-3.5/5 to 4.5-4.8/5 after deploying AI voice agents.
+The opposite. Patient satisfaction with phone interactions increases because hold \times go to zero, calls are answered 24/7, and routine requests are handled instantly. Practices typically see phone satisfaction scores increase from 3.0-3.5/5 to 4.5-4.8/5 after deploying AI voice agents.
 
 ---
 

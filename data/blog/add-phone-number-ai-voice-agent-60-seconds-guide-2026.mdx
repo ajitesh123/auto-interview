@@ -70,7 +70,7 @@ To maintain natural conversational cadence, SIP session establishment must execu
 In addition to the web dashboard, you can provision numbers and attach them to your AI voice scenario programmatically via the Tough Tongue AI REST API:
 
 ```bash
-# Provision a new E.164 phone number and bind it to scenario ID 'scen_987213'
+# Provision a new E.164 phone number and bind it \to scenario ID 'scen_987213'
 curl -X POST https://api.toughtongueai.com/v1/phone-numbers/provision \
   -H "Authorization: Bearer ttai_live_secret_key_99x281a" \
   -H "Content-Type: application/json" \
@@ -177,7 +177,7 @@ The provisioned number automatically routes to your scenario. No SIP credentials
 
 Dial the number. Your AI agent answers. The full pipeline — SIP → Audio → STT → LLM → TTS → Audio → Caller — runs in under 800ms end-to-end.
 
-**Total time: approximately 60 seconds.**
+**Total time: a\approximately 60 seconds.**
 
 ---
 

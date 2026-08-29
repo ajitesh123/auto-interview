@@ -91,7 +91,7 @@ Use this decision tree before configuring a single AI voice agent for the UAE ma
 
 ```mermaid
 flowchart TD
-    A["📞 Incoming/Outgoing Call in UAE"] --> B{"Prospect nationality known?"}
+    A["📞 Incoming/Outgoing Call \in UAE"] --> B{"Prospect nationality known?"}
     B -->|Yes| C{"Which nationality?"}
     B -->|No| D["Default: English first, detect language"]
     C -->|Emirati/GCC| E["🟢 Use Khaleeji Arabic"]
@@ -130,15 +130,15 @@ flowchart TD
 
 Dubai is one of the most linguistically diverse cities on earth. The population comprises over 200 nationalities. In business contexts, the language landscape breaks down as follows:
 
-| Language/Dialect | Usage Context | Percentage of Business Calls |
-|---|---|---|
-| **English** | International business, expat communication | 45-55% |
-| **Gulf Arabic (Khaleeji)** | Emirati nationals, GCC business | 15-20% |
-| **Levantine Arabic** | Jordanian, Palestinian, Syrian business community | 8-12% |
-| **Egyptian Arabic** | Egyptian professional community | 7-10% |
-| **Modern Standard Arabic (MSA)** | Formal communications, government | 5-8% |
-| **Hindi/Urdu** | South Asian business community | 8-12% |
-| **Code-switching (Arabic/English)** | Common across all Arabic-speaking segments | Embedded in 60-70% of Arabic calls |
+| Language/Dialect                    | Usage Context                                     | Percentage of Business Calls       |
+| ----------------------------------- | ------------------------------------------------- | ---------------------------------- |
+| **English**                         | International business, expat communication       | 45-55%                             |
+| **Gulf Arabic (Khaleeji)**          | Emirati nationals, GCC business                   | 15-20%                             |
+| **Levantine Arabic**                | Jordanian, Palestinian, Syrian business community | 8-12%                              |
+| **Egyptian Arabic**                 | Egyptian professional community                   | 7-10%                              |
+| **Modern Standard Arabic (MSA)**    | Formal communications, government                 | 5-8%                               |
+| **Hindi/Urdu**                      | South Asian business community                    | 8-12%                              |
+| **Code-switching (Arabic/English)** | Common across all Arabic-speaking segments        | Embedded in 60-70% of Arabic calls |
 
 The critical insight: **78% of Arabic-speaking UAE residents prefer conversational dialect over formal MSA in business phone calls.** An AI voice agent that speaks only MSA in Dubai sounds like a news anchor trying to sell property — technically correct but socially disconnected.
 
@@ -147,10 +147,10 @@ The critical insight: **78% of Arabic-speaking UAE residents prefer conversation
 Modern Standard Arabic is the formal, written standard shared across the Arab world. No population uses it as their daily spoken language. Here is how the distinction affects AI calling performance:
 
 **MSA AI Agent greeting:** "مرحباً، أنا مساعد ذكاء اصطناعي من [الشركة]. هل لديك وقت للحديث؟"
-*(Hello, I am an artificial intelligence assistant from [Company]. Do you have time to talk?)*
+_(Hello, I am an artificial intelligence assistant from [Company]. Do you have time to talk?)_
 
 **Khaleeji AI Agent greeting:** "هلا والله، أنا أتصل من [الشركة]. شلونك؟ عندك دقيقتين؟"
-*(Hey! I'm calling from [Company]. How are you? Do you have two minutes?)*
+_(Hey! I'm calling from [Company]. How are you? Do you have two minutes?)_
 
 The second greeting establishes immediate rapport. The first creates immediate distance. In Dubai real estate — where relationships drive transactions — this distinction determines whether the prospect stays on the line or hangs up in 4 seconds.
 
@@ -159,29 +159,32 @@ The second greeting establishes immediate rapport. The first creates immediate d
 For an AI voice agent to be effective in Dubai, the speech technology stack must handle:
 
 **1. Dialect Recognition (STT)**
+
 - Ability to recognize Khaleeji, Levantine, and Egyptian Arabic with >92% accuracy
 - Handling of code-switching mid-sentence: "I want a شقة in Business Bay, بس make sure it has بلكونة"
 - Recognition of UAE-specific terminology: "بدون عمولة" (without commission), "على الخارطة" (off-plan)
 
 **2. Dialect Generation (TTS)**
+
 - Natural-sounding Khaleeji pronunciation, not MSA with Gulf accent overlaid
 - Correct prosody and intonation patterns for Gulf Arabic
 - Ability to switch between English and Arabic seamlessly within a response
 
 **3. Contextual Understanding (LLM)**
+
 - Understanding dialect-specific expressions that have no MSA equivalent
 - Handling of cultural context: Islamic finance terminology, Emirati business customs
 - Awareness of UAE-specific business cycles (Ramadan adjustments, summer market dynamics)
 
 ### Dialect Performance Benchmarks
 
-| Metric | MSA-Only Agent | Dialect-First Agent | Impact |
-|---|---|---|---|
-| Average call duration (Arabic speakers) | 1m 42s | 3m 28s | +104% |
-| Appointment booking rate | 4.2% | 11.7% | +179% |
-| Prospect satisfaction (NPS) | 22 | 61 | +177% |
-| "Sounds like a bot" hang-up rate | 47% | 18% | -62% |
-| Code-switching handling accuracy | 34% | 89% | +162% |
+| Metric                                  | MSA-Only Agent | Dialect-First Agent | Impact |
+| --------------------------------------- | -------------- | ------------------- | ------ |
+| Average call duration (Arabic speakers) | 1m 42s         | 3m 28s              | +104%  |
+| Appointment booking rate                | 4.2%           | 11.7%               | +179%  |
+| Prospect satisfaction (NPS)             | 22             | 61                  | +177%  |
+| "Sounds like a bot" hang-up rate        | 47%            | 18%                 | -62%   |
+| Code-switching handling accuracy        | 34%            | 89%                 | +162%  |
 
 ---
 
@@ -192,16 +195,16 @@ This is a real-world scenario: An Emirati prospect has enquired about an off-pla
 ### ❌ MSA-Only Agent (What Most Vendors Sell)
 
 ```
-AI:  "مرحباً. أنا مساعد ذكي من شركة الفخامة العقارية. هل لديك وقت للحديث 
+AI:  "مرحباً. أنا مساعد ذكي من شركة الفخامة العقارية. هل لديك وقت للحديث
       عن فيلا في دبي هيلز؟"
-     (Hello. I am a smart assistant from Al Fakhama Real Estate. Do you 
-     have time to talk about a villa in Dubai Hills?)
+     (Hello. I am a smart assistant from Al Fakhama Real Estate. Do you
+     have time \to talk about a villa \in Dubai Hills?)
 
 Prospect: "...هلا. شو هالصوت؟ انت روبوت؟"
           (...Hey. What is this voice? Are you a robot?)
 
 AI:  "أنا مساعد ذكاء اصطناعي. هل ترغب في معرفة المزيد عن المشروع؟"
-     (I am an artificial intelligence assistant. Would you like to know 
+     (I am an artificial intelligence assistant. Would you like \to know
      more about the project?)
 
 Prospect: [Hangs up after 8 seconds]
@@ -212,31 +215,31 @@ Prospect: [Hangs up after 8 seconds]
 ### ✅ Dialect-First Agent (How Tough Tongue AI Handles It)
 
 ```
-AI:  "هلا والله! أنا أتصل من الفخامة العقارية. أنا مساعد ذكي، بس خلني 
+AI:  "هلا والله! أنا أتصل من الفخامة العقارية. أنا مساعد ذكي، بس خلني
       أساعدك. سمعت إنك مهتم بفلل دبي هيلز — شلون أقدر أفيدك؟"
-     (Hey! I'm calling from Al Fakhama Real Estate. I'm a smart assistant, 
-     but let me help you. I heard you're interested in Dubai Hills villas 
+     (Hey! I'm calling from Al Fakhama Real Estate. I'm a smart assistant,
+     but let me help you. I heard you're interested \in Dubai Hills villas
      — how can I help?)
 
-Prospect: "هلا هلا. إي والله، أبي أعرف عن المشروع الجديد. شو الأسعار 
+Prospect: "هلا هلا. إي والله، أبي أعرف عن المشروع الجديد. شو الأسعار
           تقريباً؟"
-          (Hey hey. Yeah, I want to know about the new project. What are 
-          the prices approximately?)
+          (Hey hey. Yeah, I want \to know about the new project. What are
+          the prices a\approximately?)
 
-AI:  "تمام! المشروع الجديد يبدا من مليونين ونص. فلل ٤ غرف و ٥ غرف، تسليم 
-      نهاية ٢٠٢٨. تبي أحجز لك زيارة للموقع مع أحد مستشارينا؟ يقدر يعطيك 
+AI:  "تمام! المشروع الجديد يبدا من مليونين ونص. فلل ٤ غرف و ٥ غرف، تسليم
+      نهاية ٢٠٢٨. تبي أحجز لك زيارة للموقع مع أحد مستشارينا؟ يقدر يعطيك
       كل التفاصيل والخطط."
-     (Perfect! The new project starts from 2.5 million. 4 and 5 bedroom 
-     villas, delivery end of 2028. Want me to book a site visit with one 
+     (Perfect! The new project starts from 2.5 million. 4 and 5 bedroom
+     villas, delivery end of 2028. Want me \to book a site visit with one
      of our consultants? They can give you all the details and plans.)
 
 Prospect: "إي حلو. يوم الخميس الصبح عندي وقت."
           (Yeah nice. Thursday morning I have time.)
 
-AI:  "تم! حجزت لك يوم الخميس الساعة ١٠ الصبح. بيتواصل معاك المستشار قبلها 
+AI:  "تم! حجزت لك يوم الخميس الساعة ١٠ الصبح. بيتواصل معاك المستشار قبلها
       بيوم يأكد الموعد. شي ثاني أقدر أساعدك فيه؟"
-     (Done! Booked you for Thursday at 10 AM. The consultant will contact 
-     you the day before to confirm. Anything else I can help with?)
+     (Done! Booked you for Thursday at 10 AM. The consultant will contact
+     you the day before \to confirm. Anything else I can help with?)
 ```
 
 **Result:** Appointment booked. 2 minutes 34 seconds. Natural Gulf Arabic throughout. AI disclosed upfront. Professional but warm.
@@ -254,6 +257,7 @@ The Telecommunications and Digital Government Regulatory Authority (TDRA, former
 **Requirement 1: Prior Telemarketing Approval**
 
 Every company conducting telemarketing — including through AI voice agents — must obtain prior approval from the relevant Competent Authority, coordinated with the TDRA. This applies to:
+
 - Mainland UAE businesses
 - DIFC (Dubai International Financial Centre) entities
 - ADGM (Abu Dhabi Global Market) entities
@@ -274,6 +278,7 @@ You may not call a consumer more than **once per day**. If they decline or expre
 **Requirement 5: Two-Second Connection Rule**
 
 When using automated dialing (including AI voice agents), the customer must be connected to an agent — AI or human — **within 2 seconds of answering**. This means:
+
 - Your AI must begin speaking within 2 seconds of call connection
 - Dead air exceeding 2 seconds at call start is a violation
 - TTS pre-buffering is essential to meet this requirement
@@ -285,6 +290,7 @@ Automated systems must disconnect unanswered calls within **15 seconds or 4 ring
 **Requirement 7: Immediate Identification**
 
 Your AI agent must clearly identify the company name and the purpose of the call immediately upon connection. In Dubai, this means:
+
 - Company name in the first sentence
 - Purpose of call (sales, survey, service) stated clearly
 - No deceptive or ambiguous openings
@@ -292,6 +298,7 @@ Your AI agent must clearly identify the company name and the purpose of the call
 **Requirement 8: Consumer Choice (AI Disclosure)**
 
 For financial institutions (and increasingly as a general best practice), consumers must be given the choice between speaking with:
+
 - A human agent
 - A standard automated system
 - An AI-based agent
@@ -308,15 +315,15 @@ Your AI calling system must be capable of generating statistics and records for 
 
 ### TDRA Penalty Framework
 
-| Violation Category | Penalty Range |
-|---|---|
-| Calling outside permitted hours | AED 10,000 - AED 50,000 |
-| Calling DNCR-registered numbers | AED 25,000 - AED 100,000 |
-| Failure to identify company/purpose | AED 10,000 - AED 50,000 |
-| Exceeding one call per day limit | AED 10,000 - AED 50,000 |
-| Serious breach (repeated violations) | Up to AED 150,000 |
-| Data privacy violations | AED 50,000 - AED 150,000 |
-| Repeated offenses | Temporary or permanent telecom service ban |
+| Violation Category                   | Penalty Range                              |
+| ------------------------------------ | ------------------------------------------ |
+| Calling outside permitted hours      | AED 10,000 - AED 50,000                    |
+| Calling DNCR-registered numbers      | AED 25,000 - AED 100,000                   |
+| Failure to identify company/purpose  | AED 10,000 - AED 50,000                    |
+| Exceeding one call per day limit     | AED 10,000 - AED 50,000                    |
+| Serious breach (repeated violations) | Up to AED 150,000                          |
+| Data privacy violations              | AED 50,000 - AED 150,000                   |
+| Repeated offenses                    | Temporary or permanent telecom service ban |
 
 ---
 
@@ -335,11 +342,11 @@ The UAE Personal Data Protection Law (PDPL), effective since 2023 and significan
 
 ### Free Zone-Specific Requirements
 
-| Free Zone | Data Regulator | Additional Requirements |
-|---|---|---|
-| DIFC | Commissioner of Data Protection | DIFC Data Protection Law No. 5 of 2020; own enforcement framework |
-| ADGM | Office of Data Protection | ADGM Data Protection Regulations 2021; separate adequacy determinations |
-| Mainland UAE | UAE Data Office | PDPL applies directly |
+| Free Zone    | Data Regulator                  | Additional Requirements                                                 |
+| ------------ | ------------------------------- | ----------------------------------------------------------------------- |
+| DIFC         | Commissioner of Data Protection | DIFC Data Protection Law No. 5 of 2020; own enforcement framework       |
+| ADGM         | Office of Data Protection       | ADGM Data Protection Regulations 2021; separate adequacy determinations |
+| Mainland UAE | UAE Data Office                 | PDPL applies directly                                                   |
 
 ### What This Means for Your AI Calling Vendor
 
@@ -362,13 +369,13 @@ Dubai's real estate market is the most natural fit for AI calling in the GCC. He
 
 **What AI calling solves:**
 
-| Use Case | AI Impact | Revenue Impact |
-|---|---|---|
-| Off-plan lead qualification | AI qualifies 100% of inquiries within 5 minutes, 24/7 | 3-5x more qualified viewings |
-| International prospect follow-up | AI calls prospects in their time zone (London, Mumbai, Shanghai) | 40-60% higher connection rates |
-| Back-to-market notifications | AI calls investors when similar units become available | 15-25% reactivation rate |
-| Post-viewing follow-up | AI gauges interest level and books second viewings | 22-35% second viewing conversion |
-| Tenant renewal outreach | AI calls tenants 90 days before lease expiry | 30-45% improvement in renewal rates |
+| Use Case                         | AI Impact                                                        | Revenue Impact                      |
+| -------------------------------- | ---------------------------------------------------------------- | ----------------------------------- |
+| Off-plan lead qualification      | AI qualifies 100% of inquiries within 5 minutes, 24/7            | 3-5x more qualified viewings        |
+| International prospect follow-up | AI calls prospects in their time zone (London, Mumbai, Shanghai) | 40-60% higher connection rates      |
+| Back-to-market notifications     | AI calls investors when similar units become available           | 15-25% reactivation rate            |
+| Post-viewing follow-up           | AI gauges interest level and books second viewings               | 22-35% second viewing conversion    |
+| Tenant renewal outreach          | AI calls tenants 90 days before lease expiry                     | 30-45% improvement in renewal rates |
 
 **Arabic dialect matters here:** When qualifying an Emirati national interested in an AED 15M Palm Jumeirah villa, the AI must speak Gulf Arabic naturally. When calling a Levantine investor from Amman about a Downtown Dubai apartment, Levantine Arabic builds trust faster. When following up with an Egyptian business owner about a JLT office space, Egyptian Arabic is the language of commerce.
 
@@ -377,7 +384,7 @@ Dubai's real estate market is the most natural fit for AI calling in the GCC. He
 Dubai's hospitality sector handles over 17 million international visitors annually. AI voice agents are deployed for:
 
 - **Pre-arrival concierge calls:** AI contacts guests 48 hours before check-in with personalized recommendations
-- **In-stay service requests:** AI handles room service, spa bookings, and restaurant reservations via phone
+- **In-stay service requests:** AI handles room service, spa bookings, and res\taurant reservations via phone
 - **Post-stay feedback:** AI calls guests within 24 hours of checkout for review collection
 - **Event and conference coordination:** AI manages delegate registration and logistics calls
 
@@ -417,20 +424,21 @@ If your AI calling platform sends audio to Google Cloud in us-central1 for speec
 
 ## 🧮 ROI Calculator: AI Calling for Dubai Real Estate
 
-| Your Metric | Your Number | Formula | Result |
-|---|---|---|---|
-| Monthly inquiries received | _____ | — | A |
-| % currently qualified by human agents | _____ | — | B |
-| Monthly inquiries actually qualified | — | A × B | C |
-| AI qualification rate (100% of inquiries) | — | A × 100% | D |
-| Average commission per closed deal (AED) | _____ | — | E |
-| Current conversion rate (qualified → closed) | _____ | — | F |
-| Additional qualified leads from AI | — | D − C | G |
-| Additional revenue from AI | — | G × F × E | **H** |
-| AI calling cost (AED 0.50/min × 3 min × A) | — | A × 1.50 | I |
-| **Monthly ROI** | — | **(H − I) ÷ I × 100** | **%** |
+| Your Metric                                  | Your Number | Formula               | Result |
+| -------------------------------------------- | ----------- | --------------------- | ------ |
+| Monthly inquiries received                   | **\_**      | —                     | A      |
+| % currently qualified by human agents        | **\_**      | —                     | B      |
+| Monthly inquiries actually qualified         | —           | A × B                 | C      |
+| AI qualification rate (100% of inquiries)    | —           | A × 100%              | D      |
+| Average commission per closed deal (AED)     | **\_**      | —                     | E      |
+| Current conversion rate (qualified → closed) | **\_**      | —                     | F      |
+| Additional qualified leads from AI           | —           | D − C                 | G      |
+| Additional revenue from AI                   | —           | G × F × E             | **H**  |
+| AI calling cost (AED 0.50/min × 3 min × A)   | —           | A × 1.50              | I      |
+| **Monthly ROI**                              | —           | **(H − I) ÷ I × 100** | **%**  |
 
 **Example:** A premium Dubai agency receiving 1,000 inquiries/month:
+
 - Currently qualifying 200 (20% — human agent capacity limit)
 - AI qualifies 1,000 (100%)
 - Average commission: AED 100,000
@@ -447,14 +455,14 @@ If your AI calling platform sends audio to Google Cloud in us-central1 for speec
 
 When selecting an AI voice agent platform for Dubai, evaluate across these six dimensions:
 
-| Dimension | What to Evaluate | Minimum Standard |
-|---|---|---|
-| **Arabic Dialect Depth** | Khaleeji, Levantine, Egyptian dialect handling; code-switching accuracy | >90% accuracy in Khaleeji; functional code-switching |
-| **Telephony Stability** | UAE carrier connectivity, call quality, uptime | 99.9% uptime; clear audio on du and Etisalat |
-| **Integration Depth** | CRM (HubSpot, Salesforce), PMS (Opera, Mews), ERP connectivity | Native CRM integration; API for custom systems |
-| **Latency** | End-to-end response time | Sub-800ms for conversational naturalness |
-| **Compliance/Security** | TDRA compliance, PDPL data residency, DNCR scrubbing | Built-in time restrictions, DNCR integration, UAE data storage |
-| **Production Scalability** | Concurrent call capacity, campaign management, reporting | 1,000+ concurrent calls; real-time analytics |
+| Dimension                  | What to Evaluate                                                        | Minimum Standard                                               |
+| -------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Arabic Dialect Depth**   | Khaleeji, Levantine, Egyptian dialect handling; code-switching accuracy | >90% accuracy in Khaleeji; functional code-switching           |
+| **Telephony Stability**    | UAE carrier connectivity, call quality, uptime                          | 99.9% uptime; clear audio on du and Etisalat                   |
+| **Integration Depth**      | CRM (HubSpot, Salesforce), PMS (Opera, Mews), ERP connectivity          | Native CRM integration; API for custom systems                 |
+| **Latency**                | End-to-end response time                                                | Sub-800ms for conversational naturalness                       |
+| **Compliance/Security**    | TDRA compliance, PDPL data residency, DNCR scrubbing                    | Built-in time restrictions, DNCR integration, UAE data storage |
+| **Production Scalability** | Concurrent call capacity, campaign management, reporting                | 1,000+ concurrent calls; real-time analytics                   |
 
 ---
 
@@ -511,7 +519,7 @@ Yes. Under the UAE PDPL, call recordings, transcripts, and customer data must be
 
 ### How much does AI calling cost in Dubai?
 
-AI calling costs in the UAE vary by platform and volume. Enterprise platforms typically charge AED 0.15-0.50 per minute for AI voice agent calls, compared to AED 2-5 per minute for human agents when factoring in salary, office space, and management overhead. For a Dubai real estate agency making 5,000 calls per month at 3 minutes average, AI calling costs approximately AED 2,250-7,500 compared to AED 30,000-75,000 for human agents — a 70-90% cost reduction.
+AI calling costs in the UAE vary by platform and volume. Enterprise platforms typically charge AED 0.15-0.50 per minute for AI voice agent calls, compared to AED 2-5 per minute for human agents when factoring in salary, office space, and management overhead. For a Dubai real estate agency making 5,000 calls per month at 3 minutes average, AI calling costs a\approximately AED 2,250-7,500 compared to AED 30,000-75,000 for human agents — a 70-90% cost reduction.
 
 ---
 

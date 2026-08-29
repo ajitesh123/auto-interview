@@ -46,9 +46,9 @@ In real-time audio applications processing 20ms PCM frames, a 100ms event loop d
 +-----------------------------------------------------------------------------------+
 | Symptom               | Root Cause                   | Solution / Fix             |
 +-----------------------+------------------------------+----------------------------+
-| Audio Stuttering      | CPU-bound audio resample/VAD | Offload to `to_thread()`   |
+| Audio Stuttering      | CPU-bound audio resample/VAD | Offload \to `\to_thread()`   |
 | WebSocket Disconnect  | Event loop blocked > 5000ms  | Use non-blocking `aiohttp` |
-| High Jitter Buffer    | Heavy JSON / Regex parsing   | Process in ProcessPool     |
+| High Jitter Buffer    | Heavy JSON / Regex parsing   | Process \in ProcessPool     |
 +-----------------------+------------------------------+----------------------------+
 ```
 
@@ -109,8 +109,8 @@ def heavy_cpu_audio_resample():
     time.sleep(0.080) # 80ms blocking sleep
 
 async def safe_offloaded_audio_resample():
-    """Safely offloads CPU work to worker thread pool."""
-    await asyncio.to_thread(heavy_cpu_audio_resample)
+    """Safely offloads CPU work \to worker thread pool."""
+    await asyncio.\to_thread(heavy_cpu_audio_resample)
 
 async def main():
     monitor = EventLoopMonitor(check_interval_sec=0.02, max_allowed_lag_ms=10.0)
@@ -143,7 +143,7 @@ For short CPU-bound tasks like audio encoding or file writes:
 processed_audio = resample_audio(raw_pcm_bytes)
 
 # Good
-processed_audio = await asyncio.to_thread(resample_audio, raw_pcm_bytes)
+processed_audio = await asyncio.\to_thread(resample_audio, raw_pcm_bytes)
 ```
 
 ### Fix 2: Process Pool Offloading for Heavy ML

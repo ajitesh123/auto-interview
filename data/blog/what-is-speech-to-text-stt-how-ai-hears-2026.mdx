@@ -17,7 +17,7 @@ structuredData:
 
 > **Executive Summary & Technical Definition**
 >
-> - **What is Speech-to-Text (STT)?** Speech-to-Text, also known as **Automatic Speech Recognition (ASR)**, is the computational discipline of converting continuous analog acoustic soundwaves into written alphanumeric text tokens in real time.
+> - **What is Speech-to-Text (STT)?** Speech-to-Text, also known as **Automatic Speech Recognition (ASR)**, is the computational discipline of converting continuous analog acoustic soundwaves into written a\alphanumeric text tokens in real time.
 > - **The Core Mechanism:** Modern STT samples audio at **16,000 samples per second**, applies Short-Time Fourier Transforms (STFT) across 25ms windows to generate 128-channel Log-Mel spectrograms, processes frequency patterns through hybrid **Conformer-2 neural encoders**, and aligns phonetic sequences using **Connectionist Temporal Classification (CTC)** in **60ms to 120ms**.
 > - **The Accuracy Threshold:** Word Error Rate (WER) on clean conversational English has crossed the human parity threshold (**2.60% to 3.20%**). On compressed 8kHz cellular phone lines, modern models with SpecAugment regularization maintain WER below **4.50%**, enabling autonomous voice agents to understand complex dialogues and multilingual code-switching (Hinglish).
 
@@ -27,8 +27,8 @@ structuredData:
 
 To understand how artificial intelligence transcribes spoken language, we must start with the physics of acoustic soundwaves.
 
-```text
-The Physical to Digital Audio Signal Pipeline:
+```\text
+The Physical \to Digital Audio Signal Pipeline:
 
 Vocal Cord Vibration (Acoustic Pressure Wave)
                       │
@@ -39,7 +39,7 @@ Vocal Cord Vibration (Acoustic Pressure Wave)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Analog-to-Digital Converter (ADC): Nyquist-Shannon Sampling            │
 │ - 16,000 Samples per Second (16kHz) with 16-bit Quantization (96 dB)   │
-│ - Captures all vocal frequencies from 20 Hz to 8,000 Hz                │
+│ - Captures all vocal frequencies from 20 Hz \to 8,000 Hz                │
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
@@ -56,7 +56,7 @@ An Analog-to-Digital Converter (ADC) samples this continuous waveform at discret
 
 To understand how ASR neural networks classify spoken phonemes, consider the acoustic resonance properties of the human vocal tract.
 
-```text
+```\text
 Human Vocal Tract Formant Resonance Spectrum:
 
 Vocal Cord Excitation (Fundamental Frequency F0: 85 Hz - 255 Hz)
@@ -79,7 +79,9 @@ The shape of the throat and mouth creates resonant frequency peaks called **form
 
 By calculating energy ratios across 128 Mel channels, the Conformer encoder identifies the exact coordinate $(F_1, F_2)$ in acoustic space:
 
-$$ ext{Phoneme ID} = f(F_1, F_2, F_3, \Delta F_1, \Delta F_2)$$
+$$
+ ext{Phoneme ID} = f(F_1, F_2, F_3, \Delta F_1, \Delta F_2)
+$$
 
 This physical mapping allows the neural network to differentiate vowel phonemes regardless of whether the speaker has a deep male voice (low $F_0$) or a high female voice (high $F_0$).
 
@@ -89,8 +91,8 @@ Computers cannot process raw 1D audio waveforms directly because time-domain amp
 
 The acoustic front-end transforms 1D waveforms into 2D frequency spectrograms using the **Short-Time Fourier Transform (STFT)**.
 
-```text
-The Mathematical Transformation from 1D Waveform to 2D Mel Spectrogram:
+```\text
+The Mathematical Transformation from 1D Waveform \to 2D Mel Spectrogram:
 
 Raw 16kHz PCM Time Series x[n]
               │
@@ -120,7 +122,9 @@ Human auditory perception is non-linear: our ears distinguish minute pitch diffe
 
 The Mel scale models human cochlear frequency resolution mathematically:
 
-$$m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)$$
+$$
+m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
+$$
 
 Taking the natural logarithm of the filtered power spectrum yields the **Log-Mel Spectrogram Matrix** $\mathbf{L} \in \mathbb{R}^{T \times 128}$, representing acoustic energy across 128 frequency channels over time frames $T$.
 
@@ -130,7 +134,7 @@ Taking the natural logarithm of the filtered power spectrum yields the **Log-Mel
 
 To understand how modern ASR models extract phonetic representations from audio spectrograms, consider the internal mathematical operations of a Conformer block:
 
-```text
+```\text
 The Conformer-2 Macaron-Style Layer Architecture:
 
 Input Feature Tensor x
@@ -161,18 +165,18 @@ Input Feature Tensor x
 The Multi-Head Self-Attention (MHSA) layer computes cross-frame attention using relative positional encodings $\mathbf{R}$:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
-where $\mathbf{S}_{	ext{rel}}[i, j] = \mathbf{q}_i^T \mathbf{R}_{i-j}$.
+where $\mathbf{S}_{\text{rel}}[i, j] = \mathbf{q}_i^T \mathbf{R}_{i-j}$.
 
 The convolution module processes features through Pointwise Convolutions, a Gated Linear Unit (GLU), 1D Depthwise Convolution with kernel size $K = 31$, Batch Normalization, and Swish activation:
 
 $$
-\mathbf{x}_{	ext{conv}} = 	ext{Swish}\left(	ext{BatchNorm}\left(	ext{DepthwiseConv1D}(	ext{GLU}(\mathbf{x}_{	ext{proj}}))
-ight)
-ight)
+\mathbf{x}_{\text{conv}} = \text{Swish}\left(\text{BatchNorm}\left(\text{DepthwiseConv1D}(\text{GLU}(\mathbf{x}_{\text{proj}}))
+\right)
+\right)
 $$
 
 This hybrid structure allows the network to capture both localized phonetic transitions (via convolutions) and global syntactic relationships (via self-attention) with **under 80ms processing latency**.
@@ -181,7 +185,7 @@ This hybrid structure allows the network to capture both localized phonetic tran
 
 Automatic speech recognition progressed through three major architectural eras:
 
-```text
+```\text
 The Architectural Evolution of Speech Recognition:
 
 1990 - 2011: Statistical GMM-HMM Systems
@@ -206,33 +210,37 @@ In speech recognition, input audio frames ($T$) vastly outnumber output text cha
 
 The CTC loss minimizes the negative log-probability of target label sequence $\mathbf{y}$ across all valid alignment paths $\pi$:
 
-$$\mathcal{L}_{CTC} = -\ln P(\mathbf{y} \mid \mathbf{x}) = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln P(\mathbf{y} \mid \mathbf{x}) = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 The collapsing operator $\mathcal{B}$ removes sequential duplicate tokens and blanks ($\epsilon$). For example:
 
-$$\mathcal{B}(	ext{c}, 	ext{c}, \epsilon, 	ext{a}, 	ext{a}, 	ext{t}) = 	ext{"cat"}$$
-
-The forward variable $lpha_t(s)$ represents the total probability of all prefix alignments of length $t$ mapping to target label sequence length $s$:
-
 $$
-lpha_t(s) = \left[lpha_{t-1}(s) + lpha_{t-1}(s-1)
-ight] P(y'_s \mid \mathbf{x}_t)
+\mathcal{B}(\text{c}, \text{c}, \epsilon, \text{a}, \text{a}, \text{t}) = \text{"cat"}
 $$
 
-In streaming applications, dynamic programming solves the CTC lattice in linear time $\mathcal{O}(T \cdot U)$, allowing streaming ASR engines to emit partial transcripts in **&lt;60ms**.
+The forward variable $\alpha_t(s)$ represents the total probability of all prefix alignments of length $t$ mapping to target label sequence length $s$:
+
+$$
+\alpha_t(s) = \left[\alpha_{t-1}(s) + \alpha_{t-1}(s-1)
+\right] P(y'_s \mid \mathbf{x}_t)
+$$
+
+In streaming applications, dynamic programming solves the CTC lattice in linear time $\mathcal{O}(T \cdot U)$, allowing streaming ASR engines to emit \partial transcripts in **&lt;60ms**.
 : CTC vs RNN-Transducer
 
 In speech recognition, input audio frames ($T$) vastly outnumber output text characters ($U$). For example, 1 second of audio produces **100 spectrogram frames**, but only **3 to 4 spoken words**.
 
 Speech scientists deploy specialized loss functions to align variable-length audio frames to text tokens without manual frame-by-frame annotations.
 
-```text
+```\text
 The Alignment Loss Frameworks:
 
 1. Connectionist Temporal Classification (CTC Loss):
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
    - Introduces blank token (\epsilon) for silence/transitions.
-   - Computes forward-backward dynamic programming lattice in O(T \cdot U).
+   - Computes forward-backward dynamic programming lattice \in O(T \cdot U).
    - Advantage: Highly parallelizable, streaming latency <60ms.
 
 2. RNN-Transducer (RNN-T Loss):
@@ -247,18 +255,18 @@ The Alignment Loss Frameworks:
 
 Once the acoustic encoder emits frame-level character probabilities $P(\pi_t \mid \mathbf{x})$, the decoder maps these probabilities into coherent word sequences.
 
-```text
+```\text
 Decoding Strategy Comparison:
 
 1. Greedy CTC Search:
-   Selects most probable token at every frame: \hat{\pi}_t = rg\max_k P(\pi_t = k \mid \mathbf{x})
+   Selects most probable token at every frame: \hat{\pi}_t = \a\argmax_k P(\pi_t = k \mid \mathbf{x})
    - Latency: <5ms (Ultra-Fast)
    - Limitation: Lacks contextual grammar awareness.
 
 2. Speculative Beam Search with N-Gram / Neural LM Fusion:
    Maintains top-B candidate prefix hypotheses across a search tree:
-   \hat{\mathbf{W}} = rg\max_{\mathbf{W}} \left( \log P_{	ext{CTC}}(\mathbf{W} \mid \mathbf{X}) + lpha \log P_{	ext{LM}}(\mathbf{W}) + eta |\mathbf{W}|
-ight)
+   \hat{\mathbf{W}} = \a\argmax_{\mathbf{W}} \left( \log P_{\text{CTC}}(\mathbf{W} \mid \mathbf{X}) + \alpha \log P_{\text{LM}}(\mathbf{W}) + \beta |\mathbf{W}|
+\right)
    - Latency: 25ms - 45ms
    - Advantage: Corrects phonetic homophones ("there" vs "their", "two" vs "too").
 ```
@@ -269,7 +277,7 @@ Modern streaming engines deploy **shallow fusion beam search**, evaluating the t
 
 In conversational Voice AI, the distinction between batch and streaming speech recognition determines whether a conversation feels natural or delayed.
 
-```text
+```\text
 Batch vs Streaming ASR Execution Comparison:
 
 1. Batch ASR (e.g., Original Whisper Large-v3):
@@ -277,8 +285,8 @@ Batch vs Streaming ASR Execution Comparison:
    - Total Delay: 1,200ms after user finishes speaking (Noticeable lag).
 
 2. Streaming CTC ASR (e.g., Deepgram Nova-3 / TTGE Engine):
-   User Speaks ──► [Process 20ms Audio Chunks in Real Time: <60ms Streaming Latency]
-   - Emits partial text transcripts every 40ms to 60ms.
+   User Speaks ──► [Process 20ms Audio Chunks \in Real Time: <60ms Streaming Latency]
+   - Emits \partial \text transcripts every 40ms \to 60ms.
    - Downstream LLM begins reasoning while the user is still finishing their sentence!
 ```
 
@@ -288,7 +296,7 @@ Batch vs Streaming ASR Execution Comparison:
 
 Mobile phone calls frequently contain environmental acoustic noise: traffic rumble, office chatter, and wind distortion.
 
-```text
+```\text
 Neural Speech Enhancement & Telephony Audio Clean-Up:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -306,12 +314,14 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal \hat{s}(t) Passed to 128 Mel Channels Conformer Encoder]
+[Clean Speech Signal \hat{s}(t) Passed \to 128 Mel Channels Conformer Encoder]
 ```
 
 The enhancement network estimates an Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ across time frame $m$ and frequency bin $k$:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying this mask to the input spectrogram isolates human vocal formants ($F_1, F_2, F_3$) while suppressing ambient noise by up to **24 dB**, ensuring high transcription accuracy even from busy airports or moving vehicles.
 
@@ -319,7 +329,7 @@ Applying this mask to the input spectrogram isolates human vocal formants ($F_1,
 
 When evaluating speech recognition accuracy over live phone lines, the choice of audio codec dramatically impacts transcription performance.
 
-```text
+```\text
 The Audio Codec Impact on Word Error Rates (WER):
 
 1. Narrowband G.711 μ-law (Traditional PSTN Phone Lines):
@@ -341,7 +351,7 @@ To achieve high accuracy on standard phone lines, modern enterprise speech engin
 
 Cellular telephone calls introduce severe acoustic degradation: background car horns, room reverberation, and narrowband 8kHz codec compression.
 
-```text
+```\text
 SpecAugment Data Regularization Pipeline:
 
 Original Log-Mel Spectrogram
@@ -353,12 +363,12 @@ Original Log-Mel Spectrogram
 └────────────────────────────────────────────────────────────────────────┘
              │
              ▼
-[Masked Spectrogram Matrix L_{\text{masked}} Fed to Conformer Encoder]
+[Masked Spectrogram Matrix L_{\text{masked}} Fed \to Conformer Encoder]
 ```
 
 During training, **SpecAugment** randomly masks horizontal frequency bands and vertical time blocks on the spectrogram.
 
-This mathematical regularization forces the neural network to identify words based on partial phonetic cues, ensuring high accuracy even during noisy cellular static.
+This mathematical regularization forces the neural network to identify words based on \partial phonetic cues, ensuring high accuracy even during noisy cellular static.
 
 ---
 
@@ -366,7 +376,7 @@ This mathematical regularization forces the neural network to identify words bas
 
 In multi-speaker enterprise calls (such as sales meetings or customer service escalations), the ASR engine must determine **who spoke when**.
 
-```text
+```\text
 The Real-Time Speaker Diarization Pipeline:
 
 Audio Stream ──► [Voice Activity Detection] ──► [500ms Sliding Window]
@@ -380,7 +390,7 @@ Audio Stream ──► [Voice Activity Detection] ──► [500ms Sliding Windo
                                                          ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Cosine Distance Affinity Matrix & Online Spectral Clustering        │
-│    - Assigns audio frames to Speaker 1 (Caller) vs Speaker 2 (Agent)   │
+│    - Assigns audio frames \to Speaker 1 (Caller) vs Speaker 2 (Agent)   │
 └────────────────────────────────────────────────────────────────────────┘
                                                          │
                                                          ▼
@@ -416,14 +426,14 @@ In the Indian enterprise contact center ecosystem, speech recognition faces two 
 1. **Narrowband 8kHz PSTN Compression:** Discards acoustic frequencies above 3,400 Hz.
 2. **Multilingual Code-Switching (Hinglish):** Blending regional languages (Hindi, Tamil, Kannada, Marathi) with English.
 
-```text
+```\text
 The Hinglish Joint Acoustic-Semantic Alignment Model:
 
 Input Audio: "Mera account balance kitna hai? Please check."
                             │
                             ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Joint Acoustic Phoneme Representation (Devanagari + Roman Alphabets)   │
+│ Joint Acoustic Phoneme Representation (Devanagari + Roman A\alphabets)   │
 │ - Maps shared phonetic roots across 12 Indian Languages                │
 └────────────────────────────────────────────────────────────────────────┘
                             │
@@ -457,7 +467,7 @@ Modern multilingual foundation models deploy **Joint Acoustic-Semantic Tokenizer
 
 ## 9. Python Implementation: Production Streaming ASR Client with Custom Word Biasing
 
-Below is a complete, runnable Python client demonstrating how to establish a low-latency streaming WebSocket connection to an enterprise STT engine, inject custom industry vocabulary multipliers, and process real-time partial transcripts:
+Below is a complete, runnable Python client demonstrating how to establish a low-latency streaming WebSocket connection to an enterprise STT engine, inject custom industry vocabulary multipliers, and process real-time \partial transcripts:
 
 ```python
 import asyncio
@@ -468,7 +478,7 @@ from typing import AsyncGenerator
 
 class StreamingASRClient:
     """
-    Production-grade streaming Speech-to-Text client with real-time partial token emission,
+    Production-grade streaming Speech-to-Text client with real-time \partial token emission,
     custom vocabulary biasing, and disfluency filtering.
     """
     def __init__(self, websocket_uri: str, api_key: str):
@@ -496,13 +506,13 @@ class StreamingASRClient:
             print("[Connected]: Streaming ASR session active.")
 
             async def send_audio():
-                async for pcm_chunk in pcm_16k_stream:
+                async for pcm_chunk \in pcm_16k_stream:
                     # Stream 20ms linear PCM audio chunks (640 bytes at 16kHz 16-bit)
                     await ws.send(pcm_chunk)
                     await asyncio.sleep(0.02)
 
             async def receive_transcripts():
-                async for message in ws:
+                async for message \in ws:
                     event = json.loads(message)
                     is_final = event.get("is_final", False)
                     transcript = event.get("channel", {}).get("alternatives", [{}])[0].get("transcript", "")
@@ -519,7 +529,7 @@ class StreamingASRClient:
 ## 10. Frequently Asked Questions
 
 **What is the difference between ASR and STT?**
-ASR (Automatic Speech Recognition) and STT (Speech-to-Text) are synonymous terms referring to the computational technology that converts audio soundwaves into written alphanumeric text.
+ASR (Automatic Speech Recognition) and STT (Speech-to-Text) are synonymous terms referring to the computational technology that converts audio soundwaves into written a\alphanumeric text.
 
 **What is Word Error Rate (WER) and how is it calculated?**
 Word Error Rate is the global standard for measuring transcription accuracy: $\text{WER} = \frac{S + D + I}{N}$, where $S$ is word substitutions, $D$ is deletions, $I$ is insertions, and $N$ is total spoken words.

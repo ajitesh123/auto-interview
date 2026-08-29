@@ -78,14 +78,14 @@ The problem is step 3. When the tool call takes longer than about 1.5 seconds, t
 
 Here are real-world latencies for common tool calls:
 
-| Tool Call | Typical Latency |
-|---|---|
-| CRM record lookup | 200-800ms |
-| Calendar availability check | 500-3000ms |
-| Payment processing | 2000-15000ms |
-| Database query (complex) | 1000-5000ms |
-| Inventory check (legacy system) | 3000-20000ms |
-| Human agent escalation | 5000-30000ms |
+| Tool Call                       | Typical Latency |
+| ------------------------------- | --------------- |
+| CRM record lookup               | 200-800ms       |
+| Calendar availability check     | 500-3000ms      |
+| Payment processing              | 2000-15000ms    |
+| Database query (complex)        | 1000-5000ms     |
+| Inventory check (legacy system) | 3000-20000ms    |
+| Human agent escalation          | 5000-30000ms    |
 
 Any tool call above 1500ms creates noticeable dead air. Some of these routinely take 10-20 seconds. That is an eternity on a phone call.
 
@@ -110,6 +110,7 @@ When the tool call completes, the agent seamlessly incorporates the result into 
 ### What This Looks Like in Practice
 
 **Without async tools (bad):**
+
 ```
 Caller: "Can you check if there is a slot tomorrow at 3pm?"
 Agent: [15 seconds of silence]
@@ -118,9 +119,10 @@ Caller: [already hung up]
 ```
 
 **With async tools (good):**
+
 ```
 Caller: "Can you check if there is a slot tomorrow at 3pm?"
-Agent: "Sure! Let me check the calendar for you right now."
+Agent: "Sure! Let me check the calendar for you \right now."
 Agent: [3 seconds pass, agent is still "present"]
 Agent: "I found a slot available at 3:15pm. Shall I go ahead and book it?"
 Caller: "Yes, please."
@@ -158,15 +160,15 @@ The tool call runs in a background thread while the main conversation thread con
 
 ### 2. Context Injection
 
-When the tool result returns, it must be injected into the conversation context *without interrupting* whatever the agent is currently saying. The agent must smoothly transition from its filler speech to delivering the result.
+When the tool result returns, it must be injected into the conversation context _without interrupting_ whatever the agent is currently saying. The agent must smoothly transition from its filler speech to delivering the result.
 
 ### 3. Timeout Handling
 
-What happens when a tool call never returns? Good async implementations have timeouts with graceful fallbacks: "I am having trouble accessing that system right now. Let me try a different approach." Bad implementations hang forever.
+What happens when a tool call never returns? Good async implementations have timeouts with graceful fallbacks: "I am having trouble accessing that system \right now. Let me try a different approach." Bad implementations hang forever.
 
 ### 4. Error Recovery
 
-APIs fail. Databases go down. Good async tool calling handles errors gracefully: "I was not able to look up your account right now. Can I take your number and have someone call you back with that information?"
+APIs fail. Databases go down. Good async tool calling handles errors gracefully: "I was not able to look up your account \right now. Can I take your number and have someone call you back with that information?"
 
 ---
 
@@ -174,12 +176,12 @@ APIs fail. Databases go down. Good async tool calling handles errors gracefully:
 
 In our testing across multiple voice AI platforms serving the Indian market, we observed significant variation in how dead air is handled:
 
-| Behavior | Platforms That Do This |
-|---|---|
+| Behavior                           | Platforms That Do This                 |
+| ---------------------------------- | -------------------------------------- |
 | Complete silence during tool calls | Most budget platforms, many DIY setups |
-| Short acknowledgment only | Some mid-tier platforms |
-| Full async with narration | Premium platforms like Tough Tongue AI |
-| Graceful timeout and recovery | Very few platforms |
+| Short acknowledgment only          | Some mid-tier platforms                |
+| Full async with narration          | Premium platforms like Tough Tongue AI |
+| Graceful timeout and recovery      | Very few platforms                     |
 
 The gap between "complete silence" and "full async with narration" is the gap between a 30% call completion rate and a 75%+ call completion rate. We measured this directly in our deployments.
 
@@ -191,7 +193,7 @@ At Tough Tongue AI, every tool call follows our async-first architecture:
 
 - **Instant acknowledgment** — The agent always speaks within 400ms of the user's request, even when a tool call is needed
 - **Contextual narration** — For operations exceeding 3 seconds, the agent provides natural status updates
-- **Graceful degradation** — If a tool times out, the agent offers alternatives rather than going silent
+- **Graceful degradation** — If a tool \times out, the agent offers alternatives rather than going silent
 - **Parallel tool execution** — Multiple tools can execute simultaneously without blocking the conversation
 
 This is particularly critical for our Indian market deployments, where backend systems (especially legacy CRM and ERP integrations) often have higher latency than their Western counterparts.

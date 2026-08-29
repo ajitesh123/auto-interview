@@ -56,7 +56,7 @@ structuredData:
           name: 'What are the DPDP Act requirements for AI voice agents in India?'
           acceptedAnswer:
             '@type': 'Answer'
-            text: 'Under the Digital Personal Data Protection (DPDP) Act, AI voice agent operators must obtain informed, explicit consent before processing any personal data (including voice recordings and call transcripts). Data must be processed only for the stated purpose and deleted once fulfilled. Users have the right to access, correct, or erase their data. Businesses must maintain 100% audit trails. Non-compliance penalties can reach ₹250 crore for significant violations.'
+            text: 'Under the Digital Personal Data Protection (DPDP) Act, AI voice agent operators must obtain informed, explicit consent before processing any personal data (including voice recordings and call transcripts). Data must be processed only for the stated purpose and deleted once fulfilled. Users have the ight to access, correct, or erase their data. Businesses must maintain 100% audit trails. Non-compliance penalties can reach ₹250 crore for significant violations.'
 ---
 
 **Last Updated: June 2, 2026 | 18-minute read**
@@ -89,7 +89,7 @@ Before reading a single regulation, use this decision tree to understand which l
 
 ```mermaid
 flowchart TD
-    A["🚀 Starting AI Calling in India"] --> B{"Making outbound calls?"}
+    A["🚀 Starting AI Calling \in India"] --> B{"Making outbound calls?"}
     B -->|Yes| C["✅ TRAI DLT Registration Required"]
     B -->|No - Inbound only| D["DPDP Act still applies"]
     C --> E{"Collecting personal data?"}
@@ -123,15 +123,15 @@ flowchart TD
 
 Before diving into each layer, understand the architecture of Indian AI calling regulation:
 
-| Regulatory Layer | Governing Body | What It Covers | Key Penalty |
-|---|---|---|---|
-| **TRAI DLT Framework** | Telecom Regulatory Authority of India | Registration, headers, templates, DND, anti-spam | Number blacklisting, ₹50,000/violation |
-| **DPDP Act** | Data Protection Board of India | Consent, data processing, storage, erasure | Up to ₹250 crore |
-| **RBI FPC Guidelines** | Reserve Bank of India | Fintech/BFSI AI calling requirements | License suspension |
-| **IRDAI Norms** | Insurance Regulatory and Development Authority | Insurance AI calling disclosures | Regulatory action |
-| **IT Rules 2026 Amendment** | Ministry of Electronics and IT | Synthetic content labeling, AI disclosure | Platform liability |
+| Regulatory Layer            | Governing Body                                 | What It Covers                                   | Key Penalty                            |
+| --------------------------- | ---------------------------------------------- | ------------------------------------------------ | -------------------------------------- |
+| **TRAI DLT Framework**      | Telecom Regulatory Authority of India          | Registration, headers, templates, DND, anti-spam | Number blacklisting, ₹50,000/violation |
+| **DPDP Act**                | Data Protection Board of India                 | Consent, data processing, storage, erasure       | Up to ₹250 crore                       |
+| **RBI FPC Guidelines**      | Reserve Bank of India                          | Fintech/BFSI AI calling requirements             | License suspension                     |
+| **IRDAI Norms**             | Insurance Regulatory and Development Authority | Insurance AI calling disclosures                 | Regulatory action                      |
+| **IT Rules 2026 Amendment** | Ministry of Electronics and IT                 | Synthetic content labeling, AI disclosure        | Platform liability                     |
 
-Most guides stop at "comply with TRAI and DND." That covers approximately 30% of your actual regulatory exposure.
+Most guides stop at "comply with TRAI and DND." That covers a\approximately 30% of your actual regulatory exposure.
 
 ---
 
@@ -158,6 +158,7 @@ You must register your business as a Principal Entity on one of the TRAI-approve
 - **Tanla** (Trubloq)
 
 Registration requires:
+
 - Business PAN card
 - GST registration certificate
 - Letter of authorization from an authorized signatory
@@ -179,12 +180,12 @@ This is where AI calling gets complex. Every outbound voice campaign must use pr
 
 Before every calling campaign, your prospect list must be scrubbed against the National Customer Preference Register (NCPR/DND). This must happen within **30 days** of when the data was last scrubbed.
 
-| Registration Requirement | Timeline | Common Mistake |
-|---|---|---|
-| PE Registration | 3-7 business days | Using personal numbers instead of registered business numbers |
-| Header Registration | 1-3 business days | Not registering all headers used across different campaigns |
-| Template Registration | 1-5 business days | Deploying AI scripts that deviate significantly from registered templates |
-| DND Scrubbing | Must be refreshed every 30 days | Only scrubbing against federal DND, ignoring category-specific preferences |
+| Registration Requirement | Timeline                        | Common Mistake                                                             |
+| ------------------------ | ------------------------------- | -------------------------------------------------------------------------- |
+| PE Registration          | 3-7 business days               | Using personal numbers instead of registered business numbers              |
+| Header Registration      | 1-3 business days               | Not registering all headers used across different campaigns                |
+| Template Registration    | 1-5 business days               | Deploying AI scripts that deviate significantly from registered templates  |
+| DND Scrubbing            | Must be refreshed every 30 days | Only scrubbing against federal DND, ignoring category-specific preferences |
 
 ### TRAI's AI/ML Detection: What Triggers a Flag
 
@@ -236,7 +237,7 @@ Call recordings, transcripts, and personal data must be deleted once the stated 
 
 **Obligation 5: Data Principal Rights**
 
-The person being called has the right to:
+The person being called has the \right to:
 
 - Access all data collected about them during the call
 - Correct inaccurate data
@@ -254,14 +255,14 @@ You must maintain 100% audit trails of all data processing activities. Manual sa
 
 ### DPDP Penalty Matrix for AI Calling
 
-| Violation | Maximum Penalty |
-|---|---|
-| Failure to obtain informed consent | ₹250 crore |
-| Failure to notify data breach | ₹200 crore |
-| Failure to honor erasure requests | ₹250 crore |
-| Processing children's data without guardian consent | ₹200 crore |
-| Non-compliance with Data Protection Board orders | ₹250 crore |
-| Failure to maintain reasonable security safeguards | ₹250 crore |
+| Violation                                           | Maximum Penalty |
+| --------------------------------------------------- | --------------- |
+| Failure to obtain informed consent                  | ₹250 crore      |
+| Failure to notify data breach                       | ₹200 crore      |
+| Failure to honor erasure requests                   | ₹250 crore      |
+| Processing children's data without guardian consent | ₹200 crore      |
+| Non-compliance with Data Protection Board orders    | ₹250 crore      |
+| Failure to maintain reasonable security safeguards  | ₹250 crore      |
 
 ---
 
@@ -272,7 +273,7 @@ This is what separates a legally bulletproof AI call from one that could cost yo
 ### ❌ Non-Compliant Call (How Most Companies Do It)
 
 ```
-AI: "Hello sir, am I speaking to Rajesh?"
+AI: "Hello sir, am I speaking \to Rajesh?"
 Prospect: "Haan bolo."
 AI: "Sir, I'm calling about an amazing loan offer—"
 Prospect: "Kaun bol raha hai?"
@@ -287,21 +288,21 @@ AI: "Sir, just 2 minutes, this is a limited time offer—"
 ### ✅ Compliant Call (How Tough Tongue AI Does It)
 
 ```
-AI: "Namaste Rajesh ji. Main ek AI assistant hoon, ABC Finance ki taraf 
-     se call kar rahi hoon. Yeh call recorded ho sakti hai. Kya aapke 
-     paas 2 minute hain? Agar nahi chahte toh aap 'band karo' bol 
+AI: "Namaste Rajesh ji. Main ek AI assistant hoon, ABC Finance ki taraf
+     se call kar rahi hoon. Yeh call recorded ho sakti hai. Kya aapke
+     paas 2 minute hain? Agar nahi chahte toh aap 'band karo' bol
      sakte hain."
-     (Hello Rajesh ji. I am an AI assistant calling on behalf of ABC 
-     Finance. This call may be recorded. Do you have 2 minutes? If 
+     (Hello Rajesh ji. I am an AI assistant calling on behalf of ABC
+     Finance. This call may be recorded. Do you have 2 minutes? If
      you don't want this, you can say 'stop'.)
 Prospect: "Haan bolo, kya hai?"
-AI: "Rajesh ji, aapne hamare website par personal loan ke liye 
-     enquiry ki thi. Kya main aapko options bata sakti hoon? Aur 
-     agar aap kisi bhi waqt insaan se baat karna chahein, toh main 
+AI: "Rajesh ji, aapne hamare website par personal loan ke liye
+     enquiry ki thi. Kya main aapko options bata sakti hoon? Aur
+     agar aap kisi bhi waqt insaan se baat karna chahein, toh main
      turant connect kar dungi."
-     (Rajesh ji, you had enquired about a personal loan on our website. 
-     Can I share the options? And if you want to speak to a human at 
-     any time, I'll connect you immediately.)
+     (Rajesh ji, you had enquired about a personal loan on our website.
+     Can I share the options? And if you want \to speak \to a human at
+     any time, I'\ll connect you immediately.)
 Prospect: "Haan chaliye, batao."
 ```
 
@@ -401,18 +402,19 @@ Most vendors claiming "India compliance" handle DLT registration and DND scrubbi
 
 ## 🧮 ROI Calculator: AI Calling in India (Plug Your Numbers)
 
-| Your Metric | Your Number | Formula | Result |
-|---|---|---|---|
-| Monthly calls needed | _____ | — | A |
-| Current cost per human agent call (₹) | _____ | — | B |
-| AI cost per call at ₹6/min × 3 min avg | — | ₹18/call | C = ₹18 |
-| Current monthly calling cost | — | A × B | D |
-| AI monthly calling cost | — | A × C | E |
-| **Monthly savings** | — | **D − E** | **F** |
-| Compliance setup (one-time) | — | ~₹2,00,000 | G |
-| **Payback period** | — | **G ÷ F** | **months** |
+| Your Metric                            | Your Number | Formula    | Result     |
+| -------------------------------------- | ----------- | ---------- | ---------- |
+| Monthly calls needed                   | **\_**      | —          | A          |
+| Current cost per human agent call (₹)  | **\_**      | —          | B          |
+| AI cost per call at ₹6/min × 3 min avg | —           | ₹18/call   | C = ₹18    |
+| Current monthly calling cost           | —           | A × B      | D          |
+| AI monthly calling cost                | —           | A × C      | E          |
+| **Monthly savings**                    | —           | **D − E**  | **F**      |
+| Compliance setup (one-time)            | —           | ~₹2,00,000 | G          |
+| **Payback period**                     | —           | **G ÷ F**  | **months** |
 
 **Example:** A fintech making 50,000 calls/month at ₹30/call (human) vs. ₹18/call (AI):
+
 - Current cost: ₹15,00,000/month
 - AI cost: ₹9,00,000/month
 - Monthly savings: ₹6,00,000
@@ -425,16 +427,16 @@ Most vendors claiming "India compliance" handle DLT registration and DND scrubbi
 
 [Tough Tongue AI](https://app.toughtongueai.com/) is built with Indian regulatory requirements embedded into the platform:
 
-| Compliance Requirement | How Tough Tongue AI Addresses It |
-|---|---|
-| DND/NCPR Scrubbing | Automated DND scrubbing integrated into campaign launch workflow |
-| AI Disclosure | Configurable AI identification script at call opening |
-| Consent Management | Built-in consent capture and logging |
-| Opt-Out Mechanism | One-tap opt-out processing during live calls |
-| Data Retention | Configurable retention policies with automated purge |
-| Audit Trail | 100% call logging with consent status, duration, and data events |
-| Human Escalation | Real-time escalation to human agents with full context transfer |
-| Calling Time Restrictions | Campaign scheduling respects sector-specific time windows |
+| Compliance Requirement    | How Tough Tongue AI Addresses It                                 |
+| ------------------------- | ---------------------------------------------------------------- |
+| DND/NCPR Scrubbing        | Automated DND scrubbing integrated into campaign launch workflow |
+| AI Disclosure             | Configurable AI identification script at call opening            |
+| Consent Management        | Built-in consent capture and logging                             |
+| Opt-Out Mechanism         | One-tap opt-out processing during live calls                     |
+| Data Retention            | Configurable retention policies with automated purge             |
+| Audit Trail               | 100% call logging with consent status, duration, and data events |
+| Human Escalation          | Real-time escalation to human agents with full context transfer  |
+| Calling Time Restrictions | Campaign scheduling respects sector-specific time windows        |
 
 **Pricing:** ₹6 per minute — the most cost-effective compliant AI calling solution in India.
 

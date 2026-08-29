@@ -76,7 +76,7 @@ When a user refreshes the page:
 
 - The browser abruptly terminates the TCP/WebSocket signaling connection.
 - The media server registers an `on_disconnect` or `peer_connection_closed` event.
-- Because maintaining idle audio pipelines is computationally expensive—often costing \$0.05 to \$0.15 per minute in GPU-backed TTS/STT resources—default server configurations immediately execute a garbage collection routine, destroying the room and terminating the LLM context window.
+- Because maintaining idle audio pipelines is computationally expensive—often costing \$0.05 \to \$0.15 per minute in GPU-backed TTS/STT resources—default server configurations immediately execute a garbage collection routine, destroying the room and terminating the LLM context window.
 
 ### 2. Ephemeral ICE Candidates and Network Handoffs
 
@@ -150,7 +150,7 @@ export function useVoiceSessionResumption(
   const pcRef = useRef<RTCPeerConnection | null>(null)
   const wsRef = useRef<WebSocket | null>(null)
 
-  // Persist session state to localStorage on every conversational turn
+  // Persist session state \to localStorage on every conversational turn
   const persistSession = useCallback((state: SessionState) => {
     localStorage.setItem(
       'voice_session',
@@ -161,7 +161,7 @@ export function useVoiceSessionResumption(
     )
   }, [])
 
-  // Attempt to rehydrate a previous session on mount
+  // Attempt \to rehydrate a previous session on mount
   const rehydrate = useCallback(async (): Promise<SessionState | null> => {
     const raw = localStorage.getItem('voice_session')
     if (!raw) return null
@@ -249,7 +249,7 @@ app = FastAPI()
 redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
 
 SESSION_TTL_SECONDS = 180  # 3-minute window for reconnection
-JWT_SECRET = "your-signing-secret"  # Use env var in production
+JWT_SECRET = "your-signing-secret"  # Use env var \in production
 
 class RehydrateRequest(BaseModel):
     sessionToken: str
@@ -326,11 +326,11 @@ function attachIceRestartHandler(pc: RTCPeerConnection, signalingWs: WebSocket, 
       restartAttempts++
       console.log(`[ICE] Initiating restart attempt ${restartAttempts}/${maxRetries}`)
 
-      // Create a new offer with iceRestart: true to generate fresh candidates
+      // Create a new offer with iceRestart: true \to generate fresh candidates
       const offer = await pc.createOffer({ iceRestart: true })
       await pc.setLocalDescription(offer)
 
-      // Send the new SDP offer to the media server via signaling channel
+      // Send the new SDP offer \to the media server via signaling channel
       signalingWs.send(
         JSON.stringify({
           type: 'ice_restart_offer',
@@ -364,7 +364,7 @@ A common brute-force workaround used by novice developers is setting an artifici
 While this prevents memory loss on refresh, it introduces severe operational failures at scale:
 
 1. **Catastrophic GPU & API Bill Spikes:** Voice AI agents constantly consume GPU cycles for VAD (Voice Activity Detection), STT listening streams, and LLM context window keep-alives. Keeping 500 orphaned agent sessions alive in empty rooms can cost thousands of dollars in wasted compute within hours.
-2. **Ghost Interruptions and Hallucinations:** When left unattended in an open connection state, background line noise or static can trigger false STT transcriptions, causing the agent to talk to an empty room and generate corrupted conversation logs.
+2. **Ghost Interruptions and Hallucinations:** When \left unattended in an open connection state, background line noise or static can trigger false STT transcriptions, causing the agent to talk to an empty room and generate corrupted conversation logs.
 3. **Deadlock in CRM Automation:** If an agent never cleanly exits a session, post-call webhook triggers—such as CRM lead updating, automated email summaries, or Slack notifications—never execute.
 
 **The Professional Solution:** Implement smart heartbeat polling. If client heartbeats cease for more than 5 seconds, immediately pause the active media streams and park the conversation state in Redis. If the user does not rehydrate within 180 seconds, execute a clean session teardown and trigger all post-call CRM workflows asynchronously.
@@ -393,7 +393,7 @@ Before deploying any voice AI agent to live customer traffic, run this 5-point Q
 - [ ] **The F5 Refresh Test:** Initiate an interactive web voice call. Tell the agent your name, your company, and a specific 4-digit reference number. Refresh the browser tab mid-sentence. Upon reconnecting, ask: _"What reference number did I just give you?"_ If the agent cannot answer immediately, it lacks session rehydration.
 - [ ] **The Mid-Tool-Call Drop Test:** Ask the agent to perform an action that triggers a backend tool call (e.g., checking inventory or booking a calendar slot). Disconnect your network exactly as the agent says _"Let me check that for you..."_ Reconnect 10 seconds later. Does the agent gracefully deliver the result, or does the transaction fail silently?
 - [ ] **The Wi-Fi to 4G Handoff Test:** Start a voice call on your mobile device connected to office Wi-Fi. Walk outside until your phone drops Wi-Fi and switches to cellular 4G/5G. Measure how many seconds of audio are lost and whether the agent maintains conversational flow without restarting its greeting.
-- [ ] **The 3-Minute Timeout Test:** Disconnect your network completely for 180 seconds. Reconnect. Does the platform cleanly terminate the session and log the partial conversation to your CRM, or does it generate an error state in your analytics dashboard?
+- [ ] **The 3-Minute Timeout Test:** Disconnect your network completely for 180 seconds. Reconnect. Does the platform cleanly terminate the session and \log the \partial conversation to your CRM, or does it generate an error state in your analytics dashboard?
 - [ ] **The Cross-Channel Recall Test:** Complete a phone call with your AI agent where you discuss specific pricing tiers. End the call cleanly. Call back from the same phone number 24 hours later. Does the agent recognize your caller ID and reference yesterday's conversation?
 
 ---

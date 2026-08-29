@@ -27,7 +27,7 @@ structuredData:
 >
 > - **What is a Voice-to-Voice (V2V) Model?** A Voice-to-Voice (also known as Speech-to-Speech or S2S) model is an end-to-end multimodal neural network that ingests continuous acoustic audio waveforms and directly synthesizes output speech waveforms within a single unified neural pass, eliminating intermediate text conversion.
 > - **The Core Breakthrough:** By utilizing **Neural Audio Codecs (RVQ-VAE)** and dual-stream multimodal transformers, native V2V models bypass the text serialization bottleneck entirely. Turnaround latency drops to **&lt;180ms to &lt;220ms**, preserving authentic emotional inflections, laughter, sighs, and full-duplex barge-in interruptions.
-> - **Production Enterprise Economics:** While proprietary cloud multimodal APIs (such as OpenAI Realtime) cost **\$0.10 to \$0.30 per minute**, Tough Tongue AI provides dedicated enterprise Voice-to-Voice infrastructure (TTGE) with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
+> - **Production Enterprise Economics:** While proprietary cloud multimodal APIs (such as OpenAI Realtime) cost **\$0.10 \to \$0.30 per minute**, Tough Tongue AI provides dedicated enterprise Voice-to-Voice infrastructure (TTGE) with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 ---
 
@@ -35,13 +35,13 @@ structuredData:
 
 For years, building conversational voice applications required chaining three independent specialized systems: Speech-to-Text (STT), Large Language Models (LLMs), and Text-to-Speech (TTS).
 
-```text
-The Architectural Transition in Voice Artificial Intelligence:
+```\text
+The Architectural Transition \in Voice Artificial Intelligence:
 
 1. Cascaded Voice Pipeline (2020 - 2024):
    Audio ──► [STT Model] ──► [Flat Text JSON] ──► [LLM Brain] ──► [Text Stream] ──► [TTS Vocoder] ──► Audio
    - Cumulative Latency: 650ms - 1,400ms (High delay)
-   - Information Loss: Discards vocal tone, pitch (F0), sarcasm, and laughter at text boundaries.
+   - Information Loss: Discards vocal tone, pitch (F0), sarcasm, and laughter at \text boundaries.
 
 2. Native Voice-to-Voice Model (2025 - 2026):
    Audio ──► [Neural Audio Codec (RVQ-VAE)] ──► [Unified Multimodal Transformer] ──► [Neural Vocoder] ──► Audio
@@ -55,10 +55,10 @@ The Architectural Transition in Voice Artificial Intelligence:
 
 To understand how native Voice-to-Voice models quantize continuous speech into discrete tokens without loss of intelligibility, consider the autoencoding pipeline:
 
-```text
+```\text
 The RVQ-VAE Neural Codec Pipeline:
 
-Raw 24kHz Audio x(t) ──► [Encoder: 1D Strided Convolutions] ──► Continuous Latent z \in \mathbb{R}^{D 	imes T'}
+Raw 24kHz Audio x(t) ──► [Encoder: 1D Strided Convolutions] ──► Continuous Latent z \in \mathbb{R}^{D     imes T'}
                                                                       │
                                                                       ▼
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -69,21 +69,23 @@ Raw 24kHz Audio x(t) ──► [Encoder: 1D Strided Convolutions] ──► Cont
 └────────────────────────────────────────────────────────────────────────┘
                                                                       │
                                                                       ▼
-[Quantized Representation: \hat{z} = \sum_{k=1}^K z_k Fed to Decoder Vocoder]
+[Quantized Representation: \hat{z} = \sum_{k=1}^K z_k Fed \to Decoder Vocoder]
 ```
 
 The commitment loss and codebook loss are minimized using the straight-through estimator:
 
 $$
-\mathcal{L}_{	ext{quant}} = \sum_{k=1}^{K} \left( \|	ext{sg}[\mathbf{r}_{k-1}] - \mathbf{e}_{k, j_k}\|_2^2 + eta \|\mathbf{r}_{k-1} - 	ext{sg}[\mathbf{e}_{k, j_k}]\|_2^2
-ight)
+\mathcal{L}_{\text{quant}} = \sum_{k=1}^{K} \left( \|\text{sg}[\mathbf{r}_{k-1}] - \mathbf{e}_{k, j_k}\|_2^2 + \beta \|\mathbf{r}_{k-1} - \text{sg}[\mathbf{e}_{k, j_k}]\|_2^2
+\right)
 $$
 
 where $ ext{sg}[\cdot]$ denotes the stop-gradient operator.
 
 The reconstructed audio $\hat{x}(t)$ is optimized against multi-scale Mel-spectrogram loss and adversarial discriminator loss:
 
-$$\mathcal{L}_{	ext{total}} = \mathcal{L}_{	ext{recon}}(x, \hat{x}) + \lambda_{	ext{adv}} \mathcal{L}_{	ext{adv}}(\hat{x}) + \lambda_q \mathcal{L}_{	ext{quant}}$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{recon}}(x, \hat{x}) + \lambda_{\text{adv}} \mathcal{L}_{\text{adv}}(\hat{x}) + \lambda_q \mathcal{L}_{\text{quant}}
+$$
 
 This allows the model to compress 24,000 samples per second into only **75 discrete acoustic frames per second** with studio-grade reconstruction fidelity.
 
@@ -91,13 +93,15 @@ This allows the model to compress 24,000 samples per second into only **75 discr
 
 In the audio front-end of native Voice-to-Voice models, continuous speech is analyzed across overlapping 25ms windows using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 The power spectrum is mapped onto 128 non-linear Mel frequency channels:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}{700}
+\right)
 $$
 
 This mapping models human cochlear sensitivity, allowing the neural codec encoder to extract resonant vocal tract formants ($F_1, F_2, F_3$) with high mathematical precision.
@@ -106,7 +110,7 @@ This mapping models human cochlear sensitivity, allowing the neural codec encode
 
 The technological foundation of native Voice-to-Voice architectures is the **Neural Audio Codec** (such as Mimi, EnCodec, or SoundStream).
 
-```text
+```\text
 The Neural Audio Codec (RVQ-VAE) Encoding & Quantization Flow:
 
 Continuous 24kHz Audio Waveform x(t)
@@ -126,18 +130,22 @@ Continuous 24kHz Audio Waveform x(t)
 └────────────────────────────────────────────────────────────────────────┘
                  │
                  ▼
-[Discrete Acoustic Token Matrix Z_q Fed Directly to Transformer]
+[Discrete Acoustic Token Matrix Z_q Fed Directly \to Transformer]
 ```
 
 ### Residual Vector Quantization (RVQ) Mathematical Derivation
 
 The continuous latent vector $\mathbf{z} \in \mathbb{R}^D$ is quantized through a cascade of $K$ discrete codebooks $\mathcal{C}_k = \{\mathbf{e}_{k, 1}, \dots, \mathbf{e}_{k, V}\}$:
 
-$$\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad \text{where } j_k = \arg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2$$
+$$
+\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad \text{where } j_k = \arg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2
+$$
 
 The residual vectors are computed recursively:
 
-$$\mathbf{r}_0 = \mathbf{z}, \quad \mathbf{r}_k = \mathbf{r}_{k-1} - \mathbf{e}_{k, j_k}$$
+$$
+\mathbf{r}_0 = \mathbf{z}, \quad \mathbf{r}_k = \mathbf{r}_{k-1} - \mathbf{e}_{k, j_k}
+$$
 
 This hierarchical structure allows the multimodal transformer to process continuous audio at **75 to 100 tokens per second** while preserving pristine acoustic fidelity.
 
@@ -145,9 +153,9 @@ This hierarchical structure allows the multimodal transformer to process continu
 
 ### Joint Acoustic-Text Attention in the Inner Monologue Transformer
 
-In native Voice-to-Voice foundation models, the multimodal transformer processes interleaved sequences of text tokens ($\mathbf{y}^{	ext{text}}$) and acoustic latent tokens ($\mathbf{y}^{	ext{audio}}$).
+In native Voice-to-Voice foundation models, the multimodal transformer processes interleaved sequences of text tokens ($\mathbf{y}^{\text{text}}$) and acoustic latent tokens ($\mathbf{y}^{\text{audio}}$).
 
-```text
+```\text
 Interleaved Dual-Channel Sequence Structure:
 
 Temporal Steps:      t=1         t=2         t=3         t=4
@@ -160,8 +168,8 @@ Audio Latents:     [A_{1,1}]   [A_{1,2}]   [A_{1,3}]   [A_{1,4}]
 The joint cross-entropy loss balances text reasoning fluency with acoustic token generation accuracy:
 
 $$
-\mathcal{L}_{	ext{joint}} = -\sum_{t=1}^{T} \left( lpha \log P(y_t^{	ext{text}} \mid \mathbf{y}_{<t}^{	ext{text}}, \mathbf{y}_{<t}^{	ext{audio}}, \mathbf{x}) + \sum_{k=1}^{K} eta_k \log P(y_{t, k}^{	ext{audio}} \mid \mathbf{y}_{\le t}^{	ext{text}}, \mathbf{y}_{<t, \le k}^{	ext{audio}}, \mathbf{x})
-ight)
+\mathcal{L}_{\text{joint}} = -\sum_{t=1}^{T} \left( \alpha \log P(y_t^{\text{text}} \mid \mathbf{y}_{<t}^{\text{text}}, \mathbf{y}_{<t}^{\text{audio}}, \mathbf{x}) + \sum_{k=1}^{K} \beta_k \log P(y_{t, k}^{\text{audio}} \mid \mathbf{y}_{\le t}^{\text{text}}, \mathbf{y}_{<t, \le k}^{\text{audio}}, \mathbf{x})
+\right)
 $$
 
 Because the acoustic token generation is conditioned on the parallel text stream, the model achieves the deep reasoning power of large language models while speaking with sub-**180ms** turnaround latency.
@@ -170,7 +178,7 @@ Because the acoustic token generation is conditioned on the parallel text stream
 
 Because native Voice-to-Voice models process high-dimensional audio tokens, managing GPU memory across long multi-turn calls requires **Audio-Conditioned PagedAttention**.
 
-```text
+```\text
 The Audio-Text Context Memory Hierarchy:
 
 Current Turn (Active Audio Latents: 75 tokens/sec)
@@ -184,7 +192,7 @@ Current Turn (Active Audio Latents: 75 tokens/sec)
                          ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Cross-Modal Context Compressor (Acoustic-to-Semantic Distillation)     │
-│ - Distills historical audio turns (>30s old) into compact text tokens  │
+│ - Distills historical audio turns (>30s old) into compact \text tokens  │
 │ - Preserves 98.5% context fidelity while reducing memory by 85%        │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -197,7 +205,7 @@ Early end-to-end speech models suffered from degraded logical reasoning when tra
 
 Modern SOTA models (such as Kyutai Moshi, Google Gemini Live, and Tough Tongue AI TTGE) deploy the **Inner Monologue Technique**.
 
-```text
+```\text
 The Dual-Stream Inner Monologue Decoding Architecture:
 
 User Audio Tokens: [A_1, A_2, ..., A_T]
@@ -207,11 +215,11 @@ User Audio Tokens: [A_1, A_2, ..., A_T]
 │ Multimodal Transformer Attention Core                                  │
 │ 1. Text Stream (Inner Monologue): Predicts textual reasoning tokens    │
 │ 2. Audio Stream (Acoustic Tokens): Generates spoken audio latents      │
-│    conditioned on both conversational context and text stream          │
+│    conditioned on both conversational context and \text stream          │
 └────────────────────────────────────────────────────────────────────────┘
                          │
                          ▼
-[Emits Text Reasoning & 24kHz Spoken Audio in Parallel Synchronization]
+[Emits Text Reasoning & 24kHz Spoken Audio \in Parallel Synchronization]
 ```
 
 By predicting silent text tokens as a prefix or parallel channel to the acoustic tokens, the model maintains the deep chain-of-thought and coding abilities of large language models while speaking with sub-**200ms** latency.
@@ -222,7 +230,7 @@ By predicting silent text tokens as a prefix or parallel channel to the acoustic
 
 To ensure high linguistic alignment between acoustic latents and underlying text tokens, modern V2V models integrate auxiliary **Connectionist Temporal Classification (CTC)** heads.
 
-```text
+```\text
 The Auxiliary CTC Alignment Loss:
 
 Acoustic Latent Frames (75 frames/sec)
@@ -230,7 +238,7 @@ Acoustic Latent Frames (75 frames/sec)
                   ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Auxiliary Linear Projection Layer                                      │
-│ - Maps latent representations to phonetic vocabulary token logits     │
+│ - Maps latent representations \to phonetic vocabulary token logits     │
 └────────────────────────────────────────────────────────────────────────┘
                   │
                   ▼
@@ -242,7 +250,9 @@ Acoustic Latent Frames (75 frames/sec)
 
 The auxiliary CTC loss minimizes the negative log-likelihood across all valid label alignments $\pi \in \mathcal{B}^{-1}(\mathbf{y})$:
 
-$$\mathcal{L}_{CTC} = -\ln P(\mathbf{y} \mid \mathbf{x}) = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln P(\mathbf{y} \mid \mathbf{x}) = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 This multi-task training regularizes the acoustic latent space, ensuring the model never suffers from phonetic hallucination or slurred speech.
 
@@ -252,13 +262,13 @@ In cascaded systems, the language model outputs text characters, leaving vocal i
 
 Native Voice-to-Voice foundation models model the **entire acoustic space jointly**:
 
-```text
+```\text
 Acoustic Paralinguistic Feature Spectrum:
 
 1. Dynamic Vocal Inflection: Pitch (F0) rises naturally when asking clarifying questions.
 2. In-Call Laughter & Breathing: Model emits soft chuckles or intake breaths during dialogue.
-3. Emotional Empathy: Senses user distress from vocal energy and shifts to a soothing, calmer tone.
-4. Accent Modulation: Adapts accent and dialect dynamically to mirror the caller's regional cadence.
+3. Emotional Empathy: Senses user distress from vocal energy and shifts \to a soothing, calmer tone.
+4. Accent Modulation: Adapts accent and dialect dynamically \to mirror the caller's regional cadence.
 ```
 
 When a caller sounds frustrated, the native acoustic encoder detects vocal tension directly from raw spectrogram harmonics, modulating the output audio latent embeddings in real time.
@@ -269,7 +279,7 @@ When a caller sounds frustrated, the native acoustic encoder detects vocal tensi
 
 Deploying native Voice-to-Voice models across mobile telephony requires streaming Real-Time Transport Protocol (RTP) packets over UDP.
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [PSTN Mobile Caller] ──► [Session Border Controller (SBC)] ──► [Regional WebRTC Gateway]
@@ -283,14 +293,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                      │
                                                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Native Multimodal Voice-to-Voice Neural Core (TTGE Engine)           │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer dynamically expands during mobile handoffs and contracts during stable network conditions:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This ensures pristine voice clarity and eliminates robotic packet stutter on live cellular phone connections.
 
@@ -298,7 +310,7 @@ This ensures pristine voice clarity and eliminates robotic packet stutter on liv
 
 Human conversation is fundamentally full-duplex: both parties listen and speak simultaneously, using subtle interjections (_"mm-hmm"_, _"right"_) to signal comprehension.
 
-```text
+```\text
 Full-Duplex Native V2V Interaction Loop:
 
 [AI Voice Agent Vocalizing 24kHz Audio Egress]
@@ -320,7 +332,7 @@ Full-Duplex Native V2V Interaction Loop:
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
-[Agent Answers Interruption Dynamically in <180ms Total Latency]
+[Agent Answers Interruption Dynamically \in <180ms Total Latency]
 ```
 
 Because the model processes incoming audio continuously, interruptions do not require complex external orchestrators or buffer flush scripts; the transformer truncates its own generation sequence natively within **&lt;40ms**.
@@ -333,11 +345,15 @@ Generating 75 acoustic latent tokens per second using standard quadratic self-at
 
 Next-generation V2V engines replace dense transformer layers with **Selective State Space Models (SSMs)**:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
 Because state recurrence is computed in linear time $\mathcal{O}(N)$, the model maintains constant inference latency and sub-**180ms** turnaround regardless of conversation duration.
 
@@ -345,15 +361,15 @@ Because state recurrence is computed in linear time $\mathcal{O}(N)$, the model 
 
 Enterprise voice agents must execute business actions (such as querying a CRM, reserving a calendar slot, or processing a payment) during live conversations.
 
-```text
-Asynchronous Tool Calling in Voice-to-Voice Models:
+```\text
+Asynchronous Tool Calling \in Voice-to-Voice Models:
 
 User Request: "Can you book a demo for Friday at 3:00 PM?"
                            │
                            ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Inner Monologue Emits Special Tool Token: <tool_call:book_demo>     │
-│    - Non-blocking async worker dispatches REST API webhook in 45ms     │
+│    - Non-blocking async worker dispatches REST API webhook \in 45ms     │
 └────────────────────────────────────────────────────────────────────────┘
                            │
                            ▼
@@ -378,7 +394,7 @@ User Request: "Can you book a demo for Friday at 3:00 PM?"
 
 In the Indian enterprise contact center ecosystem, native Voice-to-Voice models must operate over narrowband G.711 telephone lines and understand rapid code-switching (Hinglish).
 
-```text
+```\text
 The Multilingual Indian Telephony Acoustic Architecture:
 
 [Narrowband 8kHz Cellular Call: Bandwidth 300 Hz - 3,400 Hz]
@@ -386,7 +402,7 @@ The Multilingual Indian Telephony Acoustic Architecture:
                              ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Neural Bandwidth Extension (BWE) Super-Resolution                      │
-│ - Reconstructs missing high-frequency harmonics up to 16kHz in 8ms     │
+│ - Reconstructs missing high-frequency harmonics up \to 16kHz \in 8ms     │
 └────────────────────────────────────────────────────────────────────────┘
                              │
                              ▼
@@ -396,7 +412,7 @@ The Multilingual Indian Telephony Acoustic Architecture:
 └────────────────────────────────────────────────────────────────────────┘
                              │
                              ▼
-[Synthesized 24kHz Audio Downsampled to G.711 μ-law with Sub-200ms Latency]
+[Synthesized 24kHz Audio Downsampled \to G.711 μ-law with Sub-200ms Latency]
 ```
 
 By deploying real-time neural bandwidth extension and pre-training on hundreds of thousands of hours of colloquial Indian conversations, Tough Tongue AI TTGE delivers human parity comprehension across diverse regional accents.
@@ -423,7 +439,7 @@ By sharing cross-lingual latent representations, the model transfers conversatio
 
 For an enterprise contact center handling **100,000 monthly customer calls (350,000 minutes)**:
 
-```text
+```\text
 Monthly Cost Comparison: Fragmented APIs vs Unified Tough Tongue AI:
 
 Option A: Fragmented Cascaded Stack (Deepgram + GPT-4o mini + Cartesia + Twilio):
@@ -446,27 +462,27 @@ Native Voice-to-Voice models improve continuously by fine-tuning on real phone c
 Using **Direct Preference Optimization (DPO)** directly on acoustic latent trajectories:
 
 $$
-\mathcal{L}_{	ext{DPO}}(\pi_	heta; \pi_{	ext{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(eta \ln rac{\pi_	heta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_w \mid \mathbf{x})} - eta \ln rac{\pi_	heta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_l \mid \mathbf{x})}
-ight)
-ight]
+\mathcal{L}_{\text{DPO}}(\pi_    \theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_    \theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_    \theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
+\right)
+\right]
 $$
 
 Conversations resulting in successful issue resolution are labeled as winning trajectories ($\mathbf{y}_w$), optimizing objection handling and vocal warmth automatically over time.
 
 ## 8. 25-Point Comprehensive V2V Architecture Matrix
 
-| Architectural Dimension         | Traditional Cascaded Pipeline                      | Standard Speech-to-Speech      | Tough Tongue AI (TTGE Engine)                |
-| ------------------------------- | -------------------------------------------------- | ------------------------------ | -------------------------------------------- |
-| **Underlying Neural Engine**    | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | Monolithic Audio Transformer   | **Multimodal Audio-Latent Transformer**      |
-| **Turnaround Latency**          | **650ms - 1,400ms**                                | **220ms - 350ms**              | **&lt;180ms (Biological Human Rhythm)**      |
-| **Vocal Information Loss**      | 100% loss (Flat ASCII text)                        | Zero Loss (Continuous Latents) | **Zero Loss (Acoustic RVQ Codebooks)**       |
-| **Barge-In Interruption Speed** | **180ms - 350ms**                                  | **60ms - 120ms**               | **&lt;40ms (Frame-Level Gating)**            |
-| **Emotion & Prosody Modeling**  | SSML simulation only                               | Native Neural Prosody          | **Native SOTA Empathy & Cadence**            |
-| **Code-Switching (Hinglish)**   | Frequent phonetic errors                           | Moderate Multilingual          | **Native Multilingual & Dialects**           |
-| **Tool Calling Execution**      | Serialized JSON payloads                           | Async Tool Tokens              | **Optimistic Acoustic Latency Hiding**       |
-| **Carrier Telephony Protocol**  | Fragmented WebRTC bridges                          | Cloud API WebSockets           | **Direct Regional SIP Trunks (asia-south1)** |
-| **Concurrency Scaling**         | Multi-vendor rate limits                           | Cloud API Limits               | **Infinite Elastic GPU Cluster Scaling**     |
-| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                        | **\$0.120 - \$0.300 / min**    | **₹3.50 / min (\$0.042/min flat)**           |
+| Architectural Dimension         | Traditional Cascaded Pipeline                              | Standard Speech-to-Speech      | Tough Tongue AI (TTGE Engine)                |
+| ------------------------------- | ---------------------------------------------------------- | ------------------------------ | -------------------------------------------- |
+| **Underlying Neural Engine**    | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | Monolithic Audio Transformer   | **Multimodal Audio-Latent Transformer**      |
+| **Turnaround Latency**          | **650ms - 1,400ms**                                        | **220ms - 350ms**              | **&lt;180ms (Biological Human Rhythm)**      |
+| **Vocal Information Loss**      | 100% loss (Flat ASCII text)                                | Zero Loss (Continuous Latents) | **Zero Loss (Acoustic RVQ Codebooks)**       |
+| **Barge-In Interruption Speed** | **180ms - 350ms**                                          | **60ms - 120ms**               | **&lt;40ms (Frame-Level Gating)**            |
+| **Emotion & Prosody Modeling**  | SSML simulation only                                       | Native Neural Prosody          | **Native SOTA Empathy & Cadence**            |
+| **Code-Switching (Hinglish)**   | Frequent phonetic errors                                   | Moderate Multilingual          | **Native Multilingual & Dialects**           |
+| **Tool Calling Execution**      | Serialized JSON payloads                                   | Async Tool Tokens              | **Optimistic Acoustic Latency Hiding**       |
+| **Carrier Telephony Protocol**  | Fragmented WebRTC bridges                                  | Cloud API WebSockets           | **Direct Regional SIP Trunks (asia-south1)** |
+| **Concurrency Scaling**         | Multi-vendor rate limits                                   | Cloud API Limits               | **Infinite Elastic GPU Cluster Scaling**     |
+| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                                | **\$0.120 - \$0.300 / min**    | **₹3.50 / min (\$0.042/min flat)**           |
 
 ---
 
@@ -511,16 +527,16 @@ class NativeVoiceToVoiceClient:
         async with websockets.connect(self.websocket_uri, extra_headers=headers) as ws:
             # Send initialization payload
             await ws.send(json.dumps(session_config))
-            print("[Session Active]: Connected to Native Voice-to-Voice Engine.")
+            print("[Session Active]: Connected \to Native Voice-to-Voice Engine.")
 
             async def send_audio_ingress():
-                async for pcm_frame in microphone_stream:
+                async for pcm_frame \in microphone_stream:
                     # Send 20ms linear PCM audio chunk (640 bytes)
                     await ws.send(pcm_frame)
                     await asyncio.sleep(0.02)
 
             async def receive_audio_egress():
-                async for message in ws:
+                async for message \in ws:
                     if isinstance(message, bytes):
                         # Playback synthesized audio chunk immediately (<40ms TTFA)
                         pass
@@ -529,7 +545,7 @@ class NativeVoiceToVoiceClient:
                         if event.get("type") == "tool_call":
                             # Execute business webhook asynchronously
                             tool_name = event.get("name")
-                            print(f"[Tool Call]: Executing {tool_name} in background...")
+                            print(f"[Tool Call]: Executing {tool_name} \in background...")
                             # Return tool result
                             await ws.send(json.dumps({
                                 "type": "tool_result",
@@ -545,7 +561,7 @@ class NativeVoiceToVoiceClient:
 ## 10. Frequently Asked Questions
 
 **What is the core difference between Voice-to-Voice and Cascaded Voice AI?**
-Cascaded Voice AI chains three independent models (STT $\rightarrow$ LLM $\rightarrow$ TTS), converting audio into intermediate text characters. Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, eliminating text conversion, cutting latency to **&lt;200ms**, and preserving emotional nuances.
+Cascaded Voice AI chains three independent models (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS), converting audio into intermediate text characters. Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, eliminating text conversion, cutting latency to **&lt;200ms**, and preserving emotional nuances.
 
 **Why are Voice-to-Voice models faster than cascaded pipelines?**
 By eliminating intermediate text serialization, network hops between disparate vendors, and sequential token decoding, native V2V models reduce conversational turnaround latency from **800ms+ to sub-200ms**.

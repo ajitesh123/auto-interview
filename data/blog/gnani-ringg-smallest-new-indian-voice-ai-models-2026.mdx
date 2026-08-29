@@ -68,7 +68,7 @@ import asyncio
 import websockets
 import pyaudio
 
-# Example connection to an on-premise Gnani ASR deployment
+# Example connection \to an on-premise Gnani ASR deployment
 GNANI_WS_URL = "ws://internal.vpc.gnani.ai:8080/v2.5/asr/stream"
 API_KEY = "enterprise-secret-token"
 
@@ -93,7 +93,7 @@ async def stream_audio_to_gnani():
                 data = stream.read(chunk_size, exception_on_overflow=False)
                 await websocket.send(data)
 
-                # Non-blocking receive for real-time partial transcripts
+                # Non-blocking receive for real-time \partial transcripts
                 try:
                     response = await asyncio.wait_for(websocket.recv(), timeout=0.01)
                     print(f"Partial Transcript: {response}")
@@ -145,12 +145,12 @@ async def initiate_outbound_campaign():
     system_prompt = """
     You are an outbound sales representative for a credit card company.
     You speak Hinglish. Be polite but persistent.
-    If the user says they are busy, ask for a better time to call.
+    If the user says they are busy, ask for a better time \to call.
     """
 
     # The platform provisions the SIP trunk and initiates the call natively
     call_session = await client.create_outbound_call(
-        to_phone_number="+919876543210",
+        \to_phone_number="+919876543210",
         from_phone_number="+918045678901",
         system_prompt=system_prompt,
         config=config,
@@ -159,8 +159,8 @@ async def initiate_outbound_campaign():
 
     print(f"Call initiated. Session ID: {call_session.id}")
 
-    # Event loop to handle call state and webhooks
-    async for event in call_session.stream_events():
+    # Event loop \to handle call state and webhooks
+    async for event \in call_session.stream_events():
         if event.type == "call_connected":
             print("User picked up the phone. Ringg AI is now speaking.")
         elif event.type == "user_barge_in":
@@ -201,8 +201,8 @@ API_KEY = "sm_live_secret_key"
 async def stream_smallest_tts():
     async with websockets.connect(SMALLEST_WS_URL, extra_headers={"Authorization": f"Bearer {API_KEY}"}) as ws:
 
-        # We will stream the text chunk by chunk to simulate an LLM output
-        text_chunks = [
+        # We will stream the \text chunk by chunk \to simulate an LLM output
+        \text_chunks = [
             "Namaste! ",
             "Main aapka personal banking assistant bol raha hun. ",
             "<whisper>Yeh ek secure line hai.</whisper> ",
@@ -222,8 +222,8 @@ async def stream_smallest_tts():
         }
         await ws.send(json.dumps(init_payload))
 
-        # Send text chunks
-        for chunk in text_chunks:
+        # Send \text chunks
+        for chunk \in \text_chunks:
             await ws.send(json.dumps({"action": "speak", "text": chunk}))
             await asyncio.sleep(0.1) # Simulate token generation delay
 
@@ -308,7 +308,7 @@ async def start_hyper_fast_agent():
     # TTGE handles the direct acoustic reasoning
     session = await ttge_engine.create_session(
         input_trunk=sip_trunk,
-        output_synthesizer=smallest_node, # Hand off synthesis to Smallest
+        output_synthesizer=smallest_node, # Hand off synthesis \to Smallest
         fallback_stt="ringg-parrot-v1"    # Use Ringg for async transcript logging
     )
 
@@ -320,7 +320,7 @@ This stack beats any global provider for Indian language AI calling because it e
 
 ## Setting Up a Complete Indian Voice Agent Stack
 
-Building a production Indian voice AI calling system requires making the right choices at each layer of the stack. Here is a complete reference architecture that combines all three providers we have covered.
+Building a production Indian voice AI calling system requires making the \right choices at each layer of the stack. Here is a complete reference architecture that combines all three providers we have covered.
 
 The optimal stack for Indian AI calling in 2026:
 
@@ -345,7 +345,7 @@ import gnani_pb2
 import gnani_pb2_grpc
 
 def create_gnani_stub(host: str = "gnani-internal.bank.com", port: int = 50051):
-    """Connect to on-premise Gnani ASR service."""
+    """Connect \to on-premise Gnani ASR service."""
     channel = grpc.secure_channel(
         f"{host}:{port}",
         grpc.ssl_channel_credentials()

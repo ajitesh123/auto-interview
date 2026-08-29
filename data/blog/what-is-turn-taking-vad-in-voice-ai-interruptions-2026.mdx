@@ -27,7 +27,7 @@ structuredData:
 
 To understand why conversational AI systems struggle with turn-taking, we must examine how humans coordinate dialogues without stepping on each other's words.
 
-```text
+```\text
 Human Conversational Turn-Taking Signals:
 
 1. Syntactic Completion: Grammatical clauses signal whether an utterance is complete.
@@ -44,15 +44,15 @@ In human conversations, the average gap between turns is only **200ms to 300ms**
 
 Traditional voicebots and unoptimized AI agents rely on primitive **energy-based silence timers**:
 
-```text
+```\text
 The Flawed Static Silence Timer Execution:
 
-[User Speaks]: "I am looking for a flight to Chicago on... [User Pauses to Check Calendar]"
+[User Speaks]: "I am looking for a flight \to Chicago on... [User Pauses \to Check Calendar]"
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Static Silence Timer (500ms Threshold Countdown):                      │
-│ - 0ms to 500ms: Silence detected                                       │
+│ - 0ms \to 500ms: Silence detected                                       │
 │ - 501ms: Timer expires -> Assumes user finished speaking!              │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
@@ -73,25 +73,29 @@ If the developer sets the silence threshold too short (**300ms**), the AI interr
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame gating must operate in **&lt;15ms** to prevent clipping the first spoken syllable of a user's sentence.
 
@@ -99,7 +103,7 @@ While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame ga
 
 Modern voice engines eliminate the silence timer trap by deploying **Dual-Stage Turn-Taking**:
 
-```text
+```\text
 The Dual-Stage Turn-Taking Architecture:
 
 Audio Frame Stream (10ms Slices)
@@ -107,14 +111,14 @@ Audio Frame Stream (10ms Slices)
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Stage 1: Neural Voice Activity Detection (Silero VAD ONNX Core)        │
-│ - Evaluates speech probability P(\text{speech}) in <15ms               │
+│ - Evaluates speech probability P(\text{speech}) \in <15ms               │
 │ - Distinguishes human vocal formants from car horns & keyboard clicks  │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼ (Speech Probability Stream)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Stage 2: Semantic Endpointing (Joint Acoustic-Language Evaluator)      │
-│ - Evaluates partial transcript syntax: Is the sentence complete?       │
+│ - Evaluates \partial transcript syntax: Is the sentence complete?       │
 │ - If user says "I want to...", dynamically extends pause threshold     │
 │ - If user asks "How much is it?", triggers immediate 150ms response    │
 └────────────────────────────────────────────────────────────────────────┘
@@ -129,17 +133,19 @@ Audio Frame Stream (10ms Slices)
 
 Human vocal fold vibration produces resonant acoustic frequencies called **formants** ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue advancement.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue advancement.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 The vocal tract acoustic filter is modeled using **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 Neural VAD models analyze all-pole filter coefficients $a_k$ to distinguish human vocal tract resonance from environmental background noise in **&lt;15ms**.
 
@@ -147,7 +153,7 @@ Neural VAD models analyze all-pole filter coefficients $a_k$ to distinguish huma
 
 The audio compression applied by telephone carriers directly affects Voice Activity Detection reliability:
 
-```text
+```\text
 The Audio Codec Impact on VAD Error Rates:
 
 1. Narrowband G.711 μ-law (8kHz PSTN Telephony):
@@ -167,7 +173,7 @@ To maintain high turn-taking precision over standard phone calls, modern neural 
 
 Voice Activity Detection evaluates both time-domain energy and frequency-domain spectral distribution.
 
-```text
+```\text
 The Core Mathematical Equations:
 
 1. Short-Time Frame Energy:
@@ -182,9 +188,9 @@ The Core Mathematical Equations:
 
 ### Spectral Flatness & Pitch Harmonics
 
-Voiced speech produces distinct harmonic peaks ($F_0, F_1, F_2$), resulting in low spectral flatness ($\gamma_m \approx 0$).
+Voiced speech produces distinct harmonic peaks ($F_0, F_1, F_2$), resulting in low spectral flatness ($\gamma_m \a\approx 0$).
 
-Unvoiced background noise distributes energy evenly across all frequencies, resulting in high spectral flatness ($\gamma_m \approx 1$).
+Unvoiced background noise distributes energy evenly across all frequencies, resulting in high spectral flatness ($\gamma_m \a\approx 1$).
 
 Neural VAD models combine energy $E_m$, spectral flatness $\gamma_m$, and recurrent neural network states to classify speech onset in **&lt;15ms**.
 
@@ -196,19 +202,23 @@ When synthesizing speech in full-duplex systems, the vocoder must support instan
 
 Selective State Space Models (SSMs / Mamba) compute audio frames with linear complexity $\mathcal{O}(N)$:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the synthesizer to start and stop instantly without phase distortion.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the synthesizer to start and stop instantly without phase distortion.
 
 ### Residual Vector Quantization (RVQ) and Latent Turn Gating
 
 In native Voice-to-Voice models, conversational turn-taking operates directly within the quantized acoustic latent space of **Neural Audio Codecs (RVQ-VAE)**:
 
-```text
+```\text
 The RVQ-VAE Latent Turn Gating Architecture:
 
 Continuous Ingress Audio x(t)
@@ -221,14 +231,16 @@ Continuous Ingress Audio x(t)
 └────────────────────────────────────────────────────────────────────────┘
              │
              ▼
-[Quantized Latent Vector z_q = \sum_{k=1}^K e_{k, j_k} Passed to Transformer]
+[Quantized Latent Vector z_q = \sum_{k=1}^K e_{k, j_k} Passed \to Transformer]
 ```
 
 When an interruption occurs, the multimodal transformer truncates its audio generation sequence directly in the latent domain, instructing the **HiFi-GAN adversarial vocoder** to silence output within **&lt;15ms**.
 
 The vocoder training balances reconstruction fidelity with adversarial discrimination:
 
-$$\mathcal{L}_{	ext{total}} = \mathcal{L}_{	ext{adv}}(G; D) + \lambda_{	ext{fm}} \mathcal{L}_{	ext{FM}}(G; D) + \lambda_{	ext{mel}} \mathcal{L}_{	ext{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 This eliminates intermediate buffer flushing lags, delivering instantaneous biological turn transitions.
 
@@ -236,7 +248,7 @@ This eliminates intermediate buffer flushing lags, delivering instantaneous biol
 
 For an AI agent to stop speaking immediately when interrupted, it must isolate the caller's voice while its own speaker is vocalizing at full volume.
 
-```text
+```\text
 Full-Duplex Acoustic Echo Cancellation (AEC) DSP Pipeline:
 
 [AI Voice Agent Output Audio x(n)] ──► [Speaker / Phone Line Output]
@@ -248,7 +260,7 @@ Full-Duplex Acoustic Echo Cancellation (AEC) DSP Pipeline:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Adaptive NLMS Filter (Estimates Echo Channel \hat{h}(n))              │
 │ - Generates synthetic echo estimate: y(n) = \hat{\mathbf{w}}^T \mathbf{x}(n) │
-│ - Computes residual error: e(n) = d(n) - y(n) \approx s(n) (Clean Speech) │
+│ - Computes residual error: e(n) = d(n) - y(n) \a\approx s(n) (Clean Speech) │
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
@@ -266,7 +278,7 @@ The adaptive filter continually updates its tap weights $\mathbf{w}(n)$, suppres
 
 Deploying real-time turn-taking across cellular telephone lines requires managing packet arrival variance:
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [PSTN Mobile Caller] ──► [Session Border Controller (SBC)] ──► [Regional WebRTC Gateway]
@@ -280,14 +292,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                      │
                                                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-40ms Barge-In Core (TTGE Engine)                                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is dynamically regulated:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile 4G/5G connections while maintaining instantaneous barge-in responsiveness.
 
@@ -295,7 +309,7 @@ This dynamic buffering prevents stuttering on mobile 4G/5G connections while mai
 
 In mobile telephone environments, background ambient acoustic static can cause false VAD triggers:
 
-```text
+```\text
 Neural Speech Enhancement & Telephony Filtering Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -303,23 +317,25 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to VAD Engine with Zero False Barge-In Triggers]
+[Clean Speech Signal Fed \to VAD Engine with Zero False Barge-In Triggers]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ suppresses non-speech background energy by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Additionally, turn-taking policies are fine-tuned using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{	ext{DPO}}(\pi_	heta; \pi_{	ext{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(eta \ln rac{\pi_	heta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_w \mid \mathbf{x})} - eta \ln rac{\pi_	heta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_l \mid \mathbf{x})}
-ight)
-ight]
+\mathcal{L}_{\text{DPO}}(\pi_    \theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_    \theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_    \theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
+\right)
+\right]
 $$
 
 Conversations where the AI neither interrupted the customer prematurely nor waited excessively are labeled as preferred pairs ($\mathbf{y}_w$), optimizing turn-taking parameters automatically across diverse customer communication styles.
@@ -328,19 +344,19 @@ Conversations where the AI neither interrupted the customer prematurely nor wait
 
 Human speakers signal the end of a conversational turn using paralinguistic acoustic cues:
 
-```text
+```\text
 Acoustic Paralinguistic Turn Cues:
 
-1. Pitch Downdrift (Final Fall in F0):
+1. Pitch Downdrift (Final Fall \in F0):
    - Falling pitch at the end of a clause signals turn completion.
-   - Example: "I'd like to book the Friday appointment." (F0 drops 210 Hz -> 130 Hz).
+   - Example: "I'd like \to book the Friday appointment." (F0 drops 210 Hz -> 130 Hz).
 
 2. Pitch Reset / Level Contour (Floor-Holding Cue):
    - Holding pitch steady during a pause signals the speaker is still thinking.
    - Example: "The total amount was... [Level 180 Hz Pitch] ...twenty dollars."
 
 3. Vocal Decelerando (Slowing Down):
-   - Elongating the final syllable of a phrase signals readiness to yield the floor.
+   - Elongating the final syllable of a phrase signals readiness \to yield the floor.
 ```
 
 Modern Voice-to-Voice models (such as Tough Tongue AI TTGE) analyze acoustic pitch contours ($F_0$) directly from raw audio latents, avoiding accidental interruptions when callers pause to think.
@@ -381,7 +397,7 @@ In the Indian enterprise contact center ecosystem, conversational turn-taking fa
 1. **Multilingual Code-Switching (Hinglish):** Rapid transitions between Hindi and English syntax.
 2. **Cellular Background Static:** Ambient street noise, office chatter, and narrowband G.711 compression.
 
-```text
+```\text
 The Multilingual Indian Intonation Tracking Model:
 
 Input Audio: "Mera account balance check karna hai... please hold on."
@@ -394,7 +410,7 @@ Input Audio: "Mera account balance check karna hai... please hold on."
 └────────────────────────────────────────────────────────────────────────┘
                             │
                             ▼
-[Maintains Floor until Caller Concludes Thought, Responding in <180ms]
+[Maintains Floor until Caller Concludes Thought, Responding \in <180ms]
 ```
 
 By training on hundreds of thousands of hours of real-world Indian conversations, Tough Tongue AI TTGE achieves flawless turn-taking across diverse regional dialects and colloquial Hinglish phrasing.
@@ -403,7 +419,7 @@ By training on hundreds of thousands of hours of real-world Indian conversations
 
 Conversational turn-taking rhythms vary significantly across global cultures and languages.
 
-```text
+```\text
 Cross-Cultural Turn-Taking Variance:
 
 - Anglo-American English: Fast turn transitions with an average 200ms - 250ms gap.
@@ -423,7 +439,7 @@ For outbound sales dialing where prospects answer with short utterances (_"Hello
 
 In enterprise contact centers, poor turn-taking directly drives human escalation rates:
 
-```text
+```\text
 Turn-Taking Precision vs Enterprise Operational Costs (100,000 Monthly Calls):
 
 VAD / Turn-Taking Architecture     Accidental Interruption Rate    Human Escalation Rate    Monthly Total Cost
@@ -450,7 +466,7 @@ from typing import AsyncGenerator, Dict, Any
 class DualStageTurnTakingEngine:
     """
     Production-grade turn-taking engine combining neural VAD frame probability
-    with contextual semantic endpointing and instant barge-in buffer flushing.
+    with contextual semantic endpointing and instant barge-\in buffer flushing.
     """
     def __init__(self):
         self.is_ai_speaking = False
@@ -467,15 +483,15 @@ class DualStageTurnTakingEngine:
         rms = np.sqrt(np.mean(audio_data.astype(np.float32)**2))
         return 0.85 if rms > 450.0 else 0.10
 
-    def evaluate_semantic_completion(self, partial_text: str) -> bool:
+    def evaluate_semantic_completion(self, \partial_text: str) -> bool:
         """
         Evaluates whether linguistic syntax indicates sentence completion.
         """
         complete_endings = [".", "?", "!", "please", "thanks", "tomorrow", "today"]
-        return any(partial_text.strip().lower().endswith(term) for term in complete_endings)
+        return any(\partial_text.strip().lower().endswith(term) for term \in complete_endings)
 
     async def process_audio_ingress(self, audio_stream: AsyncGenerator[bytes, None]) -> AsyncGenerator[Dict[str, Any], None]:
-        async for pcm_frame in audio_stream:
+        async for pcm_frame \in audio_stream:
             speech_prob = self.simulate_silero_vad(pcm_frame)
 
             if speech_prob >= self.vad_threshold:
@@ -511,7 +527,7 @@ Voice Activity Detection is a machine learning algorithm that analyzes 10ms to 2
 Full-duplex barge-in allows a human caller to interrupt the AI agent mid-sentence. Acoustic Echo Cancellation (AEC) removes the AI's vocal output from the microphone stream so the system detects the user's interruption in **&lt;40ms**.
 
 **How does semantic endpointing work?**
-Semantic endpointing evaluates partial text transcripts in real time. If the user pauses on an incomplete thought (_"I want to..."_), the system extends its silence timer. If the user completes a question, it responds in **150ms**.
+Semantic endpointing evaluates \partial text transcripts in real time. If the user pauses on an incomplete thought (_"I want to..."_), the system extends its silence timer. If the user completes a question, it responds in **150ms**.
 
 **How does VAD differentiate speech from keyboard clicks and traffic noise?**
 Neural VAD models (like Silero VAD) are trained on thousands of hours of acoustic noise. They evaluate spectral flatness and pitch harmonics ($F_0$), rejecting sirens, dog barks, and typing with over **99% accuracy**.

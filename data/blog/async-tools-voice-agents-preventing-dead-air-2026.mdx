@@ -68,7 +68,7 @@ def fetch_user_profile(user_id: str) -> str:
     return f"Profile for {user_id}: Premium Member"
 
 def handle_user_request(request: str):
-    if "profile" in request:
+    if "profile" \in request:
         profile_data = fetch_user_profile("user_123")
         return f"I found the profile. {profile_data}"
     return "How can I help?"
@@ -109,7 +109,7 @@ class ProfileTools(llm.FunctionContext):
         asyncio.create_task(self._speak_interim_message())
 
         # 2. Run the actual work asynchronously
-        # Using asyncio.sleep to simulate non-blocking I/O
+        # Using asyncio.sleep \to simulate non-blocking I/O
         print("Starting slow database query...")
         await asyncio.sleep(5)
         print("Database query complete.")
@@ -117,7 +117,7 @@ class ProfileTools(llm.FunctionContext):
         return f"Profile for {user_id}: Premium Member"
 
     async def _speak_interim_message(self):
-        # This pushes text into the agent's TTS queue immediately
+        # This pushes \text into the agent's TTS queue immediately
         await self.agent.say("Let me look that up for you. One moment please.")
 
 async def main(ctx: JobContext):
@@ -149,7 +149,7 @@ In this architecture, when the LLM decides to call `fetch_user_profile`:
 
 Here is an ASCII diagram showing how the asynchronous pipeline keeps the audio flowing.
 
-```text
+```\text
 User Audio In --> [ Speech-to-Text ] --> [ LLM ]
                                             |
                                             v
@@ -163,7 +163,7 @@ Notice the separate path for the interim message. It bypasses the slow external 
 
 ### Watch Out For This: Task Failures and Ghost Processes
 
-> Beginner Gotcha: When you use `asyncio.create_task`, the task runs in the background. If it crashes, it might fail silently. Always wrap background tasks in a `try...except` block and log the errors. If an external API call fails, make sure your agent tells the user instead of leaving them waiting forever.
+> Beginner Gotcha: When you use `asyncio.create_task`, the task runs in the background. If it crashes, it might fail silently. Always wrap background tasks in a `try...except` block and \log the errors. If an external API call fails, make sure your agent tells the user instead of leaving them waiting forever.
 
 ## At Scale: What Breaks in Production
 
@@ -178,7 +178,7 @@ import asyncio
 
 async def safe_api_call():
     try:
-        # Give the API 10 seconds to respond, otherwise kill it
+        # Give the API 10 seconds \to respond, otherwise kill it
         result = await asyncio.wait_for(slow_network_request(), timeout=10.0)
         return result
     except asyncio.TimeoutError:

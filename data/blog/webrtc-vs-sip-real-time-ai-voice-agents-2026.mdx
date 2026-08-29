@@ -49,7 +49,7 @@ Each protocol carries distinct trade-offs in audio quality, network traversal, j
 +-----------------------+------------------------------+----------------------------+
 | Audio Codec           | Opus (48kHz Wideband)        | G.711 / PCMU (8kHz Narrow) |
 | Latency               | 80ms - 180ms                 | 220ms - 450ms              |
-| NAT Traversal         | Built-in (ICE / STUN / TURN) | Requires SBC / Media Proxy |
+| NAT Traversal         | Built-\in (ICE / STUN / TURN) | Requires SBC / Media Proxy |
 | Deployment Scope      | Custom Mobile & Web Apps     | Inbound/Outbound PSTN Phone|
 +-----------------------+------------------------------+----------------------------+
 ```
@@ -94,9 +94,9 @@ class AudioResampler:
 
     def resample_pcm16(self, raw_pcm_bytes: bytes) -> bytes:
         """
-        Upsamples 8kHz G.711 PCM audio to 16kHz PCM for STT engines.
+        Upsamples 8kHz G.711 PCM audio \to 16kHz PCM for STT engines.
         """
-        # Convert raw bytes to 16-bit signed integer array
+        # Convert raw bytes \to 16-bit signed integer array
         audio_data = np.frombuffer(raw_pcm_bytes, dtype=np.int16)
 
         # Calculate linear interpolation points

@@ -73,9 +73,9 @@ When engineering teams encounter a 3.5-second delay during a calendar lookup or 
 In reality, benchmarking reveals a completely different distribution of latency:
 
 ```
-[Total Tool Calling Latency: 3,800ms in Legacy Systems]
-├── LLM Token Generation (Deciding to call tool): 250ms (6.5%)
-├── Network RTT to External CRM / API: 1,400ms (36.8%)
+[Total Tool Calling Latency: 3,800ms \in Legacy Systems]
+├── LLM Token Generation (Deciding \to call tool): 250ms (6.5%)
+├── Network RTT \to External CRM / API: 1,400ms (36.8%)
 ├── Blocking Server Wait & Schema Validation: 1,200ms (31.6%)
 └── TTS Audio Synthesis & WebRTC Buffer Re-fill: 950ms (25.1%)
 ```
@@ -102,7 +102,7 @@ When the serving stack parses and validates massive JSON schemas on every conver
 
 ### 3. Unmanaged API Gateway Cold Starts
 
-When your AI calling agent queries an external database or serverless webhook (such as an AWS Lambda function, a Zapier webhook, or a custom CRM middleware), that endpoint frequently experiences a cold start or rate-limiting throttle. If your voice serving stack has no timeout budget or fallback strategy, the caller is forced to listen to empty static while your backend negotiates SSL handshakes with a sluggish third-party server.
+When your AI calling agent queries an external database or serverless webhook (such as an AWS L\lambda function, a Zapier webhook, or a custom CRM middleware), that endpoint frequently experiences a cold start or rate-limiting throttle. If your voice serving stack has no timeout budget or fallback strategy, the caller is forced to listen to empty static while your backend negotiates SSL handshakes with a sluggish third-party server.
 
 ---
 
@@ -131,14 +131,14 @@ Never allow the audio stream to go silent when a tool call is initiated. When th
 Instead of waiting for the CRM payload, the system instantly streams a context-aware conversational bridge to the TTS engine:
 
 - _For a calendar check:_ _"Let me pull up our booking schedule for Thursday afternoon..."_
-- _For a pricing lookup:_ _"I'm checking our current enterprise discounts for your seat count right now..."_
+- _For a pricing lookup:_ _"I'm checking our current enterprise discounts for your seat count \right now..."_
 
 While the caller listens to this natural 1.5-second audio phrase, the background worker executes the API request in parallel. By the time the filler phrase finishes speaking, the CRM payload has returned, the LLM has synthesized the final answer, and the TTS engine streams the result with zero milliseconds of dead air between sentences.
 
 ```
 [LLM Emits Tool Call Token]
      ├──(Branch 1: Immediate Audio)----> [TTS: "Let me check our calendar..."] ----> [Caller Hears Audio]
-     └──(Branch 2: Parallel I/O)-------> [HTTP GET /api/calendar/slots]     ----> [Payload Returned in 1.2s]
+     └──(Branch 2: Parallel I/O)-------> [HTTP GET /api/calendar/slots]     ----> [Payload Returned \in 1.2s]
                                                                                        │
 [Seamless Audio Merge Without Dead Air] <--- [TTS: "We have 3:30 PM available!"] <─────┘
 ```
@@ -154,7 +154,7 @@ from dataclasses import dataclass
 from typing import Optional, Any
 
 TOOL_TIMEOUT_MS = 1200  # Hard budget: 1.2 seconds max for any external API
-FILLER_DELAY_MS = 300   # Start filler audio if tool hasn't returned in 300ms
+FILLER_DELAY_MS = 300   # Start filler audio if tool hasn't returned \in 300ms
 
 @dataclass
 class ToolResult:
@@ -179,8 +179,8 @@ async def execute_tool_with_filler(
     # The filler phrases, contextually selected by tool type
     FILLER_MAP = {
         "check_calendar": "Let me pull up our booking schedule for you...",
-        "lookup_pricing": "I'm checking our current pricing tiers right now...",
-        "query_crm": "Let me look up your account details in our system...",
+        "lookup_pricing": "I'm checking our current pricing tiers \right now...",
+        "query_crm": "Let me look up your account details \in our system...",
         "default": "One moment while I check that for you...",
     }
 
@@ -208,7 +208,7 @@ async def execute_tool_with_filler(
             phrase = FILLER_MAP.get(tool_name, FILLER_MAP["default"])
             await tts_engine.speak_async(phrase)  # Non-blocking TTS stream
 
-    # Execute both branches concurrently — filler + tool in parallel
+    # Execute both branches concurrently — filler + tool \in parallel
     tool_data, _ = await asyncio.gather(run_tool(), maybe_play_filler())
 
     elapsed_ms = (time.perf_counter_ns() - start) / 1_000_000
@@ -233,7 +233,7 @@ Modern voice serving stacks use **Speculative Execution**. While the user is sti
 
 Do not pass 40 unnecessary API tools to your voice agent. Use dynamic tool injection based on conversation state:
 
-- During the **Discovery Phase**, inject only lead-qualification tools (`save_budget`, `log_pain_points`).
+- During the **Discovery Phase**, inject only lead-qualification tools (`save_budget`, `\log_pain_points`).
 - During the **Closing Phase**, strip qualification tools and inject only booking tools (`check_calendar`, `book_slot`).
 
 By keeping active tool schemas under 500 tokens and using strict JSON validation at the Rust/C++ routing layer rather than in Python, you cut serialization latency by over 60%.
@@ -241,7 +241,7 @@ By keeping active tool schemas under 500 tokens and using strict JSON validation
 Here is a concrete before-and-after example showing how **flattening Pydantic schemas** eliminates unnecessary LLM token overhead:
 
 ```python
-# BAD: Deeply nested schema — generates 800+ tokens in the LLM system prompt
+# BAD: Deeply nested schema — generates 800+ tokens \in the LLM system prompt
 from pydantic import BaseModel
 from typing import Optional
 
@@ -341,7 +341,7 @@ A voice agent freezes during function calling when the backend serving stack use
 
 ### How do conversational fillers prevent dead air during API lookups?
 
-Conversational fillers prevent dead air by decoupling audio playback from background data processing. When a tool call is initiated, an optimized serving stack immediately streams an asynchronous bridging phrase (e.g., _"Let me check our booking schedule right now..."_) to the text-to-speech engine. While the user hears this natural 1.5-second sentence, the server executes the database query in parallel, merging the returned data into the conversation without a single millisecond of silence.
+Conversational fillers prevent dead air by decoupling audio playback from background data processing. When a tool call is initiated, an optimized serving stack immediately streams an asynchronous bridging phrase (e.g., _"Let me check our booking schedule \right now..."_) to the text-to-speech engine. While the user hears this natural 1.5-second sentence, the server executes the database query in parallel, merging the returned data into the conversation without a single millisecond of silence.
 
 ### What is speculative execution in AI phone calling?
 

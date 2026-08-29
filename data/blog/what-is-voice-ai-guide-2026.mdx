@@ -21,7 +21,7 @@ structuredData:
 > - **What is Voice AI?** Voice AI is an autonomous, full-duplex conversational software layer that enables computers to engage in natural, bidirectional spoken dialogue with humans over standard telephone lines (PSTN/SIP) and WebRTC audio streams.
 > - **The Core Mechanism:** Modern Voice AI listens to continuous analog soundwaves, quantizes them into acoustic frequency representations, reasons over context using foundation models, executes live enterprise database webhooks, and synthesizes expressive human speech in **&lt;200ms**.
 > - **The Economic Structural Evolution:** Gartner projects conversational AI will reduce global contact center labor costs by **\$80 billion by 2026**. While a human contact center interaction costs **\$5.50 to \$12.00 per call**, autonomous Voice AI resolves inquiries end-to-end for **\$0.042 per minute** (**₹3.50 per minute** on Tough Tongue AI), cutting operational expenditures by **75% to 90%**.
-> - **The Two Architectural Models:** Enterprises deploy either **Cascaded Pipelines** (Speech-to-Text $\rightarrow$ Language Model $\rightarrow$ Text-to-Speech) for modular compliance auditing, or **Native Voice-to-Voice (V2V)** engines for sub-**200ms** latency and paralinguistic emotional preservation.
+> - **The Two Architectural Models:** Enterprises deploy either **Cascaded Pipelines** (Speech-to-Text $\r\r\rightarrow$ Language Model $\r\r\rightarrow$ Text-to-Speech) for modular compliance auditing, or **Native Voice-to-Voice (V2V)** engines for sub-**200ms** latency and paralinguistic emotional preservation.
 
 ---
 
@@ -29,15 +29,15 @@ structuredData:
 
 For over three decades, enterprise customer communication was trapped between two deeply flawed extremes:
 
-```text
+```\text
 The Historical Enterprise Telephony Dilemma:
 
 1. Traditional Human Contact Centers:
-   - Operating Cost: $5.50 to $12.00 per completed customer call.
+   - Operating Cost: $5.50 \to $12.00 per completed customer call.
    - Core Bottlenecks: 35% annual agent turnover, 90-day training cycles, unscalable hold queues.
 
 2. Legacy Interactive Voice Response (IVR) Menus:
-   - Operating Cost: $0.02 to $0.05 per call.
+   - Operating Cost: $0.02 \to $0.05 per call.
    - Core Bottlenecks: Rigid touch-tone flowcharts, 45% abandonment rate, customer frustration.
 
 3. Autonomous Voice AI (The 2026 Equilibrium):
@@ -55,7 +55,7 @@ Voice AI represents the convergence of acoustic physics, generative language rea
 
 To evaluate Voice AI objectively, business leaders and engineers must understand the system through both intuitive business frameworks and rigorous computational realities.
 
-```text
+```\text
 The Two Perspectives on Voice AI:
 
 Layman's Functional Framework:
@@ -83,7 +83,7 @@ Under the hood, Voice AI is a real-time, distributed distributed-systems challen
 
 A production-grade Voice AI platform is composed of five decoupled, streaming architectural layers:
 
-```text
+```\text
 The Complete 5-Layer Voice AI System Architecture:
 
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -117,7 +117,7 @@ The Complete 5-Layer Voice AI System Architecture:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Layer 5: Neural Speech Synthesis (TTS Vocoder)                         │
 │ - State Space Model (SSM / Mamba) or HiFi-GAN Vocoder Synthesis        │
-│ - Sub-90ms Time-to-First-Audio (TTFA) Egress to Telephone Network      │
+│ - Sub-90ms Time-to-First-Audio (TTFA) Egress \to Telephone Network      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -153,28 +153,34 @@ To understand how acoustic pressure waves are processed by neural networks, cons
 
 The Short-Time Fourier Transform (STFT) applies an analysis window $w(n)$ of length $N$ (typically 25ms or 400 samples at 16kHz) with a hop size $R$ (10ms or 160 samples):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 The power spectral density $|X(m, \omega)|^2$ is passed through a bank of $M = 128$ triangular Mel filterbanks $H_m(k)$:
 
-$$S(m, k) = \sum_{k=0}^{K-1} |X(m, k)|^2 H_m(k)$$
+$$
+S(m, k) = \sum_{k=0}^{K-1} |X(m, k)|^2 H_m(k)
+$$
 
-Taking the natural logarithm yields the Log-Mel Spectrogram matrix $\mathbf{L} \in \mathbb{R}^{T 	imes 128}$:
+Taking the natural logarithm yields the Log-Mel Spectrogram matrix $\mathbf{L} \in \mathbb{R}^{T     imes 128}$:
 
 $$
 L(m, k) = \ln\left(S(m, k) + \epsilon
-ight)
+\right)
 $$
 
 This 2D representation is fed into stacked Conformer encoder blocks containing Macaron-style feed-forward modules, multi-head self-attention with relative positional encodings, and depthwise separable convolutions:
 
-$$ ext{ConformerBlock}(\mathbf{x}) = \mathbf{x} + rac{1}{2} ext{FFN}(\mathbf{x}) + ext{MHSA}(\mathbf{x}) + ext{Conv}(\mathbf{x}) + rac{1}{2} ext{FFN}(\mathbf{x})$$
+$$
+ ext{ConformerBlock}(\mathbf{x}) = \mathbf{x} + \frac{1}{2} ext{FFN}(\mathbf{x}) + ext{MHSA}(\mathbf{x}) + ext{Conv}(\mathbf{x}) + \frac{1}{2} ext{FFN}(\mathbf{x})
+$$
 
-The encoder emits continuous acoustic embeddings $\mathbf{H} \in \mathbb{R}^{T' 	imes d_{	ext{model}}}$, where $T' = T / 4$ due to 4x temporal convolutional subsampling, reducing computational complexity while retaining phonetic discrimination.
+The encoder emits continuous acoustic embeddings $\mathbf{H} \in \mathbb{R}^{T'     imes d_{\text{model}}}$, where $T' = T / 4$ due to 4x temporal convolutional subsampling, reducing computational complexity while retaining phonetic discrimination.
 
 Understanding Voice AI requires exploring the mathematical equations governing acoustic signal processing and neural optimization.
 
-```text
+```\text
 The Core Mathematical Pipeline:
 
 1. Acoustic Frequency Mapping (Mel Scale):
@@ -191,7 +197,9 @@ The Core Mathematical Pipeline:
 
 Human hearing perceives pitch logarithmically rather than linearly. To match human auditory mechanics, the acoustic front-end applies the non-linear Mel-scale filterbank:
 
-$$m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)$$
+$$
+m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
+$$
 
 This mathematical projection compresses frequencies above 1,000 Hz, mirroring the human cochlea's sensitivity to vowel formants and consonant transitions.
 
@@ -199,13 +207,17 @@ This mathematical projection compresses frequencies above 1,000 Hz, mirroring th
 
 In speech recognition, input audio frames ($T$) vastly outnumber output text characters ($U$). CTC introduces a special blank token ($\epsilon$) to allow the neural network to align speech frames to text without manual temporal annotations:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 ### State Space Model (SSM) Linear Synthesis
 
 Traditional transformers incur quadratic computational complexity ($\mathcal{O}(N^2)$), causing text-to-speech synthesis delay to scale with sentence length. State Space Models (like Mamba) formulate sequence modeling as continuous linear differential equations:
 
-$$h'(t) = \mathbf{A}h(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}h(t) + \mathbf{D}x(t)$$
+$$
+h'(t) = \mathbf{A}h(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}h(t) + \mathbf{D}x(t)
+$$
 
 Discretized via zero-order hold (ZOH), SSMs process audio tokens in linear time ($\mathcal{O}(N)$), delivering streaming audio synthesis with a Time-to-First-Audio under **&lt;90ms**.
 
@@ -246,19 +258,19 @@ When architecting a voice agent in 2026, engineering teams choose among four maj
 
 Enterprise engineering teams must select between two foundational design patterns:
 
-```text
+```\text
 Architectural Comparison:
 
 1. Cascaded Architecture (Modular / Sequential):
    Audio In ──► [STT Model] ──► [Text JSON] ──► [LLM Core] ──► [Text Stream] ──► [TTS Vocoder] ──► Audio Out
    - Total Latency: 650ms - 1,200ms
    - Strength: Complete modularity (swap any vendor independently).
-   - Weakness: Destroys acoustic emotion, accumulates multi-hop latency, vulnerable to cascading errors.
+   - Weakness: Destroys acoustic emotion, accumulates multi-hop latency, vulnerable \to cascading errors.
 
 2. Native Voice-to-Voice (V2V) Architecture (Unified / End-to-End):
    Audio In ──► [Neural Codec RVQ Latents ──► Multimodal Transformer] ──► Audio Out
    - Total Latency: <200ms
-   - Strength: Preserves paralinguistic tone (laughter, sarcasm, accents), instant barge-in cut-off.
+   - Strength: Preserves paralinguistic tone (laughter, sarcasm, accents), instant barge-\in cut-off.
    - Weakness: Tighter model coupling.
 ```
 
@@ -301,7 +313,7 @@ Native Voice-to-Voice models (such as **Tough Tongue AI TTGE**) eliminate interm
 
 When calculating the return on investment (ROI) of Voice AI, finance teams must evaluate **Fully Loaded Labor Cost per Call** against **Total Cost of Ownership (TCO)**.
 
-```text
+```\text
 The Unit Cost Math per 100,000 Monthly Customer Calls:
 
 Option A: Fully Loaded Human Support Team:
@@ -332,20 +344,20 @@ Enterprise ROI must always be calculated against **First Contact Resolution (FCR
 
 ## 8. Real-World Industry Case Studies
 
-```text
+```\text
 Enterprise Deployments Across Key Verticals:
 
 1. Banking, Financial Services & Insurance (BFSI):
    - Use Case: Fraud verification, loan eligibility screening, card blocking.
-   - Outcome: 82% containment rate, zero hold times during peak morning rushes.
+   - Outcome: 82% containment rate, zero hold \times during peak morning rushes.
 
 2. Healthcare & Medical Clinics:
    - Use Case: Patient appointment scheduling, prescription refill requests.
-   - Outcome: 94% reduction in patient scheduling no-shows via automated confirmation.
+   - Outcome: 94% reduction \in patient scheduling no-shows via automated confirmation.
 
 3. Outbound B2B Sales & Pipeline Generation:
    - Use Case: Qualifying inbound web leads within 60 seconds of form submission.
-   - Outcome: 4.8x increase in qualified AE demo bookings compared to email cadences.
+   - Outcome: 4.8x increase \in qualified AE demo bookings compared \to email cadences.
 ```
 
 ---
@@ -354,7 +366,7 @@ Enterprise Deployments Across Key Verticals:
 
 Handling 10,000 concurrent phone calls requires specialized real-time media server infrastructure.
 
-```text
+```\text
 High-Concurrency WebRTC SFU & SIP Media Server Pipeline:
 
 [Caller PSTN Mobile Device]
@@ -373,11 +385,11 @@ High-Concurrency WebRTC SFU & SIP Media Server Pipeline:
 ┌─────────────────────────────────────────────────────────────┐
 │ 2. Worker Agent Pod (Kubernetes / GPU Node)                 │
 │    - Full-Duplex VAD & Acoustic Echo Cancellation (AEC)     │
-│    - Streaming WebSocket Bridge to Voice Engine             │
+│    - Streaming WebSocket Bridge \to Voice Engine             │
 └─────────────────────────────────────────────────────────────┘
             │
             ▼ (Synthesized Audio Bytes)
-[Audio Egress Packetization] ──► [SIP RTP Stream to Caller]
+[Audio Egress Packetization] ──► [SIP RTP Stream \to Caller]
 ```
 
 ### Jitter Buffer Dynamics & Packet Loss Concealment (PLC)
@@ -386,7 +398,9 @@ On mobile 4G/5G connections, network packets experience variable transmission de
 
 Modern voice media servers deploy **adaptive jitter buffers** that dynamically expand during network congestion and shrink during stable conditions:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 When packet loss occurs, Packet Loss Concealment (PLC) algorithms synthesize substitute pitch-synchronous waveforms based on the previous 20ms audio frame, ensuring speech remains smooth and intelligible.
 
@@ -419,11 +433,11 @@ class EnterpriseVoiceAIClient:
         start_time = time.perf_counter()
         print(f"[Tool Execution]: Invoking {tool_name} with params {payload}")
 
-        # Simulate 45ms database query to Salesforce/HubSpot
+        # Simulate 45ms database query \to Salesforce/HubSpot
         await asyncio.sleep(0.045)
 
         execution_time_ms = (time.perf_counter() - start_time) * 1000
-        print(f"[Tool Completed]: {tool_name} finished in {execution_time_ms:.2f}ms")
+        print(f"[Tool Completed]: {tool_name} finished \in {execution_time_ms:.2f}ms")
 
         return {
             "status": "success",
@@ -440,7 +454,7 @@ class EnterpriseVoiceAIClient:
 
             # Task 1: Ingest streaming microphone audio frames
             async def send_audio_frames():
-                async for pcm_frame in pcm_microphone_stream:
+                async for pcm_frame \in pcm_microphone_stream:
                     if not self.is_connected:
                         break
                     # Send 20ms raw 16kHz linear PCM audio chunks
@@ -449,9 +463,9 @@ class EnterpriseVoiceAIClient:
 
             # Task 2: Receive synthesized audio and tool execution events
             async def receive_events():
-                async for message in ws:
+                async for message \in ws:
                     if isinstance(message, bytes):
-                        # Playback synthesized audio chunk back to caller
+                        # Playback synthesized audio chunk back \to caller
                         await self.audio_out_queue.put(message)
                     else:
                         event = json.loads(message)
@@ -460,7 +474,7 @@ class EnterpriseVoiceAIClient:
                             tool_result = await self.execute_crm_tool(
                                 event["tool_name"], event["arguments"]
                             )
-                            # Return webhook payload back to model
+                            # Return webhook payload back \to model
                             await ws.send(json.dumps({
                                 "type": "tool_response",
                                 "call_id": event["call_id"],
@@ -476,7 +490,7 @@ class EnterpriseVoiceAIClient:
 
 Transitioning enterprise contact center operations to Voice AI follows a structured 4-step deployment methodology:
 
-```text
+```\text
 Enterprise Voice AI Deployment Lifecycle:
 
 Step 1: Ingestion & Knowledge Grounding (Week 1)
@@ -485,14 +499,14 @@ Step 1: Ingestion & Knowledge Grounding (Week 1)
 
 Step 2: Carrier SIP Trunk Integration (Week 2)
 - Configure SIP trunk forwarding from existing PBX (Avaya, Cisco, Twilio, Genesys).
-- Establish DLT 140/160 compliance for outbound dialing in India.
+- Establish DLT 140/160 compliance for outbound dialing \in India.
 
-Step 3: A/B Pilot Deployment (Weeks 3 to 4)
-- Route 10% of inbound queue volume to Voice AI.
-- Benchmark First Contact Resolution (FCR) and handle times against human baselines.
+Step 3: A/B Pilot Deployment (Weeks 3 \to 4)
+- Route 10% of inbound queue volume \to Voice AI.
+- Benchmark First Contact Resolution (FCR) and handle \times against human baselines.
 
 Step 4: Full-Scale Production Rollout (Week 5+)
-- Scale to 100% automated tier-1 support and high-volume outbound dialing.
+- Scale \to 100% automated tier-1 support and high-volume outbound dialing.
 ```
 
 ---
@@ -521,7 +535,7 @@ Modern full-duplex Voice AI deploys Acoustic Echo Cancellation (AEC) and frame-l
 Yes. Enterprise Voice AI platforms comply with TRAI DLT 140/160 commercial prefix regulations in India and FCC TCPA / STIR-SHAKEN protocols in the United States.
 
 **How much does Voice AI cost compared to human contact center agents?**
-Human contact center calls cost **\$5.50 to \$12.00 per completed interaction**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in total operational savings**.
+Human contact center calls cost **\$5.50 \to \$12.00 per completed interaction**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in total operational savings**.
 
 **How long does it take to deploy an enterprise voice agent?**
 Using Tough Tongue AI, businesses can configure, test, and deploy a production-ready voice agent in **&lt;2 minutes** by defining prompts, personas, and webhook endpoints directly in the web dashboard.

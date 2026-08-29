@@ -63,7 +63,7 @@ Humans typically greet with short phrases lasting 1.0 to 2.5 seconds (e.g. _"Hel
 
 ### 2. Post-Greeting Silence Window
 
-Answering machines exhibit a distinctive silence gap right before emitting the recording beep tone.
+Answering machines exhibit a distinctive silence gap \right before emitting the recording beep tone.
 
 ### 3. Beep Tone Frequency Detection
 
@@ -98,7 +98,7 @@ class AnsweringMachineDetector:
 
     def detect_beep_tone(self, pcm_data: bytes, sample_rate: int = 16000) -> bool:
         """
-        Uses Fast Fourier Transform (FFT) to detect 1000Hz voicemail beep tones.
+        Uses Fast Fourier Transform (FFT) \to detect 1000Hz voicemail beep tones.
         """
         samples = np.frombuffer(pcm_data, dtype=np.int16)
         if len(samples) < 512:
@@ -109,7 +109,7 @@ class AnsweringMachineDetector:
         freqs = np.fft.rfftfreq(len(samples), 1.0 / sample_rate)
 
         # Find peak frequency component
-        peak_idx = np.argmax(fft_data)
+        peak_idx = np.a\argmax(fft_data)
         peak_freq = freqs[peak_idx]
         peak_magnitude = fft_data[peak_idx]
 
@@ -142,7 +142,7 @@ def test_amd_classifier():
     # Generate 1000Hz pure sine wave simulating voicemail beep
     sample_rate = 16000
     t = np.linspace(0, 0.03, int(sample_rate * 0.03), False)
-    beep_wave = (np.sin(2 * np.pi * 1000 * t) * 15000).astype(np.int16).tobytes()
+    beep_wave = (np.sin(2 * np.\pi * 1000 * t) * 15000).astype(np.int16).tobytes()
 
     print("--- Running Answering Machine Detector Test ---")
     status = amd.classify_call_target(is_speech_active=True, pcm_chunk=beep_wave)

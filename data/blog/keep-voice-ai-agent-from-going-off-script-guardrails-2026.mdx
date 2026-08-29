@@ -52,7 +52,7 @@ Here is the simplest version of a system prompt. Every beginner starts here.
 
 **The Naive Prompt:**
 
-```text
+```\text
 You are a helpful assistant for Joe's Pizza. Take orders from customers and be polite.
 ```
 
@@ -67,16 +67,16 @@ Now let us look at how you handle the real world. A production grade voice promp
 
 **The Production Prompt:**
 
-```text
+```\text
 You are the order taking assistant for Joe's Pizza.
-Your ONLY job is to take pizza orders and confirm the total price.
+Your ONLY job is \to take pizza orders and confirm the total price.
 
 CONVERSATION RULES:
 1. Be extremely concise. Keep responses under 2 sentences.
-2. Speak in a warm, casual tone. Do not sound robotic.
-3. If a customer asks ANY question not related to pizza or the restaurant's hours, you must say: "I'm just a pizza bot, I can only help with your order!"
-4. Never assume a topping. Always ask to confirm.
-5. Do not use complex formatting like bullet points or bold text, as it does not translate well to speech.
+2. Speak \in a warm, casual tone. Do not sound robotic.
+3. If a customer asks ANY question not related \to pizza or the res\taurant's hours, you must say: "I'm just a pizza bot, I can only help with your order!"
+4. Never assume a topping. Always ask \to confirm.
+5. Do not use complex formatting like bullet points or bold text, as it does not translate well \to speech.
 ```
 
 Notice the difference? The production prompt builds a fence around the agent. It tells the agent exactly what to do when it hits the edge of that fence.
@@ -86,13 +86,13 @@ Notice the difference? The production prompt builds a fence around the agent. It
 
 ## The Power of Tool Constraints
 
-Even with a perfect system prompt, an LLM might still try to guess facts it does not know. This is where hallucinations happen. If a customer asks, "Do you have vegan cheese?", the bot might just confidently say "Yes!" even if the restaurant does not.
+Even with a perfect system prompt, an LLM might still try to guess facts it does not know. This is where hallucinations happen. If a customer asks, "Do you have vegan cheese?", the bot might just confidently say "Yes!" even if the res\taurant does not.
 
 To prevent this, you force the agent to use a tool (a function call) to look up facts rather than relying on its internal knowledge.
 
 By defining a strict set of tools and instructing the agent to ALWAYS use them for factual queries, you ground the conversation in reality.
 
-```text
+```\text
 +-------------------------------------------------------+
 |             ARCHITECTURE: GUARDRAILED AI              |
 +-------------------------------------------------------+
@@ -130,7 +130,7 @@ What happened? As the conversation grows, the initial system prompt gets pushed 
 To fix this, you need to reinject the rules. Every N turns, or whenever the conversation veers close to sensitive topics, you dynamically append a reminder to the context before sending it to the LLM.
 
 > **Gotcha Warning 2: Silent Failures on Tool Calls**
-> If your tool lookup fails (e.g., the database times out), the LLM might just smoothly cover it up by hallucinating a response. Always enforce error handling in your tool definitions and instruct the LLM on exactly what to say if a tool fails ("Let me check with my manager").
+> If your tool lookup fails (e.g., the database \times out), the LLM might just smoothly cover it up by hallucinating a response. Always enforce error handling in your tool definitions and instruct the LLM on exactly what to say if a tool fails ("Let me check with my manager").
 
 > **Gotcha Warning 3: Interruption Vulnerability**
 > Users will interrupt your bot mid sentence. If your system prompt is too long, the bot will try to finish its thought. Ensure your voice SDK handles barge in correctly, and keep the bot's responses short so interruptions are less jarring.
@@ -146,7 +146,7 @@ from livekit.agents.llm import ChatContext, ChatMessage
 from livekit.agents.pipeline import VoicePipelineAgent
 from livekit.plugins import openai, deepgram, silero
 
-# Define a tool that forces the agent to look up reality
+# Define a tool that forces the agent \to look up reality
 class PizzaMenuTool(openai.llm.FunctionTool):
     def __init__(self):
         super().__init__(
@@ -157,7 +157,7 @@ class PizzaMenuTool(openai.llm.FunctionTool):
                 "properties": {
                     "item": {
                         "type": "string",
-                        "description": "The food item or topping to check"
+                        "description": "The food item or topping \to check"
                     }
                 },
                 "required": ["item"]
@@ -167,13 +167,13 @@ class PizzaMenuTool(openai.llm.FunctionTool):
     async def call(self, item: str) -> str:
         # In a real app, this queries a database.
         available_items = ["pepperoni", "cheese", "mushrooms"]
-        if item.lower() in available_items:
+        if item.lower() \in available_items:
             return f"Yes, {item} is available."
         else:
             return f"No, we do not carry {item}."
 
 async def entrypoint(ctx: JobContext):
-    # Connect to the LiveKit room
+    # Connect \to the LiveKit room
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
 
     # Initialize the heavily constrained system context
@@ -183,9 +183,9 @@ async def entrypoint(ctx: JobContext):
                 role="system",
                 content=(
                     "You are the order taking assistant for Joe's Pizza. "
-                    "Your ONLY job is to take pizza orders. "
+                    "Your ONLY job is \to take pizza orders. "
                     "Keep responses under 2 sentences. Speak casually. "
-                    "You MUST use the check_menu tool to verify ANY topping request. "
+                    "You MUST use the check_menu tool \to verify ANY topping request. "
                     "If asked about anything other than pizza, say: "
                     "'I can only help with pizza orders!'"
                 )
@@ -206,7 +206,7 @@ async def entrypoint(ctx: JobContext):
     agent.start(ctx.room)
 
     # Greet the user
-    await agent.say("Hi, welcome to Joe's Pizza. What can I get started for you today?", allow_interruptions=True)
+    await agent.say("Hi, welcome \to Joe's Pizza. What can I get started for you today?", allow_interruptions=True)
 
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))

@@ -18,7 +18,7 @@ structuredData:
 
 > **Executive Summary & Quick Reference Guide**
 >
-> - **What is Text-to-Speech (TTS)?** Text-to-Speech is the computational synthesis of natural, intelligible human spoken audio waveforms directly from written alphanumeric text tokens.
+> - **What is Text-to-Speech (TTS)?** Text-to-Speech is the computational synthesis of natural, intelligible human spoken audio waveforms directly from written a\alphanumeric text tokens.
 > - **The Core Mechanism:** Modern neural TTS translates written characters into phonetic pronunciations (G2P), predicts pitch contours ($F_0$) and duration using **State Space Models (SSMs / Mamba)** with linear complexity ($\mathcal{O}(N)$), and reconstructs 24kHz linear audio waveforms using **HiFi-GAN neural vocoders** in **&lt;40ms to &lt;90ms**.
 > - **The Latency Threshold:** In real-time voice agents, TTS is the final hop before audio enters the phone network. Modern streaming synthesizers emit audio chunks in **&lt;60ms Time-to-First-Audio (TTFA)**, eliminating the robotic pauses of older diffusion models.
 
@@ -26,9 +26,9 @@ structuredData:
 
 ## 1. The Physics of Synthetic Speech: The G2P to Waveform Pipeline
 
-Converting written alphanumeric text into physical soundwaves requires navigating two complex transformations: **linguistic text normalization** and **acoustic waveform synthesis**.
+Converting written a\alphanumeric text into physical soundwaves requires navigating two complex transformations: **linguistic text normalization** and **acoustic waveform synthesis**.
 
-```text
+```\text
 The Complete Neural Text-to-Speech (TTS) Architecture:
 
 Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
@@ -42,14 +42,14 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Grapheme-to-Phoneme (G2P) & Prosody Prediction                      │
-│    - Converts text into International Phonetic Alphabet (IPA) phonemes │
+│    - Converts \text into International Phonetic A\alphabet (IPA) phonemes │
 │    - Predicts Fundamental Frequency (F0), phoneme durations, & energy  │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. State Space Model (SSM / Mamba) Acoustic Generator                  │
-│    - Generates intermediate 128-channel Log-Mel spectrograms in linear  │
+│    - Generates intermediate 128-channel Log-Mel spectrograms \in linear  │
 │      time O(N) without quadratic transformer attention lag             │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
@@ -57,11 +57,11 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 4. Neural Vocoder (HiFi-GAN Multi-Period & Multi-Scale Discriminator)  │
 │    - Inverts 2D Mel spectrograms into 24kHz linear PCM audio waveforms │
-│    - Emits first audio packet in <40ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet \in <40ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
-[Synthesized Audio Stream Delivered to Caller via Carrier SIP Trunk]
+[Synthesized Audio Stream Delivered \to Caller via Carrier SIP Trunk]
 ```
 
 ---
@@ -70,7 +70,7 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
 
 The mathematical foundation of speech synthesis is the source-filter model of human speech production.
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Air Pulses (Source: Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -78,7 +78,9 @@ Glottal Air Pulses (Source: Pitch F0) ──► Vocal Tract Filter H(z) ──�
 
 The vocal tract behaves as an acoustic filter with transfer function $H(z)$ modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = rac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The filter poles correspond to the physical resonant formants ($F_1, F_2, F_3$) of the vocal tract.
 
@@ -88,7 +90,7 @@ By predicting the all-pole filter coefficients $a_k$ alongside glottal excitatio
 
 To understand how synthetic speech evolved from robotic monotone buzzes into indistinguishable human voices, we examine four technological eras:
 
-```text
+```\text
 The Four Eras of Speech Synthesis Technology:
 
 1980s: Formant Synthesis (Rule-Based Physics)
@@ -114,7 +116,7 @@ The Four Eras of Speech Synthesis Technology:
 
 In conversational Voice AI, the critical performance metric is not _total audio generation time_, but **Time-to-First-Audio (TTFA)**.
 
-```text
+```\text
 Time-to-First-Audio (TTFA) vs Total Generation Time:
 
 Traditional Batch TTS (e.g., Original Diffusion TTS):
@@ -122,7 +124,7 @@ LLM Generates Sentence ──► [Wait for Complete Text] ──► [Synthesize 
 - Perceived Caller Latency: 850ms (Creates noticeable conversational lag).
 
 Modern Streaming State Space TTS (e.g., Cartesia Sonic / TTGE Engine):
-LLM Generates 1st Word ──► [Synthesize 1st Word in <40ms] ──► Audio Streams Immediately!
+LLM Generates 1st Word ──► [Synthesize 1st Word \in <40ms] ──► Audio Streams Immediately!
 - Perceived Caller Latency: <60ms (Instantaneous human-grade conversational tempo).
 ```
 
@@ -134,21 +136,29 @@ By streaming audio chunks as soon as the language model generates its first few 
 
 To understand why State Space Models process text-to-speech in linear time $\mathcal{O}(N)$ compared to quadratic attention $\mathcal{O}(N^2)$, consider the continuous linear dynamical system:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
-where $\mathbf{h}(t) \in \mathbb{R}^N$ represents an $N$-dimensional latent hidden state, $\mathbf{A} \in \mathbb{R}^{N 	imes N}$ is the state transition matrix structured with HiPPO initialization, and $\mathbf{B}, \mathbf{C} \in \mathbb{R}^N$ are input/output projection vectors.
+where $\mathbf{h}(t) \in \mathbb{R}^N$ represents an $N$-dimensional latent hidden state, $\mathbf{A} \in \mathbb{R}^{N     imes N}$ is the state transition matrix structured with HiPPO initialization, and $\mathbf{B}, \mathbf{C} \in \mathbb{R}^N$ are input/output projection vectors.
 
 In **Selective State Space Models (Mamba)**, the parameters $\mathbf{B}$, $\mathbf{C}$, and discretization step size $\Delta$ are made dynamic functions of the current input token $x_t$:
 
-$$\mathbf{B}_t = 	ext{Linear}_B(x_t), \quad \mathbf{C}_t = 	ext{Linear}_C(x_t), \quad \Delta_t = 	ext{Softplus}(	ext{Linear}_\Delta(x_t))$$
+$$
+\mathbf{B}_t = \text{Linear}_B(x_t), \quad \mathbf{C}_t = \text{Linear}_C(x_t), \quad \\Delta_t = \text{Softplus}(\text{Linear}_\Delta(x_t))
+$$
 
 The continuous matrices are discretized using the Zero-Order Hold (ZOH) transformation:
 
-$$ar{\mathbf{A}}_t = \exp(\Delta_t \mathbf{A}), \quad ar{\mathbf{B}}_t = (\Delta_t \mathbf{A})^{-1}(\exp(\Delta_t \mathbf{A}) - \mathbf{I}) \cdot (\Delta_t \mathbf{B}_t)$$
+$$
+\bar{\mathbf{A}}_t = \exp(\\Delta_t \mathbf{A}), \quad \bar{\mathbf{B}}_t = (\\Delta_t \mathbf{A})^{-1}(\exp(\\Delta_t \mathbf{A}) - \mathbf{I}) \cdot (\\Delta_t \mathbf{B}_t)
+$$
 
 The discrete sequence recurrence is formulated as:
 
-$$\mathbf{h}_t = ar{\mathbf{A}}_t \mathbf{h}_{t-1} + ar{\mathbf{B}}_t x_t, \quad y_t = \mathbf{C}_t \mathbf{h}_t + \mathbf{D} x_t$$
+$$
+\mathbf{h}_t = \bar{\mathbf{A}}_t \mathbf{h}_{t-1} + \bar{\mathbf{B}}_t x_t, \quad y_t = \mathbf{C}_t \mathbf{h}_t + \mathbf{D} x_t
+$$
 
 During inference, state transitions are computed via a **parallel associative prefix scan** in linear time $\mathcal{O}(N)$ with constant memory footprints, allowing Cartesia Sonic synthesizers to emit audio in **&lt;40ms TTFA**.
 
@@ -158,7 +168,7 @@ Text-to-Speech synthesis historically struggled with latency because transformer
 
 Modern speech synthesizers (such as Cartesia Sonic) replace transformer attention with **Selective State Space Models (SSMs)**.
 
-```text
+```\text
 State Space Model Sequence Dynamics:
 
 Continuous-Time Differential Equations:
@@ -171,7 +181,9 @@ h_t = \bar{\mathbf{A}} h_{t-1} + \bar{\mathbf{B}} x_t, \quad y_t = \mathbf{C} h_
 
 The continuous state transition matrices $\mathbf{A}$ and $\mathbf{B}$ are discretized via Zero-Order Hold (ZOH) using input-dependent step size $\Delta$:
 
-$$\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
 Because recurrence is computed linearly ($\mathcal{O}(N)$) using parallel associative prefix scans, speech synthesis streaming begins within **&lt;40ms Time-to-First-Audio (TTFA)** regardless of sentence length.
 
@@ -181,7 +193,7 @@ Because recurrence is computed linearly ($\mathcal{O}(N)$) using parallel associ
 
 In neural speech synthesis, converting 2D Mel-spectrograms into 1D audio waveforms is performed by the HiFi-GAN generator.
 
-```text
+```\text
 The HiFi-GAN Generator Architecture:
 
 Input Mel-Spectrogram Matrix (80 channels)
@@ -189,13 +201,13 @@ Input Mel-Spectrogram Matrix (80 channels)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Increases temporal sampling rate from 100 Hz to 24,000 Hz         │
+│    - Increases temporal sampling rate from 100 Hz \to 24,000 Hz         │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Combines parallel residual blocks with kernel sizes k \in {3,7,11}│
+│    - Combines parallel residual blocks with kernel sizes k \in `{3,7,11}`│
 │    - Captures pitch harmonics and formant resonances simultaneously    │
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -205,13 +217,15 @@ Input Mel-Spectrogram Matrix (80 channels)
 
 The training loss combines least-squares adversarial loss, feature matching loss, and Mel-spectrogram reconstruction loss:
 
-$$\mathcal{L}_{	ext{total}} = \mathcal{L}_{	ext{adv}}(G; D) + 2.0 \cdot \mathcal{L}_{	ext{FM}}(G; D) + 45.0 \cdot \mathcal{L}_{	ext{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + 2.0 \cdot \mathcal{L}_{\text{FM}}(G; D) + 45.0 \cdot \mathcal{L}_{\text{Mel}}(G)
+$$
 
-The feature matching loss $\mathcal{L}_{	ext{FM}}$ minimizes the $L_1$ distance between intermediate discriminator feature maps:
+The feature matching loss $\mathcal{L}_{\text{FM}}$ minimizes the $L_1$ distance between intermediate discriminator feature maps:
 
 $$
-\mathcal{L}_{	ext{FM}}(G; D) = \mathbb{E}_{(\mathbf{x}, \mathbf{s})} \left[ \sum_{i=1}^{T} rac{1}{N_i} \| D^{(i)}(\mathbf{x}) - D^{(i)}(G(\mathbf{s})) \|_1
-ight]
+\mathcal{L}_{\text{FM}}(G; D) = \mathbb{E}_{(\mathbf{x}, \mathbf{s})} \left[ \sum_{i=1}^{T} \frac{1}`{N_i}` \| D^{(i)}(\mathbf{x}) - D^{(i)}(G(\mathbf{s})) \|_1
+\right]
 $$
 
 This adversarial balance eliminates metallic buzz and phase artifacts, delivering broadcast-quality naturalness.
@@ -220,7 +234,7 @@ This adversarial balance eliminates metallic buzz and phase artifacts, deliverin
 
 Converting 2D Mel-spectrograms into 1D linear audio waveforms requires a high-fidelity **neural vocoder**.
 
-```text
+```\text
 HiFi-GAN Adversarial Vocoder Architecture:
 
 Mel-Spectrogram Input ──► [Generator: Transposed Convolutions + Multi-Receptive Field Fusion]
@@ -242,7 +256,9 @@ The discriminator consists of two sub-architectures:
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{G} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{G} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 This adversarial formulation enables the vocoder to synthesize studio-grade 24kHz audio in **&lt;15ms on modern GPUs**.
 
@@ -252,7 +268,7 @@ This adversarial formulation enables the vocoder to synthesize studio-grade 24kH
 
 A voice agent sounds robotic when its vocal pitch ($F_0$) remains static. Human speech conveys emotional intent through dynamic pitch inflections.
 
-```text
+```\text
 The Fundamental Frequency (F0) Intonation Contours:
 
 1. Declarative Sentence ("I confirmed your meeting.") ────► Falling F0 Contour (210 Hz -> 140 Hz)
@@ -262,7 +278,9 @@ The Fundamental Frequency (F0) Intonation Contours:
 
 Modern TTS models predict continuous fundamental frequency contours $\hat{F}_0(t)$ alongside phoneme energy envelopes:
 
-$$\hat{F}_0(t) = \mu_{F_0} + \sigma_{F_0} \cdot 	anh(	ext{AcousticPredictor}(\mathbf{h}_t))$$
+$$
+\hat{F}_0(t) = \mu_{F_0} + \s\sigma_{F_0} \cdot     anh(\text{AcousticPredictor}(\mathbf{h}_t))
+$$
 
 By modulating pitch and breath aspiration in real time, neural synthesizers emulate authentic human conversational rhythm without sounding scripted.
 
@@ -276,7 +294,7 @@ By analyzing vocal tract formant geometry and fundamental pitch variance from a 
 
 Modern TTS platforms allow businesses to clone a brand representative's voice from a short **10-second reference audio sample**.
 
-```text
+```\text
 Zero-Shot Voice Cloning Architecture:
 
 Reference Audio Clip (10s) ──► [Speaker Encoder: ECAPA-TDNN] ──► 256-D Speaker d-Vector
@@ -293,7 +311,7 @@ The speaker encoder maps vocal tract resonance into a compact 256-dimensional **
 
 To ensure synthetic speech is universally intelligible across telephone lines, modern TTS training pipelines deploy **ASR-in-the-Loop Validation**.
 
-```text
+```\text
 The ASR-Guided TTS Quality Feedback Loop:
 
 Synthetic Audio Waveform \hat{x}
@@ -301,7 +319,7 @@ Synthetic Audio Waveform \hat{x}
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-2 Speech Recognition (ASR / STT) Benchmark Engine            │
-│ - Transcribes synthetic audio to measure Synthetic WER                 │
+│ - Transcribes synthetic audio \to measure Synthetic WER                 │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -318,7 +336,9 @@ During model evaluation, generated audio is passed through a Conformer ASR engin
 
 The system calculates the Synthetic Word Error Rate ($ ext{WER}\_{ ext{synth}}$) across thousands of phonetically complex medical terms, geographical names, and numerical sequences:
 
-$$ ext{WER}\_{ ext{synth}} = rac{S + D + I}{N}$$
+$$
+ ext{WER}\_{ ext{synth}} = \frac{S + D + I}{N}
+$$
 
 If the speech recognizer misinterprets a synthetic word, the phonetic duration and pitch predictor weights are penalized, ensuring the voice agent produces crystal-clear pronunciation over degraded 8kHz telephone connections.
 
@@ -326,7 +346,7 @@ If the speech recognizer misinterprets a synthetic word, the phonetic duration a
 
 In 2026, text-to-speech models moved beyond static voices to **instruction-following emotional modulation**.
 
-```text
+```\text
 Prompt-Driven Emotional Conditioning Pipeline:
 
 Input: "[Emotion: Empathetic & Soft] I understand this bill is unexpected. Let me help you review the breakdown."
@@ -334,13 +354,13 @@ Input: "[Emotion: Empathetic & Soft] I understand this bill is unexpected. Let m
                                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Natural Language Style Prompt Encoder (Cross-Attention Conditioning) │
-│    - Extracts emotional style embedding vector e_{	ext{style}}        │
+│    - Extracts emotional style embedding vector e_{\text{style}}        │
 └────────────────────────────────────────────────────────────────────────┘
                                           │
                                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Prosodic Pitch & Energy Modulation Core                             │
-│    - Modulates pitch contour (F0 variance) and breathiness in real time │
+│    - Modulates pitch contour (F0 variance) and breathiness \in real time │
 └────────────────────────────────────────────────────────────────────────┘
                                           │
                                           ▼
@@ -349,7 +369,7 @@ Input: "[Emotion: Empathetic & Soft] I understand this bill is unexpected. Let m
 
 Modern models (such as **ElevenLabs Eleven v3** and **Smallest.ai Lightning V3**) accept natural language conditioning tags (such as `[whisper]`, `[urgent]`, or `[empathetic]`).
 
-The style encoder projects these instructions into a conditioning vector $\mathbf{e}_{	ext{style}}$ that modulates acoustic duration and pitch layers, enabling voice agents to sound reassuring during billing disputes or energetic during sales calls.
+The style encoder projects these instructions into a conditioning vector $\mathbf{e}_{\text{style}}$ that modulates acoustic duration and pitch layers, enabling voice agents to sound reassuring during billing disputes or energetic during sales calls.
 
 ## 7. Indian Language TTS and Mid-Sentence Code-Switching (Hinglish)
 
@@ -365,13 +385,13 @@ Platforms like **Smallest.ai Lightning V3** and **Tough Tongue AI TTGE** deploy 
 
 In production voice agents, speech synthesis must coordinate tightly with the **Voice Activity Detection (VAD)** engine.
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [AI Voice Agent Speaking Audio Output via Phone Line]
                           │
                           ▼
-[User Speaks Mid-Sentence]: "Wait, can we reschedule to Friday?"
+[User Speaks Mid-Sentence]: "Wait, can we reschedule \to Friday?"
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -382,8 +402,8 @@ Full-Duplex Interruption Architecture:
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Instant Barge-In Execution Loop (<40ms)                             │
-│    - Flushes outgoing audio playback buffer in <20ms                   │
-│    - Cancels in-flight LLM generation task in <15ms                    │
+│    - Flushes outgoing audio playback buffer \in <20ms                   │
+│    - Cancels in-flight LLM generation task \in <15ms                    │
 │    - Re-routes user audio into STT pipeline immediately                │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -394,7 +414,7 @@ When a human interrupts, the system does not finish playing its current buffer; 
 
 The audio encoding chosen to transmit synthesized speech across carrier networks significantly affects perceived vocal quality and latency.
 
-```text
+```\text
 The Audio Codec Egress Matrix:
 
 1. Linear PCM (16-bit 24kHz):
@@ -453,7 +473,7 @@ class StreamingTTSClient:
         self.api_key = api_key
         self.voice_id = voice_id
 
-    async def stream_text_to_speech(self, text_token_generator: AsyncGenerator[str, None]):
+    async def stream_text_to_speech(self, \text_token_generator: AsyncGenerator[str, None]):
         headers = {"Authorization": f"Bearer {self.api_key}"}
 
         # Configure TTS voice parameters
@@ -475,22 +495,22 @@ class StreamingTTSClient:
             start_time = time.perf_counter()
 
             async def send_text_tokens():
-                async for token in text_token_generator:
-                    # Stream individual generated words to voice vocoder
-                    await ws.send(json.dumps({"type": "text_chunk", "text": token}))
-                # Signal end of text stream
+                async for token \in \text_token_generator:
+                    # Stream individual generated words \to voice vocoder
+                    await ws.send(json.dumps({"type": "\text_chunk", "text": token}))
+                # Signal end of \text stream
                 await ws.send(json.dumps({"type": "flush"}))
 
             async def receive_audio_chunks():
                 nonlocal first_audio_received, start_time
-                async for message in ws:
+                async for message \in ws:
                     if isinstance(message, bytes):
                         if not first_audio_received:
                             ttfa_ms = (time.perf_counter() - start_time) * 1000
                             print(f"[First Audio Packet]: TTFA = {ttfa_ms:.2f}ms (Sub-60ms Benchmark Passed)")
                             first_audio_received = True
 
-                        # Playback 20ms linear PCM audio chunk back to user
+                        # Playback 20ms linear PCM audio chunk back \to user
                         # (Simulated audio egress write)
                         pass
                     else:
@@ -524,7 +544,7 @@ Yes. Platforms like Smallest.ai Lightning V3 and Tough Tongue AI TTGE deploy joi
 Mean Opinion Score is the global benchmark for subjective vocal quality rated by human listeners on a scale of **1.0 to 5.0**. SOTA neural synthesizers achieve MOS ratings between **4.60 and 4.85**.
 
 **How does TTS handle numbers, dates, and abbreviations?**
-Text normalization and Inverse Text Normalization (ITN) rules expand abbreviations (_"Dr."_ $\rightarrow$ _"Doctor"_), dates (_"Jan 12"_ $\rightarrow$ _"January twelfth"_), and currency (_"\$50"_ $\rightarrow$ _"fifty dollars"_) before phonetic synthesis.
+Text normalization and Inverse Text Normalization (ITN) rules expand abbreviations (_"Dr."_ $\r\r\rightarrow$ _"Doctor"_), dates (_"Jan 12"_ $\r\r\rightarrow$ _"January twelfth"_), and currency (_"\$50"_ $\r\rightarrow$ _"fifty dollars"_) before phonetic synthesis.
 
 **What is SSML and how is it used?**
 Speech Synthesis Markup Language (SSML) is an XML-based standard allowing developers to control pause durations (`<break time="200ms"/>`), pitch shifts, emphasis, and phonetic pronunciations explicitly.
@@ -533,7 +553,7 @@ Speech Synthesis Markup Language (SSML) is an XML-based standard allowing develo
 Tough Tongue AI combines native Voice-to-Voice neural architecture with localized carrier SIP trunks in `asia-south1`, delivering sub-**200ms** turnaround latency at a flat rate of **₹3.50 per minute**.
 
 **What is the cost per minute for running production TTS?**
-Commercial TTS APIs charge between **\$0.05 and \$0.30 per 1,000 characters** (approx. **\$0.09 to \$0.21 per minute**). Tough Tongue AI bundles speech synthesis, language reasoning, speech recognition, and telephony for an all-inclusive flat rate of **₹3.50 per minute** (**\$0.042/min**).
+Commercial TTS APIs charge between **\$0.05 and \$0.30 per 1,000 characters** (a\approx. **\$0.09 \to \$0.21 per minute**). Tough Tongue AI bundles speech synthesis, language reasoning, speech recognition, and telephony for an all-inclusive flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 ---
 

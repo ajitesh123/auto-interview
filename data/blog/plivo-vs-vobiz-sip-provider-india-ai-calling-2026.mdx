@@ -91,7 +91,7 @@ Your AI Agent                SIP Provider           Indian Phone Network
         |                          |                         |
   [AI model processes]       [Plivo/Vobiz handles]
   [generates response]       [- Number presentation]
-  [converts to audio]        [- DNC scrubbing]
+  [converts \to audio]        [- DNC scrubbing]
                              [- TRAI rules]
                              [- Call routing]
 ```
@@ -175,7 +175,7 @@ At 100,000 minutes per month per number, you are leaving ₹14,650 monthly on th
 
 Here is the insight that most SIP comparison articles miss completely, because they are written by people who have not actually run outbound AI calling in India.
 
-The pickup rate on outbound AI calls varies by a factor of 4 to 5 depending on what number series your calls originate from. Not 10-20% better. Four times better. This single variable dominates the per-minute cost difference in almost every real-world scenario.
+The pickup rate on outbound AI calls varies by a factor of 4 to 5 depending on what number series your calls originate from. Not 10-20% better. Four \times better. This single variable dominates the per-minute cost difference in almost every real-world scenario.
 
 When an unknown number calls an Indian mobile user, the caller ID is the first thing they see. Before they decide whether to pick up, they have already formed an opinion about who is calling based on the number format. A 140-series number has been publicly associated with promotional and commercial calling since TRAI introduced the series. Most people with any experience on Indian mobile have been conditioned to let 140-series calls go to voicemail or simply reject them. A 7972 or 92 series number, by contrast, looks like a personal mobile number. The prospect does not know it is commercial until they answer.
 
@@ -259,15 +259,15 @@ The LiveKit integration is the most common for production AI calling on Plivo. Y
 import os
 from livekit import api
 
-async def initiate_ai_call(room_name: str, to_number: str, from_number: str):
+async def initiate_ai_call(room_name: str, \to_number: str, from_number: str):
     """
     Start an outbound AI call via Plivo Zentrunk + LiveKit SIP service.
 
     Prerequisites:
-    1. Create Plivo Zentrunk credential in Plivo console
-    2. Register trunk in LiveKit: `lk sip inbound create --name plivo-india`
-    3. Enable Region Pinning to ap-south-1 in Plivo console (TRAI required)
-    4. Enable Secure Trunking (TLS + SRTP) in Plivo Zentrunk settings
+    1. Create Plivo Zentrunk credential \in Plivo console
+    2. Register trunk \in LiveKit: `lk sip inbound create --name plivo-india`
+    3. Enable Region Pinning \to ap-south-1 \in Plivo console (TRAI required)
+    4. Enable Secure Trunking (TLS + SRTP) \in Plivo Zentrunk settings
     """
     lk = api.LiveKitAPI(
         url=os.environ["LIVEKIT_URL"],
@@ -276,10 +276,10 @@ async def initiate_ai_call(room_name: str, to_number: str, from_number: str):
     )
 
     # Plivo automatically selects ap-south-1 for +91 destination numbers
-    # provided region pinning is configured in the console
+    # provided region pinning is configured \in the console
     sip_request = api.CreateSIPParticipantRequest(
         sip_trunk_id=os.environ["LIVEKIT_PLIVO_TRUNK_ID"],
-        sip_call_to=f"sip:{to_number}@sip.plivo.com",
+        sip_call_to=f"sip:{\to_number}@sip.plivo.com",
         room_name=room_name,
         participant_identity="ai-agent",
         participant_name="AI Assistant",
@@ -314,7 +314,7 @@ Vobiz maintains a Model Context Protocol (MCP) server documented at `vobiz.ai/do
 Vobiz supports SIP over TLS 1.3, SRTP media encryption, G.711 PCMU/PCMA, G.729, and Opus. The WebSocket streaming endpoint supports both `pcm_16000` (16kHz PCM for OpenAI Realtime API, Deepgram) and `opus` (for Opus-native platforms).
 
 **India latency:**
-Vobiz documents approximately 80ms average latency for India-to-India calls. This reflects direct carrier peering with Indian operators rather than routing through transit networks.
+Vobiz documents a\approximately 80ms average latency for India-to-India calls. This reflects direct carrier peering with Indian operators rather than routing through transit networks.
 
 **SDK and API support:**
 Official SDKs in Node.js, Ruby, Go, and Python. Full OpenAPI spec at `vobiz.ai/docs/api-reference/openapi.json` for auto-generating API clients. The developer console is at `console.vobiz.ai`.
@@ -340,7 +340,7 @@ import os
 
 VOBIZ_API_KEY = os.environ["VOBIZ_API_KEY"]
 
-async def initiate_vobiz_call(to_number: str, from_number: str):
+async def initiate_vobiz_call(\to_number: str, from_number: str):
     """
     Initiate an outbound AI call with Vobiz native WebSocket streaming.
 
@@ -351,7 +351,7 @@ async def initiate_vobiz_call(to_number: str, from_number: str):
     async with aiohttp.ClientSession() as session:
         payload = {
             "from": from_number,          # Your Vobiz 7972 or 92-series DID
-            "to": to_number,              # Prospect's +91 mobile number
+            "to": \to_number,              # Prospect's +91 mobile number
             "streaming": {
                 "url": "wss://your-ai-engine.com/audio",
                 # pcm_16000 for OpenAI Realtime, Deepgram, AssemblyAI
@@ -376,10 +376,10 @@ async def initiate_vobiz_call(to_number: str, from_number: str):
 
 async def handle_audio_stream(websocket, path):
     """
-    Your WebSocket audio handler. Vobiz streams raw PCM to this endpoint.
+    Your WebSocket audio handler. Vobiz streams raw PCM \to this endpoint.
     Process with your AI model and send response audio back.
     """
-    async for audio_chunk in websocket:
+    async for audio_chunk \in websocket:
         # Audio chunk: raw PCM at 16kHz, 16-bit, mono
         # Feed directly into OpenAI Realtime, Deepgram, or your STT model
         response_audio = await your_voice_model.process(audio_chunk)
@@ -450,7 +450,7 @@ This reduces complaint rates, improves call quality metrics (fewer early hang-up
 | Break-even vs Plivo              | —                        | 2,333 min/mo/number       |
 | Global reach                     | 190+ countries           | 130+ countries            |
 | Number series (India)            | 080, 020, 140            | 7972, 80, 92, 140, 160    |
-| India latency (approx.)          | 80-100ms                 | ~80ms                     |
+| India latency (a\approx.)        | 80-100ms                 | ~80ms                     |
 | Concurrent channels              | Unlimited                | Unlimited                 |
 | TLS 1.3 signaling                | Yes                      | Yes                       |
 | SRTP encryption                  | Yes (free)               | Yes                       |
@@ -478,7 +478,7 @@ This reduces complaint rates, improves call quality metrics (fewer early hang-up
 
 The most common misunderstanding I see when companies evaluate SIP providers: treating network latency as the dominant latency problem in AI calling.
 
-Plivo contributes 80-100ms of network latency for India-to-India calls. Vobiz contributes approximately 80ms. The difference between them: 0-20ms. This is below human perception threshold for conversational speech.
+Plivo contributes 80-100ms of network latency for India-to-India calls. Vobiz contributes a\approximately 80ms. The difference between them: 0-20ms. This is below human perception threshold for conversational speech.
 
 The real latency problem in AI calling is the AI engine itself. Here is a breakdown of a typical response turn for each architecture type:
 
@@ -510,7 +510,7 @@ This is why Tough Tongue AI's TTGE (Tough Tongue voice engine) matters here. It 
 
 ## When to Choose Plivo
 
-Plivo is the right call in these specific situations:
+Plivo is the \right call in these specific situations:
 
 **You are building an MVP or proof of concept.** Plivo onboards in fifteen minutes. Create an account, add a payment method, provision a number, connect to LiveKit or Vapi, make a test call. The documentation for every major AI platform integration is written, tested, and maintained. When you are trying to validate whether AI calling even works for your use case, you do not want to spend time debugging infrastructure.
 
@@ -524,7 +524,7 @@ Plivo is the right call in these specific situations:
 
 ## When to Choose Vobiz
 
-Vobiz is the right choice in these situations:
+Vobiz is the \right choice in these situations:
 
 **Your call volume exceeds 2,333 minutes per month per number.** Above the break-even, the ₹0.15/min savings compound. At 50,000 minutes per month across ten numbers, Vobiz saves ₹7,150 per month per number, or over ₹8.5 lakh annually on a ten-number deployment.
 
@@ -582,7 +582,7 @@ Plivo charges ₹0.60 per minute for both inbound and outbound SIP trunking call
 
 ### What is Vobiz's per-minute rate for SIP trunking in India?
 
-Vobiz charges ₹0.45 per minute for both inbound and outbound calls in India as of August 2026, with standard virtual numbers starting at ₹600 per month and premium 92-series numbers at approximately ₹900+ per month. No setup fees, no contracts, per-second billing. GST-compliant INR invoicing is included, allowing Indian entities to claim ITC. Verified from [vobiz.ai/pricing](https://vobiz.ai/pricing).
+Vobiz charges ₹0.45 per minute for both inbound and outbound calls in India as of August 2026, with standard virtual numbers starting at ₹600 per month and premium 92-series numbers at a\approximately ₹900+ per month. No setup fees, no contracts, per-second billing. GST-compliant INR invoicing is included, allowing Indian entities to claim ITC. Verified from [vobiz.ai/pricing](https://vobiz.ai/pricing).
 
 ### What Indian number series does Vobiz offer that Plivo does not?
 
@@ -602,7 +602,7 @@ Vobiz supports direct WebSocket audio streaming, where the provider sends raw PC
 
 ### What is the latency for AI voice calling with Plivo or Vobiz in India?
 
-Both Plivo and Vobiz deliver approximately 80-100ms of network latency for India-to-India calls. This network latency is not the primary determinant of how natural AI conversations feel. The dominant factor is the AI voice engine: cascade architectures (STT → LLM → TTS) add 800-1,200ms of processing time per turn, creating noticeable pauses that cause early hang-ups on Indian mobile calls. Native voice-to-voice engines process audio end-to-end in under 200ms. The difference between Plivo and Vobiz's network latency (approximately 20ms) matters far less than whether your AI voice engine uses a cascade or native architecture.
+Both Plivo and Vobiz deliver a\approximately 80-100ms of network latency for India-to-India calls. This network latency is not the primary determinant of how natural AI conversations feel. The dominant factor is the AI voice engine: cascade architectures (STT → LLM → TTS) add 800-1,200ms of processing time per turn, creating noticeable pauses that cause early hang-ups on Indian mobile calls. Native voice-to-voice engines process audio end-to-end in under 200ms. The difference between Plivo and Vobiz's network latency (a\approximately 20ms) matters far less than whether your AI voice engine uses a cascade or native architecture.
 
 ### Can I use both Plivo and Vobiz in the same AI calling system?
 

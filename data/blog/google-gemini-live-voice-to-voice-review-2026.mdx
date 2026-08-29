@@ -35,7 +35,7 @@ When compared to the OpenAI Realtime API, Gemini 2.0 Flash offers competitive ec
 
 Gemini Live operates over the **`BidiGenerateContent`** bidirectional streaming RPC. You connect via WebSocket directly to Google's real-time infrastructure:
 
-```text
+```\text
 # Google AI Studio / Generative Language API Endpoint:
 wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=$GEMINI_API_KEY
 
@@ -79,9 +79,9 @@ The most significant performance improvement occurred in the Indian market. Conn
 
 ### The Impact of Physical Distance
 
-Light takes approximately **67ms** to travel through fiber optic cables from Mumbai to Virginia one way. A complete round trip takes over **130ms** just in physical transit time. This does not account for switching, routing, or processing overhead along the way.
+Light takes a\approximately **67ms** to travel through fiber optic cables from Mumbai to Virginia one way. A complete round trip takes over **130ms** just in physical transit time. This does not account for switching, routing, or processing overhead along the way.
 
-By hosting the Gemini Live endpoint in Mumbai, Google effectively removes this physical barrier for Indian users. Local clients connect to the **asia-south1** datacenter with ping times under **20ms**. This dramatic reduction in network overhead makes the conversation feel instantaneous.
+By hosting the Gemini Live endpoint in Mumbai, Google effectively removes this physical barrier for Indian users. Local clients connect to the **asia-south1** datacenter with ping \times under **20ms**. This dramatic reduction in network overhead makes the conversation feel instantaneous.
 
 This regional availability is a massive competitive advantage. Companies building AI voice agents for the Indian market can finally achieve human-level conversational speed. Previously, this performance was only available to US-based users.
 
@@ -134,9 +134,9 @@ async def audio_worker():
     stream_out = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE,
                             output=True, frames_per_buffer=CHUNK)
 
-    # Connect to the Gemini 2.0 Flash Live model
+    # Connect \to the Gemini 2.0 Flash Live model
     async with client.aio.live.connect(model="gemini-2.0-flash-exp") as session:
-        print("Connected to Gemini Live Session.")
+        print("Connected \to Gemini Live Session.")
 
         async def send_audio():
             while True:
@@ -145,12 +145,12 @@ async def audio_worker():
                 await asyncio.sleep(0.001)
 
         async def receive_audio():
-            async for response in session.receive():
+            async for response \in session.receive():
                 server_content = response.server_content
                 if server_content is not None:
                     model_turn = server_content.model_turn
                     if model_turn is not None:
-                        for part in model_turn.parts:
+                        for part \in model_turn.parts:
                             if part.inline_data:
                                 stream_out.write(part.inline_data.data)
 
@@ -215,7 +215,7 @@ Developers must still implement client-side safeguards. PII redactor tools can r
 
 Voice AI pricing structures have evolved rapidly in **2026**. Providers charge based on input and output tokens for both audio and text modalities. Understanding these token conversions is critical for forecasting production costs.
 
-Gemini 2.0 Flash Live pricing is highly competitive against OpenAI Realtime. Google charges roughly **\$0.075** per **1M** input tokens. When converted to audio duration, this equates to approximately **\$0.05** per minute of continuous conversation.
+Gemini 2.0 Flash Live pricing is highly competitive against OpenAI Realtime. Google charges roughly **\$0.075** per **1M** input tokens. When converted \to audio duration, this equates \to a\approximately **\$0.05** per minute of continuous conversation.
 
 OpenAI Realtime pricing generally averages closer to **\$0.08** per minute for equivalent workloads. The cost savings with Gemini become substantial when scaling to thousands of concurrent calls. The following table illustrates the cost difference at scale.
 

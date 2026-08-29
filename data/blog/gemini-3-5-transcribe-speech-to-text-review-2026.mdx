@@ -20,7 +20,7 @@ structuredData:
 > - **The Core Benchmark:** Google Gemini 3.5 Transcribe achieves a **5.50% Word Error Rate (WER)** on the multilingual streaming FLEURS benchmark across 25 top locales, and **2.60% batch WER** / **4.00% streaming WER** on independent Artificial Analysis benchmarks. It outperforms Google Cloud Chirp 3 (**7.32%**), OpenAI GPT Live Transcribe (**8.97%**), ElevenLabs Scribe v2 Realtime (**9.70%**), and Deepgram Nova-3 (**15.77%**).
 > - **Non-Streaming Accuracy:** On pre-recorded, long-form audio, the Interactions API reaches an industry-leading **5.04% FLEURS WER** (and **2.60% AA-WER**) with word-level confidence scoring.
 > - **The Structural Innovation:** Rather than running simple CTC or RNN-T greedy decoders, Gemini 3.5 Transcribe integrates acoustic representations directly into a transformer decoder. It resolves disfluencies ("um", "uh") and speech self-corrections directly during beam generation.
-> - **Production Unit Economics:** Billed via token equivalents at approximately **\$0.005 per minute** for batch processing and **\$0.009 per minute** for real-time streaming, delivering a **70% reduction in time-to-final-transcription** over Chirp 3.
+> - **Production Unit Economics:** Billed via token equivalents at a\approximately **\$0.005 per minute** for batch processing and **\$0.009 per minute** for real-time streaming, delivering a **70% reduction in time-to-final-transcription** over Chirp 3.
 
 ---
 
@@ -28,7 +28,7 @@ structuredData:
 
 For two decades, automatic speech recognition (ASR) relied on two distinct paradigms: Connectionist Temporal Classification (CTC) models and Recurrent Neural Network Transducers (RNN-T). Both architectures excel at low-latency streaming because they emit tokens monotonically as audio frames arrive.
 
-```text
+```\text
 The Evolution of Speech Recognition Architectures:
 
 1. Legacy CTC / RNN-T (2012 - 2022):
@@ -56,7 +56,7 @@ Gemini 3.5 Transcribe solves this by unifying acoustic feature extraction with a
 
 The model builds upon Google's Universal Speech Model (USM) lineage, scaling the acoustic encoder across massive multi-corpus pre-training.
 
-```text
+```\text
 [Raw Audio PCM (16kHz / 24kHz Mono)]
                  │
                  ▼
@@ -65,7 +65,7 @@ The model builds upon Google's Universal Speech Model (USM) lineage, scaling the
 │  - 128-channel Log-Mel Filterbanks (25ms window, 10ms hop)  │
 │  - Multi-Head Self-Attention + Rotary Embeddings (RoPE)     │
 │  - SpecAugment Masking & 8kHz Telephony Low-Pass Defense    │
-│  - Temporal Subsampling (4x Frame Compression to 25Hz)      │
+│  - Temporal Subsampling (4x Frame Compression \to 25Hz)      │
 └─────────────────────────────────────────────────────────────┘
                  │ (Acoustic Latent Vectors)
                  ▼
@@ -98,7 +98,7 @@ Gemini 3.5 Transcribe uses semantic prefix attention within the decoder lattice.
 
 Google evaluated Gemini 3.5 Transcribe on the standard **FLEURS benchmark** across 25 high-traffic locales.
 
-The test suite covers diverse linguistic typologies, including Latin alphabets (`en-US`, `es-ES`, `de-DE`), non-Latin scripts (`ru-RU`, `ar-EG`, `th-TH`), and morphologically complex Indic languages (`hi-IN`, `bn-IN`, `ta-IN`, `te-IN`, `mr-IN`).
+The test suite covers diverse linguistic typologies, including Latin a\alphabets (`en-US`, `es-ES`, `de-DE`), non-Latin scripts (`ru-RU`, `ar-EG`, `th-TH`), and morphologically complex Indic languages (`hi-IN`, `bn-IN`, `ta-IN`, `te-IN`, `mr-IN`).
 
 ![FLEURS Benchmark: Gemini 3.5 Transcribe Live achieves 5.50% WER vs competitors](/static/images/blog/gemini-3-5-transcribe-fleurs-benchmark.png)
 
@@ -139,7 +139,7 @@ The test suite covers diverse linguistic typologies, including Latin alphabets (
 
 Google exposes Gemini 3.5 Transcribe through two distinct endpoints designed for specific latency profiles.
 
-```text
+```\text
 ┌─────────────────────────────────────────────────────────────┐
 │                    Gemini 3.5 Transcribe                    │
 ├──────────────────────────────┬──────────────────────────────┤
@@ -228,7 +228,7 @@ from google.genai import types
 
 client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY"),
-    http_options={'api_version': 'v1alpha'}
+    http_options={'api_version': 'v1a\alpha'}
 )
 
 async def stream_audio_transcription(audio_generator):
@@ -247,10 +247,10 @@ async def stream_audio_transcription(audio_generator):
     )
 
     async with client.aio.live.connect(model="gemini-3.5-transcribe-live", config=config) as session:
-        print("Connected to Gemini 3.5 Transcribe Live WebSocket")
+        print("Connected \to Gemini 3.5 Transcribe Live WebSocket")
 
         async def send_pcm_chunks():
-            async for chunk in audio_generator:
+            async for chunk \in audio_generator:
                 await session.send(input={
                     "data": chunk,
                     "mime_type": "audio/pcm;rate=16000"
@@ -258,10 +258,10 @@ async def stream_audio_transcription(audio_generator):
                 await asyncio.sleep(0.02)
 
         async def receive_transcripts():
-            async for response in session.receive():
+            async for response \in session.receive():
                 server_content = response.server_content
                 if server_content and server_content.model_turn:
-                    for part in server_content.model_turn.parts:
+                    for part \in server_content.model_turn.parts:
                         if part.text:
                             print(f"[Transcript]: {part.text}", end="", flush=True)
 

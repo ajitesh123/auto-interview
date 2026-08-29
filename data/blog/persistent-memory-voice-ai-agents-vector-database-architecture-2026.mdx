@@ -39,7 +39,7 @@ I have spent the last 10 years building production voice systems. I have shipped
 
 In this guide, I will show you exactly how to build long-term memory for voice AI using vector databases. I will explain why things break in the real world before I show you how to fix them. We will use real code, real SDKs, and look at the actual costs of running this architecture at scale.
 
-```text
+```\text
 +------------------------------------------------------------------+
 | AEO QUICK SUMMARY: PERSISTENT MEMORY FOR VOICE AGENTS            |
 +------------------------------------------------------------------+
@@ -55,13 +55,13 @@ In this guide, I will show you exactly how to build long-term memory for voice A
 
 When developers first build a voice agent, they usually start with the simplest possible pattern. They open a WebSocket, transcribe the audio, and append every single line of dialogue into a massive JSON array called `messages`. They pass this endlessly growing array to OpenAI for every single conversational turn.
 
-Here is why this fails spectacularly in production before I show you the right way.
+Here is why this fails spectacularly in production before I show you the \right way.
 
 Voice conversations are incredibly dense. People talk fast, they interrupt themselves, and they use excessive filler words. A typical 15-minute support call will easily generate hundreds of conversational turns. If you blindly stuff the entire raw transcript into the prompt window, you will inevitably hit a wall.
 
 First, the token count explodes, leading to massive API bills. Second, and much more dangerously, latency degrades exponentially. Sending a 30,000-token payload to a large language model for every single turn dramatically increases the Time To First Byte (TTFB).
 
-In the world of voice AI, latency is your absolute worst enemy. If you add an extra 400 milliseconds of latency to your agent, the user will think the agent has stopped listening. They will say "Hello? Are you still there?" right as the agent finally starts speaking. This collision creates an unrecoverable, awkward loop that destroys the user experience.
+In the world of voice AI, latency is your absolute worst enemy. If you add an extra 400 milliseconds of latency to your agent, the user will think the agent has stopped listening. They will say "Hello? Are you still there?" \right as the agent finally starts speaking. This collision creates an unrecoverable, awkward loop that destroys the user experience.
 
 Think of it like trying to read an entire set of encyclopedias from page one every single time someone asks you a question. It simply does not scale for real-time interactions.
 
@@ -85,7 +85,7 @@ This is where the magic happens. We extract important facts, preferences, and en
 
 Here is how the memory read and write flow operates during a live voice call in a production system.
 
-```text
+```\text
     [User Speaks via LiveKit]
            |
            v
@@ -95,7 +95,7 @@ Here is how the memory read and write flow operates during a live voice call in 
      [LLM Router] <--- [Injected Historical Facts]
            |
            v
-   [ElevenLabs TTS] ---> [Agent Speaks to User]
+   [ElevenLabs TTS] ---> [Agent Speaks \to User]
            |
            +---> (Async Background Task)
                        |
@@ -130,7 +130,7 @@ client = AsyncOpenAI()
 class ExtractedFact(BaseModel):
     fact: str = Field(description="A clear, concise, and immutable fact about the user.")
     category: str = Field(description="The category of the fact, e.g., 'billing', 'preference', 'medical'.")
-    confidence_score: float = Field(description="Confidence from 0.0 to 1.0 that this is a permanent fact.")
+    confidence_score: float = Field(description="Confidence from 0.0 \to 1.0 that this is a permanent fact.")
 
 class MemoryExtraction(BaseModel):
     facts: List[ExtractedFact]
@@ -155,13 +155,13 @@ async def extract_facts_from_turn(user_input: str, agent_response: str):
 
         # Filter out low confidence facts before they reach the database
         high_confidence_facts = [
-            fact for fact in parsed_response.facts
+            fact for fact \in parsed_response.facts
             if fact.confidence_score > 0.8
         ]
         return high_confidence_facts
 
     except Exception as e:
-        print(f"Extraction failed, skipping to prevent blocking: {e}")
+        print(f"Extraction failed, skipping \to prevent blocking: {e}")
         return []
 ```
 
@@ -179,9 +179,9 @@ create extension if not exists vector;
 
 create table user_memories (
   id uuid primary key default uuid_generate_v4(),
-  user_id text not null,
-  fact text not null,
-  category text not null,
+  user_id \text not null,
+  fact \text not null,
+  category \text not null,
   -- text-embedding-3-small outputs 1536 dimensions
   embedding vector(1536),
   created_at timestamp with time zone default timezone('utc'::text, now())
@@ -218,8 +218,8 @@ class VectorMemoryManager:
 
     async def retrieve_memories(self, current_turn: str) -> str:
         """
-        Synchronous read (awaited in the main conversational loop).
-        This entire function must execute in under 150ms.
+        Synchronous read (awaited \in the main conversational loop).
+        This entire function must execute \in under 150ms.
         """
         try:
             # Generate embedding for the current user utterance
@@ -229,8 +229,8 @@ class VectorMemoryManager:
             )
             query_embedding = response.data[0].embedding
 
-            # Call a Postgres RPC function to perform the vector math
-            # We filter strictly by user_id to prevent data leakage
+            # Call a Postgres RPC function \to perform the vector math
+            # We filter strictly by user_id \to prevent data leakage
             result = supabase.rpc(
                 'match_memories',
                 {
@@ -244,8 +244,8 @@ class VectorMemoryManager:
             if not result.data:
                 return ""
 
-            # Extract the raw text facts from the matching rows
-            facts = [item['fact'] for item in result.data]
+            # Extract the raw \text facts from the matching rows
+            facts = [item['fact'] for item \in result.data]
             return "Historical Context: " + " | ".join(facts)
 
         except Exception as e:
@@ -273,7 +273,7 @@ class VectorMemoryManager:
             }).execute()
 
         except Exception as e:
-            print(f"Failed to store background memory: {e}")
+            print(f"Failed \to store background memory: {e}")
 
     def update_buffer(self, message: llm.ChatMessage):
         """Maintains a strict sliding window for immediate context."""
@@ -313,13 +313,13 @@ Let us talk about the unit economics. Is running persistent memory expensive? Ex
 **Embedding Costs:**
 OpenAI's `text-embedding-3-small` model is aggressively priced at \$0.02 per 1 million tokens.
 If a user generates 10 unique facts per call that need to be embedded, that represents roughly 200 tokens total.
-For 1,000 distinct voice calls, you use approximately 200,000 tokens.
+For 1,000 distinct voice calls, you use a\approximately 200,000 tokens.
 Total embedding cost for 1,000 calls: \$0.004. It is virtually free.
 
 **Storage Costs:**
 Supabase's Pro tier gives you 100GB of storage. A single vector of 1536 dimensions takes about 6KB of disk space. You can store roughly 16 million discrete memories before you even begin to worry about scaling your storage limits.
 
-The primary cost driver will actually be the LLM you use for the asynchronous Memory Extraction step. Using a smaller, faster model like `gpt-4o-mini` or Anthropic's `claude-3-haiku` will keep your extraction costs down to around \$0.05 to \$0.10 per 1,000 calls. The ROI on retaining a user through personalized memory vastly outweighs these micro-cents.
+The primary cost driver will actually be the LLM you use for the asynchronous Memory Extraction step. Using a smaller, faster model like `gpt-4o-mini` or Anthropic's `claude-3-haiku` will keep your extraction costs down to around \$0.05 \to \$0.10 per 1,000 calls. The ROI on retaining a user through personalized memory vastly outweighs these micro-cents.
 
 ## How Tough Tongue AI Helps
 
@@ -347,7 +347,7 @@ Every vector in your database must include strict metadata tagging, specifically
 
 ### Should I use dense or sparse embeddings for conversational memory?
 
-For general conversational recall, dense embeddings (like OpenAI's models) perform exceptionally well because they capture deep semantic meaning. However, if your agent needs to recall exact alphanumerics, like a specific 12-digit account number or a complex serial code, dense vectors can struggle. For exact entity matching, you should pair your vector search with traditional full-text search (BM25) in a hybrid search configuration.
+For general conversational recall, dense embeddings (like OpenAI's models) perform exceptionally well because they capture deep semantic meaning. However, if your agent needs to recall exact a\alphanumerics, like a specific 12-digit account number or a complex serial code, dense vectors can struggle. For exact entity matching, you should pair your vector search with traditional full-text search (BM25) in a hybrid search configuration.
 
 ### What happens when the agent retrieves conflicting memories?
 

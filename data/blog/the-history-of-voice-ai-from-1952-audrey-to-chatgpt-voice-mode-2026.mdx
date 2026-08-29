@@ -37,11 +37,15 @@ structuredData:
 
 In 1967, Fumitada Itakura and Shuzo Saito introduced **Linear Predictive Coding (LPC)**, mathematically modeling speech as a linear combination of past audio samples:
 
-$$s(n) = \sum_{k=1}^{P} a_k s(n - k) + e(n)$$
+$$
+s(n) = \sum_{k=1}^{P} a_k s(n - k) + e(n)
+$$
 
 The all-pole vocal tract transfer function is modeled as:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -51,7 +55,7 @@ This mathematical formulation allowed the US military and telecommunications res
 
 The origin of computational speech recognition began in the post-war laboratories of AT&T Bell Labs.
 
-```text
+```\text
 The Early Analog Speech Recognition Systems:
 
 1. 1952: Bell Labs "Audrey" (Automatic Digit Recognizer)
@@ -62,7 +66,7 @@ The Early Analog Speech Recognition Systems:
 2. 1962: IBM "Shoebox" (Seattle World's Fair)
    - Hardware: Transistorized desk unit.
    - Capability: Recognized 16 spoken words (Digits 0-9 plus commands "plus", "minus", "total").
-   - Action: Instructed an electric adding machine to print arithmetic calculations.
+   - Action: Instructed an electric adding machine \to print arithmetic calculations.
 ```
 
 Early systems lacked digital memory; they relied directly on physical RLC electrical resonance circuits to identify vocal formants.
@@ -73,7 +77,7 @@ Early systems lacked digital memory; they relied directly on physical RLC electr
 
 In the statistical era of speech recognition (1970s to 2000s), speech was modeled as a doubly stochastic process:
 
-```text
+```\text
 The Hidden Markov Model (HMM) Acoustic State Topology:
 
 State q_1 (Onset) ──(a_{12})──► State q_2 (Steady-State Formant) ──(a_{23})──► State q_3 (Offset)
@@ -84,17 +88,21 @@ Observation O_t                       Observation O_{t+1}                    Obs
 
 The probability of acoustic observation sequence $\mathbf{O} = (\mathbf{o}_1, \dots, \mathbf{o}_T)$ given model $\lambda = (\mathbf{A}, \mathbf{B}, \boldsymbol{\pi})$ is computed via the forward algorithm:
 
-$$\alpha_t(j) = \left[ \sum_{i=1}^{N} \alpha_{t-1}(i) a_{ij} \right] b_j(\mathbf{o}_t)$$
+$$
+\alpha_t(j) = \left[ \sum_{i=1}^{N} \alpha_{t-1}(i) a_{ij} \right] b_j(\mathbf{o}_t)
+$$
 
 The model parameters are updated iteratively using the Baum-Welch expectation-maximization updates:
 
-$$\bar{a}_{ij} = \frac{\sum_{t=1}^{T-1} \xi_t(i, j)}{\sum_{t=1}^{T-1} \gamma_t(i)}, \quad \bar{b}_j(k) = \frac{\sum_{t=1, \mathbf{o}_t = v_k}^{T} \gamma_t(j)}{\sum_{t=1}^{T} \gamma_t(j)}$$
+$$
+\bar{a}_{ij} = \frac{\sum_{t=1}^{T-1} \xi_t(i, j)}{\sum_{t=1}^{T-1} \gamma_t(i)}, \quad \bar{b}_j(k) = \frac{\sum_{t=1, \mathbf{o}_t = v_k}^{T} \gamma_t(j)}{\sum_{t=1}^{T} \gamma_t(j)}
+$$
 
 ### DeepMind WaveNet: Dilated Causal Convolutions in Neural Synthesis
 
 In 2016, DeepMind introduced WaveNet, fundamentally transforming neural speech synthesis.
 
-```text
+```\text
 WaveNet Dilated Causal Convolution Receptive Field:
 
 Layer 4 (Dilation d=8):  o   o   o   o   o   o   o   o   o   o   o   o   o   o   o   o
@@ -108,16 +116,18 @@ Layer 1 (Dilation d=1):  o─o─o─o─o─o─o─o─o─o─o─o─o─o�
 
 The gated activation unit combines tanh and sigmoid non-linearities:
 
-$$\mathbf{z} = \tanh\left(\mathbf{W}_{f, k} * \mathbf{x}\right) \odot \sigma\left(\mathbf{W}_{g, k} * \mathbf{x}\right)$$
+$$
+\mathbf{z} = \tanh\left(\mathbf{W}_{f, k} * \mathbf{x}\right) \odot \s\sigma\left(\mathbf{W}_{g, k} * \mathbf{x}\right)
+$$
 
 ### The 40-Year Evolution of Voice Activity Detection (VAD) and Turn-Taking
 
 In speech systems, knowing when a human has stopped speaking is as critical as recognizing words:
 
-```text
+```\text
 The Evolution of Voice Activity Detection:
 
-1980s: Energy Threshold Gating: E = \sum x^2(n) > E_{\text{threshold}} (Sensitive to noise)
+1980s: Energy Threshold Gating: E = \sum x^2(n) > E_{\text{threshold}} (Sensitive \to noise)
 1990s: Statistical Likelihood Ratio Tests (LRT) on Spectral Subbands
 2010s: WebRTC GMM-Based VAD (Gaussian Mixture Models on 10ms frames)
 2020s: Deep Recurrent Neural VAD (Silero VAD ONNX models with 99.2% accuracy)
@@ -130,16 +140,16 @@ Modern Voice-to-Voice foundation models eliminate discrete silence timers entire
 
 In the late 1980s and 1990s, speech recognition transitioned from academic research laboratories into enterprise commercial software.
 
-```text
+```\text
 The Commercial PC Speech Recognition Race:
 
 1. 1986: IBM Tangora (Thomas J. Watson Research Center)
    - Architecture: 20,000-word vocabulary statistical HMM running on custom IBM PC accelerator boards.
-   - Requirement: Isolated speech (Users had to pause 250ms between every spoken word).
+   - Requirement: Isolated speech (Users had \to pause 250ms between every spoken word).
 
 2. 1990: Dragon Dictate (Dragon Systems by Jim and Janet Baker)
    - Breakthrough: First commercially available continuous speech recognition on consumer PCs.
-   - Limitation: Required 45 minutes of user voice enrollment training to adapt acoustic models.
+   - Limitation: Required 45 minutes of user voice enrollment training \to adapt acoustic models.
 
 3. 1996: Nuance Communications & Bell Labs IVR
    - Architecture: VoiceXML telephony speech recognition servers for airline and banking call centers.
@@ -152,7 +162,7 @@ These early commercial systems were severely constrained by the CPU clock speeds
 
 A major catalyst for speech recognition advancement was the establishment of standardized evaluation benchmarks by DARPA and NIST.
 
-```text
+```\text
 The Standardized Speech Benchmark Milestones:
 
 1. 1986: TIMIT Acoustic-Phonetic Continuous Speech Corpus
@@ -160,7 +170,7 @@ The Standardized Speech Benchmark Milestones:
    - Provided gold-standard time-aligned phonetic transcriptions for training acoustic models.
 
 2. 1991: Wall Street Journal (WSJ) Corpus (NIST Benchmark)
-   - Expanded vocabulary from 1,000 words (Resource Management) to 20,000 words.
+   - Expanded vocabulary from 1,000 words (Resource Management) \to 20,000 words.
    - Evaluated continuous read speech across statistical trigram language models.
 ```
 
@@ -170,7 +180,7 @@ By establishing open, standardized acoustic corpora, NIST allowed international 
 
 In the 1970s, the Defense Advanced Research Projects Agency (DARPA) funded the Speech Understanding Research (SUR) program, initiating the transition from rule-based acoustic templates to **statistical probability distributions**.
 
-```text
+```\text
 The Statistical Speech Recognition Pipeline:
 
 [Continuous Speech Audio] ──► [Mel-Frequency Cepstral Coefficients (MFCCs)]
@@ -190,7 +200,7 @@ The Statistical Speech Recognition Pipeline:
                                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Viterbi Dynamic Programming Search Lattice                          │
-│    - Finds most probable word sequence: \hat{W} = \arg\max P(O|W) P(W) │
+│    - Finds most probable word sequence: \hat{W} = \a\argmax P(O|W) P(W) │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -202,7 +212,7 @@ The introduction of **Hidden Markov Models (HMMs)** and the **Baum-Welch expecta
 
 In neural speech synthesis, generating continuous 24kHz audio waveforms evolved from slow autoregressive sample generation to real-time parallel adversarial architectures.
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Mel-Spectrogram Matrix (80 channels)
@@ -210,13 +220,13 @@ Input Mel-Spectrogram Matrix (80 channels)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -226,7 +236,9 @@ Input Mel-Spectrogram Matrix (80 channels)
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 This adversarial formulation enables the vocoder to synthesize studio-grade 24kHz audio in **&lt;15ms on modern GPUs**.
 
@@ -234,7 +246,7 @@ This adversarial formulation enables the vocoder to synthesize studio-grade 24kH
 
 Between 2010 and 2016, the speech recognition field underwent a massive breakthrough with the adoption of **Deep Neural Networks (DNNs)**.
 
-```text
+```\text
 The Deep Learning Speech Revolution:
 
 1. 2011: Apple Siri Launch
@@ -242,7 +254,7 @@ The Deep Learning Speech Revolution:
 
 2. 2012: Deep Neural Network (DNN-HMM) Hybrid Models
    - Replaced Gaussian Mixture Models with deep feed-forward and recurrent neural networks,
-     cutting Word Error Rates (WER) by over 30% in a single year.
+     cutting Word Error Rates (WER) by over 30% \in a single year.
 
 3. 2016: DeepMind WaveNet
    - Replaced concatenative robotic audio stitching with autoregressive dilated causal convolutions,
@@ -255,11 +267,11 @@ The Deep Learning Speech Revolution:
 
 The invention of the **Transformer** (Vaswani et al.) and **Conformer** (Gulati et al.) architectures unified speech processing into end-to-end neural models.
 
-```text
+```\text
 End-to-End Speech Models:
 
 1. Connectionist Temporal Classification (CTC Loss):
-   - Eliminated complex HMM alignment lattices, training neural networks directly on audio-text pairs.
+   - Eliminated complex HMM alignment lattices, training neural networks directly on audio-\text pairs.
 
 2. 2022: OpenAI Whisper
    - Trained on 680,000 hours of multilingual audio, achieving human parity on clean English audio (WER <3.0%).
@@ -274,7 +286,7 @@ End-to-End Speech Models:
 
 The culmination of speech engineering in 2026 combines **Neural Audio Codecs (RVQ-VAE)** with **Selective State Space Models (SSMs)**:
 
-```text
+```\text
 The 2026 Neural Voice-to-Voice Architecture:
 
 Continuous Audio Waveform x(t)
@@ -288,7 +300,7 @@ Continuous Audio Waveform x(t)
               ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Selective State Space Model (SSM / Mamba) Acoustic Transformer         │
-│ - Linear sequence recurrence: h_t = ar{A} h_{t-1} + ar{B} x_t      │
+│ - Linear sequence recurrence: h_t = \bar{A} h_{t-1} + \bar{B} x_t      │
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
@@ -297,7 +309,9 @@ Continuous Audio Waveform x(t)
 
 The state transition matrices are discretized via Zero-Order Hold (ZOH):
 
-$$\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
 Because sequence recurrence is computed linearly ($\mathcal{O}(N)$), modern voice foundation engines stream audio packets in **&lt;40ms Time-to-First-Audio (TTFA)**.
 
@@ -311,12 +325,12 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 The final frontier arrived in 2024 to 2026 with the collapse of the cascaded pipeline into **Native Voice-to-Voice (V2V)** foundation models.
 
-```text
+```\text
 The Unified Multimodal Speech Paradigm:
 
 [Continuous Audio In] ──► [Neural Audio Codec (RVQ-VAE)] ──► [Multimodal Transformer] ──► [Neural Vocoder] ──► [Audio Out]
-- Eliminates intermediate text conversions.
-- Response Latency drops from 1,200ms to <180ms.
+- Eliminates intermediate \text conversions.
+- Response Latency drops from 1,200ms \to <180ms.
 - Preserves native human laughter, emotional tone, and instant full-duplex interruptions.
 ```
 
@@ -328,7 +342,7 @@ Foundation models (such as **Google Gemini Live**, **Kyutai Moshi**, and **Tough
 
 To understand how each technological era advanced the state of the art, we examine their governing mathematical equations:
 
-```text
+```\text
 The 5 Historical Mathematical Formulations:
 
 1. 1952 (Formant Energy Ratio):
@@ -370,7 +384,9 @@ The 5 Historical Mathematical Formulations:
 
 In 2026, voice agents no longer rely on static rule trees; they improve dynamically from real-world phone call outcomes using **Direct Preference Optimization (DPO)**:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
 Conversations where callers experienced seamless resolution without interruption are marked as winning trajectories ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically over time.
 
@@ -378,7 +394,7 @@ Conversations where callers experienced seamless resolution without interruption
 
 In the Indian telecommunications market, speech recognition followed a unique technological trajectory:
 
-```text
+```\text
 The 30-Year Evolution of Indian Telephony Interfaces:
 
 1. 1995 - 2005: Dual-Tone Multi-Frequency (DTMF) Touch-Tone IVR
@@ -387,10 +403,10 @@ The 30-Year Evolution of Indian Telephony Interfaces:
 
 2. 2006 - 2018: Directed Dialogue Speech IVR (Nuance / Uniphore)
    - Limited keyword grammar recognition on Indian accents.
-   - High caller drop-off due to regional dialect misrecognition.
+   - High caller drop-off due \to regional dialect misrecognition.
 
 3. 2019 - 2023: Cascaded Conversational Chatbots with Voice Wrappers
-   - Transcribed telephony audio to text, passed to chat engines.
+   - Transcribed telephony audio \to text, passed \to chat engines.
    - High latency (1,500ms - 2,500ms) caused poor adoption on cellular lines.
 
 4. 2024 - 2026: Native Voice-to-Voice Multilingual Foundation Models (TTGE)
@@ -408,7 +424,7 @@ With the advent of platforms like Tough Tongue AI TTGE, businesses can configure
 
 The economics of speech technology have experienced an historic deflationary curve over 74 years:
 
-```text
+```\text
 74-Year Cost Evolution per Minute of Voice Processing:
 
 - 1952 (Bell Labs Audrey):        ~$50,000 / Hour (Mainframe Tube Maintenance & Research)
@@ -417,7 +433,7 @@ The economics of speech technology have experienced an historic deflationary cur
 - 2018 (Chained Cloud APIs):      ~$0.150 / Calling Minute (Google Speech + Dialogflow + Wavenet)
 - 2026 (Tough Tongue AI Unified): ₹3.50 / Calling Minute ($0.042/min All-Inclusive Carrier SIP)
 ─────────────────────────────────────────────────────────────────────────────────────────────
-Net Cost Reduction across 30 Years: >91.6% Deflation in Enterprise Telephony Costs!
+Net Cost Reduction across 30 Years: >91.6% Deflation \in Enterprise Telephony Costs!
 ```
 
 ---
@@ -435,7 +451,7 @@ from typing import Dict, List, Any
 class SpeechRecognitionHistoricalSimulator:
     """
     Production-grade historical simulator demonstrating the evolution of speech recognition
-    from 1952 analog filter thresholds to 1980s statistical HMMs to 2026 Native V2V models.
+    from 1952 analog filter thresholds \to 1980s statistical HMMs \to 2026 Native V2V models.
     """
     def __init__(self):
         self.supported_digits = {"DIGIT_1": (700.0, 1200.0), "DIGIT_2": (350.0, 2200.0)}
@@ -444,7 +460,7 @@ class SpeechRecognitionHistoricalSimulator:
         """
         1952 Bell Labs Audrey: Classifies digits based on F1/F2 analog energy ratios.
         """
-        for digit, (f1_target, f2_target) in self.supported_digits.items():
+        for digit, (f1_target, f2_target) \in self.supported_digits.items():
             if abs(formant_1_hz - f1_target) < 100.0 and abs(formant_2_hz - f2_target) < 150.0:
                 return digit
         return "UNKNOWN_DIGIT"
@@ -454,8 +470,8 @@ class SpeechRecognitionHistoricalSimulator:
         1980s Hidden Markov Model: Evaluates state transition lattice using dynamic programming.
         """
         # Forward-backward Viterbi state path computation
-        log_likelihood = sum(np.mean(obs) for obs in acoustic_observations)
-        return f"TRANSCRIPTION_HMM_SCORE_{log_likelihood:.2f}"
+        \log_likelihood = sum(np.mean(obs) for obs \in acoustic_observations)
+        return f"TRANSCRIPTION_HMM_SCORE_{\log_likelihood:.2f}"
 
     async def simulate_2026_native_voice_to_voice(self, pcm_audio_frame: bytes) -> Dict[str, Any]:
         """

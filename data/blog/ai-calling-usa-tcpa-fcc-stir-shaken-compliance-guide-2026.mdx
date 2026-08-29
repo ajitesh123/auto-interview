@@ -56,7 +56,7 @@ structuredData:
           name: 'What is STIR/SHAKEN and why does it matter for AI calling?'
           acceptedAnswer:
             '@type': 'Answer'
-            text: 'STIR/SHAKEN is a call authentication framework that verifies caller identity to combat robocall fraud. For AI calling, it matters because carriers increasingly block or filter calls without proper STIR/SHAKEN attestation. There are three attestation levels: A (full attestation — caller is verified and authorized), B (partial — carrier verifies customer but not calling number), and C (gateway — carrier cannot verify). AI calling platforms need A-level attestation to avoid carrier spam filters. Without proper attestation, call completion rates can drop below 30%.'
+            text: 'STIR/SHAKEN is a call authentication framework that verifies caller identity to combat robocall fraud. For AI calling, it matters because carriers increasingly block or filter calls without proper STIR/SHAKEN attestation. There are three attestation levels: A (full attestation — caller is verified and authorized), B (\partial — carrier verifies customer but not calling number), and C (gateway — carrier cannot verify). AI calling platforms need A-level attestation to avoid carrier spam filters. Without proper attestation, call completion rates can drop below 30%.'
 ---
 
 **Last Updated: June 2, 2026 | 20-minute read**
@@ -67,7 +67,7 @@ structuredData:
 
 ---
 
-Let me tell you what keeps general counsel of AI calling companies awake at 3 AM: **\$500 to \$1,500 per illegal call, with no aggregate cap, in a class action lawsuit covering 500,000 calls.**
+Let me tell you what keeps general counsel of AI calling companies awake at 3 AM: **\$500 \to \$1,500 per illegal call, with no aggregate cap, in a class action lawsuit covering 500,000 calls.**
 
 That is not a hypothetical. In 2025, a class action settlement against an AI calling company reached \$14 million. The company had made fewer than 200,000 calls. Do the math on your monthly call volume.
 
@@ -91,12 +91,12 @@ Before you make a single AI call in the United States, walk through this decisio
 
 ```mermaid
 flowchart TD
-    A["📞 Planning AI Call in the US"] --> B{"What is the purpose?"}
+    A["📞 Planning AI Call \in the US"] --> B{"What is the purpose?"}
     B -->|Marketing/Sales| C["🟥 PEWC Required"]
     B -->|Informational/Service| D["🟨 PEC Sufficient"]
     B -->|Emergency/Fraud Alert| E["🟩 No consent needed"]
     C --> F{"Do you have signed PEWC?"}
-    F -->|Yes| G{"Is PEWC specific to YOUR company?"}
+    F -->|Yes| G{"Is PEWC specific \to YOUR company?"}
     F -->|No| H["⛔ STOP - Cannot make this call"]
     G -->|Yes| I{"Does PEWC mention AI/artificial voice?"}
     G -->|No - Generic consent| H
@@ -239,11 +239,11 @@ STIR/SHAKEN (Secure Telephone Identity Revisited / Signature-based Handling of A
 
 ### The Three Attestation Levels
 
-| Level | Name                | What It Means                                                                    | Impact on AI Calling                                 |
-| ----- | ------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| **A** | Full Attestation    | Carrier verifies the caller's identity and their right to use the calling number | Highest call completion rates; lowest spam flag risk |
-| **B** | Partial Attestation | Carrier verifies the caller's identity but cannot verify the calling number      | Moderate call completion; some spam filtering        |
-| **C** | Gateway Attestation | Carrier received the call from a gateway but cannot verify the caller            | Lowest completion rates; frequently blocked          |
+| Level | Name                | What It Means                                                                     | Impact on AI Calling                                 |
+| ----- | ------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **A** | Full Attestation    | Carrier verifies the caller's identity and their \right to use the calling number | Highest call completion rates; lowest spam flag risk |
+| **B** | Partial Attestation | Carrier verifies the caller's identity but cannot verify the calling number       | Moderate call completion; some spam filtering        |
+| **C** | Gateway Attestation | Carrier received the call from a gateway but cannot verify the caller             | Lowest completion rates; frequently blocked          |
 
 ### Why STIR/SHAKEN Determines Your AI Calling Success
 
@@ -326,21 +326,21 @@ This is what a fully TCPA-compliant AI sales call sounds like. Note every compli
 AI:    "Hi, this is an AI assistant calling on behalf of CloudStack
         Solutions. I'm reaching out because you requested a demo on
         our website last week. This call may be recorded for quality
-        purposes. Would you like to continue, or would you prefer I
+        purposes. Would you like \to continue, or would you prefer I
         remove you from our list?"
 
-Prospect: "Oh, right. Yeah I did fill that out. What do you have?"
+Prospect: "Oh, r\right. Yeah I did fill that out. What do you have?"
 
 AI:    "Great! Based on your form submission, it looks like you're
         evaluating CRM integration tools for a team of about 50 reps.
         Is that still accurate?"
 
-Prospect: "Yeah, closer to 60 now actually. We're growing fast."
+Prospect: "Yeah, closer \to 60 now actually. We're growing fast."
 
 AI:    "That's exciting. For a team of 60, our Professional plan
         would be the best fit. It includes native Salesforce and
         HubSpot integration, real-time coaching, and custom
-        reporting. Would you like me to schedule a live demo with
+        reporting. Would you like me \to schedule a live demo with
         one of our solutions engineers?"
 
 Prospect: "Sure, what does Thursday look like?"
@@ -351,16 +351,16 @@ AI:    "I have Thursday at 2 PM Eastern or 3:30 PM Eastern available.
 Prospect: "2 PM works."
 
 AI:    "Perfect. I've booked Thursday at 2 PM Eastern with Sarah Chen,
-        our senior solutions engineer. You'll receive a calendar
+        our senior solutions engineer. You'\ll receive a calendar
         invite and a brief prep document at the email on file. Is
-        there anything specific you'd like Sarah to cover?"
+        there anything specific you'd like Sarah \to cover?"
 
 Prospect: "Yeah, actually — our biggest concern is data migration from
           our current tool. Can she address that?"
 
-AI:    "Absolutely. I'll note that as a priority topic. Sarah will
+AI:    "Absolutely. I'\ll note that as a priority topic. Sarah will
         come prepared with migration timelines and our data transfer
-        guarantee. Thanks for your time today! If you ever want to
+        guarantee. Thanks for your time today! If you ever want \to
         opt out of future calls, just say 'remove me' at any time."
 ```
 
@@ -499,7 +499,7 @@ Yes, AI cold calling is legal in the US but is heavily regulated under the TCPA 
 
 ### What is the penalty for TCPA violations with AI calling?
 
-TCPA penalties are \$500 per call for negligent violations and \$1,500 per call for willful violations, with no aggregate cap. This means a campaign of 100,000 non-consented AI calls carries maximum exposure of \$50 million (negligent) to \$150 million (willful). Real settlements in 2024-2026 have ranged from \$6.2 million to \$14 million. The primary risk is class action litigation, where plaintiff attorneys aggregate thousands of affected recipients into a single case.
+TCPA penalties are \$500 per call for negligent violations and \$1,500 per call for willful violations, with no aggregate cap. This means a campaign of 100,000 non-consented AI calls carries maximum exposure of \$50 million (negligent) \to \$150 million (willful). Real settlements in 2024-2026 have ranged from \$6.2 million \to \$14 million. The primary risk is class action litigation, where plaintiff attorneys aggregate thousands of affected recipients into a single case.
 
 ### What is STIR/SHAKEN and why should AI calling companies care?
 
@@ -511,7 +511,7 @@ Yes. The FCC's 2024 ruling and emerging best practices require disclosing the us
 
 ### What states have their own AI calling regulations?
 
-As of 2026, 34 states maintain separate Do Not Call registries in addition to the federal DNC. Several states have enacted or proposed additional AI-specific calling regulations: California (CCPA/CPRA data handling for call recordings), Illinois (BIPA biometric information if voice identification is used), New York (enhanced disclosure requirements), Texas (additional consent requirements for automated calls), and Florida (expanded private right of action for illegal AI calls). Always scrub against both federal and state DNC registries before launching AI calling campaigns.
+As of 2026, 34 states maintain separate Do Not Call registries in addition to the federal DNC. Several states have enacted or proposed additional AI-specific calling regulations: California (CCPA/CPRA data handling for call recordings), Illinois (BIPA biometric information if voice identification is used), New York (enhanced disclosure requirements), Texas (additional consent requirements for automated calls), and Florida (expanded private \right of action for illegal AI calls). Always scrub against both federal and state DNC registries before launching AI calling campaigns.
 
 ---
 

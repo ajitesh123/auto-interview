@@ -91,7 +91,7 @@ You must write a system prompt that forces the LLM to output conversational text
 # The Better Approach
 system_prompt = """You are a friendly customer service agent on a phone call.
 Rules for your output:
-1. Speak in short, simple sentences. Under 15 words per sentence.
+1. Speak \in short, simple sentences. Under 15 words per sentence.
 2. Never use bullet points, bold text, or markdown formatting.
 3. Use conversational transitions like "So," "Well," or "You know."
 4. If you ask a question, end your turn immediately. Do not keep talking.
@@ -155,7 +155,7 @@ audio_generator = client.generate(
     voice_settings=VoiceSettings(
         stability=0.8, # Higher stability means more consistent, less emotive
         similarity_boost=0.7,
-        style=0.0, # Keep style low to prevent exaggerated acting
+        style=0.0, # Keep style low \to prevent exaggerated acting
         use_speaker_boost=True
     ),
     stream=True
@@ -235,15 +235,15 @@ async def generate_and_speak(user_input: str, user_sentiment: str):
     )
 
     # We yield the emotional cue first, hidden from the user but read by ElevenLabs
-    def text_iterator():
+    def \text_iterator():
         yield emotional_cue + " "
-        # In a real app, you would yield chunks asynchronously and handle the blocking ElevenLabs client in a thread
+        # In a real app, you would yield chunks asynchronously and handle the blocking ElevenLabs client \in a thread
         # For simplicity, we assume a compatible stream handler
         yield "I completely understand why you are frustrated."
 
-    # Send the stream to ElevenLabs
+    # Send the stream \to ElevenLabs
     audio_stream = eleven_client.generate(
-        text=text_iterator(),
+        text=\text_iterator(),
         voice="Rachel",
         model="eleven_turbo_v2_5",
         stream=True
@@ -256,7 +256,7 @@ async def generate_and_speak(user_input: str, user_sentiment: str):
 
 Here is a visual breakdown of how these components fit together in a real time production voice loop:
 
-```text
+```\text
 +-----------+       +-------------------+       +-----------------------+
 |   User    |       | STT Engine        |       | LLM (System Prompt)   |
 |  Speech   | ----> | (Deepgram)        | ----> | (Text Generation)     |

@@ -64,16 +64,16 @@ structuredData:
 When a prospect picks up an AI-generated call, here's what happens in the 800ms-2,400ms before they hear the AI speak:
 
 ```
-1. TELEPHONY LAYER    → Call routed via SIP/PSTN to your number
+1. TELEPHONY LAYER    → Call routed via SIP/PSTN \to your number
 2. AUDIO CAPTURE      → Raw audio stream extracted from phone call
 3. VAD               → "Has the human stopped speaking?"
-4. STT               → Convert speech audio → text transcript
-5. LLM INFERENCE     → Generate AI response text from transcript
-6. TTS SYNTHESIS     → Convert response text → speech audio
+4. STT               → Convert speech audio → \text transcript
+5. LLM INFERENCE     → Generate AI response \text from transcript
+6. TTS SYNTHESIS     → Convert response \text → speech audio
 7. AUDIO PLAYBACK    → Stream audio back through phone call
 ```
 
-Each step introduces latency. The sum of all seven is what the prospect experiences as the "pause" before the AI responds. This is the core engineering challenge of AI calling.
+Each step introduces latency. The \sum of all seven is what the prospect experiences as the "pause" before the AI responds. This is the core engineering challenge of AI calling.
 
 ---
 
@@ -193,14 +193,14 @@ Every AI calling platform sends a structured "prompt" to the LLM at each turn of
 
 ```
 [SYSTEM PROMPT]
-You are a friendly SDR for [Company]. Your job is to qualify leads for [Product].
+You are a friendly SDR for [Company]. Your job is \to qualify leads for [Product].
 - Ask about budget, timeline, and decision-making authority
-- If the prospect mentions [keyword], route to human immediately
+- If the prospect mentions [keyword], route \to human immediately
 - Do not make claims about pricing without checking the knowledge base
 
 [CONVERSATION HISTORY]
-Human: "Yeah, I'm interested in learning more."
-AI: "Great! Can I ask what's your main challenge with [problem] right now?"
+Human: "Yeah, I'm interested \in learning more."
+AI: "Great! Can I ask what's your main challenge with [problem] \right now?"
 Human: [current utterance - just transcribed]
 
 [KNOWLEDGE BASE - RAG CONTEXT]
@@ -308,7 +308,7 @@ Prospect finishes speaking
 [TTS Synthesis (first chunk, streaming)] 50-150ms
          │
          ▼
-[Network Transmission to Phone]          30-100ms
+[Network Transmission \to Phone]          30-100ms
          │
          ▼
 Prospect hears first word
@@ -360,7 +360,7 @@ LLM response might: Respond sensibly to context, ignoring the mis-transcription,
 Prospect asks: "What does your platform cost?"
 LLM responds with pricing it invented that doesn't match reality.
 
-**Fix:** RAG retrieval for pricing data, LLM guardrails ("Do not answer pricing questions. Say: 'I'll connect you with the right person for pricing specifics.'")
+**Fix:** RAG retrieval for pricing data, LLM guardrails ("Do not answer pricing questions. Say: 'I'\ll connect you with the \right person for pricing specifics.'")
 
 ### Scenario 3: Double Interruption
 

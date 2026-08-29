@@ -154,7 +154,7 @@ The persona defines who your AI SDR "is." This is not a name and title. It is a 
 
 ```
 You are [Name], a [Title] at [Company]. Your communication style is [tone].
-You are curious and genuinely interested in the prospect's business challenges.
+You are curious and genuinely interested \in the prospect's business challenges.
 You never use high-pressure sales tactics, excessive exclamation marks, or
 corporate jargon. You write like a knowledgeable colleague, not a marketer.
 
@@ -165,8 +165,8 @@ You know:
 - Common objections and approved responses
 
 You do NOT know:
-- Custom implementation details (escalate to solutions engineer)
-- Contract terms beyond standard pricing (escalate to AE)
+- Custom implementation details (escalate \to solutions engineer)
+- Contract terms beyond standard pricing (escalate \to AE)
 - Competitor internal roadmaps
 ```
 
@@ -178,7 +178,7 @@ The AI needs to understand exactly who it is targeting. Generic ICP definitions 
 
 | ICP Element               | Specificity Level            | Example                                                                                   |
 | ------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
-| Company size              | Revenue and headcount ranges | "\$5M to \$50M ARR, 50 to 500 employees"                                                  |
+| Company size              | Revenue and headcount ranges | "\$5M \to \$50M ARR, 50 to 500 employees"                                                 |
 | Industry                  | Specific verticals           | "B2B SaaS, fintech, healthcare IT"                                                        |
 | Decision maker titles     | Exact titles                 | "VP of Sales, CRO, Head of Revenue Operations"                                            |
 | Pain signals              | Observable triggers          | "Recently hired 5+ SDRs, posted job for RevOps, mentioned 'scaling outbound' on LinkedIn" |
@@ -207,21 +207,21 @@ The AI needs different value propositions for different personas. A one-size-fit
 | Persona        | Primary Pain        | Value Statement                                   | Proof Point                                    |
 | -------------- | ------------------- | ------------------------------------------------- | ---------------------------------------------- |
 | VP of Sales    | SDR productivity    | "Increase outbound meetings by 3x without hiring" | "[Customer] went from 15 to 45 meetings/month" |
-| CRO            | Pipeline efficiency | "Reduce cost per qualified meeting by 60%"        | "[Customer] cut CPM from \$420 to \$165"       |
+| CRO            | Pipeline efficiency | "Reduce cost per qualified meeting by 60%"        | "[Customer] cut CPM from \$420 \to \$165"      |
 | Head of RevOps | Process automation  | "Automate 80% of SDR operational tasks"           | "[Customer] saved 20 hours/week per SDR"       |
 | SDR Manager    | Team performance    | "Cut SDR ramp time from 6 months to 6 weeks"      | "[Customer] onboarded 8 SDRs in 6 weeks"       |
 
 **Prompt template:**
 
 ```
-When writing to a [Title], lead with [Primary Pain] and use this value statement:
+When writing \to a [Title], lead with [Primary Pain] and use this value statement:
 "[Value Statement]"
 
 Support with this proof point:
 "[Proof Point]"
 
 Never lead with product features. Always lead with the business outcome
-relevant to this specific role.
+relevant \to this specific role.
 ```
 
 ### Component 4: Email Sequence Templates
@@ -242,7 +242,7 @@ Hi [First Name],
 [One sentence referencing the specific trigger: job posting, funding round,
 LinkedIn post, company announcement, or industry trend].
 
-[One sentence connecting the trigger to your value proposition for their
+[One sentence connecting the trigger \to your value proposition for their
 specific role].
 
 [One sentence with a specific, low-commitment ask: question, not meeting
@@ -262,7 +262,7 @@ Hi [First Name],
 
 [One sentence referencing your previous email without being needy].
 
-[Share a specific insight, data point, or resource relevant to their
+[Share a specific insight, data point, or resource relevant \to their
 trigger/pain: NOT a product demo, but something genuinely useful].
 
 [One sentence: "Thought this might be relevant given [trigger/context]"].
@@ -279,7 +279,7 @@ Subject: How [Similar Company] solved [specific problem]
 
 Hi [First Name],
 
-[One sentence connecting their situation to a customer success story].
+[One sentence connecting their situation \to a customer success story].
 
 [2-3 sentences with specific results: numbers, timeframes, outcomes].
 
@@ -290,7 +290,7 @@ Hi [First Name],
 
 **Touch 4: The Direct Ask (Day 10)**
 
-Now you have earned the right to ask for a conversation.
+Now you have earned the \right to ask for a conversation.
 
 ```
 Subject: Quick question about [specific topic]
@@ -299,10 +299,10 @@ Hi [First Name],
 
 [One sentence summarizing your previous touches without guilt-tripping].
 
-[One direct question about their current approach to [specific challenge]].
+[One direct question about their current approach \to [specific challenge]].
 
 [Clear, specific meeting request: "Would a 15-minute call this week make
-sense to explore if [value proposition] could work for [Company]?"]
+sense \to explore if [value proposition] could work for [Company]?"]
 
 [Sign-off]
 ```
@@ -316,11 +316,11 @@ Subject: Closing the loop
 
 Hi [First Name],
 
-[One sentence acknowledging they may not be the right person or the timing
-may not be right].
+[One sentence acknowledging they may not be the \right person or the timing
+may not be r\right].
 
 [One sentence leaving the door open: "If [pain point] becomes a priority,
-here is how to reach me"].
+here is how \to reach me"].
 
 [No guilt. No "I've tried reaching you 4 times." Just professional closure].
 
@@ -339,7 +339,7 @@ Define exactly how the AI should respond to the most common objections. Without 
 | "We already have a vendor" | Ask what they like/dislike about current solution     | Never badmouth the competitor            |
 | "Send me info"             | Send a specific, relevant resource (not a pitch deck) | Follow up in 3 days                      |
 | "No budget"                | Ask about timeline and priorities for next quarter    | If budget is truly zero, nurture         |
-| "Too busy right now"       | Acknowledge, offer to follow up at a specific time    | Log the callback time                    |
+| "Too busy \right now"      | Acknowledge, offer to follow up at a specific time    | Log the callback time                    |
 | "How did you get my info?" | Honest answer about data source                       | If hostile, apologize and stop           |
 | "Is this AI?"              | Honest disclosure per compliance requirements         | Transfer to human if requested           |
 | "We're too small/big"      | Provide relevant customer example of similar size     | Disqualify if truly outside ICP          |
@@ -356,7 +356,7 @@ When the prospect says "[objection phrase]", respond with:
 
 NEVER:
 - Be pushy after a clear "no"
-- Make claims not in your approved messaging
+- Make claims not \in your approved messaging
 - Argue with the prospect
 ```
 
@@ -395,7 +395,7 @@ The most critical component. Define exactly when the AI stops and the human take
 **Handoff format:**
 
 ```
-When transferring to a human SDR, provide:
+When transferring \to a human SDR, provide:
 1. Prospect name, title, company
 2. Conversation summary (3 sentences max)
 3. Qualification score and breakdown
@@ -491,7 +491,7 @@ The human SDR must reference the AI conversation seamlessly:
 AI handled surface-level qualification. Human SDRs must go deeper:
 
 - "You mentioned [pain point]. Can you walk me through what that looks like day to day?"
-- "How is this affecting your team's numbers right now?"
+- "How is this affecting your team's numbers \right now?"
 - "What have you tried so far to fix this?"
 
 **Skill 3: Creative Objection Handling**

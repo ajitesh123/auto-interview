@@ -70,6 +70,7 @@ Noise does not just make audio sound bad — it breaks the fundamental systems t
 Voice Activity Detection determines whether someone is speaking. When background noise is present, the VAD triggers on non-speech sounds — TV audio, barking dogs, car horns — causing the system to think the caller is speaking when they are not.
 
 **The cascade effect:**
+
 - VAD detects "speech" → STT tries to transcribe noise → LLM processes nonsense transcript → Agent generates a confused response → Caller has no idea what is happening
 
 ### 2. STT Hallucination
@@ -79,6 +80,7 @@ When the speech-to-text model receives noisy audio, it tries to make sense of it
 ### 3. Turn Detection Failure
 
 Turn detection relies on detecting the boundary between speech and silence. In a noisy environment, there is no true silence — just varying levels of noise. The turn detector either:
+
 - Never fires (because it never detects a clean silence boundary) → Agent never responds
 - Fires constantly (because noise levels fluctuate) → Agent interrupts randomly
 
@@ -96,12 +98,12 @@ As [LiveKit's guide on noise cancellation](https://livekit.com/blog/noise-cancel
 
 Rather than trying to remove specific types of noise, the most effective approach is **voice isolation** — extracting only the human speech signal from the audio and discarding everything else. This is fundamentally different from traditional noise cancellation:
 
-| Traditional Noise Cancellation | Voice Isolation |
-|---|---|
+| Traditional Noise Cancellation           | Voice Isolation                  |
+| ---------------------------------------- | -------------------------------- |
 | Identifies and removes known noise types | Identifies and keeps only speech |
-| Fails on unknown noise types | Works regardless of noise type |
-| Reduces noise volume | Eliminates non-speech entirely |
-| Designed for human listeners | Designed for AI processing |
+| Fails on unknown noise types             | Works regardless of noise type   |
+| Reduces noise volume                     | Eliminates non-speech entirely   |
+| Designed for human listeners             | Designed for AI processing       |
 
 ### Where It Fits in the Pipeline
 
@@ -112,6 +114,7 @@ Raw Audio → [Noise Cancellation] → Clean Audio → VAD → STT → LLM → T
 ```
 
 By cleaning the audio first, every downstream system receives better input:
+
 - **VAD** only fires on actual speech, not background noise
 - **STT** transcribes clean speech without hallucinated words from noise
 - **Turn detection** accurately identifies speech boundaries
@@ -130,9 +133,10 @@ Modern voice isolation models achieve processing in under 10ms per audio frame, 
 ### Scenario: Caller on a Busy Street in Mumbai
 
 **Without noise cancellation:**
+
 ```
-Caller: "I want to know about your plans"
-STT transcribes: "I want to know horn honking about your plans
+Caller: "I want \to know about your plans"
+STT transcribes: "I want \to know horn honking about your plans
                    excuse me plans"
 Agent: "I am sorry, I did not quite catch that. Could you
         repeat your question?"
@@ -140,9 +144,10 @@ Agent: "I am sorry, I did not quite catch that. Could you
 ```
 
 **With noise cancellation:**
+
 ```
-Caller: "I want to know about your plans"
-STT transcribes: "I want to know about your plans"
+Caller: "I want \to know about your plans"
+STT transcribes: "I want \to know about your plans"
 Agent: "Of course! We have three plans available..."
 [Clean, productive conversation]
 ```
@@ -150,21 +155,23 @@ Agent: "Of course! We have three plans available..."
 ### Scenario: Caller at Home with TV Playing
 
 **Without noise cancellation:**
+
 ```
-TV in background: "...and the stock market rose 2% today..."
+TV \in background: "...and the stock market rose 2% today..."
 VAD: [detects speech - triggers]
 STT transcribes: "stock market rose 2% today"
 Agent: "I can help with stock market information. Are you
-        interested in our financial services?"
-Caller: "What? No, I asked about restaurant plans!"
+        interested \in our financial services?"
+Caller: "What? No, I asked about res\taurant plans!"
 ```
 
 **With noise cancellation:**
+
 ```
-TV in background: [filtered out]
-Caller: "Tell me about restaurant plans"
-STT transcribes: "Tell me about restaurant plans"
-Agent: "Great choice! Our restaurant plan includes..."
+TV \in background: [filtered out]
+Caller: "Tell me about res\taurant plans"
+STT transcribes: "Tell me about res\taurant plans"
+Agent: "Great choice! Our res\taurant plan includes..."
 [Correct response]
 ```
 

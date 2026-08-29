@@ -35,8 +35,8 @@ structuredData:
 
 To understand why latency determines the success or failure of a voice agent, we must examine the neurology of human speech.
 
-```text
-The Cognitive Latency Spectrum in Human Conversation:
+```\text
+The Cognitive Latency Spectrum \in Human Conversation:
 
 0ms - 100ms:   Subconscious Gestural Agreement (Nods, "mm-hmm" backchannel interjections)
 200ms - 350ms: Biological Human Turn-Taking Gap (Standard Conversational Tempo)
@@ -55,25 +55,29 @@ When an artificial intelligence system takes **800ms to 1,200ms** to reply, it v
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the network serialization hop between independent cloud APIs adds **25ms to 50ms of transit delay**.
 
@@ -81,12 +85,12 @@ While streaming Conformer decoders execute within 60ms to 80ms, the network seri
 
 Human vocal perception evaluates speech naturalness not only on speed, but on the smooth transition of acoustic formants.
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue positioning.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue positioning.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 When a system experiences computational jitter, formant transitions stutter, creating metallic phase artifacts.
@@ -95,9 +99,9 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 
 ## 2. Deconstructing the 7 Millisecond Epochs in Voice AI
 
-In enterprise voice systems, conversational turnaround delay is the sum of seven sequential computational and network phases:
+In enterprise voice systems, conversational turnaround delay is the \sum of seven sequential computational and network phases:
 
-```text
+```\text
 The 7 Millisecond Latency Epochs:
 
 Epoch 1: Voice Activity Detection (VAD End-of-Turn Gating) ──► 15ms - 35ms
@@ -117,10 +121,10 @@ Total Cumulative Turnaround Latency: 240ms - 480ms (Cascades) vs <180ms (Native 
 
 When conversational latency hovers between **600ms and 1,000ms**, voice agents suffer from the catastrophic **Collision Loop**:
 
-```text
-The Conversational Collision Loop in High-Latency Systems:
+```\text
+The Conversational Collision Loop \in High-Latency Systems:
 
-[T = 0ms]:    User Finishes Speaking: "Can you send the quote to my email?"
+[T = 0ms]:    User Finishes Speaking: "Can you send the quote \to my email?"
 [T = 400ms]:  AI System Is Still Processing... (Dead Silence on Phone Line)
 [T = 650ms]:  User Assumes AI Did Not Hear: "Hello? Did you get that?"
 [T = 700ms]:  AI Finally Starts Speaking Its First Answer: "Yes, I am sending..."
@@ -140,7 +144,7 @@ Cellular telephone lines compress audio to 8kHz, discarding frequencies above 3,
 
 To restore acoustic naturalness without introducing processing delay, modern voice engines deploy **Neural Bandwidth Extension (BWE)** models:
 
-```text
+```\text
 The Super-Resolution BWE Pipeline:
 
 Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
@@ -149,11 +153,11 @@ Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Operates in <6ms GPU inference time                                  │
+│ - Operates \in <6ms GPU inference time                                  │
 └────────────────────────────────────────────────────────────────────────┘
                     │
                     ▼
-[Synthesized Wideband Audio Stream Passed to Multimodal Reasoning Core]
+[Synthesized Wideband Audio Stream Passed \to Multimodal Reasoning Core]
 ```
 
 By predicting the missing acoustic spectrum in real time, neural bandwidth extension restores studio vocal quality to legacy phone calls with negligible latency overhead.
@@ -164,7 +168,7 @@ Over cellular telephone networks, UDP audio packets experience variable arrival 
 
 Media servers deploy **Adaptive Jitter Buffers** to eliminate packet stutter:
 
-```text
+```\text
 The Adaptive Jitter Buffer Pipeline:
 
 Incoming Out-of-Order UDP Packets
@@ -177,14 +181,16 @@ Incoming Out-of-Order UDP Packets
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
-[Synchronized Linear 16kHz PCM Audio Feed to Neural Voice Engine]
+[Synchronized Linear 16kHz PCM Audio Feed \to Neural Voice Engine]
 ```
 
 ### Jitter Buffer Mathematical Formulation
 
 The adaptive buffer depth $D_{\text{jitter}}(t)$ is updated recursively based on packet transit time variance:
 
-$$D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t - (R_{t-1} - S_{t-1})|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t - (R_{t-1} - S_{t-1})|
+$$
 
 where $R_t$ is packet receive time and $S_t$ is packet send time.
 
@@ -198,19 +204,23 @@ In speech synthesis, transformer attention scales quadratically ($\mathcal{O}(N^
 
 Modern voice models deploy **Selective State Space Models (SSMs / Mamba)**:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**.
 
 ### GPU Kernel Acceleration: FlashAttention-3 and PagedAttention in Voice AI
 
 To achieve Time-to-First-Token (TTFT) under **&lt;120ms**, modern voice platforms deploy three critical GPU memory optimizations:
 
-```text
+```\text
 The GPU Kernel Latency Optimization Stack:
 
 1. FlashAttention-3:
@@ -222,7 +232,7 @@ The GPU Kernel Latency Optimization Stack:
    - Enables 500+ concurrent enterprise phone calls on a single NVIDIA L40S GPU node.
 
 3. Speculative Decoding:
-   - A high-speed draft model predicts upcoming words in parallel with the target model,
+   - A high-speed draft model predicts upcoming words \in parallel with the target model,
      accelerating generation speed by 40%.
 ```
 
@@ -230,7 +240,7 @@ The GPU Kernel Latency Optimization Stack:
 
 The audio codec selected for carrier transport directly affects encoding and decoding latency:
 
-```text
+```\text
 Codec Transit & Buffering Performance:
 
 - Wideband Opus Codec: 5ms - 10ms frame encoding latency | 48kHz full-band audio.
@@ -241,7 +251,7 @@ Codec Transit & Buffering Performance:
 
 In neural speech synthesis, generating continuous 24kHz audio waveforms from intermediate spectrograms introduces latency in traditional diffusion models.
 
-```text
+```\text
 HiFi-GAN Parallel Waveform Generation Architecture:
 
 Mel-Spectrogram Input (80 channels)
@@ -249,13 +259,13 @@ Mel-Spectrogram Input (80 channels)
                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples frame rate from 100 Hz to 24,000 Hz in <8ms             │
+│    - Upsamples frame rate from 100 Hz \to 24,000 Hz \in <8ms             │
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                 │
@@ -265,13 +275,15 @@ Mel-Spectrogram Input (80 channels)
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 This adversarial formulation enables the vocoder to synthesize studio-grade 24kHz audio in **&lt;15ms on modern GPUs**.
 
 ## 5. Architectural Latency Showdown: Cascaded Pipelines vs Native V2V
 
-```text
+```\text
 Latency Comparison across System Paradigms:
 
 1. Traditional Batch Cascaded Pipeline (Whisper + GPT-4 + ElevenLabs):
@@ -292,7 +304,7 @@ By eliminating intermediate text conversions and multi-vendor network hops, nati
 
 In native Voice-to-Voice models (such as Tough Tongue AI TTGE and Gemini Live), speech is tokenized directly using **Neural Audio Codecs (RVQ-VAE)**.
 
-```text
+```\text
 Residual Vector Quantization (RVQ) Multi-Codebook Hierarchy:
 
 Continuous Audio Embedding z
@@ -312,7 +324,9 @@ Quantized Acoustic Vector: z_q = \sum_{k=1}^{K} e_{k, j_k}
 
 The encoder projects continuous audio into latent embedding $\mathbf{z}$. A cascade of $K = 8$ or \$16$ codebooks quantizes residual errors hierarchically:
 
-$$\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad 	ext{where } j_k = rg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2$$
+$$
+\mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad \text{where } j_k = \arg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2
+$$
 
 This hierarchical multi-scale quantization enables multimodal transformers to process continuous speech tokens with sub-**100ms** latency while preserving laughter, emotional cadence, and acoustic nuances.
 
@@ -320,7 +334,7 @@ This hierarchical multi-scale quantization enables multimodal transformers to pr
 
 Cellular telephone lines frequently contain environmental noise that degrades speech recognition accuracy:
 
-```text
+```\text
 Neural Speech Enhancement & Filtering Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -338,12 +352,14 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to Acoustic Conformer Encoder (<10ms Overhead)]
+[Clean Speech Signal Fed \to Acoustic Conformer Encoder (<10ms Overhead)]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ isolates vocal formants while suppressing ambient background noise by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Additionally, shallow fusion beam search evaluates the top $B = 8$ acoustic hypotheses alongside a high-speed language model, correcting homophones in **&lt;25ms** without adding noticeable pipeline delay.
 
@@ -351,7 +367,7 @@ Additionally, shallow fusion beam search evaluates the top $B = 8$ acoustic hypo
 
 To achieve natural turn-taking, an AI voice agent must support **full-duplex barge-in**:
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [AI Voice Agent Speaking Audio Output via Carrier SIP Trunk]
@@ -374,7 +390,7 @@ Full-Duplex Interruption Architecture:
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Instant Barge-In Truncation Loop (<35ms)                            │
-│    - Flushes audio playback buffer in <20ms                            │
+│    - Flushes audio playback buffer \in <20ms                            │
 │    - Truncates in-flight generation KV-cache                           │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -396,19 +412,19 @@ Modern DSP filters isolate the user's voice even while the AI is vocalizing at f
 
 ## 7. 25-Point Latency Optimization Matrix
 
-| Latency Optimization Vector      | Legacy Cascaded Stack                              | Optimized Streaming Cascade  | Native Voice-to-Voice (TTGE)            |
-| -------------------------------- | -------------------------------------------------- | ---------------------------- | --------------------------------------- |
-| **Underlying Neural Engine**     | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | WebSockets Streaming Cascade | **Unified Multimodal V2V**              |
-| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,500ms**                              | **450ms - 650ms**            | **&lt;180ms (Biological Human Rhythm)** |
-| **Tail Latency ($P_{99}$)**      | **2,800ms - 4,500ms**                              | **1,200ms - 1,800ms**        | **&lt;265ms Consistent P99**            |
-| **VAD Endpointing Delay**        | **250ms - 500ms**                                  | **80ms - 140ms**             | **&lt;25ms (Continuous Latents)**       |
-| **Acoustic Information Loss**    | 100% loss (Flat ASCII text)                        | 100% loss (Flat ASCII text)  | **Zero Loss (RVQ Audio Vectors)**       |
-| **Barge-In Cut-Off Speed**       | **250ms - 500ms**                                  | **120ms - 180ms**            | **&lt;40ms (Frame-Level Gating)**       |
-| **GPU Kernel Acceleration**      | Standard PyTorch Eager                             | vLLM PagedAttention          | **FlashAttention-3 + SSM Kernels**      |
-| **Network Hop Penalty**          | 3 External Cloud API Hops                          | 3 Cloud API Hops             | **Zero (Co-Located GPU Memory Bus)**    |
-| **Cellular Jitter Buffer**       | Fixed 150ms Buffer                                 | Adaptive 60ms Buffer         | **Dynamic Sub-30ms Adaptive Buffer**    |
-| **Regional Carrier Routing**     | US East Cloud Egress                               | Multi-Region API Relay       | **Direct Regional SIP (asia-south1)**   |
-| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                        | **\$0.065 - \$0.110 / min**  | **₹3.50 / min (\$0.042/min flat)**      |
+| Latency Optimization Vector      | Legacy Cascaded Stack                                      | Optimized Streaming Cascade  | Native Voice-to-Voice (TTGE)            |
+| -------------------------------- | ---------------------------------------------------------- | ---------------------------- | --------------------------------------- |
+| **Underlying Neural Engine**     | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | WebSockets Streaming Cascade | **Unified Multimodal V2V**              |
+| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,500ms**                                      | **450ms - 650ms**            | **&lt;180ms (Biological Human Rhythm)** |
+| **Tail Latency ($P_{99}$)**      | **2,800ms - 4,500ms**                                      | **1,200ms - 1,800ms**        | **&lt;265ms Consistent P99**            |
+| **VAD Endpointing Delay**        | **250ms - 500ms**                                          | **80ms - 140ms**             | **&lt;25ms (Continuous Latents)**       |
+| **Acoustic Information Loss**    | 100% loss (Flat ASCII text)                                | 100% loss (Flat ASCII text)  | **Zero Loss (RVQ Audio Vectors)**       |
+| **Barge-In Cut-Off Speed**       | **250ms - 500ms**                                          | **120ms - 180ms**            | **&lt;40ms (Frame-Level Gating)**       |
+| **GPU Kernel Acceleration**      | Standard PyTorch Eager                                     | vLLM PagedAttention          | **FlashAttention-3 + SSM Kernels**      |
+| **Network Hop Penalty**          | 3 External Cloud API Hops                                  | 3 Cloud API Hops             | **Zero (Co-Located GPU Memory Bus)**    |
+| **Cellular Jitter Buffer**       | Fixed 150ms Buffer                                         | Adaptive 60ms Buffer         | **Dynamic Sub-30ms Adaptive Buffer**    |
+| **Regional Carrier Routing**     | US East Cloud Egress                                       | Multi-Region API Relay       | **Direct Regional SIP (asia-south1)**   |
+| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                                | **\$0.065 - \$0.110 / min**  | **₹3.50 / min (\$0.042/min flat)**      |
 
 ---
 
@@ -416,21 +432,25 @@ Modern DSP filters isolate the user's voice even while the AI is vocalizing at f
 
 The physical generation of speech waveforms is governed by the vocal tract acoustic filter:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 Formants ($F_1, F_2, F_3$) correspond to the complex poles of $H(z)$.
 
 To optimize conversational pacing, voice agent policies are continuously refined using **Direct Preference Optimization (DPO)**:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
-Conversations where response times remained within the optimal **200ms to 350ms window** are rewarded ($\mathbf{y}_w$), training the neural network to avoid long pauses or rushed verbal delivery.
+Conversations where response \times remained within the optimal **200ms to 350ms window** are rewarded ($\mathbf{y}_w$), training the neural network to avoid long pauses or rushed verbal delivery.
 
 ### Regional Telephony Routing: Bypassing Trans-Pacific Network Latency
 
 When building voice AI applications for the Indian market, routing calls through US-based cloud regions adds **180ms to 240ms of unavoidable speed-of-light fiber transit delay**.
 
-```text
+```\text
 Telephony Carrier Routing Architecture:
 
 Standard Multi-Vendor Architecture:
@@ -438,7 +458,7 @@ Standard Multi-Vendor Architecture:
 - Inherent Trans-Oceanic Network Penalty: +240ms (Robs the conversational latency budget).
 
 Tough Tongue AI Co-Located Architecture:
-[Indian Mobile Caller] ──► [Local SIP Trunk in Mumbai / asia-south1] ──► [NVIDIA L40S GPU Pod]
+[Indian Mobile Caller] ──► [Local SIP Trunk \in Mumbai / asia-south1] ──► [NVIDIA L40S GPU Pod]
 - Regional Transit Latency: <18ms (Saves 222ms of network lag on every conversational turn!).
 ```
 
@@ -454,7 +474,7 @@ By pre-training multimodal foundation transformers on over 1,000,000 hours of in
 
 Empirical analysis across **1,000,000 enterprise outbound sales calls** reveals a direct mathematical correlation between turnaround latency and lead qualification rates:
 
-```text
+```\text
 Turnaround Latency vs Outbound Lead Qualification Rates:
 
 Turnaround Latency (ms)     Connection-to-Qualification Rate    Customer Abandonment Rate
@@ -498,7 +518,7 @@ class VoiceLatencyProfiler:
 
     async def simulate_streaming_voice_session(self):
         print("[Starting Latency Audit Session]...")
-        for turn in range(5):
+        for turn \in range(5):
             t_user_stops = time.perf_counter()
             await asyncio.sleep(0.175) # Simulated 175ms TTGE V2V Turnaround
             t_ai_speaks = time.perf_counter()
@@ -517,7 +537,7 @@ asyncio.run(profiler.simulate_streaming_voice_session())
 The gold standard for conversational voice AI is **200ms to 350ms**. At this speed, conversations feel biological and human. Delays exceeding 500ms feel unnatural and trigger conversational collisions.
 
 **Why do cascaded voice systems feel robotic and delayed?**
-Cascaded systems chain three separate API services (STT $\rightarrow$ LLM $\rightarrow$ TTS). Each stage must serialize its output into intermediate text formats and make network calls, accumulating **650ms to 1,400ms of lag**.
+Cascaded systems chain three separate API services (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS). Each stage must serialize its output into intermediate text formats and make network calls, accumulating **650ms to 1,400ms of lag**.
 
 **What is Time-to-First-Token (TTFT) and Time-to-First-Audio (TTFA)?**
 TTFT measures the time in milliseconds for a language model to emit its first response token. TTFA measures the time for the speech synthesizer to emit its first playable audio frame.
@@ -538,7 +558,7 @@ Yes. Empirical data shows that every 100ms of latency reduction above 300ms yiel
 Acoustic Echo Cancellation (AEC) subtracts the agent's outgoing audio from the microphone stream, allowing frame-level energy gating to detect human interruptions and silence output in **&lt;40ms**.
 
 **What is the cost difference between low-latency cascaded stacks and Tough Tongue AI?**
-Optimized cascaded stacks cost **\$0.084 to \$0.140 per minute** across fragmented third-party invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
+Optimized cascaded stacks cost **\$0.084 \to \$0.140 per minute** across fragmented third-party invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 **What is the setup time for deploying a low-latency voice agent?**
 Using Tough Tongue AI, businesses can build, test, and deploy a production voice agent in **&lt;2 minutes** via straightforward web dashboard configuration.

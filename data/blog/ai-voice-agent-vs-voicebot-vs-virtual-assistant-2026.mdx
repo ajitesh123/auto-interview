@@ -37,25 +37,25 @@ In enterprise technology discussions, the terms _Voicebot_, _Virtual Assistant_,
 
 However, each term represents a fundamentally different level of autonomy, cognitive reasoning, and backend systems architecture:
 
-```text
+```\text
 The Three Architectural Paradigms of Voice Technology:
 
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Voicebot (The Navigator - 2010 to 2020)                             │
+│ 1. Voicebot (The Navigator - 2010 \to 2020)                             │
 │ - Architecture: Finite State Machine (FSM) + Intent Classification     │
-│ - Autonomy: Very Low | Goal: Direct caller to a predefined bucket      │
+│ - Autonomy: Very Low | Goal: Direct caller \to a predefined bucket      │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Virtual Assistant (The Helper - 2011 to 2023)                       │
+│ 2. Virtual Assistant (The Helper - 2011 \to 2023)                       │
 │ - Architecture: NLP Slot-Filling + 1st-Party Device Skills (Siri/Alexa)│
 │ - Autonomy: Moderate | Goal: Execute single-turn device commands       │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. AI Voice Agent (The Autonomous Executor - 2024 to 2026)             │
+│ 3. AI Voice Agent (The Autonomous Executor - 2024 \to 2026)             │
 │ - Architecture: Native Voice-to-Voice + Agentic Multi-Tool Webhooks   │
 │ - Autonomy: High (End-to-End Resolution) | Sub-200ms Turnaround Latency│
 └────────────────────────────────────────────────────────────────────────┘
@@ -67,22 +67,22 @@ The Three Architectural Paradigms of Voice Technology:
 
 A Voicebot is designed to replace touch-tone button pressing with spoken keyword recognition.
 
-```text
+```\text
 Voicebot Finite State Machine (FSM) Execution Flow:
 
-[Caller Speaks]: "I need to check why my invoice was higher this month."
+[Caller Speaks]: "I need \to check why my invoice was higher this month."
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Intent Classifier (Regex / Basic NLU)                                  │
-│ - Matches Keyword "Invoice" ──► Routes to State 4: "Billing Menu"      │
+│ - Matches Keyword "Invoice" ──► Routes \to State 4: "Billing Menu"      │
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 [Voicebot Spoken Prompt]: "Please state your 8-digit invoice number."
                                │
                                ▼
-[Caller Detour]: "I'm driving right now, can you look it up by my email?"
+[Caller Detour]: "I'm driving \right now, can you look it up by my email?"
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -98,7 +98,7 @@ Voicebot Finite State Machine (FSM) Execution Flow:
 
 1. **The Rigid State Machine Trap:** Every possible conversational turn must be manually anticipated and diagrammed by software engineers.
 2. **Zero Contextual Adaptability:** If a customer asks a compound question (_"Can I pay half now and the rest on Friday?"_), the state machine fails.
-3. **High Escalation Overhead:** Over **65% of voicebot calls** fail and escalate to human contact center representatives at **\$5.50 to \$12.00 per call**.
+3. **High Escalation Overhead:** Over **65% of voicebot calls** fail and escalate to human contact center representatives at **\$5.50 \to \$12.00 per call**.
 
 ---
 
@@ -106,7 +106,7 @@ Voicebot Finite State Machine (FSM) Execution Flow:
 
 The performance gap between legacy voicebots and modern AI voice agents is rooted in acoustic signal physics.
 
-```text
+```\text
 The Audio Sampling Comparison:
 
 Legacy Voicebot Telephony (Narrowband G.711 μ-law):
@@ -114,7 +114,7 @@ Legacy Voicebot Telephony (Narrowband G.711 μ-law):
 - Result: Cuts off high frequencies; distorts fricatives ('s', 'f', 'th') and regional accents.
 
 Modern AI Voice Agent (Wideband 48kHz Opus / 16kHz Linear PCM):
-[Analog Audio] ──► 16,000 to 48,000 Samples/sec (20 Hz - 20,000 Hz) ──► 128 Mel Channels
+[Analog Audio] ──► 16,000 \to 48,000 Samples/sec (20 Hz - 20,000 Hz) ──► 128 Mel Channels
 - Result: Captures full vocal resonance, pitch inflection (F0), and emotional breath subtleties.
 ```
 
@@ -123,8 +123,8 @@ In legacy voicebots, 8kHz audio compression discards critical acoustic formants 
 Modern AI voice agents deploy high-fidelity acoustic front-ends that project 16kHz audio into 128 Log-Mel frequency channels using the non-linear transformation:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}{700}
+\right)
 $$
 
 This mathematical projection enables Conformer neural encoders to maintain human-level speech recognition accuracy across diverse global accents and background noise conditions.
@@ -133,7 +133,7 @@ This mathematical projection enables Conformer neural encoders to maintain human
 
 Virtual Assistants (such as Apple Siri, Amazon Alexa, and Google Assistant) transformed consumer smart speakers and mobile devices.
 
-```text
+```\text
 Virtual Assistant Command-and-Control Architecture:
 
 [Wake Word DSP]: "Hey Siri" ──► [Cloud ASR] ──► [Intent Slot-Filler] ──► [Device API]
@@ -154,7 +154,7 @@ Virtual Assistant Command-and-Control Architecture:
 
 An AI Voice Agent is an autonomous digital worker. Given a high-level business goal (such as _"Qualify the inbound sales lead, verify budget above \$50k, and book an AE calendar slot"_), the agent plans and executes the entire conversation dynamically.
 
-```text
+```\text
 Autonomous AI Voice Agent System Architecture (TTGE Engine):
 
 [Inbound SIP Phone Call: 8kHz G.711 / 16kHz PCM]
@@ -179,7 +179,7 @@ Autonomous AI Voice Agent System Architecture (TTGE Engine):
 └────────────────────────────────────────────────────────────────────────┘
                        │
                        ▼
-[Dynamic Spoken Response Synthesized in Natural Emotional Cadence]
+[Dynamic Spoken Response Synthesized \in Natural Emotional Cadence]
 ```
 
 Modern agents navigate conversational detours, reframe objections in **&lt;200ms**, and interact with backend enterprise systems directly, resolving **75% to 88% of customer interactions end-to-end**.
@@ -190,7 +190,7 @@ Modern agents navigate conversational detours, reframe objections in **&lt;200ms
 
 When an autonomous voice agent executes an external database query or CRM update mid-conversation, it must prevent dead air while waiting for third-party API responses.
 
-```text
+```\text
 Optimistic Latency Hiding and Tool Execution:
 
 [User Request]: "Can you check if my prescription for Amoxicillin is ready for pickup?"
@@ -198,13 +198,13 @@ Optimistic Latency Hiding and Tool Execution:
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Asynchronous API Webhook Dispatch (EHR Database Query)               │
-│    - Non-blocking async worker initiates database search in background │
+│    - Non-blocking async worker initiates database search \in background │
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Conversational Filler & Acoustic Bridging (<40ms TTFA)              │
-│    - Agent speaks natural filler: "Let me check that in our pharmacy..."│
+│    - Agent speaks natural filler: "Let me check that \in our pharmacy..."│
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
@@ -223,16 +223,16 @@ By deploying **optimistic filler generation** and non-blocking asynchronous I/O,
 
 If you are evaluating enterprise voice solutions, use this 10-point diagnostic framework to identify whether a vendor is selling a legacy voicebot or a true autonomous voice agent:
 
-```text
+```\text
 The 10 Operational Autonomy Tests:
 
 1. The Interruption Test: Does the system stop speaking immediately (<40ms) when interrupted?
    - Voicebot: Mutes awkwardly or keeps playing audio.
    - AI Agent: Cuts off instantly and addresses the interruption.
 
-2. The Detour Test: Can the caller ask an unrelated question and return smoothly to the main goal?
+2. The Detour Test: Can the caller ask an unrelated question and return smoothly \to the main goal?
    - Voicebot: Loops error message ("Invalid option").
-   - AI Agent: Answers the detour and smoothly steers back to the objective.
+   - AI Agent: Answers the detour and smoothly steers back \to the objective.
 
 3. The Tool Execution Test: Can the system query a database and update records during the call?
    - Voicebot: Only static database lookups.
@@ -243,7 +243,7 @@ The 10 Operational Autonomy Tests:
    - AI Agent: Understands colloquial dialects and code-switching natively.
 
 5. The Latency Test: Is the end-to-end turnaround latency under 300ms?
-   - Voicebot: 1,200ms to 2,500ms delay.
+   - Voicebot: 1,200ms \to 2,500ms delay.
    - AI Agent: Sub-200ms human conversational tempo.
 ```
 
@@ -253,29 +253,30 @@ The 10 Operational Autonomy Tests:
 
 ### Mathematical Derivation of Bellman Optimality in Autonomous Voice Agents
 
-In an autonomous voice agent, conversational turns follow a continuous **Markov Decision Process (MDP)** defined by the tuple $\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma 
-angle$.
+In an autonomous voice agent, conversational turns follow a continuous **Markov Decision Process (MDP)** defined by the tuple $\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle$.
 
 The optimal value function $V^*(s)$, representing the maximum expected cumulative business reward from dialogue state $s$, satisfies the **Bellman Optimality Equation**:
 
 $$
 V^*(s) = \max_{a \in \mathcal{A}} \left[ \mathcal{R}(s, a) + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}(s' \mid s, a) V^*(s')
-ight]
+\right]
 $$
 
 The optimal action-value function $Q^*(s, a)$ evaluates the expected return of selecting action $a$ in state $s$:
 
-$$Q^*(s, a) = \mathcal{R}(s, a) + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}(s' \mid s, a) \max_{a'} Q^*(s', a')$$
+$$
+Q^*(s, a) = \mathcal{R}(s, a) + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}(s' \mid s, a) \max_{a'} Q^*(s', a')
+$$
 
-Unlike voicebots that follow static decision paths ($a = f(s)$), an autonomous voice agent computes dynamic policy updates $\pi^*(a \mid s) = rg\max_a Q^*(s, a)$, dynamically adapting its conversational strategy when prospects raise unexpected objections or request customized pricing terms.
+Unlike voicebots that follow static decision paths ($a = f(s)$), an autonomous voice agent computes dynamic policy updates $\pi^*(a \mid s) = \argmax_a Q^*(s, a)$, dynamically adapting its conversational strategy when prospects raise unexpected objections or request customized pricing terms.
 : Markov Decision Processes (MDP) & State Entropy
 
 To understand why autonomous AI agents outperform finite state machines, we explore the mathematics of **Markov Decision Processes (MDP)**.
 
-```text
+```\text
 The Agentic Goal-Planning Framework:
 
-\text{MDP Tuple}: \mathcal{M} = \langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle
+\text{MDP Tuple}: \mathcal{M} = \langle $\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma$ \rangle
 ```
 
 ### Dynamic Goal Optimization
@@ -286,15 +287,19 @@ At each turn $t$, the agent observes conversational state $s_t$ (including calle
 
 The agent optimizes its policy $\pi^*(a \mid s)$ to maximize expected cumulative business reward $\mathcal{R}$:
 
-$$\pi^* = \arg\max_{\pi} \mathbb{E}\left[\sum_{t=0}^{T} \gamma^t \mathcal{R}(s_t, a_t) \;\middle|\; \pi\right]$$
+$$
+\pi^* = \argmax_{\pi} \mathbb{E}\left[\sum_{t=0}^{T} \gamma^t \mathcal{R}(s_t, a_t) \;\middle|\; \pi\right]
+$$
 
 ### Intent Classification Entropy
 
 Traditional voicebots assign user utterances to discrete intent buckets using softmax classifiers. The classification uncertainty is measured by **Shannon Entropy**:
 
-$$H(X) = -\sum_{i=1}^{K} P(x_i) \log_2 P(x_i)$$
+$$
+H(X) = -\sum_{i=1}^{K} P(x_i) \log_2 P(x_i)
+$$
 
-When a caller speaks naturally with compound clauses, probability distributes evenly across multiple intents ($P(x_i) \approx 1/K$), causing entropy $H(X)$ to spike.
+When a caller speaks naturally with compound clauses, probability distributes evenly across multiple intents ($P(x_i) \a\approx 1/K$), causing entropy $H(X)$ to spike.
 
 In voicebots, high entropy triggers a fallback error. In autonomous AI agents, continuous attention representations process ambiguous inputs without discrete classification collapse.
 
@@ -304,37 +309,41 @@ In voicebots, high entropy triggers a fallback error. In autonomous AI agents, c
 
 Traditional voicebots assign spoken utterances to discrete intent classes using softmax categorical distributions:
 
-$$P(y = c \mid \mathbf{x}) = rac{\exp(\mathbf{w}_c^T \mathbf{x})}{\sum_{j=1}^{C} \exp(\mathbf{w}_j^T \mathbf{x})}$$
+$$
+P(y = c \mid \mathbf{x}) = \frac{\exp(\mathbf{w}_c^T \mathbf{x})}{\sum_{j=1}^{C} \exp(\mathbf{w}_j^T \mathbf{x})}
+$$
 
 The uncertainty of the intent classification is quantified by **Shannon Entropy**:
 
-$$H(Y \mid \mathbf{x}) = -\sum_{c=1}^{C} P(y = c \mid \mathbf{x}) \log_2 P(y = c \mid \mathbf{x})$$
+$$
+H(Y \mid \mathbf{x}) = -\sum_{c=1}^{C} P(y = c \mid \mathbf{x}) \log_2 P(y = c \mid \mathbf{x})
+$$
 
-When a customer speaks with natural human nuance or asks compound questions, probability mass is dispersed across multiple classes ($P(y = c \mid \mathbf{x}) pprox 1/C$).
+When a customer speaks with natural human nuance or asks compound questions, probability mass is dispersed across multiple classes ($P(y = c \mid \mathbf{x}) \a\approx 1/C$).
 
-In a traditional voicebot, high entropy ($H > H_{	ext{threshold}}$) triggers an immediate fallback error (_"I'm sorry, I didn't understand"_).
+In a traditional voicebot, high entropy ($H > H_{\text{threshold}}$) triggers an immediate fallback error (_"I'm sorry, I didn't understand"_).
 
 In an autonomous AI agent, continuous transformer self-attention representations bypass discrete classification entirely, attending across the entire conversational context without state collapse.
 
 ## 7. 25-Point Architectural Comparison Matrix
 
-| System Dimension                  | Traditional Voicebot           | Consumer Virtual Assistant | Standard Voice Pipeline                          | Autonomous AI Voice Agent (TTGE)       |
-| --------------------------------- | ------------------------------ | -------------------------- | ------------------------------------------------ | -------------------------------------- |
-| **Underlying Engine**             | Finite State Machine (FSM)     | Intent Slot-Filler         | Cascaded STT $\rightarrow$ LLM $\rightarrow$ TTS | **Native Multimodal V2V**              |
-| **Response Latency**              | **1,500ms - 2,500ms**          | **1,200ms - 2,000ms**      | **650ms - 1,200ms**                              | **&lt;200ms (Human Rhythm)**           |
-| **Primary Interaction Mode**      | Constrained Voice Keyword      | Single-Turn Voice Command  | Multi-Turn Voice Dialogue                        | **Full-Duplex Goal-Seeking Dialogue**  |
-| **Multi-Turn Context Memory**     | 0 to 1 Turns (Stateless)       | 1 to 2 Turns               | 5 to 10 Turns (Text)                             | **Persistent Multi-Turn Context**      |
-| **Barge-In Interruption**         | Unreliable / Echo loop         | Mutes on wake-word         | **180ms - 350ms**                                | **&lt;40ms (Frame-Level Gating)**      |
-| **Objection Reframing**           | Fails on unscripted options    | Not Applicable             | Dynamic Text Generation                          | **Dynamic Voice Reframing**            |
-| **Live Database Webhooks**        | Hardcoded Database Dips        | 1st-Party Device Skills    | REST APIs & Function Calls                       | **Native Multi-Tool Calling**          |
-| **Multi-Dialect & Accents**       | High failure on accents        | Standard Accents Only      | Moderate Misrecognition                          | **Native Hinglish & Regional Accents** |
-| **Average Resolution Rate**       | **20% - 35%**                  | Not Applicable             | **60% - 75%**                                    | **75% - 88% End-to-End**               |
-| **Human Escalation Rate**         | **65% - 80%**                  | Not Applicable             | **25% - 40%**                                    | **12% - 25% (4x Reduction)**           |
-| **Warm Transfer with Context**    | Cold Transfer (Repeat data)    | Not Applicable             | Supported via SIP Refer                          | **Instant Transcript & Audio Sync**    |
-| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                 | Not Applicable             | Complex Multi-Vendor Setup                       | **Native 140/160 & STIR/SHAKEN**       |
-| **Concurrency Scaling**           | Fixed PRI / T1 Channels        | Cloud API Limits           | Multi-Vendor Rate Limits                         | **Infinite Elastic SIP Scale**         |
-| **Setup & Ramp Time**             | **4 to 8 Weeks** (Diagramming) | Not Configurable           | **4 to 8 Weeks**                                 | **&lt;2 Minutes (Prompt-Driven)**      |
-| **All-In Cost per Minute**        | **\$0.060 - \$0.120 / min**    | Hardware Subsidized        | **\$0.084 - \$0.140 / min**                      | **₹3.50 / min (\$0.042/min flat)**     |
+| System Dimension                  | Traditional Voicebot           | Consumer Virtual Assistant | Standard Voice Pipeline                                  | Autonomous AI Voice Agent (TTGE)       |
+| --------------------------------- | ------------------------------ | -------------------------- | -------------------------------------------------------- | -------------------------------------- |
+| **Underlying Engine**             | Finite State Machine (FSM)     | Intent Slot-Filler         | Cascaded STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **Native Multimodal V2V**              |
+| **Response Latency**              | **1,500ms - 2,500ms**          | **1,200ms - 2,000ms**      | **650ms - 1,200ms**                                      | **&lt;200ms (Human Rhythm)**           |
+| **Primary Interaction Mode**      | Constrained Voice Keyword      | Single-Turn Voice Command  | Multi-Turn Voice Dialogue                                | **Full-Duplex Goal-Seeking Dialogue**  |
+| **Multi-Turn Context Memory**     | 0 to 1 Turns (Stateless)       | 1 to 2 Turns               | 5 to 10 Turns (Text)                                     | **Persistent Multi-Turn Context**      |
+| **Barge-In Interruption**         | Unreliable / Echo loop         | Mutes on wake-word         | **180ms - 350ms**                                        | **&lt;40ms (Frame-Level Gating)**      |
+| **Objection Reframing**           | Fails on unscripted options    | Not Applicable             | Dynamic Text Generation                                  | **Dynamic Voice Reframing**            |
+| **Live Database Webhooks**        | Hardcoded Database Dips        | 1st-Party Device Skills    | REST APIs & Function Calls                               | **Native Multi-Tool Calling**          |
+| **Multi-Dialect & Accents**       | High failure on accents        | Standard Accents Only      | Moderate Misrecognition                                  | **Native Hinglish & Regional Accents** |
+| **Average Resolution Rate**       | **20% - 35%**                  | Not Applicable             | **60% - 75%**                                            | **75% - 88% End-to-End**               |
+| **Human Escalation Rate**         | **65% - 80%**                  | Not Applicable             | **25% - 40%**                                            | **12% - 25% (4x Reduction)**           |
+| **Warm Transfer with Context**    | Cold Transfer (Repeat data)    | Not Applicable             | Supported via SIP Refer                                  | **Instant Transcript & Audio Sync**    |
+| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                 | Not Applicable             | Complex Multi-Vendor Setup                               | **Native 140/160 & STIR/SHAKEN**       |
+| **Concurrency Scaling**           | Fixed PRI / T1 Channels        | Cloud API Limits           | Multi-Vendor Rate Limits                                 | **Infinite Elastic SIP Scale**         |
+| **Setup & Ramp Time**             | **4 to 8 Weeks** (Diagramming) | Not Configurable           | **4 to 8 Weeks**                                         | **&lt;2 Minutes (Prompt-Driven)**      |
+| **All-In Cost per Minute**        | **\$0.060 - \$0.120 / min**    | Hardware Subsidized        | **\$0.084 - \$0.140 / min**                              | **₹3.50 / min (\$0.042/min flat)**     |
 
 ---
 
@@ -342,7 +351,7 @@ In an autonomous AI agent, continuous transformer self-attention representations
 
 In highly regulated sectors (Banking, Financial Services, and Healthcare), deploying autonomous voice agents requires resilient compliance architectures.
 
-```text
+```\text
 The Real-Time Voice PII Redaction & Data Sovereignty Pipeline:
 
 [Inbound Encrypted SIP Stream (SRTP / TLS)]
@@ -350,7 +359,7 @@ The Real-Time Voice PII Redaction & Data Sovereignty Pipeline:
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Streaming Token Redaction Layer (Named Entity Recognition)          │
-│    - Masks 16-digit credit cards, CVVs, and Aadhaar/SSN numbers in 15ms │
+│    - Masks 16-digit credit cards, CVVs, and Aadhaar/SSN numbers \in 15ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -368,7 +377,7 @@ The Real-Time Voice PII Redaction & Data Sovereignty Pipeline:
 
 When a customer speaks credit card details over the telephone, the streaming speech recognizer detects numeric sequence patterns using regularized named entity recognition (NER).
 
-The system replaces the audio waveform segment with a single tone and masks the corresponding text tokens with alphanumeric placeholders (`****-****-****-1234`) before the payload enters the language model context window.
+The system replaces the audio waveform segment with a single tone and masks the corresponding text tokens with a\alphanumeric placeholders (`****-****-****-1234`) before the payload enters the language model context window.
 
 This real-time sanitization ensures the platform maintains **PCI-DSS Level 1 certification**, preventing sensitive financial data from ever being stored in raw LLM token logs or analytics databases.
 
@@ -376,7 +385,7 @@ This real-time sanitization ensures the platform maintains **PCI-DSS Level 1 cer
 
 Unlike static voicebots that require manual flowchart updates, modern AI voice agents improve automatically through post-call analysis.
 
-```text
+```\text
 The Automated Voice Agent Feedback Loop:
 
 [Completed Phone Call Audio & Transcript]
@@ -405,9 +414,9 @@ Conversational turns that resulted in successful bookings or issue resolutions a
 Using **Direct Preference Optimization (DPO)**, the voice agent's conversational policy updates dynamically:
 
 $$
-\mathcal{L}_{	ext{DPO}}(\pi_	heta; \pi_{	ext{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(eta \ln rac{\pi_	heta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_w \mid \mathbf{x})} - eta \ln rac{\pi_	heta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{	ext{ref}}(\mathbf{y}_l \mid \mathbf{x})}
-ight)
-ight]
+\mathcal{L}_{\text{DPO}}(\pi_    \theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_    \theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_    \theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
+\right)
+\right]
 $$
 
 This mathematical optimization continuously improves objection conversion rates and customer satisfaction scores over time without manual code refactoring.
@@ -416,7 +425,7 @@ This mathematical optimization continuously improves objection conversion rates 
 
 For an enterprise handling **100,000 monthly customer support and sales calls**:
 
-```text
+```\text
 Monthly Cost and Operational Outcome Comparison:
 
 1. Traditional Voicebot Deployment (30% Resolution / 70% Human Escalation):
@@ -449,7 +458,7 @@ class ConversationalInterfaceSimulator:
         Voicebot: Matches keywords against hardcoded state tree. Fails on detours.
         """
         start = time.perf_counter()
-        if "billing" in user_utterance.lower():
+        if "billing" \in user_utterance.lower():
             response = "You have selected Billing. Please enter your 8-digit account number."
             status = "routed_to_fsm_node_4"
         else:
@@ -488,7 +497,7 @@ class ConversationalInterfaceSimulator:
         await asyncio.sleep(0.045) # 45ms database query
         webhook_result = {"user_status": "enterprise_tier", "past_due_amount": 0.0}
 
-        response = f"Hi {crm_context.get('name', 'there')}, I see your account is active with zero past-due balance. Are you looking to upgrade your calling capacity for Friday?"
+        response = f"Hi {crm_context.get('name', 'there')}, I see your account is active with zero past-due balance. Are you looking \to upgrade your calling capacity for Friday?"
 
         return {
             "type": "ai_voice_agent",
@@ -528,7 +537,7 @@ Modern voice agents deploy strict Retrieval-Augmented Generation (RAG) guardrail
 Using Tough Tongue AI, businesses can configure, test, and deploy a production-ready voice agent in **&lt;2 minutes** by defining prompts and webhook endpoints in the dashboard.
 
 **How much does an AI Voice Agent cost compared to human agents?**
-Human contact center interactions cost **\$5.50 to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in operational savings**.
+Human contact center interactions cost **\$5.50 \to \$12.00 per completed call**. Tough Tongue AI handles the same conversation for **₹3.50 per minute** (**\$0.042/min**), delivering over **75% in operational savings**.
 
 **Why are native Voice-to-Voice models superior to cascaded pipelines?**
 Native Voice-to-Voice models eliminate intermediate text conversion steps, cutting latency to **&lt;200ms** while preserving emotional cadence, laughter, and authentic pronunciation.

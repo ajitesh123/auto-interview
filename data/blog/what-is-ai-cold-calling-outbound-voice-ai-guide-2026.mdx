@@ -27,7 +27,7 @@ structuredData:
 >
 > - **What is AI Cold Calling?** AI cold calling is the deployment of autonomous, full-duplex conversational voice agents that execute outbound telephone calls, navigate live prospect conversations, dynamically neutralize sales objections, and book qualified meetings directly into CRMs with sub-**180ms turnaround latency**.
 > - **The Human vs AI Metric Comparison:**
->   - **Human SDR Benchmark:** 40 to 60 calls per day | 4 to 6 live connects | \$5,500 to \$8,000 monthly cost.
+>   - **Human SDR Benchmark:** 40 to 60 calls per day | 4 to 6 live connects | \$5,500 \to \$8,000 monthly cost.
 >   - **Autonomous Voice Agent:** **2,400 calls per day per node** | **240 to 480 live connects** | **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
 > - **The 2026 Compliance Standard:** Outbound voice systems must implement programmatic **TCPA consent verification**, automated **National DNC registry scrubbing**, and **STIR/SHAKEN A-level cryptographic caller ID attestation**.
 
@@ -37,7 +37,7 @@ structuredData:
 
 Executing automated outbound phone calls at scale requires a multi-stage carrier telephony pipeline:
 
-```text
+```\text
 The Outbound Voice AI Engineering Pipeline:
 
 CRM Lead Database ──► Automated DNC & TCPA Compliance Scrub
@@ -51,7 +51,7 @@ CRM Lead Database ──► Automated DNC & TCPA Compliance Scrub
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Dual-Engine Answering Machine Detection (AMD <1,200ms)              │
-│    - Human Connect: Short "Hello?" -> Launches AI Hook in <150ms       │
+│    - Human Connect: Short "Hello?" -> Launches AI Hook \in <150ms       │
 │    - Voicemail: Long audio -> Leaves automated custom voicemail        │
 └────────────────────────────────────────────────────────────────────────┘
                                │
@@ -68,25 +68,29 @@ CRM Lead Database ──► Automated DNC & TCPA Compliance Scrub
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame gating must operate in **&lt;15ms** to prevent clipping prospect responses.
 
@@ -94,7 +98,7 @@ While streaming Conformer decoders execute within 60ms to 80ms, the VAD frame ga
 
 In telephone sales conversations, vocal authority and naturalness depend on smooth formant resonances ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -102,7 +106,9 @@ Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speec
 
 The vocal tract transfer function is modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -112,12 +118,12 @@ By operating directly on continuous acoustic latents rather than discrete text, 
 
 In outbound cold calling, prospects evaluate the caller's credibility within the first three seconds based on acoustic formant smoothness.
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue advancement.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue advancement.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 In cascaded systems, stitching separate TTS audio chunks causes unnatural phase clicks and formant discontinuities, signaling to the prospect that an automated bot is calling.
@@ -128,7 +134,7 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 
 Outbound voice agents deploy distinct cognitive reframing strategies based on prospect objection categories:
 
-```text
+```\text
 The 4 Core Objection Neutralization Protocols:
 
 1. Time Constraint Objection: "I am walking into a meeting."
@@ -136,8 +142,8 @@ The 4 Core Objection Neutralization Protocols:
      and propose a calendar invite with zero pressure.
 
 2. Information Gatekeeping: "Just send an email."
-   - Protocol: Agree to send email, ask one targeted qualifying question regarding current telephony
-     stack to personalize the material.
+   - Protocol: Agree \to send email, ask one targeted qualifying question regarding current telephony
+     stack \to personalize the material.
 
 3. Existing Vendor Lock-In: "We already use vendor X."
    - Protocol: Validate vendor choice, highlight specific sub-200ms latency differentiator,
@@ -145,14 +151,14 @@ The 4 Core Objection Neutralization Protocols:
 
 4. Budget / Authority Deflection: "We don't have budget for this."
    - Protocol: Clarify that the platform replaces fragmented API costs, reducing total per-minute
-     spend to ₹3.50/min flat.
+     spend \to ₹3.50/min flat.
 ```
 
 ## 2. Dynamic Objection Reframing: Moving Beyond Scripted Decision Trees
 
 When a human prospect answers an unsolicited call, their default reaction is defensive.
 
-```text
+```\text
 Autonomous Objection Handling Architecture:
 
 [Prospect Speaks Defensive Objection]: "I'm extremely busy, send me an email."
@@ -165,7 +171,7 @@ Autonomous Objection Handling Architecture:
 └────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
-[AI Reframes Dynamically (<180ms)]: "Understood Sarah, I'll keep this to 20
+[AI Reframes Dynamically (<180ms)]: "Understood Sarah, I'\ll keep this \to 20
 seconds. We helped CloudTech cut their telephony latency by 65% last month.
 Would Thursday at 2 PM work for a brief 5-minute review?"
 ```
@@ -178,7 +184,7 @@ Because the agent responds within the **sub-180ms biological window**, the prosp
 
 When prospects answer mobile phones, narrowband cellular compression can mute higher vocal overtones:
 
-```text
+```\text
 The Super-Resolution BWE Pipeline:
 
 Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
@@ -187,11 +193,11 @@ Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Restores broadcast-grade clarity in <6ms GPU inference time          │
+│ - Restores broadcast-grade clarity \in <6ms GPU inference time          │
 └────────────────────────────────────────────────────────────────────────┘
                     │
                     ▼
-[High-Fidelity Audio Feed to Multimodal Sales Reasoning Engine]
+[High-Fidelity Audio Feed \to Multimodal Sales Reasoning Engine]
 ```
 
 ### India-Specific TRAI 160-Series Compliance & Hinglish Calling:
@@ -206,7 +212,7 @@ In the Indian enterprise sales market, outbound voice operations must navigate s
 
 Operating outbound voice agents requires rigorous compliance across global jurisdictions:
 
-```text
+```\text
 Global Compliance Gateways:
 
 1. United States (FCC & TCPA):
@@ -228,19 +234,23 @@ When synthesizing speech in full-duplex systems, the vocoder must support instan
 
 Selective State Space Models (SSMs / Mamba) compute audio frames with linear complexity $\mathcal{O}(N)$:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the sales agent to start and stop instantly without phase distortion.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ emits audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**, allowing the sales agent to start and stop instantly without phase distortion.
 
 ### Telephony Audio Codecs & FlashAttention-3 GPU Memory Optimization
 
 Managing thousands of concurrent outbound dialing channels requires high-efficiency memory and codec management:
 
-```text
+```\text
 The High-Concurrency Outbound GPU Stack:
 
 1. FlashAttention-3:
@@ -258,11 +268,11 @@ The High-Concurrency Outbound GPU Stack:
 
 ## 4. Mathematical Modeling of Outbound Telephony Economics
 
-```text
+```\text
 The Mathematical Formulations:
 
 1. Prospect Engagement Decay Function:
-   P(\text{Listen}) = P_0 \cdot \exp(-\lambda \cdot \tau_{\text{latency}})
+   P(\text{Listen}) = P_0 \cdot \exp(-\lambda \cdot \\tau_{\text{latency}})
 
 2. Connectionist Temporal Classification Alignment Loss:
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
@@ -271,10 +281,10 @@ The Mathematical Formulations:
    \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
 
 4. Direct Preference Optimization Policy Objective:
-   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 ```
 
-When turnaround latency $\tau_{\text{latency}}$ exceeds **600ms**, the prospect engagement probability $P(\text{Listen})$ decays exponentially, increasing immediate hang-ups by **over 300%**.
+When turnaround latency $\\tau_{\text{latency}}$ exceeds **600ms**, the prospect engagement probability $P(\text{Listen})$ decays exponentially, increasing immediate hang-ups by **over 300%**.
 
 ---
 
@@ -282,7 +292,7 @@ When turnaround latency $\tau_{\text{latency}}$ exceeds **600ms**, the prospect 
 
 Deploying real-time Voice-to-Voice models across cellular telephone lines requires managing packet arrival variance:
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [PSTN Mobile Caller] ──► [Session Border Controller (SBC)] ──► [Regional WebRTC Gateway]
@@ -296,14 +306,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                      │
                                                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-180ms Native Voice Turnaround Core (TTGE Engine)                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is dynamically regulated:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile 4G/5G connections while maintaining instantaneous responsiveness.
 
@@ -311,7 +323,7 @@ This dynamic buffering prevents stuttering on mobile 4G/5G connections while mai
 
 In modern neural speech synthesis, generating continuous 24kHz audio waveforms from intermediate latents requires an adversarial neural vocoder:
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Acoustic Latent Vector Matrix
@@ -319,13 +331,13 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -335,13 +347,17 @@ Input Acoustic Latent Vector Matrix
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 ### Deep Noise Suppression (DNS) & Wiener Filtering
 
 In cellular telephone environments, background ambient acoustic static can degrade speech recognition:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying real-time Wiener acoustic filtering isolates prospect vocal formants while suppressing non-speech noise by up to **24 dB**.
 
@@ -349,7 +365,7 @@ Applying real-time Wiener acoustic filtering isolates prospect vocal formants wh
 
 When prospects answer calls from noisy environments (cars, airports, bustling offices), background acoustic static can degrade speech recognition:
 
-```text
+```\text
 The Neural Wiener Filtering & Denoising Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -357,7 +373,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -367,18 +383,22 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to Multimodal Reasoning Core]
+[Clean Speech Signal Fed \to Multimodal Reasoning Core]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ suppresses ambient acoustic noise by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
-### Conversational Information Rate ($R_{	ext{info}}$) in Outbound Pitches
+### Conversational Information Rate ($R_{\text{info}}$) in Outbound Pitches
 
 In outbound sales, the opening 15 seconds represent the critical window for establishing relevance:
 
-$$R_{	ext{info}} = rac{H(	ext{Qualified State}) - H(	ext{Cold State})}{T_{	ext{pitch}}}$$
+$$
+R_{\text{info}} = \frac{H(\text{Qualified State}) - H(\text{Cold State})}{T_{\text{pitch}}}
+$$
 
 By eliminating long pauses and robotic delays, sub-180ms voice agents maximize information transfer rate, transforming cold prospects into qualified leads within **75 seconds**.
 
@@ -386,7 +406,7 @@ By eliminating long pauses and robotic delays, sub-180ms voice agents maximize i
 
 Outbound sales calls frequently involve prospect interruptions:
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [AI Agent Vocalizing Pitch via Carrier SIP Trunk]
@@ -411,13 +431,13 @@ Full-Duplex Interruption Architecture:
 
 ### 2026 Comprehensive Outbound Voice Architecture Benchmark Matrix
 
-| Outbound Dialing Platform    | Underlying Architecture                       | Turnaround Latency (P50) | Meeting Booking Rate           | Connect-to-DNC Rate             | Cost per Dialed Minute             |
-| ---------------------------- | --------------------------------------------- | ------------------------ | ------------------------------ | ------------------------------- | ---------------------------------- |
-| **Legacy Predictive Dialer** | Touch-Tone DTMF Keypads                       | **2,500ms**              | **1.20%**                      | **4.80% (High Complaints)**     | **\$0.080 / min** (Telco)          |
-| **Cascaded Voicebot (2023)** | STT $\rightarrow$ LLM $\rightarrow$ TTS Chain | **650ms**                | **2.80%**                      | **2.40%**                       | **\$0.086 / min**                  |
-| **OpenAI Realtime API**      | Cloud Multimodal Audio                        | **250ms**                | **6.40%**                      | **0.80%**                       | **\$0.120 - \$0.300 / min**        |
-| **Google Gemini Live**       | Multimodal Audio Core                         | **220ms**                | **7.20%**                      | **0.60%**                       | Enterprise Quota                   |
-| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                     | **&lt;180ms**            | **11.4% (Highest Conversion)** | **&lt;0.20% (Full Compliance)** | **₹3.50 / min (\$0.042/min flat)** |
+| Outbound Dialing Platform    | Underlying Architecture                               | Turnaround Latency (P50) | Meeting Booking Rate           | Connect-to-DNC Rate             | Cost per Dialed Minute             |
+| ---------------------------- | ----------------------------------------------------- | ------------------------ | ------------------------------ | ------------------------------- | ---------------------------------- |
+| **Legacy Predictive Dialer** | Touch-Tone DTMF Keypads                               | **2,500ms**              | **1.20%**                      | **4.80% (High Complaints)**     | **\$0.080 / min** (Telco)          |
+| **Cascaded Voicebot (2023)** | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS Chain | **650ms**                | **2.80%**                      | **2.40%**                       | **\$0.086 / min**                  |
+| **OpenAI Realtime API**      | Cloud Multimodal Audio                                | **250ms**                | **6.40%**                      | **0.80%**                       | **\$0.120 - \$0.300 / min**        |
+| **Google Gemini Live**       | Multimodal Audio Core                                 | **220ms**                | **7.20%**                      | **0.60%**                       | Enterprise Quota                   |
+| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                             | **&lt;180ms**            | **11.4% (Highest Conversion)** | **&lt;0.20% (Full Compliance)** | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Enterprise Migration Blueprint: Transitioning Outbound Teams to AI Agents
 
@@ -450,7 +470,7 @@ By pre-training multimodal foundation transformers on over 1,000,000 hours of in
 
 ## 7. Enterprise Economics: Human SDR vs Autonomous Voice Agent
 
-```text
+```\text
 Comparative Unit Economics for 50,000 Monthly Outbound Dials:
 
 1. Human SDR Team (Requires 35 SDRs):
@@ -488,7 +508,7 @@ class OutboundCampaignOrchestrator:
         """
         Verifies phone number against National & Internal DNC suppression lists.
         """
-        return phone_number not in self.dnc_suppression_list
+        return phone_number not \in self.dnc_suppression_list
 
     async def execute_outbound_call(self, lead_record: Dict[str, Any]) -> Dict[str, Any]:
         phone = lead_record.get("phone", "")
@@ -517,7 +537,7 @@ async def run_outbound_batch():
         {"name": "DNC Record", "phone": "+15551234567", "company": "BlockedCorp"}
     ]
 
-    for lead in leads:
+    for lead \in leads:
         res = await orchestrator.execute_outbound_call(lead)
         print(f"[Campaign Lead]: Status = {res['status']} | Phone = {res['phone']}")
 

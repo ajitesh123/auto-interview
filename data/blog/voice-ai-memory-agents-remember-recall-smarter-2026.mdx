@@ -47,7 +47,7 @@ structuredData:
 
 This is the question that separates scripted bots from genuinely intelligent voice AI agents.
 
-A caller says "I run a chain of three restaurants in Pune" early in a conversation. Five minutes later, they ask "Which plan would work for my type of business?" An agent with memory connects the dots. An agent without memory asks "What kind of business do you run?" — and the caller loses patience.
+A caller says "I run a chain of three res\taurants in Pune" early in a conversation. Five minutes later, they ask "Which plan would work for my type of business?" An agent with memory connects the dots. An agent without memory asks "What kind of business do you run?" — and the caller loses patience.
 
 Memory is what transforms a voice AI from a fancy phone tree into something that actually feels like a knowledgeable conversation partner. But how does it actually work? Let us break it down.
 
@@ -64,8 +64,9 @@ Memory is what transforms a voice AI from a fancy phone tree into something that
 Every LLM has a "context window" — the amount of text it can consider when generating a response. Think of it as the AI's short-term memory. Everything said during the current call — both by the caller and the agent — lives in this window.
 
 **How it works:**
-- Each message (user speech → transcript, agent response) is appended to a growing conversation log
-- When the LLM generates its next response, it reads the entire log
+
+- Each message (user speech → transcript, agent response) is appended to a growing conversation \log
+- When the LLM generates its next response, it reads the entire \log
 - This means the agent "remembers" everything from the current call
 
 **The limitation:** Context windows have a maximum size. For most production models, this is 8K-128K tokens. A typical voice call generates roughly 100-200 tokens per minute. So for a 10-minute call, you have about 1,000-2,000 tokens — well within the window. But for very long calls, or when the system prompt is large, you can run out of space.
@@ -79,11 +80,13 @@ What about remembering information across multiple calls? When the same lead cal
 This requires **persistent memory** — storing conversation data in a database that persists beyond the current session.
 
 **How it works:**
+
 - After each call, key information is extracted and stored (caller preferences, decisions made, questions asked)
 - When the same caller contacts the agent again, their history is retrieved and injected into the system prompt
 - The agent starts the new conversation with pre-loaded context about the caller
 
 As [LiveKit's guide on building AI agents with memory using Supabase](https://livekit.com/blog/building-ai-agents-with-memory) demonstrates, implementing this requires connecting the voice agent to a database backend. The pattern involves:
+
 1. Creating a user profile table that stores extracted conversation data
 2. Writing a function that retrieves relevant history when a known caller connects
 3. Injecting that history into the LLM's context at the start of each new session
@@ -91,11 +94,12 @@ As [LiveKit's guide on building AI agents with memory using Supabase](https://li
 
 ### Type 3: Knowledge Memory (RAG — Retrieval-Augmented Generation)
 
-Beyond remembering *callers*, agents also need to remember *information* — product details, pricing, policies, procedures, and domain knowledge.
+Beyond remembering _callers_, agents also need to remember _information_ — product details, pricing, policies, procedures, and domain knowledge.
 
 This is where **RAG** (Retrieval-Augmented Generation) comes in.
 
 **How it works:**
+
 - Company knowledge (product catalogs, FAQs, pricing tables, policy documents) is stored in a vector database
 - When a caller asks a question, the agent searches this knowledge base for relevant information
 - The retrieved information is injected into the LLM's context alongside the conversation history
@@ -111,30 +115,30 @@ This is where **RAG** (Retrieval-Augmented Generation) comes in.
 
 ```
 Call 1:
-Caller: "I run three restaurants in Pune."
+Caller: "I run three res\taurants \in Pune."
 Agent: "Great! Let me tell you about our plans..."
-[10-minute conversation about restaurant-specific features]
+[10-minute conversation about res\taurant-specific features]
 
 Call 2 (same caller, two weeks later):
 Caller: "Hi, I called before about your product."
 Agent: "Welcome! What kind of business do you run?"
-Caller: [frustrated] "I already told you. Restaurants. In Pune."
+Caller: [frustrated] "I already told you. Res\taurants. In Pune."
 ```
 
 ### With Memory
 
 ```
 Call 1:
-Caller: "I run three restaurants in Pune."
+Caller: "I run three res\taurants \in Pune."
 Agent: "Great! Let me tell you about our plans..."
 [10-minute conversation, details stored]
 
 Call 2 (same caller, two weeks later):
 Caller: "Hi, I called before about your product."
 Agent: "Welcome back! Last time we discussed the Enterprise plan
-        for your three restaurant locations in Pune. You mentioned
-        wanting to integrate with your existing POS system. Have
-        you had a chance to think about that?"
+        for your three res\taurant locations \in Pune. You mentioned
+        wanting \to integrate with your existing POS system. Have
+        you had a chance \to think about that?"
 Caller: [impressed] "Yes, actually..."
 ```
 
@@ -149,17 +153,19 @@ The second experience creates trust. It demonstrates that the system values the 
 Not everything in a conversation is worth storing. "Let me think about that" is not a fact to remember. "My budget is 50,000 rupees per month" is.
 
 Effective memory systems use an **extraction layer** — an LLM pass that reads the full conversation transcript after the call and identifies:
+
 - Key facts about the caller (name, business, location, team size)
 - Decisions made during the call
 - Objections raised
-- Questions left unanswered
+- Questions \left unanswered
 - Action items agreed upon
 
 ### Challenge 2: Retrieving the Right Memory at the Right Time
 
-Storing everything is easy. Finding the right information when needed is hard.
+Storing everything is easy. Finding the \right information when needed is hard.
 
 If a caller has 20 previous interactions, the agent cannot inject all 20 transcripts into its context window. Instead, the memory system must:
+
 - Identify which past interactions are relevant to the current question
 - Retrieve only the relevant portions
 - Present them in a format the LLM can efficiently process
@@ -168,7 +174,7 @@ This is a retrieval problem, and it is the same problem RAG systems solve for kn
 
 ### Challenge 3: Memory Consistency
 
-What happens when stored information becomes outdated? A caller who said "I have three restaurants" six months ago might now have five. The memory system needs a way to update and override stale information — not just accumulate.
+What happens when stored information becomes outdated? A caller who said "I have three res\taurants" six months ago might now have five. The memory system needs a way to update and override stale information — not just accumulate.
 
 ---
 
@@ -182,7 +188,7 @@ At Tough Tongue AI, memory is not an afterthought — it is a core architecture 
 - **Memory freshness** — Newer information automatically takes precedence over older, potentially stale data
 - **Privacy controls** — Stored memory can be reviewed, edited, and deleted to comply with data protection requirements
 
-This is particularly powerful for use cases like **lead qualification and follow-up**, where the same lead might interact with the system multiple times over days or weeks.
+This is particularly powerful for use cases like **lead qualification and follow-up**, where the same lead might interact with the system multiple \times over days or weeks.
 
 ---
 

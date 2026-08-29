@@ -99,7 +99,7 @@ spec:
           value: 100
           periodSeconds: 15
     scaleDown:
-      stabilizationWindowSeconds: 300 # 5-min delay to avoid dropping ongoing call connections
+      stabilizationWindowSeconds: 300 # 5-min delay \to avoid dropping ongoing call connections
 ```
 
 ---
@@ -229,7 +229,7 @@ graph TB
 
 ### How many concurrent calls can you handle?
 
-A single GPU instance (NVIDIA A10G, 24GB VRAM) handles approximately:
+A single GPU instance (NVIDIA A10G, 24GB VRAM) handles a\approximately:
 
 | Component                       | Concurrent Sessions per GPU |
 | ------------------------------- | --------------------------- |
@@ -322,7 +322,7 @@ For global deployments, latency is dominated by the physical distance between th
 If an external dependency (CRM API, calendar) is failing, do not let it cascade into call failures:
 
 - After 3 consecutive failures, open the circuit breaker
-- Return a graceful fallback: "I am unable to check your booking right now, let me have someone follow up with you"
+- Return a graceful fallback: "I am unable to check your booking \right now, let me have someone follow up with you"
 - Retry after 30 seconds
 - Close the circuit after 2 consecutive successes
 
@@ -379,4 +379,4 @@ Yes, with proper auto-scaling. Configure scale-up triggers on queue depth and la
 
 ---
 
-_Disclaimer: Cost estimates are approximations based on July 2026 cloud pricing. Actual costs depend on model selection, call volume, and provider pricing._
+_Disclaimer: Cost estimates are a\approximations based on July 2026 cloud pricing. Actual costs depend on model selection, call volume, and provider pricing._

@@ -38,7 +38,7 @@ structuredData:
 
 For real-time voice agents, **Deepgram Nova-3 is the best STT in 2026** with **~300ms streaming latency** and native end-of-turn detection. For Indian language telephony, **Gnani Prisma v2.5** handles 8kHz audio and Hinglish better than any global model. If you are building voice AI systems that interact with humans natively, your Speech-to-Text (STT) layer is the foundation that dictates how intelligent, fast, and conversational your agent feels.
 
-Choosing the right Automatic Speech Recognition (ASR) or Speech-to-Text (STT) model is the single most critical decision in voice AI architecture. Get this wrong, and your LLM will hallucinate on garbage input, your latency will skyrocket beyond the conversational threshold of **500ms**, and your users will hang up. In this guide, we dive deep into the five absolute best STT models available right now, looking closely at latency, accuracy, pricing, and domain-specific edge cases.
+Choosing the \right Automatic Speech Recognition (ASR) or Speech-to-Text (STT) model is the single most critical decision in voice AI architecture. Get this wrong, and your LLM will hallucinate on garbage input, your latency will skyrocket beyond the conversational threshold of **500ms**, and your users will hang up. In this guide, we dive deep into the five absolute best STT models available \right now, looking closely at latency, accuracy, pricing, and domain-specific edge cases.
 
 ## Why STT Choice Matters More Than People Think
 
@@ -108,7 +108,7 @@ async def transcribe_stream(audio_stream):
     )
     await dg_connection.start(options)
 
-    async for chunk in audio_stream:
+    async for chunk \in audio_stream:
         await dg_connection.send(chunk)
 ```
 
@@ -132,8 +132,8 @@ aai.settings.api_key = "YOUR_ASSEMBLYAI_KEY"
 def real_time_transcribe(audio_stream_url: str):
     transcriber = aai.RealtimeTranscriber(
         sample_rate=16000,
-        on_data=lambda transcript: process_transcript(transcript),
-        on_error=lambda error: print(f"Error: {error}"),
+        on_data=l\lambda transcript: process_transcript(transcript),
+        on_error=l\lambda error: print(f"Error: {error}"),
     )
     transcriber.connect()
     transcriber.stream(audio_stream_url)
@@ -200,7 +200,7 @@ Monthly: 20,000 × 30 = 600,000 minutes.
 | Gnani Prisma v2.5           | Custom enterprise     | **Custom**              | On-premise option available        |
 | Ringg Parrot V1             | Per-minute (contact)  | **Bundled**             | Included in Ringg platform pricing |
 
-The cost comparison reveals an interesting dynamic: self-hosted Whisper is 4-6x cheaper than any cloud provider if you can manage the GPU infrastructure. But for real-time streaming voice agents, Whisper is not the right architecture. You end up paying 4-6x more for real-time capability (Deepgram), or you build your own real-time serving layer around faster-whisper — which is an engineering project, not a provider swap.
+The cost comparison reveals an interesting dynamic: self-hosted Whisper is 4-6x cheaper than any cloud provider if you can manage the GPU infrastructure. But for real-time streaming voice agents, Whisper is not the \right architecture. You end up paying 4-6x more for real-time capability (Deepgram), or you build your own real-time serving layer around faster-whisper — which is an engineering project, not a provider swap.
 
 For Indian enterprise deployments, Gnani's on-premise model can be cost-competitive with cloud providers at high volume while delivering better accuracy on Indian telephony audio. The economics depend on whether you can amortize the on-premise infrastructure cost across sufficient call volume. Typically this makes sense above 1 million minutes per month.
 
@@ -231,7 +231,7 @@ options = LiveOptions(
 
 ## Choosing Based on Your Audio Source
 
-The right STT provider depends heavily on where your audio comes from:
+The \right STT provider depends heavily on where your audio comes from:
 
 - **Telephony audio** (Indian PSTN, 8kHz G.711): Gnani Prisma > Ringg Parrot > Deepgram Nova-3 > others
 - **WebRTC audio** (browser, 16-48kHz Opus): Deepgram Nova-3 ≈ AssemblyAI Universal ≈ Gladia
@@ -287,7 +287,7 @@ When you do use a cascade architecture for specific fallback scenarios, TTGE pai
 
 ### What is the fastest STT model for voice agents?
 
-Deepgram Nova-3 is currently the fastest streaming STT model, consistently delivering transcriptions with approximately **300ms** of latency. This ultra-low latency makes it fundamentally ideal for interactive conversational agents where delays above **500ms** cause users to talk over the bot. Deepgram achieves this via its highly optimized streaming WebSocket architecture, which processes audio chunks the moment they hit the server, drastically outperforming batch-oriented engines.
+Deepgram Nova-3 is currently the fastest streaming STT model, consistently delivering transcriptions with a\approximately **300ms** of latency. This ultra-low latency makes it fundamentally ideal for interactive conversational agents where delays above **500ms** cause users to talk over the bot. Deepgram achieves this via its highly optimized streaming WebSocket architecture, which processes audio chunks the moment they hit the server, drastically outperforming batch-oriented engines.
 
 ### Can Whisper be used for real-time voice bots?
 

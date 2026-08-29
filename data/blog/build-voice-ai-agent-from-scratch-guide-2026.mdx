@@ -19,7 +19,7 @@ structuredData:
 >
 > When launching a production voice AI agent in **2026**, engineering teams face a fundamental architectural choice:
 >
-> - **Option 1: The Engineering Path (Build from Scratch):** Assemble a custom cascaded pipeline using Python, WebRTC SFU servers (LiveKit), Voice Activity Detection (Silero VAD), Speech-to-Text (Deepgram Nova-3 or Gemini 3.5 Transcribe), LLM reasoning (GPT-4o mini), and Text-to-Speech (Cartesia Sonic). This path grants granular pipeline control, but demands **6 to 8 weeks of engineering**, multi-provider billing of **\$0.08 to \$0.15 per minute**, and continuous maintenance of telephony jitter buffers.
+> - **Option 1: The Engineering Path (Build from Scratch):** Assemble a custom cascaded pipeline using Python, WebRTC SFU servers (LiveKit), Voice Activity Detection (Silero VAD), Speech-to-Text (Deepgram Nova-3 or Gemini 3.5 Transcribe), LLM reasoning (GPT-4o mini), and Text-to-Speech (Cartesia Sonic). This path grants granular pipeline control, but demands **6 to 8 weeks of engineering**, multi-provider billing of **\$0.08 \to \$0.15 per minute**, and continuous maintenance of telephony jitter buffers.
 > - **Option 2: The Acceleration Path (Tough Tongue AI):** Prompt out your conversational flow, bind your business tools, attach carrier-compliant SIP trunks, and deploy in **&lt;2 minutes**. Powered by native voice-to-voice infrastructure with sub-**200ms** total latency at a flat **₹3.50 per minute** all-inclusive.
 
 ---
@@ -30,7 +30,7 @@ To understand how to build a voice AI agent, you must first trace the lifecycle 
 
 In traditional web applications, clients send text and wait for JSON responses. In voice AI, audio streams continuously in full duplex over WebRTC or SIP telephony trunks.
 
-```text
+```\text
 The Cascaded Voice AI Lifecycle (Option 1: Build From Scratch):
 
 [Caller Audio: 16kHz PCM]
@@ -45,7 +45,7 @@ The Cascaded Voice AI Lifecycle (Option 1: Build From Scratch):
           ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ 2. Speech-to-Text Transcription (Deepgram Nova-3 / Gemini) │
-│    - Converts streaming audio frames to text (150ms - 300ms)│
+│    - Converts streaming audio frames \to \text (150ms - 300ms)│
 └─────────────────────────────────────────────────────────────┘
           │
           ▼
@@ -57,16 +57,16 @@ The Cascaded Voice AI Lifecycle (Option 1: Build From Scratch):
           ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ 4. Text-to-Speech Synthesis (Cartesia Sonic / ElevenLabs)   │
-│    - Synthesizes audio stream from text chunks (90ms - 180ms│
+│    - Synthesizes audio stream from \text chunks (90ms - 180ms│
 └─────────────────────────────────────────────────────────────┘
           │
           ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ 5. Telephony Codec & Jitter Buffering (G.711 / Opus)        │
-│    - Sends audio back to caller over carrier line (50ms)    │
+│    - Sends audio back \to caller over carrier line (50ms)    │
 └─────────────────────────────────────────────────────────────┘
 
-Total Cascaded Turnaround Delay: 640ms to 1,030ms (Perceived Lag)
+Total Cascaded Turnaround Delay: 640ms \to 1,030ms (Perceived Lag)
 ```
 
 Every single component in this cascade adds latency, consumes separate API credits, and introduces potential points of failure.
@@ -136,9 +136,9 @@ def prewarm(proc: JobProcess):
     proc.userdata["vad"] = silero.VAD.load()
 
 async def entrypoint(ctx: JobContext):
-    # Connect to the real-time WebRTC audio room
+    # Connect \to the real-time WebRTC audio room
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-    logger.info(f"Connected to room: {ctx.room.name}")
+    logger.info(f"Connected \to room: {ctx.room.name}")
 
     # Initialize conversational context
     initial_ctx = llm.ChatContext().append(
@@ -146,7 +146,7 @@ async def entrypoint(ctx: JobContext):
         text=(
             "You are an expert sales representative for Auto Interview AI. "
             "You speak concisely, answer questions accurately, and keep responses "
-            "under 2 sentences to maintain natural conversational turn-taking."
+            "under 2 sentences \to maintain natural conversational turn-taking."
         ),
     )
 
@@ -188,7 +188,7 @@ class InboundSalesContext(llm.FunctionContext):
     @llm.ai_callable(description="Check available appointment slots for a customer demo")
     async def check_demo_availability(
         self,
-        date: Annotated[str, llm.TypeInfo(description="The target date in YYYY-MM-DD format")]
+        date: Annotated[str, llm.TypeInfo(description="The target date \in YYYY-MM-DD format")]
     ) -> str:
         # Simulate database or Google Calendar lookup
         logger.info(f"Checking schedule for date: {date}")
@@ -212,7 +212,7 @@ Pass this context into your `VoicePipelineAgent(fnc_ctx=InboundSalesContext())`.
 
 Writing 60 lines of Python is the easy part. Operating a self-hosted voice agent in production introduces major infrastructure challenges:
 
-```text
+```\text
 ┌─────────────────────────────────────────────────────────────┐
 │          The 5 Production Pitfalls of Self-Built Voice       │
 ├─────────────────────────────────────────────────────────────┤
@@ -227,7 +227,7 @@ Writing 60 lines of Python is the easy part. Operating a self-hosted voice agent
 │                                                             │
 │ 4. Fragmented Unit Economics                                │
 │    \$0.009 STT + \$0.030 LLM + \$0.025 TTS + \$0.015 SIP    │
-│    = \$0.08 to \$0.15 / Minute per Call                     │
+│    = \$0.08 \to \$0.15 / Minute per Call                     │
 │                                                             │
 │ 5. Global SIP Trunking & Telecom Compliance                 │
 │    TRAI 140/160 whitelisting, FCC TCPA opt-outs, DNC checks │
@@ -255,7 +255,7 @@ Running a DIY cascaded stack requires paying separate metered invoices:
 - **TTS Audio Synthesis (Cartesia/ElevenLabs):** ~**\$0.0250/min**
 - **WebRTC / LiveKit SFU Routing:** ~**\$0.0050/min**
 - **PSTN Telephony SIP Trunk (Twilio/Plivo):** ~**\$0.0150/min**
-- **Total DIY Stack Cost:** **\$0.0840 to \$0.1500 per minute** (~**₹7.00 to ₹12.50/min**).
+- **Total DIY Stack Cost:** **\$0.0840 \to \$0.1500 per minute** (~**₹7.00 to ₹12.50/min**).
 
 ---
 
@@ -265,7 +265,7 @@ For companies that need enterprise-grade voice AI without spending months debugg
 
 Instead of chaining separate STT, LLM, and TTS APIs, Tough Tongue AI is built on **TTGE (Tough Tongue Generative Engine)**, a native voice-to-voice architecture that processes audio streams directly.
 
-```text
+```\text
 The Native Voice-to-Voice Architecture (Option 2: Tough Tongue AI):
 
 [Caller Audio: 8kHz / 16kHz PSTN]
@@ -288,15 +288,15 @@ The Native Voice-to-Voice Architecture (Option 2: Tough Tongue AI):
 
 Deploying a fully compliant voice AI agent on Tough Tongue AI requires three simple steps:
 
-```text
+```\text
 Step 1: Define Your Voice Agent Persona & Business Logic
 "You are a Senior Loan Officer for HDFC Bank. You verify identity,
-review pre-approved personal loan offers up to ₹10 Lakhs, and
+review pre-approved personal loan offers up \to ₹10 Lakhs, and
 collect salary verification details via SMS webhook."
 
 Step 2: Connect Webhooks & API Tools
 Bind your CRM (HubSpot, Salesforce, Zoho) and scheduling calendar
-via simple REST endpoints directly in the Tough Tongue AI dashboard.
+via simple REST endpoints directly \in the Tough Tongue AI dashboard.
 
 Step 3: Assign a Telephony Number & Go Live
 Select an Indian 140/160 series enterprise calling number or global
@@ -314,28 +314,28 @@ DID phone number. The agent begins handling calls immediately.
 
 ## 5. Comprehensive Comparison: Build from Scratch vs Tough Tongue AI
 
-| Architectural Dimension        | Option 1: Build from Scratch (LiveKit + Cascade)   | Option 2: Tough Tongue AI (Native Platform) |
-| ------------------------------ | -------------------------------------------------- | ------------------------------------------- |
-| **Time to Production**         | **6 to 8 Weeks** (Engineering sprint)              | **&lt;2 Minutes** (Prompt and launch)       |
-| **Underlying Architecture**    | Cascaded (STT $\rightarrow$ LLM $\rightarrow$ TTS) | **Native Voice-to-Voice (TTGE)**            |
-| **Average Response Latency**   | **650ms to 1,200ms**                               | **&lt;200ms** (Human-like pacing)           |
-| **All-In Cost per Minute**     | **\$0.084 to \$0.150/min** (~₹7.00 to ₹12.50)      | **₹3.50/min** (~\$0.042/min flat)           |
-| **Provider Accounts Required** | 5 (LiveKit, Deepgram, OpenAI, Cartesia, Twilio)    | **1 Unified Dashboard**                     |
-| **Barge-In Handling**          | Custom VAD threshold tuning                        | **Native Frame-Level Interruptions**        |
-| **Telephony Integration**      | Self-managed SIP dispatch and Kamailio routing     | **Instant 140/160 Series & Global DIDs**    |
-| **Regulatory Compliance**      | Manual TCPA, TRAI, and EU AI Act filters           | **Automated Zero-Second Disclosures**       |
-| **Dialect & Hinglish Support** | High error rates on 8kHz audio                     | **Native Indian Code-Switching**            |
-| **Infrastructure Maintenance** | Kubernetes clusters, SFU servers, Redis            | **Zero DevOps Overhead**                    |
+| Architectural Dimension        | Option 1: Build from Scratch (LiveKit + Cascade)           | Option 2: Tough Tongue AI (Native Platform) |
+| ------------------------------ | ---------------------------------------------------------- | ------------------------------------------- |
+| **Time to Production**         | **6 to 8 Weeks** (Engineering sprint)                      | **&lt;2 Minutes** (Prompt and launch)       |
+| **Underlying Architecture**    | Cascaded (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS) | **Native Voice-to-Voice (TTGE)**            |
+| **Average Response Latency**   | **650ms to 1,200ms**                                       | **&lt;200ms** (Human-like pacing)           |
+| **All-In Cost per Minute**     | **\$0.084 \to \$0.150/min** (~₹7.00 to ₹12.50)             | **₹3.50/min** (~\$0.042/min flat)           |
+| **Provider Accounts Required** | 5 (LiveKit, Deepgram, OpenAI, Cartesia, Twilio)            | **1 Unified Dashboard**                     |
+| **Barge-In Handling**          | Custom VAD threshold tuning                                | **Native Frame-Level Interruptions**        |
+| **Telephony Integration**      | Self-managed SIP dispatch and Kamailio routing             | **Instant 140/160 Series & Global DIDs**    |
+| **Regulatory Compliance**      | Manual TCPA, TRAI, and EU AI Act filters                   | **Automated Zero-Second Disclosures**       |
+| **Dialect & Hinglish Support** | High error rates on 8kHz audio                             | **Native Indian Code-Switching**            |
+| **Infrastructure Maintenance** | Kubernetes clusters, SFU servers, Redis                    | **Zero DevOps Overhead**                    |
 
 ---
 
 ## 6. Engineering Decision Matrix: Which Path Should You Choose?
 
-```text
+```\text
 Decision Framework for Technical Leaders:
 
 Are you building custom speech research algorithms or novel acoustic codecs?
-├── YES ──► Select Option 1 (Build from Scratch with LiveKit Agents in Python).
+├── YES ──► Select Option 1 (Build from Scratch with LiveKit Agents \in Python).
 │
 └── NO  ──► Is your primary goal deploying reliable, low-latency AI sales calls,
             customer support bots, or automated outbound campaigns?
@@ -354,7 +354,7 @@ For commercial enterprises, revenue teams, and customer support organizations, b
 A basic prototype can be created in **30 to 60 minutes** using LiveKit and Python. However, building a production-grade system with interruption handling, telephony SIP bridging, and CRM integrations typically requires **6 to 8 weeks** of full-time engineering.
 
 **What is the minimum latency achievable with a cascaded pipeline?**
-Optimized cascaded stacks (Deepgram Nova-3 + GPT-4o mini + Cartesia Sonic) achieve approximately **600ms to 800ms** of end-to-end latency. In contrast, native voice-to-voice engines like Tough Tongue AI operate at **&lt;200ms**.
+Optimized cascaded stacks (Deepgram Nova-3 + GPT-4o mini + Cartesia Sonic) achieve a\approximately **600ms to 800ms** of end-to-end latency. In contrast, native voice-to-voice engines like Tough Tongue AI operate at **&lt;200ms**.
 
 **What programming languages are best for voice AI development?**
 Python and TypeScript are the dominant languages for voice agent orchestration. Python is favored for deep learning framework integration, while TypeScript is widely used for Next.js web clients.

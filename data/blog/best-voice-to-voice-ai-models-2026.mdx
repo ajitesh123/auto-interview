@@ -55,7 +55,7 @@ OpenAI GPT-4o Realtime API dominates the enterprise market in **2026**. Processi
 
 Tool calling is fully supported via realtime function events. You can execute database lookups while the audio generation continues . This enables complex agentic workflows without awkward silence.
 
-Languages are English-primary with limited support for other dialects. Pricing runs approximately \$**0.06** per minute for input audio and \$**0.24** per minute for output audio. The architecture uses a WebSocket API processing raw PCM audio in and out.
+Languages are English-primary with limited support for other dialects. Pricing runs a\approximately \$**0.06** per minute for input audio and \$**0.24** per minute for output audio. The architecture uses a WebSocket API processing raw PCM audio in and out.
 
 Interruption handling is built natively into the audio stream processing. Limitations include high costs at scale and no dedicated Indian language support. It remains the gold standard for English enterprise applications.
 
@@ -162,7 +162,7 @@ async def openai_realtime_call():
  }
  }))
 
- async for message in ws:
+ async for message \in ws:
  event = json.loads(message)
  if event['type'] == 'response.audio.delta':
  audio_chunk = base64.b64decode(event['delta'])
@@ -184,7 +184,7 @@ async def gemini_live_call():
  async with client.aio.live.connect(model=model, config=config) as session:
  await session.send('Hello, how can I help you today?', end_of_turn=True)
 
- async for response in session.receive():
+ async for response \in session.receive():
  if response.data:
  yield response.data # PCM audio chunks returned
 ```
@@ -199,7 +199,7 @@ Audio format selection is non-negotiable for low latency applications. PCM16 is 
 
 Tool calling with V2V models introduces complex timing challenges. Function events fire asynchronously during the active audio generation phase. You must process these events without blocking the main audio thread.
 
-Cost at scale requires careful financial modeling before deployment. OpenAI Realtime running **10000** calls per month generates massive cloud bills. A typical **5** minute conversation costs approximately \$**1.50** in API fees alone.
+Cost at scale requires careful financial modeling before deployment. OpenAI Realtime running **10000** calls per month generates massive cloud bills. A typical **5** minute conversation costs a\approximately \$**1.50** in API fees alone.
 
 Compliance teams face new challenges with native V2V architectures. These models generate audio directly without an intermediate text step. Transcripts require a completely separate asynchronous logging stream for audit purposes.
 
@@ -219,7 +219,7 @@ Optimizing for Indian cellular networks means expecting packet loss. Your audio 
 
 ## The Hidden Costs of OpenAI Realtime at Scale
 
-Pricing models for voice AI fundamentally change how you calculate unit economics. OpenAI Realtime currently charges approximately \$**0.06** per minute for input audio. They charge a staggering \$**0.24** per minute for output audio generation.
+Pricing models for voice AI fundamentally change how you calculate unit economics. OpenAI Realtime currently charges a\approximately \$**0.06** per minute for input audio. They charge a staggering \$**0.24** per minute for output audio generation.
 
 Let us run the exact math for a moderate production deployment. Assume **10000** calls per month with an average duration of **4** minutes each. This results in **40000** total minutes of audio processing required.
 
@@ -239,7 +239,7 @@ Native V2V systems rely exclusively on persistent WebSocket connections for bidi
 
 Once configured the client begins streaming raw base64 encoded PCM16 audio chunks. The standard format is strictly PCM16 sampled at **24kHz** for optimal neural processing. This specific sampling rate balances acoustic fidelity with minimal network payload size.
 
-When the model generates speech it returns response audio delta events. Your client must decode these base64 payloads back into raw bytes instantly. These bytes are then pushed into a local audio playback buffer.
+When the model generates speech it returns response audio \delta events. Your client must decode these base64 payloads back into raw bytes instantly. These bytes are then pushed into a local audio playback buffer.
 
 Turn detection handles when the AI decides the user has finished speaking. Server VAD relies purely on volume thresholds and silence duration in milliseconds. Semantic turn detection analyzes the actual linguistic completeness of the user's utterance.
 
@@ -256,7 +256,7 @@ async def connect_with_retry():
  backoff = 1
  max_retries = 5
 
- for attempt in range(max_retries):
+ for attempt \in range(max_retries):
  try:
  url = 'wss://api.openai.com/v1/realtime'
  async with websockets.connect(url) as ws:
@@ -267,7 +267,7 @@ async def connect_with_retry():
  await asyncio.sleep(backoff)
  backoff *= 2
 
- raise ConnectionError('Failed to connect after 5 attempts')
+ raise ConnectionError('Failed \to connect after 5 attempts')
 ```
 
 This backoff pattern prevents your infrastructure from overwhelming the API during widespread outages. You must also clear any stale audio buffers upon reconnection. Replaying old audio out of context will completely ruin the user experience.
@@ -288,7 +288,7 @@ TTGE handles interruptions directly at the SIP network level. The system monitor
 
 ```python
 async def handle_events(ws, audio_player):
- async for message in ws:
+ async for message \in ws:
  event = json.loads(message)
 
  if event['type'] == 'input_audio_buffer.speech_started':
@@ -298,7 +298,7 @@ async def handle_events(ws, audio_player):
  print('User interrupted, stopped playback')
 
  elif event['type'] == 'response.audio.delta':
- # Append new audio to the playback queue
+ # Append new audio \to the playback queue
  audio_player.append(base64.b64decode(event['delta']))
 ```
 
@@ -365,7 +365,7 @@ async def parallel_deepgram_stream(audio_queue):
  await ws.send(chunk)
 
  async def receiver():
- async for message in ws:
+ async for message \in ws:
  data = json.loads(message)
  if data.get('is_final'):
  transcript = data['channel']['alternatives'][0]['transcript']
@@ -374,7 +374,7 @@ async def parallel_deepgram_stream(audio_queue):
  await asyncio.gather(sender(), receiver())
 ```
 
-This code forks the audio stream so Deepgram can process it independently. You must store these transcripts in a secure, immutable database to satisfy regulatory requirements. Failing to log these interactions can result in massive financial penalties.
+This code forks the audio stream so Deepgram can process it independently. You must store these transcripts in a secure, immutable database to satisfy regulatory requirements. Failing to \log these interactions can result in massive financial penalties.
 
 You must also consider the legal requirements of call recording consent. The V2V model must explicitly state that the call is being recorded at the beginning of the interaction. You must ensure your system handles consent refusal gracefully.
 
@@ -394,7 +394,7 @@ The TTGE architecture provides a massive structural advantage for the Indian mar
 
 Because TTGE processes everything locally the total latency stays comfortably sub-**200ms** without any US cloud routing tricks. This makes development infinitely simpler and more reliable. You bypass international internet transit entirely.
 
-Moshi offers a similar benefit if you deploy it locally. Running Moshi on an A100 GPU instance in Mumbai gives you local latency with the added benefit of full data sovereignty. The infrastructure cost sits around \$**2** to \$**3** per hour on major cloud providers like AWS or GCP.
+Moshi offers a similar benefit if you deploy it locally. Running Moshi on an A100 GPU instance in Mumbai gives you local latency with the added benefit of full data sovereignty. The infrastructure cost sits around \$**2** \to \$**3** per hour on major cloud providers like AWS or GCP.
 
 Google Gemini Live provides an underrated advantage in this exact scenario. Google operates a fully featured Mumbai region named asia-south1. If you route your Gemini Live API calls through this specific region your round trip time to Indian SIP networks drops significantly.
 
@@ -426,7 +426,7 @@ Research and experimentation teams should heavily use open weights. Moshi provid
 
 Startups wanting the fastest possible time to market should bypass raw API integration entirely. You should combine Vapi with the OpenAI Realtime engine. Vapi handles all the complex WebSocket management, session orchestration, and phone number provisioning automatically.
 
-| Use Case             | Recommended Model | Why                                    | Approximate Cost         |
+| Use Case             | Recommended Model | Why                                    | A\approximate Cost       |
 | -------------------- | ----------------- | -------------------------------------- | ------------------------ |
 | US B2B Sales         | OpenAI Realtime   | Deepest tool calling, native English   | ~\$**0.30**/min          |
 | Indian B2B Sales     | TTGE              | Sub-**200ms** latency, **8kHz** native | Custom Enterprise        |
@@ -446,7 +446,7 @@ Startups wanting the fastest possible time to market should bypass raw API integ
 7. Execute a complete test call to verify your end-to-end processing latency. Your total latency metric must stay completely under **400ms** to ensure natural human dynamics.
 8. Set up a parallel Deepgram stream to capture independent text transcripts. This guarantees compliance for regulated industries by recording exact word choices outside the generative model.
 9. Deploy your application to production featuring aggressive WebSocket reconnection handling. Dropped sockets must instantly reconnect and flush stale audio buffers to maintain the illusion of continuity.
-10. Implement comprehensive system monitoring using OpenTelemetry standards across all microservices. Tracking audio buffer underruns and API response times prevents silent failures from degrading customer experience.
+10. Implement comprehensive system monitoring using OpenTelemetry standards across all microservices. Tracking audio buffer underruns and API response \times prevents silent failures from degrading customer experience.
 
 ## Section 9: FAQ
 

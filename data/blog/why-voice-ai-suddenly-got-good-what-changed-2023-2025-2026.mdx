@@ -25,12 +25,12 @@ structuredData:
 
 > **Executive Summary & The 2023-2026 Inflection Point**
 >
-> - **The Core Breakthrough:** Between 2023 and 2026, Voice AI transitioned from fragmented **cascaded pipelines (STT $\rightarrow$ LLM $\rightarrow$ TTS)** to **Native Voice-to-Voice (V2V)** foundation models.
+> - **The Core Breakthrough:** Between 2023 and 2026, Voice AI transitioned from fragmented **cascaded pipelines (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS)** to **Native Voice-to-Voice (V2V)** foundation models.
 > - **The 4 Structural Shifts:**
 >   1. **Information Loss Eliminated:** Replacing intermediate text tokens with **Neural Audio Codecs (RVQ-VAE)** preserves vocal prosody, laughter, and emotional tone.
 >   2. **Latency Collapsed:** Turnaround latency plummeted from **1,200ms+ down to &lt;180ms**, achieving biological human conversational rhythm.
 >   3. **Full-Duplex Interruption:** Hardware-grade **Acoustic Echo Cancellation (AEC)** and neural VAD enable instant **&lt;40ms barge-in cut-offs**.
->   4. **Unit Economics Deflated:** Fragmented third-party cloud bills (**\$0.084 to \$0.140/min**) collapsed into unified infrastructure at **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
+>   4. **Unit Economics Deflated:** Fragmented third-party cloud bills (**\$0.084 \to \$0.140/min**) collapsed into unified infrastructure at **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
 
 ---
 
@@ -38,12 +38,12 @@ structuredData:
 
 In 2023, developers built voice applications by chaining three disconnected machine learning services:
 
-```text
+```\text
 The 2023 Cascaded Modular Pipeline:
 
 [Caller Speaks Audio] ──► [Conformer STT: 180ms] ──► [GPT-4 Text LLM: 750ms] ──► [ElevenLabs TTS: 250ms] ──► [Audio Out]
 - Cumulative System Latency: 1,180ms - 1,800ms
-- Information Destruction: 100% of paralinguistic acoustic emotion stripped at the text boundary.
+- Information Destruction: 100% of paralinguistic acoustic emotion stripped at the \text boundary.
 ```
 
 ### The Three Fatal Flaws of 2023 Cascades:
@@ -58,25 +58,29 @@ The 2023 Cascaded Modular Pipeline:
 
 In the speech perception layer, audio waveforms are transformed into frequency representations using the Short-Time Fourier Transform (STFT):
 
-$$X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}$$
+$$
+X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
+$$
 
 Mapped onto 128 Mel channels using the non-linear scale:
 
 $$
-m = 2595 \log_{10}\left(1 + rac{f}{700}
-ight)
+m = 2595 \log_{10}\left(1 + \frac{f}`{700}`
+\right)
 $$
 
 The Conformer encoder computes relative multi-head self-attention:
 
 $$
-	ext{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 	ext{softmax}\left(rac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{	ext{rel}}}{\sqrt{d_k}}
-ight)\mathbf{V}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T + \mathbf{S}_{\text{rel}}}{\sqrt{d_k}}
+\right)\mathbf{V}
 $$
 
 The Connectionist Temporal Classification (CTC) loss aligns variable-length audio frames to text in linear time:
 
-$$\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})$$
+$$
+\mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
+$$
 
 While streaming Conformer decoders execute within 60ms to 80ms, the network serialization hop between independent cloud APIs in 2023 added **25ms to 50ms of transit delay**.
 
@@ -84,7 +88,7 @@ While streaming Conformer decoders execute within 60ms to 80ms, the network seri
 
 In vocal tract acoustics, speech sounds are defined by resonant formant frequencies ($F_1, F_2, F_3$).
 
-```text
+```\text
 The Source-Filter Acoustic Production Model:
 
 Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speech Waveform s(n)
@@ -92,7 +96,9 @@ Glottal Pulse Train (Pitch F0) ──► Vocal Tract Filter H(z) ──► Speec
 
 The vocal tract transfer function is modeled via **Linear Predictive Coding (LPC)**:
 
-$$H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}$$
+$$
+H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
+$$
 
 The complex poles of $H(z)$ directly correspond to vocal tract resonant formants ($F_1, F_2, F_3$).
 
@@ -102,12 +108,12 @@ By operating directly on continuous acoustic latents rather than discrete text, 
 
 Human vocal perception evaluates naturalness not only on response speed, but on the continuous smooth transition of acoustic formants.
 
-```text
+```\text
 The Vocal Tract Formant Frequency Spectrum:
 
-- Formant F1 (300 Hz - 900 Hz): Corresponds to vertical jaw displacement.
-- Formant F2 (900 Hz - 3,000 Hz): Corresponds to horizontal tongue advancement.
-- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds to lip rounding and vocal timbre.
+- Formant F1 (300 Hz - 900 Hz): Corresponds \to vertical jaw displacement.
+- Formant F2 (900 Hz - 3,000 Hz): Corresponds \to horizontal tongue advancement.
+- Formant F3 (2,000 Hz - 4,000 Hz): Corresponds \to lip rounding and vocal timbre.
 ```
 
 In 2023 cascaded systems, stitching separate TTS audio chunks caused unnatural phase clicks and formant discontinuities.
@@ -118,7 +124,7 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 
 The foundational breakthrough of 2024 to 2026 was the development of **Neural Audio Codecs (RVQ-VAE)**.
 
-```text
+```\text
 Residual Vector Quantization (RVQ) Multi-Codebook Hierarchy:
 
 Continuous Audio Waveform x(t)
@@ -132,7 +138,7 @@ Continuous Audio Waveform x(t)
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
-[Quantized Latent Vector z_q = \sum_{k=1}^K e_{k, j_k} Fed to Transformer]
+[Quantized Latent Vector z_q = \sum_{k=1}^K e_{k, j_k} Fed \to Transformer]
 ```
 
 By quantizing audio into continuous acoustic vectors rather than phonetic text characters, neural networks process speech directly without losing vocal inflection.
@@ -143,7 +149,7 @@ By quantizing audio into continuous acoustic vectors rather than phonetic text c
 
 To achieve Time-to-First-Token (TTFT) under **&lt;120ms**, modern voice platforms deploy three critical GPU memory optimizations:
 
-```text
+```\text
 The GPU Kernel Latency Optimization Stack:
 
 1. FlashAttention-3:
@@ -155,7 +161,7 @@ The GPU Kernel Latency Optimization Stack:
    - Enables 500+ concurrent enterprise phone calls on a single NVIDIA L40S GPU node.
 
 3. Speculative Decoding:
-   - A high-speed draft model predicts upcoming words in parallel with the target model,
+   - A high-speed draft model predicts upcoming words \in parallel with the target model,
      accelerating generation speed by 40%.
 ```
 
@@ -163,7 +169,7 @@ The GPU Kernel Latency Optimization Stack:
 
 Carrier telephone protocols dramatically impact transcription accuracy:
 
-```text
+```\text
 The Telephony Audio Codec Spectrum:
 
 1. Narrowband G.711 μ-law (8kHz PSTN Telephony):
@@ -179,7 +185,7 @@ The Telephony Audio Codec Spectrum:
 
 In natural human dialogue, the average gap between conversational turns is **200ms to 300ms**.
 
-```text
+```\text
 The Conversational Latency Thresholds:
 
 <200ms (TTGE Engine):       Biological Human Conversational Tempo (Maximum Trust)
@@ -199,19 +205,23 @@ In speech synthesis, transformer attention scales quadratically ($\mathcal{O}(N^
 
 Modern voice models deploy **Selective State Space Models (SSMs / Mamba)**:
 
-$$rac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)$$
+$$
+\frac{d\mathbf{h}(t)}{dt} = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}\mathbf{h}(t) + \mathbf{D}x(t)
+$$
 
 Discretized via Zero-Order Hold (ZOH) with input-dependent step size $\Delta$:
 
-$$ar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad ar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})$$
+$$
+\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+$$
 
-The discrete recurrence $\mathbf{h}_t = ar{\mathbf{A}} \mathbf{h}_{t-1} + ar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**.
+The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar{\mathbf{B}} x_t$ is computed in linear time $\mathcal{O}(N)$ using parallel associative prefix scans, emitting synthesized audio chunks in **&lt;40ms Time-to-First-Audio (TTFA)**.
 
 ## 4. Breakthrough 3: Multimodal Attention and Inner Monologue Reasoning
 
 To maintain high conversational accuracy while streaming audio in real time, modern models deploy **Inner Monologue Joint Attention**:
 
-```text
+```\text
 Inner Monologue Joint Attention Architecture:
 
 [Streaming Ingress Audio Latents]
@@ -219,7 +229,7 @@ Inner Monologue Joint Attention Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Multimodal Transformer Attention Core                                 │
-│ - Dual-Stream Processing: Generates text thoughts in hidden space      │
+│ - Dual-Stream Processing: Generates \text thoughts \in hidden space      │
 │   while concurrently generating continuous acoustic latents            │
 │ - Bypasses sequential decoding hops with zero latency penalty          │
 └────────────────────────────────────────────────────────────────────────┘
@@ -236,7 +246,7 @@ This dual-stream architecture allows the model to perform complex reasoning with
 
 Deploying real-time Voice-to-Voice models across cellular telephone lines requires managing packet arrival variance:
 
-```text
+```\text
 Full-Duplex Telephony Carrier Media Pipeline:
 
 [PSTN Mobile Caller] ──► [Session Border Controller (SBC)] ──► [Regional WebRTC Gateway]
@@ -250,14 +260,16 @@ Full-Duplex Telephony Carrier Media Pipeline:
                                                                      │
                                                                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ High-Throughput GPU Worker (NVIDIA L40S Cluster in asia-south1)        │
+│ High-Throughput GPU Worker (NVIDIA L40S Cluster \in asia-south1)        │
 │ - Sub-180ms Native Voice Turnaround Core (TTGE Engine)                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 The adaptive jitter buffer depth is dynamically regulated:
 
-$$D_{	ext{jitter}}(t) = lpha \cdot D_{	ext{jitter}}(t-1) + (1 - lpha) \cdot |R_t - S_t|$$
+$$
+D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+$$
 
 This dynamic buffering prevents stuttering on mobile 4G/5G connections while maintaining instantaneous responsiveness.
 
@@ -265,7 +277,7 @@ This dynamic buffering prevents stuttering on mobile 4G/5G connections while mai
 
 In modern neural speech synthesis, generating continuous 24kHz audio waveforms from intermediate latents requires an adversarial neural vocoder:
 
-```text
+```\text
 HiFi-GAN Parallel Adversarial Vocoder Architecture:
 
 Input Acoustic Latent Vector Matrix
@@ -273,13 +285,13 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz to 24,000 Hz in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Multi-Receptive Field Fusion (MRF) Modules                          │
-│    - Evaluates parallel residual blocks with kernel sizes k in {3,7,11}│
+│    - Evaluates parallel residual blocks with kernel sizes k \in ``{3,7,11}``│
 │    - Multi-Period Discriminator (MPD) + Multi-Scale Discriminator (MSD)│
 └────────────────────────────────────────────────────────────────────────┘
                      │
@@ -289,13 +301,17 @@ Input Acoustic Latent Vector Matrix
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
 
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)$$
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{adv}}(G; D) + \lambda_{\text{fm}} \mathcal{L}_{\text{FM}}(G; D) + \lambda_{\text{mel}} \mathcal{L}_{\text{Mel}}(G)
+$$
 
 ### Deep Noise Suppression (DNS) & Wiener Filtering
 
 In cellular telephone environments, background ambient acoustic static can degrade speech recognition:
 
-$$\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying real-time Wiener acoustic filtering isolates human vocal formants while suppressing non-speech noise by up to **24 dB**.
 
@@ -303,7 +319,7 @@ Applying real-time Wiener acoustic filtering isolates human vocal formants while
 
 In 2023, background noise from cellular lines caused frequent transcription errors and hallucinated responses.
 
-```text
+```\text
 The Neural Wiener Filtering & Denoising Pipeline:
 
 Noisy Microphone Audio y(t) = s(t) + n(t)
@@ -311,7 +327,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) to isolate speech from noise in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -321,12 +337,14 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed to Multimodal Reasoning Core]
+[Clean Speech Signal Fed \to Multimodal Reasoning Core]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ suppresses ambient acoustic noise by up to **24 dB**:
 
-$$\mathbf{M}(m, k) = \sqrt{rac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}$$
+$$
+\mathbf{M}(m, k) = \sqrt{\frac{|S(m, k)|^2}{|S(m, k)|^2 + |N(m, k)|^2}}
+$$
 
 Applying this neural mask enables 2026 voice agents to maintain human parity comprehension even from crowded call centers and busy highways.
 
@@ -334,7 +352,7 @@ Applying this neural mask enables 2026 voice agents to maintain human parity com
 
 Achieving seamless human conversation requires resilient **Full-Duplex Barge-In**:
 
-```text
+```\text
 Full-Duplex Interruption Architecture:
 
 [AI Voice Agent Speaking Audio Output via Carrier SIP Trunk]
@@ -357,7 +375,7 @@ Full-Duplex Interruption Architecture:
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Instant Playback Buffer Flush (<35ms)                               │
-│    - Flushes in-flight audio playback buffer in <20ms                  │
+│    - Flushes in-flight audio playback buffer \in <20ms                  │
 │    - Truncates GPU generation KV-cache instantly                       │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -368,7 +386,7 @@ Modern DSP filters isolate the user's voice even while the AI is vocalizing at f
 
 ## 6. Mathematical Formulations of the 2023-2026 Inflection
 
-```text
+```\text
 Core Mathematical Formulations:
 
 1. Short-Time Fourier Transform (STFT):
@@ -387,7 +405,7 @@ Core Mathematical Formulations:
    \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
 
 6. Direct Preference Optimization (DPO):
-   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 ```
 
 ---
@@ -411,20 +429,20 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 ## 7. 25-Point Architectural Comparison: 2023 vs 2026
 
-| Architectural Dimension          | 2023 Cascaded Voicebot                            | 2024 Streaming Hybrid       | 2026 Native Voice-to-Voice (TTGE)       |
-| -------------------------------- | ------------------------------------------------- | --------------------------- | --------------------------------------- |
-| **Core Architecture**            | STT $\rightarrow$ LLM $\rightarrow$ TTS API Chain | WebSockets Audio Streamer   | **Unified Multimodal Foundation V2V**   |
-| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,200ms**                             | **450ms - 750ms**           | **&lt;180ms (Biological Human Rhythm)** |
-| **Tail Latency ($P_{99}$)**      | **3,200ms - 5,000ms**                             | **1,200ms - 1,800ms**       | **&lt;265ms Consistent P99**            |
-| **Acoustic Nuance / Prosody**    | 100% Lost (Converted to text)                     | Flat Synthesis              | **100% Native Continuous Latents**      |
-| **Barge-In Cut-Off Speed**       | **350ms - 600ms (Laggy)**                         | **120ms - 200ms**           | **&lt;40ms (Frame-Level Gating)**       |
-| **GPU Memory Efficiency**        | PyTorch Eager (High VRAM)                         | PagedAttention (vLLM)       | **FlashAttention-3 + SSM Kernels**      |
-| **Network Hop Overhead**         | 3 Distinct Cloud API Hops                         | 3 Cloud API Hops            | **Zero (Co-Located GPU Memory Bus)**    |
-| **Live Database Webhooks**       | Rigid Function Wrappers                           | Basic Tool Calling          | **Native Asynchronous CRM Actions**     |
-| **Hinglish & Regional Dialects** | Fails on code-switching                           | Moderate                    | **Native SOTA Multilingual Models**     |
-| **Enterprise Escalation Rate**   | **65% - 80%**                                     | **35% - 50%**               | **12% - 22% (4x Improvement)**          |
-| **Deployment Ramp Time**         | **2 to 4 Months**                                 | **2 to 4 Weeks**            | **&lt;2 Minutes (Web Dashboard)**       |
-| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                       | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**      |
+| Architectural Dimension          | 2023 Cascaded Voicebot                                    | 2024 Streaming Hybrid       | 2026 Native Voice-to-Voice (TTGE)       |
+| -------------------------------- | --------------------------------------------------------- | --------------------------- | --------------------------------------- |
+| **Core Architecture**            | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS API Chain | WebSockets Audio Streamer   | **Unified Multimodal Foundation V2V**   |
+| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,200ms**                                     | **450ms - 750ms**           | **&lt;180ms (Biological Human Rhythm)** |
+| **Tail Latency ($P_{99}$)**      | **3,200ms - 5,000ms**                                     | **1,200ms - 1,800ms**       | **&lt;265ms Consistent P99**            |
+| **Acoustic Nuance / Prosody**    | 100% Lost (Converted to text)                             | Flat Synthesis              | **100% Native Continuous Latents**      |
+| **Barge-In Cut-Off Speed**       | **350ms - 600ms (Laggy)**                                 | **120ms - 200ms**           | **&lt;40ms (Frame-Level Gating)**       |
+| **GPU Memory Efficiency**        | PyTorch Eager (High VRAM)                                 | PagedAttention (vLLM)       | **FlashAttention-3 + SSM Kernels**      |
+| **Network Hop Overhead**         | 3 Distinct Cloud API Hops                                 | 3 Cloud API Hops            | **Zero (Co-Located GPU Memory Bus)**    |
+| **Live Database Webhooks**       | Rigid Function Wrappers                                   | Basic Tool Calling          | **Native Asynchronous CRM Actions**     |
+| **Hinglish & Regional Dialects** | Fails on code-switching                                   | Moderate                    | **Native SOTA Multilingual Models**     |
+| **Enterprise Escalation Rate**   | **65% - 80%**                                             | **35% - 50%**               | **12% - 22% (4x Improvement)**          |
+| **Deployment Ramp Time**         | **2 to 4 Months**                                         | **2 to 4 Weeks**            | **&lt;2 Minutes (Web Dashboard)**       |
+| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                               | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**      |
 
 ---
 
@@ -432,7 +450,9 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 In 2026, voice agents improve dynamically from real-world phone call outcomes using **Direct Preference Optimization (DPO)**:
 
-$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]$$
+$$
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+$$
 
 Conversations where callers experienced seamless issue resolution without interruption are marked as winning pairs ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically.
 
@@ -455,7 +475,7 @@ By maintaining existing CRM webhook endpoints and business logic while migrating
 
 Between 2023 and 2026, the cost of operating enterprise voice AI declined by **over 70%**:
 
-```text
+```\text
 The 3-Year Voice AI Cost Deflation Curve:
 
 - 2023 (Fragmented APIs): Deepgram ($0.006) + GPT-4 ($0.060) + ElevenLabs ($0.030) + Twilio ($0.020) = $0.116 / min
@@ -537,7 +557,7 @@ With platforms like Tough Tongue AI TTGE, businesses can configure, test, and de
 ## 10. Frequently Asked Questions
 
 **What is the single biggest reason Voice AI got so good between 2023 and 2026?**
-The transition from cascaded pipelines (STT $\rightarrow$ LLM $\rightarrow$ TTS) to native Voice-to-Voice foundation models. Eliminating text serialization reduced latency by **over 65%** and allowed models to understand and vocalize emotional prosody natively.
+The transition from cascaded pipelines (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS) to native Voice-to-Voice foundation models. Eliminating text serialization reduced latency by **over 65%** and allowed models to understand and vocalize emotional prosody natively.
 
 **How does native Voice-to-Voice preserve emotional tone?**
 Native Voice-to-Voice models use Neural Audio Codecs (RVQ-VAE) to tokenize speech into continuous acoustic latents rather than discrete text letters, retaining pitch ($F_0$), laughter, cadence, and breath cues.
@@ -555,7 +575,7 @@ Yes. Modern voice agents integrate directly with CRM webhooks (Salesforce, HubSp
 Tough Tongue AI TTGE is pre-trained on diverse Indic and global speech corpora, accurately understanding and generating colloquial Hinglish with sub-**180ms** turnaround.
 
 **What is the cost difference between 2023 voice pipelines and Tough Tongue AI?**
-2023 cascaded stacks cost **\$0.084 to \$0.140 per minute** across fragmented multi-vendor invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
+2023 cascaded stacks cost **\$0.084 \to \$0.140 per minute** across fragmented multi-vendor invoices. Tough Tongue AI provides an all-inclusive platform with carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 **How long does it take to deploy a modern voice agent compared to older systems?**
 Using Tough Tongue AI, businesses can configure, test, and deploy a production-ready voice agent in **&lt;2 minutes** directly via web dashboard configuration.

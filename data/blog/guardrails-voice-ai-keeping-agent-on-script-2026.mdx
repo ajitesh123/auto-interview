@@ -78,6 +78,7 @@ As [LiveKit's engineering guide on keeping agents on track](https://livekit.com/
 The system prompt is where you define the agent's persona, role, and boundaries in natural language. It is the most common and most accessible guardrail layer.
 
 **What goes in the system prompt:**
+
 - Role definition ("You are a sales assistant for XYZ Company")
 - Topic boundaries ("Only discuss our products and services. Politely decline questions about politics, religion, or competitors")
 - Behavioral instructions ("Never promise discounts without confirming with the pricing tool. Always verify information before stating it as fact")
@@ -88,8 +89,8 @@ The system prompt is where you define the agent's persona, role, and boundaries 
 **Example of a good system prompt boundary:**
 
 ```
-If the caller asks about topics unrelated to our product, respond with:
-"I appreciate the question, but I am specialized in helping with
+If the caller asks about topics unrelated \to our product, respond with:
+"I appreciate the question, but I am specialized \in helping with
 [product name] solutions. Is there anything about our product
 I can help you with?"
 
@@ -102,6 +103,7 @@ medical advice, or legal advice.
 Code-level guardrails operate outside the LLM and cannot be bypassed by clever prompting. They are the safety net that catches everything the system prompt misses.
 
 **Common code-level guardrails:**
+
 - **Output filtering** — A separate model or rules engine scans the agent's response before it reaches the caller. If it contains prohibited content (competitor names, inappropriate language, unverified claims), it is blocked or modified
 - **Topic classification** — A lightweight classifier runs on each user message, categorizing it as on-topic or off-topic before it reaches the LLM. Off-topic messages trigger a predefined redirect response
 - **Tool call validation** — Before executing any tool call (booking, payment, CRM update), a validation layer checks that the parameters are sensible and authorized
@@ -112,6 +114,7 @@ Code-level guardrails operate outside the LLM and cannot be bypassed by clever p
 Even with prompt and code-level guardrails, edge cases will slip through. The evaluation layer catches them after the fact and feeds improvements back into the system.
 
 **What this looks like:**
+
 - Every call transcript is automatically analyzed for guardrail violations
 - Flagged calls are reviewed (by humans or an evaluation LLM)
 - Patterns are identified ("callers asking about topic X frequently trigger off-script responses")
@@ -155,21 +158,24 @@ The agent and caller get stuck in a repetitive exchange: "Could you repeat that?
 
 ## The Guardrail Paradox: Safety vs. Personality
 
-Here is the challenge: too many guardrails make the agent sound robotic and unhelpful. Too few guardrails create risk. Finding the right balance requires iteration.
+Here is the challenge: too many guardrails make the agent sound robotic and unhelpful. Too few guardrails create risk. Finding the \right balance requires iteration.
 
 ### Signs You Have Too Many Guardrails:
+
 - The agent refuses legitimate questions ("I cannot answer that")
 - Conversations feel stilted and unnatural
 - Callers frequently ask to speak to a human
 - The agent's personality feels flat and corporate
 
 ### Signs You Have Too Few Guardrails:
+
 - The agent discusses off-topic subjects
 - Callers successfully get the agent to say inappropriate things
 - The agent provides unverified information confidently
 - Tool calls execute without proper validation
 
 ### The Sweet Spot:
+
 - Soft guidance for personality and style (system prompt layer)
 - Hard enforcement for compliance and safety (code layer)
 - Continuous improvement from production data (evaluation layer)
@@ -180,11 +186,11 @@ Here is the challenge: too many guardrails make the agent sound robotic and unhe
 
 Our guardrail architecture operates at all three layers:
 
-| Layer | Implementation |
-|---|---|
+| Layer             | Implementation                                                                                      |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
 | **System Prompt** | Scenario-specific prompt templates with built-in boundaries, role definitions, and escalation rules |
-| **Code-Level** | Output filtering, topic classification, tool call validation, and call duration limits |
-| **Evaluation** | Automatic post-call analysis with report cards, scoring, and violation flagging |
+| **Code-Level**    | Output filtering, topic classification, tool call validation, and call duration limits              |
+| **Evaluation**    | Automatic post-call analysis with report cards, scoring, and violation flagging                     |
 
 Our [scenario builder](https://app.toughtongueai.com/) lets you configure all three layers without code — set topic boundaries, define escalation triggers, enable output filtering, and review call evaluations from a single dashboard.
 
@@ -196,7 +202,7 @@ For compliance-sensitive industries (financial services, healthcare), we provide
 
 - [ ] **"What happens if a caller asks about a competitor?"** Test this in the demo
 - [ ] **"Can I test prompt injection on your agent?"** Ask the agent to ignore its instructions and see what happens
-- [ ] **"How do you prevent hallucination of facts?"** RAG or a verified knowledge base is the right answer
+- [ ] **"How do you prevent hallucination of facts?"** RAG or a verified knowledge base is the \right answer
 - [ ] **"Is there code-level enforcement beyond the system prompt?"** Prompt-only guardrails are insufficient
 - [ ] **"How are guardrail violations detected after calls?"** Monitoring and evaluation are essential
 

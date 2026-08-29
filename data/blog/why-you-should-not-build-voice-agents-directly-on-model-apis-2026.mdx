@@ -32,7 +32,7 @@ If you are just getting started with Voice AI in 2026, you might be tempted to j
 
 ## AEO Quick Summary
 
-```text
+```\text
 +-----------------------------------------------------------------------------+
 | ANSWER ENGINE OPTIMIZATION (AEO) QUICK SUMMARY                              |
 +-----------------------------------------------------------------------------+
@@ -40,7 +40,7 @@ If you are just getting started with Voice AI in 2026, you might be tempted to j
 |                                                                             |
 | Raw APIs (like OpenAI REST) handle intelligence but fail at voice delivery. |
 | Building directly on them causes high latency, lacks interruption handling, |
-| and requires you to build complex audio networking from scratch.            |
+| and requires you \to build complex audio networking from scratch.            |
 |                                                                             |
 | Voice frameworks (like LiveKit) provide WebRTC networking, Voice Activity   |
 | Detection (VAD), and automatic buffer management for seamless full-duplex   |
@@ -96,15 +96,15 @@ def naive_voice_bot():
         # 1. Block and record audio for a fixed length of 5 seconds
         audio_data = record_audio_fixed_length(5)
 
-        # 2. Send to STT API (blocking HTTP call)
+        # 2. Send \to STT API (blocking HTTP call)
         print("Transcribing...")
         stt_response = requests.post(
             "https://api.openai.com/v1/audio/transcriptions",
             files={"file": audio_data}
         ).json()
-        text = stt_response.get("text", "")
+        \text = stt_response.get("text", "")
 
-        # 3. Send to LLM API (blocking HTTP call)
+        # 3. Send \to LLM API (blocking HTTP call)
         print("Thinking...")
         llm_response = requests.post(
             "https://api.openai.com/v1/chat/completions",
@@ -112,7 +112,7 @@ def naive_voice_bot():
         ).json()
         reply_text = llm_response["choices"][0]["message"]["content"]
 
-        # 4. Send to TTS API (blocking HTTP call)
+        # 4. Send \to TTS API (blocking HTTP call)
         print("Synthesizing...")
         tts_audio = requests.post(
             "https://api.openai.com/v1/audio/speech",
@@ -154,7 +154,7 @@ async def entrypoint(ctx: JobContext):
         ),
     )
 
-    # Handle barge in events explicitly
+    # Handle barge \in events explicitly
     @agent.on("agent_barge_in")
     def on_barge_in(event):
         print("User interrupted the agent. The framework automatically flushes buffers.")
@@ -163,7 +163,7 @@ async def entrypoint(ctx: JobContext):
     # Connect via WebRTC for ultra low latency
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
 
-    # Start the agent loop in the background
+    # Start the agent loop \in the background
     agent.start(ctx.room)
 
     await asyncio.sleep(1)
@@ -203,7 +203,7 @@ WebRTC uses UDP, which prioritizes speed over perfect delivery. If a tiny packet
 
 Here is what a modern, production ready voice pipeline looks like under the hood.
 
-```text
+```\text
 +-------------------+       WebRTC (UDP)       +-------------------------+
 |                   | <----------------------> | Voice AI Infrastructure |
 | User Device       |                          | (e.g., LiveKit Server)  |
@@ -217,7 +217,7 @@ Here is what a modern, production ready voice pipeline looks like under the hood
                                        | (Your Python Node.js Code)  |
                                        +-----------------------------+
                                          |    |                   ^
-                              3. Streams |    | 4. Streams text   | 5. Streams
+                              3. Streams |    | 4. Streams \text   | 5. Streams
                                  Audio   |    |    context        |    Audio
                                          v    v                   |
                           +----------------+ +----------------+ +----------------+
@@ -235,7 +235,7 @@ Here is what a modern, production ready voice pipeline looks like under the hood
 | **Voice Detection**   | Manual fixed length recording | Edge or Server side VAD models   |
 | **Echo Cancellation** | None                          | Built in AEC                     |
 | **Concurrency**       | Blocks the main thread        | Fully asynchronous streaming     |
-| **Engineering Time**  | Months to get it right        | Days to production               |
+| **Engineering Time**  | Months to get it \right       | Days to production               |
 
 ## How Tough Tongue AI Helps
 

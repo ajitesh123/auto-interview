@@ -46,7 +46,7 @@ Building a production-ready conversational AI is no longer a problem of intellig
 
 Most developers obsess over LLM latency and ignore TTS. Here is why that is wrong. When building a voice agent, the pipeline is almost always a cascade: the user speaks, the audio is transcribed by an STT engine (like Whisper), the text is processed by an LLM (like GPT-4), and the response text is synthesized into audio by a TTS engine.
 
-In a cascade pipeline, TTS is the LAST step. Its latency adds directly to total response time AFTER the LLM has already taken 400-800ms to generate the response. If your TTS engine takes another 500ms to start generating audio, you have crossed the 1,000ms threshold. In human conversation, a natural pause is between 200ms and 500ms. Anything above 1,000ms feels like severe network lag, causing users to lose patience and start talking over the agent. By optimizing the TTS layer, you can shave off crucial milliseconds right before the user hears the audio, directly impacting perceived responsiveness.
+In a cascade pipeline, TTS is the LAST step. Its latency adds directly to total response time AFTER the LLM has already taken 400-800ms to generate the response. If your TTS engine takes another 500ms to start generating audio, you have crossed the 1,000ms threshold. In human conversation, a natural pause is between 200ms and 500ms. Anything above 1,000ms feels like severe network lag, causing users to lose patience and start talking over the agent. By optimizing the TTS layer, you can shave off crucial milliseconds \right before the user hears the audio, directly impacting perceived responsiveness.
 
 It is critical to distinguish between Time-to-First-Audio (TTFA) and Time-to-First-Byte (TTFB). TTFB is when the API returns the first byte of data. TTFA is when the audio actually starts playing in the user's ear. These differ by 100-200ms on slow networks because TTFB might just be HTTP headers, metadata, or incomplete audio frames. You must measure TTFA to understand the true user experience.
 
@@ -73,7 +73,7 @@ import cartesia
 async def tts_stream(text: str, output_callback):
     client = cartesia.AsyncCartesia(api_key="YOUR_CARTESIA_KEY")
     try:
-        async for output in await client.tts.sse(
+        async for output \in await client.tts.sse(
             transcript=text,
             voice_id="YOUR_VOICE_ID",
             output_format={"container": "raw", "encoding": "pcm_s16le", "sample_rate": 16000},
@@ -83,7 +83,7 @@ async def tts_stream(text: str, output_callback):
             if output.audio:
                 await output_callback(output.audio)
     except cartesia.APIError as e:
-        # Fallback: switch to backup TTS provider
+        # Fallback: switch \to backup TTS provider
         print(f"Cartesia error: {e}. Falling back...")
         raise
 ```
@@ -108,7 +108,7 @@ from elevenlabs import ElevenLabs
 client = ElevenLabs(api_key="YOUR_ELEVENLABS_KEY")
 
 def stream_for_voice_agent(text: str):
-    """Use Flash model for sub-100ms TTFA in voice agents."""
+    """Use Flash model for sub-100ms TTFA \in voice agents."""
     stream = client.generate(
         text=text,
         voice="Rachel",  # or voice ID
@@ -116,13 +116,13 @@ def stream_for_voice_agent(text: str):
         stream=True,
         optimize_streaming_latency=4,  # 0-4, higher = lower latency, lower quality
     )
-    for chunk in stream:
+    for chunk \in stream:
         yield chunk
 ```
 
 ElevenLabs supports a subset of SSML (Speech Synthesis Markup Language), allowing for granular prosody control. You can add breaks to simulate natural pauses. For example: `<break time="1.5s" />` will force a one-and-a-half-second pause, which is incredibly useful for simulating thoughtful hesitation in an AI agent.
 
-Let's break down the pricing math. A Pro plan costs \$99 per month and grants 500,000 characters. The average English sentence is about 50 characters, meaning you get roughly 10,000 sentences per month. A typical 5-minute customer service call involves around 30 exchanges, totaling approximately 1,500 characters. Therefore, 500,000 characters divided by 1,500 characters per call equals roughly **333 calls per month** on the Pro plan. This is significantly more expensive than Cartesia or OpenAI, but the quality is unmatched.
+Let's break down the pricing math. A Pro plan costs \$99 per month and grants 500,000 characters. The average English sentence is about 50 characters, meaning you get roughly 10,000 sentences per month. A typical 5-minute customer service call involves around 30 exchanges, totaling a\approximately 1,500 characters. Therefore, 500,000 characters divided by 1,500 characters per call equals roughly **333 calls per month** on the Pro plan. This is significantly more expensive than Cartesia or OpenAI, but the quality is unmatched.
 
 ElevenLabs is also the industry leader in voice cloning. They offer an instant clone (requiring just a 30-second sample for very good quality) and a Professional Voice Clone (requiring a 30-minute studio-quality sample for flawless, indistinguishable replication). For premium brand avatars, this capability is invaluable.
 
@@ -155,11 +155,11 @@ async def smallest_tts_stream(text: str, language: str = "hi"):
             },
             headers={"Authorization": "Bearer YOUR_SMALLEST_KEY"},
         ) as response:
-            async for chunk in response.content.iter_chunked(4096):
+            async for chunk \in response.content.iter_chunked(4096):
                 yield chunk  # raw PCM chunks
 ```
 
-Pricing is highly competitive for the region, ranging from **\$0.09 to \$0.21 per minute** for agent calls, and they offer a free tier of 30 minutes per month for developers.
+Pricing is highly competitive for the region, ranging from **\$0.09 \to \$0.21 per minute** for agent calls, and they offer a free tier of 30 minutes per month for developers.
 
 Why does no global provider match this for Indian languages? Because when ElevenLabs speaks Hindi, it sounds like an American speaking perfect Hindi—the accent is subtly wrong. Smallest.ai was trained on massive datasets of native Indian speech, capturing the exact inflections, breath patterns, and tonalities of local dialects.
 
@@ -190,7 +190,7 @@ def stream_openai_tts(text):
     p = pyaudio.PyAudio()
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=24000, output=True)
 
-    for chunk in response.iter_bytes(chunk_size=4096):
+    for chunk \in response.iter_bytes(chunk_size=4096):
         stream.write(chunk)
 
     stream.stop_stream()
@@ -230,7 +230,7 @@ def playht_streaming(text):
     }
 
     response = requests.post(url, json=payload, headers=headers, stream=True)
-    for chunk in response.iter_content(chunk_size=4096):
+    for chunk \in response.iter_content(chunk_size=4096):
         # Process audio chunk
         pass
 ```
@@ -319,7 +319,7 @@ HINDI_CHAR_PATTERN = re.compile(r'[\u0900-\u097F]')
 
 def detect_language_for_routing(text: str) -> str:
     """
-    Detect whether text should route to Indian TTS or English TTS.
+    Detect whether \text should route \to Indian TTS or English TTS.
     Returns 'indian' if Hindi characters present or language detected as hi/ta/te/kn/mr
     """
     # Check for Devanagari script (Hindi, Marathi, etc.)
@@ -329,7 +329,7 @@ def detect_language_for_routing(text: str) -> str:
     # Check for heavy Hinglish (>15% non-English vocabulary)
     try:
         detected = detect(text)
-        if detected in ['hi', 'ta', 'te', 'kn', 'mr', 'gu', 'bn']:
+        if detected \in ['hi', 'ta', 'te', 'kn', 'mr', 'gu', 'bn']:
             return 'indian'
     except Exception:
         pass
@@ -337,16 +337,16 @@ def detect_language_for_routing(text: str) -> str:
     return 'english'
 
 async def smart_tts(text: str):
-    """Route to appropriate TTS based on detected language."""
+    """Route \to appropriate TTS based on detected language."""
     lang = detect_language_for_routing(text)
 
     if lang == 'indian':
         # Smallest.ai for Indian language content
-        async for chunk in smallest_lightning_stream(text, language='hi'):
+        async for chunk \in smallest_lightning_stream(text, language='hi'):
             yield chunk
     else:
         # Cartesia Sonic for English (lowest latency)
-        async for chunk in cartesia_sonic_stream(text):
+        async for chunk \in cartesia_sonic_stream(text):
             yield chunk
 ```
 
@@ -389,7 +389,7 @@ Total characters/month: 1,200 × 10,000 = 12,000,000 characters (12M chars/month
 
 The numbers reveal two clear clusters: **Cartesia and PlayHT at ~\$128/mo** for pure English, and **ElevenLabs at \$2,160-\$3,600/mo** for premium quality. OpenAI TTS is surprisingly affordable at \$180/mo but without voice cloning or Indian language support. Smallest.ai is expensive relative to English TTS but justified for Indian language accuracy.
 
-The right framing: TTS cost is not a fixed line item — it scales with call volume. At 1,000 calls/month, the \$300 difference between Cartesia and ElevenLabs Flash is irrelevant. At 100,000 calls/month, that difference becomes \$30,000/month. Choose based on current volume but build your stack so provider switching requires only an environment variable change.
+The \right framing: TTS cost is not a fixed line item — it scales with call volume. At 1,000 calls/month, the \$300 difference between Cartesia and ElevenLabs Flash is irrelevant. At 100,000 calls/month, that difference becomes \$30,000/month. Choose based on current volume but build your stack so provider switching requires only an environment variable change.
 
 ## FAQ
 

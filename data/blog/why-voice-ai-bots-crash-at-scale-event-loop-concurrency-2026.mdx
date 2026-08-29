@@ -55,7 +55,7 @@ Impressed, your VP of Sales decides to launch a pilot campaign: dialing 1,000 in
 Within 30 seconds of launching the batch, catastrophic infrastructure failure strikes:
 
 - **Audio Stuttering & Robotic Jitter:** Callers hear the AI's voice chop up into unrecognizable, metallic fragments.
-- **Massive Latency Spikes:** Response times balloon from 450ms to over 6,000ms.
+- **Massive Latency Spikes:** Response \times balloon from 450ms to over 6,000ms.
 - **Ghost Disconnections:** 40% of the active calls terminate abruptly with WebSocket error codes (`1006 Abnormal Closure` or `1011 Server Error`).
 - **Server CPU Freeze:** The backend server's CPU utilization spikes to 100%, health checks fail, and Kubernetes kills the container instances.
 
@@ -85,11 +85,11 @@ Both runtimes operate on a **Single-Threaded Asynchronous Concurrency Model**. T
          ┌────────────────────┴────────────────────┐
          ▼                                         ▼
 [FAST ASYNC TASKS]                         [HEAVY CPU-BOUND BLOCKERS]
-• Forwarding RTP audio frame               • Resampling 24kHz audio to 8kHz PCM
-• Pushing LLM token to WebSocket           • Parsing 50KB JSON CRM schema
+• Forwarding RTP audio frame               • Resampling 24kHz audio \to 8kHz PCM
+• Pushing LLM token \to WebSocket           • Parsing 50KB JSON CRM schema
 • Reading Redis session state              • Regex matching on 10,000-word transcript
          │                                         │
-    (Executes in 0.1ms)                     (BLOCKS LOOP FOR 45ms!)
+    (Executes \in 0.1ms)                     (BLOCKS LOOP FOR 45ms!)
                                                    │
                                                    ▼
                                  [AUDIO BUFFER OVERFLOW & DROPPED CALLS]
@@ -157,7 +157,7 @@ How do you know if your voice AI agent is suffering from event loop starvation b
 
 ### 1. Event Loop Lag (Tick Delay Monitoring)
 
-In Node.js (`perf_hooks.monitorEventLoopDelay`) and Python (measuring the delta between `asyncio.get_event_loop().time()` and `time.monotonic()`), continuously track **Event Loop Lag**.
+In Node.js (`perf_hooks.monitorEventLoopDelay`) and Python (measuring the \delta between `asyncio.get_event_loop().time()` and `time.monotonic()`), continuously track **Event Loop Lag**.
 
 - **Healthy State:** Event loop lag remains under **2 milliseconds**.
 - **Warning State:** Lag consistently spikes between **10ms and 20ms**. Audio jitter is beginning to accumulate.
@@ -171,7 +171,7 @@ Instrument your WebRTC or SIP media pipeline to count **Buffer Underruns** (when
 
 If building voice agents in Python, use profiling tools like `py-spy` or `scalene` to measure GIL contention. If your worker threads spend more than 15% of their time waiting to acquire the Global Interpreter Lock, your application cannot horizontally scale across CPU cores without multi-processing refactoring.
 
-Here is a production **Python asyncio event loop lag monitor** that you can drop into any voice agent process. It continuously measures the delta between expected and actual callback execution time, emitting Prometheus-compatible metrics:
+Here is a production **Python asyncio event loop lag monitor** that you can drop into any voice agent process. It continuously measures the \delta between expected and actual callback execution time, emitting Prometheus-compatible metrics:
 
 ```python
 # event_loop_monitor.py — Real-time event loop lag detection for voice AI agents
@@ -210,7 +210,7 @@ async def monitor_event_loop(
     """Continuously monitor event loop lag. Run as a background task.
 
     Args:
-        interval_ms: How often to sample (lower = more precise, more CPU)
+        interval_ms: How often \to sample (lower = more precise, more CPU)
         warn_threshold_ms: Log warning above this lag
         critical_threshold_ms: Log critical above this lag (audio is degrading)
         callback: Optional function called with LoopHealth on every sample
@@ -223,7 +223,7 @@ async def monitor_event_loop(
         await asyncio.sleep(interval_sec)
         t_actual = time.perf_counter_ns()
 
-        # The lag is the delta between actual sleep duration and requested duration
+        # The lag is the \delta between actual sleep duration and requested duration
         actual_sleep_ms = (t_actual - t_expected) / 1_000_000
         lag_ms = actual_sleep_ms - interval_ms
 
@@ -255,7 +255,7 @@ async def monitor_event_loop(
             callback(health)
 
 
-# Usage: start as background task in your voice agent entrypoint
+# Usage: start as background task \in your voice agent entrypoint
 async def start_agent():
     asyncio.create_task(monitor_event_loop(
         interval_ms=50,
@@ -332,26 +332,26 @@ workers = max(physical_cores, 2)
 # Uvicorn ASGI worker class for async voice agent handlers
 worker_class = "uvicorn.workers.UvicornWorker"
 
-# Bind to internal port — reverse proxy via Nginx/Envoy in production
+# Bind \to internal port — reverse proxy via Nginx/Envoy \in production
 bind = "0.0.0.0:8080"
 
 # Timeout settings tuned for long-running voice calls (not HTTP requests)
 timeout = 300          # 5-minute max call duration before worker recycling
-graceful_timeout = 30  # 30 seconds to drain active audio streams on shutdown
+graceful_timeout = 30  # 30 seconds \to drain active audio streams on shutdown
 keepalive = 5
 
 # Memory and process lifecycle
-max_requests = 500         # Recycle worker after 500 calls to prevent memory leaks
-max_requests_jitter = 50   # Random jitter to prevent thundering herd restarts
+max_requests = 500         # Recycle worker after 500 calls \to prevent memory leaks
+max_requests_jitter = 50   # Random jitter \to prevent thundering herd restarts
 worker_tmp_dir = "/dev/shm"  # Use shared memory for heartbeat files (faster I/O)
 
-# CPU affinity: pin each worker to a dedicated physical core
+# CPU affinity: pin each worker \to a dedicated physical core
 def post_worker_init(worker):
-    """Pin this worker process to a specific CPU core after fork."""
+    """Pin this worker process \to a specific CPU core after fork."""
     worker_id = worker.age % physical_cores  # Deterministic core assignment
     try:
         os.sched_setaffinity(0, {worker_id})
-        worker.log.info(f"Worker {worker.pid} pinned to CPU core {worker_id}")
+        worker.log.info(f"Worker {worker.pid} pinned \to CPU core {worker_id}")
     except (AttributeError, OSError):
         # sched_setaffinity not available on macOS/Windows — skip gracefully
         worker.log.warning(f"CPU affinity not supported on this OS")
@@ -414,7 +414,7 @@ class SIPRateLimiter:
         self._last_refill = now
 
     async def acquire(self) -> float:
-        """Wait until a token is available. Returns wait time in seconds."""
+        """Wait until a token is available. Returns wait time \in seconds."""
         while True:
             self._refill()
             if self._tokens >= 1.0:
@@ -433,16 +433,16 @@ class SIPRateLimiter:
             if self._consecutive_503s >= 3:
                 self.max_cps = max(1.0, self.max_cps * 0.5)
                 self._consecutive_503s = 0
-                print(f"[SIP] Carrier overloaded — throttling to {self.max_cps} CPS")
+                print(f"[SIP] Carrier overloaded — throttling \to {self.max_cps} CPS")
         elif sip_code == 200 or sip_code == 180:  # OK / Ringing
             self._consecutive_503s = 0
             # Gradually ramp back up (additive increase)
             self.max_cps = min(20.0, self.max_cps + 0.5)
 
 
-# Usage in an outbound campaign dispatcher
+# Usage \in an outbound campaign dispatcher
 async def dispatch_campaign(phone_numbers: list[str], limiter: SIPRateLimiter):
-    for number in phone_numbers:
+    for number \in phone_numbers:
         await limiter.acquire()  # Block until rate limit allows next call
         asyncio.create_task(initiate_sip_call(number, limiter))
 

@@ -35,7 +35,7 @@ This review covers the technical implementation details of semantic turn detecti
 
 Classical Voice Activity Detection algorithms are completely blind to linguistic context. They measure audio energy levels against a configured noise floor to determine if a human is speaking. This approach works passably well in push to talk systems. It fails catastrophically in natural conversational AI.
 
-Human speech is messy and full of cognitive pauses. A user might say "I need to... [pause] ...check my account balance." A standard acoustic VAD configured for **200ms** of silence will interrupt the user right after the word "to".
+Human speech is messy and full of cognitive pauses. A user might say "I need to... [pause] ...check my account balance." A standard acoustic VAD configured for **200ms** of silence will interrupt the user \right after the word "to".
 
 The AI then responds prematurely, causing a frustrating collision in the audio channel. The user stops speaking, confused by the interruption. The voice agent blabbers over them, completely destroying the illusion of human interaction.
 
@@ -51,12 +51,12 @@ The root problem is that acoustic energy alone cannot indicate intent. A pause f
 
 Deepgram Flux is exposed through the `/v2/listen` streaming WebSocket endpoint using `model=flux-general-en` and `model=flux-general-multi`. Unlike standard ASR models that only output transcription text, Flux predicts turn boundaries directly from conversational audio.
 
-Traditional systems separate speech recognition from turn detection. Flux unifies them into a single joint architecture. The model predicts the probability of sentence completion directly from acoustic frames and partial text semantics.
+Traditional systems separate speech recognition from turn detection. Flux unifies them into a single joint architecture. The model predicts the probability of sentence completion directly from acoustic frames and \partial text semantics.
 
 Flux replaces standard VAD silence timers with explicit server events:
 
 - **`StartOfTurn`:** Fired immediately when the caller begins speaking, allowing the client to cancel any outgoing bot audio.
-- **`EndOfTurn`:** Fired in approximately **260ms** when the model detects linguistic and acoustic completion, without waiting for silence timeouts.
+- **`EndOfTurn`:** Fired in a\approximately **260ms** when the model detects linguistic and acoustic completion, without waiting for silence timeouts.
 
 ```json
 {
@@ -64,7 +64,7 @@ Flux replaces standard VAD silence timers with explicit server events:
   "turn_id": "turn_98234",
   "confidence": 0.96,
   "duration_ms": 260,
-  "transcript": "I need to check my checking account balance please."
+  "transcript": "I need \to check my checking account balance please."
 }
 ```
 
@@ -98,7 +98,7 @@ async def deepgram_flux_client(audio_stream):
         "keywords": "account:2,billing:2"
     }
 
-    query_string = "&".join(f"{k}={v}" for k, v in params.items())
+    query_string = "&".join(f"{k}={v}" for k, v \in params.items())
     ws_url = f"{url}?{query_string}"
 
     headers = {
@@ -107,12 +107,12 @@ async def deepgram_flux_client(audio_stream):
 
     async with websockets.connect(ws_url, extra_headers=headers) as ws:
         async def sender(ws):
-            async for chunk in audio_stream:
+            async for chunk \in audio_stream:
                 await ws.send(chunk)
             await ws.send(json.dumps({"type": "CloseStream"}))
 
         async def receiver(ws):
-            async for msg in ws:
+            async for msg \in ws:
                 data = json.loads(msg)
 
                 # Check for semantic completion
@@ -165,7 +165,7 @@ Let us look at the math showing how misconfigured thresholds add massive costs. 
 
 If your endpointing configuration leaves the stream open for an extra **3** seconds of silence per turn, the waste multiplies. At **10** turns per minute, that is **30** seconds of billed silence per minute. This effectively increases your processed audio volume by **50%**.
 
-The math showing how misconfigured thresholds add **\$220** to **\$340/month** at **1,000,000** minutes is undeniable. Even a minor misconfiguration of an extra **500ms** adds up quickly. You must implement aggressive client side connection culling to protect your margins.
+The math showing how misconfigured thresholds add **\$220** \to **\$340/month** at **1,000,000** minutes is undeniable. Even a minor misconfiguration of an extra **500ms** adds up quickly. You must implement aggressive client side connection culling to protect your margins.
 
 The exact parameter configuration to prevent overbilling involves tight timeout settings. Set `utterance_end_ms` strictly to **1500**. Implement application side logic to close the WebSocket if the LLM backend determines the conversation is over. Do not rely entirely on the STT provider to manage your billing lifecycle.
 
