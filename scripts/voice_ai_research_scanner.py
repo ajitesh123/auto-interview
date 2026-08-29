@@ -99,9 +99,9 @@ def scan_legendary_blog(filepath: str) -> Dict[str, Any]:
         seo_score -= 15
         seo_issues.append("Missing structuredData JSON-LD Article schema in frontmatter")
         
-    if words < 1400:
-        seo_score -= 25
-        seo_issues.append(f"Word count too low ({words} words < 1400 legendary threshold)")
+    if words < 3500:
+        seo_score -= 30
+        seo_issues.append(f"Word count too low ({words} words < 3500 exhaustive research threshold)")
 
     # Check primary keyword density in first 150 words & headings
     first_150_words = ' '.join(body_text.split()[:150]).lower()
