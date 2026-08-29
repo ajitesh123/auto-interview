@@ -159,7 +159,7 @@ async def initiate_outbound_campaign():
 
     print(f"Call initiated. Session ID: {call_session.id}")
 
-    # Event loop \to handle call state and webhooks
+    # Event loop to handle call state and webhooks
     async for event \in call_session.stream_events():
         if event.type == "call_connected":
             print("User picked up the phone. Ringg AI is now speaking.")

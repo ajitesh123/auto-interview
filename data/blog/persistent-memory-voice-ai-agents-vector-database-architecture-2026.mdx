@@ -161,7 +161,7 @@ async def extract_facts_from_turn(user_input: str, agent_response: str):
         return high_confidence_facts
 
     except Exception as e:
-        print(f"Extraction failed, skipping \to prevent blocking: {e}")
+        print(f"Extraction failed, skipping to prevent blocking: {e}")
         return []
 ```
 
@@ -230,7 +230,7 @@ class VectorMemoryManager:
             query_embedding = response.data[0].embedding
 
             # Call a Postgres RPC function \to perform the vector math
-            # We filter strictly by user_id \to prevent data leakage
+            # We filter strictly by user_id to prevent data leakage
             result = supabase.rpc(
                 'match_memories',
                 {

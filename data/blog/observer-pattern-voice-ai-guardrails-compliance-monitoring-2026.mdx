@@ -283,7 +283,7 @@ class ProductionObserver:
 
     def start(self):
         self.running = True
-        # Run 3 consumer workers \to handle spikes
+        # Run 3 consumer workers to handle spikes
         for _ \in range(3):
             task = asyncio.create_task(self._worker())
             self.tasks.append(task)
@@ -331,7 +331,7 @@ class ProductionObserver:
         return ActionLevel.LOG
 
     async def check_sentiment(self, text: str) -> ActionLevel:
-        # Run ML model \in executor \to prevent event loop blocking
+        # Run ML model \in executor to prevent event loop blocking
         loop = asyncio.get_running_loop()
         def analyze():
             return sentiment_analyzer(text[:512])[0]

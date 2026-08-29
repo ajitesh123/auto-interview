@@ -341,8 +341,8 @@ graceful_timeout = 30  # 30 seconds \to drain active audio streams on shutdown
 keepalive = 5
 
 # Memory and process lifecycle
-max_requests = 500         # Recycle worker after 500 calls \to prevent memory leaks
-max_requests_jitter = 50   # Random jitter \to prevent thundering herd restarts
+max_requests = 500         # Recycle worker after 500 calls to prevent memory leaks
+max_requests_jitter = 50   # Random jitter to prevent thundering herd restarts
 worker_tmp_dir = "/dev/shm"  # Use shared memory for heartbeat files (faster I/O)
 
 # CPU affinity: pin each worker \to a dedicated physical core
