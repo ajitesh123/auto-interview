@@ -238,7 +238,7 @@ Each of these stages has its own complexities. We cover them in depth across thi
 
 | Evaluation Criterion | What to Ask                                 | Red Flag                              | Green Flag                                |
 | -------------------- | ------------------------------------------- | ------------------------------------- | ----------------------------------------- |
-| End-to-end latency   | "What is your p95 production latency?"      | "It depends" or >800ms                | Specific number &lt;500ms with data       |
+| End-to-end latency   | "What is your p95 production latency?"      | "It depends" or &gt;800ms             | Specific number &lt;500ms with data       |
 | Turn detection       | "How do you detect end-of-turn?"            | "We use VAD with silence timer"       | Model-based or audio-based detection      |
 | Interruptions        | "Can I talk over the agent?"                | Agent ignores or stops on every sound | Agent distinguishes genuine interruptions |
 | Tool calling         | "What happens during a 15-second API call?" | Silence                               | Async acknowledgment + narration          |

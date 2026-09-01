@@ -64,9 +64,9 @@ When primary vendors experience latency spikes or status outages, Tough Tongue A
 
 | Component Role      | Primary Vendor      | Primary Latency | Failover Secondary Vendor  | Failover Switch Latency |
 | ------------------- | ------------------- | --------------- | -------------------------- | ----------------------- |
-| STT Engine          | Deepgram Nova-2     | 115 ms          | Whisper-large-v3 (Groq)    | < 30 ms (Hot Swap)      |
-| LLM Reasoning       | OpenAI GPT-4.1-mini | 165 ms          | Anthropic Claude 3.5 Haiku | < 45 ms (Hot Swap)      |
-| TTS Voice Synthesis | Cartesia Sonic      | 85 ms           | ElevenLabs Flash           | < 35 ms (Hot Swap)      |
+| STT Engine          | Deepgram Nova-2     | 115 ms          | Whisper-large-v3 (Groq)    | &lt; 30 ms (Hot Swap)   |
+| LLM Reasoning       | OpenAI GPT-4.1-mini | 165 ms          | Anthropic Claude 3.5 Haiku | &lt; 45 ms (Hot Swap)   |
+| TTS Voice Synthesis | Cartesia Sonic      | 85 ms           | ElevenLabs Flash           | &lt; 35 ms (Hot Swap)   |
 
 ---
 
@@ -293,7 +293,7 @@ LLM: Primary → GPT-4.1-mini    | Fallback → Gemini 2.5 Flash
 TTS: Primary → Cartesia Sonic-2 | Fallback → OpenAI TTS
 ```
 
-If the primary provider returns an error or exceeds the latency threshold (e.g., > 2 seconds), the system automatically routes \to the fallback. The caller never notices.
+If the primary provider returns an error or exceeds the latency threshold (e.g., &gt; 2 seconds), the system automatically routes \to the fallback. The caller never notices.
 
 ### Quality-Based Routing
 

@@ -226,8 +226,8 @@ To show you just how much this matters, here are some benchmark numbers from my 
 | :-------------------- | :----------------- | :------------------------ | :------------------------------- |
 | Naive ("Be helpful")  | 18%                | 42%                       | 850                              |
 | Strict Constraints    | 4%                 | 5%                        | 820                              |
-| Strict + Forced Tools | < 1%               | 2%                        | 1100 (Due to tool call overhead) |
-| Periodic Reinjection  | < 1%               | < 1%                      | 1120                             |
+| Strict + Forced Tools | &lt; 1%            | 2%                        | 1100 (Due to tool call overhead) |
+| Periodic Reinjection  | &lt; 1%            | &lt; 1%                   | 1120                             |
 
 As you can see, forcing tool use completely crushes hallucination rates, though it does add a slight latency penalty.
 

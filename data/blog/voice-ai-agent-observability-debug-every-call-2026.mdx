@@ -61,11 +61,11 @@ To maintain sub-1-second response times, engineering teams track 5 core SLA metr
 
 | Metric                          | Target SLA (P50) | Warning Threshold (P95) | Critical Alert Threshold |
 | ------------------------------- | ---------------- | ----------------------- | ------------------------ |
-| STT Final Transcription Latency | < 120 ms         | < 250 ms                | > 450 ms                 |
-| LLM Time to First Token (TTFT)  | < 180 ms         | < 350 ms                | > 700 ms                 |
-| TTS First Audio Chunk Latency   | < 90 ms          | < 180 ms                | > 300 ms                 |
-| RTP Audio Packet Loss           | < 0.5 %          | < 2.0 %                 | > 5.0 %                  |
-| Mean Opinion Score (MOS)        | > 4.2 / 5.0      | > 3.8 / 5.0             | < 3.2 / 5.0              |
+| STT Final Transcription Latency | &lt; 120 ms      | &lt; 250 ms             | &gt; 450 ms              |
+| LLM Time to First Token (TTFT)  | &lt; 180 ms      | &lt; 350 ms             | &gt; 700 ms              |
+| TTS First Audio Chunk Latency   | &lt; 90 ms       | &lt; 180 ms             | &gt; 300 ms              |
+| RTP Audio Packet Loss           | &lt; 0.5 %       | &lt; 2.0 %              | &gt; 5.0 %               |
+| Mean Opinion Score (MOS)        | &gt; 4.2 / 5.0   | &gt; 3.8 / 5.0          | &lt; 3.2 / 5.0           |
 
 ---
 
@@ -282,7 +282,7 @@ If you are building voice AI on your own infrastructure, here is the minimum obs
 | Average turn latency | Mean end-to-end latency per turn   |
 | P95 turn latency     | 95th percentile latency            |
 | Interruption count   | Times caller interrupted the agent |
-| Dead air events      | Pauses > 3 seconds                 |
+| Dead air events      | Pauses &gt; 3 seconds              |
 | Tool call count      | Number of tool invocations         |
 | Tool failure count   | Failed tool calls                  |
 | Evaluation score     | AI judge assessment                |
@@ -291,11 +291,11 @@ If you are building voice AI on your own infrastructure, here is the minimum obs
 
 Set up real-time alerts for:
 
-- **P95 turn latency > 2000ms** — Users will notice and hang up
-- **STT error rate > 5%** — Transcription quality degradation
-- **Dead air events > 2 per session** — Turn detection or latency issue
-- **Tool call failure rate > 10%** — Integration problem
-- **Evaluation score drop > 20%** — Prompt regression or model degradation
+- **P95 turn latency &gt; 2000ms** — Users will notice and hang up
+- **STT error rate &gt; 5%** — Transcription quality degradation
+- **Dead air events &gt; 2 per session** — Turn detection or latency issue
+- **Tool call failure rate &gt; 10%** — Integration problem
+- **Evaluation score drop &gt; 20%** — Prompt regression or model degradation
 
 ---
 
@@ -346,7 +346,7 @@ With proper observability, you debug by: (1) finding the session by time/caller,
 
 ### What metrics should I monitor for voice AI?
 
-Critical metrics: P95 turn latency (target < 1500ms), STT transcription accuracy, LLM time-to-first-token, dead air events per session, tool call success rate, and evaluation scores. Set alerts for latency spikes, accuracy drops, and score regressions.
+Critical metrics: P95 turn latency (target &lt; 1500ms), STT transcription accuracy, LLM time-to-first-token, dead air events per session, tool call success rate, and evaluation scores. Set alerts for latency spikes, accuracy drops, and score regressions.
 
 ### Why does my voice AI agent sometimes go silent?
 

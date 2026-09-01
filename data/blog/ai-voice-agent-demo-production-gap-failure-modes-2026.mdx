@@ -370,16 +370,16 @@ At 500 concurrent calls, your 730ms demo latency has become 1,400-3,400ms produc
 
 **What you need to observe:**
 
-| Metric                          | What It Tells You                | Alert Threshold                 |
-| ------------------------------- | -------------------------------- | ------------------------------- |
-| p95 latency                     | Pipeline is degrading            | >1,500ms                        |
-| STT confidence score            | Audio/environment quality        | &lt;80% average                 |
-| Hallucination detection rate    | AI is fabricating responses      | >3% of calls                    |
-| Conversation completion rate    | AI cannot maintain dialogue      | &lt;60%                         |
-| Objection handling success rate | AI cannot overcome objections    | &lt;40%                         |
-| Human escalation rate           | AI is hitting its limits         | >25% (too high = AI is failing) |
-| Prospect sentiment score        | Prospects are frustrated         | &lt;0.3 (scale 0-1)             |
-| Call drop rate                  | Telephony infrastructure failing | >5%                             |
+| Metric                          | What It Tells You                | Alert Threshold                    |
+| ------------------------------- | -------------------------------- | ---------------------------------- |
+| p95 latency                     | Pipeline is degrading            | &gt;1,500ms                        |
+| STT confidence score            | Audio/environment quality        | &lt;80% average                    |
+| Hallucination detection rate    | AI is fabricating responses      | &gt;3% of calls                    |
+| Conversation completion rate    | AI cannot maintain dialogue      | &lt;60%                            |
+| Objection handling success rate | AI cannot overcome objections    | &lt;40%                            |
+| Human escalation rate           | AI is hitting its limits         | &gt;25% (too high = AI is failing) |
+| Prospect sentiment score        | Prospects are frustrated         | &lt;0.3 (scale 0-1)                |
+| Call drop rate                  | Telephony infrastructure failing | &gt;5%                             |
 
 **Mitigation:**
 

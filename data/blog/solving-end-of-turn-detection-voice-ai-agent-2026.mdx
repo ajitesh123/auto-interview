@@ -45,7 +45,7 @@ structuredData:
 
 ## The Hardest Problem in Voice AI
 
-> **Direct Answer:** Modern voice AI turn detection combines Voice Activity Detection (VAD) with real-time prosodic pitch analysis and acoustic-linguistic transformer models. Rather than relying solely on static silence thresholds (e.g. 500ms), multi-modal end-of-turn predictors evaluate transcript syntax completeness alongside pitch contour drops, cutting false interruption rates to < 3% while preserving sub-400ms natural response latency.
+> **Direct Answer:** Modern voice AI turn detection combines Voice Activity Detection (VAD) with real-time prosodic pitch analysis and acoustic-linguistic transformer models. Rather than relying solely on static silence thresholds (e.g. 500ms), multi-modal end-of-turn predictors evaluate transcript syntax completeness alongside pitch contour drops, cutting false interruption rates to &lt; 3% while preserving sub-400ms natural response latency.
 
 Your voice AI agent has fast STT, smart LLM, natural TTS. But conversations still feel robotic. Why?
 
@@ -144,9 +144,9 @@ We use four types of cues:
 
 ### 4. Timing Cues (Silence Duration)
 
-- A pause < 300ms is almost always a within-turn pause (breathing, thinking)
+- A pause &lt; 300ms is almost always a within-turn pause (breathing, thinking)
 - A pause of 500-700ms might be end-of-turn or might be a thinking pause
-- A pause > 1000ms is very likely end-of-turn
+- A pause &gt; 1000ms is very likely end-of-turn
 
 The problem: **AI systems traditionally only use timing cues (silence detection).** This is why they fail.
 
@@ -190,7 +190,7 @@ Combine Voice Activity Detection (VAD) with semantic analysis of the transcript:
 1. VAD detects silence onset
 2. STT provides \partial transcript
 3. Semantic model analyzes: is this a complete thought?
-4. If complete thought + silence > 300ms → end of turn
+4. If complete thought + silence &gt; 300ms → end of turn
 5. If incomplete thought → wait longer (up to 1500ms)
 
 ```
@@ -307,13 +307,13 @@ The 400ms pause during code-switching triggers a false end-of-turn in naive syst
 
 ### Key Metrics
 
-| Metric                     | Definition                                        | Target    |
-| -------------------------- | ------------------------------------------------- | --------- |
-| False Interruption Rate    | % of turns where agent interrupts mid-sentence    | < 3%      |
-| Response Gap (P50)         | Median silence between caller end and agent start | 300-600ms |
-| Response Gap (P95)         | 95th percentile gap                               | < 1500ms  |
-| Missed Turn Rate           | % of turns where agent waits > 2s to respond      | < 5%      |
-| Backchannel False Positive | % of "uh-huh" treated as interruption             | < 10%     |
+| Metric                     | Definition                                        | Target      |
+| -------------------------- | ------------------------------------------------- | ----------- |
+| False Interruption Rate    | % of turns where agent interrupts mid-sentence    | &lt; 3%     |
+| Response Gap (P50)         | Median silence between caller end and agent start | 300-600ms   |
+| Response Gap (P95)         | 95th percentile gap                               | &lt; 1500ms |
+| Missed Turn Rate           | % of turns where agent waits &gt; 2s to respond   | &lt; 5%     |
+| Backchannel False Positive | % of "uh-huh" treated as interruption             | &lt; 10%    |
 
 ### How to Measure
 

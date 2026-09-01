@@ -323,7 +323,7 @@ Here is the realistic hardware blueprint for self-hosting a 100-channel concurre
 
 - **Requirement:** Serving an 8B parameter fine-tuned conversational model (e.g., Llama 3 / Gemma 4) at 100 concurrent requests with continuous batching.
 - **Hardware Allocation:** 2x NVIDIA H100 (80GB VRAM) or 4x NVIDIA A100 (40GB VRAM) running vLLM or TensorRT-LLM.
-- **Throughput:** Delivers >80 tokens per second per user with an average TTFT of 120ms.
+- **Throughput:** Delivers &gt;80 tokens per second per user with an average TTFT of 120ms.
 
 **Total Hardware Footprint:** A dedicated 4-GPU server rack (roughly \$3,500/month \in cloud infrastructure costs or \$45,000 in bare-metal capital expenditure). For enterprise organizations running 50,000+ call minutes per day, self-hosting is often **40% cheaper** than commercial SaaS API token billing.
 

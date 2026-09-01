@@ -98,10 +98,10 @@ The gold standard for conversational quality. Measured from the moment the user 
 
 | Latency Tier  | Round-Trip Time | User Perception                                  |
 | ------------- | --------------- | ------------------------------------------------ |
-| **Excellent** | < 400ms         | Feels like a natural human conversation          |
+| **Excellent** | &lt; 400ms      | Feels like a natural human conversation          |
 | **Good**      | 400ms - 800ms   | Acceptable; slight perceived delay               |
 | **Poor**      | 800ms - 1,500ms | Awkward pauses; user starts repeating themselves |
-| **Unusable**  | > 1,500ms       | User hangs up or talks over the agent            |
+| **Unusable**  | &gt; 1,500ms    | User hangs up or talks over the agent            |
 
 Here is a nanosecond-precision **end-to-end latency benchmark** script that measures every component of your voice pipeline independently:
 
@@ -281,7 +281,7 @@ In 2026, industry leaders have adopted neural audio assessment models, such as t
 
 These deep learning models evaluate real-time audio streams across four critical vectors on a **1.0 to 5.0 Mean Opinion Score (MOS)** scale:
 
-- **Speech Naturalness (MOS-N):** Measures prosody, intonation pacing, syllable emphasis, and robotic artifacts. A score `< 4.0` indicates artificial, uncanny-valley speech.
+- **Speech Naturalness (MOS-N):** Measures prosody, intonation pacing, syllable emphasis, and robotic artifacts. A score `&lt; 4.0` indicates artificial, uncanny-valley speech.
 - **Background Noise Robustness (MOS-B):** Evaluates how cleanly the speech signal separates from ambient noise (e.g., call center chatter, wind, street sirens).
 - **Echo & Duplex Clarity (MOS-E):** Detects acoustic echo feedback (when the bot's microphone captures its own speaker output) and evaluates half-duplex clipping during interruptions.
 - **Total Acoustic Quality (MOS-T):** The unified benchmark score representing overall conversational clarity.

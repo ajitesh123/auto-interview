@@ -206,12 +206,12 @@ Every AI call generates structured data. Here is what your CRM should receive af
 
 4. **Build Salesforce Flows** triggered by AI data:
 
-| Trigger                               | Flow Action                                  |
-| ------------------------------------- | -------------------------------------------- |
-| New Contact with AI_Intent_Score > 70 | Create Opportunity + Assign to AE            |
-| Lead Status changed to "AI Qualified" | Convert Lead to Contact + Create Opportunity |
-| AI call recording logged              | Create Task for rep to review recording      |
-| Competitor mentioned in call          | Create task for competitive team             |
+| Trigger                                  | Flow Action                                  |
+| ---------------------------------------- | -------------------------------------------- |
+| New Contact with AI_Intent_Score &gt; 70 | Create Opportunity + Assign to AE            |
+| Lead Status changed to "AI Qualified"    | Convert Lead to Contact + Create Opportunity |
+| AI call recording logged                 | Create Task for rep to review recording      |
+| Competitor mentioned in call             | Create task for competitive team             |
 
 5. **Test with 5 calls.** Verify Contact creation, custom field population, and Flow triggers.
 
@@ -241,9 +241,9 @@ Every AI call generates structured data. Here is what your CRM should receive af
 
 | Trigger                      | Workflow Action                           |
 | ---------------------------- | ----------------------------------------- |
-| AI Intent Score > 70         | Assign to owner + create task             |
+| AI Intent Score &gt; 70      | Assign to owner + create task             |
 | Lead Status = "AI Qualified" | Move to sales pipeline + notify owner     |
-| AI Intent Score < 30         | Add to nurture campaign in Zoho Campaigns |
+| AI Intent Score &lt; 30      | Add to nurture campaign in Zoho Campaigns |
 
 5. **Test and validate** with 5 test calls across different outcomes.
 

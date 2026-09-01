@@ -44,7 +44,7 @@ structuredData:
 
 ## The Problem: Phone Numbers Should Be Easy
 
-> **Direct Answer:** Adding a phone number to an AI voice agent requires bridging the Public Switched Telephone Network (PSTN) to a real-time conversational media server via a Session Initiation Protocol (SIP) trunk. The SIP trunk handles inbound call signaling (SIP INVITE) and establishes bidirectional Real-Time Transport Protocol (RTP) audio streams. Modern platforms automate codec negotiation (Opus, G.711, G.722) and NAT traversal to enable 60-second number provisioning and < 120ms call setup latency.
+> **Direct Answer:** Adding a phone number to an AI voice agent requires bridging the Public Switched Telephone Network (PSTN) to a real-time conversational media server via a Session Initiation Protocol (SIP) trunk. The SIP trunk handles inbound call signaling (SIP INVITE) and establishes bidirectional Real-Time Transport Protocol (RTP) audio streams. Modern platforms automate codec negotiation (Opus, G.711, G.722) and NAT traversal to enable 60-second number provisioning and &lt; 120ms call setup latency.
 
 You have built a voice AI agent. It works beautifully in the browser — clean WebRTC audio, fast responses, natural conversation. Now you want it to answer real phone calls.
 
@@ -56,12 +56,12 @@ This is where most developers hit a wall. SIP trunk configuration, SRTP negotiat
 
 To maintain natural conversational cadence, SIP session establishment must execute within strict latency boundaries:
 
-| Call Stage / Metric             | Target Latency | Industry Average | Impact on User Experience                 |
-| ------------------------------- | -------------- | ---------------- | ----------------------------------------- |
-| SIP INVITE to 100 Trying        | < 25 ms        | 80 ms            | Telecom carrier acknowledgement           |
-| SDP Codec & SRTP Key Handshake  | < 45 ms        | 150 ms           | Negotiates audio encryption & sample rate |
-| First RTP Audio Packet Received | < 110 ms       | 350 ms           | Prevents dead air before agent greeting   |
-| Total Inbound Setup Latency     | **< 180 ms**   | **580 ms**       | **Instant phone connection**              |
+| Call Stage / Metric             | Target Latency  | Industry Average | Impact on User Experience                 |
+| ------------------------------- | --------------- | ---------------- | ----------------------------------------- |
+| SIP INVITE to 100 Trying        | &lt; 25 ms      | 80 ms            | Telecom carrier acknowledgement           |
+| SDP Codec & SRTP Key Handshake  | &lt; 45 ms      | 150 ms           | Negotiates audio encryption & sample rate |
+| First RTP Audio Packet Received | &lt; 110 ms     | 350 ms           | Prevents dead air before agent greeting   |
+| Total Inbound Setup Latency     | **&lt; 180 ms** | **580 ms**       | **Instant phone connection**              |
 
 ---
 
@@ -250,13 +250,13 @@ graph TB
 
 ### Production Metrics to Monitor
 
-| Metric                  | Target  | Alert Threshold |
-| ----------------------- | ------- | --------------- |
-| SIP INVITE to 200 OK    | < 200ms | > 500ms         |
-| Post-Dial Delay (PDD)   | < 3s    | > 5s            |
-| RTP packet loss         | < 0.5%  | > 2%            |
-| Audio jitter            | < 30ms  | > 50ms          |
-| One-way audio incidents | 0       | > 0             |
+| Metric                  | Target     | Alert Threshold |
+| ----------------------- | ---------- | --------------- |
+| SIP INVITE to 200 OK    | &lt; 200ms | &gt; 500ms      |
+| Post-Dial Delay (PDD)   | &lt; 3s    | &gt; 5s         |
+| RTP packet loss         | &lt; 0.5%  | &gt; 2%         |
+| Audio jitter            | &lt; 30ms  | &gt; 50ms       |
+| One-way audio incidents | 0          | &gt; 0          |
 
 ---
 
@@ -331,7 +331,7 @@ A SIP trunk is a virtual phone line connecting your internet-based AI platform t
 
 ### Which SIP trunk provider is best for AI voice agents?
 
-Top providers: Twilio (widest global coverage), Telnyx (best audio quality), Plivo (most cost-effective). Key factors: Opus codec support, low post-dial delay (< 3s), and programmable call routing. Tough Tongue AI works with all major providers and offers built-in phone numbers requiring zero SIP configuration.
+Top providers: Twilio (widest global coverage), Telnyx (best audio quality), Plivo (most cost-effective). Key factors: Opus codec support, low post-dial delay (&lt; 3s), and programmable call routing. Tough Tongue AI works with all major providers and offers built-in phone numbers requiring zero SIP configuration.
 
 ### Can my AI voice agent make outbound phone calls?
 

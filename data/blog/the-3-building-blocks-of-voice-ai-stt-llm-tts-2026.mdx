@@ -27,9 +27,9 @@ structuredData:
 > **Executive Summary & The Tripartite Stack**
 >
 > - **The Tripartite Engine of Voice AI:** Every modular voice system relies on three interconnected computational layers:
->   1. **Speech-to-Text (STT / ASR):** The auditory perception layer converting continuous analog soundwaves into text tokens in **60ms to 120ms** using Conformer encoders and CTC decoding.
->   2. **Large Language Model (LLM):** The cognitive reasoning layer evaluating multi-turn conversational history, executing live CRM database webhooks, and streaming response tokens in **&lt;200ms**.
->   3. **Text-to-Speech (TTS):** The vocal synthesis layer converting text into studio-grade 24kHz audio waveforms in **&lt;60ms** using State Space Models (SSMs) and HiFi-GAN vocoders.
+>   &gt; 1. **Speech-to-Text (STT / ASR):** The auditory perception layer converting continuous analog soundwaves into text tokens in **60ms to 120ms** using Conformer encoders and CTC decoding.
+>   &gt; 2. **Large Language Model (LLM):** The cognitive reasoning layer evaluating multi-turn conversational history, executing live CRM database webhooks, and streaming response tokens in **&lt;200ms**.
+>   &gt; 3. **Text-to-Speech (TTS):** The vocal synthesis layer converting text into studio-grade 24kHz audio waveforms in **&lt;60ms** using State Space Models (SSMs) and HiFi-GAN vocoders.
 > - **The Orchestration Glue:** The pipeline is coordinated by **Voice Activity Detection (VAD)** and **Acoustic Echo Cancellation (AEC)**, enabling full-duplex conversational turn-taking and instant **&lt;40ms barge-in interruptions**.
 > - **The Unit Economics:** While traditional cascaded multi-vendor stacks cost **$0.084 to $0.140 per minute**, unified platforms like Tough Tongue AI provide carrier-grade voice infrastructure for a flat **₹3.50 per minute** (**$0.042/min**).
 
@@ -406,7 +406,7 @@ $$
 
 If $\tau_{\text{VAD}} = 200\text{ ms}$, $\tau_{\text{STT}} = 250\text{ ms}$, $\tau_{\text{LLM}} = 600\text{ ms}$, $\tau_{\text{TTS}} = 300\text{ ms}$, and network routing takes $100\text{ ms}$, total conversational delay reaches **1,450ms**, causing immediate caller dissatisfaction.
 
-In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} < 200\text{ ms}$.
+In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} &lt; 200\text{ ms}$.
 
 ---
 
