@@ -3,15 +3,21 @@ Allow: /
 
 User-Agent: GPTBot
 User-Agent: ChatGPT-User
+User-Agent: OAI-SearchBot
 Allow: /
 
 User-Agent: Google-Extended
 Allow: /
 
 User-Agent: ClaudeBot
+User-Agent: anthropic-ai
+User-Agent: Claude-Web
 Allow: /
 
 User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Bravebot
 Allow: /
 
 User-Agent: Bytespider
