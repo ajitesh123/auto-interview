@@ -13,6 +13,7 @@ import tagData from 'app/tag-data.json'
 import GlassNav from '@/components/domain/GlassNav'
 import Footer from '@/components/Footer'
 import FloatingNav from '@/components/FloatingNav'
+import CTABanner from '@/components/CTABanner'
 
 interface PaginationProps {
   totalPages: number
@@ -164,40 +165,20 @@ export default function ListLayoutWithTags({
         {/* Page Header */}
         <div className="mb-12 pt-4 text-center">
           <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-            CAREER INTELLIGENCE & INSIGHTS
+            VOICE AI & CALLING INTELLIGENCE
           </p>
           <h1 className="text-3xl font-normal tracking-[-1.5px] text-[#171717] sm:text-4xl lg:text-5xl">
             {title}
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-base text-[#666666] sm:text-lg">
-            Actionable playbooks, ATS breakdowns, interview frameworks, and hiring strategies to
-            help you crack your dream role.
+            Discover architectural breakdowns, telephony benchmarks, and conversational AI
+            strategies to scale your voice agents.
           </p>
         </div>
 
         {/* Platform Highlight Banner */}
-        <div
-          className="relative mx-auto mb-12 flex max-w-4xl flex-col items-start justify-between gap-6 rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:flex-row sm:items-center sm:p-8"
-          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
-        >
-          <div>
-            <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              FREE CAREER ASSETS
-            </p>
-            <h2 className="text-xl font-normal tracking-tight text-[#171717] sm:text-2xl">
-              Crack your dream job with verified CV templates
-            </h2>
-            <p className="mt-1 text-sm text-[#666666]">
-              Download ATS-optimized Harvard, IIM-A, and top-tier resumes. 100% free with zero
-              paywalls.
-            </p>
-          </div>
-          <Link
-            href="/cv-templates"
-            className="inline-flex shrink-0 items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm font-medium !text-white transition-all hover:bg-[#333333]"
-          >
-            Explore Templates &rarr;
-          </Link>
+        <div className="mx-auto mb-12 max-w-4xl">
+          <CTABanner className="my-0" />
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
