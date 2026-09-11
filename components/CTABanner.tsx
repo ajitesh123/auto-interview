@@ -12,7 +12,7 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-  heading = 'Want to see Conversational AI calling in action?',
+  heading = 'Want to see AI calling Demo?',
   subtext = 'Watch a real AI-to-human handoff close a lead in under 3 minutes.',
   primaryLabel = 'Book Demo',
   primaryHref = 'https://cal.com/ajitesh/30min',
