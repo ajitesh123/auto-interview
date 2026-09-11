@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import CubeLogo from './CubeLogo'
 
 interface LogoProps {
   className?: string
@@ -8,16 +8,7 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ className = '', width = 50, height = 50 }) => {
-  return (
-    <Image
-      src="/static/images/logo.png"
-      alt="Auto Interview Logo"
-      width={width}
-      height={height}
-      className={className}
-      priority
-    />
-  )
+  return <CubeLogo size={width || height || 50} className={className} />
 }
 
 export default Logo

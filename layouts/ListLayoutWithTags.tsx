@@ -10,7 +10,7 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
-import LandingHeader from '@/components/LandingHeader'
+import GlassNav from '@/components/domain/GlassNav'
 import Footer from '@/components/Footer'
 import FloatingNav from '@/components/FloatingNav'
 
@@ -38,12 +38,10 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
     const maxVisiblePages = 5
 
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total is less than max visible
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
       }
     } else {
-      // Show pages around current page
       const start = Math.max(1, currentPage - 2)
       const end = Math.min(totalPages, currentPage + 2)
 
@@ -73,7 +71,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         <div className="flex items-center space-x-1 sm:space-x-2">
           {!prevPage && (
             <button
-              className="cursor-auto rounded-lg bg-gray-200 px-3 py-2 text-xs font-medium text-gray-400 disabled:opacity-50 sm:px-4 sm:text-sm"
+              className="cursor-auto rounded-[6px] border border-[#ebebeb] bg-[#f5f5f5] px-3 py-1.5 text-xs font-medium text-[#a0a0a0] disabled:opacity-50 sm:px-4 sm:text-sm"
               disabled={!prevPage}
             >
               <span className="hidden sm:inline">Previous</span>
@@ -86,7 +84,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
                 currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`
               }
               rel="prev"
-              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-black transition-colors hover:border-black hover:bg-gray-50 sm:px-4 sm:text-sm"
+              className="rounded-[6px] border border-[#ebebeb] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5] sm:px-4 sm:text-sm"
             >
               <span className="hidden sm:inline">Previous</span>
               <span className="sm:hidden">Prev</span>
@@ -98,16 +96,16 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           {pageNumbers.map((page, index) => (
             <div key={index}>
               {page === '...' ? (
-                <span className="px-2 py-2 text-xs font-medium text-gray-500 sm:px-3 sm:text-sm">
+                <span className="px-2 py-1.5 text-xs font-medium text-[#888888] sm:px-3 sm:text-sm">
                   ...
                 </span>
               ) : (
                 <Link
                   href={page === 1 ? `/${basePath}/` : `/${basePath}/page/${page}`}
-                  className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
+                  className={`rounded-[6px] px-2.5 py-1.5 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
                     page === currentPage
-                      ? 'bg-black text-white hover:bg-gray-800'
-                      : 'border border-gray-300 bg-white text-black hover:border-black hover:bg-gray-50'
+                      ? 'bg-[#171717] text-white'
+                      : 'border border-[#ebebeb] bg-white text-[#171717] hover:bg-[#f5f5f5]'
                   }`}
                 >
                   {page}
@@ -120,7 +118,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         <div className="flex items-center space-x-1 sm:space-x-2">
           {!nextPage && (
             <button
-              className="cursor-auto rounded-lg bg-gray-200 px-3 py-2 text-xs font-medium text-gray-400 disabled:opacity-50 sm:px-4 sm:text-sm"
+              className="cursor-auto rounded-[6px] border border-[#ebebeb] bg-[#f5f5f5] px-3 py-1.5 text-xs font-medium text-[#a0a0a0] disabled:opacity-50 sm:px-4 sm:text-sm"
               disabled={!nextPage}
             >
               Next
@@ -130,7 +128,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             <Link
               href={`/${basePath}/page/${currentPage + 1}`}
               rel="next"
-              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-black transition-colors hover:border-black hover:bg-gray-50 sm:px-4 sm:text-sm"
+              className="rounded-[6px] border border-[#ebebeb] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5] sm:px-4 sm:text-sm"
             >
               Next
             </Link>
@@ -158,71 +156,87 @@ export default function ListLayoutWithTags({
   const featuredReport = posts.find((post) => post.tags?.includes('hiring-index'))
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#fafafa]">
       <FloatingNav />
-      <LandingHeader />
+      <GlassNav currentPath="/blog" />
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-14 lg:px-8">
         {/* Page Header */}
-        <div className="mb-8 pt-4 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+        <div className="mb-12 pt-4 text-center">
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            CAREER INTELLIGENCE & INSIGHTS
+          </p>
+          <h1 className="text-3xl font-normal tracking-[-1.5px] text-[#171717] sm:text-4xl lg:text-5xl">
             {title}
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-gray-500 sm:text-lg">
-            Discover insights, tips, and strategies for your voice AI and career journey
+          <p className="mx-auto mt-3 max-w-2xl text-base text-[#666666] sm:text-lg">
+            Actionable playbooks, ATS breakdowns, interview frameworks, and hiring strategies to
+            help you crack your dream role.
           </p>
         </div>
 
-        {/* AI Calling ROI Calculator CTA */}
-        <div className="relative mx-auto mb-12 flex max-w-4xl flex-col items-center justify-center overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 text-center shadow-lg sm:p-8">
-          <div className="relative z-10 mb-6 w-full max-w-2xl">
-            <h2 className="mb-4 text-2xl font-extrabold tracking-tight text-black sm:text-4xl">
-              Estimate Your AI Calling ROI
+        {/* Platform Highlight Banner */}
+        <div
+          className="relative mx-auto mb-12 flex max-w-4xl flex-col items-start justify-between gap-6 rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:flex-row sm:items-center sm:p-8"
+          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
+        >
+          <div>
+            <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              FREE CAREER ASSETS
+            </p>
+            <h2 className="text-xl font-normal tracking-tight text-[#171717] sm:text-2xl">
+              Crack your dream job with verified CV templates
             </h2>
-            <p className="mx-auto text-base leading-relaxed text-gray-600 sm:text-lg">
-              Stop guessing. Calculate exactly how many more leads you can generate and your
-              expected savings when switching to Tough Tongue AI relative to other platforms.
+            <p className="mt-1 text-sm text-[#666666]">
+              Download ATS-optimized Harvard, IIM-A, and top-tier resumes. 100% free with zero
+              paywalls.
             </p>
           </div>
-
           <Link
-            href="/ai-calling-roi-calculator"
-            className="relative z-10 inline-flex items-center justify-center rounded-full border-2 border-pink-300 bg-white px-8 py-3 text-base font-bold text-pink-600 shadow-md transition-all hover:scale-105 hover:border-pink-400 hover:bg-pink-50"
+            href="/cv-templates"
+            className="inline-flex shrink-0 items-center justify-center rounded-[6px] bg-[#171717] px-5 py-2.5 text-sm font-medium !text-white transition-all hover:bg-[#333333]"
           >
-            Calculate Your Savings Now
+            Explore Templates &rarr;
           </Link>
-
-          {/* Decorative background circle */}
-          <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-pink-50 opacity-40 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-orange-50 opacity-40 blur-3xl" />
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
           {/* Sidebar - Categories */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
-            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6 lg:sticky lg:top-8">
-              <h3 className="mb-4 text-base font-semibold text-black sm:text-lg">Categories</h3>
-              <nav className="space-y-1 sm:space-y-2">
+            <div
+              className="rounded-[8px] border border-[#ebebeb] bg-white p-5 lg:sticky lg:top-24"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
+            >
+              <h3
+                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
+              >
+                Categories
+              </h3>
+              <nav className="space-y-1">
                 <Link
                   href="/blog"
-                  className={`block rounded-md px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                  className={`block rounded-[6px] px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
                     pathname.startsWith('/blog') && !pathname.includes('/tags/')
-                      ? 'bg-black text-white'
-                      : 'text-gray-700 hover:bg-gray-200 hover:text-black'
+                      ? 'bg-[#171717] !text-white'
+                      : 'text-[#666666] hover:bg-[#f5f5f5] hover:text-[#171717]'
                   }`}
                 >
                   All Posts ({totalCount !== undefined ? totalCount : posts.length})
                 </Link>
-                {sortedTags.slice(0, 12).map((t) => {
-                  const isActive = decodeURI(pathname.split('/tags/')[1]) === slug(t)
+                {sortedTags.slice(0, 14).map((t) => {
+                  const currentTag = pathname.includes('/tags/')
+                    ? decodeURI(pathname.split('/tags/')[1] || '')
+                    : ''
+                  const isActive = currentTag === slug(t)
                   return (
                     <Link
                       key={t}
                       href={`/tags/${slug(t)}`}
-                      className={`block rounded-md px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                      className={`block rounded-[6px] px-3 py-2 text-xs font-medium transition-colors sm:text-sm ${
                         isActive
-                          ? 'bg-black text-white'
-                          : 'text-gray-700 hover:bg-gray-200 hover:text-black'
+                          ? 'bg-[#171717] !text-white'
+                          : 'text-[#666666] hover:bg-[#f5f5f5] hover:text-[#171717]'
                       }`}
                       aria-label={`View posts tagged ${t}`}
                     >
@@ -242,68 +256,52 @@ export default function ListLayoutWithTags({
                 return (
                   <article
                     key={path}
-                    className="group rounded-3xl border border-replicate-dark bg-white p-6 transition-all duration-300 hover:-translate-y-2 hover:border-replicate-red hover:shadow-2xl sm:p-12"
+                    className="group rounded-[8px] border border-[#ebebeb] bg-white p-6 transition-all hover:border-[#171717]/30 hover:shadow-sm sm:p-8"
+                    style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
                   >
-                    <div className="flex flex-col space-y-3 sm:space-y-4">
-                      {/* Date */}
-                      <div className="flex items-center">
+                    <div className="flex flex-col space-y-3">
+                      {/* Date & Tags Row */}
+                      <div className="flex flex-wrap items-center gap-2">
                         <time
                           dateTime={date}
-                          className="text-xs font-medium text-gray-600 sm:text-sm"
+                          className="font-mono text-[11px] text-[#888888]"
                           suppressHydrationWarning
                         >
                           {formatDate(date, siteMetadata.locale)}
                         </time>
+                        {tags && tags.length > 0 && <span className="text-[#d4d4d4]">·</span>}
+                        <div className="flex flex-wrap gap-1.5">
+                          {tags?.slice(0, 3).map((tag) => (
+                            <span
+                              key={tag}
+                              className="inline-flex items-center rounded-[4px] bg-[#f5f5f5] px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-[30px] font-bold leading-[1.20] transition-colors group-hover:text-replicate-red">
+                      <h2 className="text-xl font-normal leading-[1.3] tracking-tight text-[#171717] sm:text-2xl">
                         <Link
                           href={`/${path}`}
-                          className="!text-black hover:!text-replicate-red hover:underline hover:decoration-[#bbbbbb] hover:decoration-dotted hover:underline-offset-4"
-                          style={{ color: '#000000' }}
+                          className="!text-[#171717] transition-colors hover:!text-black"
                         >
                           {title}
                         </Link>
                       </h2>
 
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1 sm:gap-2">
-                        {tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-[9999px] bg-replicate-green px-3 py-1 text-[12px] font-medium lowercase text-white transition-colors hover:bg-opacity-90"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
                       {/* Summary */}
-                      <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
-                        {summary}
-                      </p>
+                      <p className="text-sm leading-relaxed text-[#666666]">{summary}</p>
 
                       {/* Read More Link */}
-                      <div className="pt-2 sm:pt-4">
+                      <div className="pt-2">
                         <Link
                           href={`/${path}`}
-                          className="inline-flex items-center text-[16px] font-semibold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red hover:decoration-replicate-red"
+                          className="inline-flex items-center text-xs font-medium text-[#171717] transition-transform group-hover:translate-x-1"
                         >
-                          Read more
-                          <svg
-                            className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1 sm:h-4 sm:w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
+                          Read article &rarr;
                         </Link>
                       </div>
                     </div>

@@ -3,39 +3,53 @@ import Tag from '@/components/Tag'
 import { slug } from 'github-slugger'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
+import DomainLayout from '@/components/domain/DomainLayout'
 
-export const metadata = genPageMetadata({ title: 'Tags', description: 'Things I blog about' })
+export const metadata = genPageMetadata({
+  title: 'All Topics & Tags — Auto Interview AI',
+  description: 'Browse all career, ATS optimization, and interview topics on Auto Interview AI.',
+})
 
 export default async function Page() {
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
   return (
-    <>
-      <div className="flex flex-col items-start justify-start divide-y divide-gray-200 dark:divide-gray-700 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
-        <div className="space-x-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14">
-            Tags
+    <DomainLayout currentPath="/tags">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
+        <div className="mb-12 text-center">
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            EXPLORE TOPICS
+          </p>
+          <h1 className="text-3xl font-normal tracking-[-1.5px] text-[#171717] sm:text-4xl lg:text-5xl">
+            Browse All Topics
           </h1>
+          <p className="mx-auto mt-3 max-w-xl text-base text-[#666666]">
+            Filter and discover career advice, resume templates, and interview prep by topic.
+          </p>
         </div>
-        <div className="flex max-w-lg flex-wrap">
-          {tagKeys.length === 0 && 'No tags found.'}
-          {sortedTags.map((t) => {
-            return (
-              <div key={t} className="mb-2 mr-5 mt-2">
-                <Tag text={t} />
-                <Link
-                  href={`/tags/${slug(t)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
-                  aria-label={`View posts tagged ${t}`}
-                >
-                  {` (${tagCounts[t]})`}
-                </Link>
-              </div>
-            )
-          })}
+
+        <div
+          className="rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:p-10"
+          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
+        >
+          <div className="flex flex-wrap gap-2.5">
+            {tagKeys.length === 0 && <p className="text-sm text-[#666666]">No tags found.</p>}
+            {sortedTags.map((t) => (
+              <Link
+                key={t}
+                href={`/tags/${slug(t)}`}
+                className="inline-flex items-center gap-2 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] px-3.5 py-2 text-xs font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-white"
+              >
+                <span className="font-mono uppercase tracking-[0.071em]">{t}</span>
+                <span className="rounded-[4px] bg-[#ebebeb] px-1.5 py-0.5 text-[10px] text-[#666666]">
+                  {tagCounts[t]}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </>
+    </DomainLayout>
   )
 }

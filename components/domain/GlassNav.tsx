@@ -32,19 +32,23 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
         {/* Desktop Nav — Center-left */}
         <div className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm font-normal transition-colors ${
-                currentPath === link.href
-                  ? 'font-medium !text-[#171717]'
-                  : '!text-[#666666] hover:!text-[#171717]'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive =
+              link.href === '/'
+                ? currentPath === '/'
+                : currentPath === link.href || currentPath.startsWith(`${link.href}/`)
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm transition-colors ${
+                  isActive ? 'font-medium !text-[#171717]' : '!text-[#666666] hover:!text-[#171717]'
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </div>
 
         {/* Right Action Cluster */}
@@ -97,20 +101,26 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
           style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
         >
           <div className="flex flex-col gap-4 pt-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`text-sm transition-colors ${
-                  currentPath === link.href
-                    ? 'font-medium !text-[#171717]'
-                    : '!text-[#666666] hover:!text-[#171717]'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === '/'
+                  ? currentPath === '/'
+                  : currentPath === link.href || currentPath.startsWith(`${link.href}/`)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`text-sm transition-colors ${
+                    isActive
+                      ? 'font-medium !text-[#171717]'
+                      : '!text-[#666666] hover:!text-[#171717]'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
             <div className="mt-2 flex gap-3 border-t border-[#ebebeb] pt-4">
               <Link
                 href="/about"

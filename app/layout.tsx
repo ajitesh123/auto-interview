@@ -44,6 +44,16 @@ export const metadata: Metadata = {
   description: siteMetadata.description,
   keywords: siteMetadata.keywords,
 
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/static/images/logo.svg', type: 'image/svg+xml' },
+      { url: '/static/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/static/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
   // Open Graph metadata for social media sharing
   openGraph: {
     title: siteMetadata.title,
@@ -103,10 +113,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning // Suppress hydration warnings for client/server mismatch
     >
       {/* Favicon and PWA configurations */}
-      <link rel="icon" type="image/png" sizes="32x32" href={`${basePath}/static/images/logo.png`} />
-      <link rel="icon" type="image/png" sizes="16x16" href={`${basePath}/static/images/logo.png`} />
-      <link rel="shortcut icon" href={`${basePath}/static/images/logo.png`} />
-      <link rel="apple-touch-icon" href={`${basePath}/static/images/logo.png`} />
+      <link rel="icon" type="image/svg+xml" href={`${basePath}/static/images/logo.svg`} />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href={`${basePath}/static/favicons/favicon-32x32.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href={`${basePath}/static/favicons/favicon-16x16.png`}
+      />
+      <link rel="shortcut icon" href={`${basePath}/favicon.ico`} />
+      <link rel="apple-touch-icon" sizes="180x180" href={`${basePath}/apple-touch-icon.png`} />
 
       {/* Theme and display configurations */}
       <meta name="msapplication-TileColor" content="#fafafa" />

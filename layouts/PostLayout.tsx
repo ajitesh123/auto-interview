@@ -9,7 +9,7 @@ import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import LandingHeader from '@/components/LandingHeader'
+import GlassNav from '@/components/domain/GlassNav'
 import Footer from '@/components/Footer'
 import SocialShareButtons from '@/components/SocialShareButtons'
 import TableOfContents from '@/components/TableOfContents'
@@ -1170,8 +1170,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       : null
 
   return (
-    <div className="min-h-screen bg-white text-replicate-dark">
-      <LandingHeader />
+    <div className="min-h-screen bg-[#fafafa] text-[#171717]">
+      <GlassNav currentPath="/blog" />
 
       {/* Generic Article Schema for ALL blog posts - Google SEO */}
       <script
@@ -1305,33 +1305,34 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <main className="min-w-0 flex-1">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="overflow-hidden rounded-3xl border border-replicate-dark bg-white px-6 py-12 sm:px-12 sm:py-16"
+              className="overflow-hidden rounded-[8px] border border-[#ebebeb] bg-white px-6 py-10 sm:px-12 sm:py-14"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
               itemScope
               itemType="https://schema.org/Article"
             >
               {/* Article Header */}
-              <header className="bg-replicate-hero -mx-2 mb-12 rounded-3xl px-6 py-12 text-center text-white sm:-mx-6 sm:px-12 sm:py-20">
-                <div className="space-y-6">
+              <header className="mb-10 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] px-6 py-10 text-center sm:px-10 sm:py-12">
+                <div className="space-y-4">
                   <div>
                     <time
                       dateTime={date}
-                      className="text-lg font-medium opacity-90"
+                      className="font-mono text-xs uppercase tracking-[0.071em] text-[#666666]"
                       itemProp="datePublished"
                     >
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                     </time>
                   </div>
                   <h1
-                    className="font-display text-[48px] font-bold leading-[1.0] tracking-[-1.8px] sm:text-[72px]"
+                    className="text-3xl font-normal leading-tight tracking-[-1.5px] text-[#171717] sm:text-4xl lg:text-5xl"
                     itemProp="headline"
                   >
                     {title}
                   </h1>
-                  <div className="mt-8 flex flex-wrap justify-center gap-3">
+                  <div className="mt-6 flex flex-wrap justify-center gap-2">
                     {tags?.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-[9999px] bg-replicate-green px-4 py-2 text-[12px] font-medium lowercase text-white"
+                        className="rounded-[4px] border border-[#ebebeb] bg-white px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]"
                       >
                         {tag}
                       </span>
@@ -1340,38 +1341,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               </header>
 
-              {/* Conditional CTA Display */}
-              {slug === 'ai-calling-roi-calculator-sales-pipeline-2026' ? (
-                <div className="relative mx-auto my-12 max-w-4xl overflow-hidden rounded-[3rem] border border-gray-200 bg-white p-8 text-center shadow-2xl sm:p-16">
-                  <div className="relative z-10 mb-8 w-full">
-                    <h2 className="mb-4 font-display text-4xl font-extrabold tracking-tight text-replicate-dark sm:text-5xl">
-                      Estimate Your AI Calling ROI
-                    </h2>
-                    <p className="mx-auto text-xl leading-relaxed text-gray-600 sm:text-2xl">
-                      Stop guessing. Calculate exactly how many more leads you can generate and your
-                      expected savings when switching to Tough Tongue AI relative to other
-                      platforms.
-                    </p>
-                  </div>
-                  <Link
-                    href="/ai-calling-roi-calculator"
-                    className="relative z-10 inline-flex items-center justify-center rounded-full border-2 border-pink-300 bg-white px-12 py-5 text-xl font-bold text-pink-600 shadow-xl transition-all hover:scale-105 hover:border-pink-400 hover:bg-pink-50"
-                  >
-                    Calculate Your Savings Now
-                  </Link>
-                  <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-pink-50 opacity-50 blur-3xl" />
-                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-orange-50 opacity-50 blur-3xl" />
-                </div>
-              ) : (
-                <CTABanner />
-              )}
+              {/* Call To Action Banner */}
+              <CTABanner />
 
               {/* Social Sharing Buttons */}
               <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
 
               {/* Article Content - Semantic HTML5 section */}
               <section
-                className="prose prose-lg mx-auto max-w-none pb-8 font-sans text-replicate-dark"
+                className="prose prose-neutral mx-auto max-w-none pb-8 font-sans text-[#171717]"
                 itemProp="articleBody"
               >
                 {children}
@@ -1380,8 +1358,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               {/* Article Footer */}
               <footer className="pt-8">
                 {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-                <aside className="mb-8 rounded-3xl border border-replicate-dark bg-white p-8 sm:p-12">
-                  <h3 className="mb-6 font-display text-[30px] font-bold text-replicate-dark">
+                <aside className="mb-8 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-6 sm:p-8">
+                  <h3 className="mb-4 text-lg font-normal tracking-tight text-[#171717]">
                     About the Author
                   </h3>
                   <div className="flex flex-wrap gap-6">
@@ -1401,7 +1379,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         )}
                         <div className="flex-1">
                           <div
-                            className="mb-2 font-semibold text-black"
+                            className="mb-1 font-medium text-[#171717]"
                             itemProp="author"
                             itemScope
                             itemType="https://schema.org/Person"
@@ -1409,19 +1387,19 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             <span itemProp="name">{author.name}</span>
                           </div>
                           {author.occupation && (
-                            <div className="mb-2 text-sm text-gray-600">{author.occupation}</div>
+                            <div className="mb-2 text-xs text-[#888888]">{author.occupation}</div>
                           )}
-                          <p className="mb-3 text-sm leading-relaxed text-gray-600">
+                          <p className="mb-3 text-sm leading-relaxed text-[#666666]">
                             {author.name} is an AI & Career Tools Developer specializing in resume
                             optimization, ATS systems, and interview preparation. Creator of Auto
                             Interview AI, helping thousands of job seekers land their dream jobs
                             through AI-powered career tools and expert guidance.
                           </p>
-                          <div className="mt-4 flex flex-wrap gap-4">
+                          <div className="mt-3 flex flex-wrap gap-4 text-xs">
                             {author.twitter && (
                               <Link
                                 href={author.twitter}
-                                className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
+                                className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
                                 rel="author"
                               >
                                 Follow on X
@@ -1430,7 +1408,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             {author.linkedin && (
                               <Link
                                 href={author.linkedin}
-                                className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
+                                className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
                                 rel="author"
                               >
                                 LinkedIn
@@ -1438,7 +1416,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             )}
                             <Link
                               href="/about"
-                              className="text-[14px] text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted transition-colors hover:text-replicate-red hover:decoration-replicate-red"
+                              className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
                             >
                               More Articles
                             </Link>
@@ -1450,31 +1428,29 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </aside>
 
                 {/* Trust Signals for E-E-A-T */}
-                <div className="mb-8 rounded-3xl border border-replicate-dark bg-white p-8 sm:p-12">
-                  <h4 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-replicate-dark">
+                <div className="mb-8 rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:p-8">
+                  <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                     Why Trust Auto Interview AI?
                   </h4>
                   <div className="grid gap-6 sm:grid-cols-3">
-                    <div className="text-[14px]">
-                      <div className="mb-2 font-bold text-replicate-dark">
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-[#171717]">
                         ✓ Expert-Verified Content
                       </div>
-                      <div className="text-gray-600">
+                      <div className="text-xs text-[#666666]">
                         Written by career professionals with real-world experience
                       </div>
                     </div>
-                    <div className="text-[14px]">
-                      <div className="mb-2 font-bold text-replicate-dark">
-                        ✓ Data-Driven Insights
-                      </div>
-                      <div className="text-gray-600">
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-[#171717]">✓ Data-Driven Insights</div>
+                      <div className="text-xs text-[#666666]">
                         Based on industry research and proven strategies
                       </div>
                     </div>
-                    <div className="text-[14px]">
-                      <div className="mb-2 font-bold text-replicate-dark">✓ Regularly Updated</div>
-                      <div className="text-gray-600">
-                        Content reviewed and updated for 2025 job market
+                    <div className="text-sm">
+                      <div className="mb-1 font-medium text-[#171717]">✓ Regularly Updated</div>
+                      <div className="text-xs text-[#666666]">
+                        Content reviewed and updated for the 2026 job market
                       </div>
                     </div>
                   </div>
@@ -1484,26 +1460,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {(next || prev) && (
                   <div className="mb-8 grid gap-4 sm:grid-cols-2">
                     {prev && prev.path && (
-                      <div className="rounded-3xl border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
-                        <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
+                      <div className="rounded-[8px] border border-[#ebebeb] bg-white p-5 transition-colors hover:border-[#171717]/30 sm:px-6">
+                        <h4 className="mb-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#888888]">
                           Previous Article
                         </h4>
                         <Link
                           href={`/${prev.path}`}
-                          className="font-display text-lg font-bold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red"
+                          className="text-sm font-medium text-[#171717] hover:text-black"
                         >
                           {prev.title}
                         </Link>
                       </div>
                     )}
                     {next && next.path && (
-                      <div className="rounded-3xl border border-replicate-dark bg-white p-6 transition-colors hover:border-replicate-red sm:px-10">
-                        <h4 className="mb-2 text-[12px] font-medium uppercase text-gray-500">
+                      <div className="rounded-[8px] border border-[#ebebeb] bg-white p-5 transition-colors hover:border-[#171717]/30 sm:px-6">
+                        <h4 className="mb-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#888888]">
                           Next Article
                         </h4>
                         <Link
                           href={`/${next.path}`}
-                          className="font-display text-lg font-bold text-replicate-dark underline decoration-[#bbbbbb] decoration-dotted underline-offset-4 transition-colors hover:text-replicate-red"
+                          className="text-sm font-medium text-[#171717] hover:text-black"
                         >
                           {next.title}
                         </Link>
@@ -1515,9 +1491,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {/* Navigation Buttons */}
                 <div className="mt-8 flex items-center justify-between gap-4">
                   {/* Home Button */}
-                  <Link href="/" className="btn-secondary" aria-label="Go to home page">
+                  <Link
+                    href="/"
+                    className="inline-flex items-center rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+                    aria-label="Go to home page"
+                  >
                     <svg
-                      className="mr-3 h-5 w-5"
+                      className="mr-2 h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1535,11 +1515,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {/* Back to Blog Button */}
                   <Link
                     href={`/${basePath}`}
-                    className="btn-secondary"
+                    className="inline-flex items-center rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f5f5f5]"
                     aria-label="Back to the blog"
                   >
                     <svg
-                      className="mr-3 h-5 w-5"
+                      className="mr-2 h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1557,8 +1537,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
                 {/* Comments */}
                 {siteMetadata.comments && (
-                  <div className="mt-8 border-t border-replicate-dark pt-8" id="comment">
-                    <h3 className="mb-4 font-display text-2xl font-bold text-replicate-dark">
+                  <div className="mt-8 border-t border-[#ebebeb] pt-8" id="comment">
+                    <h3 className="mb-4 text-xl font-normal tracking-tight text-[#171717]">
                       Comments
                     </h3>
                     <Comments slug={slug} />
