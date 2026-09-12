@@ -62,12 +62,15 @@ const BulletPointsInput = ({
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-medium text-chatgpt-textSecondary">
-        Bullet Points ({localBullets.filter((bullet) => bullet.trim() !== '').length}/{maxBullets})
-      </label>
+      <div className="flex items-center justify-between">
+        <label className="block font-mono text-xs uppercase tracking-[0.05em] text-[#666666]">
+          Bullet Points ({localBullets.filter((bullet) => bullet.trim() !== '').length}/{maxBullets}
+          )
+        </label>
+      </div>
 
       {localBullets.map((bullet, index) => (
-        <div key={index} className="flex items-start space-x-2">
+        <div key={index} className="flex items-center space-x-2">
           <div className="flex-1">
             <input
               ref={(el) => {
@@ -76,12 +79,12 @@ const BulletPointsInput = ({
               type="text"
               value={bullet}
               onChange={(e) => handleBulletChange(index, e.target.value)}
-              className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+              className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
               placeholder={placeholder}
             />
           </div>
 
-          <div className="flex space-x-1">
+          <div className="flex flex-shrink-0 space-x-1.5">
             <BoldButton
               inputRef={{ current: inputRefs.current[index] }}
               onBold={(selectedText, startPos, endPos) =>
@@ -93,10 +96,10 @@ const BulletPointsInput = ({
               <button
                 type="button"
                 onClick={addBullet}
-                className="flex h-12 w-12 items-center justify-center rounded-lg border border-chatgpt-border bg-chatgpt-card text-chatgpt-textSecondary transition-colors hover:bg-chatgpt-input hover:text-chatgpt-text"
+                className="flex h-10 w-10 items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white text-[#666666] transition-colors hover:border-[#171717] hover:bg-[#fafafa] hover:text-[#171717]"
                 title="Add bullet point"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -111,10 +114,10 @@ const BulletPointsInput = ({
               <button
                 type="button"
                 onClick={() => removeBullet(index)}
-                className="flex h-12 w-12 items-center justify-center rounded-lg border border-red-500 bg-red-600 text-white transition-colors hover:bg-red-500"
+                className="flex h-10 w-10 items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white text-[#999999] transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600"
                 title="Remove bullet point"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -128,10 +131,9 @@ const BulletPointsInput = ({
         </div>
       ))}
 
-      <div className="text-xs text-chatgpt-textSecondary">
-        Tip: Start each bullet point with an action verb for better impact. Select text and click
-        the bold button (B) to make it bold, or use **text** syntax (e.g., **increased** sales by
-        20%)
+      <div className="rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-3 text-xs text-[#666666]">
+        <strong>Tip:</strong> Start bullet points with strong action verbs. Highlight key metrics
+        and click <strong>B</strong> to bold keywords.
       </div>
     </div>
   )

@@ -141,24 +141,29 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
   }
 
   return (
-    <div className="w-full text-white">
-      <div className="mx-auto max-w-4xl px-4 py-8">
+    <div className="w-full">
+      <div className="mx-auto max-w-3xl">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold">Upload Your Resume</h1>
-          <p className="text-lg text-gray-400">
-            Upload your existing resume and we'll extract the information for you to review and
-            edit.
+        <div className="mb-8">
+          <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
+            RESUME IMPORT
+          </p>
+          <h2 className="mb-2 text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
+            Upload your resume.
+          </h2>
+          <p className="text-sm text-[#4d4d4d]">
+            Upload an existing document. We will extract your work experience, education, and skills
+            into our ATS builder automatically.
           </p>
         </div>
 
         {/* Upload Message */}
         {uploadMessage && (
           <div
-            className={`mb-6 rounded-lg p-4 ${
+            className={`mb-6 rounded-[6px] p-4 text-sm ${
               uploadMessage.includes('Error') || uploadMessage.includes('failed')
-                ? 'border border-red-700 bg-red-900 text-red-200'
-                : 'border border-purple-700 bg-purple-900 text-purple-200'
+                ? 'border border-red-200 bg-red-50 text-red-700'
+                : 'border border-emerald-200 bg-emerald-50 text-emerald-800'
             }`}
           >
             {uploadMessage}
@@ -168,46 +173,40 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
         {/* Upload Area */}
         <div className="mb-8">
           <div
-            className={`relative rounded-lg border-2 border-dashed p-12 text-center transition-colors ${
+            className={`relative cursor-pointer rounded-[8px] border-2 border-dashed p-10 text-center transition-all ${
               dragActive
-                ? 'border-pink-500 bg-pink-900/20'
-                : 'border-gray-600 hover:border-gray-500'
+                ? 'border-[#171717] bg-[#f5f5f5]'
+                : 'border-[#ebebeb] bg-[#fafafa] hover:border-[#171717]'
             }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
+            onClick={openFileDialog}
           >
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-700">
-              <svg
-                className="h-8 w-8 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#ebebeb] bg-white text-[#171717]">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  strokeWidth={1.75}
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
                 />
               </svg>
             </div>
 
-            <h3 className="mb-2 text-xl font-semibold">
-              {isUploading ? 'Processing your resume...' : 'Drag & drop your resume here'}
+            <h3 className="mb-1 text-base font-medium text-[#171717]">
+              {isUploading ? 'Processing your resume...' : 'Drag and drop your resume file here'}
             </h3>
-            <p className="mb-4 text-gray-400">
-              or{' '}
-              <button
-                onClick={openFileDialog}
-                disabled={isUploading}
-                className="text-pink-400 hover:text-pink-300 disabled:cursor-not-allowed disabled:opacity-50"
-              >
+            <p className="mb-3 text-xs text-[#666666]">
+              or click to{' '}
+              <span className="font-medium text-[#171717] underline underline-offset-4">
                 browse files
-              </button>
+              </span>
             </p>
-            <p className="text-sm text-gray-500">Supports PDF, DOC, and DOCX files up to 10MB</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.05em] text-[#999999]">
+              Supports PDF, DOCX, DOC • Max 10MB
+            </p>
 
             <input
               ref={fileInputRef}
@@ -222,72 +221,61 @@ const ResumeUploadPage = ({ onUploadComplete, onBack }: ResumeUploadPageProps) =
 
         {/* Upload Progress */}
         {isUploading && (
-          <div className="mb-8">
-            <div className="mb-2 flex items-center justify-between text-sm">
-              <span>Processing resume...</span>
-              <span>Please wait</span>
+          <div className="mb-8 rounded-[6px] border border-[#ebebeb] bg-white p-4">
+            <div className="mb-2 flex items-center justify-between font-mono text-xs text-[#666666]">
+              <span>PARSING RESUME CONTENT...</span>
+              <span>PLEASE WAIT</span>
             </div>
-            <div className="h-2 w-full rounded-full bg-gray-700">
-              <div className="h-2 w-full animate-pulse rounded-full bg-gradient-to-r from-pink-500 to-pink-700"></div>
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#ebebeb]">
+              <div className="h-full w-full animate-pulse rounded-full bg-[#171717]"></div>
             </div>
           </div>
         )}
 
         {/* Supported Formats */}
-        <div className="mb-8 rounded-lg bg-gray-800 p-6">
-          <h3 className="mb-4 text-lg font-semibold">Supported File Formats</h3>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-red-600">
-                <span className="text-xs font-bold text-white">PDF</span>
-              </div>
+        <div className="mb-8 rounded-[8px] border border-[#ebebeb] bg-white p-5">
+          <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.071em] text-[#666666]">
+            Supported Formats
+          </h3>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="flex items-center space-x-3 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-3">
+              <span className="rounded bg-[#171717] px-2 py-0.5 font-mono text-xs font-medium text-white">
+                PDF
+              </span>
               <div>
-                <div className="font-medium">PDF Files</div>
-                <div className="text-sm text-gray-400">Most common format</div>
+                <div className="text-xs font-medium text-[#171717]">PDF Files</div>
+                <div className="text-[11px] text-[#666666]">Universal layout</div>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-600">
-                <span className="text-xs font-bold text-white">DOCX</span>
-              </div>
+            <div className="flex items-center space-x-3 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-3">
+              <span className="rounded border border-[#171717] px-2 py-0.5 font-mono text-xs font-medium text-[#171717]">
+                DOCX
+              </span>
               <div>
-                <div className="font-medium">Word Documents</div>
-                <div className="text-sm text-gray-400">Modern Word format</div>
+                <div className="text-xs font-medium text-[#171717]">Word Doc</div>
+                <div className="text-[11px] text-[#666666]">Modern XML format</div>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded bg-purple-600">
-                <span className="text-xs font-bold text-white">DOC</span>
-              </div>
+            <div className="flex items-center space-x-3 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-3">
+              <span className="rounded border border-[#ebebeb] bg-white px-2 py-0.5 font-mono text-xs font-medium text-[#666666]">
+                DOC
+              </span>
               <div>
-                <div className="font-medium">Legacy Word</div>
-                <div className="text-sm text-gray-400">Older Word format</div>
+                <div className="text-xs font-medium text-[#171717]">Legacy Word</div>
+                <div className="text-[11px] text-[#666666]">Classic format</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-center">
+        <div className="flex justify-between border-t border-[#ebebeb] pt-6">
           <button
             onClick={onBack}
             disabled={isUploading}
-            className="rounded-lg bg-gray-700 px-8 py-3 font-semibold text-white transition-colors hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex items-center rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2 text-sm font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <svg
-              className="mr-2 inline h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back to Home
+            &larr; Back to Options
           </button>
         </div>
       </div>

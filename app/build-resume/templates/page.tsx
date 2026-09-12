@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import DomainLayout from '@/components/domain/DomainLayout'
 import InitialTemplateSelection from '../../../features/build-resume/components/InitialTemplateSelection'
-import AppLayout from '../../../components/AppLayout'
 
 export default function TemplatesPage() {
   const router = useRouter()
@@ -17,8 +17,8 @@ export default function TemplatesPage() {
   }
 
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/build-resume">
       <InitialTemplateSelection onSelect={handleTemplateSelected} />
-    </AppLayout>
+    </DomainLayout>
   )
 }

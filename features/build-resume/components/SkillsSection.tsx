@@ -156,36 +156,37 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
     const isEnabled = enabledFields[field]
 
     return (
-      <div className={`space-y-3 ${!isEnabled ? 'opacity-50' : ''}`}>
+      <div
+        className={`space-y-3 rounded-[8px] border border-[#ebebeb] bg-white p-4 transition-opacity ${!isEnabled ? 'bg-[#fafafa] opacity-60' : ''}`}
+      >
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <label className="block text-sm font-medium text-chatgpt-textSecondary">{title}</label>
-            {!isEnabled && (
-              <span className="rounded-full bg-chatgpt-input px-2 py-1 text-xs text-chatgpt-textSecondary">
-                Not included
-              </span>
-            )}
-            {isEnabled && (
-              <span className="rounded-full bg-chatgpt-accent px-2 py-1 text-xs text-chatgpt-text">
-                ✓ Included
-              </span>
-            )}
+          <div className="flex items-center gap-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#171717]">
+              {title}
+            </label>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                isEnabled ? 'bg-[#171717] text-white' : 'bg-[#ebebeb] text-[#666666]'
+              }`}
+            >
+              {isEnabled ? 'Included' : 'Excluded'}
+            </span>
           </div>
-          <div className="flex items-center space-x-2">
+          <label className="flex cursor-pointer items-center gap-2 text-xs font-medium text-[#666666]">
             <input
               type="checkbox"
               checked={isEnabled}
               onChange={(e) => handleFieldToggle(field, e.target.checked)}
-              className="h-5 w-5 rounded border-chatgpt-border bg-chatgpt-input text-chatgpt-accent focus:ring-chatgpt-accent"
+              className="h-4 w-4 rounded border-[#ebebeb] text-[#171717] focus:ring-[#171717]"
             />
-            <span className="text-sm font-medium text-chatgpt-text">Include in Resume</span>
-          </div>
+            <span>Include in resume</span>
+          </label>
         </div>
 
         {isEnabled && (
-          <div className="space-y-2">
+          <div className="space-y-2 pt-1">
             {skills.map((skill, index) => (
-              <div key={`${field}-${index}`} className="flex items-center space-x-2">
+              <div key={`${field}-${index}`} className="flex items-center gap-2">
                 <input
                   ref={(el) => {
                     if (inputRefs.current[field]) {
@@ -195,11 +196,11 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
                   type="text"
                   defaultValue={skill}
                   onChange={(e) => updateSkill(field, index, e.target.value)}
-                  className="flex-1 rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="flex-1 rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                   placeholder={placeholder}
                 />
 
-                <div className="flex space-x-1">
+                <div className="flex flex-shrink-0 items-center gap-1.5">
                   <BoldButton
                     inputRef={{ current: inputRefs.current[field][index] }}
                     onBold={(selectedText, startPos, endPos) =>
@@ -211,11 +212,11 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
                     <button
                       type="button"
                       onClick={() => addSkill(field)}
-                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-chatgpt-border bg-chatgpt-card text-chatgpt-textSecondary transition-colors hover:bg-chatgpt-input hover:text-chatgpt-text"
-                      title="Add skill"
+                      className="flex h-9 w-9 items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white text-[#666666] transition-colors hover:border-[#171717] hover:text-[#171717]"
+                      title="Add item"
                     >
                       <svg
-                        className="h-5 w-5"
+                        className="h-4 w-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -234,11 +235,11 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
                     <button
                       type="button"
                       onClick={() => removeSkill(field, index)}
-                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-red-500 bg-red-600 text-white transition-colors hover:bg-red-500"
-                      title="Remove skill"
+                      className="flex h-9 w-9 items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white text-[#999999] transition-colors hover:border-red-500 hover:text-red-500"
+                      title="Remove item"
                     >
                       <svg
-                        className="h-5 w-5"
+                        className="h-4 w-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -262,74 +263,54 @@ const SkillsSection = ({ data, onChange, onSave }: SkillsSectionProps) => {
   }
 
   return (
-    <div className="w-full bg-chatgpt-dark text-chatgpt-text">
-      <div className="mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-chatgpt-text">Skills and Interests</h1>
-          <p className="text-lg text-chatgpt-textSecondary">
-            Highlight your technical skills, languages, and interests
-          </p>
-          <div className="mt-4 rounded-lg border border-chatgpt-accent/30 bg-chatgpt-accent/10 p-4">
-            <p className="text-sm text-chatgpt-accent">
-              💡 <strong>Tip:</strong> Check the "Include in Resume" box for each skill category you
-              want to appear in your final resume
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-6 xl:flex-row xl:gap-8">
+        {/* Main Content - Left Side */}
+        <div className="flex-1 space-y-4">
+          <SkillInput
+            field="technical"
+            title="Technical Skills"
+            placeholder="e.g., TypeScript, Next.js, Node.js, PostgreSQL, Docker"
+          />
+
+          <SkillInput
+            field="languages"
+            title="Languages"
+            placeholder="e.g., English (Native), Spanish (Fluent), German (Basic)"
+          />
+
+          <SkillInput
+            field="interests"
+            title="Interests & Activities"
+            placeholder="e.g., Open Source, System Architecture, Competitive Chess"
+          />
         </div>
 
-        <div className="flex flex-col gap-6 xl:flex-row xl:gap-8">
-          {/* Main Content - Left Side */}
-          <div className="flex-1">
-            <div className="rounded-lg border border-chatgpt-border bg-chatgpt-card p-8">
-              <div className="space-y-8">
-                <SkillInput
-                  field="technical"
-                  title="Technical Skills"
-                  placeholder="e.g., JavaScript, React, Python, AWS"
+        {/* Tips Section - Right Side */}
+        <div className="w-full xl:w-72 xl:flex-shrink-0">
+          <div className="sticky top-6 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-4 text-xs text-[#666666]">
+            <div className="flex items-start gap-2.5">
+              <svg
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#171717]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
-
-                <SkillInput
-                  field="languages"
-                  title="Languages"
-                  placeholder="e.g., English (Native), Spanish (Fluent), French (Conversational)"
-                />
-
-                <SkillInput
-                  field="interests"
-                  title="Interests"
-                  placeholder="e.g., Technology, Innovation, Leadership, Photography"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Tips Section - Right Side */}
-          <div className="w-full xl:w-72 xl:flex-shrink-0">
-            <div className="sticky top-6 rounded-lg bg-matte-dark p-3">
-              <div className="flex items-start space-x-3">
-                <svg
-                  className="mt-1 h-6 w-6 text-accent-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <div>
-                  <h4 className="mb-2 text-sm font-medium text-white">Skills Tips</h4>
-                  <ul className="space-y-1 text-xs text-gray-300">
-                    <li>• Technical: Languages, frameworks, tools</li>
-                    <li>• Languages: Include proficiency levels</li>
-                    <li>• Interests: Show relevant passions</li>
-                    <li>• Only include interview-ready skills</li>
-                    <li>• Use checkboxes to include/exclude</li>
-                  </ul>
-                </div>
+              </svg>
+              <div>
+                <h4 className="mb-1.5 font-semibold text-[#171717]">Skills Tips</h4>
+                <ul className="space-y-1.5 leading-relaxed text-[#666666]">
+                  <li>• Group related technical tools logically</li>
+                  <li>• Only list skills you can comfortably defend in interviews</li>
+                  <li>• Add languages with realistic fluency indicators</li>
+                  <li>• Keep interests authentic and concise</li>
+                </ul>
               </div>
             </div>
           </div>

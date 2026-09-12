@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import ResumeBuilder from '../../../features/build-resume/components/ResumeBuilder'
-import AppLayout from '../../../components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
 
 export default function ContentPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<'harvard' | 'lbs' | 'stanford'>(
@@ -30,8 +30,8 @@ export default function ContentPage() {
   }
 
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/build-resume">
       <ResumeBuilder initialTemplate={selectedTemplate} />
-    </AppLayout>
+    </DomainLayout>
   )
 }

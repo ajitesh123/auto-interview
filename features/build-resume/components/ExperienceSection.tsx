@@ -113,23 +113,28 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-white">Work Experience</h2>
-        <p className="text-gray-300">Add your professional work experience</p>
+      <div className="mb-6">
+        <h2 className="text-xl font-normal tracking-tight text-[#171717]">Work Experience</h2>
+        <p className="mt-1 text-xs text-[#666666]">
+          Detail your career history with measurable accomplishments and keywords.
+        </p>
       </div>
 
       {/* Main Content */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         {experienceEntries.map((entry, index) => (
-          <div key={entry.id} className="rounded-lg border border-matte-gray bg-matte-dark p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-white">Experience Entry {index + 1}</h3>
+          <div key={entry.id} className="rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-5">
+            <div className="mb-4 flex items-center justify-between border-b border-[#ebebeb] pb-3">
+              <h3 className="font-mono text-xs uppercase tracking-[0.05em] text-[#171717]">
+                Experience #{index + 1}
+              </h3>
               {experienceEntries.length > 1 && (
                 <button
+                  type="button"
                   onClick={() => removeExperienceEntry(entry.id)}
-                  className="text-red-400 transition-colors hover:text-red-300"
+                  className="flex items-center gap-1 text-xs text-[#999999] transition-colors hover:text-red-600"
                 >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -137,52 +142,53 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                     />
                   </svg>
+                  Remove
                 </button>
               )}
             </div>
 
-            <div className="mb-4 space-y-4">
+            <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {/* Job Title */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`job-title-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Job Title
+                  Job Title *
                 </label>
                 <input
                   id={`job-title-${entry.id}`}
                   type="text"
                   value={entry.jobTitle}
                   onChange={(e) => handleEntryChange(entry.id, 'jobTitle', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., Software Engineer, Marketing Manager"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., Senior Full-Stack Engineer"
                 />
               </div>
 
               {/* Company */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`company-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Company
+                  Company Name *
                 </label>
                 <input
                   id={`company-${entry.id}`}
                   type="text"
                   value={entry.company}
                   onChange={(e) => handleEntryChange(entry.id, 'company', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., Google, Microsoft"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., Stripe, Google, Scale AI"
                 />
               </div>
 
               {/* Location */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`location-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
                   Location
                 </label>
@@ -191,42 +197,43 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
                   type="text"
                   value={entry.location}
                   onChange={(e) => handleEntryChange(entry.id, 'location', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., San Francisco, CA"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., San Francisco, CA (or Remote)"
                 />
               </div>
 
               {/* Current Position Checkbox */}
-              <div className="space-y-2">
-                <label htmlFor={`current-${entry.id}`} className="flex items-center">
+              <div className="flex items-end pb-2">
+                <label
+                  htmlFor={`current-${entry.id}`}
+                  className="flex cursor-pointer select-none items-center"
+                >
                   <input
                     id={`current-${entry.id}`}
                     type="checkbox"
                     checked={entry.isCurrent}
                     onChange={(e) => handleEntryChange(entry.id, 'isCurrent', e.target.checked)}
-                    className="h-4 w-4 rounded border-chatgpt-border bg-chatgpt-input text-chatgpt-accent focus:ring-2 focus:ring-chatgpt-accent"
+                    className="h-4 w-4 rounded border-[#ebebeb] text-[#171717] focus:ring-1 focus:ring-[#171717]"
                   />
-                  <span className="ml-2 text-sm font-medium text-chatgpt-textSecondary">
-                    I currently work here
+                  <span className="ml-2 text-xs font-medium text-[#171717]">
+                    I currently work in this role
                   </span>
                 </label>
               </div>
-            </div>
 
-            {/* Date Range */}
-            <div className="mb-4 space-y-4">
-              <div className="space-y-2">
+              {/* Date Range */}
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`start-month-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Start Month
+                  Start Month *
                 </label>
                 <select
                   id={`start-month-${entry.id}`}
                   value={entry.startMonth}
                   onChange={(e) => handleEntryChange(entry.id, 'startMonth', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                 >
                   <option value="">Select Month</option>
                   {months.map((month) => (
@@ -237,18 +244,18 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
                 </select>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`start-year-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Start Year
+                  Start Year *
                 </label>
                 <select
                   id={`start-year-${entry.id}`}
                   value={entry.startYear}
                   onChange={(e) => handleEntryChange(entry.id, 'startYear', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                 >
                   <option value="">Select Year</option>
                   {years.map((year) => (
@@ -261,18 +268,18 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
 
               {!entry.isCurrent && (
                 <>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`end-month-${entry.id}`}
-                      className="block text-sm font-medium text-chatgpt-textSecondary"
+                      className="block text-xs font-medium text-[#171717]"
                     >
-                      End Month
+                      End Month *
                     </label>
                     <select
                       id={`end-month-${entry.id}`}
                       value={entry.endMonth}
                       onChange={(e) => handleEntryChange(entry.id, 'endMonth', e.target.value)}
-                      className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                      className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                     >
                       <option value="">Select Month</option>
                       {months.map((month) => (
@@ -283,18 +290,18 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
                     </select>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`end-year-${entry.id}`}
-                      className="block text-sm font-medium text-chatgpt-textSecondary"
+                      className="block text-xs font-medium text-[#171717]"
                     >
-                      End Year
+                      End Year *
                     </label>
                     <select
                       id={`end-year-${entry.id}`}
                       value={entry.endYear}
                       onChange={(e) => handleEntryChange(entry.id, 'endYear', e.target.value)}
-                      className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                      className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                     >
                       <option value="">Select Year</option>
                       {years.map((year) => (
@@ -309,39 +316,40 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
             </div>
 
             {/* Bullet Points */}
-            <BulletPointsInput
-              bullets={entry.bullets}
-              onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
-              placeholder="Describe your key responsibilities and achievements..."
-              maxBullets={15}
-            />
+            <div className="border-t border-[#ebebeb] pt-4">
+              <BulletPointsInput
+                bullets={entry.bullets}
+                onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
+                placeholder="e.g., Engineered real-time WebSocket backend scaling to 50k concurrent users..."
+                maxBullets={15}
+              />
+            </div>
           </div>
         ))}
 
         {/* Add Experience Button */}
-        <div className="flex justify-center">
-          <button
-            onClick={addExperienceEntry}
-            className="flex items-center rounded-lg border border-chatgpt-border bg-chatgpt-card px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-input"
-          >
-            <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-            Add Another Experience Entry
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={addExperienceEntry}
+          className="flex w-full items-center justify-center gap-1.5 rounded-[6px] border border-dashed border-[#ebebeb] bg-white py-3 text-xs font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-[#fafafa]"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+          Add Another Work Experience Entry
+        </button>
       </div>
 
-      {/* Tips Section - Moved to Bottom */}
-      <div className="mt-8 rounded-lg border border-chatgpt-border bg-chatgpt-card p-4">
+      {/* Tips Section */}
+      <div className="mt-6 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-4 text-xs text-[#666666]">
         <div className="flex items-start">
           <svg
-            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-chatgpt-accent"
+            className="mr-2.5 mt-0.5 h-4 w-4 flex-shrink-0 text-[#171717]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -354,13 +362,14 @@ const ExperienceSection = ({ data, onChange }: ExperienceSectionProps) => {
             />
           </svg>
           <div>
-            <h4 className="mb-2 text-sm font-medium text-chatgpt-text">Experience Tips</h4>
-            <ul className="space-y-1 text-xs text-chatgpt-textSecondary">
-              <li>• Use action verbs (Led, Developed, Managed)</li>
-              <li>• Quantify achievements with numbers</li>
-              <li>• Focus on results and impact</li>
-              <li>• Use bullet points for scanning</li>
-            </ul>
+            <h4 className="font-medium text-[#171717]">
+              Experience Impact Formula (Google XYZ formula)
+            </h4>
+            <p className="mt-1 text-[#666666]">
+              Accomplished <strong>[X]</strong> as measured by <strong>[Y]</strong> by doing{' '}
+              <strong>[Z]</strong>. Always front-load strong power verbs and include tangible
+              percentage or revenue gains.
+            </p>
           </div>
         </div>
       </div>

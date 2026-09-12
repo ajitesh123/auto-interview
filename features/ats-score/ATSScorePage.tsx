@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ATSScoreResults from './ATSScoreResults'
-import ATSScoreMotivation from '@/components/ATSScoreMotivation'
 
 interface CategoryScore {
   formatCompatibility: number
@@ -48,6 +47,29 @@ export interface AnalysisResults {
   parseCoverage: number
 }
 
+const resumeTips: Array<{ title: string; body: string }> = [
+  {
+    title: 'Focus on achievements',
+    body: 'Describe accomplishments using strong action verbs and quantified impact (e.g., "Increased pipeline by 32%").',
+  },
+  {
+    title: 'Align core keywords',
+    body: 'Incorporate relevant hard skills and domain vocabulary matching target job descriptions.',
+  },
+  {
+    title: 'Keep bullets concise',
+    body: 'Aim for 1-2 lines per bullet point (fewer than 30 words) with clear context-action-result structure.',
+  },
+  {
+    title: 'Maintain clean hierarchy',
+    body: 'Use standard headings (Experience, Education, Skills) and avoid multi-column tables or graphics.',
+  },
+  {
+    title: 'Verify typography & links',
+    body: 'Ensure consistent font sizing, margins, and active links for LinkedIn and portfolio.',
+  },
+]
+
 const ATSScorePage = ({
   initialResults = null,
   initialTips = [],
@@ -67,6 +89,7 @@ const ATSScorePage = ({
   const [progress, setProgress] = useState<number>(0)
   const [selectedTips, setSelectedTips] =
     useState<Array<{ title: string; body: string }>>(initialTips)
+  const [dragActive, setDragActive] = useState(false)
 
   useEffect(() => {
     setAnalysisResults(initialResults || null)
@@ -80,71 +103,16 @@ const ATSScorePage = ({
 
   const isResultOnlyView = !showUploadSection
 
-  if (isResultOnlyView && !analysisResults) {
-    return (
-      <div className="relative w-full overflow-hidden px-8 py-16">
-        <div className="relative z-10 mx-auto max-w-3xl rounded-2xl border border-matte-gray bg-matte-dark/80 p-10 text-center shadow-2xl">
-          <h1 className="mb-4 text-3xl font-semibold text-white">Run an ATS analysis first</h1>
-          <p className="mb-8 text-gray-300">
-            We couldn&apos;t find a saved ATS report for this session. Please analyze a resume to
-            view the detailed results.
-          </p>
-          <button
-            onClick={() => router.push('/ats-score')}
-            className="rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-white transition-colors hover:from-accent-400 hover:to-accent-500"
-          >
-            Go to ATS Analyzer
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  // Static tips list provided by user
-  const resumeTips: Array<{ title: string; body: string }> = [
-    {
-      title: 'Focus on achievements',
-      body: 'Describe your accomplishments using action verbs and quantifiable results (e.g., "Increased sales by 15%")',
-    },
-    {
-      title: 'Use keywords',
-      body: 'Scan the job description and incorporate relevant keywords to help pass ATS screening',
-    },
-    {
-      title: 'Be concise',
-      body: 'Keep bullet points short and action‑oriented; aim for fewer than 30 words each',
-    },
-    {
-      title: 'Add summary only if needed',
-      body: 'Include a professional summary only when it adds clear value to your application',
-    },
-    {
-      title: 'Maintain a consistent format',
-      body: 'Use consistent layout, fonts and spacing throughout the document',
-    },
-    {
-      title: 'Choose a simple design',
-      body: 'Avoid complex tables, text boxes, or unusual graphics that can confuse ATS software',
-    },
-    {
-      title: 'Ensure professional links',
-      body: 'Verify your LinkedIn and portfolio links are correct, up‑to‑date and professional',
-    },
-    {
-      title: 'Check for errors',
-      body: 'Proofread to catch grammatical or spelling errors and formatting inconsistencies',
-    },
-  ]
-
-  // Progress updater: simple progress during analysis
+  // Progress simulation during analysis
   useEffect(() => {
     if (!isAnalyzing) return
 
     const startTime = Date.now()
-    const totalMs = 3_000
+    const totalMs = 2800
 
     setProgress(0)
 
+    let raf: number
     const tick = () => {
       const elapsed = Date.now() - startTime
       const pct = Math.min(100, (elapsed / totalMs) * 100)
@@ -152,20 +120,47 @@ const ATSScorePage = ({
       if (pct < 100) raf = requestAnimationFrame(tick)
     }
 
-    let raf = requestAnimationFrame(tick)
+    raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
   }, [isAnalyzing])
+
+  const handleFileSelect = (file: File) => {
+    if (file.type !== 'application/pdf') {
+      setError('Please upload a PDF document (.pdf)')
+      return
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError('File size must be under 10MB')
+      return
+    }
+    setUploadedFile(file)
+    setError(null)
+    setAnalysisResults(null)
+  }
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      if (file.type !== 'application/pdf') {
-        setError('Please upload a PDF file only')
-        return
-      }
-      setUploadedFile(file)
-      setError(null)
-      setAnalysisResults(null)
+      handleFileSelect(file)
+    }
+  }
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true)
+    } else if (e.type === 'dragleave') {
+      setDragActive(false)
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileSelect(e.dataTransfer.files[0])
     }
   }
 
@@ -175,7 +170,6 @@ const ATSScorePage = ({
     setIsAnalyzing(true)
     setError(null)
 
-    // Pick 3 random tips for this run
     const shuffled = [...resumeTips].sort(() => Math.random() - 0.5)
     const chosenTips = shuffled.slice(0, 3)
     setSelectedTips(chosenTips)
@@ -184,27 +178,27 @@ const ATSScorePage = ({
       const formData = new FormData()
       formData.append('file', uploadedFile)
 
-      const analysisPromise = fetch('/api/ats/analyze', {
+      const response = await fetch('/api/ats/analyze', {
         method: 'POST',
         body: formData,
-      }).then(async (response) => {
-        if (!response.ok) {
-          let serverErr = 'Failed to analyze resume'
-          try {
-            const data = await response.json()
-            if (data?.message) serverErr = data.message
-            if (data?.errorCode) serverErr += ` [${data.errorCode}]`
-          } catch (_) {
-            // ignore JSON parse errors
-          }
-          throw new Error(serverErr)
-        }
-        return response.json()
       })
 
-      const data = await analysisPromise
+      if (!response.ok) {
+        let serverErr = 'Failed to analyze resume'
+        try {
+          const data = await response.json()
+          if (data?.message) serverErr = data.message
+          if (data?.errorCode) serverErr += ` [${data.errorCode}]`
+        } catch (_) {
+          // ignore json errors
+        }
+        throw new Error(serverErr)
+      }
+
+      const data = await response.json()
       setProgress(100)
       setAnalysisResults(data)
+
       if (showUploadSection) {
         try {
           if (typeof window !== 'undefined') {
@@ -225,848 +219,243 @@ const ATSScorePage = ({
     }
   }
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-purple-400'
-    if (score >= 60) return 'text-yellow-400'
-    return 'text-red-400'
-  }
-
-  const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-purple-500'
-    if (score >= 60) return 'bg-yellow-500'
-    return 'bg-red-500'
-  }
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-500'
-      case 'medium':
-        return 'bg-yellow-500'
-      case 'low':
-        return 'bg-purple-500'
-      default:
-        return 'bg-gray-500'
-    }
+  if (isResultOnlyView && !analysisResults) {
+    return (
+      <div className="mx-auto max-w-xl py-12 text-center">
+        <div
+          className="rounded-[8px] border border-[#ebebeb] bg-white p-8 sm:p-10"
+          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
+        >
+          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#ebebeb] bg-[#fafafa] text-[#171717]">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </div>
+          <h2 className="mb-2 text-xl font-normal tracking-tight text-[#171717]">
+            Run an ATS analysis first
+          </h2>
+          <p className="mb-6 text-sm leading-relaxed text-[#666666]">
+            We couldn&apos;t find a saved ATS report for this session. Please upload and analyze a
+            resume to view detailed compatibility scoring and line-by-line feedback.
+          </p>
+          <button
+            onClick={() => router.push('/ats-score')}
+            className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#333333]"
+          >
+            Go to ATS Analyzer
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="relative w-full overflow-hidden px-8 py-12">
-      {/* Futuristic Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-0 h-96 w-96 animate-pulse rounded-full bg-accent-500/5 blur-3xl"></div>
-        <div
-          className="absolute bottom-0 right-1/4 h-96 w-96 animate-pulse rounded-full bg-accent-600/5 blur-3xl"
-          style={{ animationDelay: '1s' }}
-        ></div>
-        <div
-          className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 transform animate-pulse rounded-full bg-accent-400/5 blur-3xl"
-          style={{ animationDelay: '2s' }}
-        ></div>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <div className="mb-6 inline-block">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-600 shadow-2xl shadow-accent-500/25">
-              <svg
-                className="h-8 w-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+    <div className="w-full">
+      {/* Upload Section */}
+      {showUploadSection && !analysisResults && (
+        <div className="mx-auto w-full max-w-2xl">
+          <div
+            className="rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:p-8"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
+          >
+            {/* Upload Dropzone */}
+            <div
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              className={`relative flex flex-col items-center justify-center rounded-[8px] border-2 border-dashed p-8 text-center transition-all sm:p-12 ${
+                dragActive
+                  ? 'border-[#171717] bg-[#f5f5f5]'
+                  : uploadedFile
+                    ? 'border-[#171717] bg-[#fafafa]'
+                    : 'border-[#d1d5db] bg-[#fafafa] hover:border-[#171717]'
+              }`}
+            >
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="resume-upload"
+              />
+              <label
+                htmlFor="resume-upload"
+                className="flex w-full cursor-pointer flex-col items-center justify-center"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+                <div className="shadow-xs mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#ebebeb] bg-white text-[#171717]">
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
+                  </svg>
+                </div>
+                <span className="text-base font-medium text-[#171717]">
+                  {uploadedFile ? uploadedFile.name : 'Upload your resume'}
+                </span>
+                <span className="mt-1 text-xs text-[#666666]">
+                  {uploadedFile
+                    ? `${(uploadedFile.size / 1024 / 1024).toFixed(2)} MB • Click to change file`
+                    : 'Drag and drop your PDF resume here, or click to browse (up to 10MB)'}
+                </span>
+              </label>
             </div>
-          </div>
-          <h1 className="mb-6 bg-gradient-to-r from-accent-400 via-accent-500 to-accent-600 bg-clip-text text-6xl font-bold tracking-tight text-transparent">
-            ATS Resume Analyzer
-          </h1>
-          <p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-400">
-            Advanced AI-powered resume analysis with{' '}
-            <span className="font-semibold text-accent-400">quantum-level precision</span> for
-            maximum ATS compatibility
-          </p>
-        </div>
 
-        {/* Upload Section */}
-        {showUploadSection && !analysisResults && (
-          <div className="mx-auto mb-8 w-full max-w-md">
-            <div className="rounded-lg border border-matte-gray bg-matte-dark p-8 shadow-lg shadow-gray-500/20">
-              <div className="text-center">
-                {/* Futuristic Upload Icon - clickable */}
-                <label
-                  htmlFor="resume-upload"
-                  className="relative mb-6 block cursor-pointer"
-                  aria-label="Upload your resume"
-                >
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-600 shadow-lg shadow-accent-500/25">
+            {error && (
+              <div className="mt-4 rounded-[6px] border border-red-200 bg-red-50 p-3 text-xs text-red-700">
+                {error}
+              </div>
+            )}
+
+            {/* Action buttons */}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                onClick={handleAnalyze}
+                disabled={!uploadedFile || isAnalyzing}
+                className="inline-flex flex-1 items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#333333] disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {isAnalyzing ? (
+                  <span className="flex items-center gap-2">
                     <svg
-                      className="h-8 w-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
+                      className="h-4 w-4 animate-spin text-white"
                       viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      />
-                    </svg>
-                  </div>
-                  {/* Animated rings */}
-                  <div className="pointer-events-none absolute inset-0 mx-auto h-16 w-16 animate-ping rounded-2xl border-2 border-accent-400/30"></div>
-                  <div className="pointer-events-none absolute inset-2 mx-auto h-12 w-12 animate-pulse rounded-xl border border-accent-500/20"></div>
-                </label>
-
-                <label
-                  htmlFor="resume-upload"
-                  className="mb-3 block cursor-pointer text-xl font-bold text-white"
-                >
-                  Upload Your Resume
-                </label>
-                <p className="mb-6 text-sm leading-relaxed text-gray-400">
-                  Drop your PDF resume for{' '}
-                  <span className="font-semibold text-accent-400">advanced AI analysis</span> and
-                  optimization
-                </p>
-
-                {error && (
-                  <div className="mb-6 rounded-2xl border border-red-500/50 bg-red-900/20 p-4 backdrop-blur-sm">
-                    <p className="text-red-300">{error}</p>
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <input
-                    type="file"
-                    accept=".pdf"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    id="resume-upload"
-                  />
-                  <label
-                    htmlFor="resume-upload"
-                    className="group inline-flex cursor-pointer items-center rounded-lg border border-dashed border-matte-gray bg-matte-light px-6 py-3 transition-all duration-300 hover:border-gray-400 hover:bg-matte-gray"
-                  >
-                    <svg
-                      className="mr-3 h-5 w-5 text-gray-400 transition-colors group-hover:text-accent-400"
                       fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      />
-                    </svg>
-                    <span className="text-sm text-gray-300 transition-colors group-hover:text-white">
-                      {uploadedFile ? uploadedFile.name : 'Choose PDF file or drag & drop'}
-                    </span>
-                  </label>
-                </div>
-
-                <div className="mb-4 flex flex-col gap-3">
-                  <button
-                    onClick={handleAnalyze}
-                    disabled={!uploadedFile || isAnalyzing}
-                    className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-all duration-300 hover:shadow-accent-500/40 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    {/* Animated background */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent-400 to-accent-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-
-                    {isAnalyzing ? (
-                      <div className="relative z-10 flex items-center">
-                        {/* Cursor-style loading animation */}
-                        <div className="relative mr-4">
-                          <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                          <div
-                            className="absolute inset-0 h-6 w-6 animate-spin rounded-full border-2 border-accent-300 border-t-transparent"
-                            style={{ animationDelay: '0.15s', animationDuration: '0.6s' }}
-                          ></div>
-                          <div
-                            className="absolute inset-1 h-4 w-4 animate-spin rounded-full border border-accent-400 border-t-transparent"
-                            style={{ animationDelay: '0.3s', animationDuration: '0.4s' }}
-                          ></div>
-                        </div>
-                        <span className="relative z-10">Analyzing Resume...</span>
-                      </div>
-                    ) : (
-                      <span className="relative z-10">Analyze Resume</span>
-                    )}
-                  </button>
-                  {/* AI Resume Builder Button - Prominent and Clear */}
-                  <button
-                    onClick={() => router.push('/resume-job-matcher')}
-                    className="group relative overflow-hidden rounded-xl border-2 border-emerald-500/50 bg-gradient-to-r from-emerald-600/20 via-green-600/20 to-teal-600/20 px-6 py-4 shadow-xl shadow-emerald-500/20 transition-all duration-300 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/30"
-                  >
-                    {/* Animated background glow on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-green-500/10 to-emerald-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-
-                    <div className="relative z-10 flex items-center justify-center gap-3">
-                      {/* AI Sparkle Icon */}
-                      <svg
-                        className="h-6 w-6 text-emerald-400 transition-transform duration-300 group-hover:scale-110"
-                        fill="none"
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
                         stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                        />
-                      </svg>
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Analyzing Resume...
+                  </span>
+                ) : (
+                  'Run ATS Score Analysis'
+                )}
+              </button>
 
-                      <div className="flex flex-col items-start">
-                        <span className="text-base font-bold text-white">AI Resume Builder</span>
-                        <span className="text-xs text-emerald-300">
-                          Tailor your resume for any job in seconds
-                        </span>
-                      </div>
+              <button
+                onClick={() => router.push('/build-resume')}
+                className="inline-flex items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white px-5 py-3 text-sm font-medium text-[#171717] transition-all hover:bg-[#f5f5f5]"
+              >
+                Resume Builder &rarr;
+              </button>
+            </div>
 
-                      {/* "NEW" Badge */}
-                      <span className="ml-2 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-bold text-white">
-                        AI
-                      </span>
-                    </div>
-                  </button>
+            {/* Loading state with progress */}
+            {isAnalyzing && (
+              <div className="mt-6 border-t border-[#ebebeb] pt-6">
+                <div className="mb-2 flex items-center justify-between text-xs">
+                  <span className="font-medium text-[#171717]">
+                    Running deep ATS algorithm evaluation...
+                  </span>
+                  <span className="font-mono text-[#666666]">
+                    {Math.min(100, Math.floor(progress))}%
+                  </span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-[#ebebeb]">
+                  <div
+                    className="h-full bg-[#171717] transition-all duration-300 ease-out"
+                    style={{ width: `${Math.max(5, progress)}%` }}
+                  />
                 </div>
 
-                {/* Loading section with progress bar and tips */}
-                {isAnalyzing && (
-                  <div className="mt-8 text-left">
-                    <p className="mb-3 text-sm text-gray-300">Running deep ATS analysis…</p>
-                    <div className="relative h-3 w-full overflow-hidden rounded-full border border-accent-500/30 bg-gray-700/40">
-                      <div
-                        className="h-full w-full origin-left rounded-full bg-gradient-to-r from-accent-500 to-accent-400 transition-transform duration-300 ease-linear"
-                        style={{ transform: `scaleX(${Math.max(0.005, progress / 100)})` }}
-                        role="progressbar"
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                        aria-valuenow={Math.floor(progress)}
-                      ></div>
-                    </div>
-                    <div className="mt-2 text-left text-xs text-gray-400">
-                      {Math.min(100, Math.floor(progress))}%
-                    </div>
+                {/* Tips */}
+                <div className="mt-6 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-4 text-left">
+                  <h4 className="mb-2 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+                    ATS Optimization Insights
+                  </h4>
+                  <ul className="space-y-2 text-xs text-[#666666]">
+                    {selectedTips.map((tip, idx) => (
+                      <li key={idx} className="leading-relaxed">
+                        <strong className="text-[#171717]">{tip.title}:</strong> {tip.body}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
-                    {/* Tips */}
-                    <div className="mt-6 rounded-xl border border-matte-gray/60 bg-matte-light/30 p-4 text-left">
-                      <h4 className="mb-3 text-sm font-semibold text-white">Key resume tips</h4>
-                      <ul className="list-disc space-y-2 pl-5">
-                        {selectedTips.map((tip, idx) => (
-                          <li key={idx} className="text-sm leading-relaxed text-gray-200">
-                            <span className="font-semibold text-accent-300">{tip.title}:</span>{' '}
-                            {tip.body}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
+      {/* Results View */}
+      {analysisResults && (
+        <div className="w-full space-y-8">
+          {isResultOnlyView && (
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#ebebeb] pb-6">
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
+                  AUDIT RESULTS
+                </span>
+                <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
+                  ATS Compatibility Report
+                </h2>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => router.push('/ats-score')}
+                  className="rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2 text-xs font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5] sm:text-sm"
+                >
+                  Analyze Another Resume
+                </button>
+                <button
+                  onClick={() => router.push('/build-resume')}
+                  className="rounded-[6px] bg-[#171717] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#333333] sm:text-sm"
+                >
+                  Improve in Builder &rarr;
+                </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Result view actions */}
-        {analysisResults && isResultOnlyView && (
-          <div className="mb-10 flex flex-col items-center justify-center gap-4 text-center sm:flex-row">
+          <ATSScoreResults results={analysisResults} />
+
+          {/* Action Buttons Footer */}
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button
-              onClick={() => router.push('/ats-score')}
-              className="rounded-lg border border-accent-500 px-6 py-2 font-semibold text-white transition-colors hover:bg-accent-500/10"
+              onClick={() => {
+                setUploadedFile(null)
+                setAnalysisResults(null)
+                if (isResultOnlyView) {
+                  router.push('/ats-score')
+                }
+              }}
+              className="rounded-[6px] border border-[#ebebeb] bg-white px-6 py-2.5 text-sm font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
             >
               Analyze Another Resume
             </button>
             <button
               onClick={() => router.push('/build-resume')}
-              className="rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-2 font-semibold text-white transition-colors hover:from-purple-400 hover:to-purple-500"
+              className="rounded-[6px] bg-[#171717] px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#333333]"
             >
-              Improve My Resume
+              Build ATS-Optimized Resume &rarr;
+            </button>
+            <button
+              onClick={() => window.print()}
+              className="rounded-[6px] border border-[#ebebeb] bg-white px-6 py-2.5 text-sm font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+            >
+              Print Report
             </button>
           </div>
-        )}
-
-        {/* NEW: Modern Progressive Disclosure Results UI */}
-        {analysisResults && (
-          <div className="mb-12">
-            <ATSScoreResults results={analysisResults} />
-
-            {/* Action Buttons */}
-            <div className="mx-auto mt-8 flex max-w-5xl justify-center gap-4 px-4">
-              <button
-                onClick={() => {
-                  setUploadedFile(null)
-                  setAnalysisResults(null)
-                }}
-                className="rounded-lg border border-purple-500/30 bg-purple-500/10 px-6 py-3 font-semibold text-purple-300 transition-colors hover:bg-purple-500/20"
-              >
-                Analyze Another Resume
-              </button>
-              <button
-                onClick={() => window.print()}
-                className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-500"
-              >
-                Print Report
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* OLD Results Section (can be removed once new UI is confirmed working) */}
-        {false && analysisResults && (
-          <div className="space-y-12">
-            {/* Parse Coverage */}
-            <div className="rounded-3xl border border-blue-700/50 bg-blue-900/30 p-8 shadow-lg">
-              <div className="mb-2 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-blue-300">ATS Parse Coverage</h3>
-                {(analysisResults?.parseCoverage ?? 0) >= 85 && (
-                  <span className="inline-block rounded-full bg-purple-600 px-3 py-1 text-xs text-white">
-                    Excellent
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="flex-1">
-                  <div className="h-4 w-full overflow-hidden rounded-full bg-blue-900/60">
-                    <div
-                      className="h-4 rounded-full bg-gradient-to-r from-blue-400 to-green-400 transition-all duration-1000 ease-out"
-                      style={{ width: `${analysisResults?.parseCoverage ?? 0}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-xl font-bold text-blue-400">
-                    {analysisResults?.parseCoverage ?? 0}%
-                  </span>
-                </div>
-              </div>
-              <p className="mt-2 text-xs text-blue-200">
-                Percent of your resume that can be reliably parsed by modern ATS.{' '}
-                {(analysisResults?.parseCoverage ?? 0) < 70
-                  ? 'Consider improving formatting, using standard sections, and avoiding images/tables.'
-                  : ''}
-              </p>
-            </div>
-            {/* Overall Score */}
-            <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-12 shadow-2xl shadow-black/50 backdrop-blur-xl">
-              <div className="text-center">
-                <h2 className="mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-4xl font-bold text-transparent">
-                  ATS Compatibility Score
-                </h2>
-
-                {/* Futuristic Score Display */}
-                <div className="relative mb-8 inline-block">
-                  <div className="relative">
-                    <div
-                      className={`text-9xl font-bold ${getScoreColor(analysisResults?.overallScore ?? 0)} mb-2 drop-shadow-2xl`}
-                    >
-                      {analysisResults?.overallScore ?? 0}
-                    </div>
-                    <div className="text-3xl font-light text-gray-400">/ 100</div>
-
-                    {/* Animated score indicator */}
-                    <div
-                      className={`absolute -right-4 -top-4 h-8 w-8 ${getScoreBgColor(analysisResults?.overallScore ?? 0)} animate-pulse rounded-full shadow-lg`}
-                    ></div>
-
-                    {/* Glowing effect */}
-                    <div
-                      className={`absolute inset-0 ${getScoreColor(analysisResults?.overallScore ?? 0)} opacity-20 blur-xl`}
-                    ></div>
-                  </div>
-                </div>
-
-                {(analysisResults as any)?.summary && (
-                  <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-400">
-                    {(analysisResults as any).summary}
-                  </p>
-                )}
-
-                {/* Potential Score Improvement */}
-                {(analysisResults?.improvements?.length ?? 0) > 0 && (
-                  <div className="mt-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 p-6 backdrop-blur-sm">
-                    <div className="mb-3 flex items-center justify-center space-x-4">
-                      <div className="h-3 w-3 animate-pulse rounded-full bg-cyan-400"></div>
-                      <p className="text-xl font-semibold text-cyan-300">
-                        Potential Score Improvement: +
-                        {Math.min(
-                          (analysisResults?.improvements ?? []).reduce((total, improvement) => {
-                            const points = parseInt(improvement.scoreImpact) || 0
-                            return total + points
-                          }, 0),
-                          100 - (analysisResults?.overallScore ?? 0)
-                        )}{' '}
-                        points
-                      </p>
-                      <div
-                        className="h-3 w-3 animate-pulse rounded-full bg-purple-400"
-                        style={{ animationDelay: '0.5s' }}
-                      ></div>
-                    </div>
-                    <p className="text-sm text-gray-400">
-                      Apply all suggested improvements to reach your maximum ATS score
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Make Resume According to Job Button */}
-            <div className="flex justify-center">
-              <button
-                onClick={() => router.push('/resume-job-matcher')}
-                className="group flex items-center gap-2 rounded-lg border-2 border-purple-500 bg-purple-600/20 px-8 py-4 font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:bg-purple-600/30 hover:shadow-purple-500/40"
-              >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Make Resume According to Job
-              </button>
-            </div>
-
-            {/* Category Scores */}
-            <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
-              <h3 className="mb-10 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-center text-3xl font-bold text-transparent">
-                Category Breakdown
-              </h3>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(analysisResults?.breakdown ?? {}).map(([category, score]) => (
-                  <div
-                    key={category}
-                    className="group rounded-2xl border border-gray-700/50 bg-gray-800/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gray-600/50"
-                  >
-                    <div className="mb-4 flex items-center justify-between">
-                      <h4 className="text-lg font-semibold capitalize text-white transition-colors group-hover:text-gray-200">
-                        {category.replace(/([A-Z])/g, ' $1').trim()}
-                      </h4>
-                      <span
-                        className={`text-2xl font-bold ${getScoreColor(score as number)} drop-shadow-lg`}
-                      >
-                        {score as number}
-                      </span>
-                    </div>
-                    <div className="relative">
-                      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-700/50">
-                        {(() => {
-                          const scoreNum = score as number
-                          const maxNum =
-                            analysisResults?.breakdownMax?.[category as keyof CategoryScore] ?? 0
-                          const percentage = maxNum > 0 ? (scoreNum / maxNum) * 100 : 0
-                          return (
-                            <div
-                              className={`h-3 rounded-full ${getScoreBgColor(scoreNum)} shadow-lg transition-all duration-1000 ease-out`}
-                              style={{ width: `${percentage}%` }}
-                            ></div>
-                          )
-                        })()}
-                      </div>
-                      {/* Glowing effect */}
-                      <div
-                        className={`absolute inset-0 ${getScoreColor(score as number)} opacity-20 blur-sm`}
-                      ></div>
-                      <div className="mt-2 text-right text-xs text-gray-400">
-                        {score as number} /{' '}
-                        {analysisResults?.breakdownMax?.[category as keyof CategoryScore]}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Strengths */}
-            <div className="rounded-lg border border-gray-700 bg-gray-900 p-8">
-              <h3 className="mb-6 text-2xl font-bold text-white">Strengths</h3>
-              <div className="space-y-4">
-                {(analysisResults?.strengths ?? []).map((strength, index) => (
-                  <div key={index} className="rounded-lg bg-gray-800 p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-purple-500">
-                        <svg
-                          className="h-4 w-4 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="mb-2 text-lg font-semibold text-white">
-                          {strength.category}
-                        </h4>
-                        <p className="mb-3 text-gray-300">{strength.description}</p>
-                        <p className="mb-3 text-sm text-purple-400">{strength.impact}</p>
-                        {strength.exampleText && (
-                          <div className="rounded-lg border border-purple-700 bg-purple-900 p-3">
-                            <p className="mb-1 text-sm text-gray-400">Example from your resume:</p>
-                            <p className="italic text-purple-200">"{strength.exampleText}"</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Improvements */}
-            <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
-              <div className="mb-10 flex items-center justify-between">
-                <h3 className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-3xl font-bold text-transparent">
-                  Improvement Suggestions
-                </h3>
-                {(analysisResults?.improvements?.length ?? 0) > 0 && (
-                  <div className="text-right">
-                    <p className="text-lg text-gray-400">
-                      Current Score:{' '}
-                      <span className="font-bold text-white">
-                        {analysisResults?.overallScore ?? 0}/100
-                      </span>
-                    </p>
-                    <p className="text-lg text-cyan-400">
-                      Potential Score:{' '}
-                      <span className="font-bold text-cyan-300">
-                        {(() => {
-                          // Calculate potential score more realistically
-                          // Only add up to the difference from 100, to avoid suggesting over 100
-                          const currentScore = analysisResults?.overallScore ?? 0
-                          const maxPossibleIncrease = 100 - currentScore
-                          const totalImprovementPoints = (
-                            analysisResults?.improvements ?? []
-                          ).reduce((total, improvement) => {
-                            const points = parseInt(improvement.scoreImpact) || 0
-                            return total + points
-                          }, 0)
-                          // Cap at the maximum achievable increase
-                          const realisticIncrease = Math.min(
-                            totalImprovementPoints,
-                            maxPossibleIncrease
-                          )
-                          return Math.min(100, currentScore + realisticIncrease)
-                        })()}
-                        /100
-                      </span>
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Categorized Improvements */}
-              {(() => {
-                // Group improvements by category
-                const categorizedImprovements = (analysisResults?.improvements ?? []).reduce(
-                  (acc, improvement, index) => {
-                    const category = improvement.category.toLowerCase().replace(/\s+/g, '-')
-                    if (!acc[category]) {
-                      acc[category] = {
-                        categoryName: improvement.category,
-                        improvements: [],
-                        totalPoints: 0,
-                      }
-                    }
-                    acc[category].improvements.push({ ...improvement, originalIndex: index })
-                    acc[category].totalPoints += parseInt(improvement.scoreImpact) || 0
-                    return acc
-                  },
-                  {} as any
-                )
-
-                // Define category colors and icons
-                const categoryConfig = {
-                  'content-quality': {
-                    color: 'from-red-500 to-pink-700',
-                    icon: '📝',
-                    bgColor: 'from-red-900/20 to-pink-900/20',
-                  },
-                  keywords: {
-                    color: 'from-blue-500 to-cyan-500',
-                    icon: '🔍',
-                    bgColor: 'from-blue-900/20 to-cyan-900/20',
-                  },
-                  achievements: {
-                    color: 'from-green-500 to-emerald-500',
-                    icon: '🏆',
-                    bgColor: 'from-green-900/20 to-emerald-900/20',
-                  },
-                  'skills-section': {
-                    color: 'from-purple-500 to-violet-500',
-                    icon: '⚡',
-                    bgColor: 'from-purple-900/20 to-violet-900/20',
-                  },
-                  experience: {
-                    color: 'from-orange-500 to-yellow-500',
-                    icon: '💼',
-                    bgColor: 'from-orange-900/20 to-yellow-900/20',
-                  },
-                  'format-structure': {
-                    color: 'from-indigo-500 to-blue-500',
-                    icon: '📋',
-                    bgColor: 'from-indigo-900/20 to-blue-900/20',
-                  },
-                  'ats-compatibility': {
-                    color: 'from-teal-500 to-green-500',
-                    icon: '🤖',
-                    bgColor: 'from-teal-900/20 to-green-900/20',
-                  },
-                  'contact-info': {
-                    color: 'from-gray-500 to-slate-500',
-                    icon: '📞',
-                    bgColor: 'from-gray-900/20 to-slate-900/20',
-                  },
-                }
-
-                return Object.entries(categorizedImprovements).map(
-                  ([categoryKey, categoryData]: [string, any]) => {
-                    const config =
-                      categoryConfig[categoryKey as keyof typeof categoryConfig] ||
-                      categoryConfig['content-quality']
-
-                    return (
-                      <div key={categoryKey} className="mb-12">
-                        {/* Category Header */}
-                        <div className="mb-8">
-                          <div className="mb-4 flex items-center space-x-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-700 shadow-lg shadow-cyan-500/25">
-                              <span className="text-2xl">{config.icon}</span>
-                            </div>
-                            <div>
-                              <h4 className="text-2xl font-bold text-white">
-                                {categoryData.categoryName}
-                              </h4>
-                              <p className="text-gray-400">
-                                {categoryData.improvements.length} improvement
-                                {categoryData.improvements.length !== 1 ? 's' : ''} •
-                                <span className="ml-1 font-semibold text-cyan-400">
-                                  +{categoryData.totalPoints} points
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Category Progress Bar */}
-                          <div className="h-2 w-full overflow-hidden rounded-full bg-gray-700/30">
-                            <div
-                              className={`h-2 rounded-full bg-gradient-to-r ${config.color} transition-all duration-1000 ease-out`}
-                              style={{
-                                width: `${Math.min((categoryData.totalPoints / 25) * 100, 100)}%`,
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-
-                        {/* Improvements in this category */}
-                        <div className="space-y-6">
-                          {categoryData.improvements.map((improvement: any, index: number) => (
-                            <div
-                              key={improvement.originalIndex}
-                              className="group overflow-hidden rounded-2xl border border-gray-700/50 bg-gray-800/40 backdrop-blur-sm transition-all duration-500 hover:border-gray-600/50"
-                            >
-                              {/* Header */}
-                              <div
-                                className={`bg-gradient-to-r ${config.bgColor} border-b border-gray-600/50 px-8 py-6`}
-                              >
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center space-x-6">
-                                    <div className="relative">
-                                      <div
-                                        className={`h-12 w-12 bg-gradient-to-r ${config.color} flex items-center justify-center rounded-2xl shadow-lg`}
-                                      >
-                                        <span className="text-lg font-bold text-white">
-                                          {index + 1}
-                                        </span>
-                                      </div>
-                                      {/* Animated ring */}
-                                      <div
-                                        className={`absolute inset-0 h-12 w-12 animate-pulse rounded-2xl border border-cyan-400/30`}
-                                      ></div>
-                                    </div>
-                                    <div>
-                                      <h5 className="text-lg font-semibold text-white transition-colors group-hover:text-gray-200">
-                                        {improvement.category}
-                                      </h5>
-                                      <p className="mt-1 text-gray-400">{improvement.reason}</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-4">
-                                    {improvement.scoreImpact && (
-                                      <span className="rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-green-500/25">
-                                        +{improvement.scoreImpact} POINTS
-                                      </span>
-                                    )}
-                                    <span
-                                      className={`rounded-xl px-4 py-2 text-sm font-medium text-white ${getPriorityColor(improvement.priority)} shadow-lg`}
-                                    >
-                                      {improvement.priority.toUpperCase()}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Content */}
-                              <div className="p-8">
-                                <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                                  {/* Current Text */}
-                                  <div className="space-y-4">
-                                    <div className="flex items-center space-x-3">
-                                      <div className="h-4 w-4 animate-pulse rounded-full bg-red-500"></div>
-                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-red-400">
-                                        Current Text
-                                      </h6>
-                                    </div>
-                                    <div className="rounded-xl border border-red-500/30 bg-red-900/20 p-6 backdrop-blur-sm">
-                                      <p className="text-lg italic leading-relaxed text-red-200">
-                                        "{improvement.currentText}"
-                                      </p>
-                                    </div>
-                                  </div>
-
-                                  {/* Suggested Text */}
-                                  <div className="space-y-4">
-                                    <div className="flex items-center space-x-3">
-                                      <div
-                                        className="h-4 w-4 animate-pulse rounded-full bg-purple-500"
-                                        style={{ animationDelay: '0.5s' }}
-                                      ></div>
-                                      <h6 className="text-sm font-semibold uppercase tracking-wider text-purple-400">
-                                        Improved Text
-                                      </h6>
-                                    </div>
-                                    <div className="rounded-xl border border-purple-500/30 bg-purple-900/20 p-6 backdrop-blur-sm">
-                                      <p className="text-lg leading-relaxed text-purple-200">
-                                        "{improvement.suggestedText}"
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* Impact Explanation */}
-                                <div className="mt-8 rounded-xl border border-blue-500/30 bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-6 backdrop-blur-sm">
-                                  <div className="flex items-start space-x-4">
-                                    <div className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500">
-                                      <svg
-                                        className="h-4 w-4 text-white"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth={2}
-                                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                      </svg>
-                                    </div>
-                                    <div>
-                                      <h6 className="mb-2 text-lg font-semibold text-blue-300">
-                                        Why This Change Helps
-                                      </h6>
-                                      <p className="leading-relaxed text-blue-200">
-                                        {improvement.reason}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  }
-                )
-              })()}
-            </div>
-
-            {/* Line-by-line deterministic feedback */}
-            {analysisResults?.lineByLine && (analysisResults?.lineByLine?.length ?? 0) > 0 && (
-              <div className="rounded-3xl border border-gray-800/50 bg-gray-900/30 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl">
-                <h3 className="mb-6 text-2xl font-bold text-white">Line-by-Line Feedback</h3>
-                <div className="space-y-4">
-                  {(analysisResults?.lineByLine ?? []).map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-gray-700/50 bg-gray-800/40 p-4"
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <div className="text-sm text-gray-300">
-                          {item.section || 'experience'} • #{item.index + 1}
-                        </div>
-                        <div className="text-xs text-gray-400">Score {item.score}/10</div>
-                      </div>
-                      <div className="mb-3 italic text-gray-200">"{item.text}"</div>
-                      <ul className="ml-5 list-disc text-sm text-gray-300">
-                        {item.issues.map((iss, i) => (
-                          <li key={i}>{iss.detail}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <button
-                onClick={() => router.push('/resume-job-matcher')}
-                className="flex items-center gap-2 rounded-lg border-2 border-purple-500 bg-purple-600/20 px-6 py-3 font-semibold text-white transition-colors hover:bg-purple-600/30 hover:shadow-lg hover:shadow-purple-500/25"
-              >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Make Resume According to Job
-              </button>
-              <button
-                onClick={() => {
-                  setAnalysisResults(null)
-                  setUploadedFile(null)
-                }}
-                className="rounded-lg bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
-              >
-                Analyze Another Resume
-              </button>
-              <button
-                onClick={() => window.print()}
-                className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-500"
-              >
-                Print Report
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Educational Content About ATS Scores */}
-        <ATSScoreMotivation />
-      </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -91,23 +91,28 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-white">Education</h2>
-        <p className="text-gray-300">Add your educational background</p>
+      <div className="mb-6">
+        <h2 className="text-xl font-normal tracking-tight text-[#171717]">Education</h2>
+        <p className="mt-1 text-xs text-[#666666]">
+          Add your academic background, degrees, and institutions.
+        </p>
       </div>
 
       {/* Main Content */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         {educationEntries.map((entry, index) => (
-          <div key={entry.id} className="rounded-lg border border-matte-gray bg-matte-dark p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-white">Education Entry {index + 1}</h3>
+          <div key={entry.id} className="rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-5">
+            <div className="mb-4 flex items-center justify-between border-b border-[#ebebeb] pb-3">
+              <h3 className="font-mono text-xs uppercase tracking-[0.05em] text-[#171717]">
+                Education #{index + 1}
+              </h3>
               {educationEntries.length > 1 && (
                 <button
+                  type="button"
                   onClick={() => removeEducationEntry(entry.id)}
-                  className="text-red-400 transition-colors hover:text-red-300"
+                  className="flex items-center gap-1 text-xs text-[#999999] transition-colors hover:text-red-600"
                 >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -115,70 +120,71 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                     />
                   </svg>
+                  Remove
                 </button>
               )}
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {/* Degree/Program */}
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:col-span-2">
                 <label
                   htmlFor={`degree-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Degree/Program *
+                  Degree / Program *
                 </label>
                 <input
                   id={`degree-${entry.id}`}
                   type="text"
                   value={entry.degree}
                   onChange={(e) => handleEntryChange(entry.id, 'degree', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., Bachelor of Science, Master of Arts"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., Bachelor of Science in Computer Science"
                 />
               </div>
 
               {/* Major/Field of Study */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`major-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  Major/Field of Study
+                  Major / Field of Study
                 </label>
                 <input
                   id={`major-${entry.id}`}
                   type="text"
                   value={entry.major}
                   onChange={(e) => handleEntryChange(entry.id, 'major', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., Computer Science, Business Administration"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., Artificial Intelligence, Finance"
                 />
               </div>
 
               {/* University/Institution */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`university-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
-                  University/Institution *
+                  University / Institution *
                 </label>
                 <input
                   id={`university-${entry.id}`}
                   type="text"
                   value={entry.university}
                   onChange={(e) => handleEntryChange(entry.id, 'university', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., Stanford University, MIT"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., Stanford University"
                 />
               </div>
 
               {/* Location */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`location-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
                   Location
                 </label>
@@ -187,16 +193,34 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                   type="text"
                   value={entry.location}
                   onChange={(e) => handleEntryChange(entry.id, 'location', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                   placeholder="e.g., Stanford, CA"
                 />
               </div>
 
+              {/* GPA */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor={`gpa-${entry.id}`}
+                  className="block text-xs font-medium text-[#171717]"
+                >
+                  GPA (Optional)
+                </label>
+                <input
+                  id={`gpa-${entry.id}`}
+                  type="text"
+                  value={entry.gpa}
+                  onChange={(e) => handleEntryChange(entry.id, 'gpa', e.target.value)}
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                  placeholder="e.g., 3.85 / 4.0"
+                />
+              </div>
+
               {/* Graduation Month */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`graduation-month-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
                   Graduation Month *
                 </label>
@@ -204,7 +228,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                   id={`graduation-month-${entry.id}`}
                   value={entry.graduationMonth}
                   onChange={(e) => handleEntryChange(entry.id, 'graduationMonth', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                 >
                   <option value="">Select Month</option>
                   {months.map((month) => (
@@ -216,10 +240,10 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
               </div>
 
               {/* Graduation Year */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label
                   htmlFor={`graduation-year-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
+                  className="block text-xs font-medium text-[#171717]"
                 >
                   Graduation Year *
                 </label>
@@ -227,7 +251,7 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                   id={`graduation-year-${entry.id}`}
                   value={entry.graduationYear}
                   onChange={(e) => handleEntryChange(entry.id, 'graduationYear', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
+                  className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
                 >
                   <option value="">Select Year</option>
                   {years.map((year) => (
@@ -237,54 +261,35 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
                   ))}
                 </select>
               </div>
-
-              {/* GPA */}
-              <div className="space-y-2">
-                <label
-                  htmlFor={`gpa-${entry.id}`}
-                  className="block text-sm font-medium text-chatgpt-textSecondary"
-                >
-                  GPA (Optional)
-                </label>
-                <input
-                  id={`gpa-${entry.id}`}
-                  type="text"
-                  value={entry.gpa}
-                  onChange={(e) => handleEntryChange(entry.id, 'gpa', e.target.value)}
-                  className="w-full rounded-lg border border-chatgpt-border bg-chatgpt-input px-4 py-3 text-chatgpt-text placeholder-gray-400 focus:border-chatgpt-accent focus:outline-none focus:ring-2 focus:ring-chatgpt-accent"
-                  placeholder="e.g., 8.5/10, 3.8/4.0"
-                />
-              </div>
             </div>
           </div>
         ))}
 
         {/* Add Education Button */}
         {educationEntries.length < 4 && (
-          <div className="flex justify-center">
-            <button
-              onClick={addEducationEntry}
-              className="flex items-center rounded-lg border border-chatgpt-border bg-chatgpt-card px-6 py-3 font-semibold text-chatgpt-text transition-colors hover:bg-chatgpt-input"
-            >
-              <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              Add Another Education Entry
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={addEducationEntry}
+            className="flex w-full items-center justify-center gap-1.5 rounded-[6px] border border-dashed border-[#ebebeb] bg-white py-3 text-xs font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-[#fafafa]"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            Add Another Education Entry
+          </button>
         )}
       </div>
 
-      {/* Tips Section - Moved to Bottom */}
-      <div className="mt-8 rounded-lg border border-chatgpt-border bg-chatgpt-card p-4">
+      {/* Tips Section */}
+      <div className="mt-6 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-4 text-xs text-[#666666]">
         <div className="flex items-start">
           <svg
-            className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-chatgpt-accent"
+            className="mr-2.5 mt-0.5 h-4 w-4 flex-shrink-0 text-[#171717]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -297,12 +302,11 @@ const EducationSection = ({ data, onChange }: EducationSectionProps) => {
             />
           </svg>
           <div>
-            <h4 className="mb-2 text-sm font-medium text-chatgpt-text">Education Tips</h4>
-            <ul className="space-y-1 text-xs text-chatgpt-textSecondary">
-              <li>• List most recent education first</li>
-              <li>• Include relevant coursework</li>
-              <li>• Only include GPA if 3.5+</li>
-              <li>• Add study abroad if relevant</li>
+            <h4 className="font-medium text-[#171717]">Education Tips for ATS</h4>
+            <ul className="mt-1 space-y-0.5 text-[#666666]">
+              <li>• Always list your highest degree or most recent education first.</li>
+              <li>• Only mention GPA if it is 3.5 or higher.</li>
+              <li>• Spell out university names fully (e.g. University of California, Berkeley).</li>
             </ul>
           </div>
         </div>

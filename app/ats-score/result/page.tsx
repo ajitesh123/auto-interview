@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
 import RelatedTools from '@/components/RelatedTools'
 import TLDRSummary from '@/components/TLDRSummary'
 import ATSScoreResultClient from '@/features/ats-score/ATSScoreResultClient'
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ATSScoreResultPage() {
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/ats-score">
       <TLDRSummary
         title="ATS Score Results"
         summary="Review your ATS compatibility report, improvement suggestions, and scoring breakdown on a dedicated results page."
@@ -25,8 +25,10 @@ export default function ATSScoreResultPage() {
           'Track ATS checks with a dedicated results URL for analytics',
         ]}
       />
-      <ATSScoreResultClient />
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <ATSScoreResultClient />
+      </div>
       <RelatedTools currentPage="/ats-score/result" />
-    </AppLayout>
+    </DomainLayout>
   )
 }

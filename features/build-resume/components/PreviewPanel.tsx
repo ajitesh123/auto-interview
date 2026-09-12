@@ -53,17 +53,17 @@ const PreviewPanel = ({ resumeData, template, resumeId }: PreviewPanelProps) => 
   }, [resumeData, template, resumeId])
 
   return (
-    <div className="sticky top-24 h-[calc(100vh-8rem)] w-full overflow-hidden rounded-lg border border-chatgpt-border bg-gray-200">
+    <div className="sticky top-24 h-[calc(100vh-8rem)] w-full overflow-hidden rounded-[8px] border border-[#ebebeb] bg-white shadow-sm">
       <div className="flex h-full flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-chatgpt-border bg-chatgpt-card px-4 py-3">
-          <h3 className="text-sm font-semibold text-chatgpt-text">
-            Preview - {template === 'harvard' ? 'Harvard' : template === 'lbs' ? 'LBS' : 'Stanford'}
+        <div className="flex items-center justify-between border-b border-[#ebebeb] bg-[#fafafa] px-4 py-2.5">
+          <h3 className="font-mono text-xs uppercase tracking-[0.05em] text-[#171717]">
+            LIVE PREVIEW • {template.toUpperCase()}
           </h3>
           {isLoading && (
-            <div className="flex items-center text-xs text-chatgpt-textSecondary">
+            <div className="flex items-center font-mono text-[11px] text-[#666666]">
               <svg
-                className="mr-2 h-4 w-4 animate-spin"
+                className="mr-1.5 h-3.5 w-3.5 animate-spin text-[#171717]"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -82,24 +82,24 @@ const PreviewPanel = ({ resumeData, template, resumeId }: PreviewPanelProps) => 
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Updating...
+              UPDATING...
             </div>
           )}
         </div>
 
         {/* Simple scrollable preview */}
-        <div className="flex-1 overflow-auto p-6" style={{ backgroundColor: '#ffffff' }}>
+        <div className="flex-1 overflow-auto bg-white p-4">
           {error ? (
             <div className="flex h-full items-center justify-center">
-              <div className="text-center">
-                <p className="text-sm text-red-500">{error}</p>
+              <div className="p-4 text-center">
+                <p className="text-xs text-red-600">{error}</p>
               </div>
             </div>
           ) : previewHTML ? (
             <div dangerouslySetInnerHTML={{ __html: previewHTML }} style={{ color: '#000000' }} />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <p className="text-sm text-gray-500">Loading preview...</p>
+              <p className="text-xs text-[#999999]">Loading live preview...</p>
             </div>
           )}
         </div>

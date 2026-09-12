@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
 import RelatedTools from '@/components/RelatedTools'
 import ResumeDownloadClient from '@/features/build-resume/ResumeDownloadClient'
 
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 export default function BuildResumeDownloadPage() {
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/build-resume">
       <ResumeDownloadClient />
       <RelatedTools currentPage="/build-resume/download" />
-    </AppLayout>
+    </DomainLayout>
   )
 }

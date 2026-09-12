@@ -103,59 +103,48 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
 
   return (
     <div className="space-y-6">
-      <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-white">Other ({sectionNumber})</h2>
-        <p className="text-gray-300">
-          Add any additional information that showcases your skills and experience
-        </p>
-      </div>
-
       <div className="flex flex-col gap-6 xl:flex-row xl:gap-8">
         {/* Main Content - Left Side */}
-        <div className="flex-1 space-y-6">
-          {/* Section Title */}
-          <div className="rounded-lg border border-gray-600 bg-gray-700 p-6">
-            <div className="space-y-2">
-              <label htmlFor="section-title" className="block text-sm font-medium text-gray-300">
-                Section Title
+        <div className="flex-1 space-y-4">
+          {/* Section Title Configuration */}
+          <div className="rounded-[8px] border border-[#ebebeb] bg-white p-4 shadow-sm">
+            <div className="space-y-1.5">
+              <label htmlFor="section-title" className="block text-xs font-medium text-[#444444]">
+                Custom Section Title
               </label>
               <input
                 id="section-title"
                 type="text"
                 value={customTitle}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                placeholder="e.g., Certifications, Skills, Languages, Publications"
+                className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                placeholder="e.g., Publications, Patents, Volunteer Work, Honors"
               />
             </div>
           </div>
 
           {customEntries.length === 0 ? (
-            <div className="rounded-lg border border-matte-gray bg-matte-dark py-12 text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-accent-500 to-accent-600">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+            <div className="rounded-[8px] border border-dashed border-[#ebebeb] bg-[#fafafa] py-10 text-center">
+              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-[#ebebeb] bg-white text-[#666666]">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-white">No Entries Added Yet</h3>
-              <p className="mb-4 text-gray-300">
-                Add entries to showcase additional skills, certifications, or achievements.
+              <h3 className="mb-1 text-sm font-semibold text-[#171717]">No Entries Added Yet</h3>
+              <p className="mb-4 text-xs text-[#666666]">
+                Add custom items such as publications, patents, awards, or volunteer experience.
               </p>
               <button
+                type="button"
                 onClick={addCustomEntry}
-                className="mx-auto flex items-center rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-6 py-3 font-semibold text-white transition-colors hover:from-accent-400 hover:to-accent-500"
+                className="inline-flex items-center gap-1.5 rounded-[6px] bg-[#171717] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#333333]"
               >
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -168,45 +157,52 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
             </div>
           ) : (
             customEntries.map((entry, index) => (
-              <div key={entry.id} className="rounded-lg border border-gray-600 bg-gray-700 p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">Entry {index + 1}</h3>
+              <div
+                key={entry.id}
+                className="rounded-[8px] border border-[#ebebeb] bg-white p-5 shadow-sm"
+              >
+                <div className="mb-4 flex items-center justify-between border-b border-[#f0f0f0] pb-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#666666]">
+                    Entry {index + 1}
+                  </span>
                   <button
+                    type="button"
                     onClick={() => removeCustomEntry(entry.id)}
-                    className="text-red-400 transition-colors hover:text-red-300"
+                    className="inline-flex items-center gap-1 text-xs text-[#999999] transition-colors hover:text-red-500"
+                    title="Remove entry"
                   >
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={1.5}
                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                       />
                     </svg>
+                    <span>Remove</span>
                   </button>
                 </div>
 
                 <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                   {/* Title */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`title-${entry.id}`}
-                      className="block text-sm font-medium text-gray-300"
+                      className="block text-xs font-medium text-[#444444]"
                     >
-                      Title
+                      Title / Role / Honor
                     </label>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-1.5">
                       <input
                         id={`title-${entry.id}`}
                         type="text"
                         value={entry.title}
                         onChange={(e) => handleEntryChange(entry.id, 'title', e.target.value)}
-                        className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        placeholder="e.g., AWS Certified Solutions Architect, Fluent in Spanish"
+                        className="flex-1 rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                        placeholder="e.g., Best Research Paper Award"
                         ref={(el) => {
-                          // Store ref for bold button
                           if (el) {
-                            (
+                            ;(
                               el as HTMLInputElement & { boldButtonRef?: HTMLInputElement }
                             ).boldButtonRef = el
                           }
@@ -221,25 +217,24 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                   </div>
 
                   {/* Subtitle */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`subtitle-${entry.id}`}
-                      className="block text-sm font-medium text-gray-300"
+                      className="block text-xs font-medium text-[#444444]"
                     >
-                      Subtitle (Optional)
+                      Organization / Subtitle (Optional)
                     </label>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-1.5">
                       <input
                         id={`subtitle-${entry.id}`}
                         type="text"
                         value={entry.subtitle}
                         onChange={(e) => handleEntryChange(entry.id, 'subtitle', e.target.value)}
-                        className="flex-1 rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        placeholder="e.g., Amazon Web Services, Native Speaker"
+                        className="flex-1 rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                        placeholder="e.g., IEEE Computer Society"
                         ref={(el) => {
-                          // Store ref for bold button
                           if (el) {
-                            (
+                            ;(
                               el as HTMLInputElement & { boldButtonRef?: HTMLInputElement }
                             ).boldButtonRef = el
                           }
@@ -255,11 +250,11 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                 </div>
 
                 {/* Date Range */}
-                <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="space-y-2">
+                <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:items-end">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`start-date-${entry.id}`}
-                      className="block text-sm font-medium text-gray-300"
+                      className="block text-xs font-medium text-[#444444]"
                     >
                       Start Date (Optional)
                     </label>
@@ -268,15 +263,15 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                       type="text"
                       value={entry.startDate}
                       onChange={(e) => handleEntryChange(entry.id, 'startDate', e.target.value)}
-                      className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500"
-                      placeholder="e.g., Jan 2023, 2020"
+                      className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717]"
+                      placeholder="e.g., Jan 2023"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor={`end-date-${entry.id}`}
-                      className="block text-sm font-medium text-gray-300"
+                      className="block text-xs font-medium text-[#444444]"
                     >
                       End Date (Optional)
                     </label>
@@ -286,23 +281,24 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                       value={entry.endDate}
                       onChange={(e) => handleEntryChange(entry.id, 'endDate', e.target.value)}
                       disabled={entry.isCurrent}
-                      className="w-full rounded-lg border border-gray-500 bg-gray-600 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder={entry.isCurrent ? 'Current' : 'e.g., Dec 2023, Present'}
+                      className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3.5 py-2 text-sm text-[#171717] placeholder:text-[#999999] focus:border-[#171717] focus:outline-none focus:ring-1 focus:ring-[#171717] disabled:bg-[#f5f5f5] disabled:text-[#999999]"
+                      placeholder={entry.isCurrent ? 'Present' : 'e.g., Dec 2023'}
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor={`current-${entry.id}`} className="flex items-center">
+                  <div className="flex h-9 items-center">
+                    <label
+                      htmlFor={`current-${entry.id}`}
+                      className="flex cursor-pointer items-center gap-2 text-xs font-medium text-[#666666]"
+                    >
                       <input
                         id={`current-${entry.id}`}
                         type="checkbox"
                         checked={entry.isCurrent}
                         onChange={(e) => handleEntryChange(entry.id, 'isCurrent', e.target.checked)}
-                        className="h-4 w-4 rounded border-gray-500 bg-gray-600 text-pink-600 focus:ring-2 focus:ring-pink-500"
+                        className="h-4 w-4 rounded border-[#ebebeb] text-[#171717] focus:ring-[#171717]"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-300">
-                        Ongoing/Current
-                      </span>
+                      <span>Ongoing / Current</span>
                     </label>
                   </div>
                 </div>
@@ -311,7 +307,7 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                 <BulletPointsInput
                   bullets={entry.bullets}
                   onChange={(bullets) => handleEntryChange(entry.id, 'bullets', bullets)}
-                  placeholder="Add additional details, achievements, or context..."
+                  placeholder="Add details, publication citations, or scope of accomplishment..."
                   maxBullets={15}
                 />
               </div>
@@ -320,31 +316,30 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
 
           {/* Add Entry Button */}
           {customEntries.length > 0 && (
-            <div className="flex justify-center">
-              <button
-                onClick={addCustomEntry}
-                className="flex items-center rounded-lg border border-gray-600 bg-gray-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-600"
-              >
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  />
-                </svg>
-                Add Another Entry
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={addCustomEntry}
+              className="flex w-full items-center justify-center gap-1.5 rounded-[6px] border border-dashed border-[#ebebeb] bg-white py-3 text-xs font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-[#fafafa]"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+              Add Another Entry
+            </button>
           )}
         </div>
 
         {/* Tips Section - Right Side */}
         <div className="w-full xl:w-72 xl:flex-shrink-0">
-          <div className="sticky top-6 rounded-lg bg-matte-dark p-3">
-            <div className="flex items-start">
+          <div className="sticky top-6 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-4 text-xs text-[#666666]">
+            <div className="flex items-start gap-2.5">
               <svg
-                className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-accent-500"
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#171717]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -357,14 +352,12 @@ const CustomSection = ({ sectionTitle, sectionNumber, data, onChange }: CustomSe
                 />
               </svg>
               <div>
-                <h4 className="mb-2 text-sm font-medium text-chatgpt-text">Custom Tips</h4>
-                <ul className="space-y-1 text-xs text-chatgpt-textSecondary">
-                  <li>• Use for certifications, skills, languages</li>
-                  <li>• Keep titles concise and professional</li>
-                  <li>• Include relevant dates</li>
-                  <li>• Add descriptions for context</li>
-                  <li>• Use bullet points</li>
-                  <li>• Only include valuable info</li>
+                <h4 className="mb-1.5 font-semibold text-[#171717]">Custom Section Tips</h4>
+                <ul className="space-y-1.5 leading-relaxed text-[#666666]">
+                  <li>• Use for patents, awards, publications, or volunteer work</li>
+                  <li>• Keep entries structured chronologically</li>
+                  <li>• Highlight impact and scope in bullet points</li>
+                  <li>• Use standard citations for research papers</li>
                 </ul>
               </div>
             </div>

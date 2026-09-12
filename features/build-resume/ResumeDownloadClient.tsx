@@ -49,10 +49,10 @@ const ResumeDownloadClient = () => {
 
   if (!isReady || !resumeData || !resumeId) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-white">
+      <div className="flex min-h-[50vh] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-2 border-accent-500 border-t-transparent"></div>
-          <p className="text-gray-300">Preparing your download options...</p>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-[#171717] border-t-transparent"></div>
+          <p className="text-sm text-[#666666]">Preparing your download options...</p>
         </div>
       </div>
     )
