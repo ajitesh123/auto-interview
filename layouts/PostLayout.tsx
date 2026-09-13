@@ -1299,61 +1299,108 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         />
       )}
 
-      <div className="mx-auto max-w-[1400px] px-4 py-10 sm:px-6 lg:px-8">
-        <div className="lg:flex lg:gap-8">
+      <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-8">
+        <div className="lg:flex lg:items-start lg:justify-between lg:gap-10">
           {/* Main Content */}
-          <main className="min-w-0 flex-1">
+          <main className="min-w-0 max-w-[800px] flex-1">
             {/* Semantic HTML5 article element for better SEO */}
             <article
-              className="overflow-hidden rounded-[8px] border border-[#ebebeb] bg-white px-6 py-10 sm:px-12 sm:py-14"
+              className="overflow-hidden rounded-[8px] border border-[#ebebeb] bg-white p-6 text-left sm:p-10 lg:p-12"
               style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}
               itemScope
               itemType="https://schema.org/Article"
             >
-              {/* Article Header */}
-              <header className="mb-10 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] px-6 py-10 text-center sm:px-10 sm:py-12">
-                <div className="space-y-4">
-                  <div>
-                    <time
-                      dateTime={date}
-                      className="font-mono text-xs uppercase tracking-[0.071em] text-[#666666]"
-                      itemProp="datePublished"
-                    >
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </div>
-                  <h1
-                    className="text-3xl font-normal leading-tight tracking-[-1.5px] text-[#171717] sm:text-4xl lg:text-5xl"
-                    itemProp="headline"
+              {/* Article Header - Left Aligned Editorial Style */}
+              <header className="mb-8 border-b border-[#ebebeb] pb-8 text-left">
+                {/* Breadcrumbs / Category */}
+                <div className="mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#666666]">
+                  <Link href="/blog" className="transition-colors hover:text-[#171717]">
+                    Blog
+                  </Link>
+                  <span>/</span>
+                  <span className="font-medium text-[#171717]">
+                    {tags && tags.length > 0 ? tags[0] : 'Article'}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h1
+                  className="text-left text-3xl font-bold leading-[1.18] tracking-tight text-[#171717] sm:text-4xl lg:text-[40px]"
+                  itemProp="headline"
+                >
+                  {title}
+                </h1>
+
+                {/* Subtitle / Summary */}
+                {summary && (
+                  <p className="mt-3 text-left text-lg font-normal leading-relaxed text-[#555555]">
+                    {summary}
+                  </p>
+                )}
+
+                {/* Byline & Metadata Row */}
+                <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-[#f0f0f0] pt-4 text-xs text-[#666666]">
+                  {authorDetails && authorDetails[0] && (
+                    <div className="flex items-center gap-2">
+                      {authorDetails[0].avatar && (
+                        <Image
+                          src={authorDetails[0].avatar}
+                          width={28}
+                          height={28}
+                          alt={authorDetails[0].name}
+                          className="h-7 w-7 rounded-full border border-[#ebebeb]"
+                        />
+                      )}
+                      <span className="font-medium text-[#171717]">{authorDetails[0].name}</span>
+                    </div>
+                  )}
+                  <span className="text-[#d1d5db]">·</span>
+                  <time
+                    dateTime={date}
+                    className="font-mono text-[#666666]"
+                    itemProp="datePublished"
                   >
-                    {title}
-                  </h1>
-                  <div className="mt-6 flex flex-wrap justify-center gap-2">
-                    {tags?.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-[4px] border border-[#ebebeb] bg-white px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                    {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  </time>
+                  {tags && tags.length > 0 && (
+                    <>
+                      <span className="text-[#d1d5db]">·</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-[4px] border border-[#ebebeb] bg-[#fafafa] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </header>
 
               {/* Call To Action Banner */}
-              <CTABanner />
-
-              {/* Social Sharing Buttons */}
-              <SocialShareButtons title={title} url={`${siteMetadata.siteUrl}/${path}`} />
+              <div className="mb-8">
+                <CTABanner />
+              </div>
 
               {/* Article Content - Semantic HTML5 section */}
               <section
-                className="prose prose-neutral mx-auto max-w-none pb-8 font-sans text-[#171717]"
+                className="prose prose-neutral max-w-none pb-6 text-left font-sans text-[#171717]"
                 itemProp="articleBody"
               >
                 {children}
               </section>
+
+              {/* Social Sharing Buttons */}
+              <div className="my-8 border-b border-t border-[#ebebeb] py-2">
+                <SocialShareButtons
+                  title={title}
+                  url={`${siteMetadata.siteUrl}/${path}`}
+                  align="left"
+                />
+              </div>
 
               {/* Article Footer */}
               <footer className="pt-8">
@@ -1548,9 +1595,59 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             </article>
           </main>
 
-          {/* Sidebar with Table of Contents - Google SEO: Internal linking and better UX */}
-          <aside className="hidden lg:block lg:w-72 lg:shrink-0">
+          {/* Sidebar with Table of Contents and Quick Share - Like LiveKit */}
+          <aside className="hidden space-y-5 lg:block lg:w-72 lg:shrink-0">
             <TableOfContents />
+            <div className="shadow-xs rounded-[8px] border border-[#ebebeb] bg-white p-4">
+              <span className="mb-2.5 block font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-[#171717]">
+                Share Article
+              </span>
+              <div className="flex flex-col gap-2 text-xs">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] px-3 py-2 font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-white"
+                >
+                  <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  Share on X
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] px-3 py-2 font-medium text-[#171717] transition-colors hover:border-[#171717] hover:bg-white"
+                >
+                  <svg
+                    className="h-3.5 w-3.5 text-[#0077B5]"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  Share on LinkedIn
+                </a>
+              </div>
+            </div>
+            {/* Quick Demo Card */}
+            <div className="rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-4 text-left">
+              <span className="mb-1 block font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+                AI Voice Agents
+              </span>
+              <p className="mb-3 text-xs font-medium leading-relaxed text-[#171717]">
+                Experience sub-40ms voice agents with automatic barge-in.
+              </p>
+              <Link
+                href="https://cal.com/ajitesh/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-[6px] bg-[#171717] py-2 text-xs font-medium text-white transition-colors hover:bg-[#333333]"
+              >
+                Book Live Demo
+              </Link>
+            </div>
           </aside>
         </div>
       </div>

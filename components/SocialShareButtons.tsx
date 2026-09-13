@@ -5,9 +5,14 @@ import { useState } from 'react'
 interface SocialShareButtonsProps {
   title: string
   url: string
+  align?: 'left' | 'center'
 }
 
-export default function SocialShareButtons({ title, url }: SocialShareButtonsProps) {
+export default function SocialShareButtons({
+  title,
+  url,
+  align = 'left',
+}: SocialShareButtonsProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopyLink = async () => {
@@ -20,44 +25,47 @@ export default function SocialShareButtons({ title, url }: SocialShareButtonsPro
     }
   }
 
+  const justifyClass = align === 'center' ? 'justify-center' : 'justify-start'
+
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3 border-b border-matte-gray pb-6">
-      <span className="text-sm font-medium text-gray-400">Share this article:</span>
+    <div className={`flex flex-wrap items-center ${justifyClass} gap-2.5 py-4`}>
+      <span className="font-mono text-xs uppercase tracking-wider text-[#666666]">Share:</span>
       <div className="flex items-center gap-2">
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg bg-black px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800"
-          aria-label="Share on Twitter"
+          className="inline-flex items-center gap-1.5 rounded-[6px] border border-[#ebebeb] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+          aria-label="Share on X"
         >
-          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
-          Twitter
+          X (Twitter)
         </a>
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg bg-[#0077B5] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#005885]"
+          className="inline-flex items-center gap-1.5 rounded-[6px] border border-[#ebebeb] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
           aria-label="Share on LinkedIn"
         >
-          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="h-3.5 w-3.5 text-[#0077B5]" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
           </svg>
           LinkedIn
         </a>
         <button
+          type="button"
           onClick={handleCopyLink}
-          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+          className={`inline-flex items-center gap-1.5 rounded-[6px] border border-[#ebebeb] px-3 py-1.5 text-xs font-medium transition-colors ${
             copied
-              ? 'bg-accent-600 text-white'
-              : 'bg-matte-gray text-gray-300 hover:bg-accent-600 hover:text-white'
+              ? 'border-[#171717] bg-[#171717] text-white'
+              : 'bg-white text-[#171717] hover:bg-[#f5f5f5]'
           }`}
           aria-label="Copy link"
         >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

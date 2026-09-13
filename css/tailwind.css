@@ -174,14 +174,18 @@
 }
 
 /* ========================================
-   PROSE — Blog Content Styling (Light Theme)
+   PROSE — Blog Content Styling (High Readability)
    ======================================== */
 .prose {
-  @apply max-w-none;
+  @apply max-w-none text-left;
+}
+
+.prose p {
+  @apply mb-6 text-left text-[17px] font-normal leading-[1.75] text-[#242424];
 }
 
 .prose a {
-  @apply text-[#171717] underline decoration-[#ebebeb] decoration-dotted underline-offset-4;
+  @apply text-[#171717] underline decoration-[#d1d5db] decoration-1 underline-offset-4;
   @apply hover:decoration-[#171717];
   @apply transition-colors duration-200;
 }
@@ -190,24 +194,80 @@
   @apply text-[#171717];
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4 {
-  @apply font-medium tracking-tight text-[#171717];
+.prose h1 {
+  @apply mb-6 mt-12 text-left text-3xl font-bold leading-tight tracking-tight text-[#171717] sm:text-4xl;
   font-family: var(--font-display);
 }
 
-.prose code {
-  @apply rounded-[4px] bg-[#f5f5f5] px-2 py-0.5 text-[#171717];
-  font-family: var(--font-mono);
-  font-size: 13px;
+.prose h2 {
+  @apply mb-4 mt-14 text-left text-2xl font-bold leading-snug tracking-[-0.02em] text-[#171717] sm:text-[26px];
+  font-family: var(--font-display);
 }
 
+.prose h3 {
+  @apply mb-3 mt-10 text-left text-xl font-semibold leading-snug tracking-[-0.01em] text-[#171717] sm:text-[22px];
+  font-family: var(--font-display);
+}
+
+.prose h4 {
+  @apply mb-2 mt-8 text-left text-lg font-semibold text-[#171717];
+  font-family: var(--font-display);
+}
+
+.prose strong {
+  @apply font-semibold text-[#171717];
+}
+
+.prose ul {
+  @apply mb-6 list-outside list-disc space-y-2.5 pl-6 text-left text-[17px] leading-[1.75] text-[#242424];
+}
+
+.prose ol {
+  @apply mb-6 list-outside list-decimal space-y-2.5 pl-6 text-left text-[17px] leading-[1.75] text-[#242424];
+}
+
+.prose li {
+  @apply pl-1 text-left;
+}
+
+.prose blockquote {
+  @apply my-6 rounded-[8px] border border-l-4 border-[#ebebeb] border-l-[#171717] bg-[#fafafa] p-5 text-left not-italic text-[#242424];
+}
+
+.prose blockquote p {
+  @apply mb-2 last:mb-0;
+}
+
+.prose :not(pre) > code {
+  @apply rounded-[4px] border border-[#ebebeb] bg-[#f5f5f5] px-1.5 py-0.5 font-mono text-[13px] font-medium text-[#171717];
+}
+
+/* Dark code canvas for high syntax contrast with Night Owl Prism tokens */
 .prose pre {
-  @apply rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-6 text-[#171717];
+  @apply my-6 overflow-x-auto rounded-[8px] border border-[#262626] bg-[#0d1117] p-5 text-left text-[#e6edf3] shadow-sm;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.prose table {
+  @apply my-6 w-full border-collapse text-left text-sm;
+}
+
+.prose th {
+  @apply border-b border-[#ebebeb] bg-[#fafafa] px-4 py-2.5 font-semibold text-[#171717];
+}
+
+.prose td {
+  @apply border-b border-[#f0f0f0] px-4 py-2.5 text-[#444444];
+}
+
+.prose img {
+  @apply my-6 h-auto max-w-full rounded-[8px] border border-[#ebebeb];
+}
+
+.prose hr {
+  @apply my-10 border-t border-[#ebebeb];
 }
 
 /* Heading anchor link - embedded inline, visible on hover */

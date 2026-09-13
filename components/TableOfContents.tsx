@@ -64,41 +64,46 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
 
   return (
     <nav
-      className={`sticky top-20 rounded-lg border border-matte-gray bg-matte-gray/20 p-6 ${className}`}
+      className={`shadow-xs sticky top-24 rounded-[8px] border border-[#ebebeb] bg-white p-5 ${className}`}
       aria-label="Table of Contents"
     >
-      <h2 className="mb-4 text-lg font-semibold text-white">Table of Contents</h2>
-      <ul className="space-y-2 text-sm">
-        {toc.map((item) => (
-          <li
-            key={item.id}
-            className={`${item.level === 3 ? 'ml-4' : ''} transition-colors`}
-            style={{ listStyle: 'none' }}
-          >
-            <Link
-              href={`#${item.id}`}
-              className={`block py-1 ${
-                activeId === item.id
-                  ? 'font-medium text-accent-400'
-                  : 'text-gray-400 hover:text-gray-200'
-              }`}
-              onClick={(e) => {
-                e.preventDefault()
-                const element = document.getElementById(item.id)
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  // Update URL without triggering navigation
-                  window.history.pushState(null, '', `#${item.id}`)
-                }
-              }}
+      <div className="mb-3 flex items-center justify-between border-b border-[#f0f0f0] pb-2.5">
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-[#171717]">
+          On This Page
+        </span>
+        <span className="font-mono text-[10px] text-[#999999]">{toc.length} sections</span>
+      </div>
+      <ul className="max-h-[calc(100vh-220px)] space-y-1 overflow-y-auto pr-1 text-xs leading-relaxed">
+        {toc.map((item) => {
+          const isActive = activeId === item.id
+          return (
+            <li
+              key={item.id}
+              className={`${item.level === 3 ? 'pl-3' : ''} transition-colors`}
+              style={{ listStyle: 'none' }}
             >
-              {item.level === 3 && '→ '}
-              {item.text}
-            </Link>
-          </li>
-        ))}
+              <Link
+                href={`#${item.id}`}
+                className={`block py-1 transition-all ${
+                  isActive
+                    ? '-ml-2.5 border-l-2 border-[#171717] pl-2 font-medium text-[#171717]'
+                    : 'text-[#666666] hover:text-[#171717]'
+                }`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const element = document.getElementById(item.id)
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    window.history.pushState(null, '', `#${item.id}`)
+                  }
+                }}
+              >
+                {item.text}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )
 }
-
