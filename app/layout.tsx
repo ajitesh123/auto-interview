@@ -48,12 +48,19 @@ export const metadata: Metadata = {
     icon: [
       { url: '/favicon.ico' },
       { url: '/static/images/logo.svg', type: 'image/svg+xml' },
+      { url: '/static/favicons/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/static/favicons/android-chrome-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/static/favicons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/static/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
       { url: '/static/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/static/favicons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
+  manifest: '/static/favicons/site.webmanifest',
   // Open Graph metadata for social media sharing
   openGraph: {
     title: siteMetadata.title,
@@ -117,6 +124,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link
         rel="icon"
         type="image/png"
+        sizes="48x48"
+        href={`${basePath}/static/favicons/favicon-48x48.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="96x96"
+        href={`${basePath}/static/favicons/android-chrome-96x96.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href={`${basePath}/static/favicons/android-chrome-192x192.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
         sizes="32x32"
         href={`${basePath}/static/favicons/favicon-32x32.png`}
       />
@@ -128,6 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       />
       <link rel="shortcut icon" href={`${basePath}/favicon.ico`} />
       <link rel="apple-touch-icon" sizes="180x180" href={`${basePath}/apple-touch-icon.png`} />
+      <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
 
       {/* Theme and display configurations */}
       <meta name="msapplication-TileColor" content="#fafafa" />

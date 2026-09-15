@@ -64,16 +64,28 @@ function generateSvg(strokeWidth = 0.8) {
 </svg>`
 }
 
+function generateMonochromeSvg() {
+  return `<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#ffffff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round">
+    ${leftPolys.map((d) => `<path d="${d}" fill="#333333" />`).join('\n    ')}
+    ${rightPolys.map((d) => `<path d="${d}" fill="#111111" />`).join('\n    ')}
+    ${topPolys.map((d) => `<path d="${d}" fill="#555555" />`).join('\n    ')}
+  </g>
+</svg>`
+}
+
 async function main() {
   const rootDir = path.resolve(__dirname, '..')
   const svgContent = generateSvg(0.8)
+  const monochromeSvgContent = generateMonochromeSvg()
   const svgBuffer = Buffer.from(svgContent)
 
   // 1. Write SVG to target locations
   const svgPaths = [
+    path.join(rootDir, 'data', 'logo.svg'),
     path.join(rootDir, 'static', 'images', 'logo.svg'),
     path.join(rootDir, 'public', 'static', 'images', 'logo.svg'),
-    path.join(rootDir, 'app', 'icon.svg'),
+    path.join(rootDir, 'public', 'static', 'favicons', 'favicon.svg'),
   ]
 
   for (const p of svgPaths) {
@@ -82,12 +94,43 @@ async function main() {
     console.log('Written SVG:', p)
   }
 
-  // 2. Render PNGs using Sharp
+  // Safari pinned tab
+  const safariSvg = path.join(rootDir, 'public', 'static', 'favicons', 'safari-pinned-tab.svg')
+  fs.writeFileSync(safariSvg, monochromeSvgContent, 'utf8')
+  console.log('Written Safari pinned tab SVG:', safariSvg)
+
+  // 2. Render PNGs using Sharp across all required sizes
   const sizes = [
+    // Primary brand assets
     { size: 512, dest: path.join(rootDir, 'public', 'static', 'images', 'logo.png') },
+    { size: 512, dest: path.join(rootDir, 'static', 'images', 'logo.png') },
+
+    // Apple Touch Icons
     { size: 180, dest: path.join(rootDir, 'public', 'apple-touch-icon.png') },
+    { size: 180, dest: path.join(rootDir, 'public', 'apple-touch-icon-precomposed.png') },
+    { size: 180, dest: path.join(rootDir, 'public', 'static', 'favicons', 'apple-touch-icon.png') },
+
+    // Google Search recommended favicon sizes (multiples of 48px: 48, 96, 192)
+    { size: 48, dest: path.join(rootDir, 'public', 'static', 'favicons', 'favicon-48x48.png') },
+    {
+      size: 96,
+      dest: path.join(rootDir, 'public', 'static', 'favicons', 'android-chrome-96x96.png'),
+    },
+    {
+      size: 192,
+      dest: path.join(rootDir, 'public', 'static', 'favicons', 'android-chrome-192x192.png'),
+    },
+    {
+      size: 512,
+      dest: path.join(rootDir, 'public', 'static', 'favicons', 'android-chrome-512x512.png'),
+    },
+
+    // Standard browser tab favicon sizes
     { size: 32, dest: path.join(rootDir, 'public', 'static', 'favicons', 'favicon-32x32.png') },
     { size: 16, dest: path.join(rootDir, 'public', 'static', 'favicons', 'favicon-16x16.png') },
+
+    // Windows tile
+    { size: 150, dest: path.join(rootDir, 'public', 'static', 'favicons', 'mstile-150x150.png') },
   ]
 
   for (const { size, dest } of sizes) {
@@ -96,7 +139,7 @@ async function main() {
     console.log(`Rendered PNG (${size}x${size}):`, dest)
   }
 
-  // Also render temporary PNGs for ICO generation
+  // Also render temporary PNGs for ICO generation (multi-resolution ICO)
   const tempDir = path.join(rootDir, 'scripts', 'temp_ico')
   fs.mkdirSync(tempDir, { recursive: true })
   for (const s of [16, 32, 48, 64]) {
@@ -134,7 +177,7 @@ for target in ico_targets:
 
   // Clean up temp dir
   fs.rmSync(tempDir, { recursive: true, force: true })
-  console.log('Done generating all assets!')
+  console.log('Done generating all assets successfully!')
 }
 
 main().catch((err) => {
