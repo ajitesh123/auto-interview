@@ -181,6 +181,67 @@ module.exports = () => {
           destination: '/free-mock-interview',
           permanent: true,
         },
+        // Content Pruning & De-cannibalization Redirects (SEO Engine 2026)
+        {
+          source: '/blog/google-product-management-interview-questions-2025-temp',
+          destination: '/blog/google-product-management-interview-questions-2025',
+          permanent: true,
+        },
+        {
+          source: '/blog/new-blog-post-template',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/blog/acceptenc-into-kellogg-mba',
+          destination: '/about',
+          permanent: true,
+        },
+        {
+          source: '/blog/auto-interview-ai-2025-hiring-index',
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-mock-interview-platforms-2025',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-mock-interview-platforms-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-sales-training-companies-india-2026',
+          destination: '/blog/best-sales-training-companies-india',
+          permanent: true,
+        },
+        {
+          source: '/blog/b2b-sales-training-india-platforms-methodologies-2026',
+          destination: '/blog/best-sales-training-companies-india',
+          permanent: true,
+        },
+        {
+          source: '/blog/webrtc-vs-sip-real-time-ai-voice-agents-2026',
+          destination: '/blog/webrtc-vs-sip-ai-voice-agent-architecture-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-5-air-ai-alternatives-2026',
+          destination: '/blog/best-air-ai-alternatives-outbound-sales-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-synthflow-alternatives-ai-calling-sales-2026',
+          destination: '/blog/top-5-synthflow-alternatives-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-retell-ai-alternatives-developers-sales-2026',
+          destination: '/blog/top-5-retell-ai-alternatives-2026',
+          permanent: true,
+        },
       ]
     },
     webpack: (config, { dev, isServer }) => {
