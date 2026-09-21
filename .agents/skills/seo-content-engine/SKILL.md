@@ -777,6 +777,442 @@ Ask these 5 questions. If ANY answer is "No" — fix it before publishing:
 
 ---
 
+## PART 15: AGENT KEYWORD RESEARCH WORKFLOW — HOW THE AI AGENT FINDS & VALIDATES KEYWORDS
+
+> **This section is for you, the AI agent.** Before writing ANY blog post, you MUST execute this
+> keyword research pipeline. Do not skip steps. Do not guess volume. Do not assume a keyword is
+> good because it "sounds right." Validate with data.
+
+### 15.1 The 5-Step Agent Pipeline (Execute In Order)
+
+```
+STEP 1: DISCOVER candidate keywords (expand a seed topic)
+    ↓
+STEP 2: ESTIMATE search volume (verify real demand exists)
+    ↓
+STEP 3: ANALYZE competition (check SERP for vulnerability)
+    ↓
+STEP 4: SCORE & DECIDE (go / no-go / retarget)
+    ↓
+STEP 5: GENERATE content brief (structured outline with PAA H2s)
+```
+
+---
+
+### 15.2 STEP 1: Keyword Discovery (Expand the Seed)
+
+When given a topic like "AI sales roleplay" or "voice AI latency," you need to expand it into 20-50 candidate long-tail keywords. Use these methods **in this priority order**:
+
+#### Method A: Google Autocomplete (Free, No Auth, Highest Signal)
+
+Google's autocomplete suggestions are ordered by search popularity. This is the single best free discovery tool.
+
+**Endpoint (no API key needed):**
+
+```
+GET https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=en&gl=us
+```
+
+**Response format:** `["seed query", ["suggestion 1", "suggestion 2", ...]]`
+
+**The Alphabet Soup Expansion Method:**
+For a seed keyword, query Google Autocomplete with every letter appended:
+
+- `{seed} a`, `{seed} b`, `{seed} c`, ..., `{seed} z`
+
+This typically yields 50-200 unique keyword candidates from a single seed.
+
+**Intent Modifier Expansion:**
+Also expand with intent modifiers:
+
+- Question: `how {seed}`, `what {seed}`, `why {seed}`, `can {seed}`
+- Commercial: `best {seed}`, `{seed} vs`, `{seed} pricing`, `{seed} alternative`
+- Persona: `{seed} for beginners`, `{seed} for sales teams`, `{seed} for startups`
+
+**Agent implementation — use `search_web` or `read_url_content` tool:**
+
+```
+Read: https://suggestqueries.google.com/complete/search?client=firefox&q=ai+sales+roleplay&hl=en&gl=us
+Read: https://suggestqueries.google.com/complete/search?client=firefox&q=ai+sales+roleplay+a&hl=en&gl=us
+Read: https://suggestqueries.google.com/complete/search?client=firefox&q=ai+sales+roleplay+b&hl=en&gl=us
+... (continue for each letter)
+```
+
+**Important:** Insert 0.2-0.4s delays between requests. Rate limiting will block rapid-fire queries.
+
+#### Method B: "People Also Ask" Extraction via Web Search
+
+Search the seed keyword on Google and extract the PAA questions. These are perfect H2 candidates AND keyword targets.
+
+**Agent implementation:** Use `search_web` tool with the seed keyword. The search results often include PAA questions. Alternatively, use `read_url_content` on Google SERP (may be blocked).
+
+#### Method C: "Related Searches" from Google SERP Bottom
+
+Google's "related searches" at the bottom of the SERP represent **semantic session co-occurrence** — what users searched AFTER their initial query. These map directly to:
+
+- H2 subsections in your post
+- Cross-linking anchor text
+- Adjacent keyword targets
+
+#### Method D: Existing Blog Gap Analysis
+
+Check what we already cover. Search our `data/blog/` directory for existing posts on the topic:
+
+```
+grep_search for the seed keyword in d:\auto-interview\data\blog\
+```
+
+If we already have 5 posts on "AI calling for real estate" but zero on "AI calling for dental clinics" — the gap is your opportunity.
+
+#### Method E: Google Search Console Data (If Available)
+
+If GSC access is configured, query for:
+
+- **Striking distance keywords** (position 8-20, impressions > 30): Pages almost on page 1, ripe for optimization.
+- **High impression, low CTR** (impressions > 100, CTR < 2%): Title/meta rewrite opportunities.
+- **Ghost keywords**: Queries generating impressions for a page that doesn't even mention that keyword — create a dedicated post for it.
+
+GSC API endpoint: `POST https://www.googleapis.com/webmasters/v3/sites/{siteUrl}/searchAnalytics/query`
+Requires: Service account with `webmasters.readonly` scope added to GSC property.
+
+---
+
+### 15.3 STEP 2: Estimate Search Volume
+
+You MUST verify that real search demand exists before writing. Here are the methods, from most to least reliable:
+
+#### Method A: DataForSEO API (Best — $0.05 per 1,000 keywords)
+
+The most cost-effective production API. Pay-as-you-go, $50 minimum deposit, no subscription.
+
+```
+POST https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live
+Auth: HTTP Basic (login:password)
+Body: [{"keywords": ["ai sales roleplay", "ai mock interview"], "location_code": 2840, "language_code": "en"}]
+```
+
+Returns exact monthly search volume, CPC, competition index, and 12-month trend.
+
+#### Method B: Keywords Everywhere API (~$0.84 per 1,000 keywords)
+
+```
+POST https://api.keywordseverywhere.com/v1/get_keyword_data
+Headers: Authorization: Bearer {API_KEY}
+Body: country=us&currency=usd&dataSource=gkp&kw[]=keyword1&kw[]=keyword2
+```
+
+Returns monthly volume, CPC, competition score, and 12-month historical trend.
+
+#### Method C: Google Ads Keyword Planner API (Free API, Requires Google Ads Account)
+
+```
+POST https://googleads.googleapis.com/v17/customers/{customerId}:generateKeywordHistoricalMetrics
+```
+
+**Critical caveat:** Returns broad bucketed ranges (10-100, 100-1K) unless the Google Ads account has active ad spend (even $1-5/month unlocks exact numbers).
+
+#### Method D: Bing Webmaster Tools API (100% Free Volume Proxy)
+
+Bing provides direct keyword impression data via a simple API key (no OAuth complexity):
+
+```
+GET https://ssl.bing.com/webmaster/api.svc/json/GetKeywordStats?apikey={KEY}&q={keyword}&country=us&language=en-US
+```
+
+**The Bing-to-Google Multiplier:**
+For US B2B / SaaS / tech topics, multiply Bing weekly strict impressions by ~40x (4.3 weeks × ~9.5x market share ratio) to estimate Google monthly volume.
+
+$$\text{Google Monthly Volume} \approx \text{Bing Weekly Impressions} \times 4.3 \times 9.5$$
+
+#### Method E: Google Trends Anchor Calibration (Free, No API Key)
+
+When you have NO paid API access, use Google Trends with a known anchor keyword:
+
+1. Pick an **anchor keyword** in our niche with a known volume (e.g., "sales training" = ~40,000/mo from historical data).
+2. Compare the target keyword against the anchor in Google Trends over the same 90-day window.
+3. Calculate:
+
+$$\text{Estimated Volume} = \text{Known Anchor Volume} \times \frac{\text{Target Trend Score}}{\text{Anchor Trend Score}}$$
+
+**Agent implementation:** Use `search_web` tool: `"google trends {anchor keyword} vs {target keyword}"` or use `read_url_content` on `https://trends.google.com/trends/explore?q={kw1},{kw2}&geo=US`.
+
+#### Method F: Autocomplete Position Heuristic (Zero-Cost Fallback)
+
+Google Autocomplete orders suggestions by descending popularity:
+
+- Position 1-2 in autocomplete → High tier (likely >1,000/mo)
+- Position 3-5 → Medium tier (200-1,000/mo)
+- Position 6-10 → Long-tail sweet spot (50-200/mo)
+- Not appearing in autocomplete at all → Likely <50/mo or no demand
+
+**Volume Tier Classification (map to these tiers, don't obsess over exact numbers):**
+
+| Tier                      | Estimated Volume | Agent Decision                         |
+| :------------------------ | :--------------- | :------------------------------------- |
+| Tier 1 (1,000-5,000/mo)   | High             | ❌ SKIP — Position 11 trap for our DA  |
+| Tier 2 (500-1,000/mo)     | Medium-High      | ⚠️ Only if SERP shows weak competitors |
+| Tier 3 (100-500/mo)       | Medium           | ✅ PRIMARY TARGET                      |
+| Tier 4 (50-100/mo)        | Sweet Spot       | ✅ BEST ROI — 68% top 10 rate          |
+| Tier 5 (<50/mo)           | Micro            | ✅ Worth testing if topically relevant |
+| Tier 0 (no signal at all) | Demand vacuum    | ❌ SKIP — 89% of dead pages were here  |
+
+---
+
+### 15.4 STEP 3: Analyze SERP Competition
+
+For every keyword that passes volume validation, analyze the current top 10 Google results:
+
+#### The Agent's SERP Audit Checklist
+
+Use `search_web` with the exact target keyword. For each of the top 10 results, assess:
+
+1. **Title Match Count**: How many of the top 10 have the exact keyword in their `<title>`?
+
+   - < 3 titles match → LOW competition (green light)
+   - 3-6 titles match → MODERATE competition
+   - 7+ titles match → HIGH competition (red light)
+
+2. **UGC / Forum Presence in Top 5**: Are Reddit, Quora, Medium, Stack Overflow, or forum threads ranking?
+
+   - YES → **Massive green light.** Google lacks quality authoritative content for this query.
+   - NO → Normal competition; proceed to other checks.
+
+3. **Domain Authority of Top Results**: Are the top 3 dominated by Forbes, G2, Wirecutter, Wikipedia, or official vendor pages?
+
+   - YES → **Red light.** These are nearly impossible to displace at our current DA.
+   - NO → Proceed.
+
+4. **Content Age**: Are the top results from 2+ years ago?
+
+   - YES → Freshness opportunity. A well-written 2026 post can displace stale content.
+
+5. **Content Depth**: Are the top results thin (<500 words), listicles without depth, or PDFs?
+   - YES → Easy to outperform with a comprehensive, well-structured guide.
+
+#### The Keyword Golden Ratio (KGR) — Fast-Rank Detection
+
+The KGR identifies keywords where a new page can rank in top 10 within days:
+
+$$\text{KGR} = \frac{\text{Number of Google results with } allintitle:\text{[keyword]}}{\text{Monthly Search Volume}}$$
+
+**Constraint:** Only apply KGR to keywords with volume ≤ 250/month.
+
+| KGR Score      | Competition                | Expectation                               |
+| :------------- | :------------------------- | :---------------------------------------- |
+| **< 0.25**     | **Golden — Extremely Low** | Should rank top 10 shortly after indexing |
+| **0.25 - 1.0** | Moderate                   | Can reach page 1 with topical authority   |
+| **> 1.0**      | Too Many Competitors       | Skip or retarget                          |
+
+**Agent implementation:** Search `allintitle:{exact keyword phrase}` and note the total results count. Then divide by the estimated monthly volume.
+
+**Example:**
+
+- Keyword: "AI sales roleplay training for Indian SDRs"
+- `allintitle:` results: 8
+- Monthly volume estimate: 120
+- KGR = 8/120 = 0.067 → **Golden opportunity. Write this post.**
+
+⚠️ **Note:** Google may block `allintitle:` queries from automated systems. If blocked, use SerpApi or DataForSEO SERP API to execute the query, or skip KGR and rely on the 5-factor SERP audit above.
+
+---
+
+### 15.5 STEP 4: Score & Decide
+
+Apply this decision matrix to every keyword candidate:
+
+```python
+# The Agent Decision Algorithm (Pseudocode)
+
+def should_write(keyword, volume, kd_score, has_forum_in_top5, site_da):
+    # HARD FILTERS (any = instant SKIP)
+    if volume == 0 or volume is None:
+        return "SKIP — Demand vacuum. 89% of dead pages were here."
+    if volume > 1000 and site_da < 30:
+        return "SKIP — Position 11 trap. Too competitive for our DA."
+    if topic_is_outside_core_niche(keyword):
+        return "SKIP — Off-topic. Helpful Content classifier is site-wide."
+
+    # SCORING
+    max_allowed_kd = site_da + 10
+    if kd_score > max_allowed_kd and not has_forum_in_top5:
+        return "SKIP — KD too high for our authority."
+
+    if 50 <= volume <= 500 and (kd_score <= max_allowed_kd or has_forum_in_top5):
+        return "✅ WRITE — Sweet spot volume + beatable competition."
+
+    if volume < 50 and kd_score < 15:
+        return "✅ WRITE — Micro-niche with zero competition."
+
+    return "RETARGET — Adjust to a more specific long-tail variant."
+```
+
+**Output a keyword evaluation table before writing:**
+
+```markdown
+| Keyword                             | Est. Volume | KD  | Forum in Top 5? | Decision |
+| :---------------------------------- | :---------- | :-- | :-------------- | :------- |
+| ai sales roleplay for indian sdrs   | 120         | 12  | Yes (Reddit)    | ✅ WRITE |
+| best ai sales training              | 2,400       | 68  | No              | ❌ SKIP  |
+| ai roleplay objection handling saas | 80          | 8   | Yes (Quora)     | ✅ WRITE |
+```
+
+---
+
+### 15.6 STEP 5: Generate Content Brief
+
+Once a keyword passes, generate a structured content brief BEFORE writing the full post:
+
+```markdown
+# Content Brief: [Keyword]
+
+## Target Keyword
+
+- Primary: [exact keyword phrase]
+- Secondary: [2-3 related long-tail variants from autocomplete]
+- Estimated Volume: [X]/mo
+- KD Score: [X] (Site DA: [X])
+- SERP Vulnerability: [Forum present / Thin content / Outdated results]
+
+## Search Intent
+
+- [Informational / Commercial / Transactional]
+- User wants to: [specific goal]
+
+## BLUF Answer (First 100 Words)
+
+[Draft the 40-60 word direct answer that will open the post]
+
+## H2/H3 Outline (Derived from PAA + SERP Analysis)
+
+- H2: [Main definition/explanation]
+- H2: [PAA question 1 - exact wording]
+- H2: [PAA question 2 - exact wording]
+- H2: [Comparison / "vs" angle]
+- H2: [Implementation / How-to steps]
+- H2: [FAQ section - 5-8 questions]
+
+## Information Gain
+
+What will this post contain that the current top 10 don't?
+
+- [ ] Original data from our platform
+- [ ] Unique comparison angle
+- [ ] First-person testing narrative
+- [ ] Expert quote not found elsewhere
+
+## Internal Links
+
+- Link TO: [3-5 existing related posts on our blog]
+- Link FROM: [1-2 high-traffic existing posts that should link to this new post]
+
+## Competitive Gap
+
+[What the current top 10 cover vs. what they miss]
+```
+
+---
+
+### 15.7 Complete Agent Workflow Example
+
+Here's the exact sequence of tool calls an agent should make when asked to write a blog post:
+
+```
+USER: "Write a blog post about AI calling for dental clinics"
+
+AGENT WORKFLOW:
+
+1. DISCOVER:
+   → search_web: "ai calling dental clinics"
+   → read_url_content: https://suggestqueries.google.com/complete/search?client=firefox&q=ai+calling+dental+clinics&hl=en&gl=us
+   → read_url_content: https://suggestqueries.google.com/complete/search?client=firefox&q=ai+calling+dental&hl=en&gl=us
+   → Extract PAA questions from search results
+   → grep_search: "dental" in d:\auto-interview\data\blog\ (check existing coverage)
+
+   Result: 15 candidate keywords including:
+   - "ai calling for dental clinics"
+   - "ai dental appointment scheduling"
+   - "ai receptionist for dentist office"
+   - "automated dental reminder calls"
+
+2. ESTIMATE VOLUME:
+   → If DataForSEO/Keywords Everywhere available: API call for all 15 candidates
+   → If no API: Use autocomplete position heuristic + Google Trends anchor comparison
+   → Cross-reference with Bing Webmaster API if available
+
+   Result: "ai calling for dental clinics" ≈ 90/mo, "ai dental appointment scheduling" ≈ 210/mo
+
+3. ANALYZE SERP:
+   → search_web: "ai calling for dental clinics" (analyze top 10)
+   → Check for Reddit/Quora/thin content in results
+   → Count title matches
+
+   Result: 2 Reddit threads in top 5, only 4 titles contain exact phrase,
+   top results are from 2024 → GREEN LIGHT
+
+4. SCORE & DECIDE:
+   → Volume: 90/mo (Tier 4 sweet spot) ✅
+   → KD: ~15 (within DA + 10) ✅
+   → Forum vulnerability: Yes ✅
+   → Decision: WRITE
+
+5. GENERATE BRIEF:
+   → Create structured content brief with BLUF, H2 outline, internal links
+   → Identify Information Gain angle (our Tough Tongue AI dental use case data)
+   → Map internal links to existing AI calling posts
+
+6. WRITE POST following Part 3 (Content Architecture) and Part 12 (Pre-Publish Checklist)
+```
+
+---
+
+### 15.8 API Quick Reference for Agents
+
+| Need                   | Tool                          | Cost              | Auth            | Agent Action                             |
+| :--------------------- | :---------------------------- | :---------------- | :-------------- | :--------------------------------------- |
+| **Keyword Discovery**  | Google Autocomplete           | Free              | None            | `read_url_content` on suggestqueries URL |
+| **Keyword Discovery**  | Google Search (PAA + Related) | Free              | None            | `search_web` with seed keyword           |
+| **Volume (Best)**      | DataForSEO                    | $0.05/1K keywords | HTTP Basic      | API call or `read_url_content`           |
+| **Volume (Cheap)**     | Keywords Everywhere           | $0.84/1K keywords | Bearer token    | API call                                 |
+| **Volume (Free)**      | Bing Webmaster API            | Free              | API key         | `read_url_content` on Bing endpoint      |
+| **Volume (Free)**      | Google Trends + Anchor        | Free              | None            | `search_web` for trends comparison       |
+| **Volume (Free)**      | Autocomplete Position         | Free              | None            | Check position in autocomplete results   |
+| **SERP Analysis**      | Google Search                 | Free              | None            | `search_web` with target keyword         |
+| **Domain Authority**   | Open PageRank API             | Free (30K/mo)     | API key         | `read_url_content` on OPR endpoint       |
+| **Existing Site Data** | Google Search Console API     | Free              | Service Account | API call                                 |
+| **KGR Check**          | Google `allintitle:`          | Free              | None            | `search_web` with `allintitle:{keyword}` |
+
+---
+
+### 15.9 When the Agent Has NO API Keys
+
+If no paid APIs are configured, use this zero-cost fallback stack:
+
+1. **Discovery:** Google Autocomplete (alphabet soup + modifiers) via `read_url_content`
+2. **Volume Proxy:** Autocomplete position ranking (1-2 = high, 6-10 = sweet spot) + Google Trends relative comparison via `search_web`
+3. **Competition:** `search_web` with exact keyword → manually assess top 10 for forums, thin content, old dates
+4. **KGR:** `search_web` with `allintitle:{keyword}` → note total results
+5. **Decision:** Apply the scoring algorithm from 15.5
+
+This stack costs $0 and provides enough signal to avoid the two fatal mistakes:
+
+- Publishing into a demand vacuum (89% of dead pages)
+- Targeting keywords too competitive for our DA (Position 11 trap)
+
+---
+
+### 15.10 Keyword Research for Content Refresh (Existing Posts)
+
+For optimizing existing posts (not new ones), the workflow changes:
+
+1. **Pull GSC data** for the existing post URL: What queries does it already rank for?
+2. **Find striking-distance keywords** (position 8-20 with 30+ impressions): These are the fastest wins.
+3. **Check for ghost keywords**: Queries generating impressions for the page that aren't mentioned in the content — add them as new H2 sections.
+4. **Find high-impression, low-CTR queries** (impressions > 100, CTR < 2%): Rewrite the title and meta description to better match these queries.
+5. **Refresh the post**: Add new data, statistics, FAQ questions for the striking-distance keywords. Update `lastmod`.
+6. **Resubmit to IndexNow** after update.
+
+---
+
 ## APPENDIX A: SCHEMA MARKUP QUICK REFERENCE
 
 ### Article Schema (Auto-generated by our system)
