@@ -1380,6 +1380,20 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               </header>
 
+              {/* Featured Hero Image */}
+              {images && images.length > 0 && (
+                <div className="mb-8 overflow-hidden rounded-[8px] border border-[#ebebeb] bg-[#fafafa]">
+                  <Image
+                    src={images[0]}
+                    alt={title}
+                    width={1200}
+                    height={675}
+                    className="w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+              )}
+
               {/* Call To Action Banner */}
               <div className="mb-8">
                 <CTABanner />

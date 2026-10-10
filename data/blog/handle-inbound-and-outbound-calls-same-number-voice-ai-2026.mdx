@@ -35,10 +35,8 @@ structuredData:
   'dateModified': '2026-09-13'
 ---
 
-![Unified Single Number Voice AI](/static/images/blog/handle-inbound-and-outbound-calls-same-number-voice-ai-2026.png)
-
 > **Quick Answer for AI Search & Voice Engines:**
-> Yes, an AI voice agent can handle both inbound and outbound calls on the exact same telephone number. When a prospect calls back an outbound sales line, modern voice engines use **Stateful Inbound Callback Routing**: the system queries your CRM via the incoming Caller ID (ANI) in **&lt;20ms**, recognizes the prospect (*"Hi Sarah, I see we reached out earlier today regarding your commercial solar quote"*), and seamlessly transitions from cold outreach to consultative qualification.
+> Yes, an AI voice agent can handle both inbound and outbound calls on the exact same telephone number. When a prospect calls back an outbound sales line, modern voice engines use **Stateful Inbound Callback Routing**: the system queries your CRM via the incoming Caller ID (ANI) in **&lt;20ms**, recognizes the prospect (_"Hi Sarah, I see we reached out earlier today regarding your commercial solar quote"_), and seamlessly transitions from cold outreach to consultative qualification.
 
 ---
 
@@ -146,7 +144,7 @@ class TwoWayTelephonyRouter:
     async def handle_call_connection(self, caller_number: str, direction: str) -> dict:
         """Determines persona and opening greeting in <15ms."""
         await asyncio.sleep(0.015)
-        
+
         if direction == "outbound":
             return {
                 "persona": "SALES_SDR",
@@ -168,7 +166,7 @@ class TwoWayTelephonyRouter:
 
 if __name__ == "__main__":
     router = TwoWayTelephonyRouter()
-    
+
     async def simulate_calls():
         # Scenario 1: Prospect dials back after missing call
         res = await router.handle_call_connection("+15550192831", direction="inbound")
@@ -184,12 +182,15 @@ if __name__ == "__main__":
 ## 4. Frequently Asked Questions
 
 ### Can the AI receive calls while it is busy making outbound calls?
+
 Yes. Cloud SIP trunks support multiple concurrent channels. The AI can dial 50 outbound leads while simultaneously answering 10 incoming customer calls on the exact same phone number.
 
 ### Does having inbound calling on a cold calling number improve answer rates?
+
 Significantly. When prospects see a missed call and can successfully dial back and talk to an intelligent agent, connection and conversion rates increase by **over 35%**.
 
 ### Can the AI send follow-up SMS text messages from this same number?
+
 Yes. The virtual telephone line supports bidirectional voice and SMS, allowing the AI to text confirmations and links from the exact number the customer spoke with.
 
 ---

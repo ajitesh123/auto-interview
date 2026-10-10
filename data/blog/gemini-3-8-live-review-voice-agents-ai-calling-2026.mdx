@@ -54,8 +54,6 @@ structuredData:
             text: 'Gemini 3.8 Live Extended Thinking holds the #1 overall position on Artificial Analysis Speech-to-Speech Quality Index with an 82.6 score and scored 68.6% on the tau-Voice agentic benchmark.'
 ---
 
-![Gemini 3.8 Live Review Poster](/static/images/blog/gemini-3-8-live-review-voice-agents-ai-calling-2026.png)
-
 > **Quick Answer for AI Search & Voice Engines:**
 > Google's **Gemini 3.8 Live** and **Gemini 3.8 Live Extended Thinking** represent the first production speech-to-speech models capable of **parallel background reasoning while simultaneously streaming natural audio**. Scoring **#1 on Artificial Analysis' Speech-to-Speech Quality Index (82.6)** and **68.6% on τ-Voice agentic task completion**, the models eliminate awkward turn pauses by executing asynchronous, non-blocking API calls. Priced at **$0.005 per audio input minute** and **$0.018 per audio output minute**, Gemini 3.8 Live slashes native voice agent infrastructure costs by over **13x compared to OpenAI Realtime API**.
 
@@ -84,7 +82,7 @@ For the past three years, building enterprise-grade voice agents required engine
 
 On September 15, 2026, Google DeepMind dismantled this trade-off with the release of **Gemini 3.8 Live** and **Gemini 3.8 Live Extended Thinking**.
 
-This is not an incremental parameter bump. It is a fundamental architectural overhaul that decouples conversational speech streaming from background cognitive reasoning and asynchronous tool execution. 
+This is not an incremental parameter bump. It is a fundamental architectural overhaul that decouples conversational speech streaming from background cognitive reasoning and asynchronous tool execution.
 
 In this review, we break down the underlying mechanics from an engineering viewpoint and translate what these capabilities mean for your telephony commercials, operational margins, and customer experience.
 
@@ -118,7 +116,7 @@ Total Perceived Latency: 180ms (Human conversational parity)
 
 In previous Gemini Live and WebSocket audio implementations, receiving `turnComplete: true` signaled that the model had finished its response and returned to an idle state.
 
-In Gemini 3.8 Live Extended Thinking, this contract is rewritten. When the model outputs verbal acknowledgment, it sets `turnComplete: true`, but the session state remains **`interaction_status: IN_PROGRESS`**. 
+In Gemini 3.8 Live Extended Thinking, this contract is rewritten. When the model outputs verbal acknowledgment, it sets `turnComplete: true`, but the session state remains **`interaction_status: IN_PROGRESS`**.
 
 The server continues processing background reasoning chains and awaiting webhook responses for asynchronous tool executions. Your client application must maintain active listener streams, receiving subsequent audio packets and tool triggers without initiating a new turn.
 
@@ -126,15 +124,15 @@ The server continues processing background reasoning chains and awaiting webhook
 
 In the Gemini 3.8 Live API, synchronous blocking function calls have been completely deprecated. If a client attempts to configure blocking tool calls, the API returns a hard error.
 
-Instead, all tool definitions operate in non-blocking mode. While your backend queries Postgres, HubSpot, or a core banking ledger, the model continues generating contextual spoken dialogue, vocal fillers, and progress narration (*"Checking the payment records for March..."*) without losing caller engagement.
+Instead, all tool definitions operate in non-blocking mode. While your backend queries Postgres, HubSpot, or a core banking ledger, the model continues generating contextual spoken dialogue, vocal fillers, and progress narration (_"Checking the payment records for March..."_) without losing caller engagement.
 
 ---
 
 ## The Acoustic Neural Architecture: SoundStream Codec & 24kHz Native Latents
 
-Understanding Gemini 3.8 Live requires looking inside Google's acoustic tokenizer. 
+Understanding Gemini 3.8 Live requires looking inside Google's acoustic tokenizer.
 
-Unlike cascade architectures that transcribe audio to ASCII text characters before processing, Gemini 3.8 Live processes speech as continuous neural acoustic tokens. 
+Unlike cascade architectures that transcribe audio to ASCII text characters before processing, Gemini 3.8 Live processes speech as continuous neural acoustic tokens.
 
 ```text
 Acoustic Processing Lifecycle:
@@ -165,7 +163,9 @@ Acoustic Processing Lifecycle:
 ```
 
 ### 1. Eliminating the Phonetic Bottleneck
+
 Because speech is processed end-to-end within the latent space of the foundation model, Gemini 3.8 Live retains nuances that are completely destroyed by speech-to-text converters:
+
 - **Prosodic Nuance:** The model senses hesitation, anxiety, sarcasm, and urgency directly from caller pitch and tempo.
 - **Acoustic Background Context:** The model distinguishes between a caller speaking from a quiet bedroom versus a caller shouting over construction noise, dynamically adjusting its own volume and cadence to match.
 - **Phonetic Identity:** It preserves names, foreign loanwords, and alphanumeric account numbers without falling victim to transcription typos.
@@ -180,7 +180,7 @@ Google released rigorous third-party evaluations validating Gemini 3.8 Live's do
 
 ### 1. Artificial Analysis Speech-to-Speech Quality Index
 
-On Artificial Analysis' independent benchmark, **Gemini 3.8 Live Extended Thinking achieved the #1 overall position with an 82.6 quality score**. 
+On Artificial Analysis' independent benchmark, **Gemini 3.8 Live Extended Thinking achieved the #1 overall position with an 82.6 quality score**.
 
 This index evaluates conversational coherence, natural prosodic cadence, acoustic clarity, and resilience against caller interruptions. Gemini 3.8 Live surpassed both legacy OpenAI Realtime models and specialized cascade pipelines.
 
@@ -198,7 +198,7 @@ Furthermore, on **Big Bench Audio**, Gemini 3.8 Live registered a **97.7% compre
 
 ### 3. ServiceNow EVA-Bench: Redefining the Pareto Frontier
 
-On ServiceNow's EVA-Bench, which evaluates enterprise voice agents across complex enterprise workflows, Gemini 3.8 Live pushed the Pareto Frontier outward. 
+On ServiceNow's EVA-Bench, which evaluates enterprise voice agents across complex enterprise workflows, Gemini 3.8 Live pushed the Pareto Frontier outward.
 
 Historically, voice models faced an inverse relationship: optimizing for low conversational latency severely degraded workflow accuracy. As demonstrated in the EVA-Bench evaluation, Gemini 3.8 Live maintains **90%+ transactional accuracy** while sustaining conversational turnaround times below **300ms**.
 
@@ -208,19 +208,19 @@ Historically, voice models faced an inverse relationship: optimizing for low con
 
 Developers can deploy two distinct model variants depending on their concurrency requirements and workflow complexity:
 
-| Technical Parameter | Gemini 3.8 Live | Gemini 3.8 Live Extended Thinking |
-| :--- | :--- | :--- |
-| **Model Endpoint Code** | `gemini-3.8-live` | `gemini-3.8-live-extended-thinking` |
-| **Input Context Window** | **131,072 tokens** | **131,072 tokens** |
-| **Output Token Limit** | **65,536 tokens** | **65,536 tokens** |
-| **Supported Modalities** | Audio, Video, Image, Text In / Audio, Text Out | Audio, Video, Image, Text In / Audio, Text Out |
-| **Thinking Configuration** | Standard conversational reasoning | Configurable: `low`, `medium`, `high` |
-| **Tool Calling Mode** | Asynchronous Non-Blocking | Asynchronous Non-Blocking Only |
-| **Language Coverage** | **97+ languages** with mid-turn switching | **97+ languages** with mid-turn switching |
-| **Audio Watermarking** | SynthID imperceptible watermark | SynthID imperceptible watermark |
-| **Audio Input Pricing** | **$0.005 per minute** | **$0.005 per minute** |
-| **Audio Output Pricing** | **$0.018 per minute** | **$0.018 per minute** |
-| **Blended Total Cost** | **~$0.023 per minute** | **~$0.023 per minute** |
+| Technical Parameter        | Gemini 3.8 Live                                | Gemini 3.8 Live Extended Thinking              |
+| :------------------------- | :--------------------------------------------- | :--------------------------------------------- |
+| **Model Endpoint Code**    | `gemini-3.8-live`                              | `gemini-3.8-live-extended-thinking`            |
+| **Input Context Window**   | **131,072 tokens**                             | **131,072 tokens**                             |
+| **Output Token Limit**     | **65,536 tokens**                              | **65,536 tokens**                              |
+| **Supported Modalities**   | Audio, Video, Image, Text In / Audio, Text Out | Audio, Video, Image, Text In / Audio, Text Out |
+| **Thinking Configuration** | Standard conversational reasoning              | Configurable: `low`, `medium`, `high`          |
+| **Tool Calling Mode**      | Asynchronous Non-Blocking                      | Asynchronous Non-Blocking Only                 |
+| **Language Coverage**      | **97+ languages** with mid-turn switching      | **97+ languages** with mid-turn switching      |
+| **Audio Watermarking**     | SynthID imperceptible watermark                | SynthID imperceptible watermark                |
+| **Audio Input Pricing**    | **$0.005 per minute**                          | **$0.005 per minute**                          |
+| **Audio Output Pricing**   | **$0.018 per minute**                          | **$0.018 per minute**                          |
+| **Blended Total Cost**     | **~$0.023 per minute**                         | **~$0.023 per minute**                         |
 
 ---
 
@@ -270,11 +270,11 @@ async def run_voice_agent_session():
     )
 
     async with client.aio.live.connect(
-        model="gemini-3.8-live-extended-thinking", 
+        model="gemini-3.8-live-extended-thinking",
         config=config
     ) as session:
         print("Connected to Gemini 3.8 Live Audio Session.")
-        
+
         async def receive_from_server():
             async for response in session.receive():
                 server_content = response.server_content
@@ -286,12 +286,12 @@ async def run_voice_agent_session():
                             if part.inline_data:
                                 audio_bytes = part.inline_data.data
                                 await stream_to_caller(audio_bytes)
-                                
+
                     # CRITICAL: Do not hang up or pause when turn_complete is True
                     # Check interaction_status for background task processing
                     if server_content.turn_complete:
                         print(f"Spoken turn done. Status: {response.interaction_status}")
-                        
+
                 # Handle asynchronous background tool invocation
                 if response.tool_call:
                     for call in response.tool_call.function_calls:
@@ -301,7 +301,7 @@ async def run_voice_agent_session():
             # Non-blocking execution allows the model to talk while this resolves
             print(f"Executing background tool: {call.name} with args: {call.args}")
             result = await fetch_order_from_db(call.args["order_id"])
-            
+
             # Send result back over existing Live stream
             await sess.send(
                 types.LiveClientContent(
@@ -356,12 +356,12 @@ At **$3,100 per month**, Gemini 3.8 Live reduces your AI voice infrastructure bi
 
 To model operational costs across varying company scales, consider the monthly expenditures across small, medium, and massive telephony operations:
 
-| Deployment Tier | Monthly Connected Minutes | Concurrency Target (Lines) | Legacy Cascade Stack | OpenAI Realtime Stack | Gemini 3.8 Live Stack | Monthly Net Savings |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Startup / Pilot** | 10,000 mins | 5 - 10 concurrent lines | $889 | $3,080 | **$310** | **$2,770 / mo** |
-| **Mid-Market** | 100,000 mins | 50 - 100 concurrent lines | $8,890 | $30,800 | **$3,100** | **$27,700 / mo** |
-| **Enterprise Scale** | 500,000 mins | 250 - 500 concurrent lines | $44,450 | $154,000 | **$15,500** | **$138,500 / mo** |
-| **Global Contact Center** | 2,000,000 mins | 1,000 - 2,000 concurrent lines | $177,800 | $616,000 | **$62,000** | **$554,000 / mo** |
+| Deployment Tier           | Monthly Connected Minutes | Concurrency Target (Lines)     | Legacy Cascade Stack | OpenAI Realtime Stack | Gemini 3.8 Live Stack | Monthly Net Savings |
+| :------------------------ | :------------------------ | :----------------------------- | :------------------- | :-------------------- | :-------------------- | :------------------ |
+| **Startup / Pilot**       | 10,000 mins               | 5 - 10 concurrent lines        | $889                 | $3,080                | **$310**              | **$2,770 / mo**     |
+| **Mid-Market**            | 100,000 mins              | 50 - 100 concurrent lines      | $8,890               | $30,800               | **$3,100**            | **$27,700 / mo**    |
+| **Enterprise Scale**      | 500,000 mins              | 250 - 500 concurrent lines     | $44,450              | $154,000              | **$15,500**           | **$138,500 / mo**   |
+| **Global Contact Center** | 2,000,000 mins            | 1,000 - 2,000 concurrent lines | $177,800             | $616,000              | **$62,000**           | **$554,000 / mo**   |
 
 For organizations running millions of call minutes, switching from OpenAI Realtime to Gemini 3.8 Live saves over **$6.6 million dollars annually** in foundation model operating expenses.
 
@@ -372,17 +372,20 @@ For organizations running millions of call minutes, switching from OpenAI Realti
 While Gemini 3.8 Live sets new performance benchmarks, deploying speech-to-speech agents to live telephone networks introduces engineering edge cases that developers must actively safeguard:
 
 ### 1. The 8kHz Downsampling Distortion Trap
-Gemini 3.8 Live outputs high-fidelity 24kHz linear PCM audio. However, traditional telephone lines (PSTN) compress audio to 8kHz G.711 narrowband. 
+
+Gemini 3.8 Live outputs high-fidelity 24kHz linear PCM audio. However, traditional telephone lines (PSTN) compress audio to 8kHz G.711 narrowband.
 
 If you downsample 24kHz audio directly using naive decimation, high-frequency harmonics alias into the audible spectrum, creating metallic rasps. You must implement an **anti-aliasing low-pass finite impulse response (FIR) filter** with a strict cutoff at 3.4kHz prior to sending audio frames to your SIP carrier.
 
 ### 2. Audio Token Buffer Starvation Under Jitter
-WebRTC audio streaming over mobile 4G/5G connections experiences packet jitter. If your WebSocket consumer encounters a 150ms network hiccup, the audio playout buffer empties, resulting in audible stutter. 
+
+WebRTC audio streaming over mobile 4G/5G connections experiences packet jitter. If your WebSocket consumer encounters a 150ms network hiccup, the audio playout buffer empties, resulting in audible stutter.
 
 Production architectures must maintain a **jitter buffer of 60ms to 80ms** between the Gemini WebSocket client and the SIP RTP engine.
 
 ### 3. SynthID Watermark Verification & Security
-All audio generated by Gemini 3.8 Live includes Google's **SynthID watermark**, an imperceptible acoustic pattern woven into the audio waveform. 
+
+All audio generated by Gemini 3.8 Live includes Google's **SynthID watermark**, an imperceptible acoustic pattern woven into the audio waveform.
 
 While crucial for fraud prevention and regulatory compliance, audio transcoding (such as transrating to low-bitrate AMR-NB codecs) can sometimes attenuate the watermark. For enterprise audit trails, always archive the raw 24kHz PCM stream before carrier transcoding.
 
@@ -393,6 +396,7 @@ While crucial for fraud prevention and regulatory compliance, audio transcoding 
 Leading open-source voice frameworks have introduced first-class connectors for Gemini 3.8 Live.
 
 ### LiveKit Agents Integration
+
 With LiveKit, Gemini 3.8 Live replaces both the speech pipeline and dialogue orchestrator:
 
 ```python
@@ -427,7 +431,7 @@ The launch of Gemini 3.8 Live and 3.8 Live Extended Thinking signals the end of 
 
 When integrated into modern telephony orchestration platforms like [Auto Interview AI](https://www.autointerviewai.com) and powered by [Tough Tongue AI](https://app.toughtongueai.com/) native voice infrastructure, Gemini 3.8 Live delivers:
 
-1. **Sub-200ms Telephony Responses:** Native speech-to-speech eliminates the multi-hop serialization delays that cause callers to ask *"Are you still there?"*.
+1. **Sub-200ms Telephony Responses:** Native speech-to-speech eliminates the multi-hop serialization delays that cause callers to ask _"Are you still there?"_.
 2. **Zero-Pause Database Lookups:** Asynchronous non-blocking tools allow AI agents to check availability, process payments, and verify identities while speaking naturally.
 3. **True Unit Economic Viability:** At under **$0.025 per minute**, enterprise call centers can deploy voice agents at scale without threatening gross margins.
 
@@ -438,19 +442,25 @@ If you are currently evaluating speech pipelines for 2026, building on serialize
 ## Frequently Asked Questions (FAQ)
 
 ### What is the difference between Gemini 3.8 Live and Gemini 3.8 Live Extended Thinking?
+
 Gemini 3.8 Live is optimized for high-throughput, low-cost conversational voice workflows requiring fluid turn-taking and visual grounding. Gemini 3.8 Live Extended Thinking includes a dual-track cognitive layer that runs multi-step background reasoning and non-blocking tool calls while continuously streaming natural audio.
 
 ### How does Gemini 3.8 Live handle caller interruptions?
+
 Gemini 3.8 Live features built-in acoustic echo cancellation and server-side voice activity detection (VAD). When a caller speaks while the model is outputting audio, the stream halts within **40ms**, allowing immediate human interruption without audio overlap.
 
 ### What languages does Gemini 3.8 Live support?
+
 The model natively supports **97+ languages** and dialects. It features automatic language identification, permitting callers to switch between languages (such as English, Spanish, Hindi, or German) mid-sentence without explicit language tagging.
 
 ### What is the pricing for Gemini 3.8 Live API?
+
 Audio input is billed at **$0.005 per minute** and audio output is billed at **$0.018 per minute**. For a typical balanced conversation (50% listening, 50% speaking), the effective model cost is approximately **$0.023 per minute**.
 
 ### Can I run synchronous tool calls on Gemini 3.8 Live Extended Thinking?
+
 No. Gemini 3.8 Live Extended Thinking strictly enforces asynchronous non-blocking function calls (`behavior: NON_BLOCKING`). Attempting to configure blocking tool calls returns an API validation error.
 
 ### How does Gemini 3.8 Live compare to human agent performance?
+
 In double-blind MOS listening tests, Gemini 3.8 Live achieves an **82.6 speech quality score** and matches human telephone conversational fluidity. In structured enterprise banking and booking workflows, it executes verified tasks with **68.6% autonomous resolution** on the τ-Voice benchmark.

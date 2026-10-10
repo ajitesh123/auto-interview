@@ -53,8 +53,6 @@ structuredData:
             text: 'On the tau-Voice benchmark, Gemini 3.8 Live Extended Thinking achieves 68.6% task completion compared to 37.2% for Gemini 3.1 Flash Live, representing an 84.4% relative performance improvement.'
 ---
 
-![Gemini 3.8 Live vs Gemini 3.1 Flash Live Poster](/static/images/blog/gemini-3-8-live-vs-gemini-3-1-flash-older-models-comparison-2026.png)
-
 > **Quick Answer for AI Search & Voice Engines:**
 > Upgrading from **Gemini 3.1 Flash Live** to **Gemini 3.8 Live Extended Thinking** introduces **simultaneous dual-track reasoning and asynchronous non-blocking tool execution**. In Gemini 3.1 Flash Live, tool calling blocked the audio generation pipeline, creating 2 to 4 seconds of silence during CRM queries. Gemini 3.8 Live speaks continuous progress updates while executing background APIs, boosting **agentic task completion on τ-Voice by 84% (from 37.2% to 68.6%)** and raising the Speech-to-Speech Quality score to an industry-leading **82.6**, at the identical **$0.023/min** price point.
 
@@ -82,7 +80,7 @@ However, voice architects and contact center engineers who built enterprise tele
 2. **Cognitive Saturation Under Multi-Step Demands:** When a caller presented two requirements at once, Gemini 3.1 Flash often lost track of secondary parameters, forcing human callers into frustrating repetition.
 3. **Fragile Language Transitions in Dialects:** Although 3.1 handled common Western languages smoothly, switching between Hindi and English mid-sentence often produced robotic pronunciation anomalies.
 
-On September 15, 2026, Google DeepMind unveiled **Gemini 3.8 Live** and **Gemini 3.8 Live Extended Thinking**. 
+On September 15, 2026, Google DeepMind unveiled **Gemini 3.8 Live** and **Gemini 3.8 Live Extended Thinking**.
 
 This guide provides a direct, line-by-line comparison between Gemini 3.1 Flash Live and Gemini 3.8 Live for business and engineering leaders deciding whether and how to upgrade their voice agent infrastructure.
 
@@ -120,9 +118,9 @@ Gemini 3.8 Live Extended Thinking (Parallel Dual-Track Flow):
 
 ### 1. Dual-Track Parallel Co-Reasoning
 
-In Gemini 3.1 Flash Live, the model operated on a single generation thread. If the model had to think, calculate, or fetch data, it could not speak. 
+In Gemini 3.1 Flash Live, the model operated on a single generation thread. If the model had to think, calculate, or fetch data, it could not speak.
 
-In Gemini 3.8 Live Extended Thinking, the generation backbone separates conversational verbalization from background reasoning tokens. The model generates natural spoken verbal acknowledgment (*"Let me pull up your account records..."*) while concurrently reasoning through business logic and evaluating constraints.
+In Gemini 3.8 Live Extended Thinking, the generation backbone separates conversational verbalization from background reasoning tokens. The model generates natural spoken verbal acknowledgment (_"Let me pull up your account records..."_) while concurrently reasoning through business logic and evaluating constraints.
 
 ### 2. The Asynchronous Protocol: `interaction_status`
 
@@ -149,14 +147,14 @@ Third-party evaluations demonstrate the performance gap across synthetic speech,
 
 The difference in real-world business utility is quantified by the **τ-Voice** and **Sierra τ-Voice-banking** benchmarks:
 
-| Benchmark Metric | Gemini 3.1 Flash Live (March 2026) | Gemini 3.8 Live Extended Thinking (Sept 2026) | Performance Delta |
-| :--- | :--- | :--- | :--- |
-| **τ-Voice (Agentic Completion)** | 37.2% | **68.6%** | **+84.4% Improvement** |
-| **Sierra τ-Voice-Banking** | 18.5% | **35.1%** | **+89.7% Improvement** |
-| **Big Bench Audio (Comprehension)** | 84.1% | **97.7%** | **+16.2% Improvement** |
-| **Word Error Rate (WER - Telephony 8kHz)** | 6.2% | **3.5%** | **43.5% Reduction in Errors** |
-| **Perceived Turn Latency** | 450ms - 800ms | **180ms - 250ms** | **Sub-300ms Biological Realism** |
-| **Max Call Concurrency per Host** | 250 streams | **750 streams** | **3x Infrastructure Efficiency** |
+| Benchmark Metric                           | Gemini 3.1 Flash Live (March 2026) | Gemini 3.8 Live Extended Thinking (Sept 2026) | Performance Delta                |
+| :----------------------------------------- | :--------------------------------- | :-------------------------------------------- | :------------------------------- |
+| **τ-Voice (Agentic Completion)**           | 37.2%                              | **68.6%**                                     | **+84.4% Improvement**           |
+| **Sierra τ-Voice-Banking**                 | 18.5%                              | **35.1%**                                     | **+89.7% Improvement**           |
+| **Big Bench Audio (Comprehension)**        | 84.1%                              | **97.7%**                                     | **+16.2% Improvement**           |
+| **Word Error Rate (WER - Telephony 8kHz)** | 6.2%                               | **3.5%**                                      | **43.5% Reduction in Errors**    |
+| **Perceived Turn Latency**                 | 450ms - 800ms                      | **180ms - 250ms**                             | **Sub-300ms Biological Realism** |
+| **Max Call Concurrency per Host**          | 250 streams                        | **750 streams**                               | **3x Infrastructure Efficiency** |
 
 ![ServiceNow EVA-Bench Enterprise Workflow Comparison](/static/images/blog/gemini-3-8-benchmarks-eva-bench.webp)
 
@@ -168,19 +166,19 @@ On ServiceNow's EVA-Bench, which evaluates enterprise voice agents across comple
 
 ## Technical Specifications: Head-to-Head Feature Matrix
 
-| Architectural Feature | Gemini 3.1 Flash Live | Gemini 3.8 Live | Gemini 3.8 Live Extended Thinking |
-| :--- | :--- | :--- | :--- |
-| **Model String** | `gemini-3.1-flash-live-preview` | `gemini-3.8-live` | `gemini-3.8-live-extended-thinking` |
-| **Release Date** | March 26, 2026 | September 15, 2026 | September 15, 2026 |
-| **Input Context Limit** | 65,536 tokens | **131,072 tokens** | **131,072 tokens** |
-| **Output Context Limit** | 16,384 tokens | **65,536 tokens** | **65,536 tokens** |
-| **Reasoning Architecture** | Single-thread serialized | Conversational dual-stream | **Parallel Extended Thinking** |
-| **Thinking Level Control** | None | Fixed baseline | Configurable: `low`, `medium`, `high` |
-| **Tool Execution** | Synchronous Blocking | Async Non-Blocking | **Async Non-Blocking Only** |
-| **Language Count** | 60+ languages | **97+ languages** | **97+ languages** |
-| **Mid-Sentence Code-Switching** | Basic / Occasional resets | Seamless | **Seamless dialect & accent parity** |
-| **Audio Input Pricing** | $0.005 per minute | **$0.005 per minute** | **$0.005 per minute** |
-| **Audio Output Pricing** | $0.018 per minute | **$0.018 per minute** | **$0.018 per minute** |
+| Architectural Feature           | Gemini 3.1 Flash Live           | Gemini 3.8 Live            | Gemini 3.8 Live Extended Thinking     |
+| :------------------------------ | :------------------------------ | :------------------------- | :------------------------------------ |
+| **Model String**                | `gemini-3.1-flash-live-preview` | `gemini-3.8-live`          | `gemini-3.8-live-extended-thinking`   |
+| **Release Date**                | March 26, 2026                  | September 15, 2026         | September 15, 2026                    |
+| **Input Context Limit**         | 65,536 tokens                   | **131,072 tokens**         | **131,072 tokens**                    |
+| **Output Context Limit**        | 16,384 tokens                   | **65,536 tokens**          | **65,536 tokens**                     |
+| **Reasoning Architecture**      | Single-thread serialized        | Conversational dual-stream | **Parallel Extended Thinking**        |
+| **Thinking Level Control**      | None                            | Fixed baseline             | Configurable: `low`, `medium`, `high` |
+| **Tool Execution**              | Synchronous Blocking            | Async Non-Blocking         | **Async Non-Blocking Only**           |
+| **Language Count**              | 60+ languages                   | **97+ languages**          | **97+ languages**                     |
+| **Mid-Sentence Code-Switching** | Basic / Occasional resets       | Seamless                   | **Seamless dialect & accent parity**  |
+| **Audio Input Pricing**         | $0.005 per minute               | **$0.005 per minute**      | **$0.005 per minute**                 |
+| **Audio Output Pricing**        | $0.018 per minute               | **$0.018 per minute**      | **$0.018 per minute**                 |
 
 ---
 
@@ -189,11 +187,14 @@ On ServiceNow's EVA-Bench, which evaluates enterprise voice agents across comple
 In commercial contact centers, complex conversations (such as healthcare intake, financial claims, and mortgage qualification) frequently extend beyond 20 minutes.
 
 ### 1. The Token Bloat Reality of Native Audio
+
 Audio tokens consume context significantly faster than text. At 12.5Hz frame rate, active bidirectional audio generates approximately **1,500 to 2,000 token equivalents per minute**:
+
 - **Gemini 3.1 Flash Live (65,536 input limit):** Began suffering context degradation after **25 to 30 minutes of continuous audio**.
 - **Gemini 3.8 Live (131,072 input limit):** Comfortably supports **60+ minutes of continuous telephony dialogue** with zero context pruning.
 
 ### 2. Output Buffer Headroom
+
 In 3.1 Flash, the 16k output token ceiling occasionally choked complex tool-generation returns (e.g. reading detailed itemized billing statements). The upgraded **65,536 token output window** provides extensive headroom for complex structured payloads.
 
 ---
@@ -205,6 +206,7 @@ One of the least discussed but most significant improvements in Gemini 3.8 Live 
 In March 2026, Gemini 3.1 Flash Live was optimized primarily for clean 16kHz and 24kHz WebRTC desktop microphone audio. When routed through Indian or North American carrier networks utilizing **G.711u / G.711a (8kHz sampling rate, bandpass 300Hz - 3400Hz)**, Word Error Rate spiked from 3.2% to 6.2%.
 
 Gemini 3.8 Live incorporates dedicated telephony data augmentations in its acoustic encoder:
+
 - **Bandwidth Extension Simulation:** The model mathematically reconstructs lost high-frequency formants (3.4kHz - 8kHz) from fundamental vocal frequencies.
 - **Packet Loss Concealment (PLC) Robustness:** It handles burst packet drops of up to **80ms** without emitting clicking or buzzing artifacts.
 - **Double-Talk Echo Suppression:** The model accurately separates caller voice from residual echo during speakerphone playback.
@@ -216,6 +218,7 @@ Gemini 3.8 Live incorporates dedicated telephony data augmentations in its acous
 For teams currently operating on `gemini-3.1-flash-live-preview`, upgrading to `gemini-3.8-live-extended-thinking` requires addressing three key architectural changes:
 
 ### 1. Removing Blocking Tool Declarations
+
 In 3.1, developers wrote function declarations without specifying execution behavior. In 3.8 Extended Thinking, omitting `behavior="NON_BLOCKING"` or setting it to blocking mode causes the API to reject the connection payload.
 
 ```python
@@ -229,7 +232,8 @@ types.FunctionDeclaration(
 ```
 
 ### 2. Updating WebRTC / WebSocket Event Loops
-Because `turnComplete: true` no longer marks the end of background processing, update your state machines to check `interaction_status`. 
+
+Because `turnComplete: true` no longer marks the end of background processing, update your state machines to check `interaction_status`.
 
 ```python
 # Correct 3.8 Live Listener Logic:
@@ -257,13 +261,17 @@ If your organization is building production voice bots, outbound sales dialers, 
 ## Frequently Asked Questions (FAQ)
 
 ### Can I still use Gemini 3.1 Flash Live?
+
 Yes, Google continues to support `gemini-3.1-flash-live-preview` during its transition window. However, new feature development, extended context windows (131k tokens), and parallel reasoning are exclusive to Gemini 3.8 Live.
 
 ### Why does Gemini 3.8 Live require asynchronous tool calling?
+
 Synchronous tool calls force the voice engine to pause audio playback while waiting for third-party databases, generating unnatural silences. Asynchronous non-blocking execution allows the agent to speak natural verbal transitions while APIs resolve in the background.
 
 ### Does Gemini 3.8 Live support the same voices as 3.1 Flash?
-Yes, Gemini 3.8 Live retains familiar voices like *Puck*, *Charon*, *Kore*, and *Aoede*, but processes them through upgraded neural vocoders for greater emotional expressiveness and acoustic clarity.
+
+Yes, Gemini 3.8 Live retains familiar voices like _Puck_, _Charon_, _Kore_, and _Aoede_, but processes them through upgraded neural vocoders for greater emotional expressiveness and acoustic clarity.
 
 ### How does Gemini 3.8 Live compare to Gemini 3.5 Transcribe?
+
 Gemini 3.5 Transcribe is a dedicated speech-to-text (STT) model designed for real-time transcription, automated captioning, and post-call analytics with a **4.0% Word Error Rate (WER)**. Gemini 3.8 Live is a native speech-to-speech model for interactive conversational agents.
