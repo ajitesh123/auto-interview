@@ -111,7 +111,7 @@ To calculate the exact networking and GPU compute resources required for 1,000 s
 For standard G.711 telephony audio (64 kbps per direction + 16 kbps IP/UDP/RTP overhead = 80 kbps per stream):
 
 $$
-\text{Total Bandwidth} = 1,000 \text{ calls} \times 2 \text{ directions} \times 80 \text{ kbps} = 160 \text{ Mbps}
+\text{Total Bandwidth} = 1,000 \text{ calls} times 2 \text{ directions} times 80 \text{ kbps} = 160 \text{ Mbps}
 $$
 
 A standard 1 Gbps cloud fiber connection easily handles 1,000 concurrent calls with **over 80% headroom**.
@@ -124,7 +124,7 @@ Using modern optimized Voice-to-Voice foundation models with PagedAttention:
 - 1,000 concurrent calls require:
 
 $$
-\text{Total VRAM} = 1,000 \times 22 \text{ MB} = 22 \text{ GB}
+\text{Total VRAM} = 1,000 times 22 \text{ MB} = 22 \text{ GB}
 $$
 
 A single **NVIDIA L40S GPU (48GB VRAM)** or a dual **NVIDIA A10G cluster (48GB VRAM)** comfortably processes 1,000 parallel conversations in real time without latency degradation.

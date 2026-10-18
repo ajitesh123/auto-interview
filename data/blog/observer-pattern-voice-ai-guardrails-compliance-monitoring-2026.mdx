@@ -387,7 +387,7 @@ If your sentiment analyzer is too sensitive, it will warn the agent constantly, 
 
 ### 3. Observer Crashes
 
-What happens when the observer itself crashes? If you do not isolate the observer task, it can drag down the main WebRTC connection. Notice in the production code above how we wrap the worker loop in a massive `try/except` block. If a specific ML model invocation fails, we \log it and continue. Do not let a broken sentiment model cause a total call drop. Always design your system so the primary conversation can degrade gracefully if the observer goes offline.
+What happens when the observer itself crashes? If you do not isolate the observer task, it can drag down the main WebRTC connection. Notice in the production code above how we wrap the worker loop in a massive `try/except` block. If a specific ML model invocation fails, we log it and continue. Do not let a broken sentiment model cause a total call drop. Always design your system so the primary conversation can degrade gracefully if the observer goes offline.
 
 ## How Tough Tongue AI Helps
 

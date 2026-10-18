@@ -17,7 +17,7 @@ structuredData:
 
 > **Executive Summary & Technical Definition**
 >
-> - **What is Speech-to-Text (STT)?** Speech-to-Text, also known as **Automatic Speech Recognition (ASR)**, is the computational discipline of converting continuous analog acoustic soundwaves into written a\alphanumeric text tokens in real time.
+> - **What is Speech-to-Text (STT)?** Speech-to-Text, also known as **Automatic Speech Recognition (ASR)**, is the computational discipline of converting continuous analog acoustic soundwaves into written alphanumeric text tokens in real time.
 > - **The Core Mechanism:** Modern STT samples audio at **16,000 samples per second**, applies Short-Time Fourier Transforms (STFT) across 25ms windows to generate 128-channel Log-Mel spectrograms, processes frequency patterns through hybrid **Conformer-2 neural encoders**, and aligns phonetic sequences using **Connectionist Temporal Classification (CTC)** in **60ms to 120ms**.
 > - **The Accuracy Threshold:** Word Error Rate (WER) on clean conversational English has crossed the human parity threshold (**2.60% to 3.20%**). On compressed 8kHz cellular phone lines, modern models with SpecAugment regularization maintain WER below **4.50%**, enabling autonomous voice agents to understand complex dialogues and multilingual code-switching (Hinglish).
 
@@ -103,17 +103,17 @@ Raw 16kHz PCM Time Series x[n]
               │
               ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Discrete Fourier Transform: X(m, \omega) = \sum x(n) w(n - mR) e^{-j\omega n}│
+│ 2. Discrete Fourier Transform: X(m, \omega) = sum x(n) w(n - mR) e^{-j\omega n}│
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Mel Filterbank Integration: 128 Triangular Filters                  │
-│    m = 2595 \cdot \log_{10}(1 + f / 700)                               │
+│    m = 2595 \cdot log_{10}(1 + f / 700)                               │
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
-[Log-Mel Spectrogram Energy Matrix L \in \mathbb{R}^{T \times 128}]
+[Log-Mel Spectrogram Energy Matrix L \in \mathbb{R}^{T times 128}]
 ```
 
 ### The Log-Mel Frequency Transformation
@@ -126,7 +126,7 @@ $$
 m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
 $$
 
-Taking the natural logarithm of the filtered power spectrum yields the **Log-Mel Spectrogram Matrix** $\mathbf{L} \in \mathbb{R}^{T \times 128}$, representing acoustic energy across 128 frequency channels over time frames $T$.
+Taking the natural logarithm of the filtered power spectrum yields the **Log-Mel Spectrogram Matrix** $\mathbf{L} \in \mathbb{R}^{T times 128}$, representing acoustic energy across 128 frequency channels over time frames $T$.
 
 ---
 
@@ -227,7 +227,7 @@ $$
 \right] P(y'_s \mid \mathbf{x}_t)
 $$
 
-In streaming applications, dynamic programming solves the CTC lattice in linear time $\mathcal{O}(T \cdot U)$, allowing streaming ASR engines to emit \partial transcripts in **&lt;60ms**.
+In streaming applications, dynamic programming solves the CTC lattice in linear time $\mathcal{O}(T \cdot U)$, allowing streaming ASR engines to emit partial transcripts in **&lt;60ms**.
 : CTC vs RNN-Transducer
 
 In speech recognition, input audio frames ($T$) vastly outnumber output text characters ($U$). For example, 1 second of audio produces **100 spectrogram frames**, but only **3 to 4 spoken words**.
@@ -265,7 +265,7 @@ Decoding Strategy Comparison:
 
 2. Speculative Beam Search with N-Gram / Neural LM Fusion:
    Maintains top-B candidate prefix hypotheses across a search tree:
-   \hat{\mathbf{W}} = \a\argmax_{\mathbf{W}} \left( \log P_{\text{CTC}}(\mathbf{W} \mid \mathbf{X}) + \alpha \log P_{\text{LM}}(\mathbf{W}) + \beta |\mathbf{W}|
+   \hat{\mathbf{W}} = \a\argmax_{\mathbf{W}} \left( \log P_{\text{CTC}}(\mathbf{W} \mid \mathbf{X}) + alpha \log P_{\text{LM}}(\mathbf{W}) + beta |\mathbf{W}|
 \right)
    - Latency: 25ms - 45ms
    - Advantage: Corrects phonetic homophones ("there" vs "their", "two" vs "too").
@@ -286,7 +286,7 @@ Batch vs Streaming ASR Execution Comparison:
 
 2. Streaming CTC ASR (e.g., Deepgram Nova-3 / TTGE Engine):
    User Speaks ──► [Process 20ms Audio Chunks \in Real Time: <60ms Streaming Latency]
-   - Emits \partial \text transcripts every 40ms \to 60ms.
+   - Emits partial \text transcripts every 40ms \to 60ms.
    - Downstream LLM begins reasoning while the user is still finishing their sentence!
 ```
 
@@ -358,8 +358,8 @@ Original Log-Mel Spectrogram
              │
              ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Time Masking: Blocks out random time strips \Delta t                │
-│ 2. Frequency Masking: Blocks out random frequency channels \Delta f    │
+│ 1. Time Masking: Blocks out random time strips Delta t                │
+│ 2. Frequency Masking: Blocks out random frequency channels Delta f    │
 └────────────────────────────────────────────────────────────────────────┘
              │
              ▼
@@ -368,7 +368,7 @@ Original Log-Mel Spectrogram
 
 During training, **SpecAugment** randomly masks horizontal frequency bands and vertical time blocks on the spectrogram.
 
-This mathematical regularization forces the neural network to identify words based on \partial phonetic cues, ensuring high accuracy even during noisy cellular static.
+This mathematical regularization forces the neural network to identify words based on partial phonetic cues, ensuring high accuracy even during noisy cellular static.
 
 ---
 
@@ -433,7 +433,7 @@ Input Audio: "Mera account balance kitna hai? Please check."
                             │
                             ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Joint Acoustic Phoneme Representation (Devanagari + Roman A\alphabets)   │
+│ Joint Acoustic Phoneme Representation (Devanagari + Roman Alphabets)   │
 │ - Maps shared phonetic roots across 12 Indian Languages                │
 └────────────────────────────────────────────────────────────────────────┘
                             │
@@ -467,7 +467,7 @@ Modern multilingual foundation models deploy **Joint Acoustic-Semantic Tokenizer
 
 ## 9. Python Implementation: Production Streaming ASR Client with Custom Word Biasing
 
-Below is a complete, runnable Python client demonstrating how to establish a low-latency streaming WebSocket connection to an enterprise STT engine, inject custom industry vocabulary multipliers, and process real-time \partial transcripts:
+Below is a complete, runnable Python client demonstrating how to establish a low-latency streaming WebSocket connection to an enterprise STT engine, inject custom industry vocabulary multipliers, and process real-time partial transcripts:
 
 ```python
 import asyncio
@@ -478,7 +478,7 @@ from typing import AsyncGenerator
 
 class StreamingASRClient:
     """
-    Production-grade streaming Speech-to-Text client with real-time \partial token emission,
+    Production-grade streaming Speech-to-Text client with real-time partial token emission,
     custom vocabulary biasing, and disfluency filtering.
     """
     def __init__(self, websocket_uri: str, api_key: str):
@@ -529,7 +529,7 @@ class StreamingASRClient:
 ## 10. Frequently Asked Questions
 
 **What is the difference between ASR and STT?**
-ASR (Automatic Speech Recognition) and STT (Speech-to-Text) are synonymous terms referring to the computational technology that converts audio soundwaves into written a\alphanumeric text.
+ASR (Automatic Speech Recognition) and STT (Speech-to-Text) are synonymous terms referring to the computational technology that converts audio soundwaves into written alphanumeric text.
 
 **What is Word Error Rate (WER) and how is it calculated?**
 Word Error Rate is the global standard for measuring transcription accuracy: $\text{WER} = \frac{S + D + I}{N}$, where $S$ is word substitutions, $D$ is deletions, $I$ is insertions, and $N$ is total spoken words.

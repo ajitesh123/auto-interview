@@ -241,7 +241,7 @@ Voice agents require tight coordination between speech recognition and conversat
 ```\text
 Deepgram Flux Turn Lifecycle:
 Client Audio ──► [StartOfTurn] ──► [Update (0.25s)] ──► [EagerEndOfTurn] ──► [EndOfTurn (260ms)]
-(Dedicated server events for barge-\in and speculative generation)
+(Dedicated server events for barge-in and speculative generation)
 
 Gemini 3.5 Transcribe Live Lifecycle:
 Client Audio ──► [Interim Stream] ──► [Speculative Decode] ──► [Final Chunk (&lt;200ms)]
@@ -254,7 +254,7 @@ Deepgram provides **Flux** (`model=flux-general-en`), which integrates acoustic 
 
 - **`StartOfTurn`:** Emits immediately when speech begins, providing a clean trigger for barge-in.
 - **`EagerEndOfTurn`:** Emits an early completion signal, allowing voice agents to pre-fetch LLM responses.
-- **`EndOfTurn`:** Final turn boundary emitted in a\approximately **260ms**.
+- **`EndOfTurn`:** Final turn boundary emitted in approximately **260ms**.
 
 ### Gemini 3.5 Transcribe Live Advantage
 
@@ -335,7 +335,7 @@ from google.genai import types
 async def run_gemini_transcribe_stream(audio_stream):
     client = genai.Client(
         api_key=os.getenv("GEMINI_API_KEY"),
-        http_options={'api_version': 'v1a\alpha'}
+        http_options={'api_version': 'v1aalpha'}
     )
 
     config = types.LiveConnectConfig(

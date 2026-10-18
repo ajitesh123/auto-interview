@@ -230,10 +230,10 @@ The Core Mathematical Formulations:
    Q^*(s, a) = \mathcal{R}(s, a) + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}(s' \mid s, a) \max_{a'} Q^*(s', a')
 
 3. Shannon Intent Entropy across Conversational Dialogue States:
-   H(I) = -\sum_{i=1}^{M} P(i) \log_2 P(i)
+   H(I) = -\sum_{i=1}^{M} P(i) log_2 P(i)
 
 4. Direct Preference Optimization Policy Objective:
-   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+   \mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln sigma \left(beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 ```
 
 Where a voicebot has static transition probabilities $\mathcal{P}(s' \mid s, a) \in \{0, 1\}$, an autonomous agent solves the Bellman optimality equation dynamically at each conversational turn.
@@ -378,7 +378,7 @@ Modern DSP filters isolate the caller's voice even while the agent is speaking a
 In 2026, autonomous voice agents improve dynamically from real-world phone call outcomes using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 $$
 
 Conversations where callers experienced seamless issue resolution without interruption are marked as preferred trajectories ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically over time.
@@ -387,13 +387,13 @@ Conversations where callers experienced seamless issue resolution without interr
 
 ### 2026 Comprehensive Voice Architecture Benchmark Matrix
 
-| Conversational Architecture  | Core Neural Mechanism                                 | Median Turnaround (P50) | Tail Latency (P99) | Resolution Rate | Cost per Calling Minute            |
-| ---------------------------- | ----------------------------------------------------- | ----------------------- | ------------------ | --------------- | ---------------------------------- |
-| **Legacy IVR Decision Tree** | Touch-Tone DTMF Keypads                               | **2,500ms**             | **5,000ms**        | **22.4%**       | **\$0.080 / min** (Telco)          |
-| **Cascaded Voicebot (2023)** | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS Chain | **620ms**               | **1,450ms**        | **58.2%**       | **\$0.086 / min**                  |
-| **OpenAI Realtime API**      | Cloud Multimodal Audio                                | **250ms**               | **480ms**          | **78.5%**       | **\$0.120 - \$0.300 / min**        |
-| **Google Gemini Live**       | Multimodal Audio Core                                 | **220ms**               | **420ms**          | **81.0%**       | Enterprise Quota                   |
-| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                             | **&lt;180ms**           | **&lt;265ms**      | **86.8%**       | **₹3.50 / min (\$0.042/min flat)** |
+| Conversational Architecture  | Core Neural Mechanism                         | Median Turnaround (P50) | Tail Latency (P99) | Resolution Rate | Cost per Calling Minute            |
+| ---------------------------- | --------------------------------------------- | ----------------------- | ------------------ | --------------- | ---------------------------------- |
+| **Legacy IVR Decision Tree** | Touch-Tone DTMF Keypads                       | **2,500ms**             | **5,000ms**        | **22.4%**       | **\$0.080 / min** (Telco)          |
+| **Cascaded Voicebot (2023)** | STT $\rightarrow$ LLM $\rightarrow$ TTS Chain | **620ms**               | **1,450ms**        | **58.2%**       | **\$0.086 / min**                  |
+| **OpenAI Realtime API**      | Cloud Multimodal Audio                        | **250ms**               | **480ms**          | **78.5%**       | **\$0.120 - \$0.300 / min**        |
+| **Google Gemini Live**       | Multimodal Audio Core                         | **220ms**               | **420ms**          | **81.0%**       | Enterprise Quota                   |
+| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                     | **&lt;180ms**           | **&lt;265ms**      | **86.8%**       | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Universal Multilingual Pre-Training and Global Accent Invariance
 
@@ -403,20 +403,20 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 ## 7. 25-Point Comparison Matrix: Voice Bot vs AI Voice Agent
 
-| Architectural Dimension           | Traditional Voice Bot       | Cascaded Voicebot (2023)                              | Autonomous AI Voice Agent (TTGE)           |
-| --------------------------------- | --------------------------- | ----------------------------------------------------- | ------------------------------------------ |
-| **Core Architecture**             | Rigid Finite State Machine  | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS Chain | **Unified Multimodal Foundation V2V**      |
-| **Turnaround Latency ($P_{50}$)** | **1,500ms - 3,000ms**       | **650ms - 1,200ms**                                   | **&lt;180ms (Biological Human Rhythm)**    |
-| **Multi-Turn Context Memory**     | 0 Turns (Stateless Tree)    | 2 to 4 Turns (Text Buffer)                            | **Persistent Multi-Turn Context**          |
-| **Barge-In Interruption**         | Mutes on loud volume        | 150ms - 300ms                                         | **&lt;40ms (Frame-Level Gating)**          |
-| **Acoustic Information**          | None (Flat text)            | 100% Lost at STT boundary                             | **100% Native Continuous Latents**         |
-| **Objection Reframing**           | Plays "Invalid Option"      | Generic text apologies                                | **Dynamic Strategic Reframing**            |
-| **Live Database Webhooks**        | Static PBX Dips             | Fragile REST wrappers                                 | **Native Asynchronous Multi-Tool Calling** |
-| **Hinglish & Regional Dialects**  | Fails on code-switching     | Moderate accuracy                                     | **Native SOTA Multilingual Models**        |
-| **Average Resolution Rate**       | **15% - 28%**               | **45% - 60%**                                         | **78% - 88% End-to-End**                   |
-| **Human Escalation Rate**         | **72% - 85%**               | **40% - 55%**                                         | **12% - 22% (4x Reduction)**               |
-| **Setup & Ramp Time**             | **2 to 4 Months**           | **2 to 4 Weeks**                                      | **&lt;2 Minutes (Web Dashboard)**          |
-| **All-In Cost per Minute**        | **\$0.080 - \$0.150 / min** | **\$0.084 - \$0.140 / min**                           | **₹3.50 / min (\$0.042/min flat)**         |
+| Architectural Dimension           | Traditional Voice Bot       | Cascaded Voicebot (2023)                      | Autonomous AI Voice Agent (TTGE)           |
+| --------------------------------- | --------------------------- | --------------------------------------------- | ------------------------------------------ |
+| **Core Architecture**             | Rigid Finite State Machine  | STT $\rightarrow$ LLM $\rightarrow$ TTS Chain | **Unified Multimodal Foundation V2V**      |
+| **Turnaround Latency ($P_{50}$)** | **1,500ms - 3,000ms**       | **650ms - 1,200ms**                           | **&lt;180ms (Biological Human Rhythm)**    |
+| **Multi-Turn Context Memory**     | 0 Turns (Stateless Tree)    | 2 to 4 Turns (Text Buffer)                    | **Persistent Multi-Turn Context**          |
+| **Barge-In Interruption**         | Mutes on loud volume        | 150ms - 300ms                                 | **&lt;40ms (Frame-Level Gating)**          |
+| **Acoustic Information**          | None (Flat text)            | 100% Lost at STT boundary                     | **100% Native Continuous Latents**         |
+| **Objection Reframing**           | Plays "Invalid Option"      | Generic text apologies                        | **Dynamic Strategic Reframing**            |
+| **Live Database Webhooks**        | Static PBX Dips             | Fragile REST wrappers                         | **Native Asynchronous Multi-Tool Calling** |
+| **Hinglish & Regional Dialects**  | Fails on code-switching     | Moderate accuracy                             | **Native SOTA Multilingual Models**        |
+| **Average Resolution Rate**       | **15% - 28%**               | **45% - 60%**                                 | **78% - 88% End-to-End**                   |
+| **Human Escalation Rate**         | **72% - 85%**               | **40% - 55%**                                 | **12% - 22% (4x Reduction)**               |
+| **Setup & Ramp Time**             | **2 to 4 Months**           | **2 to 4 Weeks**                              | **&lt;2 Minutes (Web Dashboard)**          |
+| **All-In Cost per Minute**        | **\$0.080 - \$0.150 / min** | **\$0.084 - \$0.140 / min**                   | **₹3.50 / min (\$0.042/min flat)**         |
 
 ---
 

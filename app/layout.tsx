@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   // Configure title template and default title
   title: {
     default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`, // Format: [Page Name] | [Site Title]
+    template: '%s',
   },
   description: siteMetadata.description,
   keywords: siteMetadata.keywords,

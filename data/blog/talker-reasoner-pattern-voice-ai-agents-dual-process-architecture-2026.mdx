@@ -53,7 +53,7 @@ Here is a quick overview of what we will cover in this technical deep dive befor
 | Core Mechanics | A fast "Talker" LLM handles immediate conversation     |
 |                | while a slower "Reasoner" LLM executes complex tools.  |
 | Primary Goal   | Eliminate dead air and awkward pauses \in voice agents. |
-| Key Benefit    | Human-like response \times even during heavy operations.|
+| Key Benefit    | Human-like response x even during heavy operations.|
 | Best For       | High-latency AI tasks, complex APIs, database queries. |
 +-------------------------------------------------------------------------+
 ```
@@ -208,7 +208,7 @@ if __name__ == "__main__":
     asyncio.run(handle_turn("What is my account balance?"))
 ```
 
-In this architecture, the user hears "Let me pull up your account \right now..." almost instantly. The silence is masked.
+In this architecture, the user hears "Let me pull up your account right now..." almost instantly. The silence is masked.
 
 ## 3 Production Gotchas I Learned The Hard Way
 
@@ -216,7 +216,7 @@ It looks clean on paper, but distributed state is always messy. Here are the spe
 
 ### 1. The Mid-Sentence Race Condition
 
-What happens if the Reasoner finishes its API call very quickly, \right in the middle of the Talker saying "Let me pull up your..."? If you do not handle audio buffer flushing, the Talker will abruptly cut itself off and blurt out the answer. You must implement a queuing system. If the Talker is currently synthesizing TTS audio, the Reasoner's result must be enqueued and played only after the current sentence finishes.
+What happens if the Reasoner finishes its API call very quickly, right in the middle of the Talker saying "Let me pull up your..."? If you do not handle audio buffer flushing, the Talker will abruptly cut itself off and blurt out the answer. You must implement a queuing system. If the Talker is currently synthesizing TTS audio, the Reasoner's result must be enqueued and played only after the current sentence finishes.
 
 ### 2. The Reasoner Timeout
 
@@ -262,7 +262,7 @@ You must ruthlessly restrict the Talker's system prompt. It should not have acce
 **Can the Talker interrupt the user?**  
 Yes. Because the Talker runs continuously with very low latency, it is perfectly positioned to handle barge-in events. If a user interrupts the bot mid-sentence, the Talker immediately halts the TTS audio buffer, cancels the Reasoner's active task, and responds to the new input.
 
-**What happens if the Reasoner fails or \times out?**  
+**What happens if the Reasoner fails or times out?**  
 Your state manager must have hard timeouts. If the Reasoner does not complete its task within 8 seconds, it must write an error code to the shared state. The Talker reads this error code and gracefully fails over, saying, "I am so sorry, our system is running unusually slow today. Can we try that again?"
 
 **Do I need specialized hardware to run this?**  

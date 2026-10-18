@@ -99,7 +99,7 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 
 ## 2. Deconstructing the 7 Millisecond Epochs in Voice AI
 
-In enterprise voice systems, conversational turnaround delay is the \sum of seven sequential computational and network phases:
+In enterprise voice systems, conversational turnaround delay is the sum of seven sequential computational and network phases:
 
 ```\text
 The 7 Millisecond Latency Epochs:
@@ -412,19 +412,19 @@ Modern DSP filters isolate the user's voice even while the AI is vocalizing at f
 
 ## 7. 25-Point Latency Optimization Matrix
 
-| Latency Optimization Vector      | Legacy Cascaded Stack                                      | Optimized Streaming Cascade  | Native Voice-to-Voice (TTGE)            |
-| -------------------------------- | ---------------------------------------------------------- | ---------------------------- | --------------------------------------- |
-| **Underlying Neural Engine**     | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | WebSockets Streaming Cascade | **Unified Multimodal V2V**              |
-| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,500ms**                                      | **450ms - 650ms**            | **&lt;180ms (Biological Human Rhythm)** |
-| **Tail Latency ($P_{99}$)**      | **2,800ms - 4,500ms**                                      | **1,200ms - 1,800ms**        | **&lt;265ms Consistent P99**            |
-| **VAD Endpointing Delay**        | **250ms - 500ms**                                          | **80ms - 140ms**             | **&lt;25ms (Continuous Latents)**       |
-| **Acoustic Information Loss**    | 100% loss (Flat ASCII text)                                | 100% loss (Flat ASCII text)  | **Zero Loss (RVQ Audio Vectors)**       |
-| **Barge-In Cut-Off Speed**       | **250ms - 500ms**                                          | **120ms - 180ms**            | **&lt;40ms (Frame-Level Gating)**       |
-| **GPU Kernel Acceleration**      | Standard PyTorch Eager                                     | vLLM PagedAttention          | **FlashAttention-3 + SSM Kernels**      |
-| **Network Hop Penalty**          | 3 External Cloud API Hops                                  | 3 Cloud API Hops             | **Zero (Co-Located GPU Memory Bus)**    |
-| **Cellular Jitter Buffer**       | Fixed 150ms Buffer                                         | Adaptive 60ms Buffer         | **Dynamic Sub-30ms Adaptive Buffer**    |
-| **Regional Carrier Routing**     | US East Cloud Egress                                       | Multi-Region API Relay       | **Direct Regional SIP (asia-south1)**   |
-| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                                | **\$0.065 - \$0.110 / min**  | **₹3.50 / min (\$0.042/min flat)**      |
+| Latency Optimization Vector      | Legacy Cascaded Stack                              | Optimized Streaming Cascade  | Native Voice-to-Voice (TTGE)            |
+| -------------------------------- | -------------------------------------------------- | ---------------------------- | --------------------------------------- |
+| **Underlying Neural Engine**     | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | WebSockets Streaming Cascade | **Unified Multimodal V2V**              |
+| **Median Turnaround ($P_{50}$)** | **1,200ms - 2,500ms**                              | **450ms - 650ms**            | **&lt;180ms (Biological Human Rhythm)** |
+| **Tail Latency ($P_{99}$)**      | **2,800ms - 4,500ms**                              | **1,200ms - 1,800ms**        | **&lt;265ms Consistent P99**            |
+| **VAD Endpointing Delay**        | **250ms - 500ms**                                  | **80ms - 140ms**             | **&lt;25ms (Continuous Latents)**       |
+| **Acoustic Information Loss**    | 100% loss (Flat ASCII text)                        | 100% loss (Flat ASCII text)  | **Zero Loss (RVQ Audio Vectors)**       |
+| **Barge-In Cut-Off Speed**       | **250ms - 500ms**                                  | **120ms - 180ms**            | **&lt;40ms (Frame-Level Gating)**       |
+| **GPU Kernel Acceleration**      | Standard PyTorch Eager                             | vLLM PagedAttention          | **FlashAttention-3 + SSM Kernels**      |
+| **Network Hop Penalty**          | 3 External Cloud API Hops                          | 3 Cloud API Hops             | **Zero (Co-Located GPU Memory Bus)**    |
+| **Cellular Jitter Buffer**       | Fixed 150ms Buffer                                 | Adaptive 60ms Buffer         | **Dynamic Sub-30ms Adaptive Buffer**    |
+| **Regional Carrier Routing**     | US East Cloud Egress                               | Multi-Region API Relay       | **Direct Regional SIP (asia-south1)**   |
+| **All-In Cost per Minute**       | **\$0.084 - \$0.140 / min**                        | **\$0.065 - \$0.110 / min**  | **₹3.50 / min (\$0.042/min flat)**      |
 
 ---
 
@@ -441,10 +441,10 @@ Formants ($F_1, F_2, F_3$) correspond to the complex poles of $H(z)$.
 To optimize conversational pacing, voice agent policies are continuously refined using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 $$
 
-Conversations where response \times remained within the optimal **200ms to 350ms window** are rewarded ($\mathbf{y}_w$), training the neural network to avoid long pauses or rushed verbal delivery.
+Conversations where response times remained within the optimal **200ms to 350ms window** are rewarded ($\mathbf{y}_w$), training the neural network to avoid long pauses or rushed verbal delivery.
 
 ### Regional Telephony Routing: Bypassing Trans-Pacific Network Latency
 
@@ -537,7 +537,7 @@ asyncio.run(profiler.simulate_streaming_voice_session())
 The gold standard for conversational voice AI is **200ms to 350ms**. At this speed, conversations feel biological and human. Delays exceeding 500ms feel unnatural and trigger conversational collisions.
 
 **Why do cascaded voice systems feel robotic and delayed?**
-Cascaded systems chain three separate API services (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS). Each stage must serialize its output into intermediate text formats and make network calls, accumulating **650ms to 1,400ms of lag**.
+Cascaded systems chain three separate API services (STT $\rightarrow$ LLM $\rightarrow$ TTS). Each stage must serialize its output into intermediate text formats and make network calls, accumulating **650ms to 1,400ms of lag**.
 
 **What is Time-to-First-Token (TTFT) and Time-to-First-Audio (TTFA)?**
 TTFT measures the time in milliseconds for a language model to emit its first response token. TTFA measures the time for the speech synthesizer to emit its first playable audio frame.

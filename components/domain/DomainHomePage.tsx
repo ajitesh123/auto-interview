@@ -315,6 +315,212 @@ const DomainHomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* ===== FREE INTERACTIVE TOOLS & SIMULATORS (HIGH-CTR GROWTH ENGINE) ===== */}
+      <section className="border-t border-[#ebebeb] bg-[#fafafa] py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="mb-12">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              INTERACTIVE SUITE
+            </p>
+            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
+              Free AI Tools, Simulators & Calculators
+            </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#4d4d4d]">
+              Test your skills with our free interactive sandboxes. Built for candidates, sales
+              reps, and engineering leaders. 100% ungated.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Tool 1: Cold Call Simulator */}
+            <Link href="/cold-call-practice" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-blue-700">
+                    2026 EDITION
+                  </span>
+                  <span className="text-xs text-gray-500">Sales Practice</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  Cold Call Practice Simulator
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Practice live B2B objection handling with instant AI scoring across competitor
+                  lock-in, budget freezes, and gatekeepers.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Launch Simulator →
+                </span>
+              </div>
+            </Link>
+
+            {/* Tool 2: Voice AI ROI Calculator */}
+            <Link href="/ai-calling-roi-calculator" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-700">
+                    ENTERPRISE TCO
+                  </span>
+                  <span className="text-xs text-gray-500">Calculator</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  Voice AI ROI & Cost Calculator
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Estimate per-minute calling costs, pipeline savings, and SDR conversion lifts
+                  across Tough Tongue, Bland AI, and Twilio.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Calculate Savings →
+                </span>
+              </div>
+            </Link>
+
+            {/* Tool 3: ATS Score Checker */}
+            <Link href="/ats-score" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-purple-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-purple-700">
+                    POPULAR
+                  </span>
+                  <span className="text-xs text-gray-500">ATS Audit</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  ATS Resume Score Checker
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Scan your CV against modern Applicant Tracking Systems. Detect missing keywords,
+                  formatting errors, and parsing issues.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Check Score Free →
+                </span>
+              </div>
+            </Link>
+
+            {/* Tool 4: Free AI Mock Interview */}
+            <Link href="/free-mock-interview" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-blue-700">
+                    AI VOICE
+                  </span>
+                  <span className="text-xs text-gray-500">Interview Prep</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  Free AI Mock Interview
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Practice voice interviews tailored for Product Management, Engineering, MBA, and
+                  Sales. Real-time evaluation in seconds.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Start Mock Interview →
+                </span>
+              </div>
+            </Link>
+
+            {/* Tool 5: Resume Job Matcher */}
+            <Link href="/resume-job-matcher" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-amber-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-amber-700">
+                    MATCHING ENGINE
+                  </span>
+                  <span className="text-xs text-gray-500">Job Matcher</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  Resume to Job Matcher
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Paste any job description and your resume to identify exact keyword gaps, required
+                  skills, and qualification percentage.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Match Resume →
+                </span>
+              </div>
+            </Link>
+
+            {/* Tool 6: CV Templates */}
+            <Link href="/cv-templates" className="group block">
+              <div
+                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-700">
+                    ATS-TESTED
+                  </span>
+                  <span className="text-xs text-gray-500">Templates</span>
+                </div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
+                  Harvard & IIM CV Templates
+                </h3>
+                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
+                  Clean, proven one-page resume templates in Word (.docx) and Google Docs formats.
+                  100% free download with zero signup.
+                </p>
+                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
+                  Download Free →
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ===== HOW IT WORKS — 3-step method ===== */}
       <section className="py-24">
         <div className="mx-auto max-w-[1280px] px-6">

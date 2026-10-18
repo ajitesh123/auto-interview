@@ -196,7 +196,7 @@ CHUNK_SIZE = int(SAMPLE_RATE * CHUNK_DURATION_MS / 1000)  # 320 samples per chun
 async def stream_transcription(
     audio_source: AsyncGenerator[bytes, None],
 ) -> AsyncGenerator[str, None]:
-    """Stream raw PCM16 audio \to local Nemotron ASR and yield \partial transcripts."""
+    """Stream raw PCM16 audio \to local Nemotron ASR and yield partial transcripts."""
 
     client = grpcclient.InferenceServerClient(url=TRITON_URL)
 
@@ -242,8 +242,8 @@ async def main():
             yield np.random.randint(-1000, 1000, CHUNK_SIZE, dtype=np.int16).tobytes()
             await asyncio.sleep(CHUNK_DURATION_MS / 1000)
 
-    async for \partial_text \in stream_transcription(fake_audio_source()):
-        print(f"[ASR] Partial: {\partial_text}")
+    async for partial_text \in stream_transcription(fake_audio_source()):
+        print(f"[ASR] Partial: {partial_text}")
 ```
 
 For enterprises subject to **DPDP Act (India), HIPAA, or PCI-DSS**, you must scrub sensitive PII from transcripts before they ever reach a database. Here is a real-time PII redaction middleware:
@@ -295,7 +295,7 @@ print(clean)  # "My Aadhaar is [REDACTED] and card number [REDACTED]"
 
 ## Architectural Comparison: Public Cloud vs. Hybrid vs. Air-Gapped Local
 
-Which architectural deployment model is \right for your organization's security posture and budget?
+Which architectural deployment model is right for your organization's security posture and budget?
 
 | Architectural Feature              | Fully Public Cloud (Standard SaaS)        | Hybrid Enterprise VPC (Tough Tongue Preferred) | 100% Air-Gapped Bare Metal                             |
 | ---------------------------------- | ----------------------------------------- | ---------------------------------------------- | ------------------------------------------------------ |

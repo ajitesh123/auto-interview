@@ -90,7 +90,7 @@ The autoregressive text decoder attempts to maximize sequence likelihood based o
 
 Gemini 3.5 Transcribe integrates explicit voice activity conditioning into the Conformer-2 front-end. If the frame energy falls below the noise floor, the acoustic encoder outputs a zero-embedding mask.
 
-The decoder is mathematically prohibited from emitting a\alphanumeric tokens when the acoustic mask is active. This eliminates silent hallucinations in enterprise environments.
+The decoder is mathematically prohibited from emitting alphanumeric tokens when the acoustic mask is active. This eliminates silent hallucinations in enterprise environments.
 
 ---
 
@@ -191,7 +191,7 @@ Gemini 3.5 Transcribe natively clusters audio into up to **8 distinct speaker la
 
 ### OpenAI's Metadata Limitations
 
-OpenAI GPT Live Transcribe is delivered as a raw text \delta stream inside the Realtime WebSocket. It does not provide native speaker diarization labels, word-level start/end timestamps, or token confidence calibration.
+OpenAI GPT Live Transcribe is delivered as a raw text delta stream inside the Realtime WebSocket. It does not provide native speaker diarization labels, word-level start/end timestamps, or token confidence calibration.
 
 ---
 
@@ -254,7 +254,7 @@ from google.genai import types
 async def run_gemini_transcribe(audio_stream):
     client = genai.Client(
         api_key=os.getenv("GEMINI_API_KEY"),
-        http_options={'api_version': 'v1a\alpha'}
+        http_options={'api_version': 'v1aalpha'}
     )
 
     config = types.LiveConnectConfig(

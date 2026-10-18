@@ -4,7 +4,7 @@ import { ATSScorePage } from '@/features/ats-score'
 import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = {
-  title: 'Free ATS Resume Score Checker — Test ATS Compatibility | Auto Interview AI',
+  title: 'Free ATS Resume Checker: Test ATS Compatibility (2026)',
   description:
     'Free ATS resume score checker. Analyze your resume for Applicant Tracking System compatibility. Get instant scoring, keyword optimization, and improvement suggestions.',
   keywords:

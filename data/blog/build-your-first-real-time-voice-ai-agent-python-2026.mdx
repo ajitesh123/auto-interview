@@ -29,7 +29,7 @@ keywords: 'voice ai, python voice agent, livekit agents, webrtc ai, stt llm tts,
 
 I remember building my first voice bot back in 2022. It was a complete nightmare. I had to stitch together five different APIs, handle raw audio buffers in memory, deal with constant websocket timeouts, and somehow manage the conversation state manually. When someone spoke to it, the bot would take five agonizing seconds to reply. It felt like talking to someone on Mars.
 
-Fast forward to 2026, and the landscape has completely changed. Building a real-time, ultra-low latency voice AI agent is now something you can accomplish in an afternoon. If you are a developer looking to dip your toes into Voice AI, you are in the \right place. I am going to walk you through exactly how to build your first production-ready Voice AI agent in Python using the LiveKit Agents SDK and OpenAI.
+Fast forward to 2026, and the landscape has completely changed. Building a real-time, ultra-low latency voice AI agent is now something you can accomplish in an afternoon. If you are a developer looking to dip your toes into Voice AI, you are in the right place. I am going to walk you through exactly how to build your first production-ready Voice AI agent in Python using the LiveKit Agents SDK and OpenAI.
 
 We will start with the simplest concepts, look at why the naive approaches fail in the real world, and then build a robust, WebRTC-powered agent that you can actually deploy.
 
@@ -98,7 +98,7 @@ In human conversation, we expect a response within 500 to 800 milliseconds. Anyt
 
 To fix the latency problem, we have to stop thinking in terms of discrete files and HTTP requests. We need to start thinking in terms of continuous data streams.
 
-Instead of waiting for the user to finish speaking, we stream their audio chunk-by-chunk to the STT engine. As soon as the STT recognizes a few words, we stream those to the LLM. As the LLM generates tokens, we immediately stream those tokens to the TTS engine. The TTS engine synthesizes audio on the fly and streams it \right back to the user's speaker.
+Instead of waiting for the user to finish speaking, we stream their audio chunk-by-chunk to the STT engine. As soon as the STT recognizes a few words, we stream those to the LLM. As the LLM generates tokens, we immediately stream those tokens to the TTS engine. The TTS engine synthesizes audio on the fly and streams it right back to the user's speaker.
 
 This requires a robust transport protocol. That is where WebRTC and LiveKit come in. WebRTC is the same ultra-low latency technology that powers Zoom and Google Meet. LiveKit provides the infrastructure and SDKs to manage these WebRTC connections effortlessly.
 
@@ -253,4 +253,4 @@ A: Yes. You can use OpenAI's function calling (tool use) capabilities. You defin
 **Q: Is Python fast enough for real-time voice?**
 A: Yes. While Python itself isn't the fastest language, the heavy lifting (audio encoding, networking, WebRTC) is all handled by the underlying Rust and C++ libraries inside the LiveKit SDK. Python merely orchestrates the high-level logic, making it perfectly suited for this task.
 
-Building voice AI used to be incredibly difficult. Now, with the \right tools, it is accessible to anyone. Dive in, experiment, and start building the future of conversational interfaces.
+Building voice AI used to be incredibly difficult. Now, with the right tools, it is accessible to anyone. Dive in, experiment, and start building the future of conversational interfaces.

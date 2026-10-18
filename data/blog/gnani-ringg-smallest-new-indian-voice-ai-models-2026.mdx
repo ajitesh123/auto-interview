@@ -93,7 +93,7 @@ async def stream_audio_to_gnani():
                 data = stream.read(chunk_size, exception_on_overflow=False)
                 await websocket.send(data)
 
-                # Non-blocking receive for real-time \partial transcripts
+                # Non-blocking receive for real-time partial transcripts
                 try:
                     response = await asyncio.wait_for(websocket.recv(), timeout=0.01)
                     print(f"Partial Transcript: {response}")
@@ -320,7 +320,7 @@ This stack beats any global provider for Indian language AI calling because it e
 
 ## Setting Up a Complete Indian Voice Agent Stack
 
-Building a production Indian voice AI calling system requires making the \right choices at each layer of the stack. Here is a complete reference architecture that combines all three providers we have covered.
+Building a production Indian voice AI calling system requires making the right choices at each layer of the stack. Here is a complete reference architecture that combines all three providers we have covered.
 
 The optimal stack for Indian AI calling in 2026:
 

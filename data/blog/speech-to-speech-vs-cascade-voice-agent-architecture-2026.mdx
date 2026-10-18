@@ -203,7 +203,7 @@ class VoiceAgentPipeline:
 
     async def trigger_user_interruption(self):
         """
-        Interruption Handler: Instantly flushes queues when user barge-\in occurs.
+        Interruption Handler: Instantly flushes queues when user barge-in occurs.
         """
         print("[Interruption Event] User started speaking! Flushing buffers...")
         self.is_interrupted = True

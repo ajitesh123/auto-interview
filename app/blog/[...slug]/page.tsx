@@ -53,8 +53,15 @@ export async function generateMetadata({
 
   const canonicalUrl = post.canonicalUrl || `${siteMetadata.siteUrl}/blog/${slug}`
 
+  const pageTitle =
+    post.title.length > 50 || post.title.includes('Auto Interview AI')
+      ? post.title
+      : `${post.title} | Auto Interview AI`
+
   return {
-    title: post.title,
+    title: {
+      absolute: pageTitle,
+    },
     description: post.summary,
     keywords: post.tags?.join(', '),
     alternates: {
@@ -109,7 +116,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   })
   const mainContent = coreContent(post)
   let jsonLd = post.jsonLd
-  
+
   const enhancedAuthors = authorDetails.map((author) => {
     return {
       '@type': 'Person',
@@ -125,7 +132,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: siteMetadata.siteUrl },
       { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteMetadata.siteUrl}/blog` },
-      { '@type': 'ListItem', position: 3, name: post.title, item: `${siteMetadata.siteUrl}/${post.path}` },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: `${siteMetadata.siteUrl}/${post.path}`,
+      },
     ],
   }
 
@@ -150,15 +162,15 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
       if (citations.length > 0) {
         articleNode['citation'] = citations
       }
-      
+
       // Add RelatedArticle semantic graph if prev/next exist
       const relatedLinks: string[] = []
       if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
       if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
       if (relatedLinks.length > 0) {
-        articleNode['hasPart'] = relatedLinks.map(url => ({
+        articleNode['hasPart'] = relatedLinks.map((url) => ({
           '@type': 'WebPage',
-          '@id': url
+          '@id': url,
         }))
       }
     }
@@ -170,18 +182,18 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     if (citations.length > 0) {
       jsonLd['citation'] = citations
     }
-    
+
     // Add RelatedArticle semantic graph
     const relatedLinks: string[] = []
     if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
     if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
     if (relatedLinks.length > 0) {
-      jsonLd['hasPart'] = relatedLinks.map(url => ({
+      jsonLd['hasPart'] = relatedLinks.map((url) => ({
         '@type': 'WebPage',
-        '@id': url
+        '@id': url,
       }))
     }
-    
+
     // Convert to graph-like structure for Breadcrumbs
     jsonLd = [jsonLd, { '@context': 'https://schema.org', ...breadcrumbSchema }]
   }

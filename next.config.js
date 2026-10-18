@@ -183,6 +183,131 @@ module.exports = () => {
         },
         // Content Pruning & De-cannibalization Redirects (SEO Engine 2026)
         {
+          source: '/blog/mba-in-india-guide',
+          destination: '/resources/mba',
+          permanent: true,
+        },
+        {
+          source: '/blog/job-search-guide-2025',
+          destination: '/find-jobs',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-roi-calculator-sales-pipeline-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-roi-cold-dial-to-closed-deal-funnel-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-roi-executive-business-case-board-approval-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-roi-break-even-analysis-calculator-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/real-cost-ai-voice-agents-pricing-breakdown-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/3-biggest-outbound-sales-challenges-ai-calling-solutions-2026',
+          destination: '/blog/top-5-ai-tools-real-time-objection-handling-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-saas-b2b-outbound-sales-playbook-2026',
+          destination: '/blog/top-5-ai-tools-real-time-objection-handling-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/ultimate-guide-to-objection-handling-scripts-tactics-2026',
+          destination: '/blog/top-5-ai-tools-real-time-objection-handling-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/sales-roleplay-scenarios-exercises-sharpen-team-2026',
+          destination: '/blog/12-realistic-sales-role-play-scenarios-sdr-mastery-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/sales-roleplay-scenarios-objection-handling-b2b-scripts-2026',
+          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-handle-sales-objections-scripts-ai-practice-2026',
+          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-lead-qualification-scripts-workflows-results-2026',
+          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-sales-reps-hate-training-best-teams-do-it-anyway-2026',
+          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-sales-team-thinks-training-waste-of-time-wrong-2026',
+          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/mastering-difficult-conversations-roleplay-frameworks-managers-2026',
+          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/sales-training-plan-new-hires-30-60-90-day-2026',
+          destination: '/blog/how-to-gate-live-outbound-dials-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/essential-ai-calling-tools-for-sales-success-2026',
+          destination: '/blog/sip-providers-for-ai-calling-complete-guide-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-10-ai-calling-softwares-for-businesses-2026',
+          destination: '/blog/best-bland-ai-alternatives-outbound-sales-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-ai-cold-calling-software-sounds-robotic-engineering-fix-2026',
+          destination: '/blog/voice-latency-ai-sales-roleplay-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/the-state-of-ai-calling-competitors-2026-latency-pricing-report',
+          destination: '/blog/voice-latency-ai-sales-roleplay-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-automate-appointment-setting-ai-voice-agents-2026',
+          destination: '/blog/how-to-build-ai-cold-calling-agent-retell-vapi-bland-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-cold-call-training-voice-ai-transforming-sales-onboarding-2026',
+          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-measure-sales-training-roi-metrics-vp-sales-2026',
+          destination: '/blog/ai-sales-roleplay-vs-sales-trainer-roi-2026',
+          permanent: true,
+        },
+        {
           source: '/blog/google-product-management-interview-questions-2025-temp',
           destination: '/blog/google-product-management-interview-questions-2025',
           permanent: true,

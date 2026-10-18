@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!result) return {}
 
   const { domain, subDomain, resource } = result
-  const title = `${resource.title} | ${domain.name} ${subDomain.name} | Auto Interview AI`
+  const title = `${resource.title} | ${subDomain.name} Prep`
   const description = resource.description.slice(0, 160)
 
   return {
@@ -81,7 +81,9 @@ export default async function ResourcePage({ params }: Props) {
             </span>
             <span className="text-xs text-[hsl(240,4%,66%)]">{resource.fileSize}</span>
             <span className="text-xs text-[hsl(240,4%,66%)]">•</span>
-            <span className="text-xs text-[hsl(240,4%,66%)]">{domain.name} → {subDomain.name}</span>
+            <span className="text-xs text-[hsl(240,4%,66%)]">
+              {domain.name} → {subDomain.name}
+            </span>
           </div>
 
           <h1
@@ -103,7 +105,12 @@ export default async function ResourcePage({ params }: Props) {
               className="liquid-glass inline-flex items-center gap-2 rounded-full px-8 py-4 text-base text-white transition-transform hover:scale-[1.03]"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
               </svg>
               Download {resource.fileType.toUpperCase()}
             </a>

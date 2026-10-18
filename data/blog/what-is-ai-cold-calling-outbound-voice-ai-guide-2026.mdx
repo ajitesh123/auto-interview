@@ -171,7 +171,7 @@ Autonomous Objection Handling Architecture:
 └────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
-[AI Reframes Dynamically (<180ms)]: "Understood Sarah, I'\ll keep this \to 20
+[AI Reframes Dynamically (<180ms)]: "Understood Sarah, I'll keep this \to 20
 seconds. We helped CloudTech cut their telephony latency by 65% last month.
 Would Thursday at 2 PM work for a brief 5-minute review?"
 ```
@@ -272,16 +272,16 @@ The High-Concurrency Outbound GPU Stack:
 The Mathematical Formulations:
 
 1. Prospect Engagement Decay Function:
-   P(\text{Listen}) = P_0 \cdot \exp(-\lambda \cdot \\tau_{\text{latency}})
+   P(\text{Listen}) = P_0 \cdot \exp(-lambda \cdot \\tau_{\text{latency}})
 
 2. Connectionist Temporal Classification Alignment Loss:
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
 
 3. Selective State Space Model Discretization (SSM / Mamba):
-   \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+   \bar{\mathbf{A}} = \exp(Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (Delta \mathbf{A})^{-1}(\exp(Delta \mathbf{A}) - \mathbf{I}) \cdot (Delta \mathbf{B})
 
 4. Direct Preference Optimization Policy Objective:
-   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+   \mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln sigma \left(beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 ```
 
 When turnaround latency $\\tau_{\text{latency}}$ exceeds **600ms**, the prospect engagement probability $P(\text{Listen})$ decays exponentially, increasing immediate hang-ups by **over 300%**.
@@ -431,13 +431,13 @@ Full-Duplex Interruption Architecture:
 
 ### 2026 Comprehensive Outbound Voice Architecture Benchmark Matrix
 
-| Outbound Dialing Platform    | Underlying Architecture                               | Turnaround Latency (P50) | Meeting Booking Rate           | Connect-to-DNC Rate             | Cost per Dialed Minute             |
-| ---------------------------- | ----------------------------------------------------- | ------------------------ | ------------------------------ | ------------------------------- | ---------------------------------- |
-| **Legacy Predictive Dialer** | Touch-Tone DTMF Keypads                               | **2,500ms**              | **1.20%**                      | **4.80% (High Complaints)**     | **\$0.080 / min** (Telco)          |
-| **Cascaded Voicebot (2023)** | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS Chain | **650ms**                | **2.80%**                      | **2.40%**                       | **\$0.086 / min**                  |
-| **OpenAI Realtime API**      | Cloud Multimodal Audio                                | **250ms**                | **6.40%**                      | **0.80%**                       | **\$0.120 - \$0.300 / min**        |
-| **Google Gemini Live**       | Multimodal Audio Core                                 | **220ms**                | **7.20%**                      | **0.60%**                       | Enterprise Quota                   |
-| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                             | **&lt;180ms**            | **11.4% (Highest Conversion)** | **&lt;0.20% (Full Compliance)** | **₹3.50 / min (\$0.042/min flat)** |
+| Outbound Dialing Platform    | Underlying Architecture                       | Turnaround Latency (P50) | Meeting Booking Rate           | Connect-to-DNC Rate             | Cost per Dialed Minute             |
+| ---------------------------- | --------------------------------------------- | ------------------------ | ------------------------------ | ------------------------------- | ---------------------------------- |
+| **Legacy Predictive Dialer** | Touch-Tone DTMF Keypads                       | **2,500ms**              | **1.20%**                      | **4.80% (High Complaints)**     | **\$0.080 / min** (Telco)          |
+| **Cascaded Voicebot (2023)** | STT $\rightarrow$ LLM $\rightarrow$ TTS Chain | **650ms**                | **2.80%**                      | **2.40%**                       | **\$0.086 / min**                  |
+| **OpenAI Realtime API**      | Cloud Multimodal Audio                        | **250ms**                | **6.40%**                      | **0.80%**                       | **\$0.120 - \$0.300 / min**        |
+| **Google Gemini Live**       | Multimodal Audio Core                         | **220ms**                | **7.20%**                      | **0.60%**                       | Enterprise Quota                   |
+| **Tough Tongue AI (TTGE)**   | **Native Multimodal V2V**                     | **&lt;180ms**            | **11.4% (Highest Conversion)** | **&lt;0.20% (Full Compliance)** | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Enterprise Migration Blueprint: Transitioning Outbound Teams to AI Agents
 

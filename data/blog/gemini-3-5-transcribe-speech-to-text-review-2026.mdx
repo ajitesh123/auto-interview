@@ -1,18 +1,40 @@
 ---
-title: 'Gemini 3.5 Transcribe Review: An ASR Researcher Deep Dive into Architecture, FLEURS Benchmarks, and Production STT'
+title: 'Gemini 3.5 Transcribe Review (2026): ASR & FLEURS Benchmarks'
 date: '2026-08-28'
+lastmod: '2026-10-18'
 tags: ['Gemini 3.5 Transcribe', 'Speech to Text', 'Google AI', 'ASR', 'Voice AI', 'Tough Tongue AI']
-summary: 'An exhaustive speech research review of Google Gemini 3.5 Transcribe. We analyze its 5.50% FLEURS streaming WER, 2.6% Artificial Analysis batch WER, neural disfluency filtering, encoder-decoder latency profiling, Live API vs Interactions API, pricing economics at \$0.005/min batch and \$0.009/min streaming, and production benchmarks against Deepgram Nova-3 and OpenAI.'
+summary: 'Google Gemini 3.5 Transcribe review: 5.5% FLEURS streaming WER, Nova-3 benchmarks, token pricing, neural disfluency filtering, and voice AI performance for 2026.'
 keywords: 'gemini 3.5 transcribe review, gemini transcribe vs deepgram nova 3, best speech to text 2026, gemini transcribe fleurs benchmark, gemini transcribe pricing, google speech to text api 2026, asr research 2026, artificial analysis stt'
 authors: ['Ajitesh Abhishek']
 canonicalUrl: 'https://www.autointerviewai.com/blog/gemini-3-5-transcribe-speech-to-text-review-2026'
 structuredData:
   '@context': 'https://schema.org'
-  '@type': 'Article'
-  'headline': 'Gemini 3.5 Transcribe Review: An ASR Researcher Deep Dive into Architecture, FLEURS Benchmarks, and Production STT'
-  'author':
-    '@type': 'Person'
-    'name': 'Ajitesh Abhishek'
+  '@graph':
+    - '@type': 'Article'
+      headline: 'Gemini 3.5 Transcribe Review (2026): ASR & FLEURS Benchmarks'
+      datePublished: '2026-08-28'
+      dateModified: '2026-10-18'
+      author:
+        '@type': 'Person'
+        name: 'Ajitesh Abhishek'
+      publisher:
+        '@type': 'Organization'
+        name: 'Auto Interview AI'
+      mainEntityOfPage:
+        '@type': 'WebPage'
+        '@id': 'https://www.autointerviewai.com/blog/gemini-3-5-transcribe-speech-to-text-review-2026'
+    - '@type': 'FAQPage'
+      mainEntity:
+        - '@type': 'Question'
+          name: 'How accurate is Google Gemini 3.5 Transcribe?'
+          acceptedAnswer:
+            '@type': 'Answer'
+            text: 'Gemini 3.5 Transcribe achieves a 5.50% Word Error Rate (WER) on the multilingual FLEURS benchmark across 25 top languages and 2.60% batch WER on Artificial Analysis tests, outperforming Chirp 3 (7.32%) and Deepgram Nova-3 (15.77%).'
+        - '@type': 'Question'
+          name: 'What does Gemini 3.5 Transcribe cost per minute?'
+          acceptedAnswer:
+            '@type': 'Answer'
+            text: 'Gemini 3.5 Transcribe costs approximately $0.005 per minute for batch transcription and $0.009 per minute for real-time streaming via Google Cloud Interactions and Live APIs.'
 ---
 
 > **Executive Summary & Research Verdict**
@@ -20,7 +42,7 @@ structuredData:
 > - **The Core Benchmark:** Google Gemini 3.5 Transcribe achieves a **5.50% Word Error Rate (WER)** on the multilingual streaming FLEURS benchmark across 25 top locales, and **2.60% batch WER** / **4.00% streaming WER** on independent Artificial Analysis benchmarks. It outperforms Google Cloud Chirp 3 (**7.32%**), OpenAI GPT Live Transcribe (**8.97%**), ElevenLabs Scribe v2 Realtime (**9.70%**), and Deepgram Nova-3 (**15.77%**).
 > - **Non-Streaming Accuracy:** On pre-recorded, long-form audio, the Interactions API reaches an industry-leading **5.04% FLEURS WER** (and **2.60% AA-WER**) with word-level confidence scoring.
 > - **The Structural Innovation:** Rather than running simple CTC or RNN-T greedy decoders, Gemini 3.5 Transcribe integrates acoustic representations directly into a transformer decoder. It resolves disfluencies ("um", "uh") and speech self-corrections directly during beam generation.
-> - **Production Unit Economics:** Billed via token equivalents at a\approximately **\$0.005 per minute** for batch processing and **\$0.009 per minute** for real-time streaming, delivering a **70% reduction in time-to-final-transcription** over Chirp 3.
+> - **Production Unit Economics:** Billed via token equivalents at approximately **\$0.005 per minute** for batch processing and **\$0.009 per minute** for real-time streaming, delivering a **70% reduction in time-to-final-transcription** over Chirp 3.
 
 ---
 
@@ -28,7 +50,7 @@ structuredData:
 
 For two decades, automatic speech recognition (ASR) relied on two distinct paradigms: Connectionist Temporal Classification (CTC) models and Recurrent Neural Network Transducers (RNN-T). Both architectures excel at low-latency streaming because they emit tokens monotonically as audio frames arrive.
 
-```\text
+```text
 The Evolution of Speech Recognition Architectures:
 
 1. Legacy CTC / RNN-T (2012 - 2022):
@@ -98,7 +120,7 @@ Gemini 3.5 Transcribe uses semantic prefix attention within the decoder lattice.
 
 Google evaluated Gemini 3.5 Transcribe on the standard **FLEURS benchmark** across 25 high-traffic locales.
 
-The test suite covers diverse linguistic typologies, including Latin a\alphabets (`en-US`, `es-ES`, `de-DE`), non-Latin scripts (`ru-RU`, `ar-EG`, `th-TH`), and morphologically complex Indic languages (`hi-IN`, `bn-IN`, `ta-IN`, `te-IN`, `mr-IN`).
+The test suite covers diverse linguistic typologies, including Latin alphabets (`en-US`, `es-ES`, `de-DE`), non-Latin scripts (`ru-RU`, `ar-EG`, `th-TH`), and morphologically complex Indic languages (`hi-IN`, `bn-IN`, `ta-IN`, `te-IN`, `mr-IN`).
 
 ![FLEURS Benchmark: Gemini 3.5 Transcribe Live achieves 5.50% WER vs competitors](/static/images/blog/gemini-3-5-transcribe-fleurs-benchmark.png)
 
@@ -228,7 +250,7 @@ from google.genai import types
 
 client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY"),
-    http_options={'api_version': 'v1a\alpha'}
+    http_options={'api_version': 'v1aalpha'}
 )
 
 async def stream_audio_transcription(audio_generator):

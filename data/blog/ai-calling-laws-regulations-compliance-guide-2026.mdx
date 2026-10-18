@@ -105,7 +105,7 @@ For an outbound sales campaign placing **50,000 dials** without verifiable writt
 The FTC enforces the Telemarketing Sales Rule (16 CFR Part 310). Recent TSR amendments impose strict recordkeeping requirements on businesses using automated dialers:
 
 - Telemarketers must retain records of express verifiable consent for a minimum of **5 years**.
-- Systems must \log the exact script, caller ID transmitted, timestamp, call duration, and proof of DNC registry scrubbing.
+- Systems must log the exact script, caller ID transmitted, timestamp, call duration, and proof of DNC registry scrubbing.
 - Civil penalties for TSR violations reach up to **\$51,744 per violation**.
 
 ---
@@ -161,7 +161,7 @@ Under **Article 50** of the EU AI Act, which took effect in August 2026, provide
 In addition to the AI Act, EU outreach must comply with the General Data Protection Regulation (GDPR) and the ePrivacy Directive (Directive 2002/58/EC):
 
 - **Prior Opt-In Consent:** Article 13 of the ePrivacy Directive prohibits automated calling systems for direct marketing without explicit, prior opt-in consent from subscribers.
-- **Right to Explanation:** Under GDPR Article 22, individuals have the \right not to be subject to decisions based solely on automated processing. If an AI agent qualifies or disqualifies a customer for a loan or insurance policy over the phone, human review must be available upon request.
+- **Right to Explanation:** Under GDPR Article 22, individuals have the right not to be subject to decisions based solely on automated processing. If an AI agent qualifies or disqualifies a customer for a loan or insurance policy over the phone, human review must be available upon request.
 - **Voice Data as Biometric Data:** Raw audio recordings of customer voices constitute biometric personal data under GDPR Article 9. Voice recordings must be encrypted at rest and stored within EU boundaries or on certified data transfer mechanisms.
 
 ---
@@ -228,7 +228,7 @@ Ofcom enforces strict operational rules to prevent consumer harassment:
 
 ## 6. How Voice Engineers Implement Compliance in Code
 
-Meeting legal requirements cannot be \left to prompt engineering alone. It requires deterministic controls in your audio pipeline.
+Meeting legal requirements cannot be left to prompt engineering alone. It requires deterministic controls in your audio pipeline.
 
 ```python
 # Production Voice Agent Compliance Handler
@@ -263,7 +263,7 @@ async def on_user_speech(transcript, session, prospect_number):
 
         # 2. Synchronously write \to global DNC registry and audit database
         await update_dnc_registry(prospect_number, reason="Verbal Opt-Out")
-        await \log_compliance_event(prospect_number, event_type="DNC_ADDED")
+        await log_compliance_event(prospect_number, event_type="DNC_ADDED")
 ```
 
 ---

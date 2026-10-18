@@ -164,11 +164,11 @@ When the tool result returns, it must be injected into the conversation context 
 
 ### 3. Timeout Handling
 
-What happens when a tool call never returns? Good async implementations have timeouts with graceful fallbacks: "I am having trouble accessing that system \right now. Let me try a different approach." Bad implementations hang forever.
+What happens when a tool call never returns? Good async implementations have timeouts with graceful fallbacks: "I am having trouble accessing that system right now. Let me try a different approach." Bad implementations hang forever.
 
 ### 4. Error Recovery
 
-APIs fail. Databases go down. Good async tool calling handles errors gracefully: "I was not able to look up your account \right now. Can I take your number and have someone call you back with that information?"
+APIs fail. Databases go down. Good async tool calling handles errors gracefully: "I was not able to look up your account right now. Can I take your number and have someone call you back with that information?"
 
 ---
 
@@ -193,7 +193,7 @@ At Tough Tongue AI, every tool call follows our async-first architecture:
 
 - **Instant acknowledgment** — The agent always speaks within 400ms of the user's request, even when a tool call is needed
 - **Contextual narration** — For operations exceeding 3 seconds, the agent provides natural status updates
-- **Graceful degradation** — If a tool \times out, the agent offers alternatives rather than going silent
+- **Graceful degradation** — If a tool times out, the agent offers alternatives rather than going silent
 - **Parallel tool execution** — Multiple tools can execute simultaneously without blocking the conversation
 
 This is particularly critical for our Indian market deployments, where backend systems (especially legacy CRM and ERP integrations) often have higher latency than their Western counterparts.

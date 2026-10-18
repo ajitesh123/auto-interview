@@ -17,6 +17,9 @@ export async function generateMetadata({
   const rawTag = decodeURI(tagParam)
   const normalizedTag = slug(rawTag)
   const displayTitle = rawTag.charAt(0).toUpperCase() + rawTag.slice(1)
+  const tagCounts = tagData as Record<string, number>
+  const postCount = tagCounts[rawTag] || tagCounts[normalizedTag] || 0
+  const isThinTag = postCount < 4
 
   return genPageMetadata({
     title: `${displayTitle} Articles & Resources`,
@@ -24,6 +27,15 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://www.autointerviewai.com/tags/${encodeURI(normalizedTag)}`,
     },
+    robots: isThinTag
+      ? {
+          index: false,
+          follow: true,
+        }
+      : {
+          index: true,
+          follow: true,
+        },
   })
 }
 

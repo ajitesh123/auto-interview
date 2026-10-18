@@ -51,7 +51,7 @@ This is where the ReAct pattern comes in. ReAct stands for "Reason + Act". It is
 
 Before we get into code, let us understand the theory. Why do we call it "Reason and Act"?
 
-Imagine you are a chef in a kitchen. A waiter asks you to make a vegan burger. You do not just instantly materialize a vegan burger out of thin air. You first _reason_ about what you need to do: "Okay, they want a vegan burger. I need to check if we have black bean patties in the fridge." Then, you _act_: you walk to the fridge and open it. You observe the result: "We have three patties left." Finally, you communicate: "Yes, I can make that \right away."
+Imagine you are a chef in a kitchen. A waiter asks you to make a vegan burger. You do not just instantly materialize a vegan burger out of thin air. You first _reason_ about what you need to do: "Okay, they want a vegan burger. I need to check if we have black bean patties in the fridge." Then, you _act_: you walk to the fridge and open it. You observe the result: "We have three patties left." Finally, you communicate: "Yes, I can make that right away."
 
 An AI agent using the ReAct pattern does the exact same thing. It is a loop that looks like this:
 
@@ -174,7 +174,7 @@ When the LLM decides to call a tool, it stops speaking. It waits for the tool to
 
 **Watch out for this:** If your database query takes 2 seconds, and the LLM takes 1 second to generate the tool call, you have 3 seconds of dead air.
 
-Here is a benchmark table showing how different tool execution \times impact the user experience:
+Here is a benchmark table showing how different tool execution times impact the user experience:
 
 | Tool Execution Time | User Perception       | Action Required                  |
 | ------------------- | --------------------- | -------------------------------- |

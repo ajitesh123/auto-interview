@@ -462,7 +462,7 @@ Native Voice-to-Voice models improve continuously by fine-tuning on real phone c
 Using **Direct Preference Optimization (DPO)** directly on acoustic latent trajectories:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_    \theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_    \theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_    \theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
 \right)
 \right]
 $$
@@ -471,18 +471,18 @@ Conversations resulting in successful issue resolution are labeled as winning tr
 
 ## 8. 25-Point Comprehensive V2V Architecture Matrix
 
-| Architectural Dimension         | Traditional Cascaded Pipeline                              | Standard Speech-to-Speech      | Tough Tongue AI (TTGE Engine)                |
-| ------------------------------- | ---------------------------------------------------------- | ------------------------------ | -------------------------------------------- |
-| **Underlying Neural Engine**    | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | Monolithic Audio Transformer   | **Multimodal Audio-Latent Transformer**      |
-| **Turnaround Latency**          | **650ms - 1,400ms**                                        | **220ms - 350ms**              | **&lt;180ms (Biological Human Rhythm)**      |
-| **Vocal Information Loss**      | 100% loss (Flat ASCII text)                                | Zero Loss (Continuous Latents) | **Zero Loss (Acoustic RVQ Codebooks)**       |
-| **Barge-In Interruption Speed** | **180ms - 350ms**                                          | **60ms - 120ms**               | **&lt;40ms (Frame-Level Gating)**            |
-| **Emotion & Prosody Modeling**  | SSML simulation only                                       | Native Neural Prosody          | **Native SOTA Empathy & Cadence**            |
-| **Code-Switching (Hinglish)**   | Frequent phonetic errors                                   | Moderate Multilingual          | **Native Multilingual & Dialects**           |
-| **Tool Calling Execution**      | Serialized JSON payloads                                   | Async Tool Tokens              | **Optimistic Acoustic Latency Hiding**       |
-| **Carrier Telephony Protocol**  | Fragmented WebRTC bridges                                  | Cloud API WebSockets           | **Direct Regional SIP Trunks (asia-south1)** |
-| **Concurrency Scaling**         | Multi-vendor rate limits                                   | Cloud API Limits               | **Infinite Elastic GPU Cluster Scaling**     |
-| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                                | **\$0.120 - \$0.300 / min**    | **₹3.50 / min (\$0.042/min flat)**           |
+| Architectural Dimension         | Traditional Cascaded Pipeline                      | Standard Speech-to-Speech      | Tough Tongue AI (TTGE Engine)                |
+| ------------------------------- | -------------------------------------------------- | ------------------------------ | -------------------------------------------- |
+| **Underlying Neural Engine**    | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | Monolithic Audio Transformer   | **Multimodal Audio-Latent Transformer**      |
+| **Turnaround Latency**          | **650ms - 1,400ms**                                | **220ms - 350ms**              | **&lt;180ms (Biological Human Rhythm)**      |
+| **Vocal Information Loss**      | 100% loss (Flat ASCII text)                        | Zero Loss (Continuous Latents) | **Zero Loss (Acoustic RVQ Codebooks)**       |
+| **Barge-In Interruption Speed** | **180ms - 350ms**                                  | **60ms - 120ms**               | **&lt;40ms (Frame-Level Gating)**            |
+| **Emotion & Prosody Modeling**  | SSML simulation only                               | Native Neural Prosody          | **Native SOTA Empathy & Cadence**            |
+| **Code-Switching (Hinglish)**   | Frequent phonetic errors                           | Moderate Multilingual          | **Native Multilingual & Dialects**           |
+| **Tool Calling Execution**      | Serialized JSON payloads                           | Async Tool Tokens              | **Optimistic Acoustic Latency Hiding**       |
+| **Carrier Telephony Protocol**  | Fragmented WebRTC bridges                          | Cloud API WebSockets           | **Direct Regional SIP Trunks (asia-south1)** |
+| **Concurrency Scaling**         | Multi-vendor rate limits                           | Cloud API Limits               | **Infinite Elastic GPU Cluster Scaling**     |
+| **All-In Cost per Minute**      | **\$0.084 - \$0.140 / min**                        | **\$0.120 - \$0.300 / min**    | **₹3.50 / min (\$0.042/min flat)**           |
 
 ---
 
@@ -561,7 +561,7 @@ class NativeVoiceToVoiceClient:
 ## 10. Frequently Asked Questions
 
 **What is the core difference between Voice-to-Voice and Cascaded Voice AI?**
-Cascaded Voice AI chains three independent models (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS), converting audio into intermediate text characters. Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, eliminating text conversion, cutting latency to **&lt;200ms**, and preserving emotional nuances.
+Cascaded Voice AI chains three independent models (STT $\rightarrow$ LLM $\rightarrow$ TTS), converting audio into intermediate text characters. Voice-to-Voice (V2V) processes audio directly using continuous acoustic latents, eliminating text conversion, cutting latency to **&lt;200ms**, and preserving emotional nuances.
 
 **Why are Voice-to-Voice models faster than cascaded pipelines?**
 By eliminating intermediate text serialization, network hops between disparate vendors, and sequential token decoding, native V2V models reduce conversational turnaround latency from **800ms+ to sub-200ms**.

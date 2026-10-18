@@ -18,7 +18,7 @@ structuredData:
 
 > **Executive Summary & Quick Reference Guide**
 >
-> - **What is Text-to-Speech (TTS)?** Text-to-Speech is the computational synthesis of natural, intelligible human spoken audio waveforms directly from written a\alphanumeric text tokens.
+> - **What is Text-to-Speech (TTS)?** Text-to-Speech is the computational synthesis of natural, intelligible human spoken audio waveforms directly from written alphanumeric text tokens.
 > - **The Core Mechanism:** Modern neural TTS translates written characters into phonetic pronunciations (G2P), predicts pitch contours ($F_0$) and duration using **State Space Models (SSMs / Mamba)** with linear complexity ($\mathcal{O}(N)$), and reconstructs 24kHz linear audio waveforms using **HiFi-GAN neural vocoders** in **&lt;40ms to &lt;90ms**.
 > - **The Latency Threshold:** In real-time voice agents, TTS is the final hop before audio enters the phone network. Modern streaming synthesizers emit audio chunks in **&lt;60ms Time-to-First-Audio (TTFA)**, eliminating the robotic pauses of older diffusion models.
 
@@ -26,9 +26,9 @@ structuredData:
 
 ## 1. The Physics of Synthetic Speech: The G2P to Waveform Pipeline
 
-Converting written a\alphanumeric text into physical soundwaves requires navigating two complex transformations: **linguistic text normalization** and **acoustic waveform synthesis**.
+Converting written alphanumeric text into physical soundwaves requires navigating two complex transformations: **linguistic text normalization** and **acoustic waveform synthesis**.
 
-```\text
+```text
 The Complete Neural Text-to-Speech (TTS) Architecture:
 
 Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
@@ -42,14 +42,14 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Grapheme-to-Phoneme (G2P) & Prosody Prediction                      │
-│    - Converts \text into International Phonetic A\alphabet (IPA) phonemes │
+│    - Converts text into International Phonetic Alphabet (IPA) phonemes │
 │    - Predicts Fundamental Frequency (F0), phoneme durations, & energy  │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. State Space Model (SSM / Mamba) Acoustic Generator                  │
-│    - Generates intermediate 128-channel Log-Mel spectrograms \in linear  │
+│    - Generates intermediate 128-channel Log-Mel spectrograms in linear │
 │      time O(N) without quadratic transformer attention lag             │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
@@ -57,11 +57,11 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 4. Neural Vocoder (HiFi-GAN Multi-Period & Multi-Scale Discriminator)  │
 │    - Inverts 2D Mel spectrograms into 24kHz linear PCM audio waveforms │
-│    - Emits first audio packet \in <40ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet in <40ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
-[Synthesized Audio Stream Delivered \to Caller via Carrier SIP Trunk]
+[Synthesized Audio Stream Delivered to Caller via Carrier SIP Trunk]
 ```
 
 ---
@@ -174,7 +174,7 @@ State Space Model Sequence Dynamics:
 Continuous-Time Differential Equations:
 h'(t) = \mathbf{A}h(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}h(t) + \mathbf{D}x(t)
                          │
-                         ▼ (Zero-Order Hold Discretization with Step Size \Delta)
+                         ▼ (Zero-Order Hold Discretization with Step Size Delta)
 Discrete State Recurrence:
 h_t = \bar{\mathbf{A}} h_{t-1} + \bar{\mathbf{B}} x_t, \quad y_t = \mathbf{C} h_t + \mathbf{D} x_t
 ```
@@ -279,7 +279,7 @@ The Fundamental Frequency (F0) Intonation Contours:
 Modern TTS models predict continuous fundamental frequency contours $\hat{F}_0(t)$ alongside phoneme energy envelopes:
 
 $$
-\hat{F}_0(t) = \mu_{F_0} + \s\sigma_{F_0} \cdot     anh(\text{AcousticPredictor}(\mathbf{h}_t))
+\hat{F}_0(t) = \mu_{F_0} + \sigma_{F_0} \cdot     anh(\text{AcousticPredictor}(\mathbf{h}_t))
 $$
 
 By modulating pitch and breath aspiration in real time, neural synthesizers emulate authentic human conversational rhythm without sounding scripted.
@@ -544,7 +544,7 @@ Yes. Platforms like Smallest.ai Lightning V3 and Tough Tongue AI TTGE deploy joi
 Mean Opinion Score is the global benchmark for subjective vocal quality rated by human listeners on a scale of **1.0 to 5.0**. SOTA neural synthesizers achieve MOS ratings between **4.60 and 4.85**.
 
 **How does TTS handle numbers, dates, and abbreviations?**
-Text normalization and Inverse Text Normalization (ITN) rules expand abbreviations (_"Dr."_ $\r\r\rightarrow$ _"Doctor"_), dates (_"Jan 12"_ $\r\r\rightarrow$ _"January twelfth"_), and currency (_"\$50"_ $\r\rightarrow$ _"fifty dollars"_) before phonetic synthesis.
+Text normalization and Inverse Text Normalization (ITN) rules expand abbreviations (_"Dr."_ → _"Doctor"_), dates (_"Jan 12"_ → _"January twelfth"_), and currency (_"\$50"_ → _"fifty dollars"_) before phonetic synthesis.
 
 **What is SSML and how is it used?**
 Speech Synthesis Markup Language (SSML) is an XML-based standard allowing developers to control pause durations (`<break time="200ms"/>`), pitch shifts, emphasis, and phonetic pronunciations explicitly.
@@ -553,7 +553,7 @@ Speech Synthesis Markup Language (SSML) is an XML-based standard allowing develo
 Tough Tongue AI combines native Voice-to-Voice neural architecture with localized carrier SIP trunks in `asia-south1`, delivering sub-**200ms** turnaround latency at a flat rate of **₹3.50 per minute**.
 
 **What is the cost per minute for running production TTS?**
-Commercial TTS APIs charge between **\$0.05 and \$0.30 per 1,000 characters** (a\approx. **\$0.09 \to \$0.21 per minute**). Tough Tongue AI bundles speech synthesis, language reasoning, speech recognition, and telephony for an all-inclusive flat rate of **₹3.50 per minute** (**\$0.042/min**).
+Commercial TTS APIs charge between **\$0.05 and \$0.30 per 1,000 characters** (approx. **\$0.09 \to \$0.21 per minute**). Tough Tongue AI bundles speech synthesis, language reasoning, speech recognition, and telephony for an all-inclusive flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
 ---
 

@@ -17,8 +17,7 @@ structuredData:
 
 > **Executive Summary & Quick Comparison**
 >
-> - **The Core Architectural Divergence:**
->   &gt; 1. **Traditional IVR (1970s to 2010s):** Deterministic touch-tone (DTMF) or rigid VoiceXML keyword flowcharts (_"Press 1 for Sales"_). Operates at **\$0.01 \to \$0.05 per call**, but causes **45% call abandonment** due to rigid menus.
+> - **The Core Architectural Divergence:** > &gt; 1. **Traditional IVR (1970s to 2010s):** Deterministic touch-tone (DTMF) or rigid VoiceXML keyword flowcharts (_"Press 1 for Sales"_). Operates at **\$0.01 \to \$0.05 per call**, but causes **45% call abandonment** due to rigid menus.
 >   &gt; 2. **Text Chatbots (2016 to 2024):** Asynchronous, screen-based conversational interfaces. Highly cost-effective for web FAQs (**\$0.005 per message**), but ineffective for high-urgency customer support or real-time telephone interactions.
 >   &gt; 3. **Autonomous Voice AI (2025 to 2026):** Full-duplex conversational reasoning engines operating over live phone lines with sub-**200ms** turnaround latency. Resolves **75% to 88% of customer inquiries end-to-end** for a flat rate of **₹3.50 per minute** (**\$0.042/min** on Tough Tongue AI).
 > - **The Hybrid 2026 Reality:** Modern enterprise contact centers use IVR for basic cryptographic authentication, Chatbots for asynchronous portal tickets, and **Voice AI for autonomous phone resolution**, reducing human escalation labor by **70%**.
@@ -226,29 +225,27 @@ P(W > t) = P_W \cdot \exp\left(-(N\mu - \lambda)t
 \right)
 $$
 
-Customer patience follows an exponential decay distribution with hazard rate $ \theta$. The expected fraction of abandoned calls ($P\_{ ext{abandon}}$) is calculated by integrating the waiting time distribution against caller abandonment probability:
+Customer patience follows an exponential decay distribution with hazard rate $\theta$. The expected fraction of abandoned calls ($P_{\text{abandon}}$) is calculated by integrating the waiting time distribution against caller abandonment probability:
 
 $$
-P_{\text{abandon}} = \int_{0}^{\infty} P(W > t) \cdot     \theta e^{-    \theta t} \, dt = \frac{P_W \cdot     \theta}{(N\mu - \lambda) +     \theta}
+P_{\text{abandon}} = \int_{0}^{\infty} P(W > t) \cdot \theta e^{-\theta t} \, dt = \frac{P_W \cdot \theta}{(N\mu - \lambda) + \theta}
 $$
 
-As traffic approaches peak staffing capacity ($\lambda 
-\rightarrow N\mu$), the denominator collapses toward $ \theta$, causing abandonment rates to surge exponentially past **45%**.
+As traffic approaches peak staffing capacity ($\lambda \rightarrow N\mu$), the denominator collapses toward $\theta$, causing abandonment rates to surge exponentially past **45%**.
 
 By replacing finite human queues with elastic Voice AI workers, arrival rate never exceeds capacity ($\lambda \ll N\mu$), driving $\bar{W} \rightarrow 0$ and eliminating hold-queue abandonment entirely.
-of Contact Center Queueing & Erlang C
 
-To understand the financial and operational advantage of Voice AI, contact center operations rely on the **Erlang C Queueing Formula**.
+### Queueing Probability & Erlang C Analysis
 
-```\text
-The Erlang C Traffic Equation:
+To understand the financial and operational advantage of Voice AI, contact center operations rely on the **Erlang C Queueing Formula**:
 
+$$
 P_W = \frac{\frac{A^N}{N!} \frac{N}{N - A}}{\sum_{k=0}^{N-1} \frac{A^k}{k!} + \frac{A^N}{N!} \frac{N}{N - A}}
-```
+$$
 
 ### Queueing Probability Analysis
 
-In a traditional human contact center with $N$ human agents and traffic intensity $A$ (Erlangs, where $A = \lambda \cdot \text{AHT}$), the probability that an incoming caller must wait in a hold queue ($P_W$) scales exponentially as traffic approaches agent capacity ($A \r\r\rightarrow N$).
+In a traditional human contact center with $N$ human agents and traffic intensity $A$ (Erlangs, where $A = \lambda \cdot \text{AHT}$), the probability that an incoming caller must wait in a hold queue ($P_W$) scales exponentially as traffic approaches agent capacity ($A \rightarrow N$).
 
 ```\text
 Hold Queue Probability vs Call Volume:
@@ -277,24 +274,24 @@ Voice AI operates with elastic cloud concurrency ($N = \infty$). Traffic intensi
 
 ## 6. 25-Point Architectural Comparison Matrix
 
-| System Dimension                  | Traditional Touch-Tone IVR       | Natural Language Chatbots    | Cascaded Voice Pipeline                                    | Native Voice AI (TTGE)              |
-| --------------------------------- | -------------------------------- | ---------------------------- | ---------------------------------------------------------- | ----------------------------------- |
-| **Underlying Architecture**       | Deterministic PBX Switch         | NLU / Vector Database RAG    | Sequential STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **Unified Multimodal V2V**          |
-| **Response Latency**              | Instant Tone Relay               | **1,000ms - 3,000ms (Text)** | **650ms - 1,200ms**                                        | **&lt;200ms (Human Tempo)**         |
-| **Interaction Modality**          | Telephony DTMF Keypad            | Web Widget, SMS, WhatsApp    | Phone & WebRTC Audio                                       | **Carrier SIP & WebRTC**            |
-| **Multi-Turn Context Memory**     | 0 Turns (Flowchart State)        | 5 to 10 Turns (Text)         | 5 to 10 Turns (Text)                                       | **Persistent Multi-Turn Context**   |
-| **Paralinguistic Tone**           | Pre-recorded Prompts             | None (Flat text)             | Synthetic TTS Guess                                        | **100% Native Emotion Modeling**    |
-| **Barge-In Interruption**         | Keypress interrupts              | Not Applicable               | **180ms - 350ms**                                          | **&lt;40ms (Frame-Level Gating)**   |
-| **Objection Reframing**           | Fails on unscripted options      | Loops fallback message       | Dynamic Text Generation                                    | **Dynamic Voice Reframing**         |
-| **Live Database Webhooks**        | Rigid PBX Database Dip           | REST APIs                    | REST APIs & Function Calls                                 | **Native Multi-Tool Webhooks**      |
-| **Multi-Dialect & Accents**       | Rigid Language Menu              | Text Translation APIs        | High Phonetic Misrecognition                               | **Native Hinglish & Accents**       |
-| **Average Resolution Rate**       | **15% - 25%**                    | **35% - 50%**                | **60% - 75%**                                              | **75% - 88% End-to-End**            |
-| **Human Escalation Rate**         | **75% - 85%**                    | **50% - 65%**                | **25% - 40%**                                              | **12% - 25% (4x Reduction)**        |
-| **Warm Transfer with Context**    | Cold Transfer (Repeat data)      | Chat-to-Voice Handoff        | Supported via SIP Refer                                    | **Instant Transcript & Audio Sync** |
-| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                   | Not Applicable               | Complex Multi-Vendor Setup                                 | **Native 140/160 & STIR/SHAKEN**    |
-| **Elastic Concurrency**           | Fixed PRI / T1 Channel Limit     | High Cloud Concurrency       | High (Multi-Vendor Limits)                                 | **Infinite Elastic SIP Scale**      |
-| **Setup & Ramp Time**             | **6 to 12 Weeks**                | **2 to 4 Weeks**             | **4 to 8 Weeks**                                           | **&lt;2 Minutes (Prompt-Driven)**   |
-| **All-In Cost per Minute**        | **\$0.015 / min** (Telecom only) | **\$0.005 / message**        | **\$0.084 - \$0.140 / min**                                | **₹3.50 / min (\$0.042/min flat)**  |
+| System Dimension                  | Traditional Touch-Tone IVR       | Natural Language Chatbots    | Cascaded Voice Pipeline                            | Native Voice AI (TTGE)              |
+| --------------------------------- | -------------------------------- | ---------------------------- | -------------------------------------------------- | ----------------------------------- |
+| **Underlying Architecture**       | Deterministic PBX Switch         | NLU / Vector Database RAG    | Sequential STT $\rightarrow$ LLM $\rightarrow$ TTS | **Unified Multimodal V2V**          |
+| **Response Latency**              | Instant Tone Relay               | **1,000ms - 3,000ms (Text)** | **650ms - 1,200ms**                                | **&lt;200ms (Human Tempo)**         |
+| **Interaction Modality**          | Telephony DTMF Keypad            | Web Widget, SMS, WhatsApp    | Phone & WebRTC Audio                               | **Carrier SIP & WebRTC**            |
+| **Multi-Turn Context Memory**     | 0 Turns (Flowchart State)        | 5 to 10 Turns (Text)         | 5 to 10 Turns (Text)                               | **Persistent Multi-Turn Context**   |
+| **Paralinguistic Tone**           | Pre-recorded Prompts             | None (Flat text)             | Synthetic TTS Guess                                | **100% Native Emotion Modeling**    |
+| **Barge-In Interruption**         | Keypress interrupts              | Not Applicable               | **180ms - 350ms**                                  | **&lt;40ms (Frame-Level Gating)**   |
+| **Objection Reframing**           | Fails on unscripted options      | Loops fallback message       | Dynamic Text Generation                            | **Dynamic Voice Reframing**         |
+| **Live Database Webhooks**        | Rigid PBX Database Dip           | REST APIs                    | REST APIs & Function Calls                         | **Native Multi-Tool Webhooks**      |
+| **Multi-Dialect & Accents**       | Rigid Language Menu              | Text Translation APIs        | High Phonetic Misrecognition                       | **Native Hinglish & Accents**       |
+| **Average Resolution Rate**       | **15% - 25%**                    | **35% - 50%**                | **60% - 75%**                                      | **75% - 88% End-to-End**            |
+| **Human Escalation Rate**         | **75% - 85%**                    | **50% - 65%**                | **25% - 40%**                                      | **12% - 25% (4x Reduction)**        |
+| **Warm Transfer with Context**    | Cold Transfer (Repeat data)      | Chat-to-Voice Handoff        | Supported via SIP Refer                            | **Instant Transcript & Audio Sync** |
+| **Carrier Compliance (DLT/TCPA)** | Basic Trunking                   | Not Applicable               | Complex Multi-Vendor Setup                         | **Native 140/160 & STIR/SHAKEN**    |
+| **Elastic Concurrency**           | Fixed PRI / T1 Channel Limit     | High Cloud Concurrency       | High (Multi-Vendor Limits)                         | **Infinite Elastic SIP Scale**      |
+| **Setup & Ramp Time**             | **6 to 12 Weeks**                | **2 to 4 Weeks**             | **4 to 8 Weeks**                                   | **&lt;2 Minutes (Prompt-Driven)**   |
+| **All-In Cost per Minute**        | **\$0.015 / min** (Telecom only) | **\$0.005 / message**        | **\$0.084 - \$0.140 / min**                        | **₹3.50 / min (\$0.042/min flat)**  |
 
 ---
 

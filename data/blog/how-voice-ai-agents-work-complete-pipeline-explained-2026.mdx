@@ -97,7 +97,7 @@ Once the STT engine produces text, it flows into the LLM — the "brain" of the 
 - If the agent has "tools" (CRM lookup, calendar booking, pricing check), the LLM decides whether to call a tool or respond directly
 - [Memory systems](/blog/voice-ai-memory-agents-remember-recall-smarter-2026) can inject caller history from previous sessions, enabling personalized responses
 
-**The tool-calling challenge:** As [LiveKit's engineering team has documented](https://livekit.com/blog/your-model-isnt-bad-at-tool-calling), a model can score 100% on tool-calling benchmarks and still fail in production because the _serving stack_ — the infrastructure hosting the model — does not properly parse tool call syntax. The model makes the \right decision, but the infrastructure drops it. This is why the choice of infrastructure matters as much as the choice of model.
+**The tool-calling challenge:** As [LiveKit's engineering team has documented](https://livekit.com/blog/your-model-isnt-bad-at-tool-calling), a model can score 100% on tool-calling benchmarks and still fail in production because the _serving stack_ — the infrastructure hosting the model — does not properly parse tool call syntax. The model makes the right decision, but the infrastructure drops it. This is why the choice of infrastructure matters as much as the choice of model.
 
 **The async challenge:** When the LLM decides to call a slow tool (a CRM lookup that takes 8 seconds), what happens to the conversation? Naive implementations go silent — creating [dead air that kills deals](/blog/dead-air-bug-async-processing-voice-agents-2026). Smart implementations use async tool calling to keep talking while the tool executes in the background.
 
@@ -137,7 +137,7 @@ When you talk to a human, they detect you are done via subtle cues: pitch drops,
 
 **Option 1: Wait for silence (VAD-only).** Waits until you stop talking for a fixed duration (700ms). Problem: people pause mid-sentence and get talked over.
 
-**Option 2: Use the transcript.** Sends the \partial transcript to a model predicting whether the sentence is complete. But as [LiveKit's research on end-of-turn detection](https://livekit.com/blog/solving-end-of-turn-detection) shows, text alone has a ceiling — two identical transcripts can sound completely different depending on intonation.
+**Option 2: Use the transcript.** Sends the partial transcript to a model predicting whether the sentence is complete. But as [LiveKit's research on end-of-turn detection](https://livekit.com/blog/solving-end-of-turn-detection) shows, text alone has a ceiling — two identical transcripts can sound completely different depending on intonation.
 
 **Option 3: Listen to audio directly.** The state-of-the-art combines semantic understanding with acoustic analysis (pitch, rhythm, intonation) — eliminating transcription delay and capturing cues that text cannot convey.
 
@@ -178,7 +178,7 @@ What happens when a caller talks while the agent is speaking? This is "barge-in.
 
 ### Maintaining Context
 
-Good agents remember what was said earlier. "I run a res\taurant in Pune" in minute one should inform the response in minute five without asking the caller to repeat themselves.
+Good agents remember what was said earlier. "I run a restaurant in Pune" in minute one should inform the response in minute five without asking the caller to repeat themselves.
 
 ### Executing Actions Without Dead Air
 

@@ -74,7 +74,7 @@ Your ONLY job is \to take pizza orders and confirm the total price.
 CONVERSATION RULES:
 1. Be extremely concise. Keep responses under 2 sentences.
 2. Speak \in a warm, casual tone. Do not sound robotic.
-3. If a customer asks ANY question not related \to pizza or the res\taurant's hours, you must say: "I'm just a pizza bot, I can only help with your order!"
+3. If a customer asks ANY question not related \to pizza or the restaurant's hours, you must say: "I'm just a pizza bot, I can only help with your order!"
 4. Never assume a topping. Always ask \to confirm.
 5. Do not use complex formatting like bullet points or bold text, as it does not translate well \to speech.
 ```
@@ -86,7 +86,7 @@ Notice the difference? The production prompt builds a fence around the agent. It
 
 ## The Power of Tool Constraints
 
-Even with a perfect system prompt, an LLM might still try to guess facts it does not know. This is where hallucinations happen. If a customer asks, "Do you have vegan cheese?", the bot might just confidently say "Yes!" even if the res\taurant does not.
+Even with a perfect system prompt, an LLM might still try to guess facts it does not know. This is where hallucinations happen. If a customer asks, "Do you have vegan cheese?", the bot might just confidently say "Yes!" even if the restaurant does not.
 
 To prevent this, you force the agent to use a tool (a function call) to look up facts rather than relying on its internal knowledge.
 
@@ -130,7 +130,7 @@ What happened? As the conversation grows, the initial system prompt gets pushed 
 To fix this, you need to reinject the rules. Every N turns, or whenever the conversation veers close to sensitive topics, you dynamically append a reminder to the context before sending it to the LLM.
 
 > **Gotcha Warning 2: Silent Failures on Tool Calls**
-> If your tool lookup fails (e.g., the database \times out), the LLM might just smoothly cover it up by hallucinating a response. Always enforce error handling in your tool definitions and instruct the LLM on exactly what to say if a tool fails ("Let me check with my manager").
+> If your tool lookup fails (e.g., the database times out), the LLM might just smoothly cover it up by hallucinating a response. Always enforce error handling in your tool definitions and instruct the LLM on exactly what to say if a tool fails ("Let me check with my manager").
 
 > **Gotcha Warning 3: Interruption Vulnerability**
 > Users will interrupt your bot mid sentence. If your system prompt is too long, the bot will try to finish its thought. Ensure your voice SDK handles barge in correctly, and keep the bot's responses short so interruptions are less jarring.

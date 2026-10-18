@@ -2,8 +2,7 @@ import { Metadata } from 'next'
 import DomainHomePage from '@/components/domain/DomainHomePage'
 
 export const metadata: Metadata = {
-  title:
-    'Auto Interview AI | Your Dream Job, Engineered | CV Templates, Resources & Mock Interviews',
+  title: 'Free ATS CV Templates, Mock Interviews & AI Tools (2026)',
   description:
     'The one-stop platform for cracking your dream job. Download ATS-optimized CV templates from Harvard and IIM-A, access domain-specific interview resources, practice with AI mock interviews, and join career communities. Free, ungated, built for the ambitious.',
   keywords:

@@ -117,7 +117,7 @@ Layer 1 (Dilation d=1):  o─o─o─o─o─o─o─o─o─o─o─o─o─o�
 The gated activation unit combines tanh and sigmoid non-linearities:
 
 $$
-\mathbf{z} = \tanh\left(\mathbf{W}_{f, k} * \mathbf{x}\right) \odot \s\sigma\left(\mathbf{W}_{g, k} * \mathbf{x}\right)
+\mathbf{z} = \tanh\left(\mathbf{W}_{f, k} * \mathbf{x}\right) \odot \sigma\left(\mathbf{W}_{g, k} * \mathbf{x}\right)
 $$
 
 ### The 40-Year Evolution of Voice Activity Detection (VAD) and Turn-Taking
@@ -127,7 +127,7 @@ In speech systems, knowing when a human has stopped speaking is as critical as r
 ```\text
 The Evolution of Voice Activity Detection:
 
-1980s: Energy Threshold Gating: E = \sum x^2(n) > E_{\text{threshold}} (Sensitive \to noise)
+1980s: Energy Threshold Gating: E = sum x^2(n) > E_{\text{threshold}} (Sensitive \to noise)
 1990s: Statistical Likelihood Ratio Tests (LRT) on Spectral Subbands
 2010s: WebRTC GMM-Based VAD (Gaussian Mixture Models on 10ms frames)
 2020s: Deep Recurrent Neural VAD (Silero VAD ONNX models with 99.2% accuracy)
@@ -349,13 +349,13 @@ The 5 Historical Mathematical Formulations:
    R = \frac{\int_{f=300}^{900} |X(f)|^2 df}{\int_{f=900}^{3000} |X(f)|^2 df}
 
 2. 1976 (Hidden Markov Model Joint Probability):
-   P(\mathbf{O}, \mathbf{Q} \mid \lambda) = \pi_{q_1} b_{q_1}(o_1) \prod_{t=2}^{T} a_{q_{t-1} q_t} b_{q_t}(o_t)
+   P(\mathbf{O}, \mathbf{Q} \mid lambda) = \pi_{q_1} b_{q_1}(o_1) \prod_{t=2}^{T} a_{q_{t-1} q_t} b_{q_t}(o_t)
 
 3. 2006 (Connectionist Temporal Classification Loss):
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
 
 4. 2024 (Selective State Space Model Discretization):
-   \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+   \bar{\mathbf{A}} = \exp(Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (Delta \mathbf{A})^{-1}(\exp(Delta \mathbf{A}) - \mathbf{I}) \cdot (Delta \mathbf{B})
 
 5. 2026 (Residual Vector Quantization Multi-Codebook Representation):
    \mathbf{z}_q = \sum_{k=1}^{K} \mathbf{e}_{k, j_k}, \quad \text{where } j_k = \arg\min_j \|\mathbf{r}_{k-1} - \mathbf{e}_{k, j}\|_2^2
@@ -385,7 +385,7 @@ The 5 Historical Mathematical Formulations:
 In 2026, voice agents no longer rely on static rule trees; they improve dynamically from real-world phone call outcomes using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 $$
 
 Conversations where callers experienced seamless resolution without interruption are marked as winning trajectories ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically over time.
@@ -470,8 +470,8 @@ class SpeechRecognitionHistoricalSimulator:
         1980s Hidden Markov Model: Evaluates state transition lattice using dynamic programming.
         """
         # Forward-backward Viterbi state path computation
-        \log_likelihood = sum(np.mean(obs) for obs \in acoustic_observations)
-        return f"TRANSCRIPTION_HMM_SCORE_{\log_likelihood:.2f}"
+        log_likelihood = sum(np.mean(obs) for obs \in acoustic_observations)
+        return f"TRANSCRIPTION_HMM_SCORE_{log_likelihood:.2f}"
 
     async def simulate_2026_native_voice_to_voice(self, pcm_audio_frame: bytes) -> Dict[str, Any]:
         """

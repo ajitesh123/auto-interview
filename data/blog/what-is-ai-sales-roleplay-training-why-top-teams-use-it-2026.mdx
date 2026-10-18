@@ -240,7 +240,7 @@ The Mathematical Formulations:
    \mathcal{C}(n) = \mathcal{C}_{\max} - (\mathcal{C}_{\max} - \mathcal{C}_0) \cdot \exp(-\kappa \cdot n_{\text{simulations}})
 
 2. Win Rate Expansion Model:
-   \Delta W = \alpha \cdot \text{ObjectionScore} + \beta \cdot \text{DiscoveryDepth} + \gamma \cdot \text{ProsodyIndex}
+   Delta W = alpha \cdot \text{ObjectionScore} + beta \cdot \text{DiscoveryDepth} + \gamma \cdot \text{ProsodyIndex}
 
 3. Linear Predictive Coding (LPC) Formant Filter:
    H(z) = \frac{1}{1 - \sum_{k=1}^{P} a_k z^{-k}}
@@ -249,7 +249,7 @@ The Mathematical Formulations:
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
 
 5. Selective State Space Model Discretization (SSM / Mamba):
-   \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+   \bar{\mathbf{A}} = \exp(Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (Delta \mathbf{A})^{-1}(\exp(Delta \mathbf{A}) - \mathbf{I}) \cdot (Delta \mathbf{B})
 ```
 
 Because simulated AI practice enables $n = 50$ practice conversations in week one, rep competency $\mathcal{C}(n)$ reaches full quota readiness in **35 days instead of 90 days**.
@@ -358,12 +358,12 @@ Full-Duplex Interruption Architecture:
 
 ### 2026 Comprehensive AI Sales Roleplay Benchmark Matrix
 
-| Sales Roleplay Platform     | Underlying Audio Engine                                 | Response Latency (P50) | Buyer Persona Realism         | MEDDPICC Rubric Depth     | Pricing per Rep Month              |
-| --------------------------- | ------------------------------------------------------- | ---------------------- | ----------------------------- | ------------------------- | ---------------------------------- |
-| **Generic Chatbot Prompt**  | Text Generation API                                     | **1,500ms**            | None (Static Text)            | 22.4% (Basic Text)        | \$20 / month sub                   |
-| **First-Gen Voice Wrapper** | Chained STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | **650ms**              | Basic WPM count               | 45.8%                     | \$75 / rep month                   |
-| **OpenAI Realtime API**     | Cloud Multimodal Audio                                  | **250ms**              | Moderate Pushback             | 78.5%                     | \$0.120 - \$0.300 / min            |
-| **Tough Tongue AI (TTGE)**  | **Native Multimodal V2V**                               | **&lt;180ms**          | **Extreme Hostile/Skeptical** | **91.4% Objective Depth** | **₹3.50 / min (\$0.042/min flat)** |
+| Sales Roleplay Platform     | Underlying Audio Engine                         | Response Latency (P50) | Buyer Persona Realism         | MEDDPICC Rubric Depth     | Pricing per Rep Month              |
+| --------------------------- | ----------------------------------------------- | ---------------------- | ----------------------------- | ------------------------- | ---------------------------------- |
+| **Generic Chatbot Prompt**  | Text Generation API                             | **1,500ms**            | None (Static Text)            | 22.4% (Basic Text)        | \$20 / month sub                   |
+| **First-Gen Voice Wrapper** | Chained STT $\rightarrow$ LLM $\rightarrow$ TTS | **650ms**              | Basic WPM count               | 45.8%                     | \$75 / rep month                   |
+| **OpenAI Realtime API**     | Cloud Multimodal Audio                          | **250ms**              | Moderate Pushback             | 78.5%                     | \$0.120 - \$0.300 / min            |
+| **Tough Tongue AI (TTGE)**  | **Native Multimodal V2V**                       | **&lt;180ms**          | **Extreme Hostile/Skeptical** | **91.4% Objective Depth** | **₹3.50 / min (\$0.042/min flat)** |
 
 ### Enterprise Migration Blueprint: Scaling Enablement with AI Roleplays
 
@@ -381,7 +381,7 @@ By deploying Tough Tongue AI TTGE across onboarding cohorts, enablement teams re
 | **Acoustic Pitch ($F_0$) Tracking** | None                     | Subjective impression    | **Real-Time Fundamental Frequency Analysis**   |
 | **Objection Complexity**            | Repetitive scripts       | Inconsistent scenarios   | **Adaptive Socratic Escalation Drills**        |
 | **MEDDPICC / BANT Scoring**         | None                     | Manual checklist         | **Automated Multi-Dimensional Rubric Grading** |
-| **Filler Word Density ($\Phi$)**    | None                     | A\approximate feedback   | **Millisecond Acoustic Filler Detection**      |
+| **Filler Word Density ($\Phi$)**    | None                     | Approximate feedback     | **Millisecond Acoustic Filler Detection**      |
 | **Pacing / WPM Gauge**              | None                     | Rough estimate           | **Real-Time Syllable Pacing Meter**            |
 | **Real CRM Call Grounding**         | Generic roleplay         | Based on memory          | **Trained on Top 1% Rep Won/Lost Calls**       |
 | **Average Ramp Time**               | **90 - 120 Days**        | **75 - 90 Days**         | **30 - 45 Days (55% Faster Ramp)**             |
@@ -394,7 +394,7 @@ By deploying Tough Tongue AI TTGE across onboarding cohorts, enablement teams re
 In 2026, AI sales roleplay agents refine coaching rubrics dynamically using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 $$
 
 Feedback that accurately guided sales reps to reframe objections while maintaining composure is marked as preferred pairs ($\mathbf{y}_w$), training the coaching model to provide high-signal, actionable feedback.

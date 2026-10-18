@@ -19,8 +19,7 @@ structuredData:
 > **Executive Summary & Taxonomy of Voice AI**
 >
 > - **Why Modern Terminology Matters:** As voice interfaces shift from legacy IVR to **Native Voice-to-Voice (V2V)** foundation models, executive decision-makers must understand the technical distinctions that govern latency, accuracy, compliance, and unit economics.
-> - **The 5 Core Pillars:**
->   &gt; 1. **Neural Speech Architectures:** RVQ-VAE, Conformer-2, State Space Models (Mamba), HiFi-GAN.
+> - **The 5 Core Pillars:** > &gt; 1. **Neural Speech Architectures:** RVQ-VAE, Conformer-2, State Space Models (Mamba), HiFi-GAN.
 >   &gt; 2. **Acoustic Signal Processing:** Formants ($F_1-F_3$), Log-Mel Spectrograms, LPC, DNS Wiener Filtering.
 >   &gt; 3. **Conversational Turn-Taking:** Silero VAD, Semantic Endpointing, Full-Duplex, Sub-40ms Barge-In.
 >   &gt; 4. **Latency & Performance Profiling:** TTFT, TTFA, Jitter Buffers, Sub-200ms Turnaround.
@@ -32,7 +31,7 @@ structuredData:
 ## Pillar 1: Neural Speech Architectures & Modeling (Terms 1 to 10)
 
 1. **Native Voice-to-Voice (V2V):** A foundation model architecture that processes incoming audio waveforms directly as continuous acoustic vectors and emits speech waveforms in a single unified forward pass, achieving **&lt;180ms turnaround**.
-2. **Cascaded Pipeline:** A legacy architecture chaining three independent API services (Speech-to-Text $\r\r\rightarrow$ Large Language Model $\r\r\rightarrow$ Text-to-Speech), incurring **650ms to 1,400ms of lag**.
+2. **Cascaded Pipeline:** A legacy architecture chaining three independent API services (Speech-to-Text $\rightarrow$ Large Language Model $\rightarrow$ Text-to-Speech), incurring **650ms to 1,400ms of lag**.
 3. **Residual Vector Quantization (RVQ-VAE):** A neural audio codec that quantizes continuous speech embeddings into hierarchical multi-codebook representations ($\mathbf{z}_q = \sum_{k=1}^K \mathbf{e}_{k, j_k}$), preserving vocal emotion and timbre.
 4. **Conformer-2:** A neural encoder architecture combining multi-head self-attention with depthwise separable convolutions for resilient acoustic speech recognition.
 5. **Connectionist Temporal Classification (CTC Loss):** A loss function that aligns variable-length acoustic audio frames with text character sequences in linear time ($\mathcal{L}_{CTC}$).
@@ -118,8 +117,8 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 14. **Fundamental Frequency ($F_0$ / Pitch):** The physical rate of vocal cord vibration (typically 85 Hz to 255 Hz), conveying question intonation, emotional arousal, and sarcasm.
 15. **Linear Predictive Coding (LPC):** An acoustic production filter model ($H(z) = \frac{1}{1 - \sum a_k z^{-k}}$) modeling vocal tract resonance for audio compression.
 16. **Deep Noise Suppression (DNS):** A recurrent neural network that estimates Ideal Ratio Masks (IRM) to isolate speech from background noise in **&lt;8ms**.
-17. **Word Error Rate (WER):** The standard accuracy metric for speech recognition: $\text{WER} = \frac{S + D + I}{N} \times 100\%$, where $S$ is substitutions, $D$ is deletions, and $I$ is insertions.
-18. **Real-Time Factor (RTF):** Computational efficiency ratio: $\text{RTF} = \frac{\text{Processing Time}}{\text{Audio Duration}}$. Real-time voice requires $\text{RTF} &lt; 0.20$.
+17. **Word Error Rate (WER):** The standard accuracy metric for speech recognition: $\text{WER} = \frac{S + D + I}{N} times 100\%$, where $S$ is substitutions, $D$ is deletions, and $I$ is insertions.
+18. **Real-Time Factor (RTF):** Computational efficiency ratio: $\text{RTF} = \frac{\text{Processing Time}}{\text{Audio Duration}}$. Real-time voice requires $\text{RTF} < 0.20$.
 19. **Acoustic Bandwidth Extension (BWE):** A neural super-resolution model that reconstructs missing high-frequency harmonics (3.4kHz to 12kHz) from legacy 8kHz telephone lines.
 20. **Mean Opinion Score (MOS):** A perceptual audio quality rating from 1.0 (unintelligible) to 5.0 (crystal-clear studio speech). SOTA voice AI achieves **MOS &gt; 4.35**.
 
@@ -128,7 +127,7 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 ## Pillar 3: Conversational Turn-Taking & Dynamics (Terms 21 to 30)
 
 21. **Voice Activity Detection (VAD):** An acoustic classifier (such as Silero VAD) that analyzes 10ms audio slices to detect human speech onset in **&lt;15ms**.
-22. **Semantic Endpointing:** A natural language algorithm that evaluates \partial sentence syntax to determine whether a speaker has completed their thought or is merely taking a thinking pause.
+22. **Semantic Endpointing:** A natural language algorithm that evaluates partial sentence syntax to determine whether a speaker has completed their thought or is merely taking a thinking pause.
 23. **Full-Duplex Audio:** Bidirectional simultaneous media streaming allowing both the human caller and the AI agent to vocalize and listen over the same line without mute clamping.
 24. **Barge-In Interruption:** The capability of an AI voice agent to immediately detect human interruption speech, flush its outgoing audio buffer, and yield the floor in **&lt;40ms**.
 25. **Acoustic Echo Cancellation (AEC):** An adaptive Normalized Least Mean Squares (NLMS) DSP filter that subtracts the AI's outgoing voice from the microphone stream by up to **45 dB**.
@@ -251,7 +250,7 @@ This dynamic buffering prevents stuttering on mobile 4G/5G connections while mai
 In 2026, voice agents improve dynamically from real-world phone call outcomes using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 $$
 
 Conversations where callers experienced quick issue resolution without interruption are marked as winning pairs ($\mathbf{y}_w$), training the neural network to modulate empathy and cadence automatically.
@@ -286,48 +285,48 @@ In the Indian market, speech technology underwent four distinct transformations:
 The Core Mathematical Equations:
 
 1. Acoustic Log-Mel Mapping:
-   m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
+   m = 2595 log_{10}\left(1 + \frac{f}{700}\right)
 
 2. Connectionist Temporal Classification Loss:
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
 
 3. State Space Model Discretization (SSM):
-   \bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (\Delta \mathbf{A})^{-1}(\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot (\Delta \mathbf{B})
+   \bar{\mathbf{A}} = \exp(Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (Delta \mathbf{A})^{-1}(\exp(Delta \mathbf{A}) - \mathbf{I}) \cdot (Delta \mathbf{B})
 
 4. Adaptive Jitter Buffer Depth:
-   D_{\text{jitter}}(t) = \alpha \cdot D_{\text{jitter}}(t-1) + (1 - \alpha) \cdot |R_t - S_t|
+   D_{\text{jitter}}(t) = alpha \cdot D_{\text{jitter}}(t-1) + (1 - alpha) \cdot |R_t - S_t|
 
 5. Direct Preference Optimization Loss:
-   \mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_\theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
+   \mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln sigma \left(beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}\right)\right]
 ```
 
 ---
 
 ### 2026 Comprehensive Telephony Architecture Benchmark Matrix
 
-| Glossary Architecture Category | Core Neural Mechanism                                 | Median Turnaround (P50) | Tail Latency (P99) | Resolution Rate | Cost per Calling Minute            |
-| ------------------------------ | ----------------------------------------------------- | ----------------------- | ------------------ | --------------- | ---------------------------------- |
-| **Legacy IVR Menu Trees**      | Touch-Tone DTMF Keypads                               | **2,500ms**             | **5,000ms**        | **22.4%**       | **\$0.080 / min** (Telco)          |
-| **Cascaded Voicebot Stack**    | STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS Chain | **620ms**               | **1,450ms**        | **68.2%**       | **\$0.086 / min**                  |
-| **OpenAI Realtime API**        | Cloud Multimodal Audio                                | **250ms**               | **480ms**          | **78.5%**       | **\$0.120 - \$0.300 / min**        |
-| **Google Gemini Live**         | Multimodal Audio Core                                 | **220ms**               | **420ms**          | **81.0%**       | Enterprise Quota                   |
-| **Tough Tongue AI (TTGE)**     | **Native Multimodal V2V**                             | **&lt;180ms**           | **&lt;265ms**      | **86.8%**       | **₹3.50 / min (\$0.042/min flat)** |
+| Glossary Architecture Category | Core Neural Mechanism                         | Median Turnaround (P50) | Tail Latency (P99) | Resolution Rate | Cost per Calling Minute            |
+| ------------------------------ | --------------------------------------------- | ----------------------- | ------------------ | --------------- | ---------------------------------- |
+| **Legacy IVR Menu Trees**      | Touch-Tone DTMF Keypads                       | **2,500ms**             | **5,000ms**        | **22.4%**       | **\$0.080 / min** (Telco)          |
+| **Cascaded Voicebot Stack**    | STT $\rightarrow$ LLM $\rightarrow$ TTS Chain | **620ms**               | **1,450ms**        | **68.2%**       | **\$0.086 / min**                  |
+| **OpenAI Realtime API**        | Cloud Multimodal Audio                        | **250ms**               | **480ms**          | **78.5%**       | **\$0.120 - \$0.300 / min**        |
+| **Google Gemini Live**         | Multimodal Audio Core                         | **220ms**               | **420ms**          | **81.0%**       | Enterprise Quota                   |
+| **Tough Tongue AI (TTGE)**     | **Native Multimodal V2V**                     | **&lt;180ms**           | **&lt;265ms**      | **86.8%**       | **₹3.50 / min (\$0.042/min flat)** |
 
 ## 25-Point Glossary Architecture Matrix
 
-| Architectural Term                | Legacy 2020 Voicebot                                  | Streaming 2024 Cascade      | Native 2026 Voice-to-Voice (TTGE)            |
-| --------------------------------- | ----------------------------------------------------- | --------------------------- | -------------------------------------------- |
-| **Core Architecture**             | Batch STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS | WebSockets Audio Streamer   | **Unified Multimodal Foundation V2V**        |
-| **Turnaround Latency ($P_{50}$)** | **1,400ms - 2,500ms**                                 | **450ms - 650ms**           | **&lt;180ms (Biological Human Rhythm)**      |
-| **VAD Mechanism**                 | Static Energy Threshold                               | Silero Recurrent VAD        | **Continuous Latent Neural VAD Core**        |
-| **Barge-In Speed**                | **350ms - 600ms (Laggy)**                             | **120ms - 180ms**           | **&lt;40ms (Frame-Level Gating)**            |
-| **Acoustic Nuance / Prosody**     | 100% Lost (Text Flat)                                 | Partial Synthetic Prosody   | **100% Preserved (RVQ Audio Vectors)**       |
-| **Network Hop Overhead**          | 3 Distinct Cloud API Hops                             | 3 Cloud API Hops            | **Zero (Co-Located GPU Memory Bus)**         |
-| **GPU Optimization**              | PyTorch Standard Eager                                | vLLM PagedAttention         | **FlashAttention-3 + SSM Kernels**           |
-| **Telephony Codec**               | G.711 Narrowband                                      | Opus WebRTC                 | **Adaptive Opus + Narrowband BWE**           |
-| **Code-Switching (Hinglish)**     | Frequent Misrecognition                               | Moderate                    | **Native SOTA Multilingual Models**          |
-| **Carrier SIP Integration**       | Custom Asterisk Glue                                  | LiveKit / Pipecat relay     | **Direct Regional SIP Trunks (asia-south1)** |
-| **All-In Cost per Minute**        | **\$0.084 - \$0.140 / min**                           | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**           |
+| Architectural Term                | Legacy 2020 Voicebot                          | Streaming 2024 Cascade      | Native 2026 Voice-to-Voice (TTGE)            |
+| --------------------------------- | --------------------------------------------- | --------------------------- | -------------------------------------------- |
+| **Core Architecture**             | Batch STT $\rightarrow$ LLM $\rightarrow$ TTS | WebSockets Audio Streamer   | **Unified Multimodal Foundation V2V**        |
+| **Turnaround Latency ($P_{50}$)** | **1,400ms - 2,500ms**                         | **450ms - 650ms**           | **&lt;180ms (Biological Human Rhythm)**      |
+| **VAD Mechanism**                 | Static Energy Threshold                       | Silero Recurrent VAD        | **Continuous Latent Neural VAD Core**        |
+| **Barge-In Speed**                | **350ms - 600ms (Laggy)**                     | **120ms - 180ms**           | **&lt;40ms (Frame-Level Gating)**            |
+| **Acoustic Nuance / Prosody**     | 100% Lost (Text Flat)                         | Partial Synthetic Prosody   | **100% Preserved (RVQ Audio Vectors)**       |
+| **Network Hop Overhead**          | 3 Distinct Cloud API Hops                     | 3 Cloud API Hops            | **Zero (Co-Located GPU Memory Bus)**         |
+| **GPU Optimization**              | PyTorch Standard Eager                        | vLLM PagedAttention         | **FlashAttention-3 + SSM Kernels**           |
+| **Telephony Codec**               | G.711 Narrowband                              | Opus WebRTC                 | **Adaptive Opus + Narrowband BWE**           |
+| **Code-Switching (Hinglish)**     | Frequent Misrecognition                       | Moderate                    | **Native SOTA Multilingual Models**          |
+| **Carrier SIP Integration**       | Custom Asterisk Glue                          | LiveKit / Pipecat relay     | **Direct Regional SIP Trunks (asia-south1)** |
+| **All-In Cost per Minute**        | **\$0.084 - \$0.140 / min**                   | **\$0.065 - \$0.110 / min** | **₹3.50 / min (\$0.042/min flat)**           |
 
 ---
 
@@ -367,10 +366,10 @@ class VoiceAIMetricValidator:
     def calculate_rtf(self, compute_duration_sec: float, audio_duration_sec: float) -> float:
         return round(compute_duration_sec / max(audio_duration_sec, 0.001), 3)
 
-    def compute_adaptive_jitter(self, packet_latencies: List[float], a\alpha: float = 0.85) -> float:
+    def compute_adaptive_jitter(self, packet_latencies: List[float], aalpha: float = 0.85) -> float:
         depth = packet_latencies[0] if packet_latencies else 20.0
         for lat \in packet_latencies[1:]:
-            depth = a\alpha * depth + (1.0 - a\alpha) * lat
+            depth = aalpha * depth + (1.0 - aalpha) * lat
         return round(depth, 2)
 
     async def run_telemetry_audit(self):
@@ -407,7 +406,7 @@ Speech-to-Text converts audio into written text. Native Voice-to-Voice processes
 TTFA measures the elapsed time in milliseconds from when text or latent input is received by the speech synthesizer to when the first playable audio chunk is emitted. SOTA models achieve **&lt;40ms TTFA**.
 
 **What is Word Error Rate (WER)?**
-WER is the percentage of words incorrectly transcribed by an ASR system, calculated as the \sum of substitutions, deletions, and insertions divided by total reference words. SOTA speech models achieve **WER &lt; 3.0%**.
+WER is the percentage of words incorrectly transcribed by an ASR system, calculated as the sum of substitutions, deletions, and insertions divided by total reference words. SOTA speech models achieve **WER &lt; 3.0%**.
 
 **Why is Acoustic Echo Cancellation (AEC) critical for voice agents?**
 AEC subtracts the AI agent's outgoing vocal audio from the incoming microphone signal by up to **45 dB**, preventing the AI from hearing itself and enabling instant **&lt;40ms barge-in interruptions**.

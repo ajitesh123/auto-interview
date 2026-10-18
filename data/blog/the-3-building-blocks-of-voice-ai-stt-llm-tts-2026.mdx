@@ -390,7 +390,7 @@ The Core Mathematical Equations:
    X(m, \omega) = \sum_{n=-\infty}^{\infty} x(n) w(n - mR) e^{-j\omega n}
 
 3. Mel-Scale Frequency Non-Linear Mapping:
-   m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
+   m = 2595 log_{10}\left(1 + \frac{f}{700}\right)
 
 4. Connectionist Temporal Classification (CTC Loss):
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
@@ -406,7 +406,7 @@ $$
 
 If $\tau_{\text{VAD}} = 200\text{ ms}$, $\tau_{\text{STT}} = 250\text{ ms}$, $\tau_{\text{LLM}} = 600\text{ ms}$, $\tau_{\text{TTS}} = 300\text{ ms}$, and network routing takes $100\text{ ms}$, total conversational delay reaches **1,450ms**, causing immediate caller dissatisfaction.
 
-In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} &lt; 200\text{ ms}$.
+In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} < 200\text{ ms}$.
 
 ---
 

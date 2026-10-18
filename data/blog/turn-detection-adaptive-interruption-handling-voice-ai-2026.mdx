@@ -51,7 +51,7 @@ Mastering **Turn Detection** and **Adaptive Interruption Handling** is what sepa
 | VAD Threshold         | Distinguishes speech / noise | 0.5 \to 0.7 probability      |
 | Endpointing Delay     | Silence duration before turn | 300ms (fast) / 600ms (slow)|
 | Semantic Endpointing  | Checks grammar completeness  | Transformer / LLM Classifier|
-| Barge-\in Response     | Audio buffer cancellation    | Sub-150ms stream flush     |
+| Barge-in Response     | Audio buffer cancellation    | Sub-150ms stream flush     |
 +-----------------------+------------------------------+----------------------------+
 ```
 
@@ -92,7 +92,7 @@ Instead of relying solely on silence timers, modern agents use lightweight neura
                    +--------------------+--------------------+
                    | Yes                                     | No (Silence > 350ms)
                    v                                         v
-         [Barge-\in Triggered?]                   [Semantic Endpointer]
+         [Barge-in Triggered?]                   [Semantic Endpointer]
                    |                                         |
          +---------+---------+                     +---------+---------+
          | Yes               | No                  | Complete          | Incomplete
@@ -124,7 +124,7 @@ class AdaptiveTurnDetector:
         if is_speech_predicted and frame_energy > self.vad_confidence:
             self.last_speech_timestamp = current_time
 
-            # User barge-\in detected while agent is speaking
+            # User barge-in detected while agent is speaking
             if self.agent_is_speaking and not self.is_user_speaking:
                 self.is_user_speaking = True
                 return "BARGE_IN_INTERRUPT"
@@ -152,11 +152,11 @@ async def simulate_voice_session():
     print("--- Simulating Real-time Voice Session ---")
     detector.agent_is_speaking = True
 
-    # Simulated incoming audio frames: [Silence, Silence, User Barge-\in Speech!]
+    # Simulated incoming audio frames: [Silence, Silence, User Barge-in Speech!]
     frames = [
         (0.1, False),
         (0.2, False),
-        (0.85, True), # Barge-\in starts here!
+        (0.85, True), # Barge-in starts here!
         (0.90, True)
     ]
 

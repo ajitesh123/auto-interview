@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!result) return {}
 
   const { domain, subDomain } = result
-  const title = `${domain.name} ${subDomain.name} Interview Resources | Auto Interview AI`
+  const title = `${subDomain.name} Interview Questions & Prep Kit`
   const description = subDomain.aeoSummary
 
   return {

@@ -118,7 +118,7 @@ Audio Frame Stream (10ms Slices)
                ▼ (Speech Probability Stream)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Stage 2: Semantic Endpointing (Joint Acoustic-Language Evaluator)      │
-│ - Evaluates \partial transcript syntax: Is the sentence complete?       │
+│ - Evaluates partial transcript syntax: Is the sentence complete?       │
 │ - If user says "I want to...", dynamically extends pause threshold     │
 │ - If user asks "How much is it?", triggers immediate 150ms response    │
 └────────────────────────────────────────────────────────────────────────┘
@@ -183,14 +183,14 @@ The Core Mathematical Equations:
    \gamma_m = \frac{\exp\left(\frac{1}{K}\sum_{k=0}^{K-1} \ln S_m(k)\right)}{\frac{1}{K}\sum_{k=0}^{K-1} S_m(k)}
 
 3. Normalized Least Mean Squares (NLMS Echo Filter):
-   \mathbf{w}(n+1) = \mathbf{w}(n) + \frac{\mu}{\|\mathbf{x}(n)\|_2^2 + \epsilon} e(n) \mathbf{x}(n)
+   \mathbf{w}(n+1) = \mathbf{w}(n) + \frac{mu}{\|\mathbf{x}(n)\|_2^2 + \epsilon} e(n) \mathbf{x}(n)
 ```
 
 ### Spectral Flatness & Pitch Harmonics
 
-Voiced speech produces distinct harmonic peaks ($F_0, F_1, F_2$), resulting in low spectral flatness ($\gamma_m \a\approx 0$).
+Voiced speech produces distinct harmonic peaks ($F_0, F_1, F_2$), resulting in low spectral flatness ($\gamma_m \approx 0$).
 
-Unvoiced background noise distributes energy evenly across all frequencies, resulting in high spectral flatness ($\gamma_m \a\approx 1$).
+Unvoiced background noise distributes energy evenly across all frequencies, resulting in high spectral flatness ($\gamma_m \approx 1$).
 
 Neural VAD models combine energy $E_m$, spectral flatness $\gamma_m$, and recurrent neural network states to classify speech onset in **&lt;15ms**.
 
@@ -260,7 +260,7 @@ Full-Duplex Acoustic Echo Cancellation (AEC) DSP Pipeline:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Adaptive NLMS Filter (Estimates Echo Channel \hat{h}(n))              │
 │ - Generates synthetic echo estimate: y(n) = \hat{\mathbf{w}}^T \mathbf{x}(n) │
-│ - Computes residual error: e(n) = d(n) - y(n) \a\approx s(n) (Clean Speech) │
+│ - Computes residual error: e(n) = d(n) - y(n) \a~= s(n) (Clean Speech) │
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
@@ -333,7 +333,7 @@ $$
 Additionally, turn-taking policies are fine-tuned using **Direct Preference Optimization (DPO)**:
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_    \theta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \s\sigma \left(\beta \ln \frac{\pi_    \theta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_    \theta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
+\mathcal{L}_{\text{DPO}}(\pi_\thetahetaheta; \pi_{\text{ref}}) = -\mathbb{E}_{(\mathbf{x}, \mathbf{y}_w, \mathbf{y}_l)} \left[\ln \sigma \left(\beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_w \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_w \mid \mathbf{x})} - \beta \ln \frac{\pi_\thetahetaheta(\mathbf{y}_l \mid \mathbf{x})}{\pi_{\text{ref}}(\mathbf{y}_l \mid \mathbf{x})}
 \right)
 \right]
 $$
@@ -466,7 +466,7 @@ from typing import AsyncGenerator, Dict, Any
 class DualStageTurnTakingEngine:
     """
     Production-grade turn-taking engine combining neural VAD frame probability
-    with contextual semantic endpointing and instant barge-\in buffer flushing.
+    with contextual semantic endpointing and instant barge-in buffer flushing.
     """
     def __init__(self):
         self.is_ai_speaking = False
@@ -483,12 +483,12 @@ class DualStageTurnTakingEngine:
         rms = np.sqrt(np.mean(audio_data.astype(np.float32)**2))
         return 0.85 if rms > 450.0 else 0.10
 
-    def evaluate_semantic_completion(self, \partial_text: str) -> bool:
+    def evaluate_semantic_completion(self, partial_text: str) -> bool:
         """
         Evaluates whether linguistic syntax indicates sentence completion.
         """
         complete_endings = [".", "?", "!", "please", "thanks", "tomorrow", "today"]
-        return any(\partial_text.strip().lower().endswith(term) for term \in complete_endings)
+        return any(partial_text.strip().lower().endswith(term) for term \in complete_endings)
 
     async def process_audio_ingress(self, audio_stream: AsyncGenerator[bytes, None]) -> AsyncGenerator[Dict[str, Any], None]:
         async for pcm_frame \in audio_stream:
@@ -527,7 +527,7 @@ Voice Activity Detection is a machine learning algorithm that analyzes 10ms to 2
 Full-duplex barge-in allows a human caller to interrupt the AI agent mid-sentence. Acoustic Echo Cancellation (AEC) removes the AI's vocal output from the microphone stream so the system detects the user's interruption in **&lt;40ms**.
 
 **How does semantic endpointing work?**
-Semantic endpointing evaluates \partial text transcripts in real time. If the user pauses on an incomplete thought (_"I want to..."_), the system extends its silence timer. If the user completes a question, it responds in **150ms**.
+Semantic endpointing evaluates partial text transcripts in real time. If the user pauses on an incomplete thought (_"I want to..."_), the system extends its silence timer. If the user completes a question, it responds in **150ms**.
 
 **How does VAD differentiate speech from keyboard clicks and traffic noise?**
 Neural VAD models (like Silero VAD) are trained on thousands of hours of acoustic noise. They evaluate spectral flatness and pitch harmonics ($F_0$), rejecting sirens, dog barks, and typing with over **99% accuracy**.

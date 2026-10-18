@@ -52,3 +52,12 @@ yarn-error.log*
 .contentlayer
 
 .vercel
+
+# Scratch directory
+scratch/
+
+# Placement contacts CSV
+career_prep_placement_committee_pocs.csv
+
+# TS build info
+tsconfig.tsbuildinfo

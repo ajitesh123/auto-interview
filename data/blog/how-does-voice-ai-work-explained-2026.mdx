@@ -144,13 +144,13 @@ Streaming Audio Frame (16kHz PCM)
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Connectionist Temporal Classification (CTC) Streaming Decoder       │
-│    - Emits \partial \text tokens every 40ms \to 60ms                      │
+│    - Emits partial \text tokens every 40ms \to 60ms                      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 Modern ASR engines (such as Deepgram Nova-3) do not wait for the entire sentence to conclude.
 
-They emit **streaming \partial transcripts** every **40ms to 60ms**, allowing the language model to begin processing intent while the user is still articulating the final syllables of their sentence.
+They emit **streaming partial transcripts** every **40ms to 60ms**, allowing the language model to begin processing intent while the user is still articulating the final syllables of their sentence.
 
 ---
 
@@ -384,7 +384,7 @@ The Core Pipeline Mathematical Equations:
 
 ### Cumulative Latency Compounding
 
-The total perceived response latency ($\tau_{\text{total}}$) is the linear \sum of execution delays across all pipeline stages:
+The total perceived response latency ($\tau_{\text{total}}$) is the linear sum of execution delays across all pipeline stages:
 
 $$
 \tau_{\text{total}} = \tau_{\text{VAD}} + \tau_{\text{ASR}} + \tau_{\text{LLM}} + \tau_{\text{TTS}} + 2 \cdot \tau_{\text{SIP}}
@@ -392,13 +392,13 @@ $$
 
 In unoptimized systems, if $\tau_{\text{VAD}} = 200\text{ms}$, $\tau_{\text{ASR}} = 300\text{ms}$, $\tau_{\text{LLM}} = 500\text{ms}$, $\tau_{\text{TTS}} = 300\text{ms}$, and network transit $\tau_{\text{SIP}} = 80\text{ms}$, total delay reaches **1,460ms**, leading to immediate caller frustration.
 
-In optimized streaming engines (like Tough Tongue AI), streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} &lt; 200\text{ms}$.
+In optimized streaming engines (like Tough Tongue AI), streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} < 200\text{ms}$.
 
 ---
 
 ### GPU Kernel Optimization: FlashAttention-3 and Speculative Voice Decoding
 
-Achieving sub-second response \times requires optimizing GPU memory bandwidth at the CUDA kernel level.
+Achieving sub-second response times requires optimizing GPU memory bandwidth at the CUDA kernel level.
 
 In standard multi-head self-attention, computing attention scores across a sequence length $N$ requires writing an $N     imes N$ matrix to GPU High-Bandwidth Memory (HBM):
 
@@ -495,14 +495,14 @@ from typing import AsyncGenerator
 class ProductionVoiceAIPipeline:
     """
     Demonstrates low-latency streaming pipeline orchestration with
-    asynchronous task cancellation for instant barge-\in handling.
+    asynchronous task cancellation for instant barge-in handling.
     """
     def __init__(self):
         self.is_speaking = False
         self.current_tts_task = None
 
     async def simulate_streaming_asr(self, audio_stream: AsyncGenerator[bytes, None]) -> AsyncGenerator[str, None]:
-        # Emits \partial transcript tokens every 50ms
+        # Emits partial transcript tokens every 50ms
         async for chunk \in audio_stream:
             await asyncio.sleep(0.05) # 50ms ASR frame decoding
             yield "Customer asks about appointment availability for Friday"

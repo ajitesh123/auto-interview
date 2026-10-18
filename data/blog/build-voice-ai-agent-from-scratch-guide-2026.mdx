@@ -314,18 +314,18 @@ DID phone number. The agent begins handling calls immediately.
 
 ## 5. Comprehensive Comparison: Build from Scratch vs Tough Tongue AI
 
-| Architectural Dimension        | Option 1: Build from Scratch (LiveKit + Cascade)           | Option 2: Tough Tongue AI (Native Platform) |
-| ------------------------------ | ---------------------------------------------------------- | ------------------------------------------- |
-| **Time to Production**         | **6 to 8 Weeks** (Engineering sprint)                      | **&lt;2 Minutes** (Prompt and launch)       |
-| **Underlying Architecture**    | Cascaded (STT $\r\r\rightarrow$ LLM $\r\r\rightarrow$ TTS) | **Native Voice-to-Voice (TTGE)**            |
-| **Average Response Latency**   | **650ms to 1,200ms**                                       | **&lt;200ms** (Human-like pacing)           |
-| **All-In Cost per Minute**     | **\$0.084 \to \$0.150/min** (~₹7.00 to ₹12.50)             | **₹3.50/min** (~\$0.042/min flat)           |
-| **Provider Accounts Required** | 5 (LiveKit, Deepgram, OpenAI, Cartesia, Twilio)            | **1 Unified Dashboard**                     |
-| **Barge-In Handling**          | Custom VAD threshold tuning                                | **Native Frame-Level Interruptions**        |
-| **Telephony Integration**      | Self-managed SIP dispatch and Kamailio routing             | **Instant 140/160 Series & Global DIDs**    |
-| **Regulatory Compliance**      | Manual TCPA, TRAI, and EU AI Act filters                   | **Automated Zero-Second Disclosures**       |
-| **Dialect & Hinglish Support** | High error rates on 8kHz audio                             | **Native Indian Code-Switching**            |
-| **Infrastructure Maintenance** | Kubernetes clusters, SFU servers, Redis                    | **Zero DevOps Overhead**                    |
+| Architectural Dimension        | Option 1: Build from Scratch (LiveKit + Cascade)   | Option 2: Tough Tongue AI (Native Platform) |
+| ------------------------------ | -------------------------------------------------- | ------------------------------------------- |
+| **Time to Production**         | **6 to 8 Weeks** (Engineering sprint)              | **&lt;2 Minutes** (Prompt and launch)       |
+| **Underlying Architecture**    | Cascaded (STT $\rightarrow$ LLM $\rightarrow$ TTS) | **Native Voice-to-Voice (TTGE)**            |
+| **Average Response Latency**   | **650ms to 1,200ms**                               | **&lt;200ms** (Human-like pacing)           |
+| **All-In Cost per Minute**     | **\$0.084 \to \$0.150/min** (~₹7.00 to ₹12.50)     | **₹3.50/min** (~\$0.042/min flat)           |
+| **Provider Accounts Required** | 5 (LiveKit, Deepgram, OpenAI, Cartesia, Twilio)    | **1 Unified Dashboard**                     |
+| **Barge-In Handling**          | Custom VAD threshold tuning                        | **Native Frame-Level Interruptions**        |
+| **Telephony Integration**      | Self-managed SIP dispatch and Kamailio routing     | **Instant 140/160 Series & Global DIDs**    |
+| **Regulatory Compliance**      | Manual TCPA, TRAI, and EU AI Act filters           | **Automated Zero-Second Disclosures**       |
+| **Dialect & Hinglish Support** | High error rates on 8kHz audio                     | **Native Indian Code-Switching**            |
+| **Infrastructure Maintenance** | Kubernetes clusters, SFU servers, Redis            | **Zero DevOps Overhead**                    |
 
 ---
 
@@ -354,7 +354,7 @@ For commercial enterprises, revenue teams, and customer support organizations, b
 A basic prototype can be created in **30 to 60 minutes** using LiveKit and Python. However, building a production-grade system with interruption handling, telephony SIP bridging, and CRM integrations typically requires **6 to 8 weeks** of full-time engineering.
 
 **What is the minimum latency achievable with a cascaded pipeline?**
-Optimized cascaded stacks (Deepgram Nova-3 + GPT-4o mini + Cartesia Sonic) achieve a\approximately **600ms to 800ms** of end-to-end latency. In contrast, native voice-to-voice engines like Tough Tongue AI operate at **&lt;200ms**.
+Optimized cascaded stacks (Deepgram Nova-3 + GPT-4o mini + Cartesia Sonic) achieve approximately **600ms to 800ms** of end-to-end latency. In contrast, native voice-to-voice engines like Tough Tongue AI operate at **&lt;200ms**.
 
 **What programming languages are best for voice AI development?**
 Python and TypeScript are the dominant languages for voice agent orchestration. Python is favored for deep learning framework integration, while TypeScript is widely used for Next.js web clients.

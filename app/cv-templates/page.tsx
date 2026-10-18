@@ -3,7 +3,7 @@ import CVTemplatesPage from '@/components/CVTemplatesPage'
 import DomainLayout from '@/components/domain/DomainLayout'
 
 export const metadata: Metadata = {
-  title: 'Free ATS Resume Templates — Harvard, IIM Ahmedabad & Resume Worded | Auto Interview AI',
+  title: 'Free ATS Resume Templates (2026): Harvard & Consulting',
   description:
     'Download free, ATS-optimized resume templates from Harvard University, IIM Ahmedabad, and Resume Worded. 100% free, ungated DOCX & Google Docs formats proven to pass applicant tracking systems.',
   keywords:

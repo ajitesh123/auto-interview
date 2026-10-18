@@ -96,6 +96,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'find-jobs',
         'cover-letter',
         'free-resources',
+        'ai-calling-roi-calculator',
+        'cold-call-practice',
+        'resume-job-matcher',
       ].includes(route)
     )
       return 0.95
@@ -118,6 +121,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'find-jobs',
         'cover-letter',
         'free-resources',
+        'ai-calling-roi-calculator',
+        'cold-call-practice',
+        'resume-job-matcher',
       ].includes(route)
     )
       return 'weekly' as const
@@ -135,6 +141,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'about',
     'build-resume',
     'ats-score',
+    'ai-calling-roi-calculator',
+    'cold-call-practice',
+    'resume-job-matcher',
     'find-jobs',
     'cover-letter',
     'free-resources',
@@ -150,14 +159,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: getRoutePriority(route),
   }))
 
-  // Normalized Tags from tag-data.json with github-slugger
+  // Curated Tag Topic Hubs (>= 4 articles) to prevent thin taxonomy bloat and maximize crawl budget
   const tagCounts = tagData as Record<string, number>
-  const tagRoutes = Object.keys(tagCounts).map((tagKey) => ({
-    url: `${siteUrl}/tags/${encodeURI(slug(tagKey))}`,
-    lastModified: today,
-    changeFrequency: 'weekly' as const,
-    priority: 0.5,
-  }))
+  const tagRoutes = Object.keys(tagCounts)
+    .filter((tagKey) => tagCounts[tagKey] >= 4)
+    .map((tagKey) => ({
+      url: `${siteUrl}/tags/${encodeURI(slug(tagKey))}`,
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
 
   return [
     ...routes,

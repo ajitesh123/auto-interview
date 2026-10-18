@@ -4,7 +4,7 @@ import ResumeJobMatcherPage from '@/features/resume-job-matcher/ResumeJobMatcher
 import AppLayout from '@/components/AppLayout'
 
 export const metadata: Metadata = genPageMetadata({
-  title: 'Resume Job Matcher | Match Your Resume to Job Description | Auto Interview AI',
+  title: 'Free Resume Job Matcher: Match Resume to JD (2026)',
   description:
     'Match your resume to any job description with AI-powered keyword analysis. Upload a job description and resume to see how well they align and get optimization suggestions.',
   keywords:

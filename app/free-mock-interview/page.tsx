@@ -3,7 +3,7 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = {
-  title: 'Free AI Mock Interview Simulator — Practice Realistic Interviews | Auto Interview AI',
+  title: 'Free AI Mock Interview: Practice Online With AI (2026)',
   description:
     'Practice role-specific interview questions with our free AI mock interview simulator. Instant feedback on speech pace, structure, and communication delivery.',
   keywords:

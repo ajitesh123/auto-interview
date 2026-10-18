@@ -20,9 +20,16 @@ async function run() {
       .filter(b => !b.draft)
       .map(b => `https://${host}/${b.path}`)
 
-    // Add homepage and core pages
+    // Add homepage, core hubs, and high-converting tool pages
     urls.push(`https://${host}/`)
     urls.push(`https://${host}/blog`)
+    urls.push(`https://${host}/free-mock-interview`)
+    urls.push(`https://${host}/ats-score`)
+    urls.push(`https://${host}/cv-templates`)
+    urls.push(`https://${host}/ai-calling-roi-calculator`)
+    urls.push(`https://${host}/cold-call-practice`)
+    urls.push(`https://${host}/build-resume`)
+    urls.push(`https://${host}/resume-job-matcher`)
 
     const payload = {
       host: host,
