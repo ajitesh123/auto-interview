@@ -1,6 +1,7 @@
 ---
-title: 'Gemini 3.5 Transcribe vs Deepgram Nova-3: An ASR Engineering Breakdown of Architecture, Latency, and the FLEURS Benchmark Gap'
+title: 'Gemini 3.5 vs Deepgram Nova-3 (2026): ASR Tested'
 date: '2026-08-28'
+lastmod: '2026-10-18'
 tags:
   [
     'Gemini 3.5 Transcribe',
@@ -10,17 +11,68 @@ tags:
     'Voice AI',
     'Tough Tongue AI',
   ]
-summary: 'An exhaustive speech recognition engineering comparison between Google Gemini 3.5 Transcribe and Deepgram Nova-3. We deconstruct the FLEURS benchmark gap (5.50% vs 15.77% WER), Artificial Analysis benchmarks (2.6% vs 4.8% batch WER), acoustic tokenizer topologies, streaming latency under G.711 telephony, disfluency resolution, and production unit economics.'
+summary: 'Gemini 3.5 Transcribe vs Deepgram Nova-3 compared: streaming latency, FLEURS multilingual Word Error Rate (WER), cost per audio minute, and real-time voice AI suitability.'
 keywords: 'gemini 3.5 transcribe vs deepgram nova 3, best speech to text 2026, deepgram vs google stt, gemini transcribe accuracy, deepgram nova 3 wer, stt comparison 2026, asr benchmark fleurs, artificial analysis stt'
 authors: ['Ajitesh Abhishek']
 canonicalUrl: 'https://www.autointerviewai.com/blog/gemini-3-5-transcribe-vs-deepgram-nova-3-comparison-2026'
 structuredData:
-  '@context': 'https://schema.org'
-  '@type': 'Article'
-  'headline': 'Gemini 3.5 Transcribe vs Deepgram Nova-3: An ASR Engineering Breakdown of Architecture, Latency, and the FLEURS Benchmark Gap'
-  'author':
-    '@type': 'Person'
-    'name': 'Ajitesh Abhishek'
+  {
+    '@context': 'https://schema.org',
+    '@graph':
+      [
+        {
+          '@type': 'Article',
+          'headline': 'Gemini 3.5 vs Deepgram Nova-3 (2026): ASR Tested',
+          'description': 'Gemini 3.5 Transcribe vs Deepgram Nova-3 compared: streaming latency, FLEURS multilingual Word Error Rate (WER), cost per audio minute, and real-time voice AI suitability.',
+          'author':
+            {
+              '@type': 'Person',
+              'name': 'Ajitesh Abhishek',
+              'url': 'https://www.autointerviewai.com/about',
+            },
+          'publisher':
+            {
+              '@type': 'Organization',
+              'name': 'Auto Interview AI',
+              'logo':
+                {
+                  '@type': 'ImageObject',
+                  'url': 'https://www.autointerviewai.com/static/images/logo.png',
+                },
+            },
+          'dateModified': '2026-10-18',
+          'mainEntityOfPage':
+            {
+              '@type': 'WebPage',
+              '@id': 'https://www.autointerviewai.com/blog/gemini-3-5-transcribe-vs-deepgram-nova-3-comparison-2026',
+            },
+        },
+        {
+          '@type': 'FAQPage',
+          'mainEntity':
+            [
+              {
+                '@type': 'Question',
+                'name': 'Which ASR model is better for real-time voice agents: Gemini 3.5 Transcribe or Deepgram Nova-3?',
+                'acceptedAnswer':
+                  {
+                    '@type': 'Answer',
+                    'text': 'Deepgram Nova-3 achieves lower streaming time-to-first-word (180ms vs 260ms) and superior punctuation formatting for fast conversational turn-taking. However, Gemini 3.5 Transcribe achieves a 14% lower Word Error Rate (WER) across low-resource Indic and European languages on the FLEURS benchmark.',
+                  },
+              },
+              {
+                '@type': 'Question',
+                'name': 'How much does Deepgram Nova-3 cost compared to Gemini 3.5 Transcribe?',
+                'acceptedAnswer':
+                  {
+                    '@type': 'Answer',
+                    'text': 'Deepgram Nova-3 starts at $0.0043 per minute for batch and $0.0059 per minute for streaming WebSockets. Gemini 3.5 Transcribe pricing is approximately $0.0060 per minute with significant discounts when using Google Cloud committed use.',
+                  },
+              },
+            ],
+        },
+      ],
+  }
 ---
 
 > **Executive Summary & Research Verdict**
