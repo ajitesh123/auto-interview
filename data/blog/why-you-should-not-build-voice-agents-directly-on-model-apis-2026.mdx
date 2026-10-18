@@ -245,19 +245,24 @@ Tough Tongue AI provides a massive shortcut by offering fully managed, enterpris
 
 ## FAQ
 
-**Q: Can I just use OpenAI's Realtime API instead of a framework?**
+### Can I just use OpenAI's Realtime API instead of a framework?
+
 The Realtime API is a huge step forward because it handles STT, LLM, and TTS in a single WebSocket connection. However, it still uses TCP WebSockets (which suffer from network jitter) and does not solve client side problems like echo cancellation or device state management. You still want to wrap it in a WebRTC framework.
 
-**Q: Why does my voice bot sound robotic when I test it on my phone?**
+### Why does my voice bot sound robotic when I test it on my phone?
+
 This is almost always due to network jitter and packet loss on cellular networks. When you use a standard WebSocket, dropped packets cause the audio stream to pause while waiting for retransmission. Switching to a WebRTC based framework fixes this instantly.
 
-**Q: How do I handle users with heavy accents?**
+### How do I handle users with heavy accents?
+
 Raw model APIs can struggle if they do not allow you to hot swap components. By using a modular voice framework, you can swap out the default transcription engine for one that specializes in accents or specific industry jargon (like Deepgram) while keeping the rest of your pipeline intact.
 
-**Q: Is it expensive to run a continuous VAD model?**
+### Is it expensive to run a continuous VAD model?
+
 If you run it on the cloud, yes, it can be. However, modern voice frameworks use highly optimized local VAD models like Silero that run directly on your server's CPU or even entirely on the user's client device, costing practically nothing in compute overhead.
 
-**Q: Can I build a voice agent in Node.js instead of Python?**
+### Can I build a voice agent in Node.js instead of Python?
+
 Absolutely. While Python is very popular for AI, frameworks like LiveKit provide excellent SDKs for Node.js, Go, and Rust. The underlying concepts of WebRTC and asynchronous buffer management apply regardless of the language you choose.
 
 ---

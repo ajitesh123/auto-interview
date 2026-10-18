@@ -97,7 +97,7 @@ Raw Microphone Telephony Stream (Voice + Street Noise + Car Engine)
                                  │
                                  ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Deep Complex U-Net / Recurrent Neural Noise Estimator (<10ms)       │
+│ 2. Deep Complex U-Net / Recurrent Neural Noise Estimator (under 10ms)       │
 │    - Predicts Ideal Ratio Mask (IRM) separating vocal harmonics from   │
 │      stationary and non-stationary acoustic noise                      │
 └────────────────────────────────────────────────────────────────────────┘
@@ -109,7 +109,7 @@ Raw Microphone Telephony Stream (Voice + Street Noise + Car Engine)
 └────────────────────────────────────────────────────────────────────────┘
                                  │
                                  ▼
-[Pristine Vocal Waveform Passed to Conformer Neural Encoder in <12ms]
+[Pristine Vocal Waveform Passed to Conformer Neural Encoder in under 12ms]
 ```
 
 ### Mathematical Formulation of Ideal Ratio Masking (IRM)
@@ -140,19 +140,19 @@ The 40-Millisecond Instant Barge-In Execution Loop:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Acoustic Echo Cancellation (AEC) DSP Filter                         │
 │    - Subtracts AI outgoing speaker audio from incoming telephone stream │
-│    - Isolates pure caller vocal energy in <12ms                        │
+│    - Isolates pure caller vocal energy in under 12ms                        │
 └────────────────────────────────────────────────────────────────────────┘
                           │
                           ▼ (Time Elapsed: 12ms)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Silero Neural VAD Frame Gating                                      │
-│    - Confirms active human vocalization with >90% confidence in <15ms  │
+│    - Confirms active human vocalization with >90% confidence in under 15ms  │
 └────────────────────────────────────────────────────────────────────────┘
                           │
                           ▼ (Time Elapsed: 27ms)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Instant Playback Buffer Flush & Task Cancellation                   │
-│    - Purges remaining TTS audio queue on carrier gateway in <8ms       │
+│    - Purges remaining TTS audio queue on carrier gateway in under 8ms       │
 │    - Halts in-flight LLM generation worker thread                      │
 └────────────────────────────────────────────────────────────────────────┘
                           │
@@ -192,7 +192,7 @@ class AcousticVoiceProcessor:
         """
         Applies neural spectral mask to subtract non-stationary background noise.
         """
-        # In production, pass 20ms frame through ONNX DeepFilterNet runtime (<4ms)
+        # In production, pass 20ms frame through ONNX DeepFilterNet runtime (under 4ms)
         return raw_audio_frame
 
     def detect_voice_activity(self, clean_audio_frame: bytes) -> float:
@@ -209,7 +209,7 @@ class AcousticVoiceProcessor:
 
             if speech_prob >= self.vad_threshold:
                 if self.is_agent_speaking:
-                    # Execute immediate <40ms Barge-In Cancellation
+                    # Execute immediate under 40ms Barge-In Cancellation
                     print(f"[Barge-In Detected @ {time.strftime('%X')}]: Interrupting AI speech output!")
                     await self.trigger_instant_barge_in()
 
@@ -248,7 +248,7 @@ Caller: "Hello, mujhe apne car insurance ka renewal status check karna hai. Can 
 └────────────────────────────────────────────────────────────────────────┘
          │
          ▼
-[Unified LLM Brain Formulates Contextual Response in <180ms]:
+[Unified LLM Brain Formulates Contextual Response in under 180ms]:
 "Bilkul! Please mujhe aapka policy number ya registered mobile number bata dijiye."
 ```
 

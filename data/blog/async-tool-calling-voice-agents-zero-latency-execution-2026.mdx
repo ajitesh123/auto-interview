@@ -122,7 +122,7 @@ class AsyncVoiceToolOrchestrator:
         bg_task = asyncio.create_task(self.fetch_customer_account_data(customer_id))
         self.active_background_tasks[customer_id] = bg_task
 
-        # 2. Instantly output a natural filler phrase (<100ms)
+        # 2. Instantly output a natural filler phrase (under 100ms)
         filler_phrase = "Let me look up your account details \right now..."
         print(f"[Speech Stream] Playing Instant Filler: '{filler_phrase}' ({round((time.time() - start_time)*1000)}ms)")
 

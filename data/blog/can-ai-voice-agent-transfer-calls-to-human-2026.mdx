@@ -50,18 +50,18 @@ The Complete Inbound AI-to-Human Live Transfer Workflow:
 Caller on Phone
        │
        ▼
-[AI Voice Agent Qualifies Caller Intent in <180ms]:
+[AI Voice Agent Qualifies Caller Intent in under 180ms]:
 "I would be glad to connect you with Dr. Reynolds immediately."
        │
        ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Telephony Session Hold & Music Injection (<25ms)                    │
+│ 1. Telephony Session Hold & Music Injection (under 25ms)                    │
 │    - Caller hears high-fidelity musical bridge without carrier clicks  │
 └────────────────────────────────────────────────────────────────────────┘
        │
        ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Parallel Outbound Dial & Whisper Briefing (<450ms Bridge Setup)     │
+│ 2. Parallel Outbound Dial & Whisper Briefing (under 450ms Bridge Setup)     │
 │    - AI dials Dr. Reynolds' private mobile line                        │
 │    - AI whispers: "John Doe on line 1 requesting tooth extraction."    │
 └────────────────────────────────────────────────────────────────────────┘
@@ -94,8 +94,8 @@ Pure Human Model:
 - Monthly Receptionist Labor Cost: $4,200 per seat.
 
 AI Frontline + Human Specialist Hybrid Model (Tough Tongue AI):
-- 100 Inbound Calls ──► 82 resolved autonomously by AI (<$0.15 per call).
-- 18 Complex Inquiries ──► Warm-transferred to human closers in <450ms with zero wait.
+- 100 Inbound Calls ──► 82 resolved autonomously by AI (less than $0.15 per call).
+- 18 Complex Inquiries ──► Warm-transferred to human closers in under 450ms with zero wait.
 - Abandonment Rate: 0.8%.
 - Monthly Blended Cost: Under $450 (89% direct cost reduction).
 ```
@@ -111,14 +111,14 @@ Architectural Comparison: Cold Transfer vs Warm Whisper Transfer:
 
 Option A: Cold Transfer (SIP REFER Protocol)
 [Caller on Line] ──► [AI Dispatches SIP REFER] ──► [Carrier Routes to Extension]
-- Transit Delay: <200ms
+- Transit Delay: under 200ms
 - Context to Specialist: None (Specialist picks up blind)
 - Carrier Leg: Releases AI media channel to PSTN switch
 - Best For: General department routing (e.g., "Transferring you to Accounting")
 
 Option B: Warm Whisper Transfer (Dual-Leg Conference Bridge)
 [Caller on Line] ──► [Caller on Hold] ──► [AI Briefs Specialist] ──► [Bridge Lines]
-- Transit Delay: <450ms
+- Transit Delay: under 450ms
 - Context to Specialist: 100% (Summary whispered in specialist's ear)
 - Carrier Leg: Maintains dual RTP media streams until bridge completion
 - Best For: High-value sales closing, VIP account management, clinical escalations
@@ -177,7 +177,7 @@ Caller Speaks to AI (4-Minute Dialogue):
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Streaming LLM Token Extraction (<120ms Latency)                       │
+│ Streaming LLM Token Extraction (under 120ms Latency)                       │
 │ - Intent: Billing Dispute                                              │
 │ - Customer Name: Arthur Pendelton                                      │
 │ - Account ID: #8821                                                    │
@@ -214,7 +214,7 @@ class TelephonyTransferEngine:
         self.session_ws = f"wss://api.autointerviewai.com/v1/voice/session?agent_id={agent_id}"
 
     async def execute_cold_transfer(self, call_sid: str, target_phone_number: str):
-        """Dispatches an instant SIP REFER blind transfer (<200ms)."""
+        """Dispatches an instant SIP REFER blind transfer (under 200ms)."""
         payload = {
             "event": "call.transfer.cold",
             "call_sid": call_sid,
@@ -277,7 +277,7 @@ Specialist Phone Rings (Timeout Counter: 15 Seconds)
                        │
                        ▼
 Did Specialist Answer?
- ├── YES ──► Bridge Call Immediately (<450ms)
+ ├── YES ──► Bridge Call Immediately (under 450ms)
  │
  └── NO (Line Busy, Voicemail Detected, or Timeout Exceeded)
        │
@@ -287,7 +287,7 @@ Did Specialist Answer?
 │ 1. AI resumes speaking: "Dr. Reynolds is currently in a consultation." │
 │ 2. AI offers options: "Would you like to leave an urgent message, or   │
 │    shall I text you his direct calendar booking link?"                 │
-│ 3. Dispatches SMS Calendar Invite in <80ms via Webhook                 │
+│ 3. Dispatches SMS Calendar Invite in under 80ms via Webhook                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 

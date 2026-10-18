@@ -62,7 +62,7 @@ Clean 5-Second Audio Sample (.wav / .mp3)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Conditional State Space Model / Flow-Matching Vocoder               │
 │    - Conditions text synthesis on the target speaker vector            │
-│    - Emits synthesized audio matching target voice in <40ms            │
+│    - Emits synthesized audio matching target voice in under 40ms            │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -123,7 +123,7 @@ Speaker Conditioning Flow:
                    │
                    ▼ (16kHz Mono Clean Audio)
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Speaker Diarization & Noise Reduction (<150ms)                         │
+│ Speaker Diarization & Noise Reduction (under 150ms)                         │
 │ - Eliminates microphone hiss, clicks, and background hum               │
 └────────────────────────────────────────────────────────────────────────┘
                    │
@@ -159,7 +159,7 @@ class CompliantVoiceCloneEngine:
         self.authorized_speaker_registry = {}
 
     async def register_authorized_brand_voice(self, speaker_name: str, audio_sample_path: str, consent_signed: bool) -> dict:
-        """Verifies legal authorization and produces custom voice profile in <1.2s."""
+        """Verifies legal authorization and produces custom voice profile in under 1.2s."""
         if not consent_signed:
             print(f"[Legal Warning]: Unauthorized voice cloning rejected for {speaker_name}!")
             return {"status": "rejected", "reason": "Missing signed Voice Licensing Agreement (VLA)."}

@@ -142,7 +142,7 @@ class EmotionDeescalationEngine:
         self.hostility_count = 0
 
     async def evaluate_caller_utterance(self, transcript: str) -> dict:
-        """Analyzes caller text for emotional intensity in <15ms."""
+        """Analyzes caller text for emotional intensity in under 15ms."""
         await asyncio.sleep(0.015) # Simulates neural sentiment analysis
 
         has_profanity = bool(self.profanity_pattern.search(transcript))

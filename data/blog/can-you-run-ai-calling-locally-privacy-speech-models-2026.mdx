@@ -136,7 +136,7 @@ Here is a production **vLLM serving configuration** for deploying Gemma 4 (9B) l
 model: google/gemma-4-9b-it
 tensor_parallel_size: 1 # Single GPU for 9B; use 2 for 27B models
 dtype: float16 # Use bfloat16 on Ampere+; float16 on older GPUs
-quantization: awq # 4-bit AWQ for 50% VRAM savings with <2% quality loss
+quantization: awq # 4-bit AWQ for 50% VRAM savings with under 2% quality loss
 max_model_len: 4096 # Voice conversations rarely exceed 4K tokens
 gpu_memory_utilization: 0.88 # Reserve 12% VRAM for KV cache headroom
 

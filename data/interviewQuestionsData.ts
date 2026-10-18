@@ -37,7 +37,7 @@ export interface RoleQuestionData {
   topQuestions: {
     id: string
     question: string
-    category: 'Technical' | 'Behavioral' | 'System Design' | 'Strategy' | 'Situational'
+    category: string
     difficulty: 'Entry' | 'Mid' | 'Senior'
     keyTakeaway: string
     modelAnswer: string
@@ -583,6 +583,219 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
       },
     ],
   },
+
+  'tell-me-about-a-time-you-showed-leadership': {
+    slug: 'tell-me-about-a-time-you-showed-leadership',
+    questionText: 'Tell Me About a Time You Showed Leadership',
+    searchVolumeTier: '210,000+ Searches/Mo',
+    metaTitle: 'How to Answer "Tell Me About a Time You Showed Leadership"',
+    metaDescription:
+      'STAR method model answer for demonstrating leadership without a formal management title. Proven examples for engineers, PMs, and individual contributors.',
+    psychologyInsight:
+      'True leadership is influence without authority. Interviewers want to see if you can spot an unowned problem, build consensus across skeptical stakeholders, and inspire collective execution—even when nobody formally appointed you the boss.',
+    framework:
+      'Unowned Problem (S/T) -> Influence & Consensus (A) -> Measurable Business Outcome (R)',
+    goodSampleAnswer: {
+      roleContext: 'Individual Contributor / Senior Engineer / Project Lead',
+      script:
+        '"Last year, our team was losing 8 hours per week to redundant manual QA testing before every staging release, which was delaying customer feature shipments. Even though I was not the team lead, I documented the 3 most common bottleneck stages and built a lightweight automated regression script over a 2-day hackathon. I then organized a 20-minute lunch-and-learn demo for the engineering and QA teams, presenting the metrics and walking through how it worked. The team adopted the framework, which reduced our weekly release QA cycle from 8 hours down to 45 minutes, saving over 350 engineering hours over the subsequent quarter."',
+      breakdown: [
+        {
+          step: '1. Unowned Operational Bottleneck',
+          content:
+            'Identify a systemic friction point that teammates were complaining about but no one was actively fixing.',
+        },
+        {
+          step: '2. Low-Ego Initiative & Collaborative Demo',
+          content:
+            'Show how you built a solution and invited team consensus rather than forcing a mandate.',
+        },
+        {
+          step: '3. Hard Quantifiable Metric',
+          content:
+            'Conclude with verifiable time saved, revenue protected, or efficiency unlocked.',
+        },
+      ],
+    },
+    badAnswerExample: {
+      script:
+        '"Our manager was absent so I took over the whole team and told everyone exactly what tasks they had to finish by Friday because they weren\'t working fast enough."',
+      critique:
+        'Authoritarian micro-management that signals poor emotional intelligence and alienation of peers.',
+    },
+    proTips: [
+      'Focus on "we" during the execution phase, but clearly specify what "I" initiated.',
+      "Show emotional intelligence by listening to teammates' reservations before rolling out a new process.",
+    ],
+    commonMistakes: [
+      'Claiming all the credit for a team effort.',
+      'Equating leadership with bossing people around or assigning busywork.',
+    ],
+    faqs: [
+      {
+        q: 'Can you answer this question if you have never managed people?',
+        a: 'Absolutely. In fact, demonstrating influence without authority is often viewed more favorably than simply issuing commands as a designated manager.',
+      },
+    ],
+  },
+
+  'how-do-you-prioritize-your-work': {
+    slug: 'how-do-you-prioritize-your-work',
+    questionText: 'How Do You Prioritize Your Work?',
+    searchVolumeTier: '160,000+ Searches/Mo',
+    metaTitle: 'How to Answer "How Do You Prioritize Your Work?" (2026)',
+    metaDescription:
+      'Step-by-step formula for answering task prioritization questions. How to explain Eisenhower matrix, trade-off communication, and managing competing deadlines.',
+    psychologyInsight:
+      'Interviewers want to see that you do not operate on "first in, first out" or panic when overwhelmed. They are looking for structured prioritization frameworks (Urgent vs Important, Revenue Impact vs Effort) and transparent communication with managers when trade-offs are required.',
+    framework:
+      'Triage Framework (Urgent vs Impact) -> Timeblocking & Tooling -> Proactive Stakeholder Alignment',
+    goodSampleAnswer: {
+      roleContext: 'Cross-Functional Specialist / Fast-Paced Scale-Up Professional',
+      script:
+        '"I prioritize using a two-tier framework grounded in business impact and deadline sensitivity. Every morning, I categorize tasks using the Eisenhower Matrix: high-impact urgent deliverables that unblock teammates come first. For deep-focus deliverables, I block uninterrupted 90-minute morning focus slots in my calendar. When competing high-priority requests arrive from multiple leaders, I never guess or work late into burnout—I proactively communicate with both stakeholders: \'Here are the current deliverables and estimated delivery times. If Task B takes precedence, Task A will shift to Thursday. Does that align with current company priorities?\' This preserves quality, manages expectations, and keeps 100% of critical roadmap items on track."',
+      breakdown: [
+        {
+          step: '1. Objective Triage Criteria',
+          content: 'Explain how you evaluate business impact vs artificial urgency.',
+        },
+        {
+          step: '2. Time Management Execution',
+          content:
+            'Mention concrete habits like calendar blocking, task management boards (Jira, Linear, Asana).',
+        },
+        {
+          step: '3. Trade-off Communication',
+          content:
+            'Demonstrate how you manage stakeholder expectations transparently when capacity is full.',
+        },
+      ],
+    },
+    badAnswerExample: {
+      script:
+        '"I just do whatever my boss tells me to do first, and if I have too much work I just work late until midnight to finish everything."',
+      critique:
+        'Shows zero independent strategic thinking, unsustainable work boundaries, and inability to manage stakeholder trade-offs.',
+    },
+    proTips: [
+      'Show that you view prioritization as a collaborative alignment with leadership, not a solo guessing game.',
+      'Mention tools and systems you use to track dependencies.',
+    ],
+    commonMistakes: [
+      'Saying that everything is high priority (if everything is a priority, nothing is).',
+      'Failing to mention how you communicate delays before they happen.',
+    ],
+    faqs: [
+      {
+        q: 'What should you do when two executives give you conflicting urgent tasks?',
+        a: 'Bring both requests to light transparently, quantify the time required for each, and ask them to align on which initiative drives higher immediate business value.',
+      },
+    ],
+  },
+
+  'tell-me-about-a-time-you-disagreed-with-your-manager': {
+    slug: 'tell-me-about-a-time-you-disagreed-with-your-manager',
+    questionText: 'Tell Me About a Time You Disagreed With Your Manager',
+    searchVolumeTier: '190,000+ Searches/Mo',
+    metaTitle: 'How to Answer "Disagreed With Your Manager" (STAR Examples)',
+    metaDescription:
+      'Diplomatic STAR method examples for answering conflict with management questions. How to show data-driven pushback and the "Disagree and Commit" principle.',
+    psychologyInsight:
+      'Hiring managers do not want mindless "yes-men", nor do they want defensive renegades who undermine leadership. They are testing if you have the courage to push back with objective data in private, and the maturity to "disagree and commit" if the manager decides on a different course.',
+    framework:
+      'Private Data-Backed Consultation -> Proposed Alternative -> Disagree & Commit to Final Execution',
+    goodSampleAnswer: {
+      roleContext: 'Product / Engineering / Strategic Operations Lead',
+      script:
+        '"During our Q3 planning, my manager proposed deprecating a legacy customer export API to simplify our database maintenance. However, looking through our telemetry logs, I realized that three of our top enterprise tier accounts were quietly using that exact endpoint for automated ERP reporting. Instead of pushing back publicly in the all-hands meeting, I scheduled a private 1-on-1 and showed her the usage telemetry and the potential $140k contract churn risk. I proposed a phased 60-day migration window with automated webhook alternatives. My manager appreciated the data-driven catch, adopted the phased roadmap, and we migrated all three enterprise accounts with zero escalations and 100% renewal retention."',
+      breakdown: [
+        {
+          step: '1. Private, Respectful Setting',
+          content: 'Never challenge a manager in public or undermine team morale.',
+        },
+        {
+          step: '2. Grounded in Customer / Financial Data',
+          content: 'Disagreement must be about business outcomes and facts, never personal ego.',
+        },
+        {
+          step: '3. Constructive Alternative Solution',
+          content: 'Always bring a viable counter-proposal, not just complaints.',
+        },
+      ],
+    },
+    badAnswerExample: {
+      script:
+        '"My manager wanted to use an outdated framework because she didn\'t understand modern code, so I just ignored her instructions and wrote the feature my way because I knew better."',
+      critique:
+        'Insubordinate, toxic, and disrespectful. Immediate disqualifier in any corporate hiring process.',
+    },
+    proTips: [
+      'Emphasize the Amazon principle of "Have Backbone; Disagree and Commit".',
+      "Show deep respect for the manager's broader perspective and macro responsibilities.",
+    ],
+    commonMistakes: [
+      "Framing the disagreement as a personal clash or questioning the manager's intelligence.",
+      'Selecting an example where the conflict resulted in lasting resentment or passive-aggressive behavior.',
+    ],
+    faqs: [
+      {
+        q: "What if you disagreed and your manager didn't change their mind?",
+        a: "That is a fantastic answer too! Show that you voiced your data-backed perspective professionally, but once the final decision was made, you executed the manager's plan with 100% effort and enthusiasm.",
+      },
+    ],
+  },
+
+  'what-are-your-salary-expectations': {
+    slug: 'what-are-your-salary-expectations',
+    questionText: 'What Are Your Salary Expectations?',
+    searchVolumeTier: '290,000+ Searches/Mo',
+    metaTitle: 'How to Answer "What Are Your Salary Expectations?" (2026)',
+    metaDescription:
+      'Negotiation scripts to answer salary expectations questions without lowballing yourself or pricing yourself out. Includes market range scripts and equity guidance.',
+    psychologyInsight:
+      'Recruiters ask this early to see if you fit into their budgeted compensation band and to anchor negotiations before you have demonstrated your full value. If you give a single low number, you leave money on the table; if you price too high without context, you risk early screening rejection.',
+    framework:
+      'Deflect Early (Focus on Fit) -> Anchor on Market Research Range -> Total Compensation Orientation',
+    goodSampleAnswer: {
+      roleContext: 'Professional Negotiation Script (Screening & Final Round)',
+      script:
+        '"Right now, my main priority is finding the right organizational fit where my background in distributed systems and latency optimization can drive substantial value for your engineering roadmap. Based on current market compensation data from Levels.fyi and Radford for a Senior Engineer in this tier, roles with this scope typically range between $145,000 and $165,000 base, with total compensation reflecting equity and performance bonuses. However, depending on the full scope of benefits, equity vesting, and career advancement opportunities, I have flexibility for the right opportunity. What is the approved compensation band you have allocated for this position?"',
+      breakdown: [
+        {
+          step: '1. Pivot to Value and Fit',
+          content: 'Establish that you are interested in solving real business problems first.',
+        },
+        {
+          step: '2. Market-Backed Compensation Range',
+          content: 'Provide a 10-15% range anchored by verified industry benchmarking data.',
+        },
+        {
+          step: '3. Turn the Question Around',
+          content: 'Politely invite the recruiter to share their internal budgeted band.',
+        },
+      ],
+    },
+    badAnswerExample: {
+      script:
+        '"At my last job I was making $85k, so I just want at least $95k to be happy, but honestly whatever you think is fair works for me."',
+      critique:
+        'Anchoring to a past salary severely limits earnings, and stating that "whatever works" signals lack of confidence in your market value.',
+    },
+    proTips: [
+      'Never give a single fixed dollar figure; always give a verified market range.',
+      'Explicitly evaluate "Total Compensation" (Base + Annual Bonus + Equity + Health/Retirement Match) rather than base salary alone.',
+    ],
+    commonMistakes: [
+      'Revealing your past compensation (in many US states and EU countries, asking for past salary history is now legally prohibited).',
+      'Refusing to answer rudely or acting defensive during the initial screening call.',
+    ],
+    faqs: [
+      {
+        q: 'How should you respond if a recruiter insists on a specific number?',
+        a: 'Provide a researched range where the bottom of your range is the minimum number you would be genuinely happy to accept, and ask what typical bonuses or equity tiers accompany the offer.',
+      },
+    ],
+  },
 }
 
 export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
@@ -1085,6 +1298,502 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
       {
         q: 'What is the biggest difference between Customer Support and Customer Success?',
         a: 'Customer Support is reactive and resolves transactional technical issues; Customer Success is proactive, strategic, and focused on driving long-term customer business outcomes and net revenue retention.',
+      },
+    ],
+  },
+
+  'frontend-developer': {
+    slug: 'frontend-developer',
+    roleName: 'Frontend Developer',
+    category: 'Engineering',
+    metaTitle: 'Frontend Developer Interview Questions (2026 React & Answers)',
+    metaDescription:
+      'Top Frontend Developer interview questions and model answers. React 19, Next.js Server Components, Core Web Vitals optimization, and state management.',
+    heroTitle: 'Frontend Developer Interview Questions & Web Vitals Playbooks',
+    heroDescription:
+      'Master the technical screening bar for Senior Frontend and Full-Stack teams. Includes React architecture, LCP/INP performance deep dives, and live code walk-throughs.',
+    topQuestions: [
+      {
+        id: 'fe-1',
+        question:
+          'How do you diagnose and optimize a slow Largest Contentful Paint (LCP) and Interaction to Next Paint (INP) in a Next.js application?',
+        category: 'Performance',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Prioritize hero image resource loading, defer non-critical JS, and break long tasks to keep INP under 200ms.',
+        modelAnswer:
+          'To optimize LCP (<2.5s), I first identify the LCP element via Chrome Performance profiler or Web Vitals library. If it is a hero image, I set `fetchpriority="high"`, ensure WebP/AVIF format with exact `sizes`, and pre-connect to the asset CDN. For INP (<200ms), I profile the main thread during interaction. Long JavaScript tasks (>50ms) blocking event handlers are broken up using `scheduler.yield()` or `requestIdleCallback()`, and expensive non-urgent re-renders are transitioned with React 19 `useTransition` to keep the UI responsive.',
+        frameworkTip:
+          'Identify LCP/INP root cause -> Asset optimization & server-side streaming -> Main thread task chunking with scheduler.yield().',
+      },
+      {
+        id: 'fe-2',
+        question:
+          'Explain the architectural difference between React Server Components (RSC) and Client Components.',
+        category: 'Architecture',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'Server Components execute exclusively on the server with zero client bundle overhead; Client Components handle interactive state.',
+        modelAnswer:
+          "React Server Components (RSC) run strictly on the server during build or request time. Their dependencies (database clients, heavy markdown parsers) are never bundled into the client JavaScript bundle, reducing client bundle size to zero bytes for static UI. Client Components (declared with `'use client'`) are pre-rendered on the server and hydrated in the browser, enabling interactivity (hooks, event listeners, browser APIs). The golden architectural rule is to push client components as far down the component tree as possible.",
+        frameworkTip:
+          'Execution environment -> Bundle size impact -> Interactivity boundaries & hydration.',
+      },
+    ],
+    interviewTips: [
+      'Be prepared to explain the React reconciliation loop and how React 19 compiler eliminates manual `useMemo` and `useCallback`.',
+      'Always emphasize user experience metrics (Core Web Vitals) rather than just aesthetic design.',
+    ],
+    faqs: [
+      {
+        q: 'What is the most common frontend interview mistake?',
+        a: 'Over-engineering state management by reaching for global stores (Redux/Zustand) when URL search params or React Context is more appropriate.',
+      },
+    ],
+  },
+
+  'machine-learning-engineer': {
+    slug: 'machine-learning-engineer',
+    roleName: 'Machine Learning Engineer',
+    category: 'AI & Data Science',
+    metaTitle: 'Machine Learning Engineer Interview Questions (2026 LLM & AI)',
+    metaDescription:
+      'Top Machine Learning Engineer interview questions and answers. RAG architectures, model quantization, LLM fine-tuning, latency optimization, and MLOps.',
+    heroTitle: 'Machine Learning Engineer Interview Questions & System Design',
+    heroDescription:
+      'Prepare for frontier AI lab and enterprise MLE interviews. Deep dives into LoRA fine-tuning, vector retrieval chunking, KV-cache latency, and GPU throughput.',
+    topQuestions: [
+      {
+        id: 'mle-1',
+        question:
+          'How do you design a low-latency Retrieval-Augmented Generation (RAG) system for million-token enterprise document stores?',
+        category: 'System Design',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Hybrid search (Dense vectors + BM25), hierarchical chunking, and cross-encoder re-ranking with cached embeddings.',
+        modelAnswer:
+          'For high-recall, low-latency enterprise RAG, I implement a hybrid retrieval architecture. Documents are parsed with hierarchical chunking (small 256-token retrieval units mapped to parent 1024-token context blocks). During query time, I run dual retrieval: dense vector search via HNSW indexing in pgvector/Pinecone for semantic similarity, and BM25 sparse keyword search to capture exact domain IDs. Candidate passages (top 50) are re-ranked using a lightweight Cross-Encoder (e.g. BGE-Reranker) down to the top 5, and served with prompt prefix caching to keep TTFT under 250ms.',
+        frameworkTip:
+          'Hierarchical chunking -> Hybrid Dense+Sparse retrieval -> Cross-encoder re-ranking -> Prompt caching for TTFT.',
+      },
+      {
+        id: 'mle-2',
+        question:
+          'What is the difference between Full Fine-Tuning and Parameter-Efficient Fine-Tuning (PEFT/LoRA)?',
+        category: 'Technical',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'LoRA freezes pre-trained weights and injects trainable rank decomposition matrices, reducing VRAM by 80%.',
+        modelAnswer:
+          'Full fine-tuning updates all model parameters across all layers, requiring massive GPU memory (typically 4x model weights in VRAM for optimizer states like AdamW) and causing catastrophic forgetting. LoRA (Low-Rank Adaptation) freezes the base model weights and injects low-rank trainable decomposition matrices (A and B of rank r) into the attention layers (typically Wq, Wv). This reduces trainable parameters by 99% and VRAM consumption by 80%, allowing domain adaptation on commodity GPUs while enabling multi-tenant adapter swapping at runtime.',
+        frameworkTip:
+          'Define weight update mechanics -> Contrast memory footprints -> Highlight runtime multi-tenancy advantage of LoRA adapters.',
+      },
+    ],
+    interviewTips: [
+      'In MLE interviews, always tie model metrics (Recall@K, Perplexity, BLEU) directly to business latency and GPU infrastructure cost.',
+      'Show that you understand evaluation frameworks (Ragas, Trulens) and synthetic dataset generation.',
+    ],
+    faqs: [
+      {
+        q: 'What is the biggest red flag in an MLE interview?',
+        a: 'Proposing fine-tuning an LLM when prompt engineering, few-shot examples, or basic RAG would solve the problem with 10x less complexity and cost.',
+      },
+    ],
+  },
+
+  'cybersecurity-analyst': {
+    slug: 'cybersecurity-analyst',
+    roleName: 'Cybersecurity Analyst',
+    category: 'Security & Infrastructure',
+    metaTitle: 'Cybersecurity Analyst Interview Questions (2026 SOC & SIEM)',
+    metaDescription:
+      'Top Cybersecurity Analyst interview questions and model answers. Incident response, SIEM log analysis, zero-trust architecture, threat hunting, and ransomware defense.',
+    heroTitle: 'Cybersecurity Analyst Interview Questions & Incident Scenarios',
+    heroDescription:
+      'Master SOC Tier 1-3, Threat Hunter, and Security Engineer interview bars. Includes real-world containment playbooks, MITRE ATT&CK mapping, and SIEM triage.',
+    topQuestions: [
+      {
+        id: 'sec-1',
+        question:
+          'Walk me through your step-by-step incident response playbook when an endpoint alerts on potential ransomware execution.',
+        category: 'Incident Response',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'NIST 800-61 lifecycle: Network isolation first, preserve volatile RAM memory, identify patient zero, and restore from immutable backups.',
+        modelAnswer:
+          'I follow the NIST 800-61 framework. Step 1: Immediate Containment—isolate the infected host from the network at the EDR/switch level to stop lateral movement, but do NOT power off the machine to preserve volatile RAM memory. Step 2: Evidence Preservation—dump memory with WinPmem and extract event logs for forensic triage. Step 3: Scoping & Root Cause—query the SIEM/EDR for outbound C2 beaconing and MITRE ATT&CK TTPs to find Patient Zero. Step 4: Eradication—revoke compromised service account credentials and patch the exploited CVE. Step 5: Recovery—re-image the host and restore data from air-gapped, immutable backups.',
+        frameworkTip:
+          'Isolation (do not power off!) -> Volatile RAM triage -> Root cause scoping -> Credential revocation -> Clean backup restore.',
+      },
+      {
+        id: 'sec-2',
+        question: 'What is the core principle of Zero Trust Architecture (ZTA)?',
+        category: 'Architecture',
+        difficulty: 'Mid',
+        keyTakeaway:
+          '"Never trust, always verify"—continuous authentication, least privilege access, and micro-segmentation.',
+        modelAnswer:
+          'Zero Trust Architecture replaces the outdated "castle-and-moat" perimeter security model with the core axiom: "Never trust, always verify." Every access request—regardless of whether it originates inside or outside the corporate VPN—must be explicitly authenticated, authorized, and encrypted. It operates on three fundamental pillars: 1) Explicit verification using multi-factor signals (device health, identity, risk score), 2) Least Privilege Access (JIT and RBAC permissions), and 3) Assume Breach, which enforces micro-segmentation to strictly limit blast radiuses.',
+        frameworkTip:
+          'Contrast with perimeter model -> 3 NIST SP 800-207 pillars (Verify explicitly, Least privilege, Assume breach).',
+      },
+    ],
+    interviewTips: [
+      'Map your technical answers to recognized security frameworks like NIST CSF and MITRE ATT&CK.',
+      'Show that you understand the business impact of containment (e.g. avoiding taking down production databases prematurely).',
+    ],
+    faqs: [
+      {
+        q: 'What is the most critical skill for a SOC analyst in 2026?',
+        a: 'Distinguishing high-fidelity true positives from alert fatigue by writing custom SIEM correlation rules and automating triage workflows via SOAR.',
+      },
+    ],
+  },
+
+  'ui-ux-designer': {
+    slug: 'ui-ux-designer',
+    roleName: 'UI/UX Designer',
+    category: 'Design & Product',
+    metaTitle: 'UI/UX Designer Interview Questions (2026 Portfolio & Answers)',
+    metaDescription:
+      'Top UI/UX Designer interview questions and model answers. Design system governance, user research methodologies, accessibility (WCAG 2.2), and stakeholder alignment.',
+    heroTitle: 'UI/UX Designer Interview Questions & Design Critique Playbooks',
+    heroDescription:
+      'Crush senior product design and design leadership interviews. Learn how to articulate design decisions, manage engineering trade-offs, and conduct live app critiques.',
+    topQuestions: [
+      {
+        id: 'des-1',
+        question:
+          'How do you handle a situation where product management and engineering push to ship a feature that you know will degrade the user experience?',
+        category: 'Collaboration',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Depersonalize the debate with user testing clips and business data; propose a phased MVP with UX debt tracking.',
+        modelAnswer:
+          'I never frame disagreements as "designer opinion vs engineering opinion." Instead, I bring user evidence and business metrics to the table. I show 30-second video clips from unmoderated usability tests showing where users fail the flow, and translate the UX degradation into financial terms—such as projected cart drop-off or increased support ticket costs. If business constraints still require an immediate launch, I propose a compromise: ship a scoped MVP to unblock the deadline, but explicitly document the "design debt" in Jira with an agreed-upon sprint to iterate based on live telemetry.',
+        frameworkTip:
+          'Depersonalize with data -> Translate UX pain to business cost -> Propose compromise MVP with tracked design debt.',
+      },
+      {
+        id: 'des-2',
+        question: 'How do you structure and scale an enterprise Design System in Figma and code?',
+        category: 'Systems',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Design tokens (color, spacing, elevation) mapped 1:1 between Figma variables and Tailwind/CSS variables with strict governance.',
+        modelAnswer:
+          'An effective enterprise design system is governed as a product, not a static UI kit. I structure the system using three tiers of Design Tokens: 1) Global tokens (raw hex codes, font families), 2) Semantic tokens (e.g. `bg-surface-elevated`, `text-interactive-hover`), and 3) Component tokens (e.g. `button-padding-lg`). These tokens map 1:1 between Figma variables and production Tailwind/CSS variables. To maintain consistency across 20+ squads, I establish a design review council with quarterly component deprecation audits and automated Figma-to-GitHub sync.',
+        frameworkTip:
+          'Three-tier token hierarchy -> 1:1 design-to-code naming parity -> Cross-functional governance and deprecation lifecycle.',
+      },
+    ],
+    interviewTips: [
+      'In portfolio reviews, spend 20% on the final UI and 80% on the messy middle: research iterations, failed prototypes, and trade-offs.',
+      'Always highlight accessibility (WCAG 2.2 AA standards) and color contrast compliance.',
+    ],
+    faqs: [
+      {
+        q: 'What is the best way to present a design case study in an interview?',
+        a: 'Follow the Problem -> Hypothesis -> Failed Iteration -> Final Tested Solution -> Measurable Business Metric formula in under 10 minutes.',
+      },
+    ],
+  },
+
+  'financial-analyst': {
+    slug: 'financial-analyst',
+    roleName: 'Financial Analyst',
+    category: 'Finance & Strategy',
+    metaTitle: 'Financial Analyst Interview Questions (2026 Model Answers)',
+    metaDescription:
+      'Top Financial Analyst interview questions and answers. DCF modeling, 3-statement financial models, variance analysis, SaaS metrics (ARR/CAC/LTV), and FP&A.',
+    heroTitle: 'Financial Analyst Interview Questions & Financial Modeling',
+    heroDescription:
+      'Prepare for FP&A, Corporate Finance, and Investment Banking interview loops. Master 3-statement modeling, EBITDA adjustments, and executive variance presentations.',
+    topQuestions: [
+      {
+        id: 'fin-1',
+        question:
+          'Walk me through how a $10 increase in depreciation flows through the three financial statements.',
+        category: 'Accounting & Modeling',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'Income Statement: Net Income down $6 (assuming 40% tax). Cash Flow: Cash up $4. Balance Sheet balances.',
+        modelAnswer:
+          'Assuming a 40% tax rate: On the Income Statement, operating expenses increase by $10 due to depreciation, reducing operating income (EBIT) by $10. With 40% tax, taxes decline by $4, resulting in a Net Income reduction of $6. On the Cash Flow Statement, Net Income starts down $6, but since depreciation is a non-cash expense, we add back $10 in Cash Flow from Operations, leaving ending cash up by $4. On the Balance Sheet, PP&E is down by $10, Cash is up by $4 (assets down $6), and Retained Earnings is down by $6 (equity down $6). The Balance Sheet balances.',
+        frameworkTip:
+          'Income statement impact -> Cash flow from operations add-back -> Balance sheet reconciliation.',
+      },
+      {
+        id: 'fin-2',
+        question: 'What is the difference between Enterprise Value (EV) and Equity Value?',
+        category: 'Valuation',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'Enterprise Value is the core operational value available to all capital providers; Equity Value belongs only to shareholders.',
+        modelAnswer:
+          "Enterprise Value (EV) represents the total value of the company's core operating assets available to all providers of capital (debt, preferred equity, and common equity). It is calculated as Equity Value + Total Debt + Preferred Stock + Minority Interest - Cash and Cash Equivalents. Equity Value (market cap) represents the value attributable solely to common shareholders after debt obligations are satisfied. You use EV when comparing operating performance (e.g. EV/EBITDA, EV/Revenue) because it is independent of capital structure.",
+        frameworkTip:
+          'Formula definition -> Capital provider availability -> Why EV is capital-structure neutral.',
+      },
+    ],
+    interviewTips: [
+      'In FP&A interviews, interviewers want to see that you can translate complex financial variance into actionable operational recommendations for non-finance leaders.',
+      'Always sanity check balance sheet mechanics out loud.',
+    ],
+    faqs: [
+      {
+        q: 'What is the most common financial modeling interview test?',
+        a: 'Building a dynamic 3-statement model in Excel under 60 minutes with debt schedules, working capital forecasts, and error-checking reconciliations.',
+      },
+    ],
+  },
+
+  'business-analyst': {
+    slug: 'business-analyst',
+    roleName: 'Business Analyst',
+    category: 'Operations & Strategy',
+    metaTitle: 'Business Analyst Interview Questions (2026 Process & Answers)',
+    metaDescription:
+      'Top Business Analyst interview questions and model answers. Requirements elicitation, gap analysis, stakeholder mapping, user stories, and SQL data modeling.',
+    heroTitle: 'Business Analyst Interview Questions & Requirements Engineering',
+    heroDescription:
+      'Master the BA interview for tech, consulting, and finance. Learn how to bridge business stakeholders and engineering teams with structured BRDs and agile user stories.',
+    topQuestions: [
+      {
+        id: 'ba-1',
+        question:
+          'How do you manage scope creep when business stakeholders continuously add "urgent" requirements during an active sprint?',
+        category: 'Process Management',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Document request in backlog, assess trade-off impact with engineering, and present priority choices to steering committee.',
+        modelAnswer:
+          "I never flatly reject business stakeholder requests, nor do I blindly inject them into an active sprint. I follow a structured Change Control Process. First, I validate the business case: what is the ROI and what happens if this waits for the next cycle? Second, I partner with the engineering lead to estimate the story points and identify which current in-flight deliverables must be displaced. Third, I present the trade-off clearly to the project sponsor: 'We can incorporate Feature X, but it requires deferring Feature Y to Sprint 12. Does that align with our quarter deliverables?' This preserves team velocity while maintaining business transparency.",
+        frameworkTip:
+          'Change control protocol -> Engineering trade-off assessment -> Sponsor priority alignment.',
+      },
+      {
+        id: 'ba-2',
+        question: 'What is the difference between a Functional and a Non-Functional Requirement?',
+        category: 'Requirements Engineering',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'Functional defines what the system should do; Non-functional defines how well the system should perform (latency, security, scale).',
+        modelAnswer:
+          "A Functional Requirement specifies what the system must do—the specific behavior, business rules, and user actions. For example: 'The system must allow customers to export billing history to PDF.' A Non-Functional Requirement (NFR) specifies the quality attributes and operational constraints of the system—how well it must perform. For example: 'The PDF export must generate in under 3.0 seconds during peak concurrency of 10,000 active users, and data must be encrypted in transit via TLS 1.3.'",
+        frameworkTip:
+          'What vs How -> Concrete paired example -> Importance of NFRs for production stability.',
+      },
+    ],
+    interviewTips: [
+      'Show that you understand both Agile (Scrum/Kanban) and Waterfall methodologies and know when to apply each.',
+      'Demonstrate proficiency in SQL, BPMN process mapping, and user story acceptance criteria (Given/When/Then).',
+    ],
+    faqs: [
+      {
+        q: 'What is the primary role of a Business Analyst on a technical team?',
+        a: 'To act as the translator between business strategy and engineering execution, converting ambiguous business goals into clear, testable, and feasible technical requirements.',
+      },
+    ],
+  },
+
+  'scrum-master': {
+    slug: 'scrum-master',
+    roleName: 'Scrum Master',
+    category: 'Agile & Delivery',
+    metaTitle: 'Scrum Master Interview Questions (2026 Agile & Model Answers)',
+    metaDescription:
+      'Top Scrum Master and Agile Coach interview questions. Handling disengaged team members, velocity metrics, sprint retrospectives, and unblocking engineering teams.',
+    heroTitle: 'Scrum Master Interview Questions & Servant Leadership',
+    heroDescription:
+      'Prepare for Certified Scrum Master (CSM) and Agile Delivery Lead interviews. Master conflict resolution, sprint burndown coaching, and scaling agile frameworks.',
+    topQuestions: [
+      {
+        id: 'sm-1',
+        question:
+          'How do you transform a sprint retrospective that has devolved into either complete silence or a toxic complaining session?',
+        category: 'Facilitation',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Change retro format (Start/Stop/Continue, Sailboat), focus on psychological safety, and commit to 1-2 measurable action items.',
+        modelAnswer:
+          'When retrospectives fail, it is usually because team members feel that raising issues leads to zero change. I reset the dynamic using three tactics: 1) Format Variation: I replace standard boards with interactive visual frameworks like the Sailboat Retro (Wind = what pushed us forward, Anchors = what held us back). 2) Anonymous Polling: To restore psychological safety, I allow teammates to submit sticky notes asynchronously before the call. 3) Strict Action Accountability: We never leave with 15 vague complaints; we vote on the top 2 actionable experiments with designated owners and review them first thing in the next retro.',
+        frameworkTip:
+          'Diagnose root cause (lack of safety/impact) -> Format rotation -> Strict action-item accountability.',
+      },
+      {
+        id: 'sm-2',
+        question:
+          'How do you handle a Product Owner who consistently bypasses sprint planning and assigns work directly to engineers mid-sprint?',
+        category: 'Coaching & Boundaries',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Protect sprint scope, coach PO in private on context-switching cost, and introduce expedited hotfix lanes.',
+        modelAnswer:
+          "As a servant leader, my job is to protect the team's focus while supporting product agility. In the moment, I remind the engineers to direct the request back to sprint planning. I then schedule a private 1-on-1 with the Product Owner. I share our telemetry on context-switching costs: mid-sprint interruptions reduce sprint velocity by 30% and double defect rates. I help them set up a formalized 'Urgent Hotfix Buffer' (e.g. 10% sprint capacity reserved for genuine P0 production bugs) and agree that any non-critical request must be prioritized in the next sprint backlog.",
+        frameworkTip:
+          'Protect team focus -> Private PO coaching with velocity data -> Create structured hotfix capacity buffer.',
+      },
+    ],
+    interviewTips: [
+      'Emphasize that you are a coach and facilitator, not a project manager or taskmaster.',
+      'Show how you use agile metrics (Velocity, Cycle Time, Cumulative Flow) for team improvement, never for weaponized performance ranking.',
+    ],
+    faqs: [
+      {
+        q: 'What is the biggest misconception about the Scrum Master role?',
+        a: 'Believing that a Scrum Master is just a meeting scheduler or Jira administrator, rather than an organizational agile coach and impediment remover.',
+      },
+    ],
+  },
+
+  'marketing-manager': {
+    slug: 'marketing-manager',
+    roleName: 'Marketing Manager',
+    category: 'Growth & GTM',
+    metaTitle: 'Marketing Manager Interview Questions (2026 Growth & Strategy)',
+    metaDescription:
+      'Top Marketing Manager interview questions and model answers. CAC/LTV payback, multi-touch attribution, product marketing launches, and brand positioning.',
+    heroTitle: 'Marketing Manager Interview Questions & Growth Playbooks',
+    heroDescription:
+      'Master Growth, Performance, and Product Marketing interview rounds. Learn how to present CAC/LTV unit economics, full-funnel attribution, and viral launch strategies.',
+    topQuestions: [
+      {
+        id: 'mkt-1',
+        question:
+          'If our Customer Acquisition Cost (CAC) spiked 45% over the past quarter while conversion rates remained flat, how would you diagnose and fix the channel economics?',
+        category: 'Performance Analytics',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Deconstruct CAC by channel: Ad CPM inflation, audience fatigue, attribution cannibalization, and low sales pipeline conversion.',
+        modelAnswer:
+          'I deconstruct CAC into its component variables across our marketing funnel: Cost Per Thousand (CPM), Click-Through Rate (CTR), Landing Page Conversion, and Lead-to-Opportunity velocity. If conversion rates are flat, the CAC spike is driven either by blended advertising inflation (ad platform auction pressure) or audience saturation. I audit attribution models: are paid channels taking credit for organic branded searches? To fix economics, I reallocate budget away from saturated paid search/social toward high-intent organic GEO/SEO content, partner co-marketing, and referral incentives with sub-12-month CAC payback periods.',
+        frameworkTip:
+          'Funnel diagnostic breakdown -> Attribution audit -> Channel reallocation to high-margin organic/referral levers.',
+      },
+      {
+        id: 'mkt-2',
+        question:
+          'How do you design a go-to-market (GTM) launch strategy for a new B2B SaaS product tier?',
+        category: 'Product Marketing',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'ICP segmentation, differentiated positioning, gated beta validation, and sales enablement collateral alignment.',
+        modelAnswer:
+          'A successful GTM launch follows four phased milestones: 1) Customer Validation: Run an invite-only beta with 15 target ICP customers to document quantifiable case studies and testimonials before public launch. 2) Messaging & Positioning: Craft messaging anchored on the core customer pain point and competitive differentiator, creating high-converting landing pages and comparison matrices. 3) Sales Enablement: Train SDRs and AEs with one-pagers, objection-handling cheat sheets, and competitive battlecards. 4) Omnichannel Amplification: Coordinate Product Hunt launch, targeted founder LinkedIn content, PR wire, and targeted email sequences.',
+        frameworkTip:
+          'Beta proof -> Messaging & comparison positioning -> Sales enablement training -> Coordinated multi-channel launch.',
+      },
+    ],
+    interviewTips: [
+      'Always ground creative marketing ideas in hard unit economics (CAC, Payback Period, Net New ARR, LTV).',
+      'Show that you understand modern Generative Engine Optimization (GEO) and AI search citations alongside traditional paid and organic channels.',
+    ],
+    faqs: [
+      {
+        q: 'What is the most important metric for a B2B Marketing Manager?',
+        a: 'Pipeline Generated and CAC Payback Period—measuring how many qualified enterprise opportunities sales closes from marketing touchpoints.',
+      },
+    ],
+  },
+
+  'human-resources-specialist': {
+    slug: 'human-resources-specialist',
+    roleName: 'HR Specialist',
+    category: 'People & Operations',
+    metaTitle: 'HR Specialist Interview Questions (2026 Answers & Scenarios)',
+    metaDescription:
+      'Top Human Resources Specialist interview questions. Talent acquisition, employee relations conflict resolution, performance PIPs, and retention strategies.',
+    heroTitle: 'HR Specialist Interview Questions & Employee Relations Scenarios',
+    heroDescription:
+      'Master HR Generalist, People Partner, and Talent Acquisition interview rounds. Learn structured playbooks for workplace investigations, PIPs, and cultural retention.',
+    topQuestions: [
+      {
+        id: 'hr-1',
+        question:
+          'How do you conduct an investigation when an employee reports subtle managerial harassment or psychological retaliation?',
+        category: 'Employee Relations',
+        difficulty: 'Senior',
+        keyTakeaway:
+          'Confidentiality, non-retaliation assurance, neutral documentation of specific incidents, witness interviews, and factual findings report.',
+        modelAnswer:
+          'I follow a strict, neutral investigative protocol. First, I meet privately with the reporting employee: I listen actively, ensure they understand our strict non-retaliation policy, and document specific factual incidents (dates, witnesses, communications) rather than generalized feelings. Second, I notify leadership and review relevant digital communications (Slack logs, emails, meeting transcripts). Third, I interview named witnesses and the accused manager neutrally without pre-judgment. Fourth, I compile a factual findings report, evaluate against our Code of Conduct and employment labor law, and recommend calibrated corrective action (coaching, reassignment, or formal disciplinary action) while maintaining 30-day post-investigation check-ins.',
+        frameworkTip:
+          'Safety & non-retaliation assurance -> Objective factual documentation -> Multi-party investigation -> Calibrated action & follow-up.',
+      },
+      {
+        id: 'hr-2',
+        question:
+          'How do you design a Performance Improvement Plan (PIP) that is supportive rather than punitive?',
+        category: 'Performance Management',
+        difficulty: 'Mid',
+        keyTakeaway:
+          'Clear objective success metrics, weekly manager check-ins, provided enablement resources, and transparent timelines.',
+        modelAnswer:
+          "A PIP should be a genuine roadmap to recovery, not a paperwork exercise before termination. A supportive PIP has three elements: 1) Objective, measurable expectations: instead of 'improve communication', state 'deliver weekly sprint summaries by Friday 5 PM with zero missed dependencies'. 2) Dedicated enablement support: pairing the employee with a mentor or providing training courses. 3) Weekly structured check-ins: reviewing progress collaboratively so there are zero surprises at the 30- or 60-day milestone. If performance improves, celebrate it; if not, the transition is professional, fair, and documented.",
+        frameworkTip:
+          'Measurable benchmarks -> Active enablement support -> Transparent weekly check-ins.',
+      },
+    ],
+    interviewTips: [
+      'Demonstrate emotional intelligence paired with strict adherence to employment compliance and risk mitigation.',
+      'Show that you view HR as a strategic business partner that drives organizational productivity and retention.',
+    ],
+    faqs: [
+      {
+        q: 'What is the most challenging part of being an HR Specialist?',
+        a: 'Balancing empathetic advocacy for employees with the fiduciary responsibility to protect the company from legal and operational risk.',
+      },
+    ],
+  },
+
+  'internship-resume': {
+    slug: 'internship-resume',
+    roleName: 'Internship / Entry-Level Fresher',
+    category: 'Early Career',
+    metaTitle: 'Entry-Level & Internship Interview Questions (2026 Answers)',
+    metaDescription:
+      'Top college graduate and fresher interview questions and model answers. How to highlight academic projects, fast learning agility, and campus leadership without prior work experience.',
+    heroTitle: 'Internship & Fresher Interview Questions with Model Answers',
+    heroDescription:
+      'Crack competitive campus placement and entry-level internship screens. Learn proven formulas for articulating course projects, hackathons, and growth mindset.',
+    topQuestions: [
+      {
+        id: 'int-1',
+        question:
+          "You don't have formal industry experience on your resume. Why should we hire you over candidates with prior internships?",
+        category: 'Value Proposition',
+        difficulty: 'Entry',
+        keyTakeaway:
+          'Agility, unlearning curve, demonstrable project execution (GitHub/portfolio), and pure drive.',
+        modelAnswer:
+          '"While I may not have years of corporate tenure, what I bring is high-velocity learning agility and hands-on project execution. For my senior capstone, I didn’t just write theory—I built an end-to-end full-stack web application with Next.js, Redis, and PostgreSQL, deployed it to AWS, and onboarded 250 active student users. I have zero bad corporate habits to unlearn, I am deeply hungry to master your team\'s engineering workflows, and my coursework has trained me on the latest 2026 frameworks. You get a dedicated, high-energy contributor who will ramp up rapidly and deliver immediate production value."',
+        frameworkTip:
+          'Reframe lack of experience into high learning agility -> Highlight concrete, deployed project with user metrics -> Emphasize hunger and team contribution.',
+      },
+      {
+        id: 'int-2',
+        question:
+          'Describe a situation during a university or hackathon project where you had to learn a completely new technology under a tight deadline.',
+        category: 'Learning Agility',
+        difficulty: 'Entry',
+        keyTakeaway:
+          'Structured learning approach: official documentation over passive tutorials, building an MVP, and unblocking the team.',
+        modelAnswer:
+          'During our 48-hour annual hackathon, our team decided to build a voice-assisted note-taker, but none of us had ever worked with the Web Speech API or WebSocket streaming. Instead of panicking or watching 5-hour YouTube tutorials, I read the MDN official documentation, set up a minimal 20-line Node.js prototype, and tested audio packet chunking in a standalone sandbox within 3 hours. Once verified, I built the client component and unblocked my teammates to connect our backend database. We delivered a functional live demo on time and took 2nd place out of 45 university teams.',
+        frameworkTip:
+          'High-stakes deadline -> First-principles documentation study -> Rapid sandbox MVP -> Team unblock and competition win.',
+      },
+    ],
+    interviewTips: [
+      'Treat your major academic projects, open-source pull requests, and campus leadership as real job experience.',
+      'Show exceptional enthusiasm and research about the company—frequently, entry-level candidates fail simply because they know nothing about the product.',
+    ],
+    faqs: [
+      {
+        q: 'How should a fresher answer questions about technical weaknesses?',
+        a: 'Pick an advanced architectural concept you have not yet deployed in production (e.g. Kubernetes cluster orchestration), and detail the specific online labs or projects you are currently building to master it.',
       },
     ],
   },

@@ -133,7 +133,7 @@ class ClinicalEmergencyGuardrail:
         )
 
     async def evaluate_patient_symptoms(self, transcript: str) -> dict:
-        """Evaluates patient utterance in <5ms."""
+        """Evaluates patient utterance in under 5ms."""
         await asyncio.sleep(0.005)
 
         if self.emergency_pattern.search(transcript):

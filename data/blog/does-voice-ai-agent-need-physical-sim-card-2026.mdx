@@ -91,8 +91,8 @@ Caller Dialing on Mobile Phone (+1 555-019-2831)
                       │
                       ▼ (Bi-Directional 16kHz PCM Stream)
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Neural Inference Engine Answers on Ring 1 (<25ms)                   │
-│    - Voice-to-Voice AI speaks directly into the caller ear in <180ms   │
+│ 3. Neural Inference Engine Answers on Ring 1 (under 25ms)                   │
+│    - Voice-to-Voice AI speaks directly into the caller ear in under 180ms   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -131,7 +131,7 @@ Method 1: Conditional Call Forwarding (*71 / *61) [Zero Porting Required]
 - Keep your current carrier (AT&T, Verizon, Comcast, Jio).
 - Dial *71 followed by your Tough Tongue AI virtual number.
 - Whenever your office line is busy, after-hours, or unanswered after 3 rings,
-  calls forward to the AI automatically in <100ms.
+  calls forward to the AI automatically in under 100ms.
 
 Method 2: Full Number Porting (Carrier Transfer)
 - Submit a standard Letter of Authorization (LOA) to transfer number ownership.
@@ -158,7 +158,7 @@ class CloudTelephonyProvisioner:
         self.api_key = carrier_api_key
 
     async def search_and_buy_virtual_number(self, area_code: str, country_code: str = "US") -> dict:
-        """Searches available carrier inventory and provisions virtual DID in <1.5s."""
+        """Searches available carrier inventory and provisions virtual DID in under 1.5s."""
         print(f"[Carrier API]: Searching inventory for area code ({area_code}) in {country_code}...")
         await asyncio.sleep(0.40) # Simulates carrier query
 

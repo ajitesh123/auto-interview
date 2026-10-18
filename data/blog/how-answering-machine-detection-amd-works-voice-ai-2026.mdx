@@ -68,8 +68,8 @@ Legacy Energy Detection (2018 - 2023):
 - Accuracy: ~75% (Fails on short greetings and background noise)
 
 Neural Multi-Modal AMD (2026 Standard):
-[Call Connects] ──► [Evaluate Spectrogram Cadence + First Token] ──► [Decision in <800ms]
-- Latency: <800ms (Zero perceptible dead air for humans)
+[Call Connects] ──► [Evaluate Spectrogram Cadence + First Token] ──► [Decision in under 800ms]
+- Latency: under 800ms (Zero perceptible dead air for humans)
 - Accuracy: 98.2% across carrier cellular networks
 ```
 
@@ -101,11 +101,11 @@ Inbound Telephony Audio Stream (First 800ms)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Streaming Phonetic Token Matching:                                  │
-│    - Keywords detected in <500ms: "message", "tone", "unavailable"     │
+│    - Keywords detected in under 500ms: "message", "tone", "unavailable"     │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Classification Emitted in <750ms: HUMAN or MACHINE]
+[Classification Emitted in under 750ms: HUMAN or MACHINE]
 ```
 
 ---
@@ -117,11 +117,11 @@ Once an answering machine is classified, the platform executes your chosen outbo
 ```text
 Outbound Voicemail Routing Options:
 
-Machine Detected (Classification Confirmed in <800ms)
+Machine Detected (Classification Confirmed in under 800ms)
                     │
        ┌────────────┴────────────┐
        ▼                         ▼
-Option A: Hang Up (<20ms)   Option B: Leave Voicemail
+Option A: Hang Up (under 20ms)   Option B: Leave Voicemail
 - Saves telephony credits   - AI waits for carrier beep tone
 - Recycles lead for next    - Plays tailored 20-second voicemail
   calling window            - Leaves callback number and name
@@ -155,7 +155,7 @@ class AnsweringMachineDetector:
         self.voicemail_keywords = {"leave", "message", "tone", "record", "unavailable", "reached"}
 
     async def analyze_initial_audio_burst(self, audio_duration_seconds: float, transcript_tokens: list) -> str:
-        """Classifies call recipient in <800ms."""
+        """Classifies call recipient in under 800ms."""
         await asyncio.sleep(0.040) # Simulates neural inference latency
 
         # Rule 1: Keyword detection
@@ -165,7 +165,7 @@ class AnsweringMachineDetector:
                 return "MACHINE"
 
         # Rule 2: Temporal duration check
-        # Humans speak for <1.2s ("Hello, John speaking"). Machines speak continuously >2.0s.
+        # Humans speak for under 1.2s ("Hello, John speaking"). Machines speak continuously >2.0s.
         if audio_duration_seconds > 2.0:
             print(f"[AMD @ {time.strftime('%X')}]: Continuous speech duration ({audio_duration_seconds}s) -> MACHINE.")
             return "MACHINE"

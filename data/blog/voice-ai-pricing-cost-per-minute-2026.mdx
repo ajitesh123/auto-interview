@@ -284,35 +284,35 @@ At a conservative **5% conversion rate** and a **₹50,000 average contract valu
 
 ## Frequently Asked Questions
 
-**What is the average cost per minute for AI calling in India?**
+### What is the average cost per minute for AI calling in India?
 
 A basic English cascade stack costs **\$0.025/min (₹2.10/min)**. An Indian regional language cascade stack using Gnani and Smallest.ai costs **\$0.148/min (₹12.40/min)**. Tough Tongue AI (TTGE) bundles native V2V and Indian telephony at **₹3.50/min (\$0.042/min)**.
 
-**Why is ElevenLabs significantly more expensive than Cartesia for voice agents?**
+### Why is ElevenLabs significantly more expensive than Cartesia for voice agents?
 
 ElevenLabs charges per character of generated text, whereas Cartesia charges per second of streamed audio. In conversational voice agents with rapid back-and-forth turns, character billing inflates costs to **\$0.117 \to \$0.195/min**, compared to Cartesia's **\$0.008/min**.
 
-**How much does OpenAI Realtime API cost per call in practice?**
+### How much does OpenAI Realtime API cost per call in practice?
 
 A standard **4-minute call** costs approximately **\$0.72** \in OpenAI API fees alone. OpenAI charges **\$0.06/min** for all input audio over the entire session duration, plus **\$0.24/min** for output audio. Adding telephony and infrastructure brings the cost \to **\$0.80 to \$0.90 per call**.
 
-**What hidden costs do most AI calling pricing breakdowns omit?**
+### What hidden costs do most AI calling pricing breakdowns omit?
 
 Three primary items: silence billing caused by misconfigured VAD thresholds, verbose prompt bloat under character-based TTS models, and the ongoing payroll cost of DevOps engineers required to maintain three separate APIs.
 
-**Is cascade or voice-to-voice more cost-effective for outbound calling?**
+### Is cascade or voice-to-voice more cost-effective for outbound calling?
 
 Voice-to-voice is more cost-effective per qualified lead. While cascade has lower raw compute fees, its **940ms** latency produces a **38%** caller drop-off rate, making cascade cost **\$0.087 per completed conversation** versus **\$0.044** on TTGE.
 
-**What is included in Tough Tongue AI's ₹3.50 per minute pricing?**
+### What is included in Tough Tongue AI's ₹3.50 per minute pricing?
 
 The flat rate includes native voice-to-voice processing, high-connect Vobiz SIP routing, call transcription, guardrails, session management, Indian language support, and 24/7 IST technical support.
 
-**At what volume does AI calling outperform human SDR teams?**
+### At what volume does AI calling outperform human SDR teams?
 
 Immediately from month one. At identical dial volumes, TTGE generates **2.87x more conversations** at **57% lower cost** than a 5-person SDR team, delivering immediate ROI.
 
-**Does Deepgram charge for background noise and silence?**
+### Does Deepgram charge for background noise and silence?
 
 Yes. Deepgram meters all incoming audio stream duration until the endpointing trigger fires. Incorrect VAD parameters frequently add **5% to 8%** in phantom charges to monthly invoices.
 

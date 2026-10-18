@@ -253,19 +253,24 @@ We provide pre-optimized, ultra-low latency Talker models that handle conversati
 
 ## Frequently Asked Questions
 
-**Does the Talker-Reasoner pattern increase LLM costs?**  
+### Does the Talker-Reasoner pattern increase LLM costs?
+
 Yes. You are invoking two models per turn. In our production workloads, this increases inference costs by roughly 15 to 20 percent per minute of conversation. You manage this by ensuring the Talker model is a highly efficient, small parameter model.
 
-**How do you prevent the Talker from hallucinating while the Reasoner works?**  
+### How do you prevent the Talker from hallucinating while the Reasoner works?
+
 You must ruthlessly restrict the Talker's system prompt. It should not have access to any RAG context. Its only tool should be the ability to speak. If you give it facts, it will try to use them and it will get them wrong.
 
-**Can the Talker interrupt the user?**  
+### Can the Talker interrupt the user?
+
 Yes. Because the Talker runs continuously with very low latency, it is perfectly positioned to handle barge-in events. If a user interrupts the bot mid-sentence, the Talker immediately halts the TTS audio buffer, cancels the Reasoner's active task, and responds to the new input.
 
-**What happens if the Reasoner fails or times out?**  
+### What happens if the Reasoner fails or times out?
+
 Your state manager must have hard timeouts. If the Reasoner does not complete its task within 8 seconds, it must write an error code to the shared state. The Talker reads this error code and gracefully fails over, saying, "I am so sorry, our system is running unusually slow today. Can we try that again?"
 
-**Do I need specialized hardware to run this?**  
+### Do I need specialized hardware to run this?
+
 No. This is an architectural pattern for distributed systems. You can implement it using standard cloud providers and managed LLM APIs. However, moving the Talker model to edge compute closer to the user can drop your time-to-first-audio by another 100 milliseconds.
 
 Implementing the Talker-Reasoner pattern is a paradigm shift in voice AI development. By separating the fast social aspects of conversation from the slow logical aspects of reasoning, you can build agents that finally meet human expectations.

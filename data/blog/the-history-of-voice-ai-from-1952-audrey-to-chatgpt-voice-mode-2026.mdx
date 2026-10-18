@@ -220,7 +220,7 @@ Input Mel-Spectrogram Matrix (80 channels)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -231,7 +231,7 @@ Input Mel-Spectrogram Matrix (80 channels)
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -274,7 +274,7 @@ End-to-End Speech Models:
    - Eliminated complex HMM alignment lattices, training neural networks directly on audio-\text pairs.
 
 2. 2022: OpenAI Whisper
-   - Trained on 680,000 hours of multilingual audio, achieving human parity on clean English audio (WER <3.0%).
+   - Trained on 680,000 hours of multilingual audio, achieving human parity on clean English audio (WER under 3.0%).
 
 3. The Cascaded Voice Agent Explosion:
    - Developers stitched Whisper (STT) + GPT-4 (LLM) + ElevenLabs (TTS) into first-generation voice agents.
@@ -304,7 +304,7 @@ Continuous Audio Waveform x(t)
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
-[HiFi-GAN Adversarial Vocoder Outputting 24kHz Studio Audio (<40ms TTFA)]
+[HiFi-GAN Adversarial Vocoder Outputting 24kHz Studio Audio (under 40ms TTFA)]
 ```
 
 The state transition matrices are discretized via Zero-Order Hold (ZOH):
@@ -330,7 +330,7 @@ The Unified Multimodal Speech Paradigm:
 
 [Continuous Audio In] ──► [Neural Audio Codec (RVQ-VAE)] ──► [Multimodal Transformer] ──► [Neural Vocoder] ──► [Audio Out]
 - Eliminates intermediate \text conversions.
-- Response Latency drops from 1,200ms \to <180ms.
+- Response Latency drops from 1,200ms \to under 180ms.
 - Preserves native human laughter, emotional tone, and instant full-duplex interruptions.
 ```
 
@@ -461,7 +461,7 @@ class SpeechRecognitionHistoricalSimulator:
         1952 Bell Labs Audrey: Classifies digits based on F1/F2 analog energy ratios.
         """
         for digit, (f1_target, f2_target) \in self.supported_digits.items():
-            if abs(formant_1_hz - f1_target) < 100.0 and abs(formant_2_hz - f2_target) < 150.0:
+            if abs(formant_1_hz - f1_target) less than  100.0 and abs(formant_2_hz - f2_target) less than  150.0:
                 return digit
         return "UNKNOWN_DIGIT"
 
@@ -475,7 +475,7 @@ class SpeechRecognitionHistoricalSimulator:
 
     async def simulate_2026_native_voice_to_voice(self, pcm_audio_frame: bytes) -> Dict[str, Any]:
         """
-        2026 Native Voice-to-Voice: Unified Multimodal Neural Forward Pass (<180ms).
+        2026 Native Voice-to-Voice: Unified Multimodal Neural Forward Pass (under 180ms).
         """
         start_time = time.perf_counter()
         # Simulated GPU forward pass over continuous acoustic latents

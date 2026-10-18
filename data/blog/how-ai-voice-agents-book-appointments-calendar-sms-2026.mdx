@@ -63,7 +63,7 @@ The Complete Live Booking and SMS Delivery Timeline:
                                    │
                                    ▼ (Elapsed Time: 0ms)
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Neural LLM Emits Tool Call & Acoustic Filler (<40ms)                │
+│ 1. Neural LLM Emits Tool Call & Acoustic Filler (under 40ms)                │
 │    - Dispatches async webhook: check_calendar(date="2026-09-08", time="15:00")
 │    - Agent speaks natural filler: "Let me check our Friday schedule..."│
 └────────────────────────────────────────────────────────────────────────┘
@@ -143,7 +143,7 @@ class LiveAppointmentBookingEngine:
         self.sms_token = sms_gateway_token
 
     async def check_slot_availability(self, target_date: str, target_time: str) -> dict:
-        """Simulates checking calendar resource in <35ms."""
+        """Simulates checking calendar resource in under 35ms."""
         await asyncio.sleep(0.035) # Simulates low-latency Google Calendar API call
         print(f"[Calendar API]: Verified {target_date} at {target_time} is AVAILABLE.")
         return {"status": "available", "date": target_date, "time": target_time}

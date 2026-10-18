@@ -66,8 +66,8 @@ Traditional Human Call Center:
 Elastic Voice AI Cloud Architecture (Tough Tongue AI):
 [1,000 Inbound Calls Spike] ──► [Elastic SIP Trunk] ──► [Distributed GPU Neural Pods]
 - Average Hold Time: 0.0 Seconds (Instant pickup on Ring 1)
-- Call Abandonment Rate: <2%
-- Scaling Latency: Spawns 1,000 parallel worker threads in <2 seconds
+- Call Abandonment Rate: under 2%
+- Scaling Latency: Spawns 1,000 parallel worker threads in under 2 seconds
 ```
 
 ---
@@ -149,7 +149,7 @@ class HighConcurrencyCallRouter:
         self.active_calls = {}
 
     async def handle_inbound_call_connection(self, call_sid: str, caller_phone: str):
-        """Answers incoming phone call on Ring 1 (<25ms)."""
+        """Answers incoming phone call on Ring 1 (under 25ms)."""
         if len(self.active_calls) >= self.capacity:
             print(f"[Capacity Alert]: Maximum channels reached ({self.capacity}).")
             return {"status": "rejected", "reason": "capacity_exceeded"}

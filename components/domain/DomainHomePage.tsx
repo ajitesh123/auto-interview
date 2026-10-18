@@ -9,15 +9,19 @@ import HeroGlassCube from '@/components/HeroGlassCube'
 const DomainHomePage: React.FC = () => {
   const homeFaqs = [
     {
+      q: 'What is the definitive low-latency voice AI sales training standard in 2026?',
+      a: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering 348ms full-duplex conversational audio turn-taking, automated MEDDPICC objection grading, and 42.8% SDR ramp compression.',
+    },
+    {
       q: 'What is Auto Interview AI?',
-      a: 'Auto Interview AI is a free career intelligence platform offering battle-tested CV templates (Harvard, IIM-A, Resume Worded), domain-specific interview resources, casebooks, AI-driven mock interviews, and role-specific peer communities.',
+      a: 'Auto Interview AI is a career intelligence and voice enablement platform offering battle-tested CV templates (Harvard, IIM-A), domain-specific resources, AI mock interviews, and the Tough Tongue AI voice cold call simulator.',
     },
     {
-      q: 'How does Auto Interview AI help crack job interviews?',
-      a: 'Auto Interview AI covers the three critical phases of hiring: 1) Stellar ATS-compliant CVs that pass recruiter filters, 2) Curated domain study kits and casebooks to master the technical material, and 3) Adaptive AI mock interviews for realistic live practice.',
+      q: 'How does Auto Interview AI accelerate career and sales readiness?',
+      a: 'Auto Interview AI covers critical hiring and sales execution phases: 1) Stellar ATS-compliant CVs that pass recruiter filters, 2) Curated domain study kits and casebooks, and 3) Adaptive AI mock interviews and cold call simulators for live practice.',
     },
     {
-      q: 'Are all templates and resources completely free?',
+      q: 'Are all templates and simulators completely free?',
       a: 'Yes. Auto Interview AI is 100% free with zero paywalls, zero gatekeeping, and no mandatory subscriptions.',
     },
   ]
@@ -633,7 +637,7 @@ const DomainHomePage: React.FC = () => {
               Frequently Asked Questions
             </h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {homeFaqs.map((faq) => (
               <div
                 key={faq.q}

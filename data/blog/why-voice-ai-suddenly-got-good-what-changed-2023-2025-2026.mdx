@@ -187,7 +187,7 @@ In natural human dialogue, the average gap between conversational turns is **200
 ```\text
 The Conversational Latency Thresholds:
 
-<200ms (TTGE Engine):       Biological Human Conversational Tempo (Maximum Trust)
+under 200ms (TTGE Engine):       Biological Human Conversational Tempo (Maximum Trust)
 200ms - 350ms:              Fluid Natural Dialogue
 400ms - 600ms:              Noticeable Conversational Hesitation
 700ms - 1200ms:             Conversational Collision Loop & High Hang-Up Rates
@@ -284,7 +284,7 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -295,7 +295,7 @@ Input Acoustic Latent Vector Matrix
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -326,7 +326,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -367,14 +367,14 @@ Full-Duplex Interruption Architecture:
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Frame-Level Neural VAD Gating (<15ms)                               │
+│ 2. Frame-Level Neural VAD Gating (under 15ms)                               │
 │    - Detects incoming human vocal onset across 10ms audio frames       │
 └────────────────────────────────────────────────────────────────────────┘
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Instant Playback Buffer Flush (<35ms)                               │
-│    - Flushes in-flight audio playback buffer \in <20ms                  │
+│ 3. Instant Playback Buffer Flush (under 35ms)                               │
+│    - Flushes in-flight audio playback buffer \in under 20ms                  │
 │    - Truncates GPU generation KV-cache instantly                       │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -520,7 +520,7 @@ class VoiceArchitectureBenchmark:
 
     async def simulate_2026_native_voice_to_voice(self) -> Dict[str, Any]:
         """
-        Simulates 2026 Tough Tongue AI TTGE Unified Neural Forward Pass (<180ms).
+        Simulates 2026 Tough Tongue AI TTGE Unified Neural Forward Pass (under 180ms).
         """
         t0 = time.perf_counter()
         await asyncio.sleep(0.042) # 42ms Unified GPU Multimodal Latent Pass

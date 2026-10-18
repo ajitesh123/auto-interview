@@ -112,7 +112,7 @@ Epoch 5: Large Language Model Time-to-First-Token (TTFT) ──► 80ms - 180ms
 Epoch 6: Speech Synthesis Time-to-First-Audio (SSM / Vocoder TTFA) ──► 35ms - 60ms
 Epoch 7: Egress Network Transport & Carrier SIP Buffer ──► 25ms - 45ms
 ─────────────────────────────────────────────────────────────────────────────
-Total Cumulative Turnaround Latency: 240ms - 480ms (Cascades) vs <180ms (Native V2V)
+Total Cumulative Turnaround Latency: 240ms - 480ms (Cascades) vs under 180ms (Native V2V)
 ```
 
 ---
@@ -153,7 +153,7 @@ Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Operates \in <6ms GPU inference time                                  │
+│ - Operates \in under 6ms GPU inference time                                  │
 └────────────────────────────────────────────────────────────────────────┘
                     │
                     ▼
@@ -259,7 +259,7 @@ Mel-Spectrogram Input (80 channels)
                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples frame rate from 100 Hz \to 24,000 Hz \in <8ms             │
+│    - Upsamples frame rate from 100 Hz \to 24,000 Hz \in under 8ms             │
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
@@ -270,7 +270,7 @@ Mel-Spectrogram Input (80 channels)
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms Inference)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms Inference)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -293,7 +293,7 @@ Latency Comparison across System Paradigms:
    - Turnaround Latency: 450ms - 750ms (Acceptable for simple support, but collision-prone).
 
 3. Native Voice-to-Voice Foundation Engine (Tough Tongue AI TTGE):
-   - Turnaround Latency: <180ms - <220ms (Pristine biological human conversational tempo).
+   - Turnaround Latency: under 180ms - under 220ms (Pristine biological human conversational tempo).
 ```
 
 By eliminating intermediate text conversions and multi-vendor network hops, native Voice-to-Voice architectures reduce latency by **over 65%**.
@@ -352,7 +352,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
-[Clean Speech Signal Fed \to Acoustic Conformer Encoder (<10ms Overhead)]
+[Clean Speech Signal Fed \to Acoustic Conformer Encoder (under 10ms Overhead)]
 ```
 
 The Ideal Ratio Mask (IRM) $\mathbf{M}(m, k)$ isolates vocal formants while suppressing ambient background noise by up to **24 dB**:
@@ -383,14 +383,14 @@ Full-Duplex Interruption Architecture:
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Frame-Level Energy & VAD Gating (<15ms)                             │
+│ 2. Frame-Level Energy & VAD Gating (under 15ms)                             │
 │    - Detects incoming speech onset across 10ms PCM audio frames        │
 └────────────────────────────────────────────────────────────────────────┘
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Instant Barge-In Truncation Loop (<35ms)                            │
-│    - Flushes audio playback buffer \in <20ms                            │
+│ 3. Instant Barge-In Truncation Loop (under 35ms)                            │
+│    - Flushes audio playback buffer \in under 20ms                            │
 │    - Truncates in-flight generation KV-cache                           │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -459,7 +459,7 @@ Standard Multi-Vendor Architecture:
 
 Tough Tongue AI Co-Located Architecture:
 [Indian Mobile Caller] ──► [Local SIP Trunk \in Mumbai / asia-south1] ──► [NVIDIA L40S GPU Pod]
-- Regional Transit Latency: <18ms (Saves 222ms of network lag on every conversational turn!).
+- Regional Transit Latency: under 18ms (Saves 222ms of network lag on every conversational turn!).
 ```
 
 By co-locating the entire neural inference engine directly within Indian data centers (`asia-south1`), Tough Tongue AI preserves the entire millisecond budget for intelligent reasoning.
@@ -479,7 +479,7 @@ Turnaround Latency vs Outbound Lead Qualification Rates:
 
 Turnaround Latency (ms)     Connection-to-Qualification Rate    Customer Abandonment Rate
 ──────────────────────────────────────────────────────────────────────────────────────────
-<200ms (TTGE Engine)        34.8% (Maximum Trust & Fluidity)    4.2%
+under 200ms (TTGE Engine)        34.8% (Maximum Trust & Fluidity)    4.2%
 350ms                       31.2%                               7.5%
 500ms                       24.5%                               14.8%
 750ms                       18.1%                               26.4%

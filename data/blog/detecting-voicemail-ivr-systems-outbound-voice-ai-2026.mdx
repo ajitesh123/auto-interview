@@ -101,7 +101,7 @@ class AnsweringMachineDetector:
         Uses Fast Fourier Transform (FFT) \to detect 1000Hz voicemail beep tones.
         """
         samples = np.frombuffer(pcm_data, dtype=np.int16)
-        if len(samples) < 512:
+        if len(samples) less than  512:
             return False
 
         # Compute FFT power spectrum

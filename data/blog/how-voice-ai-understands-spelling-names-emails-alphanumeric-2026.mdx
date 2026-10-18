@@ -76,7 +76,7 @@ The 3-Step Alphanumeric Transcription Engine:
                                  │
                                  ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Acoustic Phonetic Tokenization (<30ms)                              │
+│ 1. Acoustic Phonetic Tokenization (under 30ms)                              │
 │    - Converts spoken words ("dot", "at", "underscore") into syntax:    │
 │      "dot" ──► ".", "at" ──► "@", "dash" ──► "-"                       │
 └────────────────────────────────────────────────────────────────────────┘
@@ -163,7 +163,7 @@ class SpokenAlphanumericNormalizer:
         }
 
     async def normalize_spoken_email(self, utterance: str) -> str:
-        """Converts spoken text into valid email syntax in <5ms."""
+        """Converts spoken text into valid email syntax in under 5ms."""
         await asyncio.sleep(0.005)
         text = utterance.lower()
 

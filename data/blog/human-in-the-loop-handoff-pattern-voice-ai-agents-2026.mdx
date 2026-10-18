@@ -45,7 +45,7 @@ To build production grade voice AI, you need robust fallback mechanisms. These a
 | Handoff       | AI intent classification routes \to a human  |
 | HITL          | Human supervisor monitors and intervenes    |
 | Tech Stack    | WebSockets, WebRTC, Async Python, LiveKit   |
-| Key Metric    | Escalation Rate (Target: < 15%)             |
+| Key Metric    | Escalation Rate (Target: less than  15%)             |
 | End Result    | Zero IVR trees, higher customer satisfaction|
 +-------------------------------------------------------------+
 ```
@@ -112,7 +112,7 @@ redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
 async def check_escalation(transcript: str, intent_confidence: float):
     # Trigger 1: Low intent confidence from the LLM
-    if intent_confidence < 0.65:
+    if intent_confidence less than  0.65:
         return "low_confidence"
 
     # Trigger 2: Regex fallback for explicit keywords
@@ -189,17 +189,22 @@ By leveraging Tough Tongue AI, you can kill your legacy IVR system and deploy in
 
 ## Frequently Asked Questions
 
-**How fast is the handoff process?**
+### How fast is the handoff process?
+
 When built on WebRTC, the handoff is nearly instantaneous, typically under 600 milliseconds. However, you must account for the human reaction time. We inject a brief transitional phrase or hold tone to cover the gap.
 
-**Does the human agent see the previous conversation?**
+### Does the human agent see the previous conversation?
+
 Yes. A proper handoff architecture passes a summarized transcript and extracted metadata (like account numbers or intent classifications) to the human agent's screen before they even say hello.
 
-**Can an AI agent hand off to another AI agent?**
+### Can an AI agent hand off to another AI agent?
+
 Absolutely. This is called a Multi-Agent architecture. A triage AI might gather basic info and then hand off to a specialized technical support AI, before ever involving a human.
 
-**What happens if no human agents are available?**
+### What happens if no human agents are available?
+
 The system must have a fallback timer. If a human does not connect within 15 to 30 seconds, the AI should seamlessly unmute, inform the user of the wait time, offer to schedule a callback, or open a support ticket.
 
-**Is it expensive to maintain a HITL team?**
+### Is it expensive to maintain a HITL team?
+
 While human agents have a cost, the Handoff pattern ensures they only handle complex, high value interactions. By filtering out the routine 80% of calls, your human workforce becomes vastly more efficient, reducing overall headcount requirements.

@@ -115,25 +115,32 @@ TTGE also offers an all-in **₹3.50/min** pricing model. This includes telecom 
 
 ## FAQ
 
-**Q: Can Gnani AI handle South Indian languages effectively?**
+### Can Gnani AI handle South Indian languages effectively?
+
 Yes. Gnani has extensive training data for Tamil, Telugu, Kannada, and Malayalam. Their models handle the specific phonetic structures of Dravidian languages better than western-trained models.
 
-**Q: What hardware is required for an on-premise deployment?**
+### What hardware is required for an on-premise deployment?
+
 The system requires standard enterprise GPU servers. Typically, deployments use NVIDIA A10 or L4 GPUs depending on the concurrent channel requirements. CPU-only deployments are possible but not recommended for real-time streaming ASR.
 
-**Q: Does Prisma v2.5 support dual-channel stereo audio?**
+### Does Prisma v2.5 support dual-channel stereo audio?
+
 Yes. For call center QA use cases, it processes separated agent and customer audio streams. This enables highly accurate speaker diarization and sentiment analysis.
 
-**Q: How does the system handle personally identifiable information (PII)?**
+### How does the system handle personally identifiable information (PII)?
+
 The ASR engine includes an automated redaction module. It can identify and mask credit card numbers, Aadhaar numbers, and phone numbers before the transcript is saved to the database.
 
-**Q: Can we fine-tune the acoustic model on our specific audio data?**
+### Can we fine-tune the acoustic model on our specific audio data?
+
 Gnani offers professional services for domain adaptation. They can incorporate your specific product names, competitor names, and industry jargon into the language model.
 
-**Q: Is the voice biometrics module certified against standard replay attacks?**
+### Is the voice biometrics module certified against standard replay attacks?
+
 The anti-spoofing layer detects standard replay attacks using mobile phone recordings. It analyzes the acoustic signature of the playback device speaker.
 
-**Q: How long does a typical on-premise installation take?**
+### How long does a typical on-premise installation take?
+
 Assuming hardware is racked and network routing is configured, the software deployment takes **2 to 3 weeks**. Integration with existing PBX infrastructure adds additional testing time.
 
 ## Conclusion

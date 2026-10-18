@@ -44,7 +44,7 @@ The Millisecond Turnaround Lifecycle of Modern Voice AI (TTGE Engine):
 [0ms - 25ms]:   Voice Activity Detection (VAD) Confirms Speech Boundary (Endpoint)
                │
                ▼
-[25ms - 85ms]:  Conformer-2 ASR Transcribes Final Audio Frame (<60ms Streaming Latency)
+[25ms - 85ms]:  Conformer-2 ASR Transcribes Final Audio Frame (under 60ms Streaming Latency)
                │
                ▼
 [85ms - 150ms]: Small Language Model Emits First Response Token (TTFT = 65ms)
@@ -255,7 +255,7 @@ LLM Text Tokens: "I have confirmed your demo for Friday at 2:00 PM."
                                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. HiFi-GAN Neural Vocoder (24kHz Audio Waveform Output)               │
-│    - Emits first audio packet \in <40ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet \in under 40ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -354,9 +354,9 @@ Full-Duplex Interruption Architecture:
                              │
                              ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Instant Barge-In Execution Loop (<40ms)                             │
-│    - Clears outgoing audio playback buffer \in <20ms                    │
-│    - Cancels in-flight LLM generation \in <15ms                         │
+│ 2. Instant Barge-In Execution Loop (under 40ms)                             │
+│    - Clears outgoing audio playback buffer \in under 20ms                    │
+│    - Cancels in-flight LLM generation \in under 15ms                         │
 │    - Routes new user speech into ASR pipeline immediately              │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -392,7 +392,7 @@ $$
 
 In unoptimized systems, if $\tau_{\text{VAD}} = 200\text{ms}$, $\tau_{\text{ASR}} = 300\text{ms}$, $\tau_{\text{LLM}} = 500\text{ms}$, $\tau_{\text{TTS}} = 300\text{ms}$, and network transit $\tau_{\text{SIP}} = 80\text{ms}$, total delay reaches **1,460ms**, leading to immediate caller frustration.
 
-In optimized streaming engines (like Tough Tongue AI), streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} < 200\text{ms}$.
+In optimized streaming engines (like Tough Tongue AI), streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} less than  200\text{ms}$.
 
 ---
 
@@ -456,7 +456,7 @@ The Architecture Comparison:
 
 2. Native Voice-to-Voice Architecture (Unified / End-to-End):
    Audio ──► [Continuous Audio Latent Transformer (TTGE / Gemini Live)] ──► Audio
-   - End-to-End Latency: <200ms
+   - End-to-End Latency: under 200ms
    - Benefit: 100% native emotional resonance, laughs, whispers, and accent fidelity.
    - Limitation: Unified model coupling.
 ```
@@ -516,7 +516,7 @@ class ProductionVoiceAIPipeline:
             await asyncio.sleep(0.02) # 20ms inter-token latency
 
     async def synthesize_ssm_audio(self, \text_token_stream: AsyncGenerator[str, None]) -> AsyncGenerator[bytes, None]:
-        # Synthesizes linear PCM audio chunks using State Space Model (<40ms TTFA)
+        # Synthesizes linear PCM audio chunks using State Space Model (under 40ms TTFA)
         await asyncio.sleep(0.04) # 40ms TTFA
         async for token \in \text_token_stream:
             # Emits 20ms linear PCM audio chunk
@@ -527,7 +527,7 @@ class ProductionVoiceAIPipeline:
         Executes immediate audio flush and task cancellation when user interrupts.
         """
         if self.is_speaking and self.current_tts_task:
-            print("[Barge-In Detected]: Cancelling outgoing audio and flushing buffer (<40ms).")
+            print("[Barge-In Detected]: Cancelling outgoing audio and flushing buffer (under 40ms).")
             self.current_tts_task.cancel()
             self.is_speaking = False
 ```

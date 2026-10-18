@@ -218,7 +218,7 @@ The Adaptive Socratic Questioning Loop:
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
-[AI Probes Dynamically (<180ms)]: "Restarting cleared the lock temporarily,
+[AI Probes Dynamically (under 180ms)]: "Restarting cleared the lock temporarily,
 but what was the underlying query deadlocking the transaction table, and how
 did you prevent recurrence \in production?"
 ```
@@ -251,7 +251,7 @@ The discrete recurrence $\mathbf{h}_t = \bar{\mathbf{A}} \mathbf{h}_{t-1} + \bar
 The Mathematical Formulations:
 
 1. Filler Word Ratio Metric:
-   \Phi = \frac{N_{\text{filler}}}{N_{\text{total\_words}}} times 100\% \quad (\text{Target: } \Phi < 2.0\%)
+   \Phi = \frac{N_{\text{filler}}}{N_{\text{total\_words}}} times 100\% \quad (\text{Target: } \Phi less than  2.0\%)
 
 2. Vocal Confidence Intonation Index:
    \mathcal{C} = 1.0 - \left( \frac{sigma(F_0)}{mu(F_0)} \right) - lambda \cdot \text{UptalkRatio}
@@ -311,7 +311,7 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -322,7 +322,7 @@ Input Acoustic Latent Vector Matrix
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -353,7 +353,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -392,7 +392,7 @@ Full-Duplex Interruption Architecture:
                          │
                          ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Interruption Grace Score Evaluator (<15ms)                          │
+│ 2. Interruption Grace Score Evaluator (under 15ms)                          │
 │    - Evaluates whether candidate paused smoothly or talked over the AI │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -461,7 +461,7 @@ Narrowband Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Restores studio-grade vocal resonance \in <6ms GPU inference time     │
+│ - Restores studio-grade vocal resonance \in under 6ms GPU inference time     │
 └────────────────────────────────────────────────────────────────────────┘
                  │
                  ▼

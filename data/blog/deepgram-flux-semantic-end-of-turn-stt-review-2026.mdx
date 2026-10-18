@@ -203,25 +203,32 @@ Furthermore, TTGE offers aggressive pricing for high volume deployments. The ser
 
 ## FAQ Section
 
-**How does Deepgram Flux differ from traditional VAD?**
+### How does Deepgram Flux differ from traditional VAD?
+
 Deepgram Flux uses linguistic prediction to guess if a sentence is complete. Traditional VAD only looks at acoustic silence. Flux prevents interruptions during cognitive pauses by analyzing the actual words spoken.
 
-**Can I use Deepgram Flux with legacy 8kHz telephony audio?**
+### Can I use Deepgram Flux with legacy 8kHz telephony audio?
+
 Yes. You can stream **8kHz** audio to the Deepgram WebSocket. However, you will see a higher Word Error Rate compared to clean VoIP audio. Our benchmarks show a degradation to **14.8%** WER on Indian PSTN lines.
 
-**What is the recommended endpointing threshold for Nova-3?**
+### What is the recommended endpointing threshold for Nova-3?
+
 Start with an `endpointing` value of **500ms**. Combine this with an `utterance_end_ms` of **1000ms** or **1500ms**. Adjust based on your specific user demographics and background noise profiles to optimize the experience.
 
-**Does Deepgram charge for silence?**
+### Does Deepgram charge for silence?
+
 Yes. Deepgram meters all audio processed through the WebSocket connection. You must manage your connection lifecycle carefully to avoid massive silence billing charges. Close the socket when you know the turn is complete.
 
-**Why did Nova-3 perform poorly on Indian telecom audio?**
+### Why did Nova-3 perform poorly on Indian telecom audio?
+
 Indian PSTN networks apply aggressive compression and have high background noise floors. Models explicitly trained on this regional data, like Gnani, perform better than generalized models like Nova-3.
 
-**How does Tough Tongue AI achieve lower latency than Deepgram?**
+### How does Tough Tongue AI achieve lower latency than Deepgram?
+
 Tough Tongue AI uses a native voice to voice architecture. It skips the STT and TTS steps completely. This removes the processing delays associated with generating and parsing text transcripts.
 
-**Is Deepgram Flux available for on premise deployment?**
+### Is Deepgram Flux available for on premise deployment?
+
 Deepgram offers on premise deployments for enterprise customers. However, the exact availability of the Flux semantic endpointing features depends on the specific enterprise contract and hardware provisioning. You should consult their sales team for exact requirements.
 
 ## Conclusion and Demo Call

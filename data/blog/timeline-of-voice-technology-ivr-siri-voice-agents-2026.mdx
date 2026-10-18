@@ -141,7 +141,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -210,7 +210,7 @@ Input Mel-Spectrogram Matrix (80 channels)
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -221,7 +221,7 @@ Input Mel-Spectrogram Matrix (80 channels)
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -315,7 +315,7 @@ Continuous Audio Waveform x(t)
 └────────────────────────────────────────────────────────────────────────┘
               │
               ▼
-[HiFi-GAN Adversarial Vocoder Outputting 24kHz Studio Audio (<40ms TTFA)]
+[HiFi-GAN Adversarial Vocoder Outputting 24kHz Studio Audio (under 40ms TTFA)]
 ```
 
 Using **Direct Preference Optimization (DPO)** directly on conversational audio trajectories:
@@ -354,7 +354,7 @@ Autonomous Voice-to-Voice Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Neural Audio Codec (RVQ-VAE Encoder)                                   │
-│ - Quantizes audio into multi-scale continuous acoustic latents \in <15ms│
+│ - Quantizes audio into multi-scale continuous acoustic latents \in under 15ms│
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -367,7 +367,7 @@ Autonomous Voice-to-Voice Architecture:
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ HiFi-GAN Adversarial Vocoder Decoder                                   │
-│ - Reconstructs continuous 24kHz linear PCM audio \in <40ms TTFA         │
+│ - Reconstructs continuous 24kHz linear PCM audio \in under 40ms TTFA         │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -449,7 +449,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼

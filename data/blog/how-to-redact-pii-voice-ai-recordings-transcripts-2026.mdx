@@ -115,7 +115,7 @@ Real-Time vs Post-Call Redaction Comparison:
 Option 1: Real-Time Stream Redaction (In-Flight)
 - Execution: Performed frame-by-frame during the live phone conversation.
 - Advantage: Sensitive data is never written to temporary memory or logs.
-- Trade-off: Requires low-latency lightweight regex models (<15ms).
+- Trade-off: Requires low-latency lightweight regex models (under 15ms).
 
 Option 2: Asynchronous Post-Call Redaction (High Accuracy)
 - Execution: Performed within 3 seconds of call disconnection.

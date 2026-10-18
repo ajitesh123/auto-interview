@@ -211,19 +211,24 @@ When you define a tool in Tough Tongue AI, you simply check a box labeled "Requi
 
 ## Frequently Asked Questions
 
-**Q: Can I just use Python threads instead of asyncio?**
+### Can I just use Python threads instead of asyncio?
+
 A: You can, but it is not recommended for voice pipelines. Threads are heavy and can cause race conditions when interacting with the audio queue. `asyncio` is lighter and gives you finer control over cooperative multitasking.
 
-**Q: What if the task takes a really long time, like a minute?**
+### What if the task takes a really long time, like a minute?
+
 A: For very long tasks, an interim message is not enough. You should design your agent to say, "This will take a minute, I will text you the result," and then end the call, or periodically check in with the user ("Still working on it...").
 
-**Q: Does OpenAI support async tool calls?**
+### Does OpenAI support async tool calls?
+
 A: The OpenAI Python SDK has an `AsyncOpenAI` client that handles network requests asynchronously. However, the logic to stream audio and inject interim messages still requires your own event loop management or a framework like LiveKit.
 
-**Q: Why does my agent interrupt itself when the data loads?**
+### Why does my agent interrupt itself when the data loads?
+
 A: This happens if you do not track the speaking state. If the TTS is still speaking "Let me look that up," and the final result arrives, the new TTS stream might cut off the old one. Use the audio framework's queueing system to append the final audio instead of overwriting the stream.
 
-**Q: Can I use WebSockets with asyncio?**
+### Can I use WebSockets with asyncio?
+
 A: Yes. In fact, most voice AI architectures (like connecting to Deepgram or LiveKit) rely heavily on WebSockets. Libraries like `websockets` integrate perfectly with `asyncio` to stream audio chunks without blocking.
 
 Building voice agents is an entirely different paradigm from building text chatbots. Silence is loud. By mastering asynchronous execution, you can build agents that feel responsive, capable, and human-like, even when the servers behind them are churning through heavy workloads.

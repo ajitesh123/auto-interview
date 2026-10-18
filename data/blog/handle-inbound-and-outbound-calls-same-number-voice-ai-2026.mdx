@@ -75,7 +75,7 @@ Inbound SIP INVITE Received from Caller: +1 (555) 019-2831
                               │
                               ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Caller ID (ANI) Database Query (<20ms)                              │
+│ 1. Caller ID (ANI) Database Query (under 20ms)                              │
 │    - Checks active CRM leads and recent outbound campaign logs         │
 └────────────────────────────────────────────────────────────────────────┘
                               │
@@ -86,7 +86,7 @@ Case A: Existing Lead Recognized        Case B: Brand New Caller
 - Prior Note: Sent quote $14,000        - Intent: Inbound customer inquiry
                │                             │
                ▼                             ▼
-[AI Speaks in <180ms]:                  [AI Speaks in <180ms]:
+[AI Speaks in under 180ms]:                  [AI Speaks in under 180ms]:
 "Hi Sarah! Thanks for calling us back   "Thank you for calling Acme!
 regarding your roofing estimate."       How can I help you today?"
 ```
@@ -142,7 +142,7 @@ class TwoWayTelephonyRouter:
         }
 
     async def handle_call_connection(self, caller_number: str, direction: str) -> dict:
-        """Determines persona and opening greeting in <15ms."""
+        """Determines persona and opening greeting in under 15ms."""
         await asyncio.sleep(0.015)
 
         if direction == "outbound":

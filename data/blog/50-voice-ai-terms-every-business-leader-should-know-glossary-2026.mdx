@@ -118,7 +118,7 @@ Modern neural speech foundation models maintain continuous formant trajectories 
 15. **Linear Predictive Coding (LPC):** An acoustic production filter model ($H(z) = \frac{1}{1 - \sum a_k z^{-k}}$) modeling vocal tract resonance for audio compression.
 16. **Deep Noise Suppression (DNS):** A recurrent neural network that estimates Ideal Ratio Masks (IRM) to isolate speech from background noise in **&lt;8ms**.
 17. **Word Error Rate (WER):** The standard accuracy metric for speech recognition: $\text{WER} = \frac{S + D + I}{N} times 100\%$, where $S$ is substitutions, $D$ is deletions, and $I$ is insertions.
-18. **Real-Time Factor (RTF):** Computational efficiency ratio: $\text{RTF} = \frac{\text{Processing Time}}{\text{Audio Duration}}$. Real-time voice requires $\text{RTF} < 0.20$.
+18. **Real-Time Factor (RTF):** Computational efficiency ratio: $\text{RTF} = \frac{\text{Processing Time}}{\text{Audio Duration}}$. Real-time voice requires $\text{RTF} less than  0.20$.
 19. **Acoustic Bandwidth Extension (BWE):** A neural super-resolution model that reconstructs missing high-frequency harmonics (3.4kHz to 12kHz) from legacy 8kHz telephone lines.
 20. **Mean Opinion Score (MOS):** A perceptual audio quality rating from 1.0 (unintelligible) to 5.0 (crystal-clear studio speech). SOTA voice AI achieves **MOS &gt; 4.35**.
 
@@ -169,7 +169,7 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -180,7 +180,7 @@ Input Acoustic Latent Vector Matrix
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -399,34 +399,44 @@ By projecting multi-accented speech into a unified continuous latent vector spac
 
 ## Frequently Asked Questions
 
-**What is the difference between Voice-to-Voice and Speech-to-Text?**
+### What is the difference between Voice-to-Voice and Speech-to-Text?
+
 Speech-to-Text converts audio into written text. Native Voice-to-Voice processes audio waveforms end-to-end within a single multimodal neural model, preserving emotional inflections and reducing latency to **&lt;180ms**.
 
-**What does Time-to-First-Audio (TTFA) mean in Voice AI?**
+### What does Time-to-First-Audio (TTFA) mean in Voice AI?
+
 TTFA measures the elapsed time in milliseconds from when text or latent input is received by the speech synthesizer to when the first playable audio chunk is emitted. SOTA models achieve **&lt;40ms TTFA**.
 
-**What is Word Error Rate (WER)?**
+### What is Word Error Rate (WER)?
+
 WER is the percentage of words incorrectly transcribed by an ASR system, calculated as the sum of substitutions, deletions, and insertions divided by total reference words. SOTA speech models achieve **WER &lt; 3.0%**.
 
-**Why is Acoustic Echo Cancellation (AEC) critical for voice agents?**
+### Why is Acoustic Echo Cancellation (AEC) critical for voice agents?
+
 AEC subtracts the AI agent's outgoing vocal audio from the incoming microphone signal by up to **45 dB**, preventing the AI from hearing itself and enabling instant **&lt;40ms barge-in interruptions**.
 
-**What is the difference between SIP and WebRTC?**
+### What is the difference between SIP and WebRTC?
+
 SIP is the signaling protocol used to route enterprise telephone calls over carrier PSTN networks. WebRTC is the browser-based transport protocol used for ultra-low-latency peer-to-peer audio streaming.
 
-**What is Code-Switching in Indian Voice AI?**
+### What is Code-Switching in Indian Voice AI?
+
 Code-switching refers to smoothly transitioning between languages mid-sentence (such as Hindi and English, known as Hinglish) without transcription failure.
 
-**How does Tough Tongue AI optimize voice latency?**
+### How does Tough Tongue AI optimize voice latency?
+
 Tough Tongue AI combines native Voice-to-Voice neural architecture (TTGE) with FlashAttention-3 kernels and localized carrier SIP infrastructure in `asia-south1`, delivering sub-**200ms** response times.
 
-**What is STIR/SHAKEN compliance?**
+### What is STIR/SHAKEN compliance?
+
 STIR/SHAKEN is a suite of cryptographic protocols used by telephone carriers to authenticate caller ID data and prevent fraudulent robocall spoofing.
 
-**What is the pricing model of Tough Tongue AI?**
+### What is the pricing model of Tough Tongue AI?
+
 Tough Tongue AI provides an all-inclusive enterprise platform with native carrier SIP trunking for a flat rate of **₹3.50 per minute** (**\$0.042/min**).
 
-**How long does it take to deploy a production voice agent?**
+### How long does it take to deploy a production voice agent?
+
 Using Tough Tongue AI, businesses can build, test, and deploy a carrier-grade voice agent in **&lt;2 minutes** via web dashboard configuration.
 
 ---

@@ -147,7 +147,7 @@ class RealTimeBargeInController:
         self.audio_jitter_buffer = ["chunk_1", "chunk_2", "chunk_3", "chunk_4", "chunk_5"]
 
     async def on_caller_speech_detected(self, detection_timestamp: float):
-        """Executed the instant neural VAD flags speech onset (<15ms)."""
+        """Executed the instant neural VAD flags speech onset (under 15ms)."""
         t_detect = time.perf_counter()
 
         if self.ai_is_currently_speaking:

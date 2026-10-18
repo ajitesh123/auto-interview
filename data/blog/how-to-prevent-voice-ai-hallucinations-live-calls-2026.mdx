@@ -79,8 +79,8 @@ Inbound Caller Speech Utterance
                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Layer 1: Deterministic Retrieval-Augmented Generation (RAG)            │
-│    - Queries in-memory vector database in <15ms                        │
-│    - If cosine similarity <0.82, context is marked: "UNVERIFIED"       │
+│    - Queries in-memory vector database in under 15ms                        │
+│    - If cosine similarity under 0.82, context is marked: "UNVERIFIED"       │
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
@@ -92,12 +92,12 @@ Inbound Caller Speech Utterance
                 │
                 ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Layer 3: Streaming Logit Masking & Semantic Verification (<12ms)       │
+│ Layer 3: Streaming Logit Masking & Semantic Verification (under 12ms)       │
 │    - Verifies response tokens against strict policy whitelist          │
 └────────────────────────────────────────────────────────────────────────┘
                 │
                 ▼
-[100% Verified Spoken Response Emitted in <180ms Total Latency]
+[100% Verified Spoken Response Emitted in under 180ms Total Latency]
 ```
 
 ---
@@ -151,7 +151,7 @@ class VoiceHallucinationGuardrail:
         ]
 
     async def sanitize_response(self, candidate_text: str) -> str:
-        """Evaluates candidate response in <5ms prior to speech synthesis."""
+        """Evaluates candidate response in under 5ms prior to speech synthesis."""
         await asyncio.sleep(0.005)
 
         for pattern in self.prohibited_patterns:

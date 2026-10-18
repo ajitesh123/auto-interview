@@ -57,7 +57,7 @@ Input Text Stream: "Dr. Smith paid $45.50 for the consultation on Jan 12th."
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 4. Neural Vocoder (HiFi-GAN Multi-Period & Multi-Scale Discriminator)  │
 │    - Inverts 2D Mel spectrograms into 24kHz linear PCM audio waveforms │
-│    - Emits first audio packet in <40ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet in under 40ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
@@ -107,7 +107,7 @@ The Four Eras of Speech Synthesis Technology:
 
 2024 - 2026: State Space Models & Non-Autoregressive Streaming Vocoders
 - Model: Cartesia Sonic / ElevenLabs Flash / Tough Tongue AI TTGE
-- Tech: Linear-time SSMs and parallel adversarial vocoders (<40ms TTFA)
+- Tech: Linear-time SSMs and parallel adversarial vocoders (under 40ms TTFA)
 ```
 
 ---
@@ -124,8 +124,8 @@ LLM Generates Sentence ──► [Wait for Complete Text] ──► [Synthesize 
 - Perceived Caller Latency: 850ms (Creates noticeable conversational lag).
 
 Modern Streaming State Space TTS (e.g., Cartesia Sonic / TTGE Engine):
-LLM Generates 1st Word ──► [Synthesize 1st Word \in <40ms] ──► Audio Streams Immediately!
-- Perceived Caller Latency: <60ms (Instantaneous human-grade conversational tempo).
+LLM Generates 1st Word ──► [Synthesize 1st Word \in under 40ms] ──► Audio Streams Immediately!
+- Perceived Caller Latency: under 60ms (Instantaneous human-grade conversational tempo).
 ```
 
 By streaming audio chunks as soon as the language model generates its first few words, the system hides downstream processing delays completely.
@@ -364,7 +364,7 @@ Input: "[Emotion: Empathetic & Soft] I understand this bill is unexpected. Let m
 └────────────────────────────────────────────────────────────────────────┘
                                           │
                                           ▼
-[Emits Warm, Calming Vocal Response with Authentic Breath Inhalation (<60ms)]
+[Emits Warm, Calming Vocal Response with Authentic Breath Inhalation (under 60ms)]
 ```
 
 Modern models (such as **ElevenLabs Eleven v3** and **Smallest.ai Lightning V3**) accept natural language conditioning tags (such as `[whisper]`, `[urgent]`, or `[empathetic]`).
@@ -401,9 +401,9 @@ Full-Duplex Interruption Architecture:
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Instant Barge-In Execution Loop (<40ms)                             │
-│    - Flushes outgoing audio playback buffer \in <20ms                   │
-│    - Cancels in-flight LLM generation task \in <15ms                    │
+│ 2. Instant Barge-In Execution Loop (under 40ms)                             │
+│    - Flushes outgoing audio playback buffer \in under 20ms                   │
+│    - Cancels in-flight LLM generation task \in under 15ms                    │
 │    - Re-routes user audio into STT pipeline immediately                │
 └────────────────────────────────────────────────────────────────────────┘
 ```

@@ -171,7 +171,7 @@ async def simulate_voice_session():
                 playback_queue.get_nowait()
                 cleared_count += 1
             detector.agent_is_speaking = False
-            print(f"[Buffer Cleared] Dropped {cleared_count} pending audio playback frames \in <2ms.")
+            print(f"[Buffer Cleared] Dropped {cleared_count} pending audio playback frames \in under 2ms.")
             break
         await asyncio.sleep(0.03)
 

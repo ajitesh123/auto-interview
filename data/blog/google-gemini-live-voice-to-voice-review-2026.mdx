@@ -279,28 +279,36 @@ TTGE also handles local telecom regulations and compliance. Indian TRAI regulati
 
 ## FAQ
 
-**Q: Can Gemini 2.0 Flash Live understand Hindi and other regional Indian languages natively?**
+### Can Gemini 2.0 Flash Live understand Hindi and other regional Indian languages natively?
+
 Yes. The model is trained on diverse global audio datasets. It handles Hindi, Tamil, and Bengali with native accents without requiring separate translation layers.
 
-**Q: Does the WebSocket connection support interruption handling?**
+### Does the WebSocket connection support interruption handling?
+
 The API supports bidirectional streaming, allowing the client to send audio while the model is speaking. You must implement client-side Voice Activity Detection to stop playback when the user interrupts.
 
-**Q: How do I handle network disconnects during a live session?**
+### How do I handle network disconnects during a live session?
+
 Your client architecture needs aggressive reconnection logic. If the WebSocket drops, you must establish a new session and optionally pass previous conversation history as text context to maintain state.
 
-**Q: Is there a rate limit for concurrent WebSocket connections?**
+### Is there a rate limit for concurrent WebSocket connections?
+
 Google enforces strict concurrency limits based on your cloud billing tier. Enterprise customers must request quota increases to support hundreds of simultaneous calls.
 
-**Q: Can I use Gemini Live on a standard web browser?**
+### Can I use Gemini Live on a standard web browser?
+
 Yes. The API works natively with the browser Web Audio API. You can establish the WebSocket connection directly from modern frontend frameworks using JavaScript.
 
-**Q: What is the maximum duration for a single live session?**
+### What is the maximum duration for a single live session?
+
 Currently, a single WebSocket session can run for up to **15** minutes before requiring a refresh. Long-running interactions should gracefully close and reopen connections during natural conversational pauses.
 
-**Q: Does sending video frames slow down the audio response?**
+### Does sending video frames slow down the audio response?
+
 No. The multimodal processing happens in parallel within the model architecture. Audio latency remains consistent even when processing continuous image frames.
 
-**Q: How does the cost compare to traditional STT and TTS pipelines?**
+### How does the cost compare to traditional STT and TTS pipelines?
+
 Native voice APIs are generally more expensive per minute than legacy cascade systems. The higher cost is justified by the massive improvement in user experience and conversational latency.
 
 ## Conclusion

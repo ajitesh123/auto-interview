@@ -399,17 +399,22 @@ When you deploy a voice agent through Tough Tongue AI, you can configure strict 
 
 ## FAQ
 
-**Does the Observer Pattern guarantee that no bad words are ever spoken?**
+### Does the Observer Pattern guarantee that no bad words are ever spoken?
+
 No. Because the generation and validation happen in parallel, a few syllables or words might reach the TTS engine before the interrupt signal arrives. However, buffering the TTS output by 150-200ms usually gives the observer enough time to catch the violation before audio plays over the wire. This is vastly preferable to adding a massive 1500ms delay to every single response.
 
-**Can I run the observer model locally?**
+### Can I run the observer model locally?
+
 Yes. For optimal performance, the observer should use lightweight, fast local models or optimized regular expressions. Sending observer data to a heavy cloud model defeats the purpose if the network latency exceeds the conversation window.
 
-**How do I handle the interruption gracefully?**
+### How do I handle the interruption gracefully?
+
 When the observer fires an interrupt, you must stop the active TTS stream immediately. Then, inject a pre rendered audio clip or a fast, cached TTS response like "I am unable to continue with that topic." This masks the interruption as a natural conversational boundary.
 
-**Is this only useful for security and compliance?**
+### Is this only useful for security and compliance?
+
 No. The observer pattern is excellent for state management. You can use it to extract structured data from the conversation (like user preferences or intent) and update your backend database asynchronously without slowing down the bot.
 
-**What happens if the observer process crashes?**
+### What happens if the observer process crashes?
+
 You should design your system with fault tolerance. If the observer crashes, the primary agent can optionally fall back to a safer, more restrictive mode, or you can implement automatic restarts for the background task using process managers. Never let an observer crash take down the primary voice connection.

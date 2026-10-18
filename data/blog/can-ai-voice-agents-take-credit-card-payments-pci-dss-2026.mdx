@@ -61,7 +61,7 @@ Secure DTMF Keypad Masking (The 2026 Industry Standard):
 [Caller Enters Digits on Keypad] ──► [Secure Edge Gateway Strips Tones] ──► [Stripe Token Emitted]
 - Compliance Scope: Zero (No audio tones or digits ever reach the AI server)
 - Security: Call recording hears only flat neutral beeps
-- Settlement Speed: Instant tokenized charge in <200ms
+- Settlement Speed: Instant tokenized charge in under 200ms
 ```
 
 ---
@@ -95,7 +95,7 @@ Caller Mobile Phone
                                                         │
                                                         ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Payment Gateway Dispatches Charge Result Webhook (<150ms)           │
+│ 2. Payment Gateway Dispatches Charge Result Webhook (under 150ms)           │
 │    - Status: "SUCCESS", Transaction_ID: "tx_99214"                     │
 └────────────────────────────────────────────────────────────────────────┘
                                                         │
@@ -115,7 +115,7 @@ Live SMS Payment Checkout Flow:
 1. Caller Approves Order:
    - Caller: "Yes, go ahead and charge my account for the $75 service fee."
 
-2. AI Dispatches Instant SMS Checkout Link in <50ms:
+2. AI Dispatches Instant SMS Checkout Link in under 50ms:
    - AI speaks: "I have just texted a secure 1-click Apple Pay / Google Pay link to your mobile number."
 
 3. Caller Completes Payment on Mobile Screen:
@@ -152,7 +152,7 @@ class SecureVoicePaymentGateway:
         return {"session_id": "pci_sess_9912", "amount": amount_cents, "masked": True}
 
     async def process_tokenized_charge(self, payment_token: str, amount_cents: int) -> dict:
-        """Charges pre-tokenized customer card via secure Stripe API (<120ms)."""
+        """Charges pre-tokenized customer card via secure Stripe API (under 120ms)."""
         print(f"[Payment Processor]: Charging token '{payment_token}' for ${amount_cents / 100:.2f}...")
         await asyncio.sleep(0.120) # Simulates Stripe API latency
         return {"status": "succeeded", "charge_id": "ch_3N88129", "receipt_url": "https://pay.acme.com/r/8812"}

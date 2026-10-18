@@ -312,7 +312,7 @@ async def start_hyper_fast_agent():
         fallback_stt="ringg-parrot-v1"    # Use Ringg for async transcript logging
     )
 
-    print("Agent live. Expected latency: < 200ms.")
+    print("Agent live. Expected latency: less than  200ms.")
     await session.listen()
 ```
 

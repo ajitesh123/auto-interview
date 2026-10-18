@@ -111,7 +111,7 @@ Audio Frame Stream (10ms Slices)
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Stage 1: Neural Voice Activity Detection (Silero VAD ONNX Core)        │
-│ - Evaluates speech probability P(\text{speech}) \in <15ms               │
+│ - Evaluates speech probability P(\text{speech}) \in under 15ms               │
 │ - Distinguishes human vocal formants from car horns & keyboard clicks  │
 └────────────────────────────────────────────────────────────────────────┘
                │
@@ -164,7 +164,7 @@ The Audio Codec Impact on VAD Error Rates:
 2. Wideband Opus Codec (48kHz Full-Band WebRTC):
    - Sampling Rate: 48,000 samples/sec (20 Hz - 20,000 Hz).
    - Advantage: Captures full vocal breathiness, acoustic harmonics, and subtle backchannel cues.
-   - VAD False Trigger Rate: <0.80% on neural models.
+   - VAD False Trigger Rate: under 0.80% on neural models.
 ```
 
 To maintain high turn-taking precision over standard phone calls, modern neural VAD engines are pre-trained on millions of hours of synthetic 8kHz companded audio, ensuring zero false barge-in triggers even on noisy mobile connections.
@@ -226,7 +226,7 @@ Continuous Ingress Audio x(t)
              ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Residual Vector Quantization (RVQ) Multi-Codebook Hierarchy            │
-│ - Codebooks 1-2: Evaluates speech vs silence energy envelope (<10ms)  │
+│ - Codebooks 1-2: Evaluates speech vs silence energy envelope (under 10ms)  │
 │ - Codebooks 3-8: Encodes formant resonances and emotional pitch (F0)   │
 └────────────────────────────────────────────────────────────────────────┘
              │
@@ -265,8 +265,8 @@ Full-Duplex Acoustic Echo Cancellation (AEC) DSP Pipeline:
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Frame-Level Barge-In Detection (<15ms)                                 │
-│ - Detects clean speech s(n) and immediately flushes output buffer (<40ms)│
+│ Frame-Level Barge-In Detection (under 15ms)                                 │
+│ - Detects clean speech s(n) and immediately flushes output buffer (under 40ms)│
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -317,7 +317,7 @@ Noisy Microphone Audio y(t) = s(t) + n(t)
                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Deep Noise Suppression (DNS) Recurrent Neural Network                  │
-│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in <8ms │
+│ - Computes Ideal Ratio Mask (IRM) \to isolate speech from noise \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                    │
                    ▼
@@ -410,7 +410,7 @@ Input Audio: "Mera account balance check karna hai... please hold on."
 └────────────────────────────────────────────────────────────────────────┘
                             │
                             ▼
-[Maintains Floor until Caller Concludes Thought, Responding \in <180ms]
+[Maintains Floor until Caller Concludes Thought, Responding \in under 180ms]
 ```
 
 By training on hundreds of thousands of hours of real-world Indian conversations, Tough Tongue AI TTGE achieves flawless turn-taking across diverse regional dialects and colloquial Hinglish phrasing.
@@ -500,7 +500,7 @@ class DualStageTurnTakingEngine:
 
                 # Check for Barge-In Interruption
                 if self.is_ai_speaking and self.speech_frame_count >= 2: # 20ms of speech
-                    print("[Barge-In Detected]: Flushing AI output playback buffer (<40ms).")
+                    print("[Barge-In Detected]: Flushing AI output playback buffer (under 40ms).")
                     self.is_ai_speaking = False
                     yield {"event": "barge_in_flush", "timestamp": time.time()}
             else:

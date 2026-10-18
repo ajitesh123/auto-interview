@@ -234,7 +234,7 @@ sequenceDiagram
 
     opt Mid-Sentence Barge-in
         User->>AudioGW: Interrupts ("Wait, what about annual commitments?")
-        AudioGW->>Model: Emit interruption signal (Cutoff < 70ms)
+        AudioGW->>Model: Emit interruption signal (Cutoff less than  70ms)
         Model->>Model: Truncate playback buffer & cancel audio queue
         AudioGW-->>User: Immediate stop & switch to listening state
     end

@@ -218,8 +218,8 @@ The model outputs a probability: "How likely is it that the speaker is done?"
 
 ```
 P(end_of_turn) > 0.85 → trigger response
-P(end_of_turn) < 0.3 → definitely still talking, keep listening
-0.3 < P(end_of_turn) < 0.85 → ambiguous, wait for more signal
+P(end_of_turn) less than  0.3 → definitely still talking, keep listening
+0.3 < P(end_of_turn) less than  0.85 → ambiguous, wait for more signal
 ```
 
 **The result:** Near-human turn-taking performance. The agent starts responding within 200-400ms of the caller finishing, without interrupting mid-sentence.

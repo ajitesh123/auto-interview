@@ -190,28 +190,36 @@ Furthermore, TTGE understands the nuances of Hinglish and regional accents perfe
 
 ## FAQ Section
 
-**How fast is the OpenAI GPT-4o Realtime API?**
+### How fast is the OpenAI GPT-4o Realtime API?
+
 Internal model processing takes **80ms** to **120ms**. Total user-perceived latency depends heavily on network transit times. In the US, expect **160ms** to **220ms** total delay.
 
-**Does it support custom voices or cloning?**
+### Does it support custom voices or cloning?
+
 No. You are restricted to the **8** official native voices provided by OpenAI. There is currently no official support for voice cloning or custom acoustic profiles.
 
-**How does it handle function calling?**
+### How does it handle function calling?
+
 The model emits function call arguments mid-stream as JSON events. You must execute the function locally and send back a `conversation.item.create` event. The model will then naturally incorporate the results into its speech.
 
-**Is it suitable for Indian SIP trunks?**
+### Is it suitable for Indian SIP trunks?
+
 It works technically, but the latency is prohibitively high. Network transit from India to US servers adds **180ms** to **280ms**. This causes noticeable conversational lag and frequent interruptions.
 
-**Why is my monthly bill so high?**
+### Why is my monthly bill so high?
+
 You are billed for all input audio, including complete silence. The **\$0.06/min** input rate applies continuously while the WebSocket is open. You pay for the time the bot is speaking as well.
 
-**Can I run it over standard HTTP REST endpoints?**
+### Can I run it over standard HTTP REST endpoints?
+
 No. The Realtime API requires a persistent WebSocket connection to function. It does not support standard REST HTTP requests for streaming audio.
 
-**Do I need to do text tokenization before sending audio?**
+### Do I need to do text tokenization before sending audio?
+
 No. The model processes raw **24kHz** PCM audio directly in its neural layers. Text tokenization and speech recognition are entirely bypassed in this architecture.
 
-**What audio formats are supported over the WebSocket?**
+### What audio formats are supported over the WebSocket?
+
 The API officially supports PCM16 and G.711 codecs at specific sample rates. Most developers use **24kHz** PCM16 encoded as base64 strings. You must configure this format in the initial session update.
 
 ## Conclusion

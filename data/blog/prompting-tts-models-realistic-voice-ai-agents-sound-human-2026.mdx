@@ -293,17 +293,22 @@ With Tough Tongue AI, you do not need to write complex middleware to manage pros
 
 ## FAQ
 
-**Q: Can I use SSML with any TTS provider?**
+### Can I use SSML with any TTS provider?
+
 A: Most enterprise providers like Google, AWS, and Azure heavily rely on SSML. However, newer models like ElevenLabs and OpenAI often prefer natural language prompting over strict SSML tags. You have to tailor your approach to the specific vendor.
 
-**Q: Do filler words annoy users?**
+### Do filler words annoy users?
+
 A: If overused, yes. The key is strategic placement. Use them only when the system needs to buy time for processing a complex query, or to acknowledge a long statement from the user. Never use them during an emergency or high stakes interaction.
 
-**Q: How do I handle users interrupting the AI?**
+### How do I handle users interrupting the AI?
+
 A: You need a robust Voice Activity Detection (VAD) system like Silero. When the VAD detects the user speaking, you must instantly flush the TTS audio buffer and send a kill signal to your playback thread. If you do not flush the buffer, the agent will keep talking over the user.
 
-**Q: Is it better to use voice cloning or default voices?**
+### Is it better to use voice cloning or default voices?
+
 A: Voice cloning adds a personal touch, but clones often lack the dynamic emotional range of highly trained default voices from premium providers. For a highly empathetic use case, a high quality default voice usually performs better.
 
-**Q: How fast does sentiment analysis need to be for voice?**
+### How fast does sentiment analysis need to be for voice?
+
 A: It needs to be near instantaneous. You should use a fast classifier or prompt a small, quantized local model (like Llama 3 8B) to flag sentiment in under 50 milliseconds, ensuring it does not add to your overall latency budget.

@@ -80,7 +80,7 @@ Enterprise PBX Gateway                          Tough Tongue AI Media SBC
          │─────────────── 5. SIP ACK ──────────────────────►│
          │                                                 │
          │◄══════════════ 6. Bidirectional RTP Stream ════►│
-         │                G.711 / 16kHz PCM (<40ms Jitter) │
+         │                G.711 / 16kHz PCM (under 40ms Jitter) │
 ```
 
 When an inbound call reaches the Session Border Controller (SBC), the initial SIP INVITE contains an SDP offer specifying supported audio codecs (such as **G.711 μ-law, G.711 A-law, and wideband Opus**).
@@ -188,7 +188,7 @@ Autonomous Voice AI Systems Architecture (TTGE Engine):
                        ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Layer 1: Full-Duplex VAD & Acoustic Echo Cancellation (AEC)            │
-│ - Instant <40ms Barge-In Cut-Off when caller interrupts                │
+│ - Instant under 40ms Barge-In Cut-Off when caller interrupts                │
 └────────────────────────────────────────────────────────────────────────┘
                        │
                        ▼
@@ -333,7 +333,7 @@ The Real-Time Voice AI Copilot Workflow:
                       │
                       ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Real-Time Streaming Conformer ASR (<150ms Transcription Latency)       │
+│ Real-Time Streaming Conformer ASR (under 150ms Transcription Latency)       │
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
@@ -344,7 +344,7 @@ The Real-Time Voice AI Copilot Workflow:
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
-[Human Agent Dashboard Displays Real-Time Suggested Solutions \in <200ms]
+[Human Agent Dashboard Displays Real-Time Suggested Solutions \in under 200ms]
 ```
 
 During human-assisted interactions, the Voice AI engine transcribes both sides of the telephone dialogue in real time.

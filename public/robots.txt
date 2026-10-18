@@ -1,26 +1,69 @@
 User-Agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*?*
+
+User-Agent: bingbot
+User-Agent: msnbot
+User-Agent: msnbot-media
+User-Agent: BingPreview
+User-Agent: adidxbot
+User-Agent: Copilot
+User-Agent: Microsoft-Copilot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /*?*
+
+User-Agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
 
 User-Agent: GPTBot
 User-Agent: ChatGPT-User
-User-Agent: OAI-SearchBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
 
+User-Agent: Googlebot
 User-Agent: Google-Extended
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /*?*
 
 User-Agent: ClaudeBot
 User-Agent: anthropic-ai
 User-Agent: Claude-Web
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /*?*
 
 User-Agent: PerplexityBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /*?*
 
+User-Agent: Applebot
+User-Agent: Applebot-Extended
 User-Agent: Bravebot
-Allow: /
-
+User-Agent: bravebot
 User-Agent: Bytespider
+User-Agent: cohere-ai
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /*?*
 
+Host: https://www.autointerviewai.com
 Sitemap: https://www.autointerviewai.com/sitemap.xml

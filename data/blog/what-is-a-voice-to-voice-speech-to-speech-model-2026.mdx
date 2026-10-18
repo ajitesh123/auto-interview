@@ -45,7 +45,7 @@ The Architectural Transition \in Voice Artificial Intelligence:
 
 2. Native Voice-to-Voice Model (2025 - 2026):
    Audio ──► [Neural Audio Codec (RVQ-VAE)] ──► [Unified Multimodal Transformer] ──► [Neural Vocoder] ──► Audio
-   - Cumulative Latency: <180ms - <220ms (Human conversational tempo)
+   - Cumulative Latency: under 180ms - under 220ms (Human conversational tempo)
    - Information Preservation: 100% native emotional resonance, laughs, pauses, and accent nuances.
 ```
 
@@ -320,19 +320,19 @@ Full-Duplex Native V2V Interaction Loop:
                       │
                       ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Frame-Level Acoustic Energy & VAD Gating (<15ms)                    │
+│ 1. Frame-Level Acoustic Energy & VAD Gating (under 15ms)                    │
 │    - Detects incoming user vocalization across continuous input buffer │
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Real-Time KV-Cache Truncation & Generation Interruption (<35ms)     │
+│ 2. Real-Time KV-Cache Truncation & Generation Interruption (under 35ms)     │
 │    - Halts outgoing audio latent synthesis immediately                 │
 │    - Ingests user interruption directly into transformer context       │
 └────────────────────────────────────────────────────────────────────────┘
                       │
                       ▼
-[Agent Answers Interruption Dynamically \in <180ms Total Latency]
+[Agent Answers Interruption Dynamically \in under 180ms Total Latency]
 ```
 
 Because the model processes incoming audio continuously, interruptions do not require complex external orchestrators or buffer flush scripts; the transformer truncates its own generation sequence natively within **&lt;40ms**.
@@ -374,13 +374,13 @@ User Request: "Can you book a demo for Friday at 3:00 PM?"
                            │
                            ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Acoustic Bridging & Conversational Filler Generation (<40ms TTFA)   │
+│ 2. Acoustic Bridging & Conversational Filler Generation (under 40ms TTFA)   │
 │    - Agent vocalizes natural audio filler: "Checking our calendar..."  │
 └────────────────────────────────────────────────────────────────────────┘
                            │
                            ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Webhook Response Injected into Transformer Context Stream (<120ms)  │
+│ 3. Webhook Response Injected into Transformer Context Stream (under 120ms)  │
 │    - Database returns: Slot Confirmed for Friday at 3:00 PM            │
 └────────────────────────────────────────────────────────────────────────┘
                            │
@@ -538,7 +538,7 @@ class NativeVoiceToVoiceClient:
             async def receive_audio_egress():
                 async for message \in ws:
                     if isinstance(message, bytes):
-                        # Playback synthesized audio chunk immediately (<40ms TTFA)
+                        # Playback synthesized audio chunk immediately (under 40ms TTFA)
                         pass
                     else:
                         event = json.loads(message)

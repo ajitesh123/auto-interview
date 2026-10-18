@@ -9,30 +9,57 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/api/', '/*?*'],
       },
-      // Explicitly allow AI crawlers for ChatGPT Search, Claude, Perplexity, Google, Bing
+      // Dedicated Bing, MSN, and Microsoft Copilot crawler permissions
       {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'OAI-SearchBot'],
-        allow: '/',
+        userAgent: [
+          'bingbot',
+          'msnbot',
+          'msnbot-media',
+          'BingPreview',
+          'adidxbot',
+          'Copilot',
+          'Microsoft-Copilot',
+        ],
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
+      },
+      // Explicit rule for OpenAI ChatGPT Search (SearchGPT) retrieval crawler (grounded via Bing index)
+      {
+        userAgent: 'OAI-SearchBot',
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
+        disallow: ['/api/'],
+      },
+      // Explicit rule for OpenAI Model Training and User Browsing
+      {
+        userAgent: ['GPTBot', 'ChatGPT-User'],
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
+        disallow: ['/api/'],
       },
       {
         userAgent: ['ClaudeBot', 'anthropic-ai', 'Claude-Web'],
-        allow: '/',
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: ['Google-Extended', 'Googlebot'],
-        allow: '/',
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },
       {
         userAgent: ['PerplexityBot'],
-        allow: '/',
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },
       {
-        userAgent: ['Applebot-Extended', 'cohere-ai', 'Bytespider', 'bingbot'],
-        allow: '/',
+        userAgent: [
+          'Applebot',
+          'Applebot-Extended',
+          'cohere-ai',
+          'Bytespider',
+          'Bravebot',
+          'bravebot',
+        ],
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },
     ],

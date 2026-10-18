@@ -217,7 +217,7 @@ async def run_full_pipeline_benchmark(
             "p95_ms": round(e2e_p95, 2),
             "p99_ms": round(e2e_p99, 2),
         },
-        "verdict": "PASS" if e2e_p95 < 800 else "FAIL",
+        "verdict": "PASS" if e2e_p95 less than  800 else "FAIL",
         "iterations": iterations,
     }
 

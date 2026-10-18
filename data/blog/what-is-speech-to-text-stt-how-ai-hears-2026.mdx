@@ -242,7 +242,7 @@ The Alignment Loss Frameworks:
    \mathcal{L}_{CTC} = -\ln \sum_{\pi \in \mathcal{B}^{-1}(\mathbf{y})} \prod_{t=1}^{T} P(\pi_t \mid \mathbf{x})
    - Introduces blank token (\epsilon) for silence/transitions.
    - Computes forward-backward dynamic programming lattice \in O(T \cdot U).
-   - Advantage: Highly parallelizable, streaming latency <60ms.
+   - Advantage: Highly parallelizable, streaming latency under 60ms.
 
 2. RNN-Transducer (RNN-T Loss):
    - Combines Acoustic Encoder, Prediction Network (Language Model), and Joint Network.
@@ -261,7 +261,7 @@ Decoding Strategy Comparison:
 
 1. Greedy CTC Search:
    Selects most probable token at every frame: \hat{\pi}_t = \a\argmax_k P(\pi_t = k \mid \mathbf{x})
-   - Latency: <5ms (Ultra-Fast)
+   - Latency: under 5ms (Ultra-Fast)
    - Limitation: Lacks contextual grammar awareness.
 
 2. Speculative Beam Search with N-Gram / Neural LM Fusion:
@@ -286,7 +286,7 @@ Batch vs Streaming ASR Execution Comparison:
    - Total Delay: 1,200ms after user finishes speaking (Noticeable lag).
 
 2. Streaming CTC ASR (e.g., Deepgram Nova-3 / TTGE Engine):
-   User Speaks ──► [Process 20ms Audio Chunks \in Real Time: <60ms Streaming Latency]
+   User Speaks ──► [Process 20ms Audio Chunks \in Real Time: under 60ms Streaming Latency]
    - Emits partial \text transcripts every 40ms \to 60ms.
    - Downstream LLM begins reasoning while the user is still finishing their sentence!
 ```

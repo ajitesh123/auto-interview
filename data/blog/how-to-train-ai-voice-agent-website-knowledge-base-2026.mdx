@@ -68,7 +68,7 @@ Option A: Model Fine-Tuning (Old / Inefficient Approach)
 Option B: Ultra-Low-Latency Voice RAG (Modern 2026 Approach)
 [Enter Website URL] ──► [Embed in 15ms Vector Store] ──► [Instant Dynamic Recall]
 - Cost: $0 training fee (Included in platform)
-- Update Speed: Instant (<5 seconds to sync a new webpage)
+- Update Speed: Instant (under 5 seconds to sync a new webpage)
 - Accuracy: 100% verifiable source citation with zero hallucinations
 ```
 
@@ -113,7 +113,7 @@ Raw 50-Page PDF Document
            │
            ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Embedding Model (text-embedding-3-small in <10ms)                      │
+│ Embedding Model (text-embedding-3-small in under 10ms)                      │
 │ - Converts text chunk into 1536-dimensional dense vector               │
 └────────────────────────────────────────────────────────────────────────┘
            │
@@ -153,7 +153,7 @@ from typing import List, Dict
 class LowLatencyVoiceRAG:
     """
     Ultra-low-latency in-memory vector search designed for real-time
-    voice agent knowledge retrieval in <15ms.
+    voice agent knowledge retrieval in under 15ms.
     """
     def __init__(self):
         # In-memory document chunks
@@ -167,7 +167,7 @@ class LowLatencyVoiceRAG:
         self.embeddings /= np.linalg.norm(self.embeddings, axis=1, keepdims=True)
 
     async def retrieve_relevant_knowledge(self, user_query: str) -> str:
-        """Retrieves top-1 semantic knowledge chunk in <12ms."""
+        """Retrieves top-1 semantic knowledge chunk in under 12ms."""
         await asyncio.sleep(0.012) # Simulates low-latency vector similarity calculation
 
         # Simulates query embedding and cosine dot-product

@@ -117,7 +117,7 @@ The Indian Enterprise DLT Registration Workflow:
    - Transactional / Service Calls: Allocated 7972 or 92-series verified CLI pools via Vobiz.
 
 3. Real-Time NCPR Scrubbing:
-   - Calls are automatically checked against the National Customer Preference Register (NCPR) in <15ms before dialing.
+   - Calls are automatically checked against the National Customer Preference Register (NCPR) in under 15ms before dialing.
 ```
 
 Tough Tongue AI natively integrates with Vobiz to automate DLT compliance, ensuring 100% of calls originate from verified, white-listed carrier trunks.
@@ -146,7 +146,7 @@ class RegulatoryComplianceGuardrail:
         )
 
     async def verify_can_dial_number(self, phone_number: str) -> bool:
-        """Verifies phone number is not on federal or internal DNC lists in <5ms."""
+        """Verifies phone number is not on federal or internal DNC lists in under 5ms."""
         await asyncio.sleep(0.005)
         if phone_number in self.dnc_registry:
             print(f"[TCPA Guardrail]: BLOCKED dial to {phone_number} -> Number is on DNC list.")

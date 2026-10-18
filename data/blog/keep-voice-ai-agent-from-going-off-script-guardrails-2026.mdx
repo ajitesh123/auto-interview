@@ -239,16 +239,20 @@ Tough Tongue AI provides a battle tested orchestration layer that handles prompt
 
 ## FAQ
 
-**Q: Can I just use a smaller model to keep it focused?**
+### Can I just use a smaller model to keep it focused?
+
 A: Smaller models are generally worse at following complex negative constraints (like "do NOT talk about X"). While they are faster, they often require even stricter tooling and routing logic to stay on rails.
 
-**Q: How often should I reinject the system prompt?**
+### How often should I reinject the system prompt?
+
 A: A good rule of thumb is every 10 to 15 conversational turns. However, you can also use semantic routing to detect when the conversation is drifting and inject the prompt dynamically.
 
-**Q: What if the user refuses to stay on topic?**
+### What if the user refuses to stay on topic?
+
 A: Your guardrails should include a termination condition. If the user repeatedly asks off topic questions, the bot should politely state it cannot help and either hang up or transfer the call to a human operator.
 
-**Q: Do tool calls make the voice interaction too slow?**
+### Do tool calls make the voice interaction too slow?
+
 A: They can add 300 to 500 milliseconds of latency. To mask this, you can implement filler words. While the tool is resolving, have the TTS engine quickly say "Let me check that for you..." before the final answer is generated.
 
 By implementing these guardrails, your voice agents will transform from unpredictable liabilities into reliable, focused tools for your business. Keep your prompts tight, enforce your tools, and never let your bot give financial advice.

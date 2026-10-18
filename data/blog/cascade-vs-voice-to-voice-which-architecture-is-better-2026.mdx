@@ -69,7 +69,7 @@ The Two Fundamental Voice AI Architectures:
 2. Native Voice-to-Voice Model (Unified V2V Core):
    [16kHz Audio In] ──► [Neural Codec RVQ-VAE] ──► [Multimodal Audio Transformer] ──► [Neural Vocoder] ──► [Audio Out]
    - Processing Steps: 1 Unified Forward Pass
-   - Turnaround Latency: <180ms - <220ms (Human conversational tempo)
+   - Turnaround Latency: under 180ms - under 220ms (Human conversational tempo)
    - Information Preservation: 100% native emotional resonance, laughs, and cadence.
 ```
 
@@ -230,7 +230,7 @@ h'(t) = \mathbf{A}h(t) + \mathbf{B}x(t), \quad y(t) = \mathbf{C}h(t) + \mathbf{D
 \bar{\mathbf{A}} = \exp(Delta \mathbf{A}), \quad \bar{\mathbf{B}} = (Delta \mathbf{A})^{-1}(\exp(Delta \mathbf{A}) - \mathbf{I}) \cdot (Delta \mathbf{B})
                          │
                          ▼
-[HiFi-GAN Multi-Period (MPD) & Multi-Scale (MSD) Neural Vocoder] ──► 24kHz Studio Audio (<40ms TTFA)
+[HiFi-GAN Multi-Period (MPD) & Multi-Scale (MSD) Neural Vocoder] ──► 24kHz Studio Audio (under 40ms TTFA)
 ```
 
 The composite adversarial loss balances waveform reconstruction with perceptual naturalness:
@@ -254,7 +254,7 @@ Barge-In Mechanism Comparison:
 
 2. Native Voice-to-Voice Interruption:
    User Speaks ──► [Frame-Level Energy Gating on Ingress Audio] ──► [Truncates Generation KV-Cache]
-   - Barge-In Latency: <40ms (Agent silences instantly, exactly like a human conversationalist).
+   - Barge-In Latency: under 40ms (Agent silences instantly, exactly like a human conversationalist).
 ```
 
 ---
@@ -298,7 +298,7 @@ Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ UNet / Conformer Super-Resolution Generator                            │
 │ - Predicts high-frequency spectral envelope (3,400 Hz - 12,000 Hz)     │
-│ - Reconstructs missing fricative consonants ('s', 'f', 'th') \in <8ms   │
+│ - Reconstructs missing fricative consonants ('s', 'f', 'th') \in under 8ms   │
 └────────────────────────────────────────────────────────────────────────┘
                     │
                     ▼
@@ -324,7 +324,7 @@ By maintaining existing CRM webhook endpoints and business logic while migrating
 ```\text
 Enterprise Architectural Decision Flowchart:
 
-Is real-time conversational tempo (<250ms) and emotional rapport critical?
+Is real-time conversational tempo (under 250ms) and emotional rapport critical?
 ├── YES ──► Does regulatory compliance mandate certified \text auditing before action?
 │            ├── YES ──► Use Hybrid Architecture (V2V for voice + Async Cascade for Audit)
 │            └── NO  ──► Deploy Native Voice-to-Voice (Tough Tongue AI TTGE)

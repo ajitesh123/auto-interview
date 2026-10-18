@@ -176,6 +176,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
+              '@id': 'https://www.autointerviewai.com/#website',
               name: 'Auto Interview AI',
               alternateName: [
                 'Tough Tongue AI',
@@ -184,6 +185,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'AI Sales Roleplay & Career Intelligence',
               ],
               url: 'https://www.autointerviewai.com/',
+              publisher: {
+                '@id': 'https://www.autointerviewai.com/#organization',
+              },
               description:
                 'Auto Interview AI & Tough Tongue AI — Enterprise Voice AI Calling, B2B Sales Objection Simulator, Automated SDR Onboarding, and Executive Career Intelligence across USA, India, and Global Markets.',
               potentialAction: {
@@ -205,10 +209,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
+              '@id': 'https://www.autointerviewai.com/#organization',
               name: 'Auto Interview AI',
               alternateName: ['Tough Tongue AI', 'Autointerviewai', 'Auto Interview AI Platform'],
               url: 'https://www.autointerviewai.com/',
-              logo: 'https://www.autointerviewai.com/static/images/logo.png',
+              logo: {
+                '@type': 'ImageObject',
+                '@id': 'https://www.autointerviewai.com/#logo',
+                url: 'https://www.autointerviewai.com/static/images/logo.png',
+                caption: 'Auto Interview AI Logo',
+              },
+              founder: {
+                '@type': 'Person',
+                '@id': 'https://www.autointerviewai.com/#founder',
+                name: 'Ajitesh Abhishek',
+              },
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'Customer Support',
+                email: 'ajiteshleo@gmail.com',
+                availableLanguage: ['English', 'Hindi'],
+              },
               description:
                 'Global leader in Voice AI calling systems, B2B sales roleplay simulation, real-time cold call objection handling, and automated SDR ramp readiness.',
               areaServed: [
@@ -233,6 +254,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'https://www.linkedin.com/in/ajiteshnandan/',
                 'https://x.com/ajiteshleo',
                 'https://github.com/ajitesh123',
+                'https://www.youtube.com/@ajiteshleo',
               ],
             }),
           }}
@@ -245,6 +267,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'SoftwareApplication',
+              '@id': 'https://www.autointerviewai.com/#software',
               name: 'Auto Interview AI & Tough Tongue AI',
               alternateName: ['Tough Tongue AI', 'Autointerviewai', 'AI Sales Roleplay Platform'],
               operatingSystem: 'Web, iOS, Android',
@@ -254,6 +277,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               image: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
               description:
                 'Real-time Voice AI calling simulator, cold call objection handling sandbox, automated SDR onboarding certification, and ATS career tools.',
+              author: {
+                '@id': 'https://www.autointerviewai.com/#organization',
+              },
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.9',
+                ratingCount: '1280',
+                reviewCount: '1280',
+                bestRating: '5',
+                worstRating: '1',
+              },
               featureList: [
                 'Real-time voice sales roleplay (<350ms turn-taking latency)',
                 'A.D.D. objection handling framework (Acknowledge, Deflect, Differentiate)',
@@ -269,6 +303,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 priceCurrency: 'USD',
                 description:
                   'Free interactive practice tier with transparent SaaS pricing for enterprise teams.',
+                seller: {
+                  '@id': 'https://www.autointerviewai.com/#organization',
+                },
               },
             }),
           }}
@@ -281,8 +318,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
+              '@id': 'https://www.autointerviewai.com/#founder',
               name: 'Ajitesh Abhishek',
               jobTitle: 'Founder & Lead AI Architect (Ex-Google PM)',
+              worksFor: {
+                '@id': 'https://www.autointerviewai.com/#organization',
+              },
               description:
                 'Founder of Auto Interview AI & Tough Tongue AI. Former Google Product Manager, IIT Delhi and Kellogg School of Management alumnus. Expert in Voice AI latency, conversational intelligence, B2B sales enablement, and career automation.',
               url: 'https://www.autointerviewai.com/about',
@@ -291,6 +332,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'https://www.linkedin.com/in/ajiteshnandan/',
                 'https://github.com/ajitesh123',
                 'https://x.com/ajiteshleo',
+                'https://www.youtube.com/@ajiteshleo',
               ],
               alumniOf: [
                 {

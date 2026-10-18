@@ -88,7 +88,7 @@ Borrower Cellular Call (8kHz G.711 Narrowband Audio)
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Neural Bandwidth Expansion & Deep Spectral Filtering (<18ms)        │
+│ 1. Neural Bandwidth Expansion & Deep Spectral Filtering (under 18ms)        │
 │    - Reconstructs 16kHz spectral harmonics from degraded 8kHz audio    │
 │    - Strips ambient machinery and roadside honking noise               │
 └────────────────────────────────────────────────────────────────────────┘
@@ -97,17 +97,17 @@ Borrower Cellular Call (8kHz G.711 Narrowband Audio)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 2. Saaras Indic ASR (Trained on 12 Indian Linguistic Formants)         │
 │    - Hindi, Marathi, Tamil, Telugu, Kannada, Gujarati, Bengali, etc.   │
-│    - Handles mid-sentence code-switching in <85ms                      │
+│    - Handles mid-sentence code-switching in under 85ms                      │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Core Banking Integration Webhook (Finacle / Custom Core)            │
-│    - Fetches loan ledger, EMI due dates, and waiver status in <35ms    │
+│    - Fetches loan ledger, EMI due dates, and waiver status in under 35ms    │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized Indic Audio Stream Returned to Borrower in <220ms Total]
+[Synthesized Indic Audio Stream Returned to Borrower in under 220ms Total]
 ```
 
 ### Quantifiable Business Impact
@@ -136,7 +136,7 @@ Bank Air-Gapped Private Data Center (Mumbai / Hyderabad)
 │ 1. On-Premise NVIDIA GPU Cluster (Air-Gapped / Zero Public Egress)     │
 │    - Prisma v2.5 ASR Engine (Telephony-tuned Indic speech model)       │
 │    - Artha 14B Domain-Specific Banking LLM                             │
-│    - Real-Time Voice Biometrics Engine (Speaker Verification in <120ms)│
+│    - Real-Time Voice Biometrics Engine (Speaker Verification in under 120ms)│
 └────────────────────────────────────────────────────────────────────────┘
                                  │
                                  ▼
@@ -171,7 +171,7 @@ Artist Vocal Samples (Studio Master Tracks)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Cryptographic Watermarking & Spectral Provenance Encoding           │
 │    - Embeds imperceptible acoustic watermark in high-frequency bands   │
-│    - Immutable verification: Detects synthetic origin in <5ms          │
+│    - Immutable verification: Detects synthetic origin in under 5ms          │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -206,7 +206,7 @@ Double-Blind Listener Preference Benchmark (1,200 Evaluators):
 
 Gradium Voice Design:    ██████████████████████████████████ 72.6% Preference
 Legacy Cascaded TTS:     ███████████████████████ 59.0% Preference
-Statistical Significance: p < 0.001 across conversational and narrative prompts
+Statistical Significance: p less than  0.001 across conversational and narrative prompts
 ```
 
 ### What Makes Gradium Different: Continuous Latent Prosody Modeling
@@ -247,7 +247,7 @@ Navana Voice-First Conversational Banking:
 [Borrower Replies Naturally]: "Haan, kisan credit card me kitna paisa bacha hai batao."
                      │
                      ▼
-[AI Checks Ledger & Answers in <180ms]: "Aapke account me abhi ₹14,200 bache hain."
+[AI Checks Ledger & Answers in under 180ms]: "Aapke account me abhi ₹14,200 bache hain."
 ```
 
 ### Where the ₹40 Crore Capital Is Being Deployed
@@ -286,7 +286,7 @@ Auto Interview AI / Tough Tongue AI Unified Platform:
        │
        ▼ (Direct Zero-Hop Edge Ingestion)
 [Native Voice-to-Voice Multimodal Engine + Integrated Carrier Telephony]
-Total Stack Cost: ₹3.50/min ($0.042/min All-In) | Total Latency: <180ms (Biological Human Tempo)
+Total Stack Cost: ₹3.50/min ($0.042/min All-In) | Total Latency: under 180ms (Biological Human Tempo)
 ```
 
 By eliminating sequential API serialization delays, Auto Interview AI delivers the sub-**180ms turnaround** required for genuine conversational fluidness at a fraction of multi-vendor costs.
@@ -348,7 +348,7 @@ class IndicVoiceTelephonyBridge:
                         break
 
             async def stream_engine_audio_to_caller():
-                """Streams synthesized voice packets back to the caller in <180ms."""
+                """Streams synthesized voice packets back to the caller in under 180ms."""
                 async for response in ai_ws:
                     resp_packet = json.loads(response)
                     if resp_packet.get("event") == "audio.egress":

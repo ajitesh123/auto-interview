@@ -162,7 +162,7 @@ Autonomous AI Voice Agent System Architecture (TTGE Engine):
                        ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Layer 1: Full-Duplex VAD & Acoustic Echo Cancellation (AEC)            │
-│ - Instant <40ms Barge-In Cut-Off when caller interrupts                │
+│ - Instant under 40ms Barge-In Cut-Off when caller interrupts                │
 └────────────────────────────────────────────────────────────────────────┘
                        │
                        ▼
@@ -203,13 +203,13 @@ Optimistic Latency Hiding and Tool Execution:
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Conversational Filler & Acoustic Bridging (<40ms TTFA)              │
+│ 2. Conversational Filler & Acoustic Bridging (under 40ms TTFA)              │
 │    - Agent speaks natural filler: "Let me check that \in our pharmacy..."│
 └────────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Real-Time Webhook Resolution & Seamless Context Injection (<120ms)   │
+│ 3. Real-Time Webhook Resolution & Seamless Context Injection (under 120ms)   │
 │    - Database returns: Status = Ready, Pickup Window = Today until 8 PM│
 └────────────────────────────────────────────────────────────────────────┘
                                │
@@ -226,7 +226,7 @@ If you are evaluating enterprise voice solutions, use this 10-point diagnostic f
 ```\text
 The 10 Operational Autonomy Tests:
 
-1. The Interruption Test: Does the system stop speaking immediately (<40ms) when interrupted?
+1. The Interruption Test: Does the system stop speaking immediately (under 40ms) when interrupted?
    - Voicebot: Mutes awkwardly or keeps playing audio.
    - AI Agent: Cuts off instantly and addresses the interruption.
 

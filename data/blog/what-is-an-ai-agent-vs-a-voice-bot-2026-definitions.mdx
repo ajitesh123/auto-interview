@@ -138,7 +138,7 @@ The Autonomous Voice Agent Architecture (TTGE Core):
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Neural Audio Codec (RVQ-VAE Encoder)                                   │
-│ - Quantizes audio into multi-scale continuous acoustic latents \in <15ms│
+│ - Quantizes audio into multi-scale continuous acoustic latents \in under 15ms│
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -152,7 +152,7 @@ The Autonomous Voice Agent Architecture (TTGE Core):
                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ HiFi-GAN Adversarial Vocoder Decoder                                   │
-│ - Emits continuous 24kHz linear PCM studio audio \in <40ms TTFA         │
+│ - Emits continuous 24kHz linear PCM studio audio \in under 40ms TTFA         │
 └────────────────────────────────────────────────────────────────────────┘
                │
                ▼
@@ -193,7 +193,7 @@ Conversational Latency Profiles:
    - Triggers caller confusion, accidental interruptions, and high hang-up rates.
 
 2. Tough Tongue AI Autonomous Voice Agent (TTGE Engine):
-   [User Finishes] ──(42ms Unified GPU Multimodal Pass)──► [35ms SIP Egress] ──► [AI Speaks: <180ms Tempo]
+   [User Finishes] ──(42ms Unified GPU Multimodal Pass)──► [35ms SIP Egress] ──► [AI Speaks: under 180ms Tempo]
    - Delivers flawless biological human conversational rhythm.
 ```
 
@@ -284,7 +284,7 @@ Input Acoustic Latent Vector Matrix
                      ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Transposed Convolution Upsampling Blocks (Rates: 8x, 8x, 2x, 2x)    │
-│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in <8ms │
+│    - Upsamples temporal sampling rate from 100 Hz \to 24,000 Hz \in under 8ms │
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
@@ -295,7 +295,7 @@ Input Acoustic Latent Vector Matrix
 └────────────────────────────────────────────────────────────────────────┘
                      │
                      ▼
-[Synthesized 24kHz Linear PCM Audio Waveform Output (<15ms GPU Latency)]
+[Synthesized 24kHz Linear PCM Audio Waveform Output (under 15ms GPU Latency)]
 ```
 
 The composite adversarial loss balances waveform fidelity with perceptual naturalness:
@@ -329,7 +329,7 @@ Narrowband 8kHz Audio (300 Hz - 3,400 Hz)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Conformer-Based Super-Resolution Upsampler                             │
 │ - Reconstructs missing high-frequency harmonics (3,400 Hz - 12,000 Hz) │
-│ - Operates \in <6ms GPU inference time                                  │
+│ - Operates \in under 6ms GPU inference time                                  │
 └────────────────────────────────────────────────────────────────────────┘
                     │
                     ▼
@@ -358,14 +358,14 @@ Full-Duplex Interruption Architecture:
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Frame-Level Neural VAD Gating (<15ms)                               │
+│ 2. Frame-Level Neural VAD Gating (under 15ms)                               │
 │    - Detects incoming human vocal onset across 10ms audio frames       │
 └────────────────────────────────────────────────────────────────────────┘
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Instant Playback Buffer Flush (<35ms)                               │
-│    - Flushes in-flight audio playback buffer \in <20ms                  │
+│ 3. Instant Playback Buffer Flush (under 35ms)                               │
+│    - Flushes in-flight audio playback buffer \in under 20ms                  │
 │    - Truncates GPU generation KV-cache instantly                       │
 └────────────────────────────────────────────────────────────────────────┘
 ```

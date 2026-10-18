@@ -45,7 +45,7 @@ The Complete 3-Building-Block Voice AI System Architecture:
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. Perception Layer: Streaming Speech-to-Text (STT / ASR)              │
 │    - 16kHz PCM Ingestion ──► 128 Mel Channels ──► Conformer-2 Encoder   │
-│    - Connectionist Temporal Classification (CTC) Decodes Text in <80ms  │
+│    - Connectionist Temporal Classification (CTC) Decodes Text in under 80ms  │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼ (Streaming Text Tokens JSON)
@@ -53,14 +53,14 @@ The Complete 3-Building-Block Voice AI System Architecture:
 │ 2. Cognitive Layer: High-Throughput Language Model (LLM / SLM)         │
 │    - Evaluates Context, System Prompts, and Session KV-Caches          │
 │    - Executes Real-Time Database Webhooks (Salesforce, Stripe, CRM)    │
-│    - Speculative Decoding Emits First Response Token in <180ms TTFT    │
+│    - Speculative Decoding Emits First Response Token in under 180ms TTFT    │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼ (Streaming Text Response Tokens)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. Synthesis Layer: Neural Text-to-Speech & Vocoder (TTS)              │
 │    - State Space Model (SSM / Mamba) Linear Sequence Generation        │
-│    - HiFi-GAN Multi-Period Neural Vocoder Emits Audio in <60ms TTFA     │
+│    - HiFi-GAN Multi-Period Neural Vocoder Emits Audio in under 60ms TTFA     │
 └────────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
@@ -196,19 +196,19 @@ Streaming Tool Calling Protocol:
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Asynchronous Webhook Dispatch (<45ms Execution Latency)             │
+│ 1. Asynchronous Webhook Dispatch (under 45ms Execution Latency)             │
 │    - Non-blocking async worker initiates database query in background  │
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Conversational Filler & Acoustic Bridging (<40ms TTFA)              │
+│ 2. Conversational Filler & Acoustic Bridging (under 40ms TTFA)              │
 │    - Agent speaks natural filler: "Checking our calendar for Friday..."│
 └────────────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 3. Real-Time Webhook Resolution & Seamless Context Injection (<120ms)   │
+│ 3. Real-Time Webhook Resolution & Seamless Context Injection (under 120ms)   │
 │    - Database returns: Slot Confirmed for Friday at 2:00 PM            │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -308,7 +308,7 @@ LLM Text Stream: "I have Thursday at 3:00 PM open."
                         ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. HiFi-GAN Neural Vocoder (24kHz Audio Waveform Output)               │
-│    - Emits first audio packet in <60ms Time-to-First-Audio (TTFA)      │
+│    - Emits first audio packet in under 60ms Time-to-First-Audio (TTFA)      │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -367,9 +367,9 @@ Full-Duplex Turn-Taking and Interruption Architecture:
                           │
                           ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. Instant Barge-In Execution Loop (<40ms)                             │
-│    - Flushes outgoing audio playback buffer in <20ms                   │
-│    - Cancels in-flight LLM generation task in <15ms                    │
+│ 2. Instant Barge-In Execution Loop (under 40ms)                             │
+│    - Flushes outgoing audio playback buffer in under 20ms                   │
+│    - Cancels in-flight LLM generation task in under 15ms                    │
 │    - Re-routes user audio into STT pipeline immediately                │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -406,7 +406,7 @@ $$
 
 If $\tau_{\text{VAD}} = 200\text{ ms}$, $\tau_{\text{STT}} = 250\text{ ms}$, $\tau_{\text{LLM}} = 600\text{ ms}$, $\tau_{\text{TTS}} = 300\text{ ms}$, and network routing takes $100\text{ ms}$, total conversational delay reaches **1,450ms**, causing immediate caller dissatisfaction.
 
-In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} < 200\text{ ms}$.
+In high-performance streaming architectures, streaming concurrency collapses these steps into overlapping parallel executions, driving $\tau_{\text{total}} less than  200\text{ ms}$.
 
 ---
 
@@ -453,7 +453,7 @@ Architectural Showdown:
 
 2. Native Voice-to-Voice Model (Unified V2V Core):
    Audio ──► [Continuous Audio Latent Transformer (TTGE / Gemini Live)] ──► Audio
-   - End-to-End Latency: <200ms
+   - End-to-End Latency: under 200ms
    - Strength: 100% native emotional resonance, laughs, sighs, and accent fidelity.
    - Limitation: Tighter model coupling.
 ```
@@ -534,7 +534,7 @@ class ModularVoicePipeline:
             await asyncio.sleep(0.02) # 20ms inter-token generation
 
     async def stream_tts_synthesis(self, token_stream: AsyncGenerator[str, None]) -> AsyncGenerator[bytes, None]:
-        # Block 3: State Space Model synthesizing 24kHz audio in <40ms TTFA
+        # Block 3: State Space Model synthesizing 24kHz audio in under 40ms TTFA
         await asyncio.sleep(0.04) # 40ms TTFA
         async for token in token_stream:
             yield b"\x00\x01\x02\x03" * 80 # Emits 20ms audio frame
@@ -544,7 +544,7 @@ class ModularVoicePipeline:
         Executes immediate audio flush and task cancellation when user interrupts.
         """
         if self.is_agent_speaking and self.active_tts_task:
-            print("[Barge-In Event]: Flushing audio buffer and halting LLM generation (<40ms).")
+            print("[Barge-In Event]: Flushing audio buffer and halting LLM generation (under 40ms).")
             self.active_tts_task.cancel()
             self.is_agent_speaking = False
 ```
