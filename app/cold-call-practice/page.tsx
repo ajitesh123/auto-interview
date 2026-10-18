@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import ColdCallSimulator from '@/components/ColdCallSimulator'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -93,7 +93,7 @@ export default function ColdCallPracticePage() {
   }
 
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/cold-call-practice">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -271,13 +271,21 @@ export default function ColdCallPracticePage() {
                   href="/ai-calling-roi-calculator"
                   className="font-semibold text-blue-600 hover:underline"
                 >
-                  → Interactive Voice AI & SDR ROI Calculator
+                  → Interactive Voice AI &amp; SDR ROI Calculator
                 </Link>
+                <a
+                  href="https://cal.com/ajitesh/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700"
+                >
+                  🚀 Train Your Team With Custom Objection Bots — Book a 30-Min Demo &rarr;
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </AppLayout>
+    </DomainLayout>
   )
 }

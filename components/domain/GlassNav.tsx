@@ -12,10 +12,11 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const navLinks = [
-    { href: '/cv-templates', label: 'CVs' },
-    { href: '/resources', label: 'Resources' },
+    { href: '/cv-templates', label: 'CV Templates' },
     { href: '/free-mock-interview', label: 'Mock Interview' },
-    { href: '/communities', label: 'Communities' },
+    { href: '/cold-call-practice', label: 'Cold Calling' },
+    { href: '/ai-calling-roi-calculator', label: 'ROI Calculator' },
+    { href: '/resources', label: 'Resources' },
     { href: '/blog', label: 'Blog' },
   ]
 

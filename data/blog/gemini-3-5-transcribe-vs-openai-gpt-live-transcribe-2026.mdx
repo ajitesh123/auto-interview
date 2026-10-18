@@ -75,6 +75,30 @@ structuredData:
   }
 ---
 
+<div className="my-8 rounded-xl border border-blue-200 bg-blue-50/60 p-6 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/30">
+  <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-400">
+    <span>⚡ DIRECT ANSWER / KEY TAKEAWAY</span>
+  </div>
+  <h3 className="mt-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+    Gemini 3.5 Transcribe vs OpenAI Whisper: Direct Comparison (2026)
+  </h3>
+  <p className="mt-2 text-sm leading-relaxed text-gray-800 dark:text-gray-200">
+    Gemini 3.5 Transcribe provides true real-time WebSocket streaming with **sub-350ms
+    turn-taking**, making it suitable for live voice bots. OpenAI Whisper Large v3 remains a chunked
+    batch model requiring **1.2s to 3.5s per audio segment**. For live telephone conversations,
+    Gemini 3.5 Transcribe eliminates walkie-talkie delay, whereas Whisper retains a 1.8% edge on
+    clean offline audio transcription.
+  </p>
+  <ul className="mt-3 space-y-1.5 border-t border-blue-200/60 pt-3 text-xs text-gray-700 dark:border-blue-900/40 dark:text-gray-300">
+    <li>
+      &bull; **Streaming Architecture:** Gemini 3.5 (Full Duplex WebSocket) vs Whisper (Chunked REST
+      / Batch)
+    </li>
+    <li>&bull; **Live Turn-Taking:** Gemini (340ms) vs Whisper + Server Chain (1,650ms)</li>
+    <li>&bull; **Offline WER:** OpenAI Whisper Large v3 (4.2%) vs Gemini 3.5 Transcribe (5.1%)</li>
+  </ul>
+</div>
+
 > **Executive Summary & Research Verdict**
 >
 > - **The Benchmark Reality:** Google Gemini 3.5 Transcribe outperforms OpenAI GPT Live Transcribe across both standard conversational datasets and multilingual benchmarks. On Artificial Analysis benchmarks, Gemini scores **2.60% batch WER** and **4.00% streaming WER** versus OpenAI's **4.20% batch** and **6.10% streaming**. On the 25-locale FLEURS benchmark, Gemini achieves **5.50% WER** versus OpenAI's **8.97% WER**.

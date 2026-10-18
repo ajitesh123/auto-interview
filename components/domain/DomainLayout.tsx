@@ -16,61 +16,119 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
       {/* Footer — Vercel style: light bg, obsidian text, hairline borders */}
       <footer className="border-t border-[#ebebeb] py-16">
         <div className="mx-auto max-w-[1280px] px-6">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {/* Brand */}
             <div>
               <span className="mb-4 block text-sm font-medium text-[#171717]">
                 Auto Interview AI
               </span>
-              <p className="text-sm leading-relaxed text-[#666666]">
-                Your dream job, engineered. CV templates, expert resources, AI mock interviews, and
-                career communities. All free, all ungated.
+              <p className="text-xs leading-relaxed text-[#666666]">
+                Your dream career &amp; sales performance, engineered. CV templates, AI mock
+                interviews, cold call sandboxes, and ROI tools. All free, all ungated.
               </p>
+              <div className="mt-4">
+                <a
+                  href="https://cal.com/ajitesh/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-md border border-[#ebebeb] bg-white px-3 py-1.5 font-mono text-[11px] text-[#171717] transition hover:bg-[#f5f5f5]"
+                >
+                  🚀 Book Team Demo &rarr;
+                </a>
+              </div>
             </div>
 
-            {/* Features */}
+            {/* Free Interactive Tools */}
             <div>
               <h4
                 className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
                 style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
-                Features
+                Interactive Tools
               </h4>
               <div className="flex flex-col gap-2">
                 <Link
-                  href="/cv-templates"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  href="/cold-call-practice"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  CV Templates
-                </Link>
-                <Link
-                  href="/resources"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
-                >
-                  Resources
+                  Cold Call Simulator
                 </Link>
                 <Link
                   href="/free-mock-interview"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  Mock Interview
+                  AI Mock Interview
                 </Link>
                 <Link
-                  href="/build-resume"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  href="/ai-calling-roi-calculator"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  Resume Builder
+                  Voice AI ROI Calculator
                 </Link>
                 <Link
                   href="/ats-score"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
                   ATS Score Checker
+                </Link>
+                <Link
+                  href="/build-resume"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  AI Resume Builder
                 </Link>
               </div>
             </div>
 
-            {/* Resources */}
+            {/* Role CV Templates */}
+            <div>
+              <h4
+                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
+              >
+                CV Templates
+              </h4>
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/cv-templates"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Harvard Format (All)
+                </Link>
+                <Link
+                  href="/cv-templates/software-engineer"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Software Engineer
+                </Link>
+                <Link
+                  href="/cv-templates/product-manager"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Product Manager
+                </Link>
+                <Link
+                  href="/cv-templates/sales-sdr"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  SDR &amp; Sales
+                </Link>
+                <Link
+                  href="/cv-templates/data-analyst"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Data Analyst
+                </Link>
+                <Link
+                  href="/cv-templates/fresher"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Fresher &amp; Graduate
+                </Link>
+              </div>
+            </div>
+
+            {/* Resources & Guides */}
             <div>
               <h4
                 className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
@@ -80,29 +138,37 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               </h4>
               <div className="flex flex-col gap-2">
                 <Link
-                  href="/resources/mba"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
-                >
-                  MBA
-                </Link>
-                <Link
-                  href="/resources"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
-                >
-                  Engineering
-                </Link>
-                <Link
-                  href="/resources"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
-                >
-                  Commerce
-                </Link>
-                <Link
                   href="/blog"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  Blog
+                  Career &amp; Tech Blog
                 </Link>
+                <Link
+                  href="/resources/mba"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  MBA Resources
+                </Link>
+                <Link
+                  href="/resources"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Engineering Guides
+                </Link>
+                <Link
+                  href="/communities"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Communities
+                </Link>
+                <a
+                  href="https://app.toughtongueai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Tough Tongue AI &rarr;
+                </a>
               </div>
             </div>
 
@@ -117,25 +183,25 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               <div className="flex flex-col gap-2">
                 <Link
                   href="/about"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
                   About
                 </Link>
                 <Link
                   href="/privacy-policy"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  Privacy
+                  Privacy Policy
                 </Link>
                 <Link
                   href="/terms-conditions"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  Terms
+                  Terms &amp; Conditions
                 </Link>
                 <Link
                   href="/contact-policy"
-                  className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
                   Contact
                 </Link>

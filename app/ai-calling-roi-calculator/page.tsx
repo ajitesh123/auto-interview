@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import Calculator from '@/components/Calculator'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -91,7 +91,7 @@ export default function CalculatorPage() {
   }
 
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/ai-calling-roi-calculator">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -244,6 +244,6 @@ export default function CalculatorPage() {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </DomainLayout>
   )
 }

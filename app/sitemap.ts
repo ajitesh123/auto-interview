@@ -5,6 +5,7 @@ import { getAllDomains } from '@/lib/domainUtils'
 import { mbaSpecializations } from '@/data/mbaResources'
 import { slug } from 'github-slugger'
 import tagData from 'app/tag-data.json'
+import { CV_ROLES } from '@/data/cvRolesData'
 
 const POSTS_PER_PAGE = 10
 
@@ -170,8 +171,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }))
 
+  const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
+    url: `${siteUrl}/cv-templates/${role}`,
+    lastModified: today,
+    changeFrequency: 'weekly' as const,
+    priority: 0.95,
+  }))
+
   return [
     ...routes,
+    ...cvRoleRoutes,
     ...resourceHubRoutes,
     ...domainRoutes,
     ...subDomainRoutes,

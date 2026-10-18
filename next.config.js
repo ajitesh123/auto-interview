@@ -367,6 +367,533 @@ module.exports = () => {
           destination: '/blog/top-5-retell-ai-alternatives-2026',
           permanent: true,
         },
+        {
+          source: '/blog/3-2-1-communication-framework-stop-rambling',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/agentic-ai-calling-autonomous-sales-agent-actions-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-address-confirmation-landmark-verification-shopify-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-cart-abandonment-live-cart-modification-shopify-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-crm-integration-salesforce-hubspot-guide-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-ecommerce-d2c-abandoned-cart-recovery-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-for-solar-companies-lead-qualification-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-use-cases-banking-financial-services-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-use-cases-customer-support-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-vs-email-sequences-pipeline-comparison-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calling-with-humans-conversational-ai-sales-india',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-calls-lead-human-closes-deal-hybrid-sales-model',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-cold-calling-complete-guide-outbound-sales-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-meeting-notetaker-whiteboard-visual-ai-tough-tongue-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-powered-coaching-corporate-training',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-powered-coaching-ld-transformation',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-real-time-meeting-notes-how-tough-tongue-ai-works-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-replacing-sdrs-future-sales-development',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-roleplay-vs-classroom-training-effectiveness-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-sales-calling-best-filter-human-closers-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-sales-roleplay-executive-tech-upskilling-bootcamps-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-sales-roleplay-private-engineering-tech-institutions-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source:
+            '/blog/ai-sales-roleplay-training-india-industries-edtech-fintech-real-estate-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-sales-roleplay-vs-hiring-sales-trainer-cost-roi-breakdown-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-sales-simulators-vs-human-roleplay-win-rates-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/ai-voice-bot-vendor-lock-in-avoid-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/auto-interview-ai-platform-guide',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/automated-customer-feedback-calling-voice-ai-shopify-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/b2b-vs-b2c-sales-career-guide',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/behavioral-interview-star-method-guide',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-ai-sales-training-pune-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-ai-training-in-india-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-cold-call-opening-lines-reddit',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-communication-platforms-practice-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-employee-training-companies-india-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-platforms-english-communication',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-platforms-practice-communication-skills',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-sales-closing-techniques-proven-methods',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/best-sales-training-methods-crack-deals',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/bolna-ai-vs-tough-tongue-ai-comparison-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/building-sales-objection-handling-simulator-enablement-guide-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/can-voice-ai-accidentally-drain-bank-account-api-costs-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/case-study-reduce-sdr-ramp-time-ai-roleplay-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/case-study-saas-company-doubles-demos-ai-roleplay-practice-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/cold-calls-to-close-ai-powered-sales-training-curriculum-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/communication-skills-guide-beginner',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/complete-job-preparation-guide-2025',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/compliance-sales-ai-training-regulated-calls-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/conversational-intelligence-vs-ai-roleplay-sales-tools-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/cross-border-b2b-sales-roleplay-indian-sdrs-us-uk-buyers-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/discovery-call-framework-questions-structure-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/ebbinghaus-forgetting-curve-ai-training-solutions-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/gemini-3-8-live-pricing-disrupts-indian-ai-calling-market-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/google-software-engineering-interview-questions-2025',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/gpt-live-1-1-vs-gemini-3-8-live-pricing-cost-latency-roi-breakdown-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/gpt-live-1-1-vs-gemini-3-8-live-technical-business-comparison-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/hidden-revenue-lever-sales-training-close-more-deals-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-b2b-saas-scaled-to-50-demos-without-hiring-sdrs-case-study-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-build-sales-pipeline-from-scratch-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-build-sales-roleplay-scoring-rubric-template-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-connect-ai-voice-agent-to-phone-number-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-find-jobs-complete-guide',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-gate-live-outbound-dials-ai-roleplay-certification-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-improve-sales-skills-techniques',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-onboard-train-sales-reps-faster-ai-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-prevent-voice-ai-hallucinations-live-calls-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-roleplay-we-already-use-a-competitor-objection-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-set-up-ai-calling-sales-team-30-minutes',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-train-sales-reps-to-stop-sounding-scripted-cold-calls-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/how-to-turn-lost-customer-calls-into-ai-sales-roleplay-scenarios-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/hyperbound-vs-tough-tongue-ai-sales-training',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/inside-sales-vs-outside-sales-which-model-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/is-my-business-ready-for-ai-calling-readiness-assessment-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/leadership-training-complete-guide-2025',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source:
+            '/blog/openai-gpt-live-1-1-system-card-two-model-architecture-safety-analysis-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/passive-vs-active-learning-corporate-training-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/product-management-in-maang',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/product-manager-interview-guide-2025',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/product-manager-interview-questions',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/remote-sales-training-distributed-teams-build-skills',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/rise-of-agentic-ai-sales-enablement-active-intervention-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/sales-coaching-vs-sales-training-difference-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/set-up-ai-voice-agent-without-coding-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/shopify-ai-calling-integration-d2c-tough-tongue-ai-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/solve-b2b-meeting-no-show-crisis-ai-confirmation-calls-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-5-ai-calling-use-cases-drive-revenue-2026',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-5-sales-training-companies-australia-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-5-visa-interview-platforms-ai-preparation',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-employee-training-topics-boost-productivity',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/top-sales-training-companies-us',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/types-of-employee-training-methods-comparison-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/ultimate-sdr-guide-practice-scripts-tough-tongue-ai',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/voice-ai-outbound-call-automation-scaling-sdr-outreach-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/we-already-have-gong-why-do-we-need-ai-sales-roleplay-platform-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/wealth-managers-communication-tough-tongue-ai-double-revenue',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/what-is-an-ai-agent-vs-a-voice-bot-2026-definitions',
+          destination: '/ai-calling-roi-calculator',
+          permanent: true,
+        },
+        {
+          source: '/blog/what-is-speech-to-text-stt-how-ai-hears-2026',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
+        {
+          source: '/blog/what-voice-latency-is-required-for-ai-sales-roleplay-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-chatgpt-fails-at-sales-roleplay-too-agreeable-ai-problem-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-corporate-training-fails-statistics-2026',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-do-sales-reps-hate-roleplaying-and-how-to-fix-it-2026',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-freeze-interviews-after-mock-practice',
+          destination: '/free-mock-interview',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-tough-tongue-ai-is-the-2nd-best-sales-training-platform-in-the-world',
+          destination: '/cold-call-practice',
+          permanent: true,
+        },
+        {
+          source: '/blog/why-traditional-leadership-coaching-fails-remote-teams',
+          destination: '/blog/best-sales-training-companies-world',
+          permanent: true,
+        },
+        {
+          source: '/blog/yoodli-vs-tough-tongue-ai',
+          destination: '/blog/best-mock-interview-platforms',
+          permanent: true,
+        },
       ]
     },
     webpack: (config, { dev, isServer }) => {

@@ -296,7 +296,7 @@ export default function Calculator() {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Others Card */}
           <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h4 className="text-gray-400font-semibold mb-6 text-xs uppercase tracking-wide text-gray-400">
+            <h4 className="mb-6 text-xs font-semibold uppercase tracking-wide text-gray-400">
               Other Platforms
             </h4>
 

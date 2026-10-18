@@ -175,6 +175,168 @@ export default function CVTemplatesPage() {
           </div>
         </div>
 
+        {/* Role-Specific ATS Templates Grid */}
+        <div className="space-y-6 pt-4">
+          <div className="border-b border-[#ebebeb] pb-4">
+            <div className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              ROLE-SPECIFIC EDITIONS
+            </div>
+            <h2 className="mt-1 text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
+              ATS Templates by Job Role &amp; Seniority
+            </h2>
+            <p className="mt-1 text-sm text-[#4d4d4d]">
+              Pre-loaded with verified ATS keyword banks, Google X-Y-Z bullet formulas, and
+              role-specific skills matrices.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Link
+              href="/cv-templates/software-engineer"
+              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+            >
+              <div>
+                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                  Engineering
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                  Software Engineer &rarr;
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                  Distributed systems, microservices, cloud infra, and p99 latency optimization
+                  bullets.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                <span>✓ Word DOCX &amp; Docs</span>
+                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/cv-templates/product-manager"
+              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+            >
+              <div>
+                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                  Product
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                  Product Manager &rarr;
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                  Roadmaps, PRDs, A/B experiments, PLG funnels, and revenue metrics.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                <span>✓ Word DOCX &amp; Docs</span>
+                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/cv-templates/sales-sdr"
+              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+            >
+              <div>
+                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                  Sales &amp; GTM
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                  SDR &amp; Sales Executive &rarr;
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                  Quota attainment %, outbound pipeline volume, MEDDPICC, and objection handling.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                <span>✓ Word DOCX &amp; Docs</span>
+                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/cv-templates/data-analyst"
+              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+            >
+              <div>
+                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                  Data &amp; Analytics
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                  Data Analyst &rarr;
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                  Advanced SQL, Tableau dashboards, Python modeling, and business KPI reporting.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                <span>✓ Word DOCX &amp; Docs</span>
+                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/cv-templates/fresher"
+              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+            >
+              <div>
+                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                  Graduates
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                  Fresher &amp; College Graduate &rarr;
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                  Zero-experience formatting, university capstones, academic projects, and
+                  internships.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                <span>✓ Word DOCX &amp; Docs</span>
+                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/ats-score"
+              className="group flex flex-col justify-between rounded-[6px] bg-[#171717] p-6 text-white transition-all hover:bg-[#333333]"
+            >
+              <div>
+                <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[10px] uppercase text-white">
+                  Free Tool
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-white">Check Your ATS Score &rarr;</h3>
+                <p className="mt-1 text-xs leading-relaxed text-gray-300">
+                  Already have a draft? Upload it to our instant ATS scanner for line-by-line
+                  feedback.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-emerald-400">
+                <span>✓ 100% Free Scan</span>
+                <span className="text-white transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+
         {/* AI Resume Builder CTA Card */}
         <div
           className="flex flex-col items-center justify-between gap-6 rounded-[6px] bg-white p-8 sm:flex-row sm:p-10"

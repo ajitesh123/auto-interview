@@ -15,6 +15,7 @@ import SocialShareButtons from '@/components/SocialShareButtons'
 import TableOfContents from '@/components/TableOfContents'
 import FloatingNav from '@/components/FloatingNav'
 import CTABanner from '@/components/CTABanner'
+import InteractiveToolsBanner from '@/components/InteractiveToolsBanner'
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
@@ -1406,6 +1407,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               >
                 {children}
               </section>
+
+              {/* Sitewide Interactive Tools Discovery Suite */}
+              <InteractiveToolsBanner />
 
               {/* Social Sharing Buttons */}
               <div className="my-8 border-b border-t border-[#ebebeb] py-2">
