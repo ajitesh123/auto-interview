@@ -22,11 +22,11 @@ const SCENARIOS: ObjectionScenario[] = [
     buyerPersona: 'VP of Engineering / Sales Leader',
     difficulty: 'Hard',
     prompt:
-      '"Look, we signed an annual enterprise contract with [Competitor] six months ago and we\'re completely happy with them. There\'s no reason for us to switch."',
+      '"Look, we signed an annual enterprise contract with our incumbent vendor six months ago and we\'re completely satisfied. There\'s zero reason for us to switch right now."',
     context:
-      'The prospect feels committed and fears the switching cost of new software. They want to shut down the call immediately.',
+      'The prospect feels committed and fears the switching cost of new software. They want to shut down the cold call immediately.',
     benchmarkResponse:
-      '"Totally respect that, Sarah—[Competitor] is a solid platform, and most teams we work with were actually using them before talking to us. We\'re definitely not asking you to rip and replace anything today. The main reason VP of Sales talk to us halfway through their contract is to benchmark turn-taking latency and pricing before renewal season. Out of curiosity, when you look at your team\'s call connect rates, are reps experiencing any awkward audio pauses or lag?"',
+      '"Totally respect that, Sarah—they run a solid platform and most teams we work with were actually using them before talking with us. We\'re definitely not asking you to rip and replace anything today. The main reason VP of Sales chat with us mid-contract is to benchmark their call connect rates and turn-taking latency before renewal season. Out of curiosity, when you look at your team\'s outbound dials, are reps experiencing any awkward audio lag?"',
     frameworkTip:
       'A.D.D. Framework: Acknowledge & Validate vendor choice -> Deflect away from rip-and-replace -> Differentiate on specific workflow friction.',
     keywordsToInclude: [
@@ -52,11 +52,11 @@ const SCENARIOS: ObjectionScenario[] = [
     buyerPersona: 'Head of Operations / Director',
     difficulty: 'Moderate',
     prompt:
-      '"I\'m in between back-to-back meetings right now. Just email me your deck and one-pager, and I\'ll take a look when I get a chance."',
+      '"I\'m jumping between back-to-back meetings right now. Just email me your deck and one-pager, and I\'ll take a look when I get a chance."',
     context:
       'A polite brush-off designed to get off the phone. 92% of unsolicited sales decks sent after this objection are never opened.',
     benchmarkResponse:
-      '"I\'d be happy to shoot over our 1-pager, John. But to make sure I don\'t clutter your inbox with irrelevant slides—we have separate playbooks for outbound SDR ramp and inbound qualification. Which of those two is higher priority for your revenue team this quarter?"',
+      '"I\'d be happy to shoot over our 1-pager, John. But to make sure I don\'t clutter your inbox with irrelevant slides—we have separate playbooks for outbound SDR ramp and inbound qualification. Which of those two is a higher priority for your revenue team this quarter?"',
     frameworkTip:
       'Agree to the request, then immediately ask a qualifying binary question to earn conversational permission.',
     keywordsToInclude: ['happy to', 'clutter', 'irrelevant', 'priority', 'quarter', 'specific'],
@@ -68,7 +68,7 @@ const SCENARIOS: ObjectionScenario[] = [
     buyerPersona: 'Chief Financial Officer / RevOps Lead',
     difficulty: 'Hard',
     prompt:
-      '"We\'re on a complete hiring and software budget freeze until Q4. We literally have zero dollars allocated for new tools right now."',
+      '"We\'re on a complete software and hiring budget freeze until next fiscal year. We literally have zero discretionary dollars allocated right now."',
     context:
       'The prospect is using macro-economic budget constraints as a defensive shield before discovering the ROI proposition.',
     benchmarkResponse:
@@ -89,11 +89,11 @@ const SCENARIOS: ObjectionScenario[] = [
     title: 'Immediate Reflex "Not Interested"',
     buyerPersona: 'Senior Executive / Busy Founder',
     difficulty: 'Extreme',
-    prompt: '"Not interested. Take me off your list."',
+    prompt: '"Not interested. Please take me off your call list."',
     context:
       'The prospect has reacted to your opening pattern with a knee-jerk reflex rejection within the first 6 seconds.',
     benchmarkResponse:
-      '"Fair enough, Alex. Totally get that I caught you out of the blue. Before I hang up, is it that you\'re not interested because your outbound dials are already converting above 8%, or are you just swamped with back-to-back calls right now?"',
+      '"Fair enough, Alex. Totally get that I caught you completely out of the blue. Before I hang up, is it that you\'re not interested because your outbound dials are already converting above 8%, or are you just swamped with back-to-back calls right now?"',
     frameworkTip:
       'Disarm with a calm "Fair enough" and give them an easy out between a positive performance benchmark and bad timing.',
     keywordsToInclude: ['fair enough', 'out of the blue', 'converting', 'swamped', 'timing'],
@@ -105,6 +105,7 @@ export default function ColdCallSimulator() {
   const [selectedScenario, setSelectedScenario] = useState<ObjectionScenario>(SCENARIOS[0])
   const [userResponse, setUserResponse] = useState('')
   const [isListening, setIsListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(true)
   const [score, setScore] = useState<number | null>(null)
   const [scoreDetails, setScoreDetails] = useState<{
     disarmScore: number
@@ -118,67 +119,114 @@ export default function ColdCallSimulator() {
   const [activeTab, setActiveTab] = useState<'practice' | 'benchmark'>('practice')
 
   const recognitionRef = useRef<any>(null)
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
 
   useEffect(() => {
-    // Initialize Web Speech API if supported in browser
     if (
       typeof window !== 'undefined' &&
       ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)
     ) {
       const SpeechRecognition =
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-      const recognition = new SpeechRecognition()
-      recognition.continuous = true
-      recognition.interimResults = true
-      recognition.lang = 'en-US'
+      try {
+        const recognition = new SpeechRecognition()
+        recognition.continuous = true
+        recognition.interimResults = true
+        recognition.lang = 'en-US'
 
-      recognition.onresult = (event: any) => {
-        let transcript = ''
-        for (let i = 0; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript + ' '
+        recognition.onresult = (event: any) => {
+          let transcript = ''
+          for (let i = 0; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript + ' '
+          }
+          setUserResponse(transcript.trim())
         }
-        setUserResponse(transcript.trim())
-      }
 
-      recognition.onerror = () => {
-        setIsListening(false)
-      }
+        recognition.onerror = (e: any) => {
+          console.warn('Speech recognition warning:', e)
+          setIsListening(false)
+        }
 
-      recognition.onend = () => {
-        setIsListening(false)
-      }
+        recognition.onend = () => {
+          setIsListening(false)
+        }
 
-      recognitionRef.current = recognition
+        recognitionRef.current = recognition
+      } catch (err) {
+        console.warn('Speech recognition init error:', err)
+        setSpeechSupported(false)
+      }
+    } else {
+      setSpeechSupported(false)
     }
   }, [])
 
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert('Speech-to-Text is not supported on this browser. You can type your response directly!')
+      alert(
+        'Speech-to-Text is not supported or microphone access is restricted in this browser. You can type your response directly or click "✨ Load Sample Answer"!'
+      )
       return
     }
 
     if (isListening) {
-      recognitionRef.current.stop()
+      try {
+        recognitionRef.current.stop()
+      } catch (err) {
+        console.warn(err)
+      }
       setIsListening(false)
     } else {
-      setUserResponse('')
-      recognitionRef.current.start()
-      setIsListening(true)
+      try {
+        setUserResponse('')
+        recognitionRef.current.start()
+        setIsListening(true)
+      } catch (err) {
+        console.warn('Speech start error:', err)
+        setIsListening(false)
+      }
     }
   }
 
   const playProspectAudio = () => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance(selectedScenario.prompt)
-      utterance.rate = 1.05
-      utterance.pitch = 0.95
+      const textToSpeak = selectedScenario.prompt.replace(/["']/g, '')
+      const utterance = new SpeechSynthesisUtterance(textToSpeak)
+      utterance.rate = 1.0
+      utterance.pitch = 1.0
+
+      const voices = window.speechSynthesis.getVoices()
+      const preferredVoice =
+        voices.find(
+          (v) =>
+            v.lang.startsWith('en') &&
+            (v.name.includes('Natural') ||
+              v.name.includes('Google') ||
+              v.name.includes('Samantha') ||
+              v.name.includes('David'))
+        ) || voices.find((v) => v.lang.startsWith('en'))
+
+      if (preferredVoice) {
+        utterance.voice = preferredVoice
+      }
+
       utterance.onstart = () => setIsPlayingAudio(true)
       utterance.onend = () => setIsPlayingAudio(false)
       utterance.onerror = () => setIsPlayingAudio(false)
+
+      utteranceRef.current = utterance
       window.speechSynthesis.speak(utterance)
+    } else {
+      alert(
+        'Audio playback is not supported on this device. Please read the objection text on screen.'
+      )
     }
+  }
+
+  const fillSampleAnswer = () => {
+    setUserResponse(selectedScenario.benchmarkResponse)
+    setActiveTab('practice')
   }
 
   const handleEvaluate = () => {
@@ -188,7 +236,7 @@ export default function ColdCallSimulator() {
     const words = lowerResponse.split(/\s+/).filter(Boolean)
     const wordCount = words.length
 
-    // 1. Disarming score (Length and tone)
+    // 1. Disarming score (Pacing and tone)
     let disarmScore = 20
     if (wordCount >= 25 && wordCount <= 85) disarmScore += 15
     else if (wordCount > 85) disarmScore += 5
@@ -205,25 +253,25 @@ export default function ColdCallSimulator() {
     )
     const fillerPenalty = detectedFillers.length * 8
 
-    // 4. Question mark pivot (discovery question)
+    // 4. Question mark pivot (open discovery probe)
     const hasQuestionMark = userResponse.includes('?')
     const pivotScore = hasQuestionMark ? 25 : 10
 
-    // 5. CTA score
+    // 5. CTA baseline
     const ctaScore = 15
 
     const rawScore = Math.max(
-      20,
+      25,
       Math.min(98, disarmScore + keywordScore + pivotScore + ctaScore - fillerPenalty)
     )
 
     let feedback = ''
     if (rawScore >= 85) {
       feedback =
-        'Outstanding execution! You disarmed the tension without being argumentative, pivoted with a sharp open-ended probe, and protected conversational control.'
+        'Outstanding execution. You disarmed the tension without being argumentative, pivoted with a sharp open-ended probe, and protected conversational control.'
     } else if (rawScore >= 70) {
       feedback =
-        'Strong attempt. You maintained composure, but could strengthen the pivot by asking a more specific workflow question instead of explaining your product.'
+        'Strong attempt. You maintained composure, but could strengthen the pivot by asking a more specific workflow question instead of explaining your product features.'
     } else {
       feedback =
         'Needs polish. Avoid defensive arguing or overly long monologues. Follow the A.D.D. framework: 1) Acknowledge warmly, 2) Deflect away from switching costs, 3) Differentiate on concrete metric friction.'
@@ -241,262 +289,319 @@ export default function ColdCallSimulator() {
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl sm:p-8">
-      {/* Scenario Selector */}
-      <div className="mb-6">
-        <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500">
-          Step 1: Select Live Prospect Objection
-        </label>
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-          {SCENARIOS.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => {
-                setSelectedScenario(s)
-                setScore(null)
-                setScoreDetails(null)
-                setUserResponse('')
-              }}
-              className={`flex flex-col items-start rounded-xl border p-3.5 text-left transition-all ${
-                selectedScenario.id === s.id
-                  ? 'border-blue-600 bg-blue-50/70 shadow-sm ring-1 ring-blue-600'
-                  : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
-              }`}
-            >
-              <div className="flex w-full items-center justify-between">
-                <span className="text-xs font-bold text-gray-900">{s.title}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                    s.difficulty === 'Extreme'
-                      ? 'bg-red-100 text-red-700'
-                      : s.difficulty === 'Hard'
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-emerald-100 text-emerald-700'
-                  }`}
-                >
-                  {s.difficulty}
-                </span>
-              </div>
-              <span className="mt-1 text-[11px] text-gray-500">{s.buyerPersona}</span>
-            </button>
-          ))}
+    <div className="space-y-8">
+      {/* Step 1: Scenario Selector */}
+      <div>
+        <div className="mb-3 flex items-center justify-between">
+          <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            STEP 1 • SELECT PROSPECT OBJECTION
+          </p>
+          <span className="text-xs text-[#666666]">4 realistic enterprise scenarios</span>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {SCENARIOS.map((s) => {
+            const isSelected = selectedScenario.id === s.id
+            return (
+              <button
+                key={s.id}
+                onClick={() => {
+                  setSelectedScenario(s)
+                  setScore(null)
+                  setScoreDetails(null)
+                  setUserResponse('')
+                  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+                    window.speechSynthesis.cancel()
+                    setIsPlayingAudio(false)
+                  }
+                }}
+                className={`flex flex-col items-start rounded-[6px] bg-white p-4 text-left transition-all duration-200 ${
+                  isSelected ? 'ring-1 ring-[#171717]' : 'hover:bg-[#f5f5f5]'
+                }`}
+                style={{
+                  boxShadow: isSelected
+                    ? '0 0 0 1px #171717, 0 1px 3px rgba(0,0,0,0.06)'
+                    : '0 0 0 1px #ebebeb',
+                }}
+              >
+                <div className="flex w-full items-center justify-between">
+                  <span className="text-xs font-medium text-[#171717]">{s.title}</span>
+                  <span
+                    className={`rounded px-1.5 py-0.5 font-mono text-[10px] uppercase ${
+                      s.difficulty === 'Extreme'
+                        ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                        : s.difficulty === 'Hard'
+                          ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                          : 'bg-[#f5f5f5] text-[#666666]'
+                    }`}
+                  >
+                    {s.difficulty}
+                  </span>
+                </div>
+                <span className="mt-1 text-[11px] text-[#666666]">{s.buyerPersona}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* Prospect Simulation Box */}
-      <div className="border-slate-800 bg-slate-900 relative mb-6 overflow-hidden rounded-xl border p-6 text-white shadow-inner">
-        <div className="border-slate-800 flex items-center justify-between border-b pb-3">
+      {/* Step 2: The Prospect Objection Simulation Box (Clean Homepage Style) */}
+      <div
+        className="rounded-[6px] bg-white p-7 transition-all duration-200"
+        style={{
+          boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+        }}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#ebebeb] pb-4">
           <div className="flex items-center space-x-2">
-            <span className="relative flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
-            </span>
-            <span className="text-slate-400 font-mono text-xs uppercase tracking-wider">
-              Live Phone Call Simulation • {selectedScenario.buyerPersona}
+            <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              LIVE SIMULATION • {selectedScenario.buyerPersona}
             </span>
           </div>
 
           <button
             onClick={playProspectAudio}
             disabled={isPlayingAudio}
-            className="border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 flex items-center space-x-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition"
+            className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-3.5 py-1.5 text-xs font-medium text-white transition-all hover:bg-[#333333]"
           >
-            <span>{isPlayingAudio ? '🔊 Playing...' : '▶ Listen to Prospect'}</span>
+            {isPlayingAudio ? (
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-[#ea580c]" />
+                <span>Playing Audio...</span>
+              </span>
+            ) : (
+              <span>▶ Listen to Prospect</span>
+            )}
           </button>
         </div>
 
-        {/* Audio Wave Visualizer Simulation */}
+        {/* Large legible prompt */}
         <div className="py-6">
-          <p className="text-slate-100 text-lg font-medium leading-relaxed sm:text-xl">
+          <p className="text-xl font-normal leading-relaxed tracking-tight text-[#171717] sm:text-2xl">
             {selectedScenario.prompt}
           </p>
-          <p className="text-slate-400 mt-3 text-xs italic">Context: {selectedScenario.context}</p>
+          <p className="mt-3 text-xs leading-relaxed text-[#666666]">
+            <strong>Buyer Context:</strong> {selectedScenario.context}
+          </p>
         </div>
 
         {/* Telemetry bar */}
-        <div className="border-slate-800/80 text-slate-400 flex flex-wrap items-center justify-between gap-2 border-t pt-3 font-mono text-[11px]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#ebebeb] pt-3 font-mono text-[11px] text-[#666666]">
           <span>FRAMEWORK: {selectedScenario.frameworkTip.split(':')[0]}</span>
-          <span className="text-emerald-400">TURN-TAKING LATENCY: 340ms (REAL-TIME)</span>
+          <span className="text-[#171717]">TURN-TAKING LATENCY: 348ms (REAL-TIME)</span>
         </div>
       </div>
 
-      {/* Mode Tabs */}
-      <div className="mb-4 flex border-b border-gray-200">
-        <button
-          onClick={() => setActiveTab('practice')}
-          className={`px-4 pb-2.5 text-sm font-semibold transition ${
-            activeTab === 'practice'
-              ? 'border-b-2 border-blue-600 text-blue-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Your Live Counter-Response
-        </button>
-        <button
-          onClick={() => setActiveTab('benchmark')}
-          className={`px-4 pb-2.5 text-sm font-semibold transition ${
-            activeTab === 'benchmark'
-              ? 'border-b-2 border-blue-600 text-blue-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Top 1% Benchmark Script
-        </button>
-      </div>
+      {/* Step 3: Response Sandbox */}
+      <div
+        className="rounded-[6px] bg-white p-7 transition-all duration-200"
+        style={{
+          boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+        }}
+      >
+        {/* Mode Tabs */}
+        <div className="mb-5 flex border-b border-[#ebebeb]">
+          <button
+            onClick={() => setActiveTab('practice')}
+            className={`pb-2.5 text-xs font-medium transition ${
+              activeTab === 'practice'
+                ? 'border-b-2 border-[#171717] text-[#171717]'
+                : 'text-[#666666] hover:text-[#171717]'
+            }`}
+          >
+            Your Live Counter-Response
+          </button>
+          <button
+            onClick={() => setActiveTab('benchmark')}
+            className={`ml-6 pb-2.5 text-xs font-medium transition ${
+              activeTab === 'benchmark'
+                ? 'border-b-2 border-[#171717] text-[#171717]'
+                : 'text-[#666666] hover:text-[#171717]'
+            }`}
+          >
+            Top 1% Benchmark Script
+          </button>
+        </div>
 
-      {activeTab === 'practice' ? (
-        <div>
-          {/* User Input Sandbox */}
-          <div className="relative mb-4">
-            <textarea
-              rows={4}
-              value={userResponse}
-              onChange={(e) => setUserResponse(e.target.value)}
-              placeholder="Type your spoken cold-call objection response here, or tap the microphone to speak out loud..."
-              className="w-full rounded-xl border border-gray-300 p-4 text-sm leading-relaxed text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            />
-            <div className="absolute bottom-3 right-3 flex items-center space-x-2">
-              <button
-                type="button"
-                onClick={toggleListening}
-                className={`flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm transition ${
-                  isListening
-                    ? 'animate-pulse bg-red-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <span>{isListening ? '🔴 Recording...' : '🎙️ Speak Response'}</span>
-              </button>
-            </div>
-          </div>
+        {activeTab === 'practice' ? (
+          <div>
+            {/* User Input Textarea */}
+            <div className="relative mb-4">
+              <textarea
+                rows={4}
+                value={userResponse}
+                onChange={(e) => setUserResponse(e.target.value)}
+                placeholder="Type your spoken cold-call objection response here, or tap the microphone to speak out loud..."
+                className="w-full rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-4 text-sm leading-relaxed text-[#171717] placeholder-[#8f8f8f] transition focus:border-[#171717] focus:bg-white focus:outline-none"
+              />
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                <button
+                  type="button"
+                  onClick={fillSampleAnswer}
+                  className="rounded-[6px] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f5f5]"
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  ✨ Load Sample Answer
+                </button>
 
-          {/* Action Row */}
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-gray-500">
-              💡 Tip: Acknowledge the objection first, avoid being defensive, and end with a
-              low-friction question.
-            </p>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => setUserResponse('')}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50"
-              >
-                Clear
-              </button>
-              <button
-                onClick={handleEvaluate}
-                disabled={!userResponse.trim()}
-                className="rounded-lg bg-blue-600 px-5 py-2 text-xs font-bold text-white shadow-md transition hover:bg-blue-700 disabled:opacity-50"
-              >
-                Evaluate Response
-              </button>
-            </div>
-          </div>
-
-          {/* Scoring Feedback Scorecard */}
-          {score !== null && scoreDetails && (
-            <div className="animate-fadeIn mt-8 rounded-xl border border-blue-200 bg-blue-50/50 p-6">
-              <div className="flex flex-col gap-4 border-b border-blue-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
-                    AI Objection Handling Rubric
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-900">Performance Scorecard</h3>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="text-right">
-                    <span className="text-3xl font-extrabold text-blue-900">{score}</span>
-                    <span className="text-sm font-semibold text-gray-500">/100</span>
-                  </div>
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs font-bold ${
-                      score >= 85
-                        ? 'bg-emerald-100 text-emerald-800'
-                        : score >= 70
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-amber-100 text-amber-800'
-                    }`}
-                  >
-                    {score >= 85
-                      ? 'Top 5% Performer'
-                      : score >= 70
-                        ? 'Proficient'
-                        : 'Needs Practice'}
-                  </span>
-                </div>
+                <button
+                  type="button"
+                  onClick={toggleListening}
+                  className={`flex items-center space-x-1.5 rounded-[6px] px-3.5 py-1.5 text-xs font-medium transition ${
+                    isListening
+                      ? 'animate-pulse bg-[#ea580c] text-white'
+                      : 'bg-white text-[#171717] hover:bg-[#f5f5f5]'
+                  }`}
+                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                >
+                  <span>{isListening ? '🔴 Recording (Listening)...' : '🎙️ Speak Response'}</span>
+                </button>
               </div>
+            </div>
 
-              {/* Feedback Summary */}
-              <p className="mt-4 text-sm font-medium leading-relaxed text-gray-800">
-                {scoreDetails.feedbackSummary}
+            {/* Action Row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ebebeb] pt-4">
+              <p className="text-xs text-[#666666]">
+                💡 Tip: Acknowledge the objection first, avoid being defensive, and end with a
+                low-friction question.
               </p>
-
-              {/* Breakdown Grid */}
-              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-white p-3.5">
-                  <span className="text-xs font-bold text-gray-600">Disarming & Tone</span>
-                  <p className="mt-1 text-sm font-semibold text-gray-900">
-                    {scoreDetails.disarmScore >= 30
-                      ? '✅ Calm & Unfazed'
-                      : '⚠️ Too rushed / defensive'}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-gray-200 bg-white p-3.5">
-                  <span className="text-xs font-bold text-gray-600">Strategic Pivot</span>
-                  <p className="mt-1 text-sm font-semibold text-gray-900">
-                    {scoreDetails.pivotScore >= 20
-                      ? '✅ Open discovery question'
-                      : '⚠️ Statement instead of probe'}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-gray-200 bg-white p-3.5">
-                  <span className="text-xs font-bold text-gray-600">Key Value Signals</span>
-                  <p className="mt-1 text-sm font-semibold text-gray-900">
-                    {scoreDetails.detectedKeywords.length} power words used
-                  </p>
-                </div>
-              </div>
-
-              {/* Fillers / Keyword Pills */}
-              <div className="mt-4 flex flex-wrap gap-2 text-xs">
-                {scoreDetails.detectedKeywords.map((kw, i) => (
-                  <span
-                    key={i}
-                    className="rounded-md bg-emerald-100 px-2 py-1 font-mono text-emerald-800"
+              <div className="flex space-x-2">
+                {userResponse && (
+                  <button
+                    onClick={() => setUserResponse('')}
+                    className="rounded-[6px] bg-white px-3.5 py-2 text-xs font-medium text-[#666666] hover:bg-[#f5f5f5] hover:text-[#171717]"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                   >
-                    + keyword: "{kw}"
-                  </span>
-                ))}
-                {scoreDetails.detectedFillers.map((fw, i) => (
-                  <span key={i} className="rounded-md bg-red-100 px-2 py-1 font-mono text-red-800">
-                    - filler detected: "{fw}"
-                  </span>
-                ))}
+                    Clear
+                  </button>
+                )}
+                <button
+                  onClick={handleEvaluate}
+                  disabled={!userResponse.trim()}
+                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-xs font-medium text-white transition-all hover:bg-[#333333] disabled:opacity-40"
+                >
+                  Evaluate Response →
+                </button>
               </div>
             </div>
-          )}
-        </div>
-      ) : (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-          <div className="flex items-center justify-between border-b border-gray-200 pb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-700">
-              Battle-Tested Benchmark Script
-            </span>
-            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">
-              Verified 28% Meeting Booking Rate
-            </span>
-          </div>
 
-          <blockquote className="mt-4 rounded-lg border border-gray-200 bg-white p-5 text-base italic leading-relaxed text-gray-900 shadow-sm">
-            {selectedScenario.benchmarkResponse}
-          </blockquote>
+            {/* Scoring Feedback Scorecard */}
+            {score !== null && scoreDetails && (
+              <div
+                className="mt-8 rounded-[6px] bg-white p-7 transition-all"
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                }}
+              >
+                <div className="flex flex-col gap-4 border-b border-[#ebebeb] pb-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+                      AI OBJECTION HANDLING RUBRIC
+                    </p>
+                    <h3 className="mt-1 text-xl font-normal tracking-tight text-[#171717]">
+                      Performance Scorecard
+                    </h3>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="text-right">
+                      <span className="text-3xl font-normal leading-none text-[#171717]">
+                        {score}
+                      </span>
+                      <span className="font-mono text-xs text-[#666666]">/100</span>
+                    </div>
+                    <span
+                      className={`rounded px-2.5 py-1 font-mono text-[10px] font-semibold uppercase ${
+                        score >= 85
+                          ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                          : score >= 70
+                            ? 'bg-[#f5f5f5] text-[#171717]'
+                            : 'bg-[#f5f5f5] text-[#666666]'
+                      }`}
+                    >
+                      {score >= 85
+                        ? 'Top 5% Performer'
+                        : score >= 70
+                          ? 'Proficient'
+                          : 'Needs Practice'}
+                    </span>
+                  </div>
+                </div>
 
-          <div className="mt-4 rounded-lg border border-blue-100 bg-blue-50 p-4 text-xs leading-relaxed text-blue-900">
-            <span className="font-bold">Tactical Breakdown: </span>
-            {selectedScenario.frameworkTip}
+                {/* Feedback Summary */}
+                <p className="mt-4 text-sm leading-relaxed text-[#4d4d4d]">
+                  {scoreDetails.feedbackSummary}
+                </p>
+
+                {/* Breakdown Grid */}
+                <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div
+                    className="rounded-[6px] bg-white p-4"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  >
+                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                      Disarming &amp; Tone
+                    </span>
+                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                      {scoreDetails.disarmScore >= 30
+                        ? '✓ Calm & Unfazed'
+                        : '⚠ Too rushed / defensive'}
+                    </p>
+                  </div>
+                  <div
+                    className="rounded-[6px] bg-white p-4"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  >
+                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                      Strategic Pivot
+                    </span>
+                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                      {scoreDetails.pivotScore >= 20
+                        ? '✓ Open discovery probe'
+                        : '⚠ Statement instead of probe'}
+                    </p>
+                  </div>
+                  <div
+                    className="rounded-[6px] bg-white p-4"
+                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  >
+                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                      Keyword Execution
+                    </span>
+                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                      {scoreDetails.detectedKeywords.length >= 2
+                        ? `✓ ${scoreDetails.detectedKeywords.length} keywords used`
+                        : '⚠ Add benchmark phrases'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        ) : (
+          /* Benchmark Script Tab */
+          <div className="space-y-4 rounded-[6px] bg-[#fafafa] p-6">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+                TOP 1% SDR BENCHMARK SCRIPT
+              </span>
+              <button
+                onClick={fillSampleAnswer}
+                className="rounded-[6px] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f5f5]"
+                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              >
+                Copy into Sandbox →
+              </button>
+            </div>
+            <p className="text-base font-light italic leading-relaxed text-[#171717]">
+              {selectedScenario.benchmarkResponse}
+            </p>
+            <div className="border-t border-[#ebebeb] pt-3 text-xs text-[#666666]">
+              <span className="font-medium text-[#171717]">Strategic Rationale: </span>
+              {selectedScenario.frameworkTip}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

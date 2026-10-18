@@ -117,7 +117,7 @@ export default function InterviewQuestionsHubPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <div className="min-h-screen bg-[#fafafa] px-4 pb-32 pt-16 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-[#fafafa] px-4 pb-32 pt-28 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl space-y-20">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center space-x-2 text-xs font-medium text-[#666666]">
@@ -131,10 +131,10 @@ export default function InterviewQuestionsHubPage() {
           {/* Hero Header */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0070f3]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
               <span>2026 Interview Intelligence Library</span>
               <span className="text-[#999999]">•</span>
-              <span className="font-semibold text-[#297a3a]">100% Free & Ungated</span>
+              <span className="font-semibold text-[#ea580c]">100% Free & Ungated</span>
             </div>
             <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[54px]">
               Top Interview Questions & <br className="hidden sm:block" />
@@ -162,7 +162,7 @@ export default function InterviewQuestionsHubPage() {
               </a>
               <Link
                 href="/free-mock-interview"
-                className="inline-flex items-center rounded-lg border border-[#0070f3]/20 bg-[#0070f3]/10 px-4 py-2 text-xs font-semibold text-[#0070f3] transition-colors hover:bg-[#0070f3]/20"
+                className="inline-flex items-center rounded-lg border border-[#fed7aa] bg-[#fff7ed] px-4 py-2 text-xs font-semibold text-[#ea580c] transition-colors hover:bg-[#ffedd5]"
               >
                 Practice in Live Voice Simulator →
               </Link>
@@ -173,7 +173,7 @@ export default function InterviewQuestionsHubPage() {
           <section id="behavioral" className="scroll-mt-24 space-y-8">
             <div className="flex flex-col justify-between gap-2 border-b border-[#ebebeb] pb-4 sm:flex-row sm:items-end">
               <div>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#0070f3]">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
                   High-Impact Behavioral Screening
                 </span>
                 <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -190,7 +190,7 @@ export default function InterviewQuestionsHubPage() {
                 <Link
                   key={q.slug}
                   href={`/interview-questions/behavioral/${q.slug}`}
-                  className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#171717] hover:shadow-md"
+                  className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#ea580c] hover:shadow-md"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs">
@@ -201,7 +201,7 @@ export default function InterviewQuestionsHubPage() {
                         {q.searchVolumeTier}
                       </span>
                     </div>
-                    <h3 className="text-xl font-medium tracking-tight text-[#171717] group-hover:text-[#0070f3]">
+                    <h3 className="text-xl font-medium tracking-tight text-[#171717] group-hover:text-[#ea580c]">
                       &ldquo;{q.questionText}&rdquo;
                     </h3>
                     <p className="line-clamp-2 text-xs leading-relaxed text-[#666666]">
@@ -214,7 +214,7 @@ export default function InterviewQuestionsHubPage() {
 
                   <div className="mt-5 flex items-center justify-between border-t border-[#f0f0f0] pt-4 text-xs font-medium text-[#171717]">
                     <span className="text-[#666666]">Word-for-Word Model Answer Included</span>
-                    <span className="flex items-center gap-1 font-semibold text-[#0070f3] transition-transform group-hover:translate-x-0.5">
+                    <span className="flex items-center gap-1 font-semibold text-[#ea580c] transition-transform group-hover:translate-x-0.5">
                       Read Guide & Script &rarr;
                     </span>
                   </div>
@@ -258,7 +258,7 @@ export default function InterviewQuestionsHubPage() {
           <section id="roles" className="scroll-mt-24 space-y-8">
             <div className="flex flex-col justify-between gap-2 border-b border-[#ebebeb] pb-4 sm:flex-row sm:items-end">
               <div>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#297a3a]">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
                   Technical & Domain Playbooks
                 </span>
                 <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -276,13 +276,13 @@ export default function InterviewQuestionsHubPage() {
                 <Link
                   key={r.slug}
                   href={`/interview-questions/${r.slug}`}
-                  className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#171717] hover:shadow-md"
+                  className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#ea580c] hover:shadow-md"
                 >
                   <div className="space-y-3">
                     <span className="inline-block rounded-full bg-[#f5f5f5] px-2.5 py-0.5 font-mono text-[10px] font-medium text-[#666666]">
                       {r.category}
                     </span>
-                    <h3 className="text-lg font-medium tracking-tight text-[#171717] group-hover:text-[#0070f3]">
+                    <h3 className="text-lg font-medium tracking-tight text-[#171717] group-hover:text-[#ea580c]">
                       {r.roleName}
                     </h3>
                     <p className="line-clamp-3 text-xs leading-relaxed text-[#666666]">
@@ -294,7 +294,7 @@ export default function InterviewQuestionsHubPage() {
                     <span className="font-mono text-[11px] text-[#999999]">
                       {r.topQuestions.length} Questions & Answers
                     </span>
-                    <span className="font-semibold text-[#0070f3] transition-transform group-hover:translate-x-0.5">
+                    <span className="font-semibold text-[#ea580c] transition-transform group-hover:translate-x-0.5">
                       Open Playbook &rarr;
                     </span>
                   </div>
@@ -316,7 +316,7 @@ export default function InterviewQuestionsHubPage() {
                 href="/cv-templates"
                 className="rounded-lg border border-[#ebebeb] p-4 transition-colors hover:border-[#171717]"
               >
-                <div className="font-mono text-[10px] font-bold uppercase text-[#297a3a]">
+                <div className="font-mono text-[10px] font-bold uppercase text-[#ea580c]">
                   Document Hub
                 </div>
                 <div className="mt-1 text-sm font-medium text-[#171717]">
@@ -330,7 +330,7 @@ export default function InterviewQuestionsHubPage() {
                 href="/ats-score"
                 className="rounded-lg border border-[#ebebeb] p-4 transition-colors hover:border-[#171717]"
               >
-                <div className="font-mono text-[10px] font-bold uppercase text-[#0070f3]">
+                <div className="font-mono text-[10px] font-bold uppercase text-[#ea580c]">
                   Scanner
                 </div>
                 <div className="mt-1 text-sm font-medium text-[#171717]">
@@ -344,7 +344,7 @@ export default function InterviewQuestionsHubPage() {
                 href="/cold-call-practice"
                 className="rounded-lg border border-[#ebebeb] p-4 transition-colors hover:border-[#171717]"
               >
-                <div className="font-mono text-[10px] font-bold uppercase text-[#b35900]">
+                <div className="font-mono text-[10px] font-bold uppercase text-[#ea580c]">
                   Simulator
                 </div>
                 <div className="mt-1 text-sm font-medium text-[#171717]">
