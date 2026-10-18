@@ -26,10 +26,39 @@ async function run() {
     urls.push(`https://${host}/free-mock-interview`)
     urls.push(`https://${host}/ats-score`)
     urls.push(`https://${host}/cv-templates`)
+    urls.push(`https://${host}/interview-questions`)
     urls.push(`https://${host}/ai-calling-roi-calculator`)
     urls.push(`https://${host}/cold-call-practice`)
     urls.push(`https://${host}/build-resume`)
     urls.push(`https://${host}/resume-job-matcher`)
+
+    // Programmatic CV Role Templates (20 roles)
+    const cvRoles = [
+      'software-engineer', 'product-manager', 'sales-sdr', 'data-analyst', 'fresher',
+      'devops-engineer', 'frontend-developer', 'full-stack-developer', 'data-scientist',
+      'machine-learning-engineer', 'cybersecurity-analyst', 'ui-ux-designer',
+      'account-executive', 'customer-success-manager', 'financial-analyst',
+      'business-analyst', 'scrum-master', 'marketing-manager', 'human-resources-specialist', 'internship'
+    ]
+    cvRoles.forEach(r => urls.push(`https://${host}/cv-templates/${r}`))
+
+    // Programmatic Behavioral Interview Questions (Big 10)
+    const behavioralQuestions = [
+      'tell-me-about-yourself', 'what-is-your-greatest-weakness', 'why-should-we-hire-you',
+      'why-do-you-want-to-work-here', 'where-do-you-see-yourself-in-5-years',
+      'describe-a-conflict-with-coworker', 'tell-me-about-a-time-you-failed',
+      'what-is-your-greatest-strength', 'why-are-you-leaving-your-current-job',
+      'how-do-you-handle-stress-pressure'
+    ]
+    behavioralQuestions.forEach(q => urls.push(`https://${host}/interview-questions/behavioral/${q}`))
+
+    // Programmatic Role Interview Questions Playbooks (10 roles)
+    const roleQuestions = [
+      'software-engineer', 'product-manager', 'sales-sdr', 'data-analyst', 'fresher',
+      'devops-engineer', 'full-stack-developer', 'data-scientist', 'account-executive',
+      'customer-success-manager'
+    ]
+    roleQuestions.forEach(r => urls.push(`https://${host}/interview-questions/${r}`))
 
     const payload = {
       host: host,

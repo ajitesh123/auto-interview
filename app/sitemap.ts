@@ -6,6 +6,7 @@ import { mbaSpecializations } from '@/data/mbaResources'
 import { slug } from 'github-slugger'
 import tagData from 'app/tag-data.json'
 import { CV_ROLES } from '@/data/cvRolesData'
+import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interviewQuestionsData'
 
 const POSTS_PER_PAGE = 10
 
@@ -89,6 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (route === '') return 1.0
     if (
       [
+        'interview-questions',
         'cv-templates',
         'resources',
         'free-mock-interview',
@@ -114,6 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (route === '') return 'daily' as const
     if (
       [
+        'interview-questions',
         'cv-templates',
         'resources',
         'free-mock-interview',
@@ -134,6 +137,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     '',
+    'interview-questions',
     'cv-templates',
     'resources',
     'free-mock-interview',
@@ -178,8 +182,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.95,
   }))
 
+  const interviewBehavioralRoutes = Object.keys(BEHAVIORAL_QUESTIONS).map((question) => ({
+    url: `${siteUrl}/interview-questions/behavioral/${question}`,
+    lastModified: today,
+    changeFrequency: 'weekly' as const,
+    priority: 0.95,
+  }))
+
+  const interviewRoleRoutes = Object.keys(ROLE_INTERVIEW_QUESTIONS).map((role) => ({
+    url: `${siteUrl}/interview-questions/${role}`,
+    lastModified: today,
+    changeFrequency: 'weekly' as const,
+    priority: 0.95,
+  }))
+
   return [
     ...routes,
+    ...interviewBehavioralRoutes,
+    ...interviewRoleRoutes,
     ...cvRoleRoutes,
     ...resourceHubRoutes,
     ...domainRoutes,

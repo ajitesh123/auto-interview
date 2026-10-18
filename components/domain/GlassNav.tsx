@@ -13,6 +13,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
   const navLinks = [
     { href: '/cv-templates', label: 'CV Templates' },
+    { href: '/interview-questions', label: 'Interview Q&A' },
     { href: '/free-mock-interview', label: 'Mock Interview' },
     { href: '/cold-call-practice', label: 'Cold Calling' },
     { href: '/ai-calling-roi-calculator', label: 'ROI Calculator' },

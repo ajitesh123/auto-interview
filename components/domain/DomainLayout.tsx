@@ -138,6 +138,18 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               </h4>
               <div className="flex flex-col gap-2">
                 <Link
+                  href="/interview-questions"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Interview Questions Q&amp;A
+                </Link>
+                <Link
+                  href="/interview-questions/behavioral/tell-me-about-yourself"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Tell Me About Yourself Guide
+                </Link>
+                <Link
                   href="/blog"
                   className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { CV_ROLES } from '@/data/cvRolesData'
 
 export default function CVTemplatesPage() {
   const faqs = [
@@ -191,127 +192,32 @@ export default function CVTemplatesPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Link
-              href="/cv-templates/software-engineer"
-              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-            >
-              <div>
-                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                  Engineering
-                </span>
-                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
-                  Software Engineer &rarr;
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
-                  Distributed systems, microservices, cloud infra, and p99 latency optimization
-                  bullets.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
-                <span>✓ Word DOCX &amp; Docs</span>
-                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/cv-templates/product-manager"
-              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-            >
-              <div>
-                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                  Product
-                </span>
-                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
-                  Product Manager &rarr;
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
-                  Roadmaps, PRDs, A/B experiments, PLG funnels, and revenue metrics.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
-                <span>✓ Word DOCX &amp; Docs</span>
-                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/cv-templates/sales-sdr"
-              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-            >
-              <div>
-                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                  Sales &amp; GTM
-                </span>
-                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
-                  SDR &amp; Sales Executive &rarr;
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
-                  Quota attainment %, outbound pipeline volume, MEDDPICC, and objection handling.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
-                <span>✓ Word DOCX &amp; Docs</span>
-                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/cv-templates/data-analyst"
-              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-            >
-              <div>
-                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                  Data &amp; Analytics
-                </span>
-                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
-                  Data Analyst &rarr;
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
-                  Advanced SQL, Tableau dashboards, Python modeling, and business KPI reporting.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
-                <span>✓ Word DOCX &amp; Docs</span>
-                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/cv-templates/fresher"
-              className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-            >
-              <div>
-                <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                  Graduates
-                </span>
-                <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
-                  Fresher &amp; College Graduate &rarr;
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-[#666666]">
-                  Zero-experience formatting, university capstones, academic projects, and
-                  internships.
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
-                <span>✓ Word DOCX &amp; Docs</span>
-                <span className="text-[#171717] transition-transform group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </div>
-            </Link>
+            {Object.values(CV_ROLES).map((role) => (
+              <Link
+                key={role.slug}
+                href={`/cv-templates/${role.slug}`}
+                className="group flex flex-col justify-between rounded-[6px] bg-white p-6 transition-all hover:shadow-md"
+                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+              >
+                <div>
+                  <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+                    {role.category}
+                  </span>
+                  <h3 className="mt-3 text-lg font-medium text-[#171717] transition-colors group-hover:text-blue-600">
+                    {role.roleName} &rarr;
+                  </h3>
+                  <p className="mt-1 text-xs leading-relaxed text-[#666666]">
+                    {role.heroDescription.slice(0, 110)}...
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#297a3a]">
+                  <span>✓ Word DOCX &amp; Docs</span>
+                  <span className="text-[#171717] transition-transform group-hover:translate-x-1">
+                    &rarr;
+                  </span>
+                </div>
+              </Link>
+            ))}
 
             <Link
               href="/ats-score"

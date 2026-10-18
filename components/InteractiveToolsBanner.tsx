@@ -43,6 +43,14 @@ export default function InteractiveToolsBanner() {
       cta: 'Browse Templates &rarr;',
       tagColor: 'bg-slate-100 text-slate-800 border-slate-200',
     },
+    {
+      badge: 'Proven Scripts',
+      title: 'Interview Questions Q&A',
+      desc: 'Word-for-word STAR sample answers, psychology breakdowns, and bad answer critiques for 20+ roles.',
+      href: '/interview-questions',
+      cta: 'Explore Questions &rarr;',
+      tagColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    },
   ]
 
   return (
