@@ -169,7 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       {/* Main body content */}
       <body className="bg-[#fafafa] pl-[calc(100vw-100%)] text-[#171717] antialiased">
-        {/* JSON-LD Structured Data */}
+        {/* JSON-LD Structured Data: WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -178,13 +178,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'WebSite',
               name: 'Auto Interview AI',
               alternateName: [
+                'Tough Tongue AI',
                 'Autointerviewai',
                 'Auto Interview AI Platform',
-                'AI Interview Practice',
+                'AI Sales Roleplay & Career Intelligence',
               ],
               url: 'https://www.autointerviewai.com/',
               description:
-                'Auto Interview AI is the one-stop platform for cracking your dream job: CV templates, interview resources, AI mock interviews, and career communities.',
+                'Auto Interview AI & Tough Tongue AI — Enterprise Voice AI Calling, B2B Sales Objection Simulator, Automated SDR Onboarding, and Executive Career Intelligence across USA, India, and Global Markets.',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
@@ -205,9 +206,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Auto Interview AI',
-              alternateName: ['Autointerviewai', 'Auto Interview AI Platform'],
+              alternateName: ['Tough Tongue AI', 'Autointerviewai', 'Auto Interview AI Platform'],
               url: 'https://www.autointerviewai.com/',
               logo: 'https://www.autointerviewai.com/static/images/logo.png',
+              description:
+                'Global leader in Voice AI calling systems, B2B sales roleplay simulation, real-time cold call objection handling, and automated SDR ramp readiness.',
+              areaServed: [
+                { '@type': 'Country', name: 'United States' },
+                { '@type': 'Country', name: 'India' },
+                { '@type': 'Country', name: 'United Kingdom' },
+                { '@type': 'Country', name: 'United Arab Emirates' },
+              ],
+              knowsAbout: [
+                'Voice AI Calling',
+                'AI Sales Training',
+                'SDR Onboarding',
+                'Cold Calling Practice',
+                'Objection Handling Simulation',
+                'MEDDPICC Sales Methodology',
+                'USA TCPA Compliance',
+                'India TRAI DLT & DPDP Compliance',
+                'Applicant Tracking Systems',
+                'Interview Preparation',
+              ],
               sameAs: [
                 'https://www.linkedin.com/in/ajiteshnandan/',
                 'https://x.com/ajiteshleo',
@@ -224,19 +245,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'SoftwareApplication',
-              name: 'Auto Interview AI',
-              alternateName: ['Autointerviewai', 'AI Interview Practice Platform'],
-              operatingSystem: 'Web',
+              name: 'Auto Interview AI & Tough Tongue AI',
+              alternateName: ['Tough Tongue AI', 'Autointerviewai', 'AI Sales Roleplay Platform'],
+              operatingSystem: 'Web, iOS, Android',
               applicationCategory: 'BusinessApplication',
+              applicationSubCategory: 'SalesTrainingSoftware, CommunicationSoftware',
               url: 'https://www.autointerviewai.com/',
               image: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
               description:
-                'Auto Interview AI — CV templates, interview resources, AI mock interviews, and career communities. Your dream job, engineered.',
+                'Real-time Voice AI calling simulator, cold call objection handling sandbox, automated SDR onboarding certification, and ATS career tools.',
+              featureList: [
+                'Real-time voice sales roleplay (<350ms turn-taking latency)',
+                'A.D.D. objection handling framework (Acknowledge, Deflect, Differentiate)',
+                'Automated SDR onboarding and live outbound dial gating (21-day ramp)',
+                'MEDDPICC, BANT, and Challenger sales rubric scoring',
+                'USA TCPA / STIR-SHAKEN and India TRAI DLT / DPDP compliance',
+                'Executive Harvard & Stanford ATS CV templates',
+                'Programmatic interview questions library and behavioral answer playbooks',
+              ],
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+                description:
+                  'Free interactive practice tier with transparent SaaS pricing for enterprise teams.',
+              },
             }),
           }}
         />
 
-        {/* Person Schema for E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) */}
+        {/* Person Schema for E-E-A-T (Founder Credentials) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -244,9 +282,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Ajitesh Abhishek',
-              jobTitle: 'AI & Career Tools Developer',
+              jobTitle: 'Founder & Lead AI Architect (Ex-Google PM)',
               description:
-                'Creator of Auto Interview AI - helping job seekers with CV templates, interview resources, AI mock interviews, and career communities.',
+                'Founder of Auto Interview AI & Tough Tongue AI. Former Google Product Manager, IIT Delhi and Kellogg School of Management alumnus. Expert in Voice AI latency, conversational intelligence, B2B sales enablement, and career automation.',
               url: 'https://www.autointerviewai.com/about',
               image: 'https://www.autointerviewai.com/static/images/avatar.png',
               sameAs: [
@@ -254,15 +292,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'https://github.com/ajitesh123',
                 'https://x.com/ajiteshleo',
               ],
+              alumniOf: [
+                {
+                  '@type': 'CollegeOrUniversity',
+                  name: 'Indian Institute of Technology Delhi (IIT Delhi)',
+                },
+                {
+                  '@type': 'CollegeOrUniversity',
+                  name: 'Kellogg School of Management, Northwestern University',
+                },
+              ],
               knowsAbout: [
                 'Artificial Intelligence',
-                'Resume Optimization',
+                'Voice AI Calling',
+                'Speech-to-Speech Latency',
+                'B2B Sales Training',
+                'Sales Roleplay Simulation',
+                'SDR Onboarding Readiness',
+                'MEDDPICC Sales Methodology',
+                'Cold Calling Objection Handling',
                 'Applicant Tracking Systems',
-                'Job Search Strategies',
-                'Interview Preparation',
-                'Career Development',
                 'Natural Language Processing',
                 'Machine Learning',
+                'India TRAI & DPDP Compliance',
+                'USA TCPA Compliance',
               ],
             }),
           }}

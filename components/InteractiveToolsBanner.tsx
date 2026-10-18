@@ -51,6 +51,14 @@ export default function InteractiveToolsBanner() {
       cta: 'Explore Questions &rarr;',
       tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
     },
+    {
+      badge: '2026 Directory',
+      title: 'AI Sales Training Index',
+      desc: 'Top AI calling & sales roleplay platforms compared across latency, MEDDPICC, and compliance.',
+      href: '/ai-sales-training',
+      cta: 'Compare Platforms &rarr;',
+      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+    },
   ]
 
   return (
