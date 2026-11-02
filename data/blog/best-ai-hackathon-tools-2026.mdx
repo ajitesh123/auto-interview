@@ -1,0 +1,195 @@
+---
+title: 'Best AI Hackathon Tools (2026): Models, Agents & Voice'
+date: '2026-11-03'
+lastmod: '2026-11-03'
+tags:
+  - hackathon
+  - ai-engineering
+  - voice-ai
+  - tough-tongue-ai
+draft: false
+summary: 'Best AI hackathon tools in 2026: free model APIs, coding agents, vector databases and voice AI platforms, with verified free tiers and a demo-day checklist.'
+images: ['/static/images/blog/best-ai-hackathon-tools-2026.png']
+authors: ['default']
+keywords: 'best ai hackathon tools, ai hackathon tools, tools for ai hackathons, free llm api for hackathon, voice ai hackathon, ai hackathon tech stack 2026'
+canonicalUrl: 'https://www.autointerviewai.com/blog/best-ai-hackathon-tools-2026'
+layout: PostLayout
+structuredData:
+  '@context': 'https://schema.org'
+  '@type': 'FAQPage'
+  mainEntity:
+    - '@type': 'Question'
+      name: 'What are the best tools for an AI hackathon?'
+      acceptedAnswer:
+        '@type': 'Answer'
+        text: 'For a 2026 AI hackathon, use a free model API (Gemini API free tier, Groq or OpenRouter free models), a coding agent (Cursor, GitHub Copilot or Claude Code), a vector store (Pinecone Starter or Supabase pgvector), and a voice platform such as Tough Tongue AI or LiveKit if your project talks. Deploy on Vercel.'
+    - '@type': 'Question'
+      name: 'Which LLM APIs are free for hackathons?'
+      acceptedAnswer:
+        '@type': 'Answer'
+        text: 'The Gemini API has a free tier for several Flash models, Groq has a free plan with per-model rate limits, and OpenRouter offers free model variants limited to 20 requests per minute and 50 per day until you buy at least 10 credits. Free tiers have lower rate limits, so cache responses for your demo.'
+    - '@type': 'Question'
+      name: 'How do I add a voice agent to a hackathon project?'
+      acceptedAnswer:
+        '@type': 'Answer'
+        text: 'The fastest route is a hosted voice agent platform. Tough Tongue AI lets you describe the agent in plain language, test it in the browser and embed it in your app as an iframe. For full control in code, the open-source LiveKit Agents framework or Vapi let you wire your own speech-to-text, LLM and text-to-speech.'
+    - '@type': 'Question'
+      name: 'Do I need a vector database for an AI hackathon?'
+      acceptedAnswer:
+        '@type': 'Answer'
+        text: 'Only if your app answers questions over your own documents (retrieval-augmented generation). For small datasets, Supabase pgvector inside your existing database is enough. Pinecone Starter is free with up to 2 GB of storage and 5 indexes.'
+    - '@type': 'Question'
+      name: 'How do I stop an AI demo from failing in front of judges?'
+      acceptedAnswer:
+        '@type': 'Answer'
+        text: 'Keep API keys server-side, cache or pre-compute slow responses, test on the venue Wi-Fi, keep a second model provider configured as a fallback, and record a full backup video of the demo before judging starts.'
+---
+
+<div className="my-8 rounded-xl border border-blue-200 bg-blue-50/60 p-6 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/30">
+  <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-400">
+    <span>⚡ DIRECT ANSWER</span>
+  </div>
+  <h3 className="mt-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+    The AI hackathon stack that ships by Sunday
+  </h3>
+  <p className="mt-2 text-sm leading-relaxed text-gray-800 dark:text-gray-200">
+    Use the **Gemini API free tier** or **Groq** for the model, **Cursor or GitHub Copilot** to
+    write the code, **Supabase pgvector** for retrieval, and **Tough Tongue AI** when the project
+    needs a voice. Ship on **Vercel** and record a backup demo, because free-tier rate limits are
+    the most common way AI demos fail in front of judges.
+  </p>
+</div>
+
+**Last updated: November 3, 2026 · 10-minute read · Free tiers checked on official pricing pages on November 3, 2026**
+
+AI hackathons have a different failure mode from regular ones. The code usually works; the model call times out, the free quota runs out, or the agent says something strange while a judge is watching. The best AI hackathon tools are the ones with a generous free tier, low latency and a quick path to a demo you can trust.
+
+This guide covers the AI-specific layer. For planning, deployment and submission tools, start with our [complete hackathon tools guide](/blog/best-tools-for-hackathons-2026).
+
+## Quick comparison: AI hackathon tools by layer
+
+| Layer          | Tool                                  | Free tier (checked Nov 2026)                                              | Pick it when                                          |
+| -------------- | ------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Model API      | Gemini API                            | Free tier on several Flash models; data used to improve Google products   | You want one free API for text, vision and live audio |
+| Model API      | Groq                                  | Free plan; e.g. 30 requests/min, 1K/day on gpt-oss models                 | Speed matters more than model choice                  |
+| Model API      | OpenRouter                            | Free model variants: 20 requests/min, 50/day (1,000/day after 10 credits) | You want to switch models with one key                |
+| Coding agent   | Cursor / GitHub Copilot / Claude Code | Cursor and Copilot have free plans; Claude Code needs Pro                 | You want the AI to write the glue code                |
+| Retrieval      | Supabase pgvector / Pinecone          | Supabase Free: 500 MB DB; Pinecone Starter: 2 GB, 5 indexes               | Your app answers over your own documents              |
+| Voice agent    | Tough Tongue AI                       | 25 free browser minutes                                                   | You need a talking agent in an afternoon              |
+| Voice in code  | LiveKit Agents                        | Open source; Cloud Build plan: 1,000 agent minutes, no card               | You want full control of the voice pipeline           |
+| Speech-to-text | Deepgram                              | \$200 free credit, no card required                                       | You are building your own pipeline                    |
+| Text-to-speech | ElevenLabs                            | 10k credits/month; commercial license on paid plans                       | You need a specific or expressive voice               |
+
+## Choose a model API you can afford all weekend
+
+**Start on a free API, but plan for the rate limit, not the price.** Most AI demos break because a free tier throttles requests at the worst moment.
+
+- **Gemini API.** Google's pricing page lists a free tier covering several Flash, Flash-Lite and Live models. Content sent on the free tier is used to improve Google's products, so do not send real personal data ([Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)).
+- **Groq.** Groq's rate-limits page shows a free plan; for example, the gpt-oss-120b and gpt-oss-20b models list 30 requests per minute and 1,000 per day. Check your own organisation's limits page for exact numbers ([Groq rate limits](https://console.groq.com/docs/rate-limits)).
+- **OpenRouter.** Free model variants (IDs ending in `:free`) allow 20 requests per minute and 50 per day, rising to 1,000 per day once you have bought at least 10 credits ([OpenRouter limits](https://openrouter.ai/docs/api-reference/limits)). One key gives you many providers, which makes it a good fallback.
+- **OpenAI and Anthropic APIs** are pay-as-you-go. If your event has sponsor credits, use them here and keep a free API configured as a backup.
+
+**Practical setup:** put every model call behind one small function in your code. Switching providers when a quota runs out then takes one line, not an afternoon.
+
+## Let a coding agent write the glue
+
+**AI coding agents are worth the most in an AI hackathon, because so much of the work is wiring APIs together.**
+
+- **[Cursor](https://cursor.com/pricing)** has a free plan with limited agent and chat requests and is strongest when you want an agent to edit many files at once.
+- **[GitHub Copilot](https://github.com/features/copilot/plans)** Free includes 2,000 completions a month, and verified students get Copilot Student through the [GitHub Student Developer Pack](https://education.github.com/pack).
+- **[Claude Code](https://claude.com/pricing)** is not on Claude's free plan; it is included with Pro (\$20 a month billed monthly) and Max. Use it for larger refactors from the terminal.
+
+Ask the agent to write the boring parts (API clients, prompt templates, error handling) and keep a human on the prompt design and the demo flow. Those are what judges notice.
+
+## Retrieval: only add a vector database if you need it
+
+**You need a vector store only if your app answers questions over your own documents.** If it does, keep the setup as small as possible.
+
+- **Supabase pgvector** keeps embeddings in the same Postgres database as the rest of your app, so there is one less service to deploy. Supabase Free includes a 500 MB database per project ([Supabase pricing](https://supabase.com/pricing)).
+- **Pinecone Starter** is free with up to 2 GB of storage, 2M write units and 1M read units a month, and up to 5 indexes, hosted on AWS us-east-1 ([Pinecone pricing](https://www.pinecone.io/pricing/)).
+- **LangChain and LlamaIndex** are open-source frameworks for chaining model calls and retrieval. They save time on document loading and chunking; for a simple chatbot, plain API calls are often faster to debug.
+
+## Make it talk: voice AI tools for hackathons
+
+**A voice demo is hard to forget, and in 2026 you no longer need to build the audio pipeline yourself.** Pick the tool by how much control you need.
+
+### Tough Tongue AI: fastest path to a talking agent
+
+[Tough Tongue AI](https://www.toughtongueai.com/) is a platform for live AI agents that hold spoken conversations: interviews, sales calls, tutoring, support and roleplay practice. It is the quickest way to put a voice agent into a hackathon project.
+
+- **Describe it, then talk to it.** Tough Tongue AI connects to ChatGPT and Claude, so you can describe the agent in plain language and keep testing it in the browser until the first minute sounds right ([Tough Tongue hackathon guide](https://www.toughtongueai.com/blog/gtm-sales-hackathon-ideas)).
+- **Embed it in your app.** Each agent (a scenario) can be embedded as an iframe that asks for microphone access. Public scenarios need no login for the person talking, and the embed can pass the user's name and custom variables into the prompt.
+- **Results to show judges.** Sessions can be scored against a rubric with a report card, which turns "it talks" into "it evaluates", a stronger demo.
+- **Phone and meetings.** Agents can also call phones over SIP (you bring a provider such as Twilio or Plivo) and join Google Meet. Set the phone number up the night before.
+- **Free tier and pricing.** 25 free minutes in the browser; phone and meeting agents start on the Starter plan at \$20 a month, with 50% off for students with a .edu email ([Tough Tongue pricing](https://www.toughtongueai.com/pricing)). There is no standard hackathon credit program, but teams can apply for credits through a form.
+
+**Hackathon ideas it fits:** an AI interviewer for a niche role, a language-speaking partner, a voice coach for public speaking, or a sales-call simulator. Our own [free AI mock interview](/free-mock-interview) is a Tough Tongue AI agent embedded in a page, so you can try the experience before you build.
+
+### When to build the voice pipeline yourself
+
+- **LiveKit Agents** is open source and can run locally or on your own infrastructure. LiveKit Cloud's free Build plan includes 1,000 agent session minutes and 5 concurrent sessions, with no credit card required ([LiveKit pricing](https://livekit.com/pricing)).
+- **Vapi** gives new accounts \$5 in free credits and charges \$0.05 a minute for hosting, plus model and voice costs at provider rates ([Vapi pricing](https://vapi.ai/pricing)).
+- **Deepgram** gives new accounts a \$200 credit with no card required, for speech-to-text and text-to-speech ([Deepgram pricing](https://deepgram.com/pricing)).
+- **ElevenLabs** includes 10k credits a month on the free plan; the commercial license starts on the paid Starter plan ([ElevenLabs pricing](https://elevenlabs.io/pricing)).
+
+Building your own pipeline teaches you more, but it costs hours on latency and interruption handling. Our guides on [building a real-time voice agent in Python](/blog/build-your-first-real-time-voice-ai-agent-python-2026) and the [best speech-to-text models for voice agents](/blog/best-stt-speech-to-text-models-voice-agents-2026) cover that route.
+
+## Deploy and host the demo
+
+- **Vercel Hobby** is free for personal, non-commercial projects and is the simplest way to host a Next.js front end with API routes ([Vercel pricing](https://vercel.com/pricing)).
+- **Hugging Face Spaces** run on free CPU Basic hardware (2 vCPU, 16 GB RAM), but the docs note that Spaces running on compute (Gradio or Docker) require a paid plan, while static Spaces are free, and free Spaces sleep when unused ([Hugging Face Spaces docs](https://huggingface.co/docs/hub/spaces-overview)). Wake yours up before judging.
+
+## Demo-day checklist for AI projects
+
+1. **Keep keys server-side.** Call model APIs from your back end or API routes, never from browser code.
+2. **Pre-compute the slow parts.** Cache the answers to the questions you will ask during the demo.
+3. **Configure a fallback model.** If one provider throttles you, switch with one environment variable.
+4. **Test on the venue network.** Voice and streaming responses suffer most on crowded Wi-Fi.
+5. **Record a backup video** of the full flow before judging, and keep the agent's opening line under 10 seconds.
+6. **Show the evaluation.** Judges trust AI projects more when you show how you measured quality (a test set, a score, a before-and-after).
+
+## From AI hackathon to AI engineering interviews
+
+**An AI hackathon project is direct evidence for AI engineer and forward deployed engineer roles**, because those jobs are about turning models into working products quickly. Put the project at the top of your resume's Projects section, link the live demo, and be ready to explain your model choice, how you handled latency and cost, and how you evaluated output quality.
+
+Rehearse that explanation out loud with a [free AI mock interview](/free-mock-interview), check your resume with our [ATS resume checker guide](/blog/best-ats-resume-checker-2025), and practise the technical round with the [best coding interview platforms](/blog/best-coding-interview-platforms).
+
+## FAQ
+
+### What are the best tools for an AI hackathon?
+
+A free model API (Gemini API, Groq or OpenRouter), a coding agent (Cursor, GitHub Copilot or Claude Code), a vector store if you need retrieval (Supabase pgvector or Pinecone Starter), and a voice platform such as Tough Tongue AI or LiveKit if your project talks. Deploy on Vercel.
+
+### Which LLM APIs are free for hackathons?
+
+The Gemini API has a free tier for several Flash models, Groq has a free plan with per-model rate limits, and OpenRouter's free variants allow 20 requests a minute and 50 a day until you buy 10 credits.
+
+### How do I add a voice agent to a hackathon project?
+
+The fastest route is Tough Tongue AI: describe the agent, test it in the browser and embed it as an iframe. For full control, use the open-source LiveKit Agents framework or Vapi.
+
+### Do I need a vector database for an AI hackathon?
+
+Only for retrieval over your own documents. Supabase pgvector is enough for small datasets; Pinecone Starter is free with 2 GB of storage and 5 indexes.
+
+### How do I stop an AI demo from failing in front of judges?
+
+Keep keys server-side, cache slow responses, configure a fallback model, test on the venue Wi-Fi and record a backup video before judging.
+
+## Sources
+
+- Model APIs: [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing), [Groq rate limits](https://console.groq.com/docs/rate-limits), [OpenRouter limits](https://openrouter.ai/docs/api-reference/limits)
+- Coding tools: [Cursor](https://cursor.com/pricing), [GitHub Copilot plans](https://github.com/features/copilot/plans), [Claude pricing](https://claude.com/pricing), [GitHub Student Developer Pack](https://education.github.com/pack)
+- Data: [Supabase](https://supabase.com/pricing), [Pinecone](https://www.pinecone.io/pricing/)
+- Voice: [Tough Tongue AI pricing](https://www.toughtongueai.com/pricing), [Tough Tongue AI hackathon guide](https://www.toughtongueai.com/blog/gtm-sales-hackathon-ideas), [LiveKit](https://livekit.com/pricing), [Vapi](https://vapi.ai/pricing), [Deepgram](https://deepgram.com/pricing), [ElevenLabs](https://elevenlabs.io/pricing)
+- Hosting: [Vercel](https://vercel.com/pricing), [Hugging Face Spaces](https://huggingface.co/docs/hub/spaces-overview)
+
+<CTABanner
+  heading="Add a voice agent to your hackathon project"
+  subtext="Describe your agent, test it in the browser, and embed it in your app. 25 free minutes to start."
+  primaryLabel="Build a voice agent"
+  primaryHref="https://app.toughtongueai.com/"
+  secondaryLabel="Try a live AI interview"
+  secondaryHref="/free-mock-interview"
+  badge="Free to start"
+/>
