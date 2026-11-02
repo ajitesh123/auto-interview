@@ -162,9 +162,18 @@ export default async function RoleCVPage({ params }: PageProps) {
                   Harvard FAS Classic Format
                 </h2>
                 <p className="text-sm leading-relaxed text-[#4d4d4d]">
-                  The globally verified single-column format recommended by Harvard Career Services.
-                  Zero unreadable tables, zero header/footer trap zones. Fully editable in Word,
-                  LibreOffice, and Pages.
+                  A single-column format modeled on the{' '}
+                  <a
+                    href="https://careerservices.fas.harvard.edu/resources/bullet-point-resume-template/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    bullet-point resume template
+                  </a>{' '}
+                  published by Harvard&apos;s Mignone Center for Career Success. Zero unreadable
+                  tables, zero header/footer trap zones. Fully editable in Word, LibreOffice, and
+                  Pages. Not affiliated with or endorsed by Harvard University.
                 </p>
                 <div className="rounded-md bg-[#fafafa] p-3 text-xs text-[#666666]">
                   <strong>Ideal for:</strong> {roleData.roleName} applications to Fortune 500,

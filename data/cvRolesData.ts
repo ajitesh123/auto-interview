@@ -1352,7 +1352,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     ],
     dosAndDonts: [
       {
-        do: 'Use the official Harvard Career Services template—it is the gold standard across Wall Street and Fortune 500 finance.',
+        do: 'Use a clean single-column layout, such as the free bullet-point template published by Harvard’s Mignone Center for Career Success.',
         dont: 'Never use colorful charts or graphics; finance recruiters demand clean, monochrome typography.',
       },
     ],

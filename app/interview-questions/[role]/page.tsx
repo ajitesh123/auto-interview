@@ -413,8 +413,8 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                   Need an ATS-optimized resume for {roleData.roleName}?
                 </h3>
                 <p className="text-xs leading-relaxed text-[#666666]">
-                  Download our free Harvard single-column Word DOCX template with verified X-Y-Z
-                  bullet points and high-frequency keywords tailored specifically for{' '}
+                  Download our free Harvard-style single-column Word DOCX template with verified
+                  X-Y-Z bullet points and high-frequency keywords tailored specifically for{' '}
                   {roleData.roleName}.
                 </p>
               </div>
