@@ -7,6 +7,7 @@ import { slug } from 'github-slugger'
 import tagData from 'app/tag-data.json'
 import { CV_ROLES } from '@/data/cvRolesData'
 import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interviewQuestionsData'
+import { ROLE_HUB_LIST } from '@/data/roleHubs'
 
 const POSTS_PER_PAGE = 10
 
@@ -178,6 +179,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }))
 
+  // ===== Role hubs (top-level pages such as /aipm) =====
+  const roleHubRoutes = ROLE_HUB_LIST.map((hub) => ({
+    url: `${siteUrl}/${hub.slug}`,
+    lastModified: hub.lastUpdated,
+    changeFrequency: 'weekly' as const,
+    priority: 0.95,
+  }))
+
   const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
     url: `${siteUrl}/cv-templates/${role}`,
     lastModified: today,
@@ -201,6 +210,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...routes,
+    ...roleHubRoutes,
     ...interviewBehavioralRoutes,
     ...interviewRoleRoutes,
     ...cvRoleRoutes,
