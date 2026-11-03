@@ -1,0 +1,29 @@
+name: IndexNow drip
+
+# Once a day, tell Bing/IndexNow about pages that changed in the last ~26 hours.
+# One URL at a time, 20 seconds apart, at most 10 per day.
+on:
+  schedule:
+    - cron: '17 3 * * *' # 08:47 IST daily
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Git time window, e.g. "48 hours ago"'
+        default: '26 hours ago'
+      max:
+        description: 'Max URLs to submit'
+        default: '10'
+
+jobs:
+  drip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Submit changed pages
+        run: node scripts/indexnow-drip.mjs --since "${{ inputs.since || '26 hours ago' }}" --max "${{ inputs.max || '10' }}" --gap 20000
