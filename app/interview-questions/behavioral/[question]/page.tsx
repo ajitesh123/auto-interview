@@ -201,10 +201,10 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
           {/* Hero Header */}
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
               <span>Behavioral Interview Guide</span>
               <span className="text-[#999999]">•</span>
-              <span className="font-semibold text-[#ea580c]">{qData.searchVolumeTier}</span>
+              <span className="font-semibold text-[#3B5BFF]">{qData.searchVolumeTier}</span>
             </div>
             <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[52px]">
               How to Answer &ldquo;{qData.questionText}&rdquo;
@@ -215,8 +215,8 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
           </div>
 
           {/* Featured Snippet Direct Answer Box (Google Rank 0 Optimization) */}
-          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#ea580c] bg-white p-6 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#ea580c]">
+          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -246,7 +246,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
           {/* Hard Behavioral Benchmarks Matrix (Google Information Gain Patent US 10,795,953) */}
           <section className="space-y-4">
             <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
                 Empirical Evaluation Telemetry
               </span>
               <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -263,7 +263,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                 <thead className="bg-[#fafafa]">
                   <tr>
                     <th className="px-4 py-3 font-semibold text-[#171717]">Benchmark Category</th>
-                    <th className="px-4 py-3 font-semibold text-[#ea580c]">Top 5% Scoring Rep</th>
+                    <th className="px-4 py-3 font-semibold text-[#3B5BFF]">Top 5% Scoring Rep</th>
                     <th className="px-4 py-3 font-semibold text-[#666666]">
                       Average Rejected Answer
                     </th>
@@ -273,7 +273,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                 <tbody className="divide-y divide-[#ebebeb] text-[#4d4d4d]">
                   <tr>
                     <td className="px-4 py-3 font-medium text-[#171717]">STAR Allocation</td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       15% S · 12% T · 53% A · 20% R
                     </td>
                     <td className="px-4 py-3 font-mono">40% S · 25% T · 25% A · 10% R</td>
@@ -285,7 +285,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                     <td className="px-4 py-3 font-medium text-[#171717]">
                       Total Delivery Duration
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       75–90 seconds
                     </td>
                     <td className="px-4 py-3 font-mono">130–175 seconds</td>
@@ -297,7 +297,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                     <td className="px-4 py-3 font-medium text-[#171717]">
                       Pronoun Ratio (&ldquo;I&rdquo; vs &ldquo;We&rdquo;)
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       70% &ldquo;I&rdquo; / 30% &ldquo;We&rdquo;
                     </td>
                     <td className="px-4 py-3 font-mono">
@@ -312,7 +312,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                     <td className="px-4 py-3 font-medium text-[#171717]">
                       Quantifiable Metric Density
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       ≥ 1 hard metric in Result
                     </td>
                     <td className="px-4 py-3 font-mono">
@@ -338,8 +338,8 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
               </table>
             </div>
 
-            <div className="rounded-xl border border-[#fed7aa] bg-[#fff7ed] p-4 text-xs leading-relaxed text-[#171717]">
-              <span className="font-mono font-bold uppercase text-[#ea580c]">
+            <div className="rounded-xl border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-xs leading-relaxed text-[#171717]">
+              <span className="font-mono font-bold uppercase text-[#3B5BFF]">
                 Omnibox Speakable Summary:{' '}
               </span>
               <span className="speakable-behavioral-benchmark">
@@ -369,7 +369,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
           <section className="space-y-6">
             <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-end">
               <div>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
                   Word-for-Word Model Script
                 </span>
                 <h2 className="text-2xl font-normal tracking-tight text-[#171717]">
@@ -379,8 +379,8 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
               <span className="text-xs text-[#666666]">{qData.goodSampleAnswer.roleContext}</span>
             </div>
 
-            <div className="rounded-xl border border-[#fed7aa] bg-[#fff7ed] p-6 shadow-sm">
-              <div className="font-mono text-xs font-semibold uppercase tracking-wider text-[#ea580c]">
+            <div className="rounded-xl border border-[#C9D3FF] bg-[#EEF1FF] p-6 shadow-sm">
+              <div className="font-mono text-xs font-semibold uppercase tracking-wider text-[#3B5BFF]">
                 Read or Practice Out Loud:
               </div>
               <p className="speakable-model-script mt-3 text-base italic leading-relaxed text-[#171717]">
@@ -396,7 +396,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
               <div className="grid gap-3 sm:grid-cols-3">
                 {qData.goodSampleAnswer.breakdown.map((item, idx) => (
                   <div key={idx} className="rounded-lg border border-[#ebebeb] bg-white p-4">
-                    <div className="font-mono text-xs font-bold text-[#ea580c]">{item.step}</div>
+                    <div className="font-mono text-xs font-bold text-[#3B5BFF]">{item.step}</div>
                     <div className="mt-2 text-xs leading-relaxed text-[#666666]">
                       {item.content}
                     </div>
@@ -465,7 +465,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm">
               <h3 className="flex items-center gap-2 text-base font-medium text-[#171717]">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#ffedd5] text-xs font-bold text-[#9a3412]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#E2E8FF] text-xs font-bold text-[#1E33B3]">
                   ✓
                 </span>
                 Pro Tips for Maximum Points
@@ -473,7 +473,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
               <ul className="mt-4 space-y-2.5 text-xs leading-relaxed text-[#555555]">
                 {qData.proTips.map((tip, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#ea580c]">•</span>
+                    <span className="text-[#3B5BFF]">•</span>
                     <span>{tip}</span>
                   </li>
                 ))}
@@ -508,12 +508,12 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                 <Link
                   key={item.slug}
                   href={`/interview-questions/behavioral/${item.slug}`}
-                  className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#ea580c]"
+                  className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#3B5BFF]"
                 >
-                  <div className="font-mono text-[10px] uppercase text-[#ea580c]">
+                  <div className="font-mono text-[10px] uppercase text-[#3B5BFF]">
                     {item.searchVolumeTier}
                   </div>
-                  <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#ea580c]">
+                  <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#3B5BFF]">
                     &ldquo;{item.questionText}&rdquo;
                   </div>
                   <div className="mt-1 line-clamp-1 text-xs text-[#666666]">

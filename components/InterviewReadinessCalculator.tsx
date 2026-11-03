@@ -58,8 +58,8 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
     if (s >= 70)
       return {
         label: 'Competitive / Lean Hire',
-        color: 'text-[#ea580c] bg-[#fff7ed] border-[#fed7aa]',
-        barColor: 'bg-[#ea580c]',
+        color: 'text-[#3B5BFF] bg-[#EEF1FF] border-[#C9D3FF]',
+        barColor: 'bg-[#3B5BFF]',
         advice: `Solid baseline, but tighten your response closer to the 75-90s window and ensure at least 2 hard business impact numbers (%, $, time saved).`,
       }
     return {
@@ -80,8 +80,8 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
       <div className="flex flex-col justify-between gap-2 border-b border-[#f0f0f0] pb-4 sm:flex-row sm:items-center">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#ea580c]">
+            <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#3B5BFF]">
               Proprietary Information Gain Tool
             </span>
           </div>
@@ -107,7 +107,7 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
               <label htmlFor={durationInputId} className="font-medium text-[#171717]">
                 Spoken Answer Duration
               </label>
-              <span className="font-mono font-semibold text-[#ea580c]">{duration} seconds</span>
+              <span className="font-mono font-semibold text-[#3B5BFF]">{duration} seconds</span>
             </div>
             <input
               id={durationInputId}
@@ -117,11 +117,11 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
               step={5}
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#ea580c]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#3B5BFF]"
             />
             <div className="flex justify-between font-mono text-[10px] text-[#888888]">
               <span>30s (Too brief)</span>
-              <span className="text-[#ea580c]">75-90s (Sweet spot)</span>
+              <span className="text-[#3B5BFF]">75-90s (Sweet spot)</span>
               <span>180s (Rambling)</span>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
                   onClick={() => setMetricsCount(cnt)}
                   className={`rounded-lg border px-3 py-2 font-mono text-xs font-medium transition-all ${
                     metricsCount === cnt
-                      ? 'border-[#ea580c] bg-[#fff7ed] text-[#ea580c]'
+                      ? 'border-[#3B5BFF] bg-[#EEF1FF] text-[#3B5BFF]'
                       : 'border-[#ebebeb] bg-[#fafafa] text-[#666666] hover:border-[#cccccc]'
                   }`}
                 >
@@ -166,7 +166,7 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
                   onClick={() => setFillerWords(opt.id)}
                   className={`rounded-lg border px-2 py-2 text-center font-mono text-xs transition-all ${
                     fillerWords === opt.id
-                      ? 'border-[#ea580c] bg-[#fff7ed] font-medium text-[#ea580c]'
+                      ? 'border-[#3B5BFF] bg-[#EEF1FF] font-medium text-[#3B5BFF]'
                       : 'border-[#ebebeb] bg-[#fafafa] text-[#666666] hover:border-[#cccccc]'
                   }`}
                 >
@@ -193,7 +193,7 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
                   onClick={() => setFrameworkDepth(opt.id)}
                   className={`rounded-lg border px-2 py-2 text-center font-mono text-xs transition-all ${
                     frameworkDepth === opt.id
-                      ? 'border-[#ea580c] bg-[#fff7ed] font-medium text-[#ea580c]'
+                      ? 'border-[#3B5BFF] bg-[#EEF1FF] font-medium text-[#3B5BFF]'
                       : 'border-[#ebebeb] bg-[#fafafa] text-[#666666] hover:border-[#cccccc]'
                   }`}
                 >
@@ -259,7 +259,7 @@ export default function InterviewReadinessCalculator({ roleName, category }: Pro
                   title="Task"
                 />
                 <div
-                  className="flex items-center justify-center bg-[#ea580c]"
+                  className="flex items-center justify-center bg-[#3B5BFF]"
                   style={{ width: '50%' }}
                   title="Action"
                 />

@@ -28,7 +28,7 @@ function paras(text: string) {
 function SectionHead({ kicker, title, sub }: { kicker: string; title: string; sub?: string }) {
   return (
     <div className="space-y-2">
-      <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#ea580c]">
+      <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
         {kicker}
       </span>
       <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">{title}</h2>
@@ -96,7 +96,7 @@ function HeroPoster({ hub }: { hub: RoleHub }) {
             Product managers, total comp · Levels.fyi
           </div>
           <div className="mt-3 h-[3px] w-full overflow-hidden rounded bg-white/15">
-            <div className="rh-arc h-full rounded bg-[#ea580c]" />
+            <div className="rh-arc h-full rounded bg-[#3B5BFF]" />
           </div>
         </div>
       )}
@@ -107,7 +107,7 @@ function HeroPoster({ hub }: { hub: RoleHub }) {
         .rh-rise { animation: rh-rise 10s cubic-bezier(.2,.7,.1,1) infinite both; }
         .rh-lens { animation: rh-lens 10s cubic-bezier(.2,.7,.1,1) infinite both; }
         .rh-arc { animation: rh-arc 10s ease-out infinite both; }
-        .rh-sweep { background: linear-gradient(100deg,#fff 40%,#fdba74 50%,#fff 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rh-sweep 10s ease-in-out infinite; }
+        .rh-sweep { background: linear-gradient(100deg,#fff 40%,#9DB2FF 50%,#fff 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rh-sweep 10s ease-in-out infinite; }
         @keyframes rh-rise { 0% { opacity: 0; transform: translateY(40px); } 8%,92% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
         @keyframes rh-lens { 0%,10% { opacity: 0; transform: translate(30px,10px); } 20%,92% { opacity: 1; transform: translate(0,0); } 100% { opacity: 0; } }
         @keyframes rh-arc { 0%,20% { width: 0; } 45%,100% { width: 62%; } }
@@ -181,10 +181,10 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           <header className="grid items-center gap-8 lg:grid-cols-[1.1fr_1fr]">
             <div className="space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
                 <span>Role hub</span>
                 <span className="text-[#999999]">•</span>
-                <span className="font-semibold text-[#ea580c]">Updated {hub.lastUpdated}</span>
+                <span className="font-semibold text-[#3B5BFF]">Updated {hub.lastUpdated}</span>
               </div>
               <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl">
                 {hub.heroTitle}
@@ -215,8 +215,8 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           </header>
 
           {/* Direct answer */}
-          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#ea580c] bg-white p-6 shadow-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#ea580c]">
+          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
+            <div className="text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
               In one paragraph
             </div>
             <p className="speakable-direct-answer mt-3 text-sm font-medium leading-relaxed text-[#171717]">
@@ -263,7 +263,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   <ul className="mt-3 space-y-1.5 text-sm text-[#4d4d4d]">
                     {s.items.map((it) => (
                       <li key={it} className="flex gap-2">
-                        <span className="text-[#ea580c]">✓</span>
+                        <span className="text-[#3B5BFF]">✓</span>
                         {it}
                       </li>
                     ))}
@@ -299,7 +299,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                         {k.toUpperCase()}
                       </span>
                       {k === 'b2b' && (
-                        <span className="text-[11px] font-medium text-[#ea580c]">
+                        <span className="text-[11px] font-medium text-[#3B5BFF]">
                           Most roles today
                         </span>
                       )}
@@ -339,7 +339,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               <ul className="mt-3 grid gap-2 text-sm text-[#4d4d4d] sm:grid-cols-2">
                 {hub.expectations.difference.map((d) => (
                   <li key={d} className="flex gap-2">
-                    <span className="text-[#ea580c]">→</span>
+                    <span className="text-[#3B5BFF]">→</span>
                     {d}
                   </li>
                 ))}
@@ -433,7 +433,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   </div>
                   <div className="mt-3 h-1.5 w-full rounded bg-[#f5f5f5]">
                     <div
-                      className="h-full rounded bg-[#ea580c]"
+                      className="h-full rounded bg-[#3B5BFF]"
                       style={{ width: `${Math.max(4, (c.count / maxHires) * 100)}%` }}
                     />
                   </div>
@@ -510,7 +510,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                       <div className="space-y-3 border-t border-[#f5f5f5] bg-[#fcfcfc] px-5 py-4">
                         {paras(q.answer)}
                         {q.lookFor && (
-                          <p className="rounded-md bg-[#fff7ed] px-3 py-2 text-xs text-[#9a3412]">
+                          <p className="rounded-md bg-[#EEF1FF] px-3 py-2 text-xs text-[#1E33B3]">
                             <strong>What they look for:</strong> {q.lookFor}
                           </p>
                         )}
@@ -554,7 +554,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   <ul className="mt-4 space-y-2 text-sm text-[#4d4d4d]">
                     {p.tasks.map((t) => (
                       <li key={t} className="flex gap-2">
-                        <span className="text-[#ea580c]">□</span>
+                        <span className="text-[#3B5BFF]">□</span>
                         {t}
                       </li>
                     ))}

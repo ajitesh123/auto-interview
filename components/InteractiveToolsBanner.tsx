@@ -9,7 +9,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Practice B2B sales objections with live speech scoring and 1% benchmark counter-scripts.',
       href: '/cold-call-practice',
       cta: 'Start Cold Call Drill &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: 'Voice Simulation',
@@ -17,7 +17,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Real-time role-specific interview simulation with instant feedback on pacing and conciseness.',
       href: '/free-mock-interview',
       cta: 'Launch Mock Interview &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: 'Planning Tool',
@@ -25,7 +25,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Estimate per-minute calling costs, pipeline savings, and SDR economics across providers.',
       href: '/ai-calling-roi-calculator',
       cta: 'Calculate ROI &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: 'ATS Scanner',
@@ -33,7 +33,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Scan your resume against Fortune 500 ATS algorithms with keyword density scoring.',
       href: '/ats-score',
       cta: 'Check ATS Score &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: '1-Click Download',
@@ -41,7 +41,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Proven single-column templates for Software Engineers, PMs, SDRs, Data Analysts, and Freshers.',
       href: '/cv-templates',
       cta: 'Browse Templates &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: 'Proven Scripts',
@@ -49,7 +49,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Word-for-word STAR sample answers, psychology breakdowns, and bad answer critiques for 20+ roles.',
       href: '/interview-questions',
       cta: 'Explore Questions &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
       badge: '2026 Directory',
@@ -57,7 +57,7 @@ export default function InteractiveToolsBanner() {
       desc: 'Top AI calling & sales roleplay platforms compared across latency, MEDDPICC, and compliance.',
       href: '/ai-sales-training',
       cta: 'Compare Platforms &rarr;',
-      tagColor: 'bg-[#fff7ed] text-[#ea580c] border-[#fed7aa]',
+      tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
   ]
 
@@ -65,7 +65,7 @@ export default function InteractiveToolsBanner() {
     <div className="not-prose my-16 rounded-2xl border border-[#ebebeb] bg-[#fafafa] p-6 shadow-sm sm:p-10">
       <div className="mb-6 flex flex-col justify-between sm:flex-row sm:items-end">
         <div>
-          <div className="font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#ea580c]">
+          <div className="font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#3B5BFF]">
             AUTO INTERVIEW AI • FREE APPS &amp; SIMULATORS
           </div>
           <h2 className="mt-1 text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -82,7 +82,7 @@ export default function InteractiveToolsBanner() {
           <Link
             key={idx}
             href={t.href}
-            className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-[#ea580c] hover:shadow-md"
+            className="group flex flex-col justify-between rounded-xl border border-[#ebebeb] bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-[#3B5BFF] hover:shadow-md"
           >
             <div>
               <span
@@ -90,12 +90,12 @@ export default function InteractiveToolsBanner() {
               >
                 {t.badge}
               </span>
-              <h3 className="mt-2 text-base font-medium text-[#171717] transition-colors group-hover:text-[#ea580c]">
+              <h3 className="mt-2 text-base font-medium text-[#171717] transition-colors group-hover:text-[#3B5BFF]">
                 {t.title}
               </h3>
               <p className="mt-1 text-xs leading-relaxed text-[#666666]">{t.desc}</p>
             </div>
-            <div className="mt-4 border-t border-[#f0f0f0] pt-3 text-xs font-semibold text-[#ea580c] transition-colors group-hover:text-[#c2410c]">
+            <div className="mt-4 border-t border-[#f0f0f0] pt-3 text-xs font-semibold text-[#3B5BFF] transition-colors group-hover:text-[#2F4BE0]">
               <span dangerouslySetInnerHTML={{ __html: t.cta }} />
             </div>
           </Link>
@@ -104,7 +104,7 @@ export default function InteractiveToolsBanner() {
         {/* B2B Sales Custom Bot CTA Card */}
         <div className="flex flex-col justify-between rounded-xl border border-[#262626] bg-[#171717] p-5 text-white shadow-sm sm:col-span-2 lg:col-span-1">
           <div>
-            <span className="inline-block rounded-full border border-orange-500/30 bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-orange-400">
+            <span className="inline-block rounded-full border border-[#3B5BFF]/40 bg-[#3B5BFF]/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#9DB2FF]">
               Enterprise Solution
             </span>
             <h3 className="mt-2 text-base font-normal text-white">Tough Tongue AI For Teams</h3>
@@ -117,7 +117,7 @@ export default function InteractiveToolsBanner() {
             href="https://cal.com/ajitesh/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#ea580c] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#c2410c]"
+            className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#3B5BFF] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#2F4BE0]"
           >
             Book 30-Min Demo &rarr;
           </a>

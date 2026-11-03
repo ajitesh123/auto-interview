@@ -94,6 +94,14 @@ module.exports = {
           900: '#000000',
         },
 
+        // Signal blue: the single brand accent (matches Poster Kit visuals). Nov 2026.
+        signal: {
+          DEFAULT: '#3B5BFF', // accent text/borders on white (5.1:1)
+          soft: '#9DB2FF', // accent on dark backgrounds
+          tint: '#EEF1FF', // highlight backgrounds
+          ink: '#1E33B3', // text on tint
+        },
+
         // Accent (rare use only)
         accent: {
           DEFAULT: '#297a3a',

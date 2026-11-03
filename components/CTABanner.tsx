@@ -59,9 +59,9 @@ export default function CTABanner({
             from 0deg at 50% 50%,
             transparent 0deg,
             transparent 270deg,
-            rgba(249, 115, 22, 0.2) 300deg,
+            rgba(59, 91, 255, 0.2) 300deg,
             rgba(255, 107, 0, 0.85) 330deg,
-            #ffedd5 348deg,
+            #E2E8FF 348deg,
             #ff7700 355deg,
             transparent 360deg
           );
@@ -93,7 +93,7 @@ export default function CTABanner({
             from 0deg at 50% 50%,
             transparent 0deg,
             transparent 270deg,
-            rgba(249, 115, 22, 0.3) 300deg,
+            rgba(59, 91, 255, 0.3) 300deg,
             #ff5500 328deg,
             #ffffff 346deg,
             #ff8800 354deg,
@@ -123,7 +123,7 @@ export default function CTABanner({
           white-space: nowrap;
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            inset 0 0 12px rgba(249, 115, 22, 0.08),
+            inset 0 0 12px rgba(59, 91, 255, 0.08),
             0 2px 8px rgba(0, 0, 0, 0.3);
           transition: all 0.2s ease;
         }
@@ -132,8 +132,8 @@ export default function CTABanner({
           background: linear-gradient(180deg, rgba(34, 34, 38, 0.94) 0%, rgba(16, 16, 20, 0.98) 100%);
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.35),
-            inset 0 0 16px rgba(249, 115, 22, 0.2),
-            0 6px 20px -2px rgba(249, 115, 22, 0.4);
+            inset 0 0 16px rgba(59, 91, 255, 0.2),
+            0 6px 20px -2px rgba(59, 91, 255, 0.4);
         }
 
         /* Glassy secondary button */
@@ -162,10 +162,10 @@ export default function CTABanner({
         .cta-build-glass:hover {
           transform: translateY(-1.5px);
           background: rgba(255, 255, 255, 0.98);
-          border-color: rgba(249, 115, 22, 0.45);
-          color: #ea580c !important;
+          border-color: rgba(59, 91, 255, 0.45);
+          color: #3B5BFF !important;
           box-shadow:
-            0 6px 18px -3px rgba(249, 115, 22, 0.18),
+            0 6px 18px -3px rgba(59, 91, 255, 0.18),
             inset 0 1px 0 #ffffff;
         }
       `}</style>
@@ -205,7 +205,7 @@ export default function CTABanner({
                 <div className="cta-beam-rotator" aria-hidden="true" />
                 <span className="cta-demo-glass">
                   <svg
-                    className="h-4 w-4 shrink-0 text-[#fb923c] transition-transform duration-200 group-hover:scale-110"
+                    className="h-4 w-4 shrink-0 text-[#9DB2FF] transition-transform duration-200 group-hover:scale-110"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -224,7 +224,7 @@ export default function CTABanner({
             {/* Secondary 'Build Voice Agent' button with frosted glass aesthetic */}
             <Link href={secondaryHref} className="cta-build-glass group w-full sm:w-auto">
               <svg
-                className="h-4 w-4 shrink-0 text-[#f97316] transition-transform duration-200 group-hover:scale-110"
+                className="h-4 w-4 shrink-0 text-[#3B5BFF] transition-transform duration-200 group-hover:scale-110"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

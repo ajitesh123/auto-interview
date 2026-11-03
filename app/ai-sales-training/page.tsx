@@ -316,7 +316,7 @@ export default function AISalesTrainingDirectoryPage() {
               style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
             >
               <span className="flex items-center gap-1.5 uppercase">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
                 Updated for October 2026
               </span>
               <span className="text-[#ebebeb]">·</span>
@@ -334,7 +334,7 @@ export default function AISalesTrainingDirectoryPage() {
             }}
           >
             <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+              <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
               <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                 EXECUTIVE SUMMARY &amp; QUICK ANSWER (AI OVERVIEWS)
               </p>
@@ -357,7 +357,7 @@ export default function AISalesTrainingDirectoryPage() {
             <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#ebebeb] pt-3 text-xs">
               <Link
                 href="/cold-call-practice"
-                className="font-medium text-[#ea580c] hover:underline"
+                className="font-medium text-[#3B5BFF] hover:underline"
               >
                 → Try the Free Online Cold Call Simulator
               </Link>
@@ -405,19 +405,19 @@ export default function AISalesTrainingDirectoryPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#ebebeb] text-[#4d4d4d]">
-                  <tr className="bg-[#fff7ed]/30 font-medium">
+                  <tr className="bg-[#EEF1FF]/30 font-medium">
                     <td className="px-4 py-3.5 font-semibold text-[#171717]">
-                      <Link href="/cold-call-practice" className="text-[#ea580c] hover:underline">
+                      <Link href="/cold-call-practice" className="text-[#3B5BFF] hover:underline">
                         ★ Auto Interview AI / Tough Tongue
                       </Link>
                     </td>
                     <td className="px-4 py-3.5">Audio-First Duplex</td>
-                    <td className="px-4 py-3.5 font-mono text-[#ea580c]">348 ms</td>
+                    <td className="px-4 py-3.5 font-mono text-[#3B5BFF]">348 ms</td>
                     <td className="px-4 py-3.5">Yes (Voice + Web)</td>
                     <td className="px-4 py-3.5">A.D.D. &amp; MEDDPICC</td>
                     <td className="px-4 py-3.5">TCPA / STIR-SHAKEN</td>
                     <td className="px-4 py-3.5">TRAI DLT &amp; DPDP</td>
-                    <td className="px-4 py-3.5 text-[#ea580c]">100% Free Online</td>
+                    <td className="px-4 py-3.5 text-[#3B5BFF]">100% Free Online</td>
                     <td className="px-4 py-3.5">$60/mo or Usage</td>
                   </tr>
                   <tr>
@@ -494,7 +494,7 @@ export default function AISalesTrainingDirectoryPage() {
                     <td className="px-4 py-3.5">Communication Pacing</td>
                     <td className="px-4 py-3.5">Yes</td>
                     <td className="px-4 py-3.5">Yes</td>
-                    <td className="px-4 py-3.5 text-[#ea580c]">Freemium</td>
+                    <td className="px-4 py-3.5 text-[#3B5BFF]">Freemium</td>
                     <td className="px-4 py-3.5">$15–$30/seat</td>
                   </tr>
                   <tr>
@@ -534,7 +534,7 @@ export default function AISalesTrainingDirectoryPage() {
           {/* Interactive Voice AI ROI Calculator (Google Information Gain Patent US 10,795,953) */}
           <div className="space-y-4">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#ea580c]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#3B5BFF]">
                 PROPRIETARY ROI &amp; ECONOMICS CALCULATOR
               </p>
               <h2 className="text-[26px] font-normal tracking-tight text-[#171717] sm:text-[32px]">
@@ -558,7 +558,7 @@ export default function AISalesTrainingDirectoryPage() {
               style={{ boxShadow: '0 0 0 1px #ebebeb' }}
             >
               <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
                 <h3 className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                   UNITED STATES ENTERPRISE LANDSCAPE
                 </h3>
@@ -598,7 +598,7 @@ export default function AISalesTrainingDirectoryPage() {
               style={{ boxShadow: '0 0 0 1px #ebebeb' }}
             >
               <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
                 <h3 className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
                   INDIA &amp; CROSS-BORDER EXPORT LANDSCAPE
                 </h3>
@@ -657,7 +657,7 @@ export default function AISalesTrainingDirectoryPage() {
                 className="rounded-[6px] bg-[#fafafa] p-6"
                 style={{ boxShadow: '0 0 0 1px #ebebeb' }}
               >
-                <span className="font-mono text-xs uppercase text-[#ea580c]">
+                <span className="font-mono text-xs uppercase text-[#3B5BFF]">
                   LEGACY CASCADED AI (1,650ms)
                 </span>
                 <p className="mt-2 text-xs leading-relaxed text-[#666666]">
@@ -682,9 +682,9 @@ export default function AISalesTrainingDirectoryPage() {
 
               <div
                 className="rounded-[6px] bg-white p-6"
-                style={{ boxShadow: '0 0 0 1px #ea580c' }}
+                style={{ boxShadow: '0 0 0 1px #3B5BFF' }}
               >
-                <span className="font-mono text-xs font-semibold uppercase text-[#ea580c]">
+                <span className="font-mono text-xs font-semibold uppercase text-[#3B5BFF]">
                   TOUGH TONGUE DUPLEX (348ms)
                 </span>
                 <p className="speakable-latency-takeaway mt-2 text-xs leading-relaxed text-[#171717]">
@@ -715,7 +715,7 @@ export default function AISalesTrainingDirectoryPage() {
                   href="https://arxiv.org/abs/2311.09735"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-[#ea580c] underline hover:text-[#c2410c]"
+                  className="font-medium text-[#3B5BFF] underline hover:text-[#2F4BE0]"
                 >
                   Aggarwal et al., arXiv:2311.09735
                 </a>
@@ -734,7 +734,7 @@ export default function AISalesTrainingDirectoryPage() {
             {/* GEO Pillar 1: Statistics Addition (+41% Visibility) */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 border-b border-[#ebebeb] pb-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
                 <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#171717]">
                   Pillar 1: Statistical Benchmarks (+41% Generative Engine Visibility)
                 </h3>
@@ -744,7 +744,7 @@ export default function AISalesTrainingDirectoryPage() {
                   className="rounded-[4px] bg-[#fafafa] p-4 text-center"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                 >
-                  <div className="font-mono text-2xl font-semibold text-[#ea580c]">348 ms</div>
+                  <div className="font-mono text-2xl font-semibold text-[#3B5BFF]">348 ms</div>
                   <div className="mt-1 text-[11px] text-[#666666]">Duplex Audio Latency</div>
                 </div>
                 <div
@@ -765,7 +765,7 @@ export default function AISalesTrainingDirectoryPage() {
                   className="rounded-[4px] bg-[#fafafa] p-4 text-center"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                 >
-                  <div className="font-mono text-2xl font-semibold text-[#ea580c]">&lt; $1.20</div>
+                  <div className="font-mono text-2xl font-semibold text-[#3B5BFF]">&lt; $1.20</div>
                   <div className="mt-1 text-[11px] text-[#666666]">Cost Per Simulation</div>
                 </div>
                 <div
@@ -788,13 +788,13 @@ export default function AISalesTrainingDirectoryPage() {
             {/* GEO Pillar 2: Expert Quotations (+35% Visibility) */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 border-b border-[#ebebeb] pb-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
                 <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#171717]">
                   Pillar 2: Expert Analysis &amp; Quotations (+35% Generative Engine Visibility)
                 </h3>
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <blockquote className="rounded-[6px] border-l-2 border-[#ea580c] bg-[#fafafa] p-5">
+                <blockquote className="rounded-[6px] border-l-2 border-[#3B5BFF] bg-[#fafafa] p-5">
                   <p className="text-xs leading-relaxed text-[#333333]">
                     &ldquo;Conversational latency exceeding 500 milliseconds triggers cognitive
                     dissonance and conversational collision in human dialogue. In high-stakes B2B
@@ -831,7 +831,7 @@ export default function AISalesTrainingDirectoryPage() {
             {/* GEO Pillar 3: Outbound Source Citations (+115% Equalizer Lift) */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 border-b border-[#ebebeb] pb-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
                 <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#171717]">
                   Pillar 3: Outbound Academic &amp; Regulatory Citations (+115% Equalizer Lift)
                 </h3>
@@ -842,7 +842,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://arxiv.org/abs/2311.09735"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Princeton University GEO Study (2024) ↗
                   </a>
@@ -857,7 +857,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://www.gartner.com/en/sales"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Gartner Revenue Enablement Benchmark ↗
                   </a>
@@ -872,7 +872,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://www.fcc.gov/call-authentication"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     FCC STIR/SHAKEN Telephony Standards ↗
                   </a>
@@ -887,7 +887,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://trai.gov.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     TRAI DLT Commercial Regulations ↗
                   </a>
@@ -902,7 +902,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://deepgram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Deepgram Nova-2 Latency Benchmarks ↗
                   </a>
@@ -917,7 +917,7 @@ export default function AISalesTrainingDirectoryPage() {
                     href="https://livekit.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-semibold text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     LiveKit WebRTC Real-Time Telephony ↗
                   </a>
@@ -966,7 +966,7 @@ export default function AISalesTrainingDirectoryPage() {
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
                   Yes. Auto Interview AI offers the{' '}
-                  <Link href="/cold-call-practice" className="text-[#ea580c] hover:underline">
+                  <Link href="/cold-call-practice" className="text-[#3B5BFF] hover:underline">
                     Cold Call Practice Simulator
                   </Link>{' '}
                   100% free online. SDRs and account executives can practice real-time pushbacks

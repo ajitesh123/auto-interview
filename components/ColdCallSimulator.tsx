@@ -328,9 +328,9 @@ export default function ColdCallSimulator() {
                   <span
                     className={`rounded px-1.5 py-0.5 font-mono text-[10px] uppercase ${
                       s.difficulty === 'Extreme'
-                        ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                        ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
                         : s.difficulty === 'Hard'
-                          ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                          ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
                           : 'bg-[#f5f5f5] text-[#666666]'
                     }`}
                   >
@@ -353,7 +353,7 @@ export default function ColdCallSimulator() {
       >
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#ebebeb] pb-4">
           <div className="flex items-center space-x-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
+            <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
             <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
               LIVE SIMULATION • {selectedScenario.buyerPersona}
             </span>
@@ -366,7 +366,7 @@ export default function ColdCallSimulator() {
           >
             {isPlayingAudio ? (
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-[#3B5BFF]" />
                 <span>Playing Audio...</span>
               </span>
             ) : (
@@ -449,7 +449,7 @@ export default function ColdCallSimulator() {
                   onClick={toggleListening}
                   className={`flex items-center space-x-1.5 rounded-[6px] px-3.5 py-1.5 text-xs font-medium transition ${
                     isListening
-                      ? 'animate-pulse bg-[#ea580c] text-white'
+                      ? 'animate-pulse bg-[#3B5BFF] text-white'
                       : 'bg-white text-[#171717] hover:bg-[#f5f5f5]'
                   }`}
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
@@ -512,7 +512,7 @@ export default function ColdCallSimulator() {
                     <span
                       className={`rounded px-2.5 py-1 font-mono text-[10px] font-semibold uppercase ${
                         score >= 85
-                          ? 'border border-[#fed7aa] bg-[#fff7ed] text-[#ea580c]'
+                          ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
                           : score >= 70
                             ? 'bg-[#f5f5f5] text-[#171717]'
                             : 'bg-[#f5f5f5] text-[#666666]'

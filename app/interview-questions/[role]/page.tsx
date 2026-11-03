@@ -203,10 +203,10 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
           {/* Hero Header */}
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
               <span>{roleData.category} Playbook</span>
               <span className="text-[#999999]">•</span>
-              <span className="font-semibold text-[#ea580c]">2026 Edition</span>
+              <span className="font-semibold text-[#3B5BFF]">2026 Edition</span>
             </div>
             <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[52px]">
               {roleData.heroTitle}
@@ -217,8 +217,8 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
           </div>
 
           {/* Featured Snippet Direct Answer Box */}
-          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#ea580c] bg-white p-6 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#ea580c]">
+          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -240,7 +240,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
           {/* Hard Benchmarks Matrix (Google Information Gain Patent US 10,795,953) */}
           <section className="space-y-4">
             <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
                 Empirical Evaluation Telemetry
               </span>
               <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -257,7 +257,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                 <thead className="bg-[#fafafa]">
                   <tr>
                     <th className="px-4 py-3 font-semibold text-[#171717]">Evaluation Metric</th>
-                    <th className="px-4 py-3 font-semibold text-[#ea580c]">Top 5% Hire Target</th>
+                    <th className="px-4 py-3 font-semibold text-[#3B5BFF]">Top 5% Hire Target</th>
                     <th className="px-4 py-3 font-semibold text-[#666666]">Average Candidate</th>
                     <th className="px-4 py-3 font-semibold text-[#171717]">Hiring Impact</th>
                   </tr>
@@ -267,7 +267,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                     <td className="px-4 py-3 font-medium text-[#171717]">
                       Answer Pacing &amp; Duration
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       75–90 seconds
                     </td>
                     <td className="px-4 py-3 font-mono">140–180 seconds</td>
@@ -277,7 +277,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                   </tr>
                   <tr>
                     <td className="px-4 py-3 font-medium text-[#171717]">Speech Cadence (WPM)</td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       135–150 WPM
                     </td>
                     <td className="px-4 py-3 font-mono">175+ or &lt;110 WPM</td>
@@ -289,7 +289,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                     <td className="px-4 py-3 font-medium text-[#171717]">
                       Quantifiable Impact Density
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       ≥ 2 hard metrics / answer
                     </td>
                     <td className="px-4 py-3 font-mono">0.6 metrics / answer</td>
@@ -299,7 +299,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                   </tr>
                   <tr>
                     <td className="px-4 py-3 font-medium text-[#171717]">Filler Word Tolerance</td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#ea580c]">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
                       &lt; 2 per minute
                     </td>
                     <td className="px-4 py-3 font-mono">6–9 per minute</td>
@@ -323,8 +323,8 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
               </table>
             </div>
 
-            <div className="rounded-xl border border-[#fed7aa] bg-[#fff7ed] p-4 text-xs leading-relaxed text-[#171717]">
-              <span className="font-mono font-bold uppercase text-[#ea580c]">
+            <div className="rounded-xl border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-xs leading-relaxed text-[#171717]">
+              <span className="font-mono font-bold uppercase text-[#3B5BFF]">
                 Speakable Benchmark Rule:{' '}
               </span>
               <span className="speakable-benchmark-takeaway">
@@ -346,7 +346,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
           {/* Top Questions & Model Answers */}
           <section className="space-y-8">
             <div className="border-b border-[#ebebeb] pb-4">
-              <span className="font-mono text-xs uppercase tracking-wider text-[#ea580c]">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
                 Proven Answers & Frameworks
               </span>
               <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
@@ -361,14 +361,14 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                   className="space-y-4 rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f0f0f0] pb-3">
-                    <span className="font-mono text-xs font-semibold text-[#ea580c]">
+                    <span className="font-mono text-xs font-semibold text-[#3B5BFF]">
                       Question {idx + 1}
                     </span>
                     <div className="flex items-center gap-2">
                       <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] text-[#666666]">
                         {q.category}
                       </span>
-                      <span className="rounded bg-[#fff7ed] px-2 py-0.5 font-mono text-[10px] font-medium text-[#ea580c]">
+                      <span className="rounded bg-[#EEF1FF] px-2 py-0.5 font-mono text-[10px] font-medium text-[#3B5BFF]">
                         {q.difficulty} Level
                       </span>
                     </div>
@@ -384,10 +384,10 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
 
                   {/* Model Answer Script */}
                   <div className="space-y-2">
-                    <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#ea580c]">
+                    <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#3B5BFF]">
                       Model Answer:
                     </div>
-                    <div className="speakable-role-answer rounded-lg border border-[#fed7aa] bg-[#fff7ed] p-4 text-sm leading-relaxed text-[#171717]">
+                    <div className="speakable-role-answer rounded-lg border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-sm leading-relaxed text-[#171717]">
                       {q.modelAnswer}
                     </div>
                   </div>
@@ -406,7 +406,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
           {hasMatchingCv && (
             <div className="flex flex-col justify-between gap-6 rounded-2xl border border-[#ebebeb] bg-white p-8 shadow-sm sm:flex-row sm:items-center">
               <div className="max-w-xl space-y-2">
-                <span className="inline-block rounded-full bg-[#fff7ed] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#ea580c]">
+                <span className="inline-block rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#3B5BFF]">
                   ATS Resume Template
                 </span>
                 <h3 className="text-xl font-medium text-[#171717]">
@@ -466,7 +466,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
             <ul className="space-y-2.5 text-xs leading-relaxed text-[#555555]">
               {roleData.interviewTips.map((tip, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <span className="font-bold text-[#ea580c]">✓</span>
+                  <span className="font-bold text-[#3B5BFF]">✓</span>
                   <span>{tip}</span>
                 </li>
               ))}
@@ -483,12 +483,12 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                 <Link
                   key={item.slug}
                   href={`/interview-questions/${item.slug}`}
-                  className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#ea580c]"
+                  className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#3B5BFF]"
                 >
-                  <div className="font-mono text-[10px] uppercase text-[#ea580c]">
+                  <div className="font-mono text-[10px] uppercase text-[#3B5BFF]">
                     {item.category}
                   </div>
-                  <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#ea580c]">
+                  <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#3B5BFF]">
                     {item.roleName} Questions & Answers
                   </div>
                   <div className="mt-1 line-clamp-1 text-xs text-[#666666]">

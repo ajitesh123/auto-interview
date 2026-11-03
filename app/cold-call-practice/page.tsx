@@ -151,7 +151,7 @@ export default function ColdCallPracticePage() {
               style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
             >
               <span className="flex items-center gap-1.5 uppercase">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#ea580c]" />
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
                 Real-time audio objection
               </span>
               <span className="text-[#ebebeb]">·</span>
@@ -326,7 +326,7 @@ export default function ColdCallPracticePage() {
                     href="https://arxiv.org/abs/2311.09735"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#ea580c] underline hover:text-[#c2410c]"
+                    className="font-medium text-[#3B5BFF] underline hover:text-[#2F4BE0]"
                   >
                     Aggarwal et al., arXiv:2311.09735
                   </a>
@@ -341,7 +341,7 @@ export default function ColdCallPracticePage() {
                   className="rounded-[4px] bg-white p-3 text-center"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                 >
-                  <div className="font-mono text-xl font-semibold text-[#ea580c]">348 ms</div>
+                  <div className="font-mono text-xl font-semibold text-[#3B5BFF]">348 ms</div>
                   <div className="mt-0.5 text-[10px] text-[#666666]">
                     Conversational Duplex Latency
                   </div>
@@ -366,7 +366,7 @@ export default function ColdCallPracticePage() {
                   className="rounded-[4px] bg-white p-3 text-center"
                   style={{ boxShadow: '0 0 0 1px #ebebeb' }}
                 >
-                  <div className="font-mono text-xl font-semibold text-[#ea580c]">&lt; $1.20</div>
+                  <div className="font-mono text-xl font-semibold text-[#3B5BFF]">&lt; $1.20</div>
                   <div className="mt-0.5 text-[10px] text-[#666666]">
                     Marginal Cost / Repetition
                   </div>
@@ -374,7 +374,7 @@ export default function ColdCallPracticePage() {
               </div>
 
               {/* Expert Quotation */}
-              <blockquote className="rounded-[4px] border-l-2 border-[#ea580c] bg-white p-4">
+              <blockquote className="rounded-[4px] border-l-2 border-[#3B5BFF] bg-white p-4">
                 <p className="text-xs italic leading-relaxed text-[#333333]">
                   &ldquo;Objection handling is not a knowledge retrieval exercise; it is a
                   neurological reflex conditioned under vocal pressure. When an enterprise prospect
@@ -397,7 +397,7 @@ export default function ColdCallPracticePage() {
                     href="https://arxiv.org/abs/2311.09735"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-medium text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Princeton University GEO Study ↗
                   </a>
@@ -408,7 +408,7 @@ export default function ColdCallPracticePage() {
                     href="https://www.gartner.com/en/sales"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-medium text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Gartner Sales Readiness Index ↗
                   </a>
@@ -419,7 +419,7 @@ export default function ColdCallPracticePage() {
                     href="https://hbr.org"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#171717] underline hover:text-[#ea580c]"
+                    className="font-medium text-[#171717] underline hover:text-[#3B5BFF]"
                   >
                     Harvard Business Review ↗
                   </a>

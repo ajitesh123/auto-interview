@@ -141,7 +141,7 @@ const DomainHomePage: React.FC = () => {
                         {q} questions
                       </span>
                       {median && (
-                        <span className="rounded-full bg-[#fff7ed] px-2 py-0.5 text-[#9a3412]">
+                        <span className="rounded-full bg-[#EEF1FF] px-2 py-0.5 text-[#1E33B3]">
                           {first.region} median {median.value}
                         </span>
                       )}
@@ -535,7 +535,7 @@ const DomainHomePage: React.FC = () => {
                 }}
               >
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-amber-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-amber-700">
+                  <span className="rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#1E33B3]">
                     MATCHING ENGINE
                   </span>
                   <span className="text-xs text-gray-500">Job Matcher</span>

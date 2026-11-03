@@ -74,7 +74,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
     }
     return {
       title: 'Passable Delivery',
-      badge: 'text-[#ea580c] bg-[#fff7ed] border-[#fed7aa]',
+      badge: 'text-[#3B5BFF] bg-[#EEF1FF] border-[#C9D3FF]',
       text: 'Good foundation. Make sure the Result step includes at least two hard metrics (%, $, hours saved) to stand out.',
     }
   }
@@ -89,8 +89,8 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
       <div className="flex flex-col justify-between gap-2 border-b border-[#f0f0f0] pb-4 sm:flex-row sm:items-center">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-[#ea580c]" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#ea580c]">
+            <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#3B5BFF]">
               Interactive STAR Pacing Simulator
             </span>
           </div>
@@ -126,7 +126,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               max={40}
               value={situationSec}
               onChange={(e) => setSituationSec(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#ea580c]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#3B5BFF]"
             />
           </div>
 
@@ -145,7 +145,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               max={30}
               value={taskSec}
               onChange={(e) => setTaskSec(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#ea580c]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#3B5BFF]"
             />
           </div>
 
@@ -153,9 +153,9 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
               <label htmlFor={actionInputId} className="font-medium text-[#171717]">
-                [A] Action Duration: <span className="text-[#ea580c]">(40–50s core focus)</span>
+                [A] Action Duration: <span className="text-[#3B5BFF]">(40–50s core focus)</span>
               </label>
-              <span className="font-mono font-semibold text-[#ea580c]">{actionSec}s</span>
+              <span className="font-mono font-semibold text-[#3B5BFF]">{actionSec}s</span>
             </div>
             <input
               id={actionInputId}
@@ -164,7 +164,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               max={80}
               value={actionSec}
               onChange={(e) => setActionSec(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#ea580c]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#3B5BFF]"
             />
           </div>
 
@@ -183,7 +183,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               max={40}
               value={resultSec}
               onChange={(e) => setResultSec(Number(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#ea580c]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] accent-[#3B5BFF]"
             />
           </div>
 
@@ -193,7 +193,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               type="checkbox"
               checked={metricsIncluded}
               onChange={(e) => setMetricsIncluded(e.target.checked)}
-              className="h-4 w-4 rounded border-[#cccccc] text-[#ea580c] focus:ring-[#ea580c]"
+              className="h-4 w-4 rounded border-[#cccccc] text-[#3B5BFF] focus:ring-[#3B5BFF]"
             />
             <span>I stated at least 1 concrete quantifiable result (%, $, time saved)</span>
           </label>
@@ -225,7 +225,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
               <div className="flex justify-between font-mono text-[10px] text-[#666666]">
                 <span>Allocation: S ({Math.round((situationSec / totalSec) * 100)}%)</span>
                 <span>T ({Math.round((taskSec / totalSec) * 100)}%)</span>
-                <span className="font-bold text-[#ea580c]">
+                <span className="font-bold text-[#3B5BFF]">
                   A ({Math.round((actionSec / totalSec) * 100)}%)
                 </span>
                 <span>R ({Math.round((resultSec / totalSec) * 100)}%)</span>
@@ -242,7 +242,7 @@ export default function STARAnswerScorer({ questionText, framework }: Props) {
                   title="Task"
                 />
                 <div
-                  className="flex items-center justify-center bg-[#ea580c]"
+                  className="flex items-center justify-center bg-[#3B5BFF]"
                   style={{ width: `${(actionSec / totalSec) * 100}%` }}
                   title="Action"
                 />

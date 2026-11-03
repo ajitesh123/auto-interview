@@ -28,26 +28,26 @@ export default function ATSScoreMotivation() {
       </div>
 
       {/* The Reality */}
-      <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-slate-900/90 to-primary/10 p-8 backdrop-blur-sm">
+      <div className="from-slate-900/90 rounded-xl border border-primary/20 bg-gradient-to-br to-primary/10 p-8 backdrop-blur-sm">
         <h3 className="mb-6 text-center text-2xl font-bold text-white">
           What ATS Score Actually Means for Your Job Search
         </h3>
         <div className="grid gap-6 sm:grid-cols-3">
-          <div className="rounded-lg border border-emerald-500/20 bg-slate-900/50 p-6 text-center">
+          <div className="bg-slate-900/50 rounded-lg border border-emerald-500/20 p-6 text-center">
             <div className="mb-2 text-4xl font-bold text-emerald-400">85-100</div>
             <p className="mb-2 text-sm font-semibold text-white">Excellent Score</p>
             <p className="text-xs text-gray-400">
               Your resume passes 90%+ of ATS filters. You'll reach recruiters consistently.
             </p>
           </div>
-          <div className="rounded-lg border border-yellow-500/20 bg-slate-900/50 p-6 text-center">
+          <div className="bg-slate-900/50 rounded-lg border border-yellow-500/20 p-6 text-center">
             <div className="mb-2 text-4xl font-bold text-yellow-400">70-84</div>
             <p className="mb-2 text-sm font-semibold text-white">Good Score</p>
             <p className="text-xs text-gray-400">
               Decent chance, but you're missing opportunities. Small fixes = big impact.
             </p>
           </div>
-          <div className="rounded-lg border border-red-500/20 bg-slate-900/50 p-6 text-center">
+          <div className="bg-slate-900/50 rounded-lg border border-red-500/20 p-6 text-center">
             <div className="mb-2 text-4xl font-bold text-red-400">&lt;70</div>
             <p className="mb-2 text-sm font-semibold text-white">Needs Work</p>
             <p className="text-xs text-gray-400">
@@ -58,7 +58,7 @@ export default function ATSScoreMotivation() {
       </div>
 
       {/* What Gets Measured */}
-      <div className="rounded-xl border border-primary/20 bg-slate-900/50 p-8">
+      <div className="bg-slate-900/50 rounded-xl border border-primary/20 p-8">
         <h3 className="mb-6 text-2xl font-bold text-white">What ATS Systems Actually Check</h3>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="flex gap-4">
@@ -134,9 +134,9 @@ export default function ATSScoreMotivation() {
             </div>
           </div>
           <div className="flex gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-500/20">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#3B5BFF]/20">
               <svg
-                className="h-6 w-6 text-orange-400"
+                className="h-6 w-6 text-[#9DB2FF]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -161,7 +161,7 @@ export default function ATSScoreMotivation() {
       </div>
 
       {/* The Fix */}
-      <div className="rounded-xl border border-emerald-500/30 bg-gradient-to-br from-emerald-900/20 to-slate-900/50 p-8 text-center">
+      <div className="to-slate-900/50 rounded-xl border border-emerald-500/30 bg-gradient-to-br from-emerald-900/20 p-8 text-center">
         <h3 className="mb-4 text-2xl font-bold text-white">Here's the Good News</h3>
         <p className="mx-auto mb-6 max-w-2xl text-gray-300">
           Our analyzer tells you <strong className="text-white">exactly</strong> what's wrong and
@@ -169,19 +169,19 @@ export default function ATSScoreMotivation() {
           top 3 recommendations.
         </p>
         <div className="mx-auto flex max-w-md flex-col gap-3">
-          <div className="flex items-center gap-3 rounded-lg bg-slate-900/50 p-3 text-left">
+          <div className="bg-slate-900/50 flex items-center gap-3 rounded-lg p-3 text-left">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white">
               1
             </div>
             <p className="text-sm text-gray-300">Upload your resume (free, no signup)</p>
           </div>
-          <div className="flex items-center gap-3 rounded-lg bg-slate-900/50 p-3 text-left">
+          <div className="bg-slate-900/50 flex items-center gap-3 rounded-lg p-3 text-left">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white">
               2
             </div>
             <p className="text-sm text-gray-300">Get your score + detailed fixes in 30 seconds</p>
           </div>
-          <div className="flex items-center gap-3 rounded-lg bg-slate-900/50 p-3 text-left">
+          <div className="bg-slate-900/50 flex items-center gap-3 rounded-lg p-3 text-left">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white">
               3
             </div>

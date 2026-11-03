@@ -253,7 +253,7 @@ export default function Calculator() {
 
       <div className="flex flex-col justify-center bg-gray-50 p-6 sm:p-8 lg:w-1/2">
         {/* Demo CTA Block */}
-        <div className="mb-4 flex flex-col items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-gradient-to-r from-pink-50 to-orange-50 p-4 shadow-sm md:flex-row">
+        <div className="mb-4 flex flex-col items-center justify-between gap-4 rounded-2xl border border-[#dfe5ff] bg-[#EEF1FF] p-4 shadow-sm md:flex-row">
           <div>
             <h3 className="font-display text-lg font-bold tracking-tight text-gray-900">
               Want to know more about AI Calling?
