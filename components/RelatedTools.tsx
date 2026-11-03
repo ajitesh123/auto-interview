@@ -44,7 +44,7 @@ const allTools: Tool[] = [
   },
   {
     title: 'Job Search',
-    description: 'Find relevant job opportunities on LinkedIn with AI matching',
+    description: 'Search LinkedIn, Naukri, Indeed and Google Jobs in one go',
     href: '/find-jobs',
     icon: (
       <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">

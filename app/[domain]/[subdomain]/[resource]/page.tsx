@@ -5,6 +5,7 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import Breadcrumbs from '@/components/domain/Breadcrumbs'
 import { getResourceBySlug, getAllResourceSlugs, generateBreadcrumbs } from '@/lib/domainUtils'
 import siteMetadata from '@/data/siteMetadata'
+import { resourceFileExists } from '@/lib/resourceFiles'
 
 interface Props {
   params: Promise<{ domain: string; subdomain: string; resource: string }>
@@ -46,6 +47,8 @@ export default async function ResourcePage({ params }: Props) {
   const { domain, subDomain, resource } = result
   const breadcrumbs = generateBreadcrumbs(dSlug, sdSlug, rSlug)
   const relatedResources = subDomain.resources.filter((r) => r.slug !== resource.slug).slice(0, 3)
+  // Only offer a download when the file is really in /public (Nov 2026: most PDFs were never uploaded).
+  const hasFile = resourceFileExists(resource.fileUrl)
 
   // Schema.org
   const schemaData = {
@@ -79,8 +82,12 @@ export default async function ResourcePage({ params }: Props) {
             <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wide text-[hsl(240,4%,66%)]">
               {resource.fileType}
             </span>
-            <span className="text-xs text-[hsl(240,4%,66%)]">{resource.fileSize}</span>
-            <span className="text-xs text-[hsl(240,4%,66%)]">•</span>
+            {hasFile && (
+              <>
+                <span className="text-xs text-[hsl(240,4%,66%)]">{resource.fileSize}</span>
+                <span className="text-xs text-[hsl(240,4%,66%)]">•</span>
+              </>
+            )}
             <span className="text-xs text-[hsl(240,4%,66%)]">
               {domain.name} → {subDomain.name}
             </span>
@@ -99,21 +106,35 @@ export default async function ResourcePage({ params }: Props) {
 
           {/* Download CTA */}
           <div className="animate-fade-rise-delay-2 flex flex-wrap gap-4">
-            <a
-              href={resource.fileUrl}
-              download
-              className="liquid-glass inline-flex items-center gap-2 rounded-full px-8 py-4 text-base text-white transition-transform hover:scale-[1.03]"
-            >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Download {resource.fileType.toUpperCase()}
-            </a>
+            {hasFile ? (
+              <a
+                href={resource.fileUrl}
+                download
+                className="liquid-glass inline-flex items-center gap-2 rounded-full px-8 py-4 text-base text-white transition-transform hover:scale-[1.03]"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download {resource.fileType.toUpperCase()}
+              </a>
+            ) : (
+              <p className="w-full text-sm text-[hsl(240,4%,66%)]">
+                The downloadable version of this guide is not available yet. Practise the questions
+                out loud with a{' '}
+                <Link
+                  href="/free-mock-interview"
+                  className="text-white underline underline-offset-4"
+                >
+                  free AI mock interview
+                </Link>{' '}
+                in the meantime.
+              </p>
+            )}
 
             <Link
               href={`/${dSlug}/${sdSlug}`}
@@ -144,7 +165,6 @@ export default async function ResourcePage({ params }: Props) {
                     <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] uppercase text-[hsl(240,4%,66%)]">
                       {r.fileType}
                     </span>
-                    <span className="text-xs text-[hsl(240,4%,66%)]">{r.fileSize}</span>
                   </div>
                   <h3 className="mb-1 text-sm font-medium text-white">{r.title}</h3>
                   <p className="line-clamp-2 text-xs text-[hsl(240,4%,66%)]">{r.description}</p>

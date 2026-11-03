@@ -90,6 +90,20 @@ module.exports = () => {
     },
     async redirects() {
       return [
+        // Nov 2026 clean-up: removed third-party casebook, internal docs and the old job scraper results page
+        {
+          source: '/downloads/IIMC_Casebook_24-25.pdf',
+          destination: '/mba/consulting',
+          permanent: true,
+        },
+        { source: '/downloads/backlink-outreach-strategy.md', destination: '/', permanent: true },
+        { source: '/downloads/google-pm-backlink-strategy.md', destination: '/', permanent: true },
+        {
+          source: '/downloads/high-authority-backlink-outreach.md',
+          destination: '/',
+          permanent: true,
+        },
+        { source: '/find-jobs/results', destination: '/find-jobs', permanent: true },
         // Legacy Brand & 404 URL Redirects reported in Search Console
         {
           source: '/tough-tongue-ai',

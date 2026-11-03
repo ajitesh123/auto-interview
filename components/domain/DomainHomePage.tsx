@@ -610,7 +610,7 @@ const DomainHomePage: React.FC = () => {
                   {
                     step: '02',
                     title: 'Master the material',
-                    desc: 'Download domain-specific playbooks and case frameworks. MBA, Engineering, Commerce. All free, all ungated.',
+                    desc: 'Read domain-specific playbooks and case frameworks for MBA, Engineering and Commerce. All free, all ungated.',
                   },
                   {
                     step: '03',

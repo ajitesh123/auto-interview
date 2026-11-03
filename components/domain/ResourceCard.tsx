@@ -58,7 +58,6 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, domainSlug, subDo
             <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs uppercase tracking-wide text-[hsl(240,4%,66%)]">
               {resource.fileType}
             </span>
-            <span className="text-xs text-[hsl(240,4%,66%)]">{resource.fileSize}</span>
           </div>
         </div>
 
@@ -74,7 +73,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, domainSlug, subDo
 
         {/* Download CTA */}
         <div className="flex items-center text-sm text-[hsl(240,4%,66%)] transition-colors group-hover:text-white">
-          View & Download
+          View guide
           <svg
             className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5"
             fill="none"

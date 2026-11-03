@@ -44,7 +44,7 @@ const LandingPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-matte-black text-white">
+    <div className="bg-matte-black min-h-screen text-white">
       {/* Hidden SEO Content - Visible to Search Engines */}
       <div className="sr-only">
         <h1>Auto Interview AI - Complete Job Preparation Platform</h1>
@@ -95,7 +95,7 @@ const LandingPage = () => {
         <ul>
           <li>Free AI resume builder with ATS-friendly templates</li>
           <li>Instant ATS compatibility scoring and analysis</li>
-          <li>AI-powered job search with LinkedIn integration</li>
+          <li>One job search across LinkedIn, Naukri, Indeed and Google Jobs</li>
           <li>Personalized cover letter generation</li>
           <li>Comprehensive skill assessments</li>
           <li>Mock interview practice sessions</li>
@@ -161,7 +161,7 @@ const LandingPage = () => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {activeMenu === item && (
-                  <div className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 to-accent-400 transition-all duration-300"></div>
+                  <div className="to-accent-400 absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-500 transition-all duration-300"></div>
                 )}
                 <span className="relative z-10">{item}</span>
               </button>

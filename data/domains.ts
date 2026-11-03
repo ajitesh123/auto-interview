@@ -84,7 +84,7 @@ export const domains: Domain[] = [
             slug: 'marketing-case-framework',
             title: 'Marketing Case Interview Framework',
             description:
-              'A comprehensive framework for approaching marketing case interviews. Covers the 4Ps, STP analysis, brand positioning, and digital marketing strategy with worked examples from top MBA programs.',
+              'A comprehensive framework for approaching marketing case interviews. Covers the 4Ps, STP analysis, brand positioning, and digital marketing strategy.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/marketing/marketing-case-framework.pdf',
             fileSize: '2.4 MB',
@@ -106,7 +106,7 @@ export const domains: Domain[] = [
             slug: 'digital-marketing-primer',
             title: 'Digital Marketing Interview Primer',
             description:
-              'Essential digital marketing concepts for MBA interviews — SEO, SEM, social media strategy, attribution models, and marketing analytics. Includes 20+ practice questions with answers.',
+              'Essential digital marketing concepts for MBA interviews — SEO, SEM, social media strategy, attribution models, and marketing analytics.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/marketing/digital-marketing-primer.pdf',
             fileSize: '3.1 MB',
@@ -157,7 +157,7 @@ export const domains: Domain[] = [
             slug: 'operations-case-framework',
             title: 'Operations Case Interview Framework',
             description:
-              'Structured approach to operations case interviews covering supply chain optimization, capacity planning, lean Six Sigma, and process improvement. Includes 15+ practice cases.',
+              'Structured approach to operations case interviews covering supply chain optimization, capacity planning, lean Six Sigma, and process improvement.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/operations/operations-case-framework.pdf',
             fileSize: '2.7 MB',
@@ -214,7 +214,7 @@ export const domains: Domain[] = [
             slug: 'finance-interview-framework',
             title: 'Finance Interview Master Framework',
             description:
-              'Comprehensive guide to MBA finance interviews covering DCF valuation, comparable analysis, LBO modeling, and M&A concepts. Includes 30+ technical questions with detailed solutions.',
+              'Comprehensive guide to MBA finance interviews covering DCF valuation, comparable analysis, LBO modeling, and M&A concepts.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/finance/finance-interview-framework.pdf',
             fileSize: '3.5 MB',
@@ -271,7 +271,7 @@ export const domains: Domain[] = [
             slug: 'case-interview-bible',
             title: 'The Case Interview Bible',
             description:
-              'The definitive guide to management consulting case interviews. Covers profitability, market entry, M&A, pricing, and growth strategy with 25+ fully worked cases from McKinsey, BCG, and Bain interviews.',
+              'The definitive guide to management consulting case interviews. Covers profitability, market entry, M&A, pricing, and growth strategy.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/consulting/case-interview-bible.pdf',
             fileSize: '4.2 MB',
@@ -282,7 +282,7 @@ export const domains: Domain[] = [
             slug: 'market-sizing-guide',
             title: 'Market Sizing Mastery Guide',
             description:
-              'Master market sizing questions with our structured approach. Includes 20 practice problems with step-by-step solutions covering both top-down and bottom-up estimation methods.',
+              'Master market sizing questions with our structured approach. Covers both top-down and bottom-up estimation methods.',
             fileType: 'pdf',
             fileUrl: '/downloads/mba/consulting/market-sizing-guide.pdf',
             fileSize: '1.6 MB',

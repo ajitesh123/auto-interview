@@ -68,16 +68,7 @@ const mbaFolders: FolderCard[] = [
     id: 'consulting',
     title: 'Consulting',
     accent: 'from-purple-600/50 via-indigo-600/40 to-indigo-900/40',
-    files: [
-      {
-        id: 'iimc-casebook',
-        name: 'IIM Calcutta Casebook',
-        description:
-          'Complete IIM-C case interview book covering frameworks, math, and sample drills.',
-        href: '/downloads/IIMC_Casebook_24-25.pdf',
-        format: 'PDF',
-      },
-    ],
+    files: [],
     hiddenDescription:
       'Consulting prep downloads covering case interview frameworks, mental math practice, and partner-ready resume formats for global firms.',
   },
@@ -205,7 +196,7 @@ const FreeResourcesPage = () => {
       <section className="rounded-4xl mb-10 border border-white/5 bg-gradient-to-br from-[#0B0B1A] via-[#111122] to-[#0B0B1A] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.45)]">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="mb-3 inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-accent-200">
+            <p className="text-accent-200 mb-3 inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em]">
               Free prep vault
             </p>
             <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-5xl">
@@ -279,7 +270,7 @@ const FreeResourcesPage = () => {
       {activeCategory === 'mba' && (
         <section className="mb-16">
           <div className="mb-6 rounded-3xl border border-white/5 bg-white/5 p-5 text-white backdrop-blur">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent-300">Folders</p>
+            <p className="text-accent-300 text-xs uppercase tracking-[0.4em]">Folders</p>
             <h2 className="mt-2 text-2xl font-semibold text-white">
               Minimal cards, one tap to open, files underneath.
             </h2>
@@ -447,7 +438,7 @@ const FreeResourcesPage = () => {
       <section className="mb-16">
         <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-widest text-accent-300">Shortcut Kits</p>
+            <p className="text-accent-300 text-xs uppercase tracking-widest">Shortcut Kits</p>
             <h2 className="text-3xl font-bold">Plug-and-Play Resource Bundles</h2>
             <p className="text-sm text-gray-400">
               Each kit is a curated mini playbook designed to solve one part of the funnel in a
@@ -496,7 +487,7 @@ const FreeResourcesPage = () => {
               <div className="mt-auto pt-6">
                 <Link
                   href={bundle.href}
-                  className="inline-flex w-full items-center justify-center rounded-xl border border-accent-500/40 px-4 py-2 text-sm font-semibold text-accent-200 transition hover:border-accent-400 hover:bg-accent-500/10"
+                  className="text-accent-200 hover:border-accent-400 inline-flex w-full items-center justify-center rounded-xl border border-accent-500/40 px-4 py-2 text-sm font-semibold transition hover:bg-accent-500/10"
                 >
                   Launch workflow
                 </Link>
@@ -509,7 +500,7 @@ const FreeResourcesPage = () => {
       {/* Quick wins */}
       <section className="mb-20 rounded-3xl border border-gray-800 bg-gray-950/70 p-8">
         <div className="mb-6 flex flex-col gap-2">
-          <p className="text-xs uppercase tracking-widest text-accent-300">Execute Now</p>
+          <p className="text-accent-300 text-xs uppercase tracking-widest">Execute Now</p>
           <h2 className="text-3xl font-bold text-white">Turn Downloads into Action</h2>
           <p className="text-sm text-gray-400">
             Pair each resource with the matching Auto Interview AI workflow so you can apply what
@@ -523,7 +514,7 @@ const FreeResourcesPage = () => {
               <p className="mt-2 text-sm text-gray-400">{item.description}</p>
               <Link
                 href={item.href}
-                className="mt-4 inline-flex items-center text-sm font-semibold text-accent-300 hover:text-accent-100"
+                className="text-accent-300 mt-4 inline-flex items-center text-sm font-semibold hover:text-accent-100"
               >
                 {item.action}
                 <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
