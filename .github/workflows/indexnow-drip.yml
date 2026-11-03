@@ -5,6 +5,9 @@ name: IndexNow drip
 on:
   schedule:
     - cron: '17 3 * * *' # 08:47 IST daily
+  push:
+    branches: [main]
+    paths: ['.github/indexnow-kick'] # edit this file (its text = time window) to run once now
   workflow_dispatch:
     inputs:
       since:
@@ -26,4 +29,7 @@ jobs:
         with:
           node-version: 22
       - name: Submit changed pages
-        run: node scripts/indexnow-drip.mjs --since "${{ inputs.since || '26 hours ago' }}" --max "${{ inputs.max || '10' }}" --gap 20000
+        run: |
+          SINCE="${{ inputs.since || '26 hours ago' }}"
+          if [ "${{ github.event_name }}" = "push" ]; then SINCE="$(head -n1 .github/indexnow-kick)"; fi
+          node scripts/indexnow-drip.mjs --since "$SINCE" --max "${{ inputs.max || '10' }}" --gap 20000
