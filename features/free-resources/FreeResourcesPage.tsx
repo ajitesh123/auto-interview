@@ -183,15 +183,6 @@ const FreeResourcesPage = () => {
 
   return (
     <div className="flex min-h-full w-full flex-col px-6 py-10 text-white sm:px-8 lg:px-16">
-      <div className="sr-only" aria-label="SEO AEO GEO summary">
-        Auto Interview AI Free Resources Library curates free downloadable interview resources for
-        software engineering, tech product, consulting, and MBA job seekers searching phrases like
-        “free downloadable case interview pdf”, “ATS resume template download”, and “IIM Calcutta
-        casebook free download” from San Francisco, Bengaluru, London, Singapore, and other GEO
-        hubs. Each hidden folder summary is optimized for SEO discoverability, AEO answer-first
-        snippets, and GEO intent so search engines and AI assistants understand this page stores ATS
-        resume templates, case study PDFs, cover letter scripts, and AI-ready playbooks.
-      </div>
       {/* Hero */}
       <section className="rounded-4xl mb-10 border border-white/5 bg-gradient-to-br from-[#0B0B1A] via-[#111122] to-[#0B0B1A] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.45)]">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">

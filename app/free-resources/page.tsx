@@ -1,112 +1,228 @@
-import { Metadata } from 'next'
-import { genPageMetadata } from '../seo'
-import { FreeResourcesPage } from '@/features/free-resources'
-import AppLayout from '@/components/AppLayout'
-import RelatedTools from '@/components/RelatedTools'
-import TLDRSummary from '@/components/TLDRSummary'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import DomainLayout from '@/components/domain/DomainLayout'
+import {
+  CHECKED_ON,
+  FREE_RESOURCE_COUNT,
+  FREE_RESOURCE_SECTIONS,
+  type FreeResource,
+} from '@/data/freeResources'
 
-export const metadata: Metadata = genPageMetadata({
-  title: 'Free Career Resources Library | Templates, Playbooks & Checklists',
-  description:
-    'Download ATS-friendly resume templates, interview checklists, outreach scripts, and job search playbooks. The Auto Interview AI Free Resources library is 100% ungated.',
+// Nov 2026 rebuild: a hand-checked library of free resources that links to the original publishers.
+const SITE = 'https://www.autointerviewai.com'
+const PAGE_URL = `${SITE}/free-resources`
+const TITLE = 'Free Interview Prep Resources: Casebooks, Resume Templates and Study PDFs'
+const DESCRIPTION = `${FREE_RESOURCE_COUNT} free, hand-checked interview prep resources: McKinsey and Bain practice cases, MBA casebooks, Harvard resume templates, coding lists, statistics PDFs and campus placement guides. Linked to the original source.`
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
   keywords:
-    'free career resources, resume templates, interview checklist, job search playbook, ATS guide, cover letter template, downloadable templates',
-  alternates: {
-    canonical: 'https://www.autointerviewai.com/free-resources',
+    'free interview prep resources, consulting casebook pdf, case interview practice, resume template free, harvard resume template, blind 75, grind 75, tcs nqt pattern, data analyst interview, free statistics pdf',
+  alternates: { canonical: PAGE_URL },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: PAGE_URL,
+    siteName: 'Auto Interview AI',
+    type: 'article',
   },
-})
+}
 
-export default function FreeResources() {
-  return (
+const FAQS = [
+  {
+    q: 'Are these resources really free?',
+    a: 'Yes. Every resource on this page can be read or downloaded without paying. Some publishers sell optional extras, which we do not link to.',
+  },
+  {
+    q: 'Where can I find consulting casebook PDFs?',
+    a: 'Start with the firms’ own practice cases: McKinsey publishes five and Bain publishes two. For more volume, the casebook collection linked in the consulting section gathers 26 MBA club casebooks, including Wharton, Booth, Kellogg and INSEAD.',
+  },
+  {
+    q: 'Why do you link out instead of hosting the files?',
+    a: 'The files belong to their publishers. Linking to the original keeps you on the latest version and respects their copyright.',
+  },
+  {
+    q: 'How do you choose what goes on this list?',
+    a: `We open every link and check that it is free and still online. We prefer material published by the employer, the school or the author. This list was last checked on ${CHECKED_ON}.`,
+  },
+]
+
+function ResourceCard({ r }: { r: FreeResource }) {
+  const internal = r.url.startsWith('/')
+  const body = (
     <>
-      {/* SEO Content Section */}
-      <div className="sr-only" aria-label="Free Resources Library">
-        <h1>Free Career Resources, Templates, and Playbooks</h1>
-        <p>
-          Access ATS-friendly resume templates, interview prep checklists, cover letter scripts, job
-          search playbooks, and outreach cadences in a single free resource library. Every download is
-          ungated, instantly available, and optimized for 2025 hiring workflows.
-        </p>
-        <h2>What&apos;s Included</h2>
-        <ul>
-          <li>Harvard, Stanford, and LBS resume templates with HTML/CSS files</li>
-          <li>Product management interview checklists and answer templates</li>
-          <li>ATS optimization guides to consistently score 80+ on resume scans</li>
-          <li>Job search playbooks covering LinkedIn sourcing and outreach scripts</li>
-          <li>Career roadmaps that show the exact order to build, score, and submit applications</li>
-        </ul>
-        <h2>How to Use the Free Resources</h2>
-        <ol>
-          <li>Pick a template or checklist that matches your next deliverable.</li>
-          <li>Customize the file (HTML, Markdown, or Google Doc) inside 5-10 minutes.</li>
-          <li>Run the paired Auto Interview AI workflow (resume builder, ATS score, matcher, or cover letter).</li>
-          <li>Repeat weekly to keep applications, interviews, and outreach in sync.</li>
-        </ol>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
+          {r.format}
+        </span>
+        {r.official && (
+          <span className="rounded bg-[#EEF1FF] px-2 py-0.5 text-[10px] font-medium text-[#1E33B3]">
+            From the source
+          </span>
+        )}
       </div>
-
-      {/* FAQ Schema for AI/AEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Are the resume templates really free?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. All Harvard, Stanford, and LBS resume templates are free, ungated downloads. Customize the HTML/CSS files locally or paste them into the Auto Interview AI resume builder.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Do I need to enter an email to access the downloads?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. The Free Resources library is 100% ungated—no email capture, accounts, or paywalls. Click any card to download instantly.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How should I use the interview checklists?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Print or duplicate the Product Management interview checklist before every onsite loop. It covers discovery, execution, metrics, and leadership prompts so you can rehearse high-signal stories quickly.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the fastest workflow with these resources?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Download a template, build or paste your resume into Auto Interview AI, run an ATS score check, then use the job search playbook plus AI cover letter generator for targeted applications—all within 30 minutes.',
-                },
-              },
-            ],
-          }),
-        }}
-      />
-
-      <AppLayout>
-        <TLDRSummary
-          title="Auto Interview AI Free Resources Library"
-          summary="Download resume templates, interview frameworks, and job search playbooks without email gates. Pair every resource with an Auto Interview AI workflow to take action immediately."
-          keyPoints={[
-            'Harvard, Stanford, and LBS resume templates in HTML/CSS',
-            'Interview checklists + answer templates for PM, product, and GTM roles',
-            'ATS optimization guide to hit 80+ scores before applying',
-            'Job search playbooks covering sourcing, outreach, and daily cadences',
-            'Completely free downloads—no email capture or credit cards',
-            'Built to plug into the Build Resume, ATS Score, Job Search, and Cover Letter tools',
-          ]}
-        />
-
-        <FreeResourcesPage />
-        <RelatedTools currentPage="/free-resources" />
-      </AppLayout>
+      <div className="mt-2 text-sm font-medium text-[#171717] group-hover:underline">
+        {r.title}
+        {!internal && <span aria-hidden="true"> ↗</span>}
+      </div>
+      <p className="mt-1 text-xs leading-relaxed text-[#666666]">{r.why}</p>
+      <p className="mt-2 text-[11px] text-[#999999]">{r.publisher}</p>
     </>
+  )
+  const cls =
+    'group block rounded-xl border border-[#ebebeb] bg-white p-4 transition hover:border-[#171717]'
+  return internal ? (
+    <Link href={r.url} className={cls}>
+      {body}
+    </Link>
+  ) : (
+    <a href={r.url} target="_blank" rel="noopener noreferrer" className={cls}>
+      {body}
+    </a>
   )
 }
 
+export default function FreeResources() {
+  const schemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'Free resources', item: PAGE_URL },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: TITLE,
+      description: DESCRIPTION,
+      url: PAGE_URL,
+      dateModified: CHECKED_ON,
+      publisher: { '@type': 'Organization', name: 'Auto Interview AI', url: SITE },
+    },
+  ]
+
+  return (
+    <DomainLayout currentPath="/free-resources">
+      {schemas.map((s, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+        />
+      ))}
+
+      <div className="min-h-screen bg-[#fafafa] px-4 pb-32 pt-28 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl space-y-14">
+          <nav className="flex items-center space-x-2 text-xs font-medium text-[#666666]">
+            <Link href="/" className="transition-colors hover:text-[#171717]">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="font-semibold text-[#171717]">Free resources</span>
+          </nav>
+
+          <header className="space-y-5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
+              <span>{FREE_RESOURCE_COUNT} resources</span>
+              <span className="text-[#999999]">•</span>
+              <span className="font-semibold text-[#3B5BFF]">Checked {CHECKED_ON}</span>
+            </div>
+            <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl">
+              Free interview prep resources, checked by hand
+            </h1>
+            <p className="max-w-3xl text-lg font-light leading-relaxed text-[#666666]">
+              Practice cases from McKinsey and Bain, MBA casebooks, Harvard resume templates, coding
+              lists, statistics textbooks and campus placement guides. Every link goes to the
+              original publisher, and we check each one is free.
+            </p>
+          </header>
+
+          <nav aria-label="Sections" className="flex flex-wrap gap-2">
+            {FREE_RESOURCE_SECTIONS.map((s) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                className="rounded-full border border-[#ebebeb] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] hover:border-[#171717]"
+              >
+                {s.title.split(':')[0]}
+              </a>
+            ))}
+          </nav>
+
+          {FREE_RESOURCE_SECTIONS.map((s, i) => (
+            <section key={s.id} id={s.id} className="scroll-mt-28 space-y-5">
+              <div className="space-y-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
+                  {s.title}
+                </h2>
+                <p className="max-w-3xl text-sm leading-relaxed text-[#666666]">{s.intro}</p>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {s.items.map((r) => (
+                  <ResourceCard key={r.url} r={r} />
+                ))}
+              </div>
+              {s.ours && (
+                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                  {s.ours.map((o) => (
+                    <Link
+                      key={o.href}
+                      href={o.href}
+                      className="font-medium text-[#3B5BFF] hover:underline"
+                    >
+                      {o.label} →
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </section>
+          ))}
+
+          <section className="rounded-2xl bg-[#0E1424] p-8 text-white">
+            <h2 className="text-2xl font-normal tracking-tight">
+              Reading is half of it. Say it out loud.
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
+              Practise your answers with a free AI mock interviewer and get feedback on every
+              answer.
+            </p>
+            <Link
+              href="/free-mock-interview"
+              className="mt-5 inline-flex items-center rounded-md bg-[#3B5BFF] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#2F4BE0]"
+            >
+              Start a free mock interview
+            </Link>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-normal tracking-tight text-[#171717]">Questions</h2>
+            {FAQS.map((f) => (
+              <details key={f.q} className="rounded-xl border border-[#ebebeb] bg-white p-4">
+                <summary className="cursor-pointer text-sm font-medium text-[#171717]">
+                  {f.q}
+                </summary>
+                <p className="mt-2 text-sm leading-relaxed text-[#4d4d4d]">{f.a}</p>
+              </details>
+            ))}
+          </section>
+        </div>
+      </div>
+    </DomainLayout>
+  )
+}
