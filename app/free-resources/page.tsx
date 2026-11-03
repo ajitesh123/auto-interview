@@ -145,8 +145,8 @@ export default function FreeResources() {
             </h1>
             <p className="max-w-3xl text-lg font-light leading-relaxed text-[#666666]">
               Practice cases from McKinsey and Bain, MBA casebooks, Harvard resume templates, coding
-              lists, statistics textbooks and campus placement guides. Every link goes to the
-              original publisher, and we check each one is free.
+              lists, statistics textbooks and campus placement guides. We link to the original
+              source wherever possible, never re-host files, and check every link is free to use.
             </p>
           </header>
 
