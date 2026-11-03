@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
 import type { HubVisual, RoleHub } from '@/data/roleHubs/types'
+import { ROLE_HUB_LIST } from '@/data/roleHubs'
 
 const SITE = 'https://www.autointerviewai.com'
 
@@ -614,6 +615,28 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   className="rounded-full border border-[#ebebeb] bg-white px-3 py-1.5 text-xs text-[#171717] hover:border-[#171717]"
                 >
                   {r.label} →
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* More role hubs */}
+          <section className="space-y-4">
+            <SectionHead kicker="More role hubs" title="Prepare for another new-age role" />
+            <div className="grid gap-3 sm:grid-cols-3">
+              {ROLE_HUB_LIST.filter((h) => h.slug !== hub.slug).map((h) => (
+                <Link
+                  key={h.slug}
+                  href={`/${h.slug}`}
+                  className="group rounded-xl border border-[#ebebeb] bg-white p-4 hover:border-[#171717]"
+                >
+                  <div className="text-sm font-medium text-[#171717] group-hover:underline">
+                    {h.roleName} interview prep →
+                  </div>
+                  <p className="mt-1 text-xs text-[#666666]">
+                    {h.questionGroups.reduce((n, g) => n + g.questions.length, 0)} questions, pay
+                    data and who is hiring
+                  </p>
                 </Link>
               ))}
             </div>

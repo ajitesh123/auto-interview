@@ -5,6 +5,7 @@ import Link from 'next/link'
 import DomainLayout from './DomainLayout'
 import CubeLogo from '@/components/CubeLogo'
 import HeroGlassCube from '@/components/HeroGlassCube'
+import { ROLE_HUB_LIST } from '@/data/roleHubs'
 
 const DomainHomePage: React.FC = () => {
   const homeFaqs = [
@@ -88,6 +89,67 @@ const DomainHomePage: React.FC = () => {
             <div className="hidden lg:flex lg:items-center lg:justify-center">
               <HeroGlassCube />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== ROLE HUBS — new-age roles, one page each ===== */}
+      <section id="role-hubs" className="border-t border-[#ebebeb] py-24">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+                ROLE HUBS · UPDATED NOVEMBER 2026
+              </p>
+              <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
+                Everything to crack a new-age role, on one page.
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-[#666666]">
+              What the role expects in B2B and B2C, real pay in ₹, $ and €, who is hiring, and
+              dozens of interview questions with model answers.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {ROLE_HUB_LIST.map((hub) => {
+              const q = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
+              const first = hub.pay.tables[0]
+              const median = first?.rows.find((r) => r.band === 'Median')
+              return (
+                <Link
+                  key={hub.slug}
+                  href={`/${hub.slug}`}
+                  className="group overflow-hidden rounded-xl border border-[#ebebeb] bg-white transition hover:border-[#171717] hover:shadow-md"
+                >
+                  {hub.visuals?.hero?.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={hub.visuals.hero.image}
+                      alt={hub.visuals.hero.alt}
+                      width={1600}
+                      height={900}
+                      loading="lazy"
+                      className="block aspect-video w-full object-cover"
+                    />
+                  )}
+                  <div className="space-y-2 p-5">
+                    <div className="text-base font-medium text-[#171717] group-hover:underline">
+                      {hub.roleName}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 text-[11px]">
+                      <span className="rounded-full bg-[#f5f5f5] px-2 py-0.5 text-[#171717]">
+                        {q} questions
+                      </span>
+                      {median && (
+                        <span className="rounded-full bg-[#fff7ed] px-2 py-0.5 text-[#9a3412]">
+                          {first.region} median {median.value}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
