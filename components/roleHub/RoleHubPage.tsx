@@ -10,6 +10,7 @@ const NAV = [
   { id: 'expectations', label: 'B2B vs B2C' },
   { id: 'pay', label: 'Pay' },
   { id: 'hiring', label: 'Who is hiring' },
+  { id: 'get-hired', label: 'Get the interview' },
   { id: 'process', label: 'Interview loop' },
   { id: 'questions', label: 'Questions' },
   { id: 'plan', label: 'Prep plan' },
@@ -33,6 +34,22 @@ function SectionHead({ kicker, title, sub }: { kicker: string; title: string; su
       </span>
       <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">{title}</h2>
       {sub && <p className="text-sm leading-relaxed text-[#666666]">{sub}</p>}
+    </div>
+  )
+}
+
+function UpNext({ next }: { next?: { id: string; label: string } }) {
+  if (!next) return null
+  return (
+    <div className="flex justify-end pt-2">
+      <a
+        href={`#${next.id}`}
+        className="group inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-4 py-2 text-xs text-[#666666] transition hover:border-[#3B5BFF] hover:text-[#1E33B3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3B5BFF]"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.08em]">Up next</span>
+        <span className="font-medium text-[#171717] group-hover:text-[#1E33B3]">{next.label}</span>
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
   )
 }
@@ -134,7 +151,14 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     aNote: 'Most roles today',
     ...hub.expectationLabels,
   }
-  const nav = NAV.map((n) => (n.id === 'expectations' ? { ...n, label: exp.nav } : n))
+  const nav = NAV.filter((n) => n.id !== 'get-hired' || hub.getHired).map((n) =>
+    n.id === 'expectations' ? { ...n, label: exp.nav } : n
+  )
+  const num = (id: string) => String(nav.findIndex((n) => n.id === id) + 1).padStart(2, '0')
+  const after = (id: string) => {
+    const i = nav.findIndex((n) => n.id === id)
+    return i >= 0 && nav[i + 1]?.id !== 'faq' ? nav[i + 1] : undefined
+  }
   const totalQuestions = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
   const maxHires = Math.max(...hub.hiring.companies.map((c) => c.count))
 
@@ -256,7 +280,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           {/* The role */}
           <section id="role" className="scroll-mt-32 space-y-6">
             <SectionHead
-              kicker="01 · The role"
+              kicker={`${num('role')} · The role`}
               title={`What ${/^[AEIOU]/i.test(hub.roleName) ? 'an' : 'a'} ${hub.roleName} does`}
             />
             <div className="space-y-3">
@@ -281,11 +305,16 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 </div>
               ))}
             </div>
+            <UpNext next={after('role')} />
           </section>
 
           {/* Expectations */}
           <section id="expectations" className="scroll-mt-32 space-y-6">
-            <SectionHead kicker="02 · Expectations" title={exp.title} sub={exp.sub} />
+            <SectionHead
+              kicker={`${num('expectations')} · Expectations`}
+              title={exp.title}
+              sub={exp.sub}
+            />
             <div className="grid gap-4 lg:grid-cols-2">
               {(['b2b', 'b2c'] as const).map((k) => {
                 const e = hub.expectations[k]
@@ -350,19 +379,25 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 ))}
               </ul>
             </div>
+            <UpNext next={after('expectations')} />
           </section>
 
           {/* Pay */}
           <section id="pay" className="scroll-mt-32 space-y-6">
             <SectionHead
-              kicker="03 · Pay"
+              kicker={`${num('pay')} · Pay`}
               title={hub.pay.title ?? 'Pay by experience: India, US and Europe'}
               sub={hub.pay.intro}
             />
             {hub.visuals?.pay && <Visual v={hub.visuals.pay} />}
             <div className="grid gap-4 md:grid-cols-2">
-              {hub.pay.tables.map((t) => (
-                <div key={t.region} className="rounded-xl border border-[#ebebeb] bg-white p-5">
+              {hub.pay.tables.map((t, ti) => (
+                <div
+                  key={t.region}
+                  className={`rounded-xl border border-[#ebebeb] bg-white p-5 ${
+                    ti === 0 && hub.pay.tables.length % 2 === 1 ? 'md:col-span-2' : ''
+                  }`}
+                >
                   <div className="flex items-baseline justify-between gap-2">
                     <h3 className="text-base font-medium text-[#171717]">{t.region}</h3>
                     <span className="text-[11px] text-[#666666]">{t.currency}</span>
@@ -376,9 +411,25 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {t.rows.map((r) => (
-                        <tr key={r.band} className="border-b border-[#f5f5f5] last:border-0">
-                          <td className="py-2 text-[#4d4d4d]">{r.band}</td>
+                      {t.rows.map((r, i) => (
+                        <tr
+                          key={`${r.band}-${i}`}
+                          className="border-b border-[#f5f5f5] last:border-0"
+                        >
+                          <td className="py-2 pr-2 text-[#4d4d4d]">
+                            {r.url ? (
+                              <a
+                                href={r.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline decoration-[#cfcfcf] underline-offset-2 hover:decoration-[#171717]"
+                              >
+                                {r.band}
+                              </a>
+                            ) : (
+                              r.band
+                            )}
+                          </td>
                           <td className="py-2 text-xs text-[#666666]">{r.experience}</td>
                           <td className="py-2 text-right font-mono font-semibold text-[#171717]">
                             {r.value}
@@ -405,17 +456,22 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
             {hub.pay.crossCheck && (
               <p className="text-xs leading-relaxed text-[#666666]">{hub.pay.crossCheck}</p>
             )}
+            <UpNext next={after('pay')} />
           </section>
 
           {/* Hiring */}
           <section id="hiring" className="scroll-mt-32 space-y-6">
             <SectionHead
-              kicker="04 · Who is hiring"
+              kicker={`${num('hiring')} · Who is hiring`}
               title={hub.hiring.title ?? 'Companies hiring the most in 2025–26'}
               sub={hub.hiring.intro}
             />
             {hub.visuals?.hiring && <Visual v={hub.visuals.hiring} />}
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              className={`grid gap-3 sm:grid-cols-2 ${
+                hub.hiring.companies.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+              }`}
+            >
               {hub.hiring.companies.map((c) => (
                 <div key={c.name} className="rounded-xl border border-[#ebebeb] bg-white p-4">
                   <div className="flex items-center gap-3">
@@ -450,12 +506,135 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
             <p className="text-[11px] leading-relaxed text-[#666666]">
               {hub.hiring.method} ({hub.hiring.sourceLabel}, {hub.hiring.asOf}.)
             </p>
+            <UpNext next={after('hiring')} />
           </section>
+
+          {/* Get the interview */}
+          {hub.getHired && (
+            <section id="get-hired" className="scroll-mt-32 space-y-8">
+              <SectionHead
+                kicker={`${num('get-hired')} · Get the interview`}
+                title="How to get the interview"
+                sub={hub.getHired.intro}
+              />
+
+              <div className="space-y-3">
+                <h3 className="text-lg font-medium text-[#171717]">
+                  Resume bullets: weak vs strong
+                </h3>
+                <div className="divide-y divide-[#ebebeb] overflow-hidden rounded-xl border border-[#ebebeb] bg-white">
+                  {hub.getHired.bullets.map((b) => (
+                    <div key={b.strong} className="grid gap-3 p-5 md:grid-cols-2 md:gap-6">
+                      <div>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#999999]">
+                          Weak
+                        </div>
+                        <p className="mt-1 text-sm leading-relaxed text-[#666666]">{b.weak}</p>
+                      </div>
+                      <div className="rounded-lg bg-[#EEF1FF] p-3 md:bg-transparent md:p-0">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#1E33B3]">
+                          Strong
+                        </div>
+                        <p className="mt-1 text-sm leading-relaxed text-[#171717]">{b.strong}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <ul className="grid gap-2 pt-2 text-sm text-[#4d4d4d] sm:grid-cols-2">
+                  {hub.getHired.resumeTips.map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <span className="text-[#3B5BFF]">✓</span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/build-resume"
+                  className="inline-flex text-sm font-medium text-[#1E33B3] underline-offset-4 hover:underline"
+                >
+                  Build your resume in our free builder →
+                </Link>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="text-lg font-medium text-[#171717]">Where the jobs are</h3>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {hub.getHired.channels.map((c) => {
+                    const inner = (
+                      <>
+                        <div className="text-sm font-medium text-[#171717] group-hover:underline">
+                          {c.name}
+                          {c.url && <span aria-hidden="true"> ↗</span>}
+                        </div>
+                        <p className="mt-1 text-xs leading-relaxed text-[#666666]">{c.how}</p>
+                      </>
+                    )
+                    return c.url ? (
+                      <a
+                        key={c.name}
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group rounded-xl border border-[#ebebeb] bg-white p-4 transition hover:border-[#171717]"
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <div key={c.name} className="rounded-xl border border-[#ebebeb] bg-white p-4">
+                        {inner}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className="grid items-start gap-4 lg:grid-cols-2">
+                <div className="rounded-xl border border-[#ebebeb] bg-white p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
+                    Message the hiring manager
+                  </div>
+                  <h3 className="mt-2 text-base font-medium text-[#171717]">
+                    {hub.getHired.outreach.title}
+                  </h3>
+                  <p className="mt-3 whitespace-pre-line rounded-lg border border-[#ebebeb] bg-[#fafafa] p-4 text-sm leading-relaxed text-[#171717]">
+                    {hub.getHired.outreach.body}
+                  </p>
+                  {hub.getHired.outreach.note && (
+                    <p className="mt-3 text-xs leading-relaxed text-[#666666]">
+                      {hub.getHired.outreach.note}
+                    </p>
+                  )}
+                </div>
+                <div className="rounded-xl border border-[#171717] bg-white p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
+                    Proof of work
+                  </div>
+                  <h3 className="mt-2 text-base font-medium text-[#171717]">
+                    {hub.getHired.proofOfWork.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#666666]">
+                    {hub.getHired.proofOfWork.why}
+                  </p>
+                  <ol className="mt-4 space-y-2">
+                    {hub.getHired.proofOfWork.steps.map((st, i) => (
+                      <li key={st} className="flex items-start gap-3 text-sm text-[#4d4d4d]">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#171717] font-mono text-[10px] text-white">
+                          {i + 1}
+                        </span>
+                        {st}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              <UpNext next={after('get-hired')} />
+            </section>
+          )}
 
           {/* Process */}
           <section id="process" className="scroll-mt-32 space-y-6">
             <SectionHead
-              kicker="05 · Interview loop"
+              kicker={`${num('process')} · Interview loop`}
               title="The interview process by company type"
               sub="Typical loops. Each company varies, so confirm the rounds with your recruiter."
             />
@@ -479,12 +658,13 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 </div>
               ))}
             </div>
+            <UpNext next={after('process')} />
           </section>
 
           {/* Questions */}
           <section id="questions" className="scroll-mt-32 space-y-8">
             <SectionHead
-              kicker="06 · Question bank"
+              kicker={`${num('questions')} · Question bank`}
               title={`${totalQuestions} ${hub.shortName} interview questions with model answers`}
               sub="Tap a question to see a model answer and what the interviewer is listening for. Practise out loud before you read the answer."
             />
@@ -542,11 +722,15 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 Start mock interview
               </Link>
             </div>
+            <UpNext next={after('questions')} />
           </section>
 
           {/* Plan */}
           <section id="plan" className="scroll-mt-32 space-y-6">
-            <SectionHead kicker="07 · Prep plan" title="7, 14 and 30-day prep plans" />
+            <SectionHead
+              kicker={`${num('plan')} · Prep plan`}
+              title="7, 14 and 30-day prep plans"
+            />
             <div className="grid items-start gap-4 md:grid-cols-3">
               {hub.plans.map((p) => (
                 <details
@@ -569,11 +753,15 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 </details>
               ))}
             </div>
+            <UpNext next={after('plan')} />
           </section>
 
           {/* Resources */}
           <section id="resources" className="scroll-mt-32 space-y-6">
-            <SectionHead kicker="08 · Resources" title="The resources worth your time" />
+            <SectionHead
+              kicker={`${num('resources')} · Resources`}
+              title="The resources worth your time"
+            />
             <div className="grid gap-3 md:grid-cols-2">
               {hub.resources.map((r) => {
                 const internal = r.url.startsWith('/')
@@ -584,7 +772,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                         {r.kind}
                       </span>
                       {r.free && (
-                        <span className="text-[10px] font-medium text-[#297a3a]">Free</span>
+                        <span className="text-[10px] font-medium text-[#1E33B3]">Free</span>
                       )}
                     </div>
                     <div className="mt-2 text-sm font-medium text-[#171717] group-hover:underline">
@@ -651,7 +839,10 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
 
           {/* FAQ */}
           <section id="faq" className="scroll-mt-32 space-y-6">
-            <SectionHead kicker="09 · FAQ" title={`${hub.roleName}: frequently asked questions`} />
+            <SectionHead
+              kicker={`${num('faq')} · FAQ`}
+              title={`${hub.roleName}: frequently asked questions`}
+            />
             <div className="divide-y divide-[#ebebeb] overflow-hidden rounded-xl border border-[#ebebeb] bg-white">
               {hub.faqs.map((f) => (
                 <details key={f.q} className="group">

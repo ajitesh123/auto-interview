@@ -18,6 +18,7 @@ export interface PayRow {
   band: string // e.g. "Early career"
   experience: string // e.g. "0–3 yrs"
   value: string // formatted, e.g. "₹29.5 LPA"
+  url?: string // link to the job post or page this row comes from
 }
 
 export interface PayTable {
@@ -61,6 +62,17 @@ export interface HubVisual {
   alt: string
 }
 
+/** "How do I get the interview?" — resume, where the jobs are, outreach, proof of work. */
+export interface GetHired {
+  intro: string
+  /** Weak vs strong resume bullets for this role. */
+  bullets: { weak: string; strong: string }[]
+  resumeTips: string[]
+  channels: { name: string; how: string; url?: string }[]
+  outreach: { title: string; body: string; note?: string }
+  proofOfWork: { title: string; why: string; steps: string[] }
+}
+
 export interface RoleHub {
   slug: string // url segment, e.g. "aipm"
   roleName: string // "AI Product Manager"
@@ -89,6 +101,8 @@ export interface RoleHub {
     difference: string[] // how it differs from the classic version of the role
   }
   skills: { area: string; items: string[] }[]
+  /** Optional section: how to get the interview (shown after "Who is hiring"). */
+  getHired?: GetHired
   process: RoundInfo[]
   /** title defaults to "Pay by experience: India, US and Europe" */
   pay: {
