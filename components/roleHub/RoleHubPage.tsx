@@ -125,6 +125,16 @@ function HeroPoster({ hub }: { hub: RoleHub }) {
 
 export default function RoleHubPage({ hub }: { hub: RoleHub }) {
   const url = `${SITE}/${hub.slug}`
+  const exp = {
+    nav: 'B2B vs B2C',
+    title: 'What companies expect: B2B vs B2C',
+    sub: 'Most open roles in 2026 are B2B. Read that column first.',
+    a: 'B2B',
+    b: 'B2C',
+    aNote: 'Most roles today',
+    ...hub.expectationLabels,
+  }
+  const nav = NAV.map((n) => (n.id === 'expectations' ? { ...n, label: exp.nav } : n))
   const totalQuestions = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
   const maxHires = Math.max(...hub.hiring.companies.map((c) => c.count))
 
@@ -230,7 +240,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
             className="sticky top-16 z-10 -mx-4 overflow-x-auto border-y border-[#ebebeb] bg-[#fafafa]/90 px-4 py-3 backdrop-blur"
           >
             <ul className="flex gap-2 whitespace-nowrap">
-              {NAV.map((n) => (
+              {nav.map((n) => (
                 <li key={n.id}>
                   <a
                     href={`#${n.id}`}
@@ -275,11 +285,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
 
           {/* Expectations */}
           <section id="expectations" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker="02 · Expectations"
-              title="What companies expect: B2B vs B2C"
-              sub="Most open roles in 2026 are B2B. Read that column first."
-            />
+            <SectionHead kicker="02 · Expectations" title={exp.title} sub={exp.sub} />
             <div className="grid gap-4 lg:grid-cols-2">
               {(['b2b', 'b2c'] as const).map((k) => {
                 const e = hub.expectations[k]
@@ -296,12 +302,10 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                           k === 'b2b' ? 'bg-[#171717] text-white' : 'bg-[#f5f5f5] text-[#171717]'
                         }`}
                       >
-                        {k.toUpperCase()}
+                        {k === 'b2b' ? exp.a : exp.b}
                       </span>
-                      {k === 'b2b' && (
-                        <span className="text-[11px] font-medium text-[#3B5BFF]">
-                          Most roles today
-                        </span>
+                      {k === 'b2b' && exp.aNote && (
+                        <span className="text-[11px] font-medium text-[#3B5BFF]">{exp.aNote}</span>
                       )}
                     </div>
                     <h3 className="mt-3 text-base font-medium text-[#171717]">{e.headline}</h3>
@@ -334,7 +338,8 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
             </div>
             <div className="rounded-xl border border-[#ebebeb] bg-white p-6">
               <h3 className="text-sm font-semibold text-[#171717]">
-                How it differs from a classic {hub.roleName.replace(/^AI /, '')} role
+                {exp.differenceTitle ??
+                  `How it differs from a classic ${hub.roleName.replace(/^AI /, '')} role`}
               </h3>
               <ul className="mt-3 grid gap-2 text-sm text-[#4d4d4d] sm:grid-cols-2">
                 {hub.expectations.difference.map((d) => (
@@ -351,7 +356,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           <section id="pay" className="scroll-mt-32 space-y-6">
             <SectionHead
               kicker="03 · Pay"
-              title="Pay by experience: India, US and Europe"
+              title={hub.pay.title ?? 'Pay by experience: India, US and Europe'}
               sub={hub.pay.intro}
             />
             {hub.visuals?.pay && <Visual v={hub.visuals.pay} />}
@@ -406,7 +411,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           <section id="hiring" className="scroll-mt-32 space-y-6">
             <SectionHead
               kicker="04 · Who is hiring"
-              title="Companies hiring the most in 2025–26"
+              title={hub.hiring.title ?? 'Companies hiring the most in 2025–26'}
               sub={hub.hiring.intro}
             />
             {hub.visuals?.hiring && <Visual v={hub.visuals.hiring} />}
@@ -414,19 +419,21 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               {hub.hiring.companies.map((c) => (
                 <div key={c.name} className="rounded-xl border border-[#ebebeb] bg-white p-4">
                   <div className="flex items-center gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#171717] text-sm font-semibold text-white"
-                    >
-                      {c.name.charAt(0)}
-                    </span>
+                    {!hub.hiring.segments && (
+                      <span
+                        aria-hidden="true"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#171717] text-sm font-semibold text-white"
+                      >
+                        {c.name.charAt(0)}
+                      </span>
+                    )}
                     <div className="min-w-0">
                       <div className="truncate text-sm font-medium text-[#171717]">{c.name}</div>
                       <div className="text-[11px] text-[#666666]">{c.segment}</div>
                     </div>
                     <div className="ml-auto text-right">
                       <div className="font-mono text-lg font-semibold text-[#171717]">
-                        {c.count}
+                        {c.count.toLocaleString('en-US')}
                       </div>
                       <div className="text-[10px] text-[#666666]">moved in</div>
                     </div>

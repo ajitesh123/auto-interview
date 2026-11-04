@@ -102,15 +102,15 @@ const DomainHomePage: React.FC = () => {
                 ROLE HUBS · UPDATED NOVEMBER 2026
               </p>
               <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-                Everything to crack a new-age role, on one page.
+                Everything you need to crack the role, on one page.
               </h2>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-[#666666]">
-              What the role expects in B2B and B2C, real pay in ₹, $ and €, who is hiring, and
-              dozens of interview questions with model answers.
+              What each role really involves, real pay in ₹ and $, who is hiring, and dozens of
+              interview questions with model answers.
             </p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {ROLE_HUB_LIST.map((hub) => {
               const q = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
               const first = hub.pay.tables[0]
@@ -140,10 +140,16 @@ const DomainHomePage: React.FC = () => {
                       <span className="rounded-full bg-[#f5f5f5] px-2 py-0.5 text-[#171717]">
                         {q} questions
                       </span>
-                      {median && (
+                      {median ? (
                         <span className="rounded-full bg-[#EEF1FF] px-2 py-0.5 text-[#1E33B3]">
                           {first.region} median {median.value}
                         </span>
+                      ) : (
+                        hub.pay.headline && (
+                          <span className="rounded-full bg-[#EEF1FF] px-2 py-0.5 text-[#1E33B3]">
+                            {hub.pay.headline}
+                          </span>
+                        )
                       )}
                     </div>
                   </div>

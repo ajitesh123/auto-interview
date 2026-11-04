@@ -73,6 +73,16 @@ export interface RoleHub {
   directAnswer: string
   lastUpdated: string // YYYY-MM-DD
   whatTheRoleIs: string[]
+  /** Optional labels for the two expectation columns (defaults: B2B vs B2C). */
+  expectationLabels?: {
+    nav: string // short tab label, e.g. "Startup vs scale-up"
+    title: string
+    sub: string
+    a: string // label for the `b2b` column
+    b: string // label for the `b2c` column
+    aNote?: string // small note beside column A, e.g. "Most roles today"
+    differenceTitle?: string
+  }
   expectations: {
     b2b: { headline: string; points: string[]; metrics: string[] }
     b2c: { headline: string; points: string[]; metrics: string[] }
@@ -80,8 +90,20 @@ export interface RoleHub {
   }
   skills: { area: string; items: string[] }[]
   process: RoundInfo[]
-  pay: { intro: string; tables: PayTable[]; crossCheck?: string }
+  /** title defaults to "Pay by experience: India, US and Europe" */
+  pay: {
+    title?: string
+    /** short pay label for cards when there is no Median row, e.g. "India ₹20–40 LPA posted" */
+    headline?: string
+    intro: string
+    tables: PayTable[]
+    crossCheck?: string
+  }
   hiring: {
+    /** Optional section title (default: "Companies hiring the most in 2025–26") */
+    title?: string
+    /** true when `companies` are segments (e.g. company-size bands), not company names */
+    segments?: boolean
     intro: string
     companies: HiringCompany[]
     method: string
