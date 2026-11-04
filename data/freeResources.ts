@@ -95,7 +95,6 @@ export const FREE_RESOURCE_SECTIONS: ResourceSection[] = [
     ],
     ours: [
       { label: 'Build your resume (free)', href: '/build-resume' },
-      { label: 'Check it against ATS filters', href: '/ats-score' },
       { label: 'Role-based resume templates', href: '/cv-templates' },
     ],
   },

@@ -220,17 +220,17 @@ export default function CVTemplatesPage() {
             ))}
 
             <Link
-              href="/ats-score"
+              href="/build-resume"
               className="group flex flex-col justify-between rounded-[6px] bg-[#171717] p-6 text-white transition-all hover:bg-[#333333]"
             >
               <div>
                 <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[10px] uppercase text-white">
                   Free Tool
                 </span>
-                <h3 className="mt-3 text-lg font-medium text-white">Check Your ATS Score &rarr;</h3>
+                <h3 className="mt-3 text-lg font-medium text-white">Build It Online &rarr;</h3>
                 <p className="mt-1 text-xs leading-relaxed text-gray-300">
-                  Already have a draft? Upload it to our instant ATS scanner for line-by-line
-                  feedback.
+                  Prefer not to edit Word files? Fill in our free builder and export a PDF or Word
+                  file.
                 </p>
               </div>
               <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-emerald-400">

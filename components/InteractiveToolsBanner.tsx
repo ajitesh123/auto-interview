@@ -28,11 +28,11 @@ export default function InteractiveToolsBanner() {
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
-      badge: 'ATS Scanner',
-      title: 'Instant ATS Score Checker',
-      desc: 'Scan your resume against Fortune 500 ATS algorithms with keyword density scoring.',
-      href: '/ats-score',
-      cta: 'Check ATS Score &rarr;',
+      badge: 'Free Library',
+      title: 'Free Prep Resources',
+      desc: 'McKinsey and Bain practice cases, MBA casebooks, coding lists and resume examples, all hand-checked.',
+      href: '/free-resources',
+      cta: 'Browse Resources &rarr;',
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {

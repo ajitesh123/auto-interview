@@ -104,6 +104,9 @@ module.exports = () => {
           permanent: true,
         },
         { source: '/find-jobs/results', destination: '/find-jobs', permanent: true },
+        // Nov 2026: ATS checker retired for now (to be rebuilt); send visitors to the resume builder
+        { source: '/ats-score', destination: '/build-resume', permanent: false },
+        { source: '/ats-score/:path*', destination: '/build-resume', permanent: false },
         // Legacy Brand & 404 URL Redirects reported in Search Console
         {
           source: '/tough-tongue-ai',
@@ -152,7 +155,7 @@ module.exports = () => {
         },
         {
           source: '/tags/ats-data',
-          destination: '/ats-score',
+          destination: '/build-resume',
           permanent: true,
         },
         {
@@ -167,7 +170,7 @@ module.exports = () => {
         },
         {
           source: '/ats-checker',
-          destination: '/ats-score',
+          destination: '/build-resume',
           permanent: true,
         },
         {

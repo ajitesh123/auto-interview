@@ -452,10 +452,10 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                   Practice in Free Voice Simulator →
                 </Link>
                 <Link
-                  href="/ats-score"
+                  href="/build-resume"
                   className="rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-medium text-white transition-colors hover:bg-white/10"
                 >
-                  Scan Resume with ATS Checker
+                  Build Your Resume
                 </Link>
               </div>
             </div>

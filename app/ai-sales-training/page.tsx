@@ -1044,9 +1044,6 @@ export default function AISalesTrainingDirectoryPage() {
               <Link href="/cv-templates" className="text-[#666666] hover:text-[#171717]">
                 → Executive ATS CV Templates (Harvard &amp; Stanford)
               </Link>
-              <Link href="/ats-score" className="text-[#666666] hover:text-[#171717]">
-                → Free ATS Resume Score Scanner
-              </Link>
               <Link href="/free-mock-interview" className="text-[#666666] hover:text-[#171717]">
                 → Free AI Mock Interview Simulator
               </Link>

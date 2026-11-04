@@ -389,21 +389,21 @@ export default async function RoleCVPage({ params }: PageProps) {
             <div className="flex flex-col justify-between rounded-[8px] border border-[#171717] bg-[#171717] p-8 text-white shadow-md">
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-wider text-gray-400">
-                  STEP 2 / VERIFY
+                  STEP 2 / BUILD
                 </span>
                 <h3 className="mt-2 text-xl font-normal tracking-tight text-white">
-                  Audit Your ATS Score (Free)
+                  Finish It in the Resume Builder (Free)
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-gray-300">
-                  Upload your customized resume to our automated ATS parser to check formatting
-                  integrity, keyword density, and get an instant score out of 100.
+                  Fill each section in our free builder, keep it to one page, and export a clean PDF
+                  or Word file.
                 </p>
               </div>
               <Link
-                href="/ats-score"
+                href="/build-resume"
                 className="mt-6 inline-flex items-center justify-center rounded-[6px] bg-white px-4 py-2.5 text-xs font-semibold text-[#171717] transition-colors hover:bg-gray-100"
               >
-                Scan Resume ATS Score &rarr;
+                Open the Resume Builder &rarr;
               </Link>
             </div>
 

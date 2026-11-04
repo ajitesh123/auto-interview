@@ -9,7 +9,6 @@ const ConditionalLayout = ({ children }: { children: React.ReactNode }) => {
   // Routes that should use the app layout (with navigation)
   const appRoutes = [
     '/build-resume',
-    '/ats-score',
     '/find-jobs',
     '/cover-letter',
     '/assessments',

@@ -52,7 +52,7 @@ const PREP_LINKS = [
   { href: '/fde', label: 'Forward Deployed Engineer interview guide' },
   { href: '/gtm-engineer', label: 'GTM Engineer interview guide' },
   { href: '/ai-engineer', label: 'AI Engineer interview guide' },
-  { href: '/ats-score', label: 'Check your resume against ATS filters' },
+  { href: '/build-resume', label: 'Build a one-page resume (free)' },
   { href: '/free-mock-interview', label: 'Free AI mock interview' },
 ]
 

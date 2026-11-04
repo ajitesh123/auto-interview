@@ -28,21 +28,6 @@ const allTools: Tool[] = [
     ),
   },
   {
-    title: 'ATS Score Checker',
-    description: 'Check your resume ATS compatibility and get improvement suggestions',
-    href: '/ats-score',
-    icon: (
-      <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-    ),
-  },
-  {
     title: 'Job Search',
     description: 'Search LinkedIn, Naukri, Indeed and Google Jobs in one go',
     href: '/find-jobs',

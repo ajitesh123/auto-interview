@@ -27,10 +27,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/ats-score"
+                  href="/free-resources"
                   className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  ATS Score Checker
+                  Free Prep Resources
                 </Link>
               </li>
               <li>

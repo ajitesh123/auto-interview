@@ -91,7 +91,6 @@ export default function SitemapPage() {
             <h3 className="mb-2 text-lg font-semibold text-white">Resume Tools</h3>
             <ul className="space-y-1 text-gray-300">
               <li>• AI-powered resume builder</li>
-              <li>• ATS score checker</li>
               <li>• Professional templates</li>
             </ul>
           </div>

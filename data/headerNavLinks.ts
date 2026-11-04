@@ -1,7 +1,7 @@
 const headerNavLinks = [
   { href: '/', title: 'Home' },
   { href: '/free-mock-interview', title: 'Free Mock Interview' },
-  { href: '/ats-score', title: 'ATS Score Checker' },
+  { href: '/free-resources', title: 'Free Resources' },
   { href: '/cv-templates', title: 'CV Templates' },
   { href: '/interview-questions', title: 'Interview Q&A' },
   { href: '/cold-call-practice', title: 'Cold Call Simulator' },

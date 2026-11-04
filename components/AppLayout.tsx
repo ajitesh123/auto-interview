@@ -27,11 +27,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       href: '/build-resume',
     },
     {
-      id: 'ats-score',
-      title: 'Check Resume ATS Score',
-      href: '/ats-score',
-    },
-    {
       id: 'find-jobs',
       title: 'Find Relevant Jobs',
       href: '/find-jobs',
@@ -139,7 +134,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 <Logo width={40} height={40} className="mr-2" />
                 <div>
                   <div className="text-base font-bold text-white sm:text-lg">Auto Interview AI</div>
-                  <p className="hidden text-xs text-white/40 sm:block">Career Intelligence Platform</p>
+                  <p className="hidden text-xs text-white/40 sm:block">
+                    Career Intelligence Platform
+                  </p>
                 </div>
               </Link>
             </div>

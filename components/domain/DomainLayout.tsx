@@ -66,10 +66,10 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                   Voice AI ROI Calculator
                 </Link>
                 <Link
-                  href="/ats-score"
+                  href="/free-resources"
                   className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  ATS Score Checker
+                  Free Prep Resources
                 </Link>
                 <Link
                   href="/build-resume"

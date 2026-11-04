@@ -460,8 +460,8 @@ const DomainHomePage: React.FC = () => {
               </div>
             </Link>
 
-            {/* Tool 3: ATS Score Checker */}
-            <Link href="/ats-score" className="group block">
+            {/* Tool 3: Free prep resources library */}
+            <Link href="/free-resources" className="group block">
               <div
                 className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
                 style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
@@ -473,20 +473,20 @@ const DomainHomePage: React.FC = () => {
                 }}
               >
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-purple-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-purple-700">
-                    POPULAR
+                  <span className="rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#1E33B3]">
+                    NEW
                   </span>
-                  <span className="text-xs text-gray-500">ATS Audit</span>
+                  <span className="text-xs text-gray-500">Library</span>
                 </div>
                 <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  ATS Resume Score Checker
+                  Free Prep Resources
                 </h3>
                 <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Scan your CV against modern Applicant Tracking Systems. Detect missing keywords,
-                  formatting errors, and parsing issues.
+                  McKinsey and Bain practice cases, 26 MBA casebooks, coding lists, statistics PDFs
+                  and campus placement guides. Every link checked by hand.
                 </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Check Score Free →
+                <span className="flex items-center text-xs font-semibold text-[#3B5BFF] transition-colors group-hover:text-[#1E33B3]">
+                  Browse Free →
                 </span>
               </div>
             </Link>

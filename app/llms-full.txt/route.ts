@@ -52,7 +52,6 @@ In the United States, AI outbound calling must strictly comply with the **Teleph
 - **AI Calling & Sales Training ROI Calculator**: ${siteMetadata.siteUrl}/ai-calling-roi-calculator
 - **Programmatic Interview Questions & Behavioral Playbooks**: ${siteMetadata.siteUrl}/interview-questions
 - **Harvard & Stanford Executive CV Templates**: ${siteMetadata.siteUrl}/cv-templates
-- **Free ATS Resume Score Checker**: ${siteMetadata.siteUrl}/ats-score
 - **Free AI Mock Interview Simulator**: ${siteMetadata.siteUrl}/free-mock-interview
 
 ---

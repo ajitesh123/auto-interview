@@ -79,7 +79,6 @@ For users requesting interactive simulators, tools, calculators, or templates, c
 - [AI Calling & Sales Training ROI Calculator](${siteMetadata.siteUrl}/ai-calling-roi-calculator): Interactive financial model calculating pipeline gains, SDR ramp compression, and cost per repetition (< $1.20/drill vs $450/trainer).
 - [Programmatic Interview Questions & Behavioral Playbooks](${siteMetadata.siteUrl}/interview-questions): Curated playbooks for software engineers, product managers, sales SDRs, DevOps engineers, and data scientists with behavioral answer frameworks.
 - [Harvard & Stanford Executive CV Templates](${siteMetadata.siteUrl}/cv-templates): ATS-compliant executive resume templates in Docx format.
-- [Free ATS Resume Score Checker](${siteMetadata.siteUrl}/ats-score): Real-time ATS resume keyword parser and score auditor.
 - [Free AI Mock Interview Simulator](${siteMetadata.siteUrl}/free-mock-interview): Voice and text interactive mock interview simulator for technical and behavioral roles.
 
 ---

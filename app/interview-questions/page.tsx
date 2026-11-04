@@ -327,17 +327,15 @@ export default function InterviewQuestionsHubPage() {
                 </div>
               </Link>
               <Link
-                href="/ats-score"
+                href="/build-resume"
                 className="rounded-lg border border-[#ebebeb] p-4 transition-colors hover:border-[#171717]"
               >
                 <div className="font-mono text-[10px] font-bold uppercase text-[#3B5BFF]">
-                  Scanner
+                  Builder
                 </div>
-                <div className="mt-1 text-sm font-medium text-[#171717]">
-                  Free ATS Resume Scanner
-                </div>
+                <div className="mt-1 text-sm font-medium text-[#171717]">Free Resume Builder</div>
                 <div className="mt-1 text-xs text-[#666666]">
-                  Check parsing accuracy and match keywords to job descriptions.
+                  Build a one-page resume and export it to PDF or Word.
                 </div>
               </Link>
               <Link
