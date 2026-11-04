@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// Initialize Gemini AI
-const GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
-const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
-console.log('Gemini API Key configured:', !!GEMINI_API_KEY)
+// Gemini key comes from the Vercel env var GEMINI_API_KEY (never hard-code keys: this repo is public)
+const GEMINI_KEY = process.env.GEMINI_API_KEY || ''
+const genAI = new GoogleGenerativeAI(GEMINI_KEY)
 
 export async function POST(request: NextRequest) {
   try {
+    if (!GEMINI_KEY) {
+      return NextResponse.json(
+        { success: false, error: 'This tool is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
     console.log('=== UPLOAD-AND-PARSE API CALLED ===')
     const formData = await request.formData()
     console.log('FormData received')
@@ -338,7 +343,7 @@ Return ONLY the JSON object, no additional text or formatting.
       } else if (error.message.includes('QUOTA_EXCEEDED') || error.message.includes('quota')) {
         throw new Error(
           'API quota exceeded: You have reached your free tier limit. Please wait or upgrade your plan. Error: ' +
-          error.message
+            error.message
         )
       } else if (error.message.includes('PERMISSION_DENIED')) {
         throw new Error('Permission denied: Please check your API key permissions.')

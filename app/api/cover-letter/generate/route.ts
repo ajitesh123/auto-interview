@@ -95,11 +95,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Initialize Gemini AI
-    const GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
-    console.log('Gemini API key is configured, proceeding with generation')
+    // Gemini key comes from the Vercel env var GEMINI_API_KEY (never hard-code keys: this repo is public)
+    const GEMINI_KEY = process.env.GEMINI_API_KEY || ''
+    if (!GEMINI_KEY) {
+      return NextResponse.json(
+        { success: false, error: 'This tool is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
 
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY)
+    const genAI = new GoogleGenerativeAI(GEMINI_KEY)
 
     // Extract key information from resume data
     const resumeText = `
@@ -109,59 +114,63 @@ Phone: ${resumeData.contact?.phone || 'Not provided'}
 Location: ${resumeData.contact?.location || 'Not provided'}
 
 Education:
-${resumeData.education
-        ?.map(
-          (edu: Education, index: number) => `
+${
+  resumeData.education
+    ?.map(
+      (edu: Education, index: number) => `
 ${index + 1}. Degree: ${edu.degree || 'Not provided'}
    Institution: ${edu.institution || 'Not provided'}
    Specialization: ${edu.specialization || 'Not provided'}
    Graduation: ${edu.graduationMonth || ''} ${edu.graduationYear || ''}
    GPA: ${edu.gpa || 'Not provided'}
 `
-        )
-        .join('') || 'No education information provided'
-      }
+    )
+    .join('') || 'No education information provided'
+}
 
 Experience:
-${resumeData.experience
-        ?.map(
-          (exp: Experience, index: number) => `
+${
+  resumeData.experience
+    ?.map(
+      (exp: Experience, index: number) => `
 ${index + 1}. Company: ${exp.company || 'Not provided'}
    Position: ${exp.position || 'Not provided'}
    Duration: ${exp.duration || 'Not provided'}
    Location: ${exp.location || 'Not provided'}
    Description: ${exp.bullets?.join(' ') || 'No description provided'}
 `
-        )
-        .join('') || 'No experience information provided'
-      }
+    )
+    .join('') || 'No experience information provided'
+}
 
 Leadership and Activities:
-${resumeData.leadership
-        ?.map(
-          (lead: Leadership, index: number) => `
+${
+  resumeData.leadership
+    ?.map(
+      (lead: Leadership, index: number) => `
 ${index + 1}. Organization: ${lead.organization || 'Not provided'}
    Position: ${lead.position || 'Not provided'}
    Duration: ${lead.duration || 'Not provided'}
    Location: ${lead.location || 'Not provided'}
    Description: ${lead.bullets?.join(' ') || 'No description provided'}
 `
-        )
-        .join('') || 'No leadership information provided'
-      }
+    )
+    .join('') || 'No leadership information provided'
+}
 
 Projects:
-${resumeData.projects
-        ?.map(
-          (proj: Project, index: number) => `
+${
+  resumeData.projects
+    ?.map(
+      (proj: Project, index: number) => `
 ${index + 1}. Title: ${proj.title || 'Not provided'}
    Duration: ${proj.duration || 'Not provided'}
    Link: ${proj.link || 'Not provided'}
    Description: ${proj.bullets?.join(' ') || 'No description provided'}
 `
-        )
-        .join('') || 'No projects information provided'
-      }
+    )
+    .join('') || 'No projects information provided'
+}
 
 Skills:
 Technical Skills: ${resumeData.skills?.technical?.join(', ') || 'Not provided'}

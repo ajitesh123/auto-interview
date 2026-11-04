@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// Initialize Gemini AI
-const GOOGLE_GEMINI_API_KEY = 'AIzaSyA95Gpbj-jWg8jHieiOg5JjlZjGSBNK1Ns'
-const genAI = new GoogleGenerativeAI(GOOGLE_GEMINI_API_KEY)
+// Gemini key comes from the Vercel env var GEMINI_API_KEY (never hard-code keys: this repo is public)
+const GEMINI_KEY = process.env.GEMINI_API_KEY || ''
+const genAI = new GoogleGenerativeAI(GEMINI_KEY)
 
 async function extractTextFromFile(file: File): Promise<{ text: string; mime: string }> {
   const bytes = await file.arrayBuffer()
@@ -191,6 +191,12 @@ function extractAndCleanJSON(response: string): string | null {
 
 export async function POST(request: NextRequest) {
   try {
+    if (!GEMINI_KEY) {
+      return NextResponse.json(
+        { success: false, error: 'This tool is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
     const formData = await request.formData()
     const file = formData.get('file') as File
     const jobDescription = (formData.get('jobDescription') as string) || ''
