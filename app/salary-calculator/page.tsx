@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import SalaryCalculator from '@/components/salaryCalc/SalaryCalculator'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
+import { ROLE_SALARIES } from '@/data/roleSalary'
 import {
   breakEvenDeductions,
   computeSalary,
@@ -585,7 +586,7 @@ export default function SalaryCalculatorPage() {
               {ROLE_HUB_LIST.map((h) => (
                 <li key={h.slug}>
                   <Link
-                    href={`/${h.slug}#pay`}
+                    href={ROLE_SALARIES[h.slug] ? `/${h.slug}/salary` : `/${h.slug}#pay`}
                     className="flex min-h-11 items-center gap-2 rounded-lg border border-border px-3 py-2 text-small text-fg transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
                   >
                     <span aria-hidden="true" className="text-signal-strong">
@@ -699,7 +700,7 @@ export default function SalaryCalculatorPage() {
           <div className="grid gap-3 sm:grid-cols-3">
             {[
               ['/free-mock-interview', 'Practice', 'Free AI mock interview'],
-              ['/founders-office#pay', 'Pay data', "Founder's Office pay in India"],
+              ['/founders-office/salary', 'Pay data', "Founder's Office salary in India"],
               ['/free-resources', 'Library', 'Free interview resources'],
             ].map(([href, k, t]) => (
               <Link

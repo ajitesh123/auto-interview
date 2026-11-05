@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ROLE_SALARIES } from '@/data/roleSalary'
 import type { ReactNode } from 'react'
 import DomainLayout from '@/components/domain/DomainLayout'
 import type { RoleHub } from '@/data/roleHubs/types'
@@ -634,6 +635,18 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 {hub.pay.crossCheck && (
                   <p className="max-w-[68ch] text-caption leading-relaxed text-fg-3">
                     {hub.pay.crossCheck}
+                  </p>
+                )}
+                {ROLE_SALARIES[hub.slug] && (
+                  <p className="text-small text-fg-2">
+                    <Link
+                      href={`/${hub.slug}/salary`}
+                      className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
+                    >
+                      See every posted {hub.shortName} offer, with in-hand pay
+                    </Link>{' '}
+                    ({ROLE_SALARIES[hub.slug].india.length + ROLE_SALARIES[hub.slug].us.length} job
+                    posts that state a salary).
                   </p>
                 )}
                 <p className="text-small text-fg-2">

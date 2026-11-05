@@ -9,6 +9,7 @@ import { CV_ROLES } from '@/data/cvRolesData'
 import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interviewQuestionsData'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
+import { ROLE_SALARY_LIST } from '@/data/roleSalary'
 
 const POSTS_PER_PAGE = 10
 
@@ -200,6 +201,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   })
 
+  // Salary pages (posted pay) under each hub
+  const roleSalaryRoutes = ROLE_SALARY_LIST.map((r) => ({
+    url: `${siteUrl}/${r.slug}/salary`,
+    lastModified: r.checked,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
   const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
     url: `${siteUrl}/cv-templates/${role}`,
     lastModified: today,
@@ -225,6 +234,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...routes,
     ...roleHubRoutes,
     ...roleKitRoutes,
+    ...roleSalaryRoutes,
     ...interviewBehavioralRoutes,
     ...interviewRoleRoutes,
     ...cvRoleRoutes,
