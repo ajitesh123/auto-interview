@@ -1,6 +1,9 @@
 import { Metadata } from 'next'
 import CVTemplatesPage from '@/components/CVTemplatesPage'
 import DomainLayout from '@/components/domain/DomainLayout'
+import Link from 'next/link'
+import { ROLE_HUBS } from '@/data/roleHubs'
+import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 
 export const metadata: Metadata = {
   title: 'Free ATS Resume Templates (2026): Harvard & Consulting',
@@ -143,6 +146,41 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <CVTemplatesPage />
+      <section
+        aria-labelledby="new-age-cv"
+        className="mx-auto -mt-16 w-full max-w-[1100px] px-5 pb-16 md:px-8"
+      >
+        <h2 id="new-age-cv" className="text-h2 font-semibold text-fg">
+          Resume (CV) and recommendation letter guides for new-age roles
+        </h2>
+        <p className="mt-2 max-w-2xl text-body text-fg-2">
+          Bullet banks, keywords from real job posts, a sample one-page resume and a sample letter
+          of recommendation for each role.
+        </p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Object.keys(ROLE_KITS)
+            .filter((slug) => ROLE_HUBS[slug])
+            .map((slug) => (
+              <li key={slug} className="rounded-xl border border-border bg-surface p-5">
+                <div className="text-h4 font-semibold text-fg">{ROLE_HUBS[slug].roleName}</div>
+                <div className="mt-2 flex flex-col gap-1 text-small">
+                  <Link
+                    href={KIT_PATHS.resume(slug)}
+                    className="font-medium text-signal-strong hover:underline"
+                  >
+                    {ROLE_HUBS[slug].roleName} resume (CV) guide
+                  </Link>
+                  <Link
+                    href={KIT_PATHS.lor(slug)}
+                    className="font-medium text-signal-strong hover:underline"
+                  >
+                    Letter of recommendation for {ROLE_HUBS[slug].shortName}
+                  </Link>
+                </div>
+              </li>
+            ))}
+        </ul>
+      </section>
     </DomainLayout>
   )
 }

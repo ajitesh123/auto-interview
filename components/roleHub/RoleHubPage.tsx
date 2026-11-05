@@ -4,6 +4,7 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import type { RoleHub } from '@/data/roleHubs/types'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { AI_TOOLKIT } from '@/data/aiToolkit'
+import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import {
   JourneyMobileBar,
   JourneyRail,
@@ -153,6 +154,43 @@ function SourceLink({ label, url }: { label: string; url: string }) {
       {label}
       <ArrowUpRightIcon className="h-3 w-3" />
     </a>
+  )
+}
+
+function KitLinks({ hub }: { hub: RoleHub }) {
+  if (!ROLE_KITS[hub.slug]) return null
+  const items = [
+    {
+      href: KIT_PATHS.resume(hub.slug),
+      kicker: 'Resume (CV)',
+      title: `${hub.shortName} resume guide`,
+      line: 'What recruiters check, a bullet bank, keywords from real job posts, a sample one-page resume, cover letter and LinkedIn.',
+    },
+    {
+      href: KIT_PATHS.lor(hub.slug),
+      kicker: 'Letter of recommendation',
+      title: `Recommendation letter for ${hub.shortName}`,
+      line: 'Who to ask, what the letter must prove, a sample letter, the email to send and the brief to attach.',
+    },
+  ]
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      {items.map((it) => (
+        <Link
+          key={it.href}
+          href={it.href}
+          data-reveal
+          className="group flex h-full flex-col rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+        >
+          <span className="text-caption font-semibold text-signal-strong">{it.kicker}</span>
+          <span className="mt-1.5 flex items-center justify-between gap-2 text-h4 font-semibold text-fg">
+            {it.title}
+            <ArrowRightIcon className="h-4 w-4 shrink-0 text-fg-3 transition-transform duration-fast group-hover:translate-x-0.5" />
+          </span>
+          <span className="mt-1.5 text-small leading-relaxed text-fg-2">{it.line}</span>
+        </Link>
+      ))}
+    </div>
   )
 }
 
@@ -660,6 +698,13 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 next={nextOf('get-hired')}
               >
                 <Block
+                  id="documents"
+                  title="Your resume and recommendation letter"
+                  sub="Full guides for this role, with samples you can copy."
+                >
+                  <KitLinks hub={hub} />
+                </Block>
+                <Block
                   title="Rewrite your resume bullets"
                   sub="Weak bullets list duties. Strong ones show a result with a number."
                 >
@@ -910,6 +955,15 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               title="Your prep plan and resources"
               intro="Pick the plan that matches the time you have. Then learn the AI skills this role now expects, and go deeper with the best free resources."
             >
+              {!hub.getHired && (
+                <Block
+                  id="documents"
+                  title="Your resume and recommendation letter"
+                  sub="Full guides for this role, with samples you can copy."
+                >
+                  <KitLinks hub={hub} />
+                </Block>
+              )}
               <Block
                 id="plan"
                 title="Pick your plan: 7, 14 or 30 days"

@@ -8,6 +8,7 @@ import tagData from 'app/tag-data.json'
 import { CV_ROLES } from '@/data/cvRolesData'
 import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interviewQuestionsData'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
+import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 
 const POSTS_PER_PAGE = 10
 
@@ -186,6 +187,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.95,
   }))
 
+  // Resume (CV) and letter-of-recommendation pages under each hub
+  const roleKitRoutes = Object.keys(ROLE_KITS).flatMap((slug) => {
+    const hub = ROLE_HUB_LIST.find((h) => h.slug === slug)
+    return [KIT_PATHS.resume(slug), KIT_PATHS.lor(slug)].map((path) => ({
+      url: `${siteUrl}${path}`,
+      lastModified: hub?.lastUpdated ?? today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    }))
+  })
+
   const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
     url: `${siteUrl}/cv-templates/${role}`,
     lastModified: today,
@@ -210,6 +222,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...routes,
     ...roleHubRoutes,
+    ...roleKitRoutes,
     ...interviewBehavioralRoutes,
     ...interviewRoleRoutes,
     ...cvRoleRoutes,
