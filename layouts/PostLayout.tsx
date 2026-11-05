@@ -37,6 +37,13 @@ interface LayoutProps {
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
   const { filePath, path, slug, date, title, tags, summary, images } = content
+  const lastmod = (content as { lastmod?: string }).lastmod
+  // Voice AI / AI calling / sales-training posts keep the demo CTA; interview-prep posts get a practice CTA.
+  const isVoiceOrSalesPost = (tags || []).some((t) =>
+    /voice|calling|call|sales|agent|lms|l-and-d|training|telephony|tts|stt|roleplay|conversational/i.test(
+      t
+    )
+  )
   const basePath = path.split('/')[0]
 
   // Generic Article Schema for ALL blog posts (Google SEO requirement)
@@ -66,7 +73,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       },
     },
     datePublished: date,
-    dateModified: date,
+    dateModified: lastmod || date,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${siteMetadata.siteUrl}/${path}`,
@@ -1326,7 +1333,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
                 {/* Title */}
                 <h1
-                  className="text-left text-3xl font-bold leading-[1.18] tracking-tight text-[#171717] sm:text-4xl lg:text-[40px]"
+                  className="text-left font-serif text-h1 font-medium text-fg"
                   itemProp="headline"
                 >
                   {title}
@@ -1363,6 +1370,21 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   >
                     {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                   </time>
+                  {lastmod && lastmod.slice(0, 10) !== String(date).slice(0, 10) && (
+                    <>
+                      <span className="text-[#d1d5db]">·</span>
+                      <span className="font-mono text-fg-2">
+                        Updated{' '}
+                        <time dateTime={lastmod} itemProp="dateModified">
+                          {new Date(lastmod).toLocaleDateString(siteMetadata.locale, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
+                        </time>
+                      </span>
+                    </>
+                  )}
                   {tags && tags.length > 0 && (
                     <>
                       <span className="text-[#d1d5db]">·</span>
@@ -1395,10 +1417,27 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               )}
 
-              {/* Call To Action Banner */}
-              <div className="mb-8">
-                <CTABanner />
-              </div>
+              {/* Call To Action: demo for voice/sales posts, practice for interview-prep posts */}
+              {isVoiceOrSalesPost ? (
+                <div className="mb-8">
+                  <CTABanner />
+                </div>
+              ) : (
+                <div className="mb-8 flex flex-col gap-3 rounded-xl bg-signal-tint px-5 py-4 ring-1 ring-inset ring-signal/15 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-small text-fg">
+                    <span className="font-semibold">Practise out loud, free.</span>{' '}
+                    <span className="text-fg-2">
+                      Answer real interview questions with an AI interviewer and get feedback.
+                    </span>
+                  </p>
+                  <Link
+                    href="/free-mock-interview"
+                    className="inline-flex h-11 shrink-0 items-center justify-center rounded-full bg-signal px-5 text-small font-semibold text-white transition-colors duration-fast hover:bg-signal-strong"
+                  >
+                    Free mock interview
+                  </Link>
+                </div>
+              )}
 
               {/* Article Content - Semantic HTML5 section */}
               <section

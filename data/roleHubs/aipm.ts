@@ -650,14 +650,14 @@ const aipm: RoleHub = {
       title: 'Google PM interview questions',
       url: '/blog/google-product-management-interview-questions-2025',
       kind: 'Our guide',
-      why: 'How Big Tech PM loops are structured, with sample answers.',
+      why: '19 real, sourced Google PM questions (incl. Gemini AI rounds), Levels.fyi pay in ₹ and $, and the APM 2027 deadline.',
       free: true,
     },
   ],
   related: [
     { label: 'Product manager resume template', href: '/cv-templates/product-manager' },
     { label: 'Free AI mock interview', href: '/free-mock-interview' },
-    { label: 'ATS resume checker', href: '/ats-score' },
+    { label: 'Free resume builder', href: '/build-resume' },
     { label: 'Best AI hackathon tools', href: '/blog/best-ai-hackathon-tools-2026' },
   ],
   faqs: [

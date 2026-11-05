@@ -14,6 +14,8 @@ import EnterpriseSpendCategories from './charts/EnterpriseSpendCategories'
 import EnterpriseSpendByDepartment from './charts/EnterpriseSpendByDepartment'
 import QuoteAnimation from './QuoteAnimation'
 import CTABanner from './CTABanner'
+import PracticeQuestion from './blog/PracticeQuestion'
+import KeyFacts from './blog/KeyFacts'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -32,5 +34,7 @@ export const components: MDXComponents = {
   EnterpriseSpendByDepartment,
   QuoteAnimation,
   CTABanner,
+  PracticeQuestion,
+  KeyFacts,
   Tweet,
 }
