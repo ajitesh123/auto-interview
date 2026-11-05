@@ -1,15 +1,21 @@
 # Role resume templates (Word)
 
-Builds two `.docx` templates per role hub into `public/downloads/resume-templates/`:
+Builds one `.docx` per role hub into `public/downloads/resume-templates/<slug>-resume-template.docx`.
 
-- `<slug>-resume-template-ats.docx`: single column, standard headings, no tables. For online applications.
-- `<slug>-resume-template-campus.docx`: the Indian campus / MBA table format. For placement cells and founder applications.
+Format: the one-page Indian table CV (Rahul's template, chosen for every role on Nov 6, 2026):
+education with marks, experience with a label per bullet, co-curriculars, extra-curriculars,
+positions of responsibility and skills. Each file is filled with a fictional sample for the role:
 
-Both are filled with a fictional sample (from `data/roleKits/<slug>.ts` → `resume.sample`) plus the campus details in `campus.json`.
+- `data/roleKits/<slug>.ts` → `resume.sample` (summary, experience bullets, skills)
+- `data/roleKits/campusResumes.json` (education rows, bullet labels, internship, activities, positions)
 
-Regenerate after editing a kit or adding a role (add the role to `campus.json` first):
+The page preview (`components/roleKits/CampusResumePreview.tsx`) reads the same data, so the page and the file match.
+
+Regenerate after editing a kit or adding a role (add the role to `campusResumes.json` first):
 
 ```bash
-npx tsx --tsconfig tsconfig.json scripts/resume-templates/dump-samples.ts scripts/resume-templates/samples.json
-node scripts/resume-templates/build.js scripts/resume-templates/samples.json scripts/resume-templates/campus.json public/downloads/resume-templates
+npx tsx --tsconfig tsconfig.json scripts/resume-templates/dump-samples.ts /tmp/samples.json
+node scripts/resume-templates/build.js /tmp/samples.json data/roleKits/campusResumes.json public/downloads/resume-templates
 ```
+
+Then convert one file to PDF with LibreOffice and check it is still one page.

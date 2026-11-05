@@ -1,6 +1,6 @@
-// Builds two Word resume templates per role from the role kits' sample resumes:
-//   <slug>-resume-template-campus.docx  (Indian campus / MBA table format, based on Rahul's template)
-//   <slug>-resume-template-ats.docx     (single-column, ATS-safe)
+// Builds one Word resume template per role from the role kits' sample resumes:
+//   <slug>-resume-template.docx  (one-page Indian table CV format, based on Rahul's template;
+//   Rahul chose this format for every role on Nov 6, 2026)
 // Usage: node build.js <samples.json> <campus.json> <outDir>
 const fs = require('fs')
 const path = require('path')
@@ -227,7 +227,7 @@ function campusDoc(slug) {
   ]
   return new Document({
     creator: 'Auto Interview AI (autointerviewai.com)',
-    title: `${SAMPLES[slug].roleName} resume template (campus format)`,
+    title: `${SAMPLES[slug].roleName} resume template`,
     styles: { default: { document: { run: { font: CF, size: 20 } } } },
     numbering: {
       config: [
@@ -254,151 +254,15 @@ function campusDoc(slug) {
   })
 }
 
-/* ------------------------------ ATS single-column format ------------------------------ */
-const AF = 'Calibri'
-const AM = 720
-const AW = A4.width - 2 * AM
-const ar = (text, o = {}) =>
-  new TextRun({
-    text,
-    font: AF,
-    size: o.size ?? 21,
-    bold: o.bold,
-    italics: o.italics,
-    color: o.color,
-  })
-const heading = (t) =>
-  new Paragraph({
-    children: [ar(t.toUpperCase(), { bold: true, size: 22 })],
-    spacing: { before: 200, after: 80 },
-    keepNext: true,
-    border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: '404040', space: 2 } },
-  })
-const bullet = (t) =>
-  new Paragraph({
-    children: [ar(t)],
-    numbering: { reference: 'ats-bullets', level: 0 },
-    spacing: { after: 40 },
-  })
-const rightTab = [{ type: TabStopType.RIGHT, position: AW }]
-
-function atsDoc(slug) {
-  const s = SAMPLES[slug].sample
-  const c = CAMPUS[slug]
-  const children = [
-    new Paragraph({
-      children: [ar(NOTE, { italics: true, size: 16, color: '7F7F7F' })],
-      spacing: { after: 100 },
-    }),
-    new Paragraph({
-      children: [ar(clean(s.name), { bold: true, size: 34 })],
-      spacing: { after: 20 },
-    }),
-    new Paragraph({ children: [ar(s.headline, { size: 22 })], spacing: { after: 20 } }),
-    new Paragraph({
-      children: [ar(contactParts(s.contact).join(' | '), { size: 20, color: '404040' })],
-      spacing: { after: 60 },
-    }),
-    heading('Summary'),
-    new Paragraph({ children: [ar(s.summary)], spacing: { after: 40 } }),
-    heading('Experience'),
-  ]
-  s.experience.forEach((e) => {
-    children.push(
-      new Paragraph({
-        children: [ar(`${e.role}, ${clean(e.org)}`, { bold: true }), ar(`\t${e.dates}`)],
-        tabStops: rightTab,
-        spacing: { before: 100, after: 40 },
-        keepNext: true,
-      }),
-      ...e.bullets.map(bullet)
-    )
-  })
-  if (s.projects?.length) {
-    children.push(heading('Projects'))
-    s.projects.forEach((pr) =>
-      children.push(
-        new Paragraph({
-          children: [ar(`${clean(pr.name)}: `, { bold: true }), ar(pr.line)],
-          numbering: { reference: 'ats-bullets', level: 0 },
-          spacing: { after: 40 },
-        })
-      )
-    )
-  }
-  children.push(heading('Education'))
-  c.education
-    .filter((r) => !/^Class/i.test(r[0]))
-    .forEach((r) =>
-      children.push(
-        new Paragraph({
-          children: [ar(`${r[0]}, ${clean(r[1])}`, { bold: true }), ar(`\t${r[2]}`)],
-          tabStops: rightTab,
-          spacing: { after: 20 },
-        }),
-        ...(r[3]
-          ? [
-              new Paragraph({
-                children: [ar(r[3], { size: 20, color: '404040' })],
-                spacing: { after: 60 },
-              }),
-            ]
-          : [])
-      )
-    )
-  children.push(heading('Skills'), new Paragraph({ children: [ar(s.skills.join(', '))] }))
-  children.push(heading('Achievements and Leadership'))
-  const notProject = c.cocurricular.filter(([label]) =>
-    /case|certif|hackathon|kaggle|course/i.test(label)
-  )
-  ;[...c.por, ...notProject].forEach(([, text, year]) =>
-    children.push(
-      new Paragraph({
-        children: [ar(text), ar(` (${year})`, { color: '404040' })],
-        numbering: { reference: 'ats-bullets', level: 0 },
-        spacing: { after: 40 },
-      })
-    )
-  )
-  return new Document({
-    creator: 'Auto Interview AI (autointerviewai.com)',
-    title: `${SAMPLES[slug].roleName} resume template (ATS format)`,
-    styles: { default: { document: { run: { font: AF, size: 21 } } } },
-    numbering: {
-      config: [
-        {
-          reference: 'ats-bullets',
-          levels: [
-            {
-              level: 0,
-              format: LevelFormat.BULLET,
-              text: '•',
-              alignment: AlignmentType.LEFT,
-              style: { paragraph: { indent: { left: 300, hanging: 220 } } },
-            },
-          ],
-        },
-      ],
-    },
-    sections: [
-      {
-        properties: { page: { size: A4, margin: { top: AM, bottom: AM, left: AM, right: AM } } },
-        children,
-      },
-    ],
-  })
-}
-
 ;(async () => {
   for (const slug of Object.keys(SAMPLES)) {
-    for (const [kind, fn] of [
-      ['campus', campusDoc],
-      ['ats', atsDoc],
-    ]) {
-      const buf = await Packer.toBuffer(fn(slug))
-      const f = path.join(outDir, `${slug}-resume-template-${kind}.docx`)
-      fs.writeFileSync(f, buf)
-      console.log(f, buf.length)
+    if (!CAMPUS[slug]) {
+      console.warn(`skip ${slug}: add it to data/roleKits/campusResumes.json`)
+      continue
     }
+    const buf = await Packer.toBuffer(campusDoc(slug))
+    const f = path.join(outDir, `${slug}-resume-template.docx`)
+    fs.writeFileSync(f, buf)
+    console.log(f, buf.length)
   }
 })()

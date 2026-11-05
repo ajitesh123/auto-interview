@@ -3,35 +3,11 @@ import type { RoleHub } from '@/data/roleHubs/types'
 import type { ResumeKit } from '@/data/roleKits/types'
 import { KIT_PATHS } from '@/data/roleKits'
 import { ArrowRightIcon, CheckIcon } from '@/components/roleHub/icons'
-import { CopyButton, KeywordChecker, PrintSampleButton } from './KitClient'
+import { CopyButton, KeywordChecker } from './KitClient'
+import CampusResumePreview from './CampusResumePreview'
 import { Card, KitShell, Section, SITE, kitSchemas } from './KitLayout'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-function sampleText(s: ResumeKit['sample']) {
-  return [
-    s.name.replace(/\s*\(sample\)/i, ''),
-    `${s.headline} · ${s.contact}`,
-    '',
-    'SUMMARY',
-    s.summary,
-    '',
-    'EXPERIENCE',
-    ...s.experience.flatMap((e) => [
-      `${e.role}, ${e.org} (${e.dates})`,
-      ...e.bullets.map((b) => `• ${b}`),
-      '',
-    ]),
-    ...(s.projects?.length
-      ? ['PROJECTS', ...s.projects.map((p) => `• ${p.name}: ${p.line}`), '']
-      : []),
-    'SKILLS',
-    s.skills.join(' · '),
-    '',
-    'EDUCATION',
-    s.education,
-  ].join('\n')
-}
 
 export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeKit }) {
   const url = `${SITE}${KIT_PATHS.resume(hub.slug)}`
@@ -276,137 +252,38 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
         id="sample"
         n={8}
         title={`Free ${hub.shortName} resume template (Word) with a sample`}
-        sub="Two Word files, both filled with a made-up example for this role so you can see what to write in each line. Replace everything with your own details."
+        sub="One Word file in the one-page table format that Indian recruiters, placement cells and founders know, filled with a made-up example for this role. Replace every line with your own."
       >
-        <div className="grid gap-3 md:grid-cols-2">
-          {[
-            {
-              file: `/downloads/resume-templates/${hub.slug}-resume-template-ats.docx`,
-              name: 'ATS format',
-              primary: true,
-              tag: 'Best for job portals and company sites',
-              line: 'One column, standard headings, no tables or graphics, so applicant tracking systems read every line correctly.',
-            },
-            {
-              file: `/downloads/resume-templates/${hub.slug}-resume-template-campus.docx`,
-              name: 'Campus / MBA format',
-              primary: false,
-              tag: 'Best for placement cells and founders',
-              line: 'The Indian one-page table CV: education with marks, experience with a label per bullet, co-curriculars, extra-curriculars and positions of responsibility.',
-            },
-          ].map((t) => (
-            <div
-              key={t.name}
-              className="flex flex-col rounded-xl border border-border bg-surface p-5"
-            >
-              <div className="text-caption font-semibold text-signal-strong">{t.tag}</div>
-              <div className="mt-1 text-h4 font-semibold text-fg">
-                {hub.shortName} resume template: {t.name}
-              </div>
-              <p className="mt-1.5 flex-1 text-small leading-relaxed text-fg-2">{t.line}</p>
-              <a
-                href={t.file}
-                download
-                className={`mt-4 inline-flex h-10 items-center gap-2 self-start rounded-full px-4 text-small font-semibold ${
-                  t.primary
-                    ? 'bg-signal text-white shadow-e1 hover:bg-signal-strong'
-                    : 'bg-surface text-fg ring-1 ring-inset ring-border-strong hover:bg-muted'
-                }`}
-              >
-                Download .docx (Word)
-              </a>
+        <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+          <div>
+            <div className="text-h4 font-semibold text-fg">
+              {hub.roleName} resume template (.docx)
             </div>
-          ))}
+            <p className="mt-1 text-small leading-relaxed text-fg-2">
+              Education with marks, experience with a label beside every bullet, co-curriculars,
+              extra-curriculars, positions of responsibility and skills. One page.
+            </p>
+          </div>
+          <a
+            href={`/downloads/resume-templates/${hub.slug}-resume-template.docx`}
+            download
+            className="inline-flex h-11 shrink-0 items-center gap-2 self-start rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 hover:bg-signal-strong sm:self-auto"
+          >
+            Download Word template
+          </a>
         </div>
         <p className="text-caption leading-relaxed text-fg-3">
-          Opens in Microsoft Word, Google Docs and LibreOffice. We left out photo, age, gender and
-          date of birth on purpose: recruiters do not need them, and some screeners penalise them.
+          Opens in Microsoft Word, Google Docs and LibreOffice. Everything is real text (no text
+          boxes or images), so applicant tracking systems can read it. We left out photo, age,
+          gender and date of birth on purpose: recruiters do not need them.
         </p>
-        <div className="pt-4 text-h4 font-semibold text-fg">The same sample, on the page</div>
-        <div className="flex flex-wrap gap-2">
-          <PrintSampleButton sample={kit.sample} title={`${hub.shortName} resume sample`} />
-          <CopyButton text={sampleText(kit.sample)} label="Copy as text" />
-          <Link
-            href="/build-resume"
-            className="inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-small font-semibold text-signal-strong hover:underline"
-          >
-            Build yours in the free resume builder <ArrowRightIcon />
-          </Link>
-        </div>
-        <article
-          aria-label="Sample resume"
-          className="mx-auto max-w-[820px] rounded-2xl border border-border bg-white p-6 shadow-e2 md:p-10"
+        <CampusResumePreview slug={hub.slug} sample={kit.sample} />
+        <Link
+          href="/build-resume"
+          className="inline-flex h-10 items-center gap-1.5 text-small font-semibold text-signal-strong hover:underline"
         >
-          <div className="text-h3 font-semibold text-fg">{kit.sample.name}</div>
-          <div className="mt-1 text-small text-fg-2">
-            {kit.sample.headline} · {kit.sample.contact}
-          </div>
-          {[
-            [
-              'Summary',
-              <p key="s" className="text-small leading-relaxed text-fg-2">
-                {kit.sample.summary}
-              </p>,
-            ],
-            [
-              'Experience',
-              <div key="e" className="space-y-4">
-                {kit.sample.experience.map((e) => (
-                  <div key={e.role + e.org}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-2 text-small">
-                      <span>
-                        <span className="font-semibold text-fg">{e.role}</span>
-                        <span className="text-fg-2">, {e.org}</span>
-                      </span>
-                      <span className="text-caption text-fg-3">{e.dates}</span>
-                    </div>
-                    <ul className="mt-1.5 list-disc space-y-1 pl-5 text-small leading-relaxed text-fg-2 marker:text-fg-3">
-                      {e.bullets.map((b) => (
-                        <li key={b}>{b}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>,
-            ],
-            ...(kit.sample.projects?.length
-              ? [
-                  [
-                    'Projects',
-                    <ul
-                      key="p"
-                      className="list-disc space-y-1 pl-5 text-small leading-relaxed text-fg-2 marker:text-fg-3"
-                    >
-                      {kit.sample.projects.map((p) => (
-                        <li key={p.name}>
-                          <span className="font-semibold text-fg">{p.name}:</span> {p.line}
-                        </li>
-                      ))}
-                    </ul>,
-                  ] as const,
-                ]
-              : []),
-            [
-              'Skills',
-              <p key="k" className="text-small text-fg-2">
-                {kit.sample.skills.join(' · ')}
-              </p>,
-            ],
-            [
-              'Education',
-              <p key="d" className="text-small text-fg-2">
-                {kit.sample.education}
-              </p>,
-            ],
-          ].map(([label, body]) => (
-            <div key={label as string} className="mt-5">
-              <div className="border-b border-border-strong pb-1 text-caption font-semibold uppercase tracking-[0.06em] text-fg">
-                {label as string}
-              </div>
-              <div className="mt-2.5">{body}</div>
-            </div>
-          ))}
-        </article>
+          Prefer to fill it in online? Use the free resume builder <ArrowRightIcon />
+        </Link>
       </Section>
 
       <Section
