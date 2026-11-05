@@ -546,6 +546,8 @@ export function QuestionItem({
   q,
   answer,
   lookFor,
+  criteria = [],
+  tags = [],
   defaultOpen,
 }: {
   slug: string
@@ -554,6 +556,8 @@ export function QuestionItem({
   q: string
   answer: string
   lookFor?: string
+  criteria?: string[]
+  tags?: string[]
   defaultOpen?: boolean
 }) {
   const { store, rate, isDue } = usePractice(slug)
@@ -562,6 +566,14 @@ export function QuestionItem({
   // Attempt first, then reveal (retrieval practice). The answer is in the server HTML;
   // only after the page loads do we fold it behind "Reveal". The first question stays a worked example.
   const [revealed, setRevealed] = useState(true)
+  const [hit, setHit] = useState<number[]>([])
+  const suggested: Rating | null = criteria.length
+    ? hit.length === criteria.length
+      ? 'strong'
+      : hit.length === 0
+        ? null
+        : 'ok'
+    : null
   useEffect(() => {
     if (!defaultOpen) setRevealed(false)
   }, [defaultOpen])
@@ -585,6 +597,15 @@ export function QuestionItem({
         </span>
         <span className="flex-1">
           <span className="block text-body font-medium text-fg">{q}</span>
+          {tags.length > 0 && (
+            <span className="mt-1 flex flex-wrap gap-1.5 text-[11px] font-medium text-fg-3">
+              {tags.map((t) => (
+                <span key={t} className="rounded-full border border-border px-2 py-0.5">
+                  {t}
+                </span>
+              ))}
+            </span>
+          )}
           {entry && (
             <span className="mt-1 inline-flex flex-wrap gap-1.5 text-[11px] font-medium">
               <span className="rounded-full bg-muted px-2 py-0.5 text-fg-2">
@@ -637,16 +658,42 @@ export function QuestionItem({
               <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-ink">
                 What the interviewer is listening for
               </div>
-              <p className="mt-1.5 text-small leading-relaxed text-fg">{lookFor}</p>
-              <p className="mt-2 text-caption text-fg-2">
-                Check yourself: did your answer cover this?
-              </p>
+              <p className="sr-only">{lookFor}</p>
+              <p className="mt-1.5 text-caption text-fg-2">Tick what your answer covered.</p>
+              <ul className="mt-2 space-y-1">
+                {criteria.map((c, i) => {
+                  const on = hit.includes(i)
+                  return (
+                    <li key={c}>
+                      <label className="flex min-h-9 cursor-pointer items-start gap-2.5 text-small leading-relaxed text-fg">
+                        <input
+                          type="checkbox"
+                          checked={on}
+                          onChange={() =>
+                            setHit((h) => (on ? h.filter((x) => x !== i) : [...h, i]))
+                          }
+                          className="mt-1 h-4 w-4 shrink-0 accent-signal"
+                        />
+                        <span>{c}</span>
+                      </label>
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
           )}
         </div>
         {revealed && (
           <div className="rounded-lg border border-border p-3.5">
-            <div className="text-small font-medium text-fg">How did your answer compare?</div>
+            <div className="text-small font-medium text-fg">
+              How did your answer compare?
+              {suggested && !entry && (
+                <span className="ml-1 font-normal text-fg-2">
+                  You covered {hit.length} of {criteria.length}: try “
+                  {suggested === 'strong' ? 'Nailed it' : 'Partly there'}”.
+                </span>
+              )}
+            </div>
             <div role="group" aria-label="Rate your answer" className="mt-2.5 flex flex-wrap gap-2">
               {(['weak', 'ok', 'strong'] as Rating[]).map((r) => (
                 <button

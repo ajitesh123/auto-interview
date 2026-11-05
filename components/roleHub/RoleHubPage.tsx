@@ -16,6 +16,7 @@ import {
   type ChapterMeta,
 } from './JourneyClient'
 import { tabLabel } from './payLabels'
+import { splitAsked, toCriteria } from './questionUtils'
 import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon, SparkIcon } from './icons'
 
 // Role hub = a learner journey (Signal Paper design, see the signal-paper-ui skill).
@@ -857,9 +858,19 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                               slug={hub.slug}
                               qid={`${g.id}-${qi}`}
                               index={idx}
-                              q={q.q}
+                              q={splitAsked(q.q).text}
+                              tags={[
+                                q.round,
+                                splitAsked(q.q).askedAt
+                                  ? `Asked at ${splitAsked(q.q).askedAt} · via ${splitAsked(q.q).via}`
+                                  : q.source
+                                    ? `Reported · ${q.source.label}`
+                                    : undefined,
+                                q.reportedAt,
+                              ].filter((t): t is string => !!t)}
                               answer={q.answer}
                               lookFor={q.lookFor}
+                              criteria={toCriteria(q.lookFor, q.criteria)}
                               defaultOpen={gi === 0 && qi === 0}
                             />
                           )

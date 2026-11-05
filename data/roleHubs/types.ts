@@ -5,6 +5,14 @@ export interface HubQuestion {
   q: string
   answer: string // model answer, plain text with \n\n for paragraphs
   lookFor?: string // what interviewers are listening for
+  /** 2–5 tickable points; defaults to a split of `lookFor` (components/roleHub/questionUtils.ts) */
+  criteria?: string[]
+  /** Where the question was reported, when it is not already written as "(Asked at X, per Y)" in `q` */
+  source?: { label: string; url?: string }
+  /** Month the question was reported, e.g. "Mar 2026" */
+  reportedAt?: string
+  /** Interview round, e.g. "Founder call", "Take-home", "Onsite" */
+  round?: string
 }
 
 export interface HubQuestionGroup {
