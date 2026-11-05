@@ -675,7 +675,7 @@ const chiefOfStaff: RoleHub = {
   related: [
     { label: 'Founder’s Office hub', href: '/founders-office' },
     { label: 'AI Product Manager hub', href: '/aipm' },
-    { label: 'Free prep resources', href: '/free-resources' },
+    { label: 'Growth Manager hub', href: '/growth' },
     { label: 'Build your resume', href: '/build-resume' },
   ],
   faqs: [

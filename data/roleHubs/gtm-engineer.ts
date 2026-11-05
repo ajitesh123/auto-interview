@@ -570,10 +570,10 @@ const gtmEngineer: RoleHub = {
     },
   ],
   related: [
+    { label: 'Growth Manager hub', href: '/growth' },
     { label: 'Sales SDR resume template', href: '/cv-templates/sales-sdr' },
     { label: 'Free AI mock interview', href: '/free-mock-interview' },
     { label: 'Forward Deployed Engineer hub', href: '/fde' },
-    { label: 'AI Product Manager hub', href: '/aipm' },
   ],
   faqs: [
     {
