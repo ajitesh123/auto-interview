@@ -168,7 +168,7 @@ export default function Page() {
                     href={KIT_PATHS.resume(slug)}
                     className="font-medium text-signal-strong hover:underline"
                   >
-                    {ROLE_HUBS[slug].roleName} resume (CV) guide
+                    {ROLE_HUBS[slug].roleName} resume (CV) and Word template
                   </Link>
                   <Link
                     href={KIT_PATHS.lor(slug)}

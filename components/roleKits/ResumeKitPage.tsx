@@ -44,7 +44,7 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
     { id: 'rewrites', label: 'Before and after' },
     { id: 'keywords', label: 'Keywords' },
     { id: 'projects', label: 'No experience yet' },
-    { id: 'sample', label: 'Sample resume' },
+    { id: 'sample', label: 'Word templates and sample' },
     { id: 'cover-letter', label: 'Cover letter and LinkedIn' },
     { id: 'mistakes', label: 'Mistakes' },
   ]
@@ -53,10 +53,10 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
       hub={hub}
       kind="resume"
       h1={kit.h1}
-      kicker={`Resume (CV) guide · ${kit.bulletBank.reduce((n, g) => n + g.bullets.length, 0)} bullet examples · Updated ${MONTHS[m - 1]} ${y}`}
+      kicker={`Resume (CV) guide · Free Word templates · ${kit.bulletBank.reduce((n, g) => n + g.bullets.length, 0)} bullet examples · Updated ${MONTHS[m - 1]} ${y}`}
       directAnswer={kit.directAnswer}
       toc={toc}
-      primary={{ href: '#keywords', label: 'Check your resume' }}
+      primary={{ href: '#sample', label: 'Download the Word template' }}
       faqs={kit.faqs}
       schemas={kitSchemas({
         url,
@@ -275,9 +275,54 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
       <Section
         id="sample"
         n={8}
-        title={`Sample one-page ${hub.shortName} resume`}
-        sub="A fictional example. Copy the structure, not the numbers."
+        title={`Free ${hub.shortName} resume template (Word) with a sample`}
+        sub="Two Word files, both filled with a made-up example for this role so you can see what to write in each line. Replace everything with your own details."
       >
+        <div className="grid gap-3 md:grid-cols-2">
+          {[
+            {
+              file: `/downloads/resume-templates/${hub.slug}-resume-template-ats.docx`,
+              name: 'ATS format',
+              primary: true,
+              tag: 'Best for job portals and company sites',
+              line: 'One column, standard headings, no tables or graphics, so applicant tracking systems read every line correctly.',
+            },
+            {
+              file: `/downloads/resume-templates/${hub.slug}-resume-template-campus.docx`,
+              name: 'Campus / MBA format',
+              primary: false,
+              tag: 'Best for placement cells and founders',
+              line: 'The Indian one-page table CV: education with marks, experience with a label per bullet, co-curriculars, extra-curriculars and positions of responsibility.',
+            },
+          ].map((t) => (
+            <div
+              key={t.name}
+              className="flex flex-col rounded-xl border border-border bg-surface p-5"
+            >
+              <div className="text-caption font-semibold text-signal-strong">{t.tag}</div>
+              <div className="mt-1 text-h4 font-semibold text-fg">
+                {hub.shortName} resume template: {t.name}
+              </div>
+              <p className="mt-1.5 flex-1 text-small leading-relaxed text-fg-2">{t.line}</p>
+              <a
+                href={t.file}
+                download
+                className={`mt-4 inline-flex h-10 items-center gap-2 self-start rounded-full px-4 text-small font-semibold ${
+                  t.primary
+                    ? 'bg-signal text-white shadow-e1 hover:bg-signal-strong'
+                    : 'bg-surface text-fg ring-1 ring-inset ring-border-strong hover:bg-muted'
+                }`}
+              >
+                Download .docx (Word)
+              </a>
+            </div>
+          ))}
+        </div>
+        <p className="text-caption leading-relaxed text-fg-3">
+          Opens in Microsoft Word, Google Docs and LibreOffice. We left out photo, age, gender and
+          date of birth on purpose: recruiters do not need them, and some screeners penalise them.
+        </p>
+        <div className="pt-4 text-h4 font-semibold text-fg">The same sample, on the page</div>
         <div className="flex flex-wrap gap-2">
           <PrintSampleButton sample={kit.sample} title={`${hub.shortName} resume sample`} />
           <CopyButton text={sampleText(kit.sample)} label="Copy as text" />

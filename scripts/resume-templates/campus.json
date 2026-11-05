@@ -1,0 +1,385 @@
+{
+  "aipm": {
+    "education": [
+      [
+        "MBA",
+        "Western India Institute of Management (fictional)",
+        "3.4 / 4.0",
+        "Winner, product case competition 2021"
+      ],
+      [
+        "B.Tech, CSE",
+        "Deccan Institute of Technology (fictional)",
+        "8.1 / 10",
+        "Department rank 6"
+      ],
+      ["Class XII", "CBSE", "92.4%", ""],
+      ["Class X", "CBSE", "94.0%", ""]
+    ],
+    "labels": [
+      ["AI launch", "Evals", "Unit cost", "Enterprise"],
+      ["Discovery", "Experiments"]
+    ],
+    "internship": [
+      "Contoso Payments (fictional)",
+      "Summer Intern, Product",
+      "Apr '20 – Jun '20",
+      [
+        "Product spec",
+        "Shipped a spec for a bill-split feature from 18 user interviews; the PM team built it the next quarter"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "AI product",
+        "Published a public eval of 3 AI meeting-notes tools (60 meetings, 5-point rubric); read by 4,000 people",
+        "2024"
+      ],
+      [
+        "Certification",
+        "Completed Anthropic Academy AI Fluency and OpenAI Academy AI Foundations",
+        "2025"
+      ],
+      [
+        "Case comp.",
+        "National finalist, product strategy case competition (top 8 of 300 teams)",
+        "2021"
+      ]
+    ],
+    "extracurricular": [
+      [
+        "Speaking",
+        "Spoke at a local product meetup on writing specs for LLM features (120 attendees)",
+        "2024"
+      ],
+      [
+        "Mentoring",
+        "Mentor 4 engineers moving into product each year through an alumni programme",
+        "2023"
+      ],
+      ["Sport", "Captain, college football team; inter-college runners-up", "2018"]
+    ],
+    "por": [
+      [
+        "Product Club",
+        "President, MBA Product Club: ran 6 workshops with 300+ attendees and a 40-student mentorship cohort",
+        "2020–21"
+      ],
+      [
+        "Coding Club",
+        "Coordinator, college coding club: organised a 24-hour hackathon with 180 participants",
+        "2017–18"
+      ]
+    ]
+  },
+  "fde": {
+    "education": [
+      [
+        "B.Tech, CSE",
+        "Deccan Institute of Technology (fictional)",
+        "8.6 / 10",
+        "Best final-year project, data systems"
+      ],
+      ["Class XII", "CBSE", "93.2%", "JEE Main 99.1 percentile"],
+      ["Class X", "CBSE", "95.0%", ""]
+    ],
+    "labels": [
+      ["Deployment", "Evals", "Security", "Productising"],
+      ["Integrations", "Reliability"]
+    ],
+    "internship": [
+      "Contoso Logistics Cloud (fictional)",
+      "Software Engineering Intern",
+      "May '20 – Jul '20",
+      ["Integrations", "Built a CSV-to-API importer used by 3 customers during onboarding"]
+    ],
+    "cocurricular": [
+      [
+        "Open source",
+        "Built an open-source MCP server for Postgres with read-only scopes; 400 GitHub stars",
+        "2025"
+      ],
+      [
+        "Hackathon",
+        "Winner, enterprise AI hackathon: shipped a claims-triage agent in 36 hours",
+        "2024"
+      ],
+      ["Certification", "AWS Certified Solutions Architect – Associate", "2023"]
+    ],
+    "extracurricular": [
+      [
+        "Writing",
+        "Write a monthly blog on debugging customer deployments (2,000 readers a month)",
+        "2024"
+      ],
+      ["Teaching", "Volunteer Python teacher for 25 school students on weekends", "2022"],
+      ["Sport", "Member, college cricket team", "2019"]
+    ],
+    "por": [
+      [
+        "Tech club",
+        "Lead, college developer club: ran 10 build sessions and a demo day for 30 teams",
+        "2020–21"
+      ],
+      [
+        "Placement cell",
+        "Student coordinator: managed schedules for 40 recruiting companies",
+        "2019–20"
+      ]
+    ]
+  },
+  "gtm-engineer": {
+    "education": [
+      ["B.E., E&TC", "Pune College of Engineering (fictional)", "7.9 / 10", ""],
+      ["Class XII", "Maharashtra State Board", "88.6%", ""],
+      ["Class X", "CBSE", "91.0%", ""]
+    ],
+    "labels": [
+      ["Outbound", "Enrichment", "Routing", "AI research"],
+      ["Automation", "Deliverability"]
+    ],
+    "internship": [
+      "Tailspin Analytics (fictional)",
+      "Sales Operations Intern",
+      "Jan '21 – Apr '21",
+      [
+        "CRM hygiene",
+        "Deduplicated 28,000 CRM records and fixed lead-source tracking for the sales team"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Open template",
+        "Published an open n8n template for inbound lead routing; used by 300+ teams",
+        "2025"
+      ],
+      ["Certification", "Clay certification; HubSpot Sales Hub certification", "2024"],
+      ["Writing", "Weekly LinkedIn teardown of outbound sequences (6,000 followers)", "2024"]
+    ],
+    "extracurricular": [
+      ["Community", "Co-host, monthly RevOps and GTM meetup in Bengaluru", "2025"],
+      ["Mentoring", "Mentor SDRs learning SQL and automation in an online community", "2023"],
+      ["Music", "Guitarist, college band; 12 live shows", "2019"]
+    ],
+    "por": [
+      [
+        "E-Cell",
+        "Head of Outreach, college E-Cell: booked 14 founder talks and a sponsor network of 20 companies",
+        "2020–21"
+      ],
+      [
+        "Fest",
+        "Marketing lead, college tech fest: grew registrations from 2,000 to 3,500",
+        "2019–20"
+      ]
+    ]
+  },
+  "ai-engineer": {
+    "education": [
+      [
+        "B.Tech, CSE",
+        "Hyderabad Institute of Technology (fictional)",
+        "8.8 / 10",
+        "Thesis on retrieval for Telugu text"
+      ],
+      ["Class XII", "Telangana State Board", "96.1%", "JEE Advanced qualified"],
+      ["Class X", "CBSE", "95.4%", ""]
+    ],
+    "labels": [
+      ["RAG system", "Evals", "Latency/cost", "Safety"],
+      ["Backend", "LLM tooling"]
+    ],
+    "internship": [
+      "Tailspin Payments (fictional)",
+      "ML Engineering Intern",
+      "May '21 – Jul '21",
+      [
+        "Classification",
+        "Trained a fraud-alert classifier that cut false positives by 18% on a held-out month"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Open eval",
+        "Published an open eval of 3 embedding models on Indian-language support queries",
+        "2025"
+      ],
+      ["Kaggle", "Top 5% in a Kaggle NLP competition (2,100 teams)", "2023"],
+      [
+        "Course",
+        "Completed the Anthropic API and OpenAI agents courses; built 2 agents with tool calling",
+        "2025"
+      ]
+    ],
+    "extracurricular": [
+      ["Speaking", "Talk on evals for RAG at a community AI meetup (200 attendees)", "2025"],
+      ["Teaching", "Teaching assistant, college machine learning course (90 students)", "2021"],
+      ["Sport", "State-level badminton, under-19", "2017"]
+    ],
+    "por": [
+      [
+        "AI club",
+        "Founder, college AI reading group: 30 members, weekly paper discussions",
+        "2020–22"
+      ],
+      ["Hackathon", "Organiser, college hackathon with 250 participants and 6 sponsors", "2020–21"]
+    ]
+  },
+  "founders-office": {
+    "education": [
+      [
+        "B.Tech, Mech.",
+        "Deccan Institute of Technology (fictional)",
+        "8.4 / 10",
+        "Head of Sponsorships, E-Cell"
+      ],
+      ["Class XII", "CBSE", "94.2%", ""],
+      ["Class X", "CBSE", "95.6%", ""]
+    ],
+    "labels": [
+      ["City launch", "Investor MIS", "Process", "Hiring"],
+      ["Unit economics", "Market sizing"]
+    ],
+    "internship": [
+      "Meridian Strategy Partners (fictional)",
+      "Summer Intern, Strategy",
+      "May '21 – Jul '21",
+      [
+        "Research",
+        "Built a competitor teardown of 12 D2C brands used in a client pitch that converted"
+      ]
+    ],
+    "cocurricular": [
+      ["Case comp.", "National finalist, strategy case competition (top 6 of 450 teams)", "2021"],
+      [
+        "Memo",
+        "Wrote a public teardown memo on onboarding drop-off at a D2C brand; founder replied and adopted 2 fixes",
+        "2024"
+      ],
+      ["Certification", "Financial modelling course; SQL for analysts", "2023"]
+    ],
+    "extracurricular": [
+      ["Social", "Taught basic Excel to 40 women entrepreneurs with a Pune NGO", "2023"],
+      ["Quizzing", "Winner, inter-college business quiz", "2020"],
+      ["Sport", "College basketball team; zonal runners-up", "2019"]
+    ],
+    "por": [
+      [
+        "E-Cell",
+        "Head of Sponsorships, college E-Cell: led 9 people, signed 11 sponsors, raised ₹4.2 lakh (30% above the previous year)",
+        "2020–21"
+      ],
+      ["Fest", "Logistics head, college cultural fest with 8,000 visitors", "2019–20"]
+    ]
+  },
+  "chief-of-staff": {
+    "education": [
+      [
+        "MBA",
+        "Western India Institute of Management (fictional)",
+        "3.6 / 4.0",
+        "Dean's list; top 10% of batch"
+      ],
+      ["B.Com", "Mumbai College of Commerce (fictional)", "81%", "University rank 14"],
+      ["Class XII", "Maharashtra State Board", "91.5%", ""],
+      ["Class X", "ICSE", "93.0%", ""]
+    ],
+    "labels": [
+      ["Operating rhythm", "Board prep", "Expansion", "CEO leverage"],
+      ["Cost programme", "Operating model"]
+    ],
+    "internship": [
+      "Fabrikam Consulting (fictional)",
+      "Summer Associate",
+      "Apr '18 – Jun '18",
+      [
+        "Strategy",
+        "Built a market-entry case for a retail client; the recommendation went to the client's board"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Case comp.",
+        "Winner, national general-management case competition (top 3 of 500 teams)",
+        "2018"
+      ],
+      [
+        "Writing",
+        "Shared a public one-page leadership brief template used by 1,000+ operators",
+        "2024"
+      ],
+      ["Certification", "Board governance short course", "2023"]
+    ],
+    "extracurricular": [
+      [
+        "Social",
+        "Pro-bono strategy for an education NGO: redesigned their donor reporting",
+        "2022"
+      ],
+      ["Debate", "Captain, college debating society; 4 inter-college wins", "2016"],
+      ["Sport", "Marathon finisher (2 full marathons)", "2023"]
+    ],
+    "por": [
+      [
+        "Student council",
+        "General Secretary, MBA student council: ran budgets and 12 student committees",
+        "2018–19"
+      ],
+      [
+        "Consulting club",
+        "Head, MBA consulting club: ran a 60-student case prep programme",
+        "2017–18"
+      ]
+    ]
+  },
+  "growth": {
+    "education": [
+      ["B.Com", "Pune College of Commerce (fictional)", "8.2 / 10", "Marketing elective topper"],
+      ["Class XII", "Maharashtra State Board", "89.0%", ""],
+      ["Class X", "CBSE", "92.4%", ""]
+    ],
+    "labels": [
+      ["Retention", "Paid acquisition", "Referrals", "Analytics"],
+      ["Onboarding", "Data quality"]
+    ],
+    "internship": [
+      "PaisaSetu (fictional)",
+      "Growth Intern",
+      "Jan '21 – Apr '21",
+      [
+        "Experiments",
+        "Ran 6 landing-page tests; the winning variant raised signup rate from 9% to 12%"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Teardown",
+        "Published a growth teardown of a fitness app's onboarding; shared by the app's head of growth",
+        "2024"
+      ],
+      ["Certification", "Google Analytics certification; SQL for marketers", "2023"],
+      ["Case comp.", "Runners-up, national marketing case competition", "2020"]
+    ],
+    "extracurricular": [
+      [
+        "Community",
+        "Run a 1,500-member WhatsApp community for early-career growth marketers",
+        "2024"
+      ],
+      [
+        "Social",
+        "Ran digital campaigns for a local animal shelter; adoptions doubled in 3 months",
+        "2022"
+      ],
+      ["Dance", "College dance team; inter-college winners", "2019"]
+    ],
+    "por": [
+      ["Marketing club", "President, college marketing club: 8 events, 600 attendees", "2020–21"],
+      [
+        "Fest",
+        "Social media head, college fest: grew Instagram from 3,000 to 11,000 followers",
+        "2019–20"
+      ]
+    ]
+  }
+}
