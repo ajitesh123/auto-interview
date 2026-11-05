@@ -157,7 +157,9 @@ module.exports = {
         },
 
         // Status colors
-        success: '#297a3a',
+        success: { DEFAULT: '#297a3a', soft: v('success-soft'), strong: v('success') },
+        warn: { DEFAULT: v('warn'), soft: v('warn-soft') },
+        danger: { DEFAULT: v('danger'), soft: v('danger-soft') },
         warning: '#f59e0b',
         error: '#ef4444',
         info: '#3b82f6',

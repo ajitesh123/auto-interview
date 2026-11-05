@@ -129,6 +129,13 @@ export default function CalculatorPage() {
               deploying autonomous sub-350ms AI calling agents versus traditional cascaded telephony
               and human SDR teams.
             </p>
+            <p className="mx-auto mt-3 max-w-3xl text-sm text-gray-600">
+              Need a per-vendor breakdown on official list prices and a latency budget? See the{' '}
+              <Link href="/voice-ai-calling" className="font-medium text-signal-strong underline">
+                voice AI calling guide
+              </Link>
+              .
+            </p>
           </div>
 
           {/* Interactive Calculator Widget */}

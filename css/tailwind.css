@@ -28,6 +28,12 @@
     --ink-2: 26 34 56;
     --on-ink: 245 247 250;
     --on-ink-2: 168 176 196;
+    --success: 21 128 61;
+    --success-soft: 240 253 244;
+    --warn: 180 83 9;
+    --warn-soft: 255 251 235;
+    --danger: 220 38 38;
+    --danger-soft: 254 242 242;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
 

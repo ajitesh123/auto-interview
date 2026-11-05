@@ -102,6 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'ai-calling-roi-calculator',
         'cold-call-practice',
         'ai-sales-training',
+        'voice-ai-calling',
         'resume-job-matcher',
       ].includes(route)
     )
@@ -147,6 +148,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'about',
     'build-resume',
     'ai-calling-roi-calculator',
+    'voice-ai-calling',
     'cold-call-practice',
     'ai-sales-training',
     'resume-job-matcher',
