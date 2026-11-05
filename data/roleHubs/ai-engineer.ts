@@ -39,6 +39,56 @@ const aiEngineer: RoleHub = {
   directAnswer:
     'An AI engineer builds products on top of foundation models such as GPT, Claude and Gemini. The work is mostly software engineering: prompts, retrieval (RAG), tool-calling agents, evaluation pipelines, latency and cost control, and safe deployment. Unlike a machine learning engineer, an AI engineer rarely trains models from scratch. Interviews test coding, LLM application design, evals and debugging.',
   lastUpdated: '2026-11-03',
+  story: {
+    summary:
+      'The AI engineer was named in June 2023, when Shawn “swyx” Wang’s essay “The Rise of the AI Engineer” argued that foundation models had created a new kind of engineer. By January 2025 it was the fastest-growing job on LinkedIn’s US Jobs on the Rise list.',
+    born: { when: 'June 2023', what: 'Named in “The Rise of the AI Engineer”' },
+    rise: { when: 'Jan 2025', what: '#1 on LinkedIn’s US Jobs on the Rise' },
+    milestones: [
+      {
+        when: 'June 2023',
+        title: 'The role gets a name',
+        detail:
+          'The Latent Space essay argues that work which once needed “five years and a research team” can start from “API docs and a spare afternoon”.',
+        sourceLabel: 'AI Engineer, About',
+        sourceUrl: 'https://www.ai.engineer/about',
+      },
+      {
+        when: 'Oct 2023',
+        title: 'First AI Engineer Summit',
+        detail:
+          'The community holds its first summit, and the title starts appearing in job posts.',
+        sourceLabel: 'AI Engineer, About',
+        sourceUrl: 'https://www.ai.engineer/about',
+      },
+      {
+        when: 'Jan 2025',
+        title: 'Top of LinkedIn’s list',
+        detail:
+          'AI engineer takes the top spot on LinkedIn’s 2025 Jobs on the Rise list for the US.',
+        sourceLabel: 'Allwork.Space (Jan 9, 2025)',
+        sourceUrl:
+          'https://allwork.space/2025/01/ai-engineer-tops-linkedins-fastest-growing-jobs-for-2025',
+      },
+      {
+        when: 'Jan 2025 → now',
+        title: '72,786 people take the title',
+        detail:
+          '72,786 people started an AI Engineer or GenAI Engineer title since January 2025, including 21,239 in India.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
+    ],
+    why: [
+      'Work that once needed a research team can now start from an API, so every product team needs engineers who build on models.',
+      'Shipping AI reliably takes new skills: retrieval, tool calling, evals, and latency and cost control.',
+      'It reuses software-engineering foundations, so developers can switch in without a PhD.',
+    ],
+  },
+  aiAngle:
+    'This is the AI role. Go beyond prompting: build a small RAG app or agent with evals, and be ready to explain your latency, cost and failure cases.',
+  mustKnow:
+    'Interviews test whether you can make an LLM reliable: how you measure quality (evals), handle wrong answers, and keep cost and latency in budget.',
   whatTheRoleIs: [
     'The AI Engineer community describes the role as a new kind of engineer at the intersection of software engineering and AI: work that once needed a research team can now start from an API. Our count shows 72,786 people started an AI Engineer or GenAI Engineer title since January 2025, including 21,239 in India.',
     "Day to day, you design how a model is used: what context it receives, which tools it can call, how outputs are checked, and how the system behaves when the model is wrong. A typical posting, such as Fluency's AI Engineer role in San Francisco, asks for shipping LLM features end to end, designing evals that catch regressions, and choosing models for quality, latency and cost.",

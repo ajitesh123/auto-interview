@@ -9,6 +9,28 @@
    BASE LAYER — Vercel Monochrome Light
    ======================================== */
 @layer base {
+  /* Signal Paper tokens (signal-paper-ui skill). RGB triplets so Tailwind alpha works. */
+  :root {
+    --bg: 250 250 250;
+    --surface: 255 255 255;
+    --muted: 244 244 245;
+    --border: 235 235 235;
+    --border-strong: 212 212 212;
+    --border-input: 143 143 143;
+    --fg: 23 23 23;
+    --fg-2: 82 82 82;
+    --fg-3: 115 115 115;
+    --accent: 59 91 255;
+    --accent-strong: 47 74 224;
+    --accent-soft: 238 241 255;
+    --accent-on-ink: 143 162 255;
+    --ink: 14 20 36;
+    --ink-2: 26 34 56;
+    --on-ink: 245 247 250;
+    --on-ink-2: 168 176 196;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* Body — Paper-white canvas */
   body {
     @apply bg-[#fafafa] text-[#171717] antialiased;
@@ -443,4 +465,37 @@
 
 .faq-item:last-child {
   border-bottom: none;
+}
+
+/* ========================================
+   LEARNER JOURNEY: scroll reveal (role hubs)
+   Content is visible without JS; the client adds .rv to <html> once it can animate.
+   ======================================== */
+.rv [data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+.rv [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+.rv [data-bar] {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 600ms var(--ease-out);
+}
+.rv .is-in [data-bar],
+.rv [data-bar].is-in {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv [data-reveal],
+  .rv [data-bar] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

@@ -2,6 +2,9 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
+// Signal Paper tokens (see the signal-paper-ui skill). Colours are CSS variables in css/tailwind.css.
+const v = (n) => `rgb(var(--${n}) / <alpha-value>)`
+
 /** @type {import("tailwindcss/types").Config } */
 module.exports = {
   content: [
@@ -28,8 +31,47 @@ module.exports = {
         mono: ['JetBrains Mono', 'var(--font-jetbrains-mono)', ...fontFamily.mono],
         inter: ['Inter', 'var(--font-inter)', 'sans-serif'],
         'instrument-serif': ['Inter', 'var(--font-inter)', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'Cambria', 'serif'],
+      },
+      fontSize: {
+        display: [
+          'clamp(2.25rem, 1.5rem + 3.2vw, 3.5rem)',
+          { lineHeight: '1.05', letterSpacing: '-0.03em' },
+        ],
+        h1: [
+          'clamp(1.875rem, 1.4rem + 2vw, 2.75rem)',
+          { lineHeight: '1.1', letterSpacing: '-0.025em' },
+        ],
+        h2: [
+          'clamp(1.5rem, 1.2rem + 1.2vw, 2rem)',
+          { lineHeight: '1.2', letterSpacing: '-0.02em' },
+        ],
+        h3: [
+          'clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem)',
+          { lineHeight: '1.35', letterSpacing: '-0.01em' },
+        ],
+        h4: ['1.0625rem', { lineHeight: '1.4' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
+        body: ['1rem', { lineHeight: '1.65' }],
+        prose: ['1.0625rem', { lineHeight: '1.7' }],
+        small: ['0.875rem', { lineHeight: '1.5' }],
+        caption: ['0.8125rem', { lineHeight: '1.45' }],
+        kicker: ['0.75rem', { lineHeight: '1.3' }],
+      },
+      transitionDuration: { fast: '120ms', base: '200ms', slow: '320ms' },
+      transitionTimingFunction: {
+        standard: 'cubic-bezier(0.2, 0, 0, 1)',
+        out: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       colors: {
+        // Signal Paper roles
+        bg: v('bg'),
+        surface: v('surface'),
+        muted: v('muted'),
+        border: { DEFAULT: v('border'), strong: v('border-strong'), input: v('border-input') },
+        fg: { DEFAULT: v('fg'), 2: v('fg-2'), 3: v('fg-3') },
+        ink: { DEFAULT: v('ink'), 2: v('ink-2'), fg: v('on-ink'), 'fg-2': v('on-ink-2') },
+
         // Vercel Monochrome Scale
         'paper-white': '#fafafa',
         'pure-white': '#ffffff',
@@ -100,6 +142,8 @@ module.exports = {
           soft: '#9DB2FF', // accent on dark backgrounds
           tint: '#EEF1FF', // highlight backgrounds
           ink: '#1E33B3', // text on tint
+          strong: v('accent-strong'), // links and hover on paper (Signal Paper)
+          'on-ink': v('accent-on-ink'), // accent text on ink bands
         },
 
         // Accent (rare use only)
@@ -128,6 +172,9 @@ module.exports = {
         subtle: 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgb(250, 250, 250) 0px 0px 0px 2px',
         'subtle-2': 'rgb(235, 235, 235) 0px 0px 0px 1px',
         'ghost-border': '0 0 0 1px #ebebeb',
+        e1: '0 1px 2px rgb(14 20 36 / 0.06)',
+        e2: '0 6px 16px -6px rgb(14 20 36 / 0.12), 0 2px 4px rgb(14 20 36 / 0.04)',
+        e3: '0 16px 40px -12px rgb(14 20 36 / 0.22), 0 0 0 1px rgb(14 20 36 / 0.06)',
       },
       zIndex: {
         60: '60',

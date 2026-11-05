@@ -50,6 +50,45 @@ const chiefOfStaff: RoleHub = {
   directAnswer:
     'A Chief of Staff is a senior generalist who multiplies one leader: they run the leadership rhythm (goals, weekly reviews, board prep) and take the cross-team projects nobody else owns. In Indian tech it is not only a startup job: of 457 people who started the title at tech companies since January 2025, 119 joined companies with more than 1,000 people. Most loops are a leader conversation, a case or take-home, and a presentation.',
   lastUpdated: '2026-11-04',
+  story: {
+    summary:
+      'The Chief of Staff came to business from government and the military. In tech it spread among CEOs in the late 2010s, and Harvard Business Review made “The Case for a Chief of Staff” in 2020. In India it now spans startups and large companies.',
+    born: { when: 'Government', what: 'Borrowed from government and the military' },
+    rise: { when: '2020', what: 'HBR makes “The Case for a Chief of Staff”' },
+    milestones: [
+      {
+        when: 'Origins',
+        title: 'From government to business',
+        detail:
+          'Presidents and generals had chiefs of staff long before companies did. Tech CEOs adopted the title as their companies scaled faster than their calendars.',
+      },
+      {
+        when: 'May 2020',
+        title: 'HBR makes the case',
+        detail:
+          'Dan Ciampa argues that many CEOs need more than an executive assistant: someone to run the office, link siloed work and act as a trusted adviser.',
+        sourceLabel: 'Harvard Business Review (May–June 2020)',
+        sourceUrl: 'https://hbr.org/2020/05/the-case-for-a-chief-of-staff',
+      },
+      {
+        when: 'Jan 2025 → now',
+        title: '457 new Chiefs of Staff in Indian tech',
+        detail:
+          '457 people started the title at Indian tech companies since January 2025. 26% joined companies with more than 1,000 people.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
+    ],
+    why: [
+      'A leader’s time is the bottleneck. A Chief of Staff runs the operating rhythm so the leader can focus.',
+      'Cross-team projects need an owner who sits above any single function.',
+      'It is a fast track: you see how the whole company is run, from the top.',
+    ],
+  },
+  aiAngle:
+    'Much of the operating rhythm (notes, follow-ups, weekly reports, board prep) can now be drafted by AI. Show how you would use Claude or ChatGPT plus one automation to give the leader hours back each week.',
+  mustKnow:
+    'You are hired on trust and follow-through. Every story you tell should show you ran something across teams, kept people aligned and got it done.',
   whatTheRoleIs: [
     'You make one leader more effective. Half the job is the operating rhythm: setting quarterly goals, running the weekly leadership meeting, tracking decisions, preparing board and investor material. The other half is projects: a reorg, a new market, a pricing change, a process that breaks every month.',
     'In Indian tech, the title spreads across company sizes. Of 457 new Chiefs of Staff at tech employers since January 2025, 32% joined companies of 50 or fewer and 26% joined companies of 1,000+. Among 30 large Indian and global employers we checked, Razorpay had 5 new ones, Nykaa 4, Wipro 4, Swiggy 3 and Meesho 3.',
@@ -267,6 +306,7 @@ const chiefOfStaff: RoleHub = {
     tables: [
       {
         region: 'India: job posts with stated pay',
+        tab: 'India · job posts',
         currency: 'INR (₹, lakh per annum, as posted)',
         rows: [
           {
@@ -307,6 +347,7 @@ const chiefOfStaff: RoleHub = {
       },
       {
         region: 'India: self-reported salaries',
+        tab: 'India · reported',
         currency: 'INR (₹, lakh per annum)',
         rows: [
           { band: '59 salaries', experience: '2 yrs', value: '₹4–39 LPA' },

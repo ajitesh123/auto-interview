@@ -4,7 +4,7 @@ import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 // Import necessary dependencies and components
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Newsreader } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import SectionContainer from '@/components/SectionContainer'
@@ -18,7 +18,7 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  weight: ['400', '500'],
+  weight: ['400', '500', '600'],
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -26,6 +26,15 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
   variable: '--font-jetbrains-mono',
   weight: ['400', '500', '600'],
+})
+
+// Signal Paper display serif: H1/display, quotes and CTA headlines only
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
 })
 
 /**
@@ -116,7 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${newsreader.variable} scroll-smooth`}
       suppressHydrationWarning // Suppress hydration warnings for client/server mismatch
     >
       {/* Favicon and PWA configurations */}

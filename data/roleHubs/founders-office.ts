@@ -47,6 +47,49 @@ const foundersOffice: RoleHub = {
   directAnswer:
     "A Founder's Office role is a generalist job working directly with a startup's founder on whatever matters most this quarter: a new city launch, a pricing test, an investor update, a broken process no one owns. In India it is mostly a small-startup job: of 3,611 people who started the title since January 2025, 2,205 joined companies with 50 people or fewer. Most hiring loops are a founder call, a take-home assignment and a deep-dive on your answer.",
   lastUpdated: '2026-11-04',
+  story: {
+    summary:
+      'Founder’s Office is an Indian startup title for a generalist who works directly with the founder. It spread with India’s startup boom, which peaked in 2021 with $41.4 billion raised and 42 new unicorns, and it is now seen as a “live MBA” for future founders and investors.',
+    born: { when: '2021 boom', what: '$41.4B raised and 42 unicorns in India' },
+    rise: { when: '2025', what: '3,611 new Founder’s Office hires in India' },
+    milestones: [
+      {
+        when: '2021',
+        title: 'India’s funding peak',
+        detail:
+          'Indian startups raised more than $41.4 billion across 1,579 deals and minted 42 unicorns. Fast-growing startups needed generalists who could run anything.',
+        sourceLabel: 'Inc42 (Dec 30, 2021)',
+        sourceUrl:
+          'https://inc42.com/features/42-unicorns-41-4-bn-funding-blockbuster-2021-for-indian-startups',
+      },
+      {
+        when: 'Jan 2025 → now',
+        title: '3,611 people take the title',
+        detail:
+          '3,611 people in India started a Founder’s Office title since January 2025. 61% joined companies with 50 people or fewer.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
+      {
+        when: 'Jul 2025',
+        title: 'Called a “live MBA”',
+        detail:
+          'Outlook Business profiled the role. One alum put it this way: “You do real things with real people and real money.”',
+        sourceLabel: 'Outlook Business (Jul 30, 2025)',
+        sourceUrl:
+          'https://www.outlookbusiness.com/news/power-chaos-career-why-everyone-wants-a-gig-in-the-startup-founders-office',
+      },
+    ],
+    why: [
+      'You work next to the person making the decisions, so you learn faster than in a fixed-scope role.',
+      'It is a launchpad: alumni move into product, strategy, venture capital or their own startup.',
+      'Founders of small startups need flexible help more than another specialist.',
+    ],
+  },
+  aiAngle:
+    'Founders expect you to do the work of three people with AI. Show that you can research a market, build a model and draft a deck with AI, and automate one recurring report with n8n.',
+  mustKnow:
+    'Founders hire for judgement and speed. Your take-home should show how you prioritised, what you chose not to do, and a clear recommendation, not just analysis.',
   whatTheRoleIs: [
     "You are the founder's extra pair of hands and an extra brain. The work changes every few weeks: one month you size a new market, the next you fix why customers drop off, then you build the board deck. One YC startup's posting splits the job as 40% operations, 20% product, 20% sales, 10% coding and 10% data analysis.",
     "It is overwhelmingly a startup job. Of the 3,611 people in India who started a Founder's Office title since January 2025, 61% joined companies with 50 people or fewer and only 5% joined companies with more than 1,000. Even big names hire very few: Razorpay 3, Cars24 2, PhysicsWallah 1 in the same period.",
@@ -198,6 +241,7 @@ const foundersOffice: RoleHub = {
       },
       {
         region: 'US: Chief of Staff (closest US title)',
+        tab: 'US · Chief of Staff',
         currency: 'USD (total compensation per year)',
         rows: [
           { band: '25th percentile', experience: 'San Francisco', value: '$200K' },

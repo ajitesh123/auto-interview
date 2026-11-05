@@ -1,149 +1,177 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import DomainLayout from '@/components/domain/DomainLayout'
-import type { HubVisual, RoleHub } from '@/data/roleHubs/types'
+import type { RoleHub } from '@/data/roleHubs/types'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
+import { AI_TOOLKIT } from '@/data/aiToolkit'
+import {
+  JourneyMobileBar,
+  JourneyRail,
+  PayExplorer,
+  PlanTracker,
+  PracticeCounter,
+  QuestionItem,
+  RevealRoot,
+  ResumeJourney,
+  type ChapterMeta,
+} from './JourneyClient'
+import { tabLabel } from './payLabels'
+import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon, SparkIcon } from './icons'
+
+// Role hub = a learner journey (Signal Paper design, see the signal-paper-ui skill).
+// Six steps in the order a candidate needs them: understand → decide → get the interview →
+// crack it → prepare. Every number on the page carries its source.
 
 const SITE = 'https://www.autointerviewai.com'
-
-const NAV = [
-  { id: 'role', label: 'The role' },
-  { id: 'expectations', label: 'B2B vs B2C' },
-  { id: 'pay', label: 'Pay' },
-  { id: 'hiring', label: 'Who is hiring' },
-  { id: 'get-hired', label: 'Get the interview' },
-  { id: 'process', label: 'Interview loop' },
-  { id: 'questions', label: 'Questions' },
-  { id: 'plan', label: 'Prep plan' },
-  { id: 'resources', label: 'Resources' },
-  { id: 'faq', label: 'FAQ' },
-]
-
-function paras(text: string) {
-  return text.split('\n\n').map((p, i) => (
-    <p key={i} className="text-sm leading-relaxed text-[#4d4d4d]">
-      {p}
-    </p>
-  ))
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const fmtDate = (iso: string) => {
+  const [y, m, d] = iso.split('-').map(Number)
+  return `${MONTHS[m - 1]} ${d}, ${y}`
 }
+const words = (...parts: (string | undefined)[]) =>
+  parts.filter(Boolean).join(' ').split(/\s+/).length
+const mins = (w: number) => `${Math.max(1, Math.round(w / 220))} min`
 
-function SectionHead({ kicker, title, sub }: { kicker: string; title: string; sub?: string }) {
-  return (
-    <div className="space-y-2">
-      <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
-        {kicker}
-      </span>
-      <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">{title}</h2>
-      {sub && <p className="text-sm leading-relaxed text-[#666666]">{sub}</p>}
-    </div>
-  )
-}
+/* ---------- Small server building blocks ---------- */
 
-function UpNext({ next }: { next?: { id: string; label: string } }) {
-  if (!next) return null
+function Chapter({
+  id,
+  n,
+  total,
+  meta,
+  title,
+  intro,
+  next,
+  children,
+}: {
+  id: string
+  n: number
+  total: number
+  meta: string
+  title: string
+  intro?: string
+  next?: ChapterMeta
+  children: ReactNode
+}) {
   return (
-    <div className="flex justify-end pt-2">
-      <a
-        href={`#${next.id}`}
-        className="group inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-4 py-2 text-xs text-[#666666] transition hover:border-[#3B5BFF] hover:text-[#1E33B3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3B5BFF]"
-      >
-        <span className="font-mono text-[10px] uppercase tracking-[0.08em]">Up next</span>
-        <span className="font-medium text-[#171717] group-hover:text-[#1E33B3]">{next.label}</span>
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  )
-}
-
-function Visual({ v, priority = false }: { v: HubVisual; priority?: boolean }) {
-  return (
-    <figure className="overflow-hidden rounded-2xl border border-[#ebebeb] bg-[#0E1424] shadow-sm">
-      {v.mp4 ? (
-        <video
-          className="block aspect-video w-full"
-          src={v.mp4}
-          poster={v.image}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload={priority ? 'auto' : 'metadata'}
-          aria-label={v.alt}
-        />
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          className="block aspect-video w-full"
-          src={v.image}
-          alt={v.alt}
-          width={1600}
-          height={900}
-          loading={priority ? 'eager' : 'lazy'}
-        />
-      )}
-      <figcaption className="sr-only">{v.alt}</figcaption>
-    </figure>
-  )
-}
-
-function HeroPoster({ hub }: { hub: RoleHub }) {
-  const india = hub.pay.tables[0]
-  const median = india?.rows.find((r) => r.band === 'Median')
-  return (
-    <div className="rh-poster relative overflow-hidden rounded-2xl bg-[#171717] p-6 sm:p-8">
-      <div aria-hidden="true" className="rh-dots absolute inset-0 opacity-40" />
-      <div
-        aria-hidden="true"
-        className="rh-word relative select-none font-black uppercase leading-[0.82] tracking-[-0.04em] text-[#fafafa]"
-      >
-        {hub.shortName.split(' ').map((w, i) => (
-          <span key={w} className="rh-rise block" style={{ animationDelay: `${0.15 * i}s` }}>
-            {w}
-          </span>
-        ))}
-      </div>
-      {median && (
-        <div className="rh-lens absolute bottom-6 right-6 w-[62%] max-w-[260px] rounded-2xl border border-white/30 bg-white/10 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-md sm:bottom-8 sm:right-8">
-          <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/70">
-            {india.region} median pay
-          </div>
-          <div className="rh-sweep mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {median.value}
-          </div>
-          <div className="mt-1 text-[11px] leading-snug text-white/70">
-            Product managers, total comp · Levels.fyi
-          </div>
-          <div className="mt-3 h-[3px] w-full overflow-hidden rounded bg-white/15">
-            <div className="rh-arc h-full rounded bg-[#3B5BFF]" />
-          </div>
+    <section
+      id={id}
+      aria-labelledby={`${id}-title`}
+      className={`scroll-mt-28 py-14 md:py-20 ${n === 1 ? 'pt-8 md:pt-10' : 'border-t border-border'}`}
+    >
+      <header data-reveal className="max-w-2xl">
+        <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+          Step {n} of {total} · {meta}
         </div>
+        <h2 id={`${id}-title`} className="mt-3 text-h2 font-semibold text-fg">
+          {title}
+        </h2>
+        {intro && <p className="mt-3 text-body-lg text-fg-2">{intro}</p>}
+      </header>
+      <div className="mt-8 space-y-12">{children}</div>
+      {next && (
+        <a
+          href={`#${next.id}`}
+          className="group mt-12 flex items-center justify-between gap-4 rounded-xl border border-border bg-surface px-5 py-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+        >
+          <span className="min-w-0">
+            <span className="block font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+              Up next · Step {next.n} · {next.meta}
+            </span>
+            <span className="mt-1 block text-h4 font-semibold text-fg">{next.label}</span>
+          </span>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal text-white transition-transform duration-fast group-hover:translate-x-0.5">
+            <ArrowRightIcon />
+          </span>
+        </a>
       )}
-      <style>{`
-        .rh-poster { min-height: 300px; }
-        .rh-dots { background-image: radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px); background-size: 14px 14px; animation: rh-drift 10s linear infinite; }
-        .rh-word { font-size: clamp(88px, 16vw, 168px); }
-        .rh-rise { animation: rh-rise 10s cubic-bezier(.2,.7,.1,1) infinite both; }
-        .rh-lens { animation: rh-lens 10s cubic-bezier(.2,.7,.1,1) infinite both; }
-        .rh-arc { animation: rh-arc 10s ease-out infinite both; }
-        .rh-sweep { background: linear-gradient(100deg,#fff 40%,#9DB2FF 50%,#fff 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rh-sweep 10s ease-in-out infinite; }
-        @keyframes rh-rise { 0% { opacity: 0; transform: translateY(40px); } 8%,92% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
-        @keyframes rh-lens { 0%,10% { opacity: 0; transform: translate(30px,10px); } 20%,92% { opacity: 1; transform: translate(0,0); } 100% { opacity: 0; } }
-        @keyframes rh-arc { 0%,20% { width: 0; } 45%,100% { width: 62%; } }
-        @keyframes rh-sweep { 0%,30% { background-position: 100% 0; } 55%,100% { background-position: 0 0; } }
-        @keyframes rh-drift { from { background-position: 0 0; } to { background-position: 14px 14px; } }
-        @media (prefers-reduced-motion: reduce) {
-          .rh-dots, .rh-rise, .rh-lens, .rh-arc, .rh-sweep { animation: none !important; opacity: 1 !important; transform: none !important; }
-          .rh-arc { width: 62%; }
-          .rh-sweep { color: #fff; background: none; }
-        }
-      `}</style>
+    </section>
+  )
+}
+
+function Block({
+  id,
+  title,
+  sub,
+  children,
+}: {
+  id?: string
+  title: string
+  sub?: string
+  children: ReactNode
+}) {
+  return (
+    <div id={id} className="scroll-mt-32 space-y-5">
+      <div data-reveal className="max-w-2xl">
+        <h3 className="text-h3 font-semibold text-fg">{title}</h3>
+        {sub && <p className="mt-2 text-body text-fg-2">{sub}</p>}
+      </div>
+      {children}
     </div>
   )
 }
+
+function Callout({ kicker, children }: { kicker: string; children: ReactNode }) {
+  return (
+    <div data-reveal className="rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
+      <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-ink">
+        {kicker}
+      </div>
+      <div className="mt-2 text-body leading-relaxed text-fg">{children}</div>
+    </div>
+  )
+}
+
+function Ticks({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2.5">
+      {items.map((it) => (
+        <li key={it} className="flex gap-3 text-small leading-relaxed text-fg-2 sm:text-body">
+          <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-signal-strong" />
+          <span>{it}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function SourceLink({ label, url }: { label: string; url: string }) {
+  if (url.startsWith('#'))
+    return (
+      <a href={url} className="underline underline-offset-2 hover:text-fg">
+        {label}
+      </a>
+    )
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-fg"
+    >
+      {label}
+      <ArrowUpRightIcon className="h-3 w-3" />
+    </a>
+  )
+}
+
+function typicalPay(hub: RoleHub) {
+  if (hub.pay.headline) return hub.pay.headline
+  const median = (re: RegExp) =>
+    hub.pay.tables.find((t) => re.test(t.region))?.rows.find((r) => /median/i.test(r.band))?.value
+  return [
+    median(/^India/) && `India ${median(/^India/)}`,
+    median(/^(United States|US)/) && `US ${median(/^(United States|US)/)}`,
+  ]
+    .filter(Boolean)
+    .join(' · ')
+}
+
+/* ---------- Page ---------- */
 
 export default function RoleHubPage({ hub }: { hub: RoleHub }) {
   const url = `${SITE}/${hub.slug}`
   const exp = {
-    nav: 'B2B vs B2C',
     title: 'What companies expect: B2B vs B2C',
     sub: 'Most open roles in 2026 are B2B. Read that column first.',
     a: 'B2B',
@@ -151,16 +179,79 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     aNote: 'Most roles today',
     ...hub.expectationLabels,
   }
-  const nav = NAV.filter((n) => n.id !== 'get-hired' || hub.getHired).map((n) =>
-    n.id === 'expectations' ? { ...n, label: exp.nav } : n
-  )
-  const num = (id: string) => String(nav.findIndex((n) => n.id === id) + 1).padStart(2, '0')
-  const after = (id: string) => {
-    const i = nav.findIndex((n) => n.id === id)
-    return i >= 0 && nav[i + 1]?.id !== 'faq' ? nav[i + 1] : undefined
-  }
   const totalQuestions = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
   const maxHires = Math.max(...hub.hiring.companies.map((c) => c.count))
+  const story = hub.story
+  const pay = typicalPay(hub)
+  const medians = hub.pay.tables
+    .map((t) => ({ t, m: t.rows.find((r) => /median/i.test(r.band)) }))
+    .filter((x) => x.m)
+  const ai = AI_TOOLKIT
+
+  // The journey: few steps, each one complete.
+  const defs: { id: string; label: string; w: number; show: boolean }[] = [
+    {
+      id: 'story',
+      label: 'Where this role came from',
+      w: words(
+        story?.summary,
+        hub.directAnswer,
+        ...(story?.milestones.map((m) => m.detail) ?? []),
+        ...(story?.why ?? [])
+      ),
+      show: !!story,
+    },
+    {
+      id: 'role',
+      label: 'What the job really is',
+      w: words(
+        ...hub.whatTheRoleIs,
+        ...hub.skills.flatMap((s) => s.items),
+        ...hub.expectations.b2b.points,
+        ...hub.expectations.b2c.points
+      ),
+      show: true,
+    },
+    {
+      id: 'pay',
+      label: 'Pay and who is hiring',
+      w: words(hub.pay.intro, hub.hiring.intro) + 250,
+      show: true,
+    },
+    {
+      id: 'get-hired',
+      label: 'How to get the interview',
+      w: hub.getHired
+        ? words(
+            hub.getHired.intro,
+            ...hub.getHired.bullets.flatMap((b) => [b.weak, b.strong]),
+            hub.getHired.outreach.body,
+            ...hub.getHired.proofOfWork.steps
+          )
+        : 0,
+      show: !!hub.getHired,
+    },
+    { id: 'interview', label: 'Crack the interview', w: 0, show: true },
+    {
+      id: 'prepare',
+      label: 'Your prep plan and resources',
+      w: words(...hub.plans.flatMap((p) => p.tasks), ...hub.resources.map((r) => r.why)) + 150,
+      show: true,
+    },
+  ]
+  const chapters: ChapterMeta[] = defs
+    .filter((d) => d.show)
+    .map((d, i) => ({
+      id: d.id,
+      n: i + 1,
+      label: d.label,
+      meta: d.id === 'interview' ? `${totalQuestions} questions` : mins(d.w),
+    }))
+  const ch = (id: string) => chapters.find((c) => c.id === id)!
+  const nextOf = (id: string) => chapters[chapters.findIndex((c) => c.id === id) + 1]
+  const totalMin = chapters
+    .filter((c) => c.id !== 'interview')
+    .reduce((n, c) => n + parseInt(c.meta, 10), 0)
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -190,6 +281,8 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     publisher: { '@type': 'Organization', name: 'Auto Interview AI', url: SITE },
   }
 
+  const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
+
   return (
     <DomainLayout currentPath={`/${hub.slug}`}>
       {[faqSchema, breadcrumbSchema, pageSchema].map((s, i) => (
@@ -199,638 +292,799 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
         />
       ))}
+      <RevealRoot />
 
-      <div className="min-h-screen bg-[#fafafa] px-4 pb-32 pt-28 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl space-y-16">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-xs font-medium text-[#666666]">
-            <Link href="/" className="transition-colors hover:text-[#171717]">
+      <div className="bg-bg text-fg">
+        {/* ---------- Hero ---------- */}
+        <div className={`${container} pb-10 pt-8 md:pb-16 md:pt-12`}>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-fg-3">
+            <Link href="/" className="hover:text-fg">
               Home
             </Link>
-            <span>/</span>
-            <span className="font-semibold text-[#171717]">{hub.roleName}</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-fg-2">{hub.roleName}</span>
           </nav>
 
-          {/* Hero */}
-          <header className="grid items-center gap-8 lg:grid-cols-[1.1fr_1fr]">
-            <div className="space-y-5">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
-                <span>Role hub</span>
-                <span className="text-[#999999]">•</span>
-                <span className="font-semibold text-[#3B5BFF]">Updated {hub.lastUpdated}</span>
+          <header className="mt-8 grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+                Free guide · {chapters.length} steps · about {totalMin} min · Updated{' '}
+                {fmtDate(hub.lastUpdated)}
               </div>
-              <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl">
-                {hub.heroTitle}
-              </h1>
-              <p className="text-lg font-light leading-relaxed text-[#666666]">
-                {hub.heroDescription}
-              </p>
-              <div className="flex flex-wrap gap-3">
+              <h1 className="mt-4 font-serif text-display font-medium text-fg">{hub.heroTitle}</h1>
+              <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{hub.heroDescription}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href={`#${chapters[0].id}`}
+                  className="inline-flex h-11 items-center gap-2 rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
+                >
+                  Start the guide
+                  <ArrowRightIcon />
+                </a>
                 <Link
                   href="/free-mock-interview"
-                  className="inline-flex items-center rounded-md bg-[#171717] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#333]"
+                  className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
                 >
-                  Practise with a free AI mock interview
+                  Free AI mock interview
                 </Link>
-                <a
-                  href="#questions"
-                  className="inline-flex items-center rounded-md border border-[#ebebeb] bg-white px-5 py-2.5 text-sm font-medium text-[#171717] transition hover:bg-[#f5f5f5]"
-                >
-                  {totalQuestions} questions with answers ↓
-                </a>
               </div>
+              <ResumeJourney slug={hub.slug} chapters={chapters} />
             </div>
-            {hub.visuals?.hero ? (
-              <Visual v={hub.visuals.hero} priority />
-            ) : (
-              <HeroPoster hub={hub} />
-            )}
-          </header>
 
-          {/* Direct answer */}
-          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
-              In one paragraph
-            </div>
-            <p className="speakable-direct-answer mt-3 text-sm font-medium leading-relaxed text-[#171717]">
-              {hub.directAnswer}
-            </p>
-          </div>
-
-          {/* In-page nav */}
-          <nav
-            aria-label="On this page"
-            className="sticky top-16 z-10 -mx-4 overflow-x-auto border-y border-[#ebebeb] bg-[#fafafa]/90 px-4 py-3 backdrop-blur"
-          >
-            <ul className="flex gap-2 whitespace-nowrap">
-              {nav.map((n) => (
-                <li key={n.id}>
-                  <a
-                    href={`#${n.id}`}
-                    className="rounded-full border border-[#ebebeb] bg-white px-3 py-1 text-xs text-[#4d4d4d] transition hover:border-[#171717] hover:text-[#171717]"
-                  >
-                    {n.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* The role */}
-          <section id="role" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('role')} · The role`}
-              title={`What ${/^[AEIOU]/i.test(hub.roleName) ? 'an' : 'a'} ${hub.roleName} does`}
-            />
-            <div className="space-y-3">
-              {hub.whatTheRoleIs.map((p, i) => (
-                <p key={i} className="text-base leading-relaxed text-[#4d4d4d]">
-                  {p}
-                </p>
-              ))}
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {hub.skills.map((s) => (
-                <div key={s.area} className="rounded-xl border border-[#ebebeb] bg-white p-5">
-                  <h3 className="text-sm font-semibold text-[#171717]">{s.area}</h3>
-                  <ul className="mt-3 space-y-1.5 text-sm text-[#4d4d4d]">
-                    {s.items.map((it) => (
-                      <li key={it} className="flex gap-2">
-                        <span className="text-[#3B5BFF]">✓</span>
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <UpNext next={after('role')} />
-          </section>
-
-          {/* Expectations */}
-          <section id="expectations" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('expectations')} · Expectations`}
-              title={exp.title}
-              sub={exp.sub}
-            />
-            <div className="grid gap-4 lg:grid-cols-2">
-              {(['b2b', 'b2c'] as const).map((k) => {
-                const e = hub.expectations[k]
-                return (
-                  <div
-                    key={k}
-                    className={`rounded-xl border bg-white p-6 ${
-                      k === 'b2b' ? 'border-[#171717]' : 'border-[#ebebeb]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`rounded px-2 py-0.5 font-mono text-[11px] uppercase ${
-                          k === 'b2b' ? 'bg-[#171717] text-white' : 'bg-[#f5f5f5] text-[#171717]'
-                        }`}
-                      >
-                        {k === 'b2b' ? exp.a : exp.b}
-                      </span>
-                      {k === 'b2b' && exp.aNote && (
-                        <span className="text-[11px] font-medium text-[#3B5BFF]">{exp.aNote}</span>
-                      )}
-                    </div>
-                    <h3 className="mt-3 text-base font-medium text-[#171717]">{e.headline}</h3>
-                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-[#4d4d4d]">
-                      {e.points.map((p) => (
-                        <li key={p} className="flex gap-2">
-                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#171717]" />
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 border-t border-[#ebebeb] pt-4">
-                      <div className="font-mono text-[11px] uppercase tracking-wider text-[#666666]">
-                        Metrics you will own
-                      </div>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {e.metrics.map((m) => (
-                          <span
-                            key={m}
-                            className="rounded-full bg-[#f5f5f5] px-2.5 py-1 text-[11px] text-[#171717]"
-                          >
-                            {m}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            <div className="rounded-xl border border-[#ebebeb] bg-white p-6">
-              <h3 className="text-sm font-semibold text-[#171717]">
-                {exp.differenceTitle ??
-                  `How it differs from a classic ${hub.roleName.replace(/^AI /, '')} role`}
-              </h3>
-              <ul className="mt-3 grid gap-2 text-sm text-[#4d4d4d] sm:grid-cols-2">
-                {hub.expectations.difference.map((d) => (
-                  <li key={d} className="flex gap-2">
-                    <span className="text-[#3B5BFF]">→</span>
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <UpNext next={after('expectations')} />
-          </section>
-
-          {/* Pay */}
-          <section id="pay" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('pay')} · Pay`}
-              title={hub.pay.title ?? 'Pay by experience: India, US and Europe'}
-              sub={hub.pay.intro}
-            />
-            {hub.visuals?.pay && <Visual v={hub.visuals.pay} />}
-            <div className="grid gap-4 md:grid-cols-2">
-              {hub.pay.tables.map((t, ti) => (
-                <div
-                  key={t.region}
-                  className={`rounded-xl border border-[#ebebeb] bg-white p-5 ${
-                    ti === 0 && hub.pay.tables.length % 2 === 1 ? 'md:col-span-2' : ''
-                  }`}
-                >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h3 className="text-base font-medium text-[#171717]">{t.region}</h3>
-                    <span className="text-[11px] text-[#666666]">{t.currency}</span>
-                  </div>
-                  <table className="mt-3 w-full text-left text-sm">
-                    <thead>
-                      <tr className="border-b border-[#ebebeb] text-[11px] uppercase tracking-wider text-[#666666]">
-                        <th className="py-2 font-medium">Band</th>
-                        <th className="py-2 font-medium">Experience</th>
-                        <th className="py-2 text-right font-medium">Total pay</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {t.rows.map((r, i) => (
-                        <tr
-                          key={`${r.band}-${i}`}
-                          className="border-b border-[#f5f5f5] last:border-0"
-                        >
-                          <td className="py-2 pr-2 text-[#4d4d4d]">
-                            {r.url ? (
-                              <a
-                                href={r.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="underline decoration-[#cfcfcf] underline-offset-2 hover:decoration-[#171717]"
-                              >
-                                {r.band}
-                              </a>
-                            ) : (
-                              r.band
-                            )}
-                          </td>
-                          <td className="py-2 text-xs text-[#666666]">{r.experience}</td>
-                          <td className="py-2 text-right font-mono font-semibold text-[#171717]">
-                            {r.value}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <p className="mt-3 text-[11px] leading-relaxed text-[#666666]">
-                    Source:{' '}
-                    <a
-                      href={t.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      {t.sourceLabel}
-                    </a>{' '}
-                    ({t.asOf}). {t.note}
-                  </p>
-                </div>
-              ))}
-            </div>
-            {hub.pay.crossCheck && (
-              <p className="text-xs leading-relaxed text-[#666666]">{hub.pay.crossCheck}</p>
-            )}
-            <UpNext next={after('pay')} />
-          </section>
-
-          {/* Hiring */}
-          <section id="hiring" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('hiring')} · Who is hiring`}
-              title={hub.hiring.title ?? 'Companies hiring the most in 2025–26'}
-              sub={hub.hiring.intro}
-            />
-            {hub.visuals?.hiring && <Visual v={hub.visuals.hiring} />}
-            <div
-              className={`grid gap-3 sm:grid-cols-2 ${
-                hub.hiring.companies.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
-              }`}
+            {/* At a glance */}
+            <aside
+              aria-label={`${hub.roleName} at a glance`}
+              className="rounded-2xl border border-border bg-surface p-5 shadow-e1 md:p-6 lg:col-span-5"
             >
-              {hub.hiring.companies.map((c) => (
-                <div key={c.name} className="rounded-xl border border-[#ebebeb] bg-white p-4">
-                  <div className="flex items-center gap-3">
-                    {!hub.hiring.segments && (
-                      <span
-                        aria-hidden="true"
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#171717] text-sm font-semibold text-white"
-                      >
-                        {c.name.charAt(0)}
-                      </span>
-                    )}
-                    <div className="min-w-0">
-                      <div className="truncate text-sm font-medium text-[#171717]">{c.name}</div>
-                      <div className="text-[11px] text-[#666666]">{c.segment}</div>
+              <div className="font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+                {hub.shortName} at a glance
+              </div>
+              <dl className="mt-4 divide-y divide-border">
+                {story && (
+                  <>
+                    <div className="grid grid-cols-[104px_1fr] gap-3 py-3">
+                      <dt className="text-small text-fg-3">Started</dt>
+                      <dd>
+                        <div className="text-small font-semibold text-fg">{story.born.when}</div>
+                        <div className="text-caption text-fg-2">{story.born.what}</div>
+                      </dd>
                     </div>
-                    <div className="ml-auto text-right">
-                      <div className="font-mono text-lg font-semibold text-[#171717]">
-                        {c.count.toLocaleString('en-US')}
+                    <div className="grid grid-cols-[104px_1fr] gap-3 py-3">
+                      <dt className="text-small text-fg-3">Took off</dt>
+                      <dd>
+                        <div className="text-small font-semibold text-fg">{story.rise.when}</div>
+                        <div className="text-caption text-fg-2">{story.rise.what}</div>
+                      </dd>
+                    </div>
+                  </>
+                )}
+                {pay && (
+                  <div className="grid grid-cols-[104px_1fr] gap-3 py-3">
+                    <dt className="text-small text-fg-3">Typical pay</dt>
+                    <dd>
+                      <div className="font-mono text-small font-semibold tabular-nums text-fg">
+                        {pay}
                       </div>
-                      <div className="text-[10px] text-[#666666]">moved in</div>
+                      <a href="#pay" className="text-caption text-signal-strong hover:underline">
+                        By experience and country ↓
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                <div className="grid grid-cols-[104px_1fr] gap-3 py-3">
+                  <dt className="text-small text-fg-3">Practice</dt>
+                  <dd>
+                    <div className="text-small font-semibold text-fg">
+                      {totalQuestions} questions with answers
                     </div>
-                  </div>
-                  <div className="mt-3 h-1.5 w-full rounded bg-[#f5f5f5]">
-                    <div
-                      className="h-full rounded bg-[#3B5BFF]"
-                      style={{ width: `${Math.max(4, (c.count / maxHires) * 100)}%` }}
-                    />
-                  </div>
+                    <div className="text-caption text-fg-2">
+                      Plus what the interviewer is listening for
+                    </div>
+                  </dd>
                 </div>
-              ))}
-            </div>
-            <p className="text-[11px] leading-relaxed text-[#666666]">
-              {hub.hiring.method} ({hub.hiring.sourceLabel}, {hub.hiring.asOf}.)
-            </p>
-            <UpNext next={after('hiring')} />
-          </section>
+              </dl>
+            </aside>
+          </header>
+        </div>
 
-          {/* Get the interview */}
-          {hub.getHired && (
-            <section id="get-hired" className="scroll-mt-32 space-y-8">
-              <SectionHead
-                kicker={`${num('get-hired')} · Get the interview`}
-                title="How to get the interview"
-                sub={hub.getHired.intro}
-              />
+        {/* ---------- Journey ---------- */}
+        <div className={`${container} lg:grid lg:grid-cols-[232px_minmax(0,1fr)] lg:gap-14`}>
+          <aside className="hidden pt-8 lg:block">
+            <JourneyRail slug={hub.slug} chapters={chapters} />
+          </aside>
 
-              <div className="space-y-3">
-                <h3 className="text-lg font-medium text-[#171717]">
-                  Resume bullets: weak vs strong
-                </h3>
-                <div className="divide-y divide-[#ebebeb] overflow-hidden rounded-xl border border-[#ebebeb] bg-white">
-                  {hub.getHired.bullets.map((b) => (
-                    <div key={b.strong} className="grid gap-3 p-5 md:grid-cols-2 md:gap-6">
+          <div className="min-w-0">
+            <JourneyMobileBar slug={hub.slug} chapters={chapters} />
+
+            {/* 1. Story */}
+            {story && (
+              <Chapter
+                id="story"
+                n={ch('story').n}
+                total={chapters.length}
+                meta={ch('story').meta}
+                title={`Where the ${hub.roleName} role came from`}
+                next={nextOf('story')}
+              >
+                <Callout kicker="The role in 30 seconds">
+                  <p className="speakable-direct-answer">{hub.directAnswer}</p>
+                </Callout>
+                <p data-reveal className="max-w-[68ch] text-body-lg leading-relaxed text-fg">
+                  {story.summary}
+                </p>
+
+                <ol className="relative max-w-3xl space-y-0">
+                  {story.milestones.map((m, i) => (
+                    <li
+                      key={m.title}
+                      data-reveal
+                      className="relative grid grid-cols-[20px_1fr] gap-4 pb-8 last:pb-0 sm:grid-cols-[120px_20px_1fr]"
+                      style={{ transitionDelay: `${i * 60}ms` }}
+                    >
+                      <div className="hidden pt-0.5 text-right font-mono text-caption text-fg-3 sm:block">
+                        {m.when}
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="relative z-10 mt-1.5 h-3 w-3 rounded-full border-2 border-signal bg-surface" />
+                        {i < story.milestones.length - 1 && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute bottom-[-2px] top-5 w-px bg-border"
+                          />
+                        )}
+                      </div>
                       <div>
-                        <div className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#999999]">
-                          Weak
-                        </div>
-                        <p className="mt-1 text-sm leading-relaxed text-[#666666]">{b.weak}</p>
+                        <div className="font-mono text-caption text-fg-3 sm:hidden">{m.when}</div>
+                        <div className="text-h4 font-semibold text-fg">{m.title}</div>
+                        <p className="mt-1 max-w-[60ch] text-small leading-relaxed text-fg-2 sm:text-body">
+                          {m.detail}
+                        </p>
+                        {m.sourceLabel && m.sourceUrl && (
+                          <div className="mt-1.5 text-caption text-fg-3">
+                            <SourceLink label={m.sourceLabel} url={m.sourceUrl} />
+                          </div>
+                        )}
                       </div>
-                      <div className="rounded-lg bg-[#EEF1FF] p-3 md:bg-transparent md:p-0">
-                        <div className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#1E33B3]">
-                          Strong
-                        </div>
-                        <p className="mt-1 text-sm leading-relaxed text-[#171717]">{b.strong}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <ul className="grid gap-2 pt-2 text-sm text-[#4d4d4d] sm:grid-cols-2">
-                  {hub.getHired.resumeTips.map((t) => (
-                    <li key={t} className="flex gap-2">
-                      <span className="text-[#3B5BFF]">✓</span>
-                      {t}
                     </li>
                   ))}
-                </ul>
-                <Link
-                  href="/build-resume"
-                  className="inline-flex text-sm font-medium text-[#1E33B3] underline-offset-4 hover:underline"
-                >
-                  Build your resume in our free builder →
-                </Link>
+                </ol>
+
+                <div data-reveal className="rounded-2xl border border-border bg-surface p-5 md:p-6">
+                  <h3 className="text-h4 font-semibold text-fg">Why it took off</h3>
+                  <ol className="mt-4 grid gap-5 md:grid-cols-3 md:gap-6">
+                    {story.why.map((w, i) => (
+                      <li key={w} className="flex gap-3 md:block">
+                        <span className="font-mono text-h3 font-medium text-signal">0{i + 1}</span>
+                        <p className="text-small leading-relaxed text-fg-2 md:mt-2">{w}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </Chapter>
+            )}
+
+            {/* 2. The job */}
+            <Chapter
+              id="role"
+              n={ch('role').n}
+              total={chapters.length}
+              meta={ch('role').meta}
+              title={`What ${/^[AEIOU]/i.test(hub.roleName) ? 'an' : 'a'} ${hub.roleName} really does`}
+              next={nextOf('role')}
+            >
+              {!story && (
+                <Callout kicker="The role in 30 seconds">
+                  <p className="speakable-direct-answer">{hub.directAnswer}</p>
+                </Callout>
+              )}
+              <div data-reveal className="max-w-[68ch] space-y-4">
+                {hub.whatTheRoleIs.map((p, i) => (
+                  <p key={i} className="text-body leading-relaxed text-fg-2 md:text-prose">
+                    {p}
+                  </p>
+                ))}
               </div>
 
-              <div className="space-y-3">
-                <h3 className="text-lg font-medium text-[#171717]">Where the jobs are</h3>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {hub.getHired.channels.map((c) => {
-                    const inner = (
-                      <>
-                        <div className="text-sm font-medium text-[#171717] group-hover:underline">
-                          {c.name}
-                          {c.url && <span aria-hidden="true"> ↗</span>}
-                        </div>
-                        <p className="mt-1 text-xs leading-relaxed text-[#666666]">{c.how}</p>
-                      </>
-                    )
-                    return c.url ? (
-                      <a
-                        key={c.name}
-                        href={c.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group rounded-xl border border-[#ebebeb] bg-white p-4 transition hover:border-[#171717]"
+              <Block title="Skills you need">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {hub.skills.map((s) => (
+                    <div
+                      key={s.area}
+                      data-reveal
+                      className="rounded-xl border border-border bg-surface p-5"
+                    >
+                      <h4 className="text-h4 font-semibold text-fg">{s.area}</h4>
+                      <div className="mt-3">
+                        <Ticks items={s.items} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Block>
+
+              <Block id="expectations" title={exp.title} sub={exp.sub}>
+                <div className="grid gap-4 lg:grid-cols-2">
+                  {(['b2b', 'b2c'] as const).map((k) => {
+                    const e = hub.expectations[k]
+                    const primary = k === 'b2b'
+                    return (
+                      <div
+                        key={k}
+                        data-reveal
+                        className={`rounded-xl bg-surface p-5 md:p-6 ${
+                          primary ? 'border border-fg/80' : 'border border-border'
+                        }`}
                       >
-                        {inner}
-                      </a>
-                    ) : (
-                      <div key={c.name} className="rounded-xl border border-[#ebebeb] bg-white p-4">
-                        {inner}
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span
+                            className={`rounded-full px-2.5 py-0.5 text-caption font-semibold ${
+                              primary ? 'bg-fg text-bg' : 'bg-muted text-fg'
+                            }`}
+                          >
+                            {primary ? exp.a : exp.b}
+                          </span>
+                          {primary && exp.aNote && (
+                            <span className="text-caption font-medium text-signal-strong">
+                              {exp.aNote}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="mt-3 text-h4 font-semibold text-fg">{e.headline}</h4>
+                        <div className="mt-3">
+                          <Ticks items={e.points} />
+                        </div>
+                        <div className="mt-5 border-t border-border pt-4">
+                          <div className="text-caption text-fg-3">Metrics you will own</div>
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {e.metrics.map((m) => (
+                              <span
+                                key={m}
+                                className="inline-flex h-7 items-center rounded-full bg-muted px-2.5 text-caption font-medium text-fg-2"
+                              >
+                                {m}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     )
                   })}
                 </div>
-              </div>
-
-              <div className="grid items-start gap-4 lg:grid-cols-2">
-                <div className="rounded-xl border border-[#ebebeb] bg-white p-5">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
-                    Message the hiring manager
-                  </div>
-                  <h3 className="mt-2 text-base font-medium text-[#171717]">
-                    {hub.getHired.outreach.title}
-                  </h3>
-                  <p className="mt-3 whitespace-pre-line rounded-lg border border-[#ebebeb] bg-[#fafafa] p-4 text-sm leading-relaxed text-[#171717]">
-                    {hub.getHired.outreach.body}
-                  </p>
-                  {hub.getHired.outreach.note && (
-                    <p className="mt-3 text-xs leading-relaxed text-[#666666]">
-                      {hub.getHired.outreach.note}
-                    </p>
-                  )}
-                </div>
-                <div className="rounded-xl border border-[#171717] bg-white p-5">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#3B5BFF]">
-                    Proof of work
-                  </div>
-                  <h3 className="mt-2 text-base font-medium text-[#171717]">
-                    {hub.getHired.proofOfWork.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#666666]">
-                    {hub.getHired.proofOfWork.why}
-                  </p>
-                  <ol className="mt-4 space-y-2">
-                    {hub.getHired.proofOfWork.steps.map((st, i) => (
-                      <li key={st} className="flex items-start gap-3 text-sm text-[#4d4d4d]">
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#171717] font-mono text-[10px] text-white">
-                          {i + 1}
-                        </span>
-                        {st}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-              <UpNext next={after('get-hired')} />
-            </section>
-          )}
-
-          {/* Process */}
-          <section id="process" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('process')} · Interview loop`}
-              title="The interview process by company type"
-              sub="Typical loops. Each company varies, so confirm the rounds with your recruiter."
-            />
-            <div className="grid gap-4 md:grid-cols-2">
-              {hub.process.map((p) => (
-                <div
-                  key={p.companyType}
-                  className="rounded-xl border border-[#ebebeb] bg-white p-5"
-                >
-                  <h3 className="text-sm font-semibold text-[#171717]">{p.companyType}</h3>
-                  <ol className="mt-3 space-y-2">
-                    {p.rounds.map((r, i) => (
-                      <li key={r} className="flex items-start gap-3 text-sm text-[#4d4d4d]">
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#ebebeb] font-mono text-[10px] text-[#171717]">
-                          {i + 1}
-                        </span>
-                        {r}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              ))}
-            </div>
-            <UpNext next={after('process')} />
-          </section>
-
-          {/* Questions */}
-          <section id="questions" className="scroll-mt-32 space-y-8">
-            <SectionHead
-              kicker={`${num('questions')} · Question bank`}
-              title={`${totalQuestions} ${hub.shortName} interview questions with model answers`}
-              sub="Tap a question to see a model answer and what the interviewer is listening for. Practise out loud before you read the answer."
-            />
-            <div className="flex flex-wrap gap-2">
-              {hub.questionGroups.map((g) => (
-                <a
-                  key={g.id}
-                  href={`#q-${g.id}`}
-                  className="rounded-full border border-[#ebebeb] bg-white px-3 py-1 text-xs text-[#4d4d4d] hover:border-[#171717]"
-                >
-                  {g.title} · {g.questions.length}
-                </a>
-              ))}
-            </div>
-            {hub.questionGroups.map((g) => (
-              <div key={g.id} id={`q-${g.id}`} className="scroll-mt-32 space-y-3">
-                <div>
-                  <h3 className="text-lg font-medium text-[#171717]">{g.title}</h3>
-                  <p className="text-xs text-[#666666]">{g.blurb}</p>
-                </div>
-                <div className="divide-y divide-[#ebebeb] overflow-hidden rounded-xl border border-[#ebebeb] bg-white">
-                  {g.questions.map((q) => (
-                    <details key={q.q} className="group">
-                      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-sm font-medium text-[#171717] hover:bg-[#fafafa]">
-                        <span>{q.q}</span>
-                        <span className="mt-0.5 shrink-0 font-mono text-[#999999] transition group-open:rotate-45">
-                          +
-                        </span>
-                      </summary>
-                      <div className="space-y-3 border-t border-[#f5f5f5] bg-[#fcfcfc] px-5 py-4">
-                        {paras(q.answer)}
-                        {q.lookFor && (
-                          <p className="rounded-md bg-[#EEF1FF] px-3 py-2 text-xs text-[#1E33B3]">
-                            <strong>What they look for:</strong> {q.lookFor}
-                          </p>
-                        )}
-                      </div>
-                    </details>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div className="flex flex-col items-start gap-4 rounded-2xl bg-[#171717] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <div className="text-lg font-medium">Reading answers is not practice.</div>
-                <p className="text-sm text-white/70">
-                  Answer these out loud to an AI interviewer and get feedback in minutes. Free, no
-                  signup.
-                </p>
-              </div>
-              <Link
-                href="/free-mock-interview"
-                className="shrink-0 rounded-md bg-white px-5 py-2.5 text-sm font-medium text-[#171717] hover:bg-[#f5f5f5]"
-              >
-                Start mock interview
-              </Link>
-            </div>
-            <UpNext next={after('questions')} />
-          </section>
-
-          {/* Plan */}
-          <section id="plan" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('plan')} · Prep plan`}
-              title="7, 14 and 30-day prep plans"
-            />
-            <div className="grid items-start gap-4 md:grid-cols-3">
-              {hub.plans.map((p) => (
-                <details
-                  key={p.days}
-                  className="group rounded-xl border border-[#ebebeb] bg-white p-5"
-                  open={p.days === '7 days'}
-                >
-                  <summary className="cursor-pointer list-none">
-                    <div className="font-mono text-2xl font-semibold text-[#171717]">{p.days}</div>
-                    <div className="text-sm text-[#666666]">{p.title}</div>
-                  </summary>
-                  <ul className="mt-4 space-y-2 text-sm text-[#4d4d4d]">
-                    {p.tasks.map((t) => (
-                      <li key={t} className="flex gap-2">
-                        <span className="text-[#3B5BFF]">□</span>
-                        {t}
+                <div data-reveal className="rounded-xl border border-border bg-surface p-5 md:p-6">
+                  <h4 className="text-h4 font-semibold text-fg">
+                    {exp.differenceTitle ??
+                      `How it differs from a classic ${hub.roleName.replace(/^AI /, '')} role`}
+                  </h4>
+                  <ul className="mt-3 grid gap-x-6 gap-y-2.5 md:grid-cols-2">
+                    {hub.expectations.difference.map((d) => (
+                      <li key={d} className="flex gap-3 text-small leading-relaxed text-fg-2">
+                        <ArrowRightIcon className="mt-1 h-4 w-4 shrink-0 text-signal-strong" />
+                        <span>{d}</span>
                       </li>
                     ))}
                   </ul>
-                </details>
-              ))}
-            </div>
-            <UpNext next={after('plan')} />
-          </section>
+                </div>
+              </Block>
+            </Chapter>
 
-          {/* Resources */}
-          <section id="resources" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('resources')} · Resources`}
-              title="The resources worth your time"
-            />
-            <div className="grid gap-3 md:grid-cols-2">
-              {hub.resources.map((r) => {
-                const internal = r.url.startsWith('/')
-                const body = (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] uppercase text-[#171717]">
-                        {r.kind}
-                      </span>
-                      {r.free && (
-                        <span className="text-[10px] font-medium text-[#1E33B3]">Free</span>
-                      )}
+            {/* 3. Pay and hiring */}
+            <Chapter
+              id="pay"
+              n={ch('pay').n}
+              total={chapters.length}
+              meta={ch('pay').meta}
+              title={hub.pay.title ?? `What a ${hub.shortName} earns, and who is hiring`}
+              intro={hub.pay.intro}
+              next={nextOf('pay')}
+            >
+              {medians.length > 1 && (
+                <div data-reveal className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                  {medians.map(({ t, m }) => (
+                    <div key={t.region} className="rounded-xl border border-border bg-surface p-4">
+                      <div className="text-caption text-fg-3">{tabLabel(t)} median</div>
+                      <div className="mt-1 font-mono text-h3 font-semibold tabular-nums text-fg">
+                        {m!.value}
+                      </div>
+                      <div className="mt-0.5 text-caption text-fg-3">{t.sourceLabel}</div>
                     </div>
-                    <div className="mt-2 text-sm font-medium text-[#171717] group-hover:underline">
-                      {r.title}
-                    </div>
-                    <p className="mt-1 text-xs leading-relaxed text-[#666666]">{r.why}</p>
-                  </>
-                )
-                return internal ? (
-                  <Link
-                    key={r.title}
-                    href={r.url}
-                    className="group rounded-xl border border-[#ebebeb] bg-white p-4 hover:border-[#171717]"
-                  >
-                    {body}
-                  </Link>
-                ) : (
-                  <a
-                    key={r.title}
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group rounded-xl border border-[#ebebeb] bg-white p-4 hover:border-[#171717]"
-                  >
-                    {body}
-                  </a>
-                )
-              })}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {hub.related.map((r) => (
-                <Link
-                  key={r.href}
-                  href={r.href}
-                  className="rounded-full border border-[#ebebeb] bg-white px-3 py-1.5 text-xs text-[#171717] hover:border-[#171717]"
+                  ))}
+                </div>
+              )}
+              <div className="space-y-3">
+                <PayExplorer tables={hub.pay.tables} />
+                {hub.pay.crossCheck && (
+                  <p className="max-w-[68ch] text-caption leading-relaxed text-fg-3">
+                    {hub.pay.crossCheck}
+                  </p>
+                )}
+              </div>
+
+              <Block
+                id="hiring"
+                title={hub.hiring.title ?? 'Who is hiring the most in 2025–26'}
+                sub={hub.hiring.intro}
+              >
+                <div
+                  data-reveal
+                  className="overflow-hidden rounded-2xl border border-border bg-surface"
                 >
-                  {r.label} →
-                </Link>
-              ))}
-            </div>
-          </section>
+                  <ul className="divide-y divide-border">
+                    {hub.hiring.companies.map((c, i) => (
+                      <li
+                        key={c.name}
+                        className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 px-5 py-3.5"
+                      >
+                        <div className="min-w-0">
+                          <div className="truncate text-small font-semibold text-fg">{c.name}</div>
+                          <div className="text-caption text-fg-3">{c.segment}</div>
+                        </div>
+                        <div className="text-right">
+                          <span className="font-mono text-small font-semibold tabular-nums text-fg">
+                            {c.count.toLocaleString('en-US')}
+                          </span>
+                          <span className="ml-1 text-caption text-fg-3">new</span>
+                        </div>
+                        <div
+                          className="col-span-2 h-1.5 overflow-hidden rounded-full bg-muted"
+                          aria-hidden="true"
+                        >
+                          <div
+                            data-bar
+                            className="h-full rounded-full bg-signal/80"
+                            style={{
+                              width: `${Math.max(3, (c.count / maxHires) * 100)}%`,
+                              transitionDelay: `${i * 40}ms`,
+                            }}
+                          />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="max-w-[68ch] text-caption leading-relaxed text-fg-3">
+                  How we counted: {hub.hiring.method} ({hub.hiring.sourceLabel}, {hub.hiring.asOf}.)
+                </p>
+              </Block>
+            </Chapter>
 
+            {/* 4. Get the interview */}
+            {hub.getHired && (
+              <Chapter
+                id="get-hired"
+                n={ch('get-hired').n}
+                total={chapters.length}
+                meta={ch('get-hired').meta}
+                title="How to get the interview"
+                intro={hub.getHired.intro}
+                next={nextOf('get-hired')}
+              >
+                <Block
+                  title="Rewrite your resume bullets"
+                  sub="Weak bullets list duties. Strong ones show a result with a number."
+                >
+                  <div className="space-y-3">
+                    {hub.getHired.bullets.map((b) => (
+                      <div
+                        key={b.strong}
+                        data-reveal
+                        className="grid overflow-hidden rounded-xl border border-border bg-surface md:grid-cols-2"
+                      >
+                        <div className="p-4 md:p-5">
+                          <div className="text-caption font-medium text-fg-3">Before</div>
+                          <p className="mt-1 text-small leading-relaxed text-fg-2 line-through decoration-border-strong">
+                            {b.weak}
+                          </p>
+                        </div>
+                        <div className="border-t border-border bg-signal-tint/60 p-4 md:border-l md:border-t-0 md:p-5">
+                          <div className="text-caption font-semibold text-signal-ink">After</div>
+                          <p className="mt-1 text-small leading-relaxed text-fg">{b.strong}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div
+                    data-reveal
+                    className="grid gap-6 rounded-xl border border-border bg-surface p-5 md:grid-cols-[1fr_auto] md:items-end md:p-6"
+                  >
+                    <Ticks items={hub.getHired.resumeTips} />
+                    <Link
+                      href="/build-resume"
+                      className="inline-flex h-10 items-center gap-2 self-start rounded-full bg-surface px-4 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong hover:bg-muted"
+                    >
+                      Free resume builder <ArrowRightIcon />
+                    </Link>
+                  </div>
+                </Block>
+
+                <Block title="Where the jobs are">
+                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {hub.getHired.channels.map((c) => {
+                      const inner = (
+                        <>
+                          <div className="flex items-center gap-1 text-small font-semibold text-fg">
+                            {c.name}
+                            {c.url && <ArrowUpRightIcon className="h-3.5 w-3.5 text-fg-3" />}
+                          </div>
+                          <p className="mt-1 text-caption leading-relaxed text-fg-2">{c.how}</p>
+                        </>
+                      )
+                      const cls =
+                        'block rounded-xl border border-border bg-surface p-4 transition-[border-color,box-shadow] duration-fast'
+                      return c.url ? (
+                        <a
+                          key={c.name}
+                          data-reveal
+                          href={c.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${cls} hover:border-border-strong hover:shadow-e2`}
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <div key={c.name} data-reveal className={cls}>
+                          {inner}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </Block>
+
+                <div className="grid items-start gap-4 lg:grid-cols-2">
+                  <div
+                    data-reveal
+                    className="rounded-xl border border-border bg-surface p-5 md:p-6"
+                  >
+                    <div className="text-caption font-semibold text-signal-strong">
+                      Message the hiring manager
+                    </div>
+                    <h3 className="mt-1.5 text-h4 font-semibold text-fg">
+                      {hub.getHired.outreach.title}
+                    </h3>
+                    <p className="mt-3 whitespace-pre-line rounded-lg bg-muted p-4 text-small leading-relaxed text-fg">
+                      {hub.getHired.outreach.body}
+                    </p>
+                    {hub.getHired.outreach.note && (
+                      <p className="mt-3 text-caption leading-relaxed text-fg-3">
+                        {hub.getHired.outreach.note}
+                      </p>
+                    )}
+                  </div>
+                  <div data-reveal className="rounded-xl border border-fg/80 bg-surface p-5 md:p-6">
+                    <div className="text-caption font-semibold text-signal-strong">
+                      Proof of work
+                    </div>
+                    <h3 className="mt-1.5 text-h4 font-semibold text-fg">
+                      {hub.getHired.proofOfWork.title}
+                    </h3>
+                    <p className="mt-2 text-small leading-relaxed text-fg-2">
+                      {hub.getHired.proofOfWork.why}
+                    </p>
+                    <ol className="mt-4 space-y-3">
+                      {hub.getHired.proofOfWork.steps.map((st, i) => (
+                        <li
+                          key={st}
+                          className="flex items-start gap-3 text-small leading-relaxed text-fg-2"
+                        >
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-fg font-mono text-[11px] text-bg">
+                            {i + 1}
+                          </span>
+                          {st}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </Chapter>
+            )}
+
+            {/* 5. Crack the interview */}
+            <Chapter
+              id="interview"
+              n={ch('interview').n}
+              total={chapters.length}
+              meta={ch('interview').meta}
+              title="Crack the interview"
+              intro="First see the rounds you will face. Then practise every question out loud before you open the answer."
+              next={nextOf('interview')}
+            >
+              <Block
+                id="process"
+                title="The rounds, by company type"
+                sub="Typical loops. Each company varies, so confirm the rounds with your recruiter."
+              >
+                <div className="grid gap-4 md:grid-cols-2">
+                  {hub.process.map((p) => (
+                    <div
+                      key={p.companyType}
+                      data-reveal
+                      className="rounded-xl border border-border bg-surface p-5"
+                    >
+                      <h4 className="text-h4 font-semibold text-fg">{p.companyType}</h4>
+                      <ol className="mt-4 space-y-0">
+                        {p.rounds.map((r, i) => (
+                          <li key={r} className="relative flex gap-3 pb-4 last:pb-0">
+                            {i < p.rounds.length - 1 && (
+                              <span
+                                aria-hidden="true"
+                                className="absolute left-[11px] top-6 h-[calc(100%-20px)] w-px bg-border"
+                              />
+                            )}
+                            <span className="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border bg-surface font-mono text-[11px] text-fg-2">
+                              {i + 1}
+                            </span>
+                            <span className="pt-0.5 text-small leading-relaxed text-fg-2">{r}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ))}
+                </div>
+              </Block>
+
+              <Block
+                id="questions"
+                title={`${totalQuestions} ${hub.shortName} interview questions`}
+                sub="Each answer shows how you could respond and what the interviewer is listening for. Say yours out loud first."
+              >
+                <PracticeCounter slug={hub.slug} total={totalQuestions} />
+                <div className="flex flex-wrap gap-2">
+                  {hub.questionGroups.map((g) => (
+                    <a
+                      key={g.id}
+                      href={`#q-${g.id}`}
+                      className="inline-flex h-9 items-center gap-1.5 rounded-full bg-surface px-3.5 text-small text-fg-2 ring-1 ring-inset ring-border hover:text-fg hover:ring-border-strong"
+                    >
+                      {g.title}
+                      <span className="font-mono text-caption text-fg-3">{g.questions.length}</span>
+                    </a>
+                  ))}
+                </div>
+                {(() => {
+                  let idx = 0
+                  return hub.questionGroups.map((g, gi) => (
+                    <div key={g.id} id={`q-${g.id}`} className="scroll-mt-32 space-y-3 pt-2">
+                      <div data-reveal>
+                        <h4 className="text-h4 font-semibold text-fg">{g.title}</h4>
+                        <p className="mt-1 text-small text-fg-2">{g.blurb}</p>
+                      </div>
+                      <div className="space-y-2.5">
+                        {g.questions.map((q, qi) => {
+                          idx += 1
+                          return (
+                            <QuestionItem
+                              key={q.q}
+                              slug={hub.slug}
+                              qid={`${g.id}-${qi}`}
+                              index={idx}
+                              q={q.q}
+                              answer={q.answer}
+                              lookFor={q.lookFor}
+                              defaultOpen={gi === 0 && qi === 0}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ))
+                })()}
+                <div
+                  data-reveal
+                  className="flex flex-col gap-4 rounded-2xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15 sm:flex-row sm:items-center sm:justify-between md:p-6"
+                >
+                  <div>
+                    <div className="text-h4 font-semibold text-fg">
+                      Reading answers is not practice.
+                    </div>
+                    <p className="mt-1 text-small text-fg-2">
+                      Answer these out loud to an AI interviewer and get feedback in minutes.
+                    </p>
+                  </div>
+                  <Link
+                    href="/free-mock-interview"
+                    className="inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 hover:bg-signal-strong"
+                  >
+                    Start a mock interview <ArrowRightIcon />
+                  </Link>
+                </div>
+              </Block>
+            </Chapter>
+
+            {/* 6. Prepare */}
+            <Chapter
+              id="prepare"
+              n={ch('prepare').n}
+              total={chapters.length}
+              meta={ch('prepare').meta}
+              title="Your prep plan and resources"
+              intro="Pick the plan that matches the time you have. Then learn the AI skills this role now expects, and go deeper with the best free resources."
+            >
+              <Block
+                id="plan"
+                title="Pick your plan: 7, 14 or 30 days"
+                sub="Tick tasks off as you go (saved on this device), and put the sessions in your calendar so they actually happen."
+              >
+                <div className="grid items-start gap-4 md:grid-cols-3">
+                  {hub.plans.map((p, i) => (
+                    <PlanTracker
+                      key={p.days}
+                      slug={hub.slug}
+                      roleName={hub.roleName}
+                      days={p.days}
+                      title={p.title}
+                      tasks={p.tasks}
+                      defaultOpen={i === 0}
+                    />
+                  ))}
+                </div>
+              </Block>
+
+              <Block
+                id="ai-skills"
+                title={`AI skills for ${/^[AEIOU]/i.test(hub.shortName) ? 'an' : 'a'} ${hub.shortName}`}
+                sub="Most interviews now ask how you use AI. Learn what LLMs are, practise with the free OpenAI and Anthropic courses, then build one small agent or automation you can show."
+              >
+                {hub.aiAngle && (
+                  <Callout kicker="Why it matters for this role">{hub.aiAngle}</Callout>
+                )}
+                <ol className="grid gap-3 md:grid-cols-2">
+                  {ai.map((r) => (
+                    <li key={r.id} data-reveal>
+                      <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex h-full flex-col rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span
+                            className={`inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold ${
+                              r.level === 'Start here'
+                                ? 'bg-signal-tint text-signal-ink'
+                                : 'bg-muted text-fg-2'
+                            }`}
+                          >
+                            {r.level}
+                          </span>
+                          <span className="text-caption text-fg-3">{r.publisher}</span>
+                        </div>
+                        <div className="mt-3 flex items-start gap-1 text-h4 font-semibold text-fg group-hover:underline">
+                          {r.title}
+                          <ArrowUpRightIcon className="mt-1 h-3.5 w-3.5 shrink-0 text-fg-3" />
+                        </div>
+                        <p className="mt-1.5 text-small leading-relaxed text-fg-2">{r.why}</p>
+                        <p className="mt-auto flex gap-2 border-t border-border pt-3 text-small leading-relaxed text-fg">
+                          <SparkIcon className="mt-0.5 h-4 w-4 shrink-0 text-signal-strong" />
+                          <span>
+                            <span className="font-semibold">Key idea: </span>
+                            {r.takeaway}
+                          </span>
+                        </p>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+                <Link
+                  href="/free-resources#ai-skills"
+                  className="inline-flex items-center gap-1.5 text-small font-semibold text-signal-strong hover:underline"
+                >
+                  All free AI and interview resources <ArrowRightIcon />
+                </Link>
+              </Block>
+
+              <Block id="resources" title={`The best resources for ${hub.shortName} interviews`}>
+                {hub.mustKnow && (
+                  <Callout kicker="The one thing to understand">{hub.mustKnow}</Callout>
+                )}
+                <div className="grid gap-3 md:grid-cols-2">
+                  {hub.resources.map((r) => {
+                    const internal = r.url.startsWith('/')
+                    const body = (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <span className="inline-flex h-6 items-center rounded-full bg-muted px-2.5 text-[11px] font-semibold text-fg-2">
+                            {r.kind}
+                          </span>
+                          {r.free && (
+                            <span className="text-caption font-medium text-signal-strong">
+                              Free
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-3 flex items-start gap-1 text-h4 font-semibold text-fg group-hover:underline">
+                          {r.title}
+                          {!internal && (
+                            <ArrowUpRightIcon className="mt-1 h-3.5 w-3.5 shrink-0 text-fg-3" />
+                          )}
+                        </div>
+                        <p className="mt-1.5 text-small leading-relaxed text-fg-2">
+                          <span className="font-medium text-fg">Why it matters: </span>
+                          {r.why}
+                        </p>
+                      </>
+                    )
+                    const cls =
+                      'group block h-full rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2'
+                    return internal ? (
+                      <Link key={r.title} href={r.url} data-reveal className={cls}>
+                        {body}
+                      </Link>
+                    ) : (
+                      <a
+                        key={r.title}
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-reveal
+                        className={cls}
+                      >
+                        {body}
+                      </a>
+                    )
+                  })}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {hub.related.map((r) => (
+                    <Link
+                      key={r.href}
+                      href={r.href}
+                      className="inline-flex h-9 items-center gap-1.5 rounded-full bg-surface px-3.5 text-small text-fg ring-1 ring-inset ring-border hover:ring-border-strong"
+                    >
+                      {r.label} <ArrowRightIcon className="h-3.5 w-3.5" />
+                    </Link>
+                  ))}
+                </div>
+              </Block>
+            </Chapter>
+          </div>
+        </div>
+
+        {/* ---------- Closing CTA (ink band) ---------- */}
+        <section className="bg-ink text-ink-fg">
+          <div
+            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
+          >
+            <div className="max-w-xl">
+              <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-on-ink">
+                Free · No signup to start
+              </div>
+              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
+                Practise out loud. It’s free.
+              </h2>
+              <p className="mt-3 text-body text-ink-fg-2">
+                A {hub.shortName} mock interview with an AI interviewer, with feedback on every
+                answer.
+              </p>
+            </div>
+            <Link
+              href="/free-mock-interview"
+              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
+            >
+              Start a free mock interview <ArrowRightIcon />
+            </Link>
+          </div>
+        </section>
+
+        <div className={`${container} space-y-16 py-16 md:py-24`}>
           {/* More role hubs */}
-          <section className="space-y-4">
-            <SectionHead kicker="More role hubs" title="Prepare for another new-age role" />
-            <div className="grid gap-3 sm:grid-cols-3">
+          <section aria-labelledby="more-hubs" className="space-y-5">
+            <h2 id="more-hubs" className="text-h2 font-semibold text-fg">
+              Prepare for another new-age role
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {ROLE_HUB_LIST.filter((h) => h.slug !== hub.slug).map((h) => (
                 <Link
                   key={h.slug}
                   href={`/${h.slug}`}
-                  className="group rounded-xl border border-[#ebebeb] bg-white p-4 hover:border-[#171717]"
+                  className="group rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
                 >
-                  <div className="text-sm font-medium text-[#171717] group-hover:underline">
-                    {h.roleName} interview prep →
+                  <div className="flex items-center justify-between gap-2 text-h4 font-semibold text-fg">
+                    {h.roleName}
+                    <ArrowRightIcon className="h-4 w-4 text-fg-3 transition-transform duration-fast group-hover:translate-x-0.5" />
                   </div>
-                  <p className="mt-1 text-xs text-[#666666]">
-                    {h.questionGroups.reduce((n, g) => n + g.questions.length, 0)} questions, pay
-                    data and who is hiring
+                  <p className="mt-1 text-caption text-fg-2">
+                    {h.questionGroups.reduce((n, g) => n + g.questions.length, 0)} questions · pay ·
+                    who is hiring
                   </p>
                 </Link>
               ))}
@@ -838,21 +1092,27 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           </section>
 
           {/* FAQ */}
-          <section id="faq" className="scroll-mt-32 space-y-6">
-            <SectionHead
-              kicker={`${num('faq')} · FAQ`}
-              title={`${hub.roleName}: frequently asked questions`}
-            />
-            <div className="divide-y divide-[#ebebeb] overflow-hidden rounded-xl border border-[#ebebeb] bg-white">
-              {hub.faqs.map((f) => (
-                <details key={f.q} className="group">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-sm font-medium text-[#171717]">
+          <section id="faq" aria-labelledby="faq-title" className="scroll-mt-28 space-y-5">
+            <h2 id="faq-title" className="text-h2 font-semibold text-fg">
+              {hub.roleName}: frequently asked questions
+            </h2>
+            <div className="max-w-3xl space-y-2.5">
+              {hub.faqs.map((f, i) => (
+                <details
+                  key={f.q}
+                  open={i === 0}
+                  className="group rounded-xl border border-border bg-surface open:shadow-e1"
+                >
+                  <summary className="flex min-h-12 cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-body font-medium text-fg [&::-webkit-details-marker]:hidden">
                     <span>{f.q}</span>
-                    <span className="font-mono text-[#999999] transition group-open:rotate-45">
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 font-mono text-fg-3 transition-transform duration-base group-open:rotate-45"
+                    >
                       +
                     </span>
                   </summary>
-                  <p className="border-t border-[#f5f5f5] px-5 py-4 text-sm leading-relaxed text-[#4d4d4d]">
+                  <p className="max-w-[68ch] px-5 pb-5 text-small leading-relaxed text-fg-2 sm:text-body">
                     {f.a}
                   </p>
                 </details>

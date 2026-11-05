@@ -42,6 +42,45 @@ const aipm: RoleHub = {
   directAnswer:
     'An AI Product Manager owns a product whose core behaviour comes from a machine learning model, usually a large language model. On top of normal PM work, they decide what the model should do, how quality is measured (evals), what it costs per task, and how to ship something non-deterministic safely. Interviews test product sense, AI fluency, metrics and execution.',
   lastUpdated: '2026-11-03',
+  story: {
+    summary:
+      'The AI PM grew out of machine-learning product roles on search, ads and recommendation teams. It went mainstream after ChatGPT launched in November 2022, when building on large language models became a product question for almost every software company.',
+    born: { when: 'Before 2022', what: 'ML product managers on search, ads and feeds' },
+    rise: { when: 'Nov 2022 →', what: 'ChatGPT puts LLM features on every roadmap' },
+    milestones: [
+      {
+        when: 'Before 2022',
+        title: 'The ML product manager',
+        detail:
+          'PMs on ranking, ads and recommendation products already worked with models, data and metrics.',
+      },
+      {
+        when: 'Nov 30, 2022',
+        title: 'ChatGPT launches',
+        detail:
+          'OpenAI releases ChatGPT as a research preview. Shipping features on top of a large language model becomes possible for any team with an API key.',
+        sourceLabel: 'OpenAI, Introducing ChatGPT',
+        sourceUrl: 'https://openai.com/index/chatgpt/',
+      },
+      {
+        when: 'May 2025',
+        title: '688 open AI PM roles',
+        detail:
+          'TrueUp counted 688 open AI PM roles across big tech and top startups. The analyst called the growth “insane”.',
+        sourceLabel: "Lenny's Newsletter (May 13, 2025)",
+        sourceUrl: 'https://www.lennysnewsletter.com/i/162496793/2-ai-roles-are-exploding',
+      },
+    ],
+    why: [
+      'Models became an API call, so every team can ship an AI feature. Someone has to decide what it should do and how good is good enough.',
+      'AI features can be confidently wrong and cost money on every request, so companies want PMs who understand evals, latency and unit cost.',
+      'Classic PM skills still apply, which makes it a natural next step for product managers, engineers and analysts.',
+    ],
+  },
+  aiAngle:
+    'AI is the product here, not a side skill. Learn how LLMs work, then how evals and agents work, and be ready to explain one AI product you have built or critiqued.',
+  mustKnow:
+    'Interviewers want to see you define “good” for a non-deterministic product: what you measure, what it costs per task, and what you do when the model is wrong.',
   whatTheRoleIs: [
     'An AI PM decides which user problems are worth solving with AI, defines what "good" output looks like, and works with ML and engineering teams to get there within latency, cost and safety limits.',
     'The job is still product management: discovery, prioritisation, roadmaps and launches. What changes is that the product can be confidently wrong, its quality has to be measured with evaluation sets rather than only with tests, and every request has a variable cost.',

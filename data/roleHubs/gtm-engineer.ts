@@ -39,6 +39,46 @@ const gtmEngineer: RoleHub = {
   directAnswer:
     'A GTM (go-to-market) engineer builds the systems a sales and marketing team runs on: data enrichment, lead scoring and routing, outbound automation, CRM workflows and, increasingly, AI agents for research and outreach. They mix no-code tools such as Clay, n8n and HubSpot with code (Python, JavaScript, SQL) and are measured on pipeline and revenue, not on lines of code.',
   lastUpdated: '2026-11-03',
+  story: {
+    summary:
+      'GTM (go-to-market) engineering grew out of sales operations and growth engineering. Clay coined the title in 2023, and it spread fast across B2B startups in 2025 as AI made it possible to automate account research and outreach.',
+    born: { when: '2023', what: 'Title coined by Clay' },
+    rise: { when: '2025', what: '400+ GTM engineer jobs in about 4.5 months' },
+    milestones: [
+      {
+        when: '2023',
+        title: 'Clay coins the title',
+        detail:
+          'The data-enrichment platform Clay coined “GTM engineer”. Cursor, Lovable, Notion and Webflow have since hired at least one.',
+        sourceLabel: 'Sifted (Aug 6, 2025)',
+        sourceUrl: 'https://sifted.eu/articles/gtm-engineer-the-next-big-thing',
+      },
+      {
+        when: 'Spring–summer 2025',
+        title: '400+ roles posted',
+        detail:
+          'Clay data cited by Sifted counted over 400 GTM engineer jobs posted in roughly four and a half months.',
+        sourceLabel: 'Sifted (Aug 6, 2025)',
+        sourceUrl: 'https://sifted.eu/articles/gtm-engineer-the-next-big-thing',
+      },
+      {
+        when: 'Jan 2025 → now',
+        title: '2,106 people take the title',
+        detail: '2,106 people started a GTM Engineer title since January 2025.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
+    ],
+    why: [
+      'AI tools can research thousands of accounts and draft outreach, so the bottleneck moved from reps’ hours to whoever builds the system.',
+      'Revenue teams want someone measured on pipeline who can also write Python, SQL and workflows.',
+      'Small startups cannot hire large sales-development teams, so one engineer automating the top of the funnel is a cheaper bet.',
+    ],
+  },
+  aiAngle:
+    'AI agents are now part of the GTM stack. Learn to build a research-and-outreach workflow in n8n or Clay that calls an LLM, and show the before and after numbers.',
+  mustKnow:
+    'You are judged on pipeline, not code. Every project you show should end with a number: accounts researched, replies, meetings booked, hours saved.',
   whatTheRoleIs: [
     'GTM engineering grew out of sales operations and growth engineering. Clay popularised the title, and in 2025–26 it spread fast across B2B startups: our count shows 2,106 people started a GTM Engineer title since January 2025.',
     'Where a sales rep researches 30 accounts by hand, a GTM engineer builds a workflow that researches 3,000, scores them, writes a first draft of outreach and routes the best ones to the right rep. The job is to turn what top sellers do into a system.',

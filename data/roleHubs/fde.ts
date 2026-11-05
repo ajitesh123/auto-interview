@@ -39,6 +39,47 @@ const fde: RoleHub = {
   directAnswer:
     "A Forward Deployed Engineer (FDE) is a software engineer who works directly with a customer to get a product working on that customer's real data, systems and workflows. FDEs write production code, but they also scope problems with business stakeholders, travel to customer sites (often 25–50% of the time) and feed what they learn back to the product team. Interviews test coding, problem decomposition, system design and customer communication.",
   lastUpdated: '2026-11-03',
+  story: {
+    summary:
+      'The Forward Deployed Engineer was born at Palantir, where engineers embedded with customers are known internally as “Deltas”. It took off in 2025, when AI companies such as OpenAI, Anthropic and Cohere built FDE teams to get their models working inside real businesses.',
+    born: { when: 'Palantir', what: 'Engineers embedded with customers (“Deltas”)' },
+    rise: { when: '2025', what: 'Monthly FDE job listings up 800%+' },
+    milestones: [
+      {
+        when: 'Palantir',
+        title: 'Palantir names the role',
+        detail:
+          'Palantir describes the Forward Deployed Software Engineer, “internally referred to as a Delta”, who defines a customer’s problem and deploys the product to solve it.',
+        sourceLabel: 'Palantir blog, Who Wants to be a Delta?',
+        sourceUrl: 'https://blog.palantir.com/who-wants-to-be-a-delta-8d2ea948035',
+      },
+      {
+        when: 'Jan–Sep 2025',
+        title: 'Listings jump more than 800%',
+        detail:
+          'Monthly job listings for forward-deployed engineers rose more than 800% between January and September 2025, according to the Financial Times.',
+        sourceLabel: 'PYMNTS, citing the Financial Times',
+        sourceUrl: 'https://www.pymnts.com/?p=3546498',
+      },
+      {
+        when: '2025–26',
+        title: 'AI labs build FDE teams',
+        detail:
+          'OpenAI, Anthropic and Cohere expanded forward-deployed teams to speed up adoption of their platforms.',
+        sourceLabel: 'PYMNTS, citing the Financial Times',
+        sourceUrl: 'https://www.pymnts.com/?p=3546498',
+      },
+    ],
+    why: [
+      'Getting an AI model to work inside a bank or hospital takes engineering on the customer’s own data and systems, not just a demo.',
+      'Customers pay for outcomes, so companies want engineers who own the result from the first call to deployment.',
+      'FDEs see every edge case first, which makes them the product team’s best source of what to build next.',
+    ],
+  },
+  aiAngle:
+    'Most new FDE roles deploy AI. Know how to build an agent with tools and guardrails, and how to explain to a customer why it failed and what you changed.',
+  mustKnow:
+    'FDE interviews reward decomposition: take a vague customer problem, break it into parts, ship the smallest useful piece, and say what you would measure.',
   whatTheRoleIs: [
     'Palantir made the role famous: its postings describe embedding engineers directly with customers to solve their hardest problems and owning projects from the first conversation to deployment. In 2025–26 AI companies adopted the model, because getting an AI model to work inside a bank, hospital or factory takes engineering, not just a sales demo.',
     'An FDE sits between a software engineer and a consultant. You write real code (integrations, data pipelines, agents, internal apps), but your success is measured by whether the customer gets the outcome, not by how many tickets you close.',

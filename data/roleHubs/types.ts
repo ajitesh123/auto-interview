@@ -23,6 +23,8 @@ export interface PayRow {
 
 export interface PayTable {
   region: string // e.g. "India"
+  /** Short tab label for the pay explorer (default: derived from region) */
+  tab?: string
   currency: string // e.g. "INR (₹, lakh per annum)"
   rows: PayRow[]
   note: string
@@ -73,6 +75,25 @@ export interface GetHired {
   proofOfWork: { title: string; why: string; steps: string[] }
 }
 
+/** One dated step in how the role came to be. Every dated claim carries a source. */
+export interface StoryMilestone {
+  when: string // e.g. "June 2023"
+  title: string
+  detail: string
+  sourceLabel?: string
+  sourceUrl?: string // external URL, or "#hiring" for our own count
+}
+
+/** Chapter 1 of the learner journey: where the role came from and why it is hot now. */
+export interface RoleStory {
+  /** 2–3 sentences: when it started, when it took off, why. */
+  summary: string
+  born: { when: string; what: string }
+  rise: { when: string; what: string }
+  milestones: StoryMilestone[]
+  why: string[] // why it took off, 3 short points
+}
+
 export interface RoleHub {
   slug: string // url segment, e.g. "aipm"
   roleName: string // "AI Product Manager"
@@ -84,6 +105,11 @@ export interface RoleHub {
   heroDescription: string
   directAnswer: string
   lastUpdated: string // YYYY-MM-DD
+  story?: RoleStory
+  /** How AI changes this role, and which AI skill to learn first (one or two sentences). */
+  aiAngle?: string
+  /** The single most important idea to understand before using the resources. */
+  mustKnow?: string
   whatTheRoleIs: string[]
   /** Optional labels for the two expectation columns (defaults: B2B vs B2C). */
   expectationLabels?: {

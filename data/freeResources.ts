@@ -1,6 +1,8 @@
 // Free interview-prep library. Every external link was opened and checked on CHECKED_ON.
 // Rule: link to the original publisher; never re-host third-party PDFs or casebooks on our domain.
 
+import { AI_TOOLKIT } from './aiToolkit'
+
 export const CHECKED_ON = '2026-11-04'
 
 export type ResourceFormat =
@@ -307,6 +309,24 @@ export const FREE_RESOURCE_SECTIONS: ResourceSection[] = [
         format: 'Web guide',
         why: 'Pay by track for UG and PG freshers. Third-party figures, confirm with TCS.',
       },
+    ],
+  },
+  {
+    id: 'ai-skills',
+    title: 'AI skills for every role: LLMs, Claude, OpenAI and agents',
+    intro:
+      'Most interviews now include “How do you use AI?” Learn what an LLM is, practise with the free OpenAI and Anthropic courses, then build one small agent or automation you can show.',
+    items: AI_TOOLKIT.map(({ title, url, publisher, format, why, official }) => ({
+      title,
+      url,
+      publisher,
+      format,
+      why,
+      official,
+    })),
+    ours: [
+      { label: 'AI Engineer interview guide', href: '/ai-engineer' },
+      { label: 'AI Product Manager interview guide', href: '/aipm' },
     ],
   },
 ]
