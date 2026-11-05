@@ -636,6 +636,16 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                     {hub.pay.crossCheck}
                   </p>
                 )}
+                <p className="text-small text-fg-2">
+                  Got an Indian offer?{' '}
+                  <Link
+                    href="/salary-calculator"
+                    className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
+                  >
+                    Turn the CTC into monthly in-hand pay
+                  </Link>{' '}
+                  on 2026-27 tax rules, or compare two offers.
+                </p>
               </div>
 
               <Block

@@ -254,7 +254,7 @@ function campusDoc(slug) {
   })
 }
 
-;(async () => {
+void (async () => {
   for (const slug of Object.keys(SAMPLES)) {
     if (!CAMPUS[slug]) {
       console.warn(`skip ${slug}: add it to data/roleKits/campusResumes.json`)
