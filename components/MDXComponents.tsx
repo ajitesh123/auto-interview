@@ -16,6 +16,8 @@ import QuoteAnimation from './QuoteAnimation'
 import CTABanner from './CTABanner'
 import PracticeQuestion from './blog/PracticeQuestion'
 import KeyFacts from './blog/KeyFacts'
+import SalesLmsCalculator from './blog/SalesLmsCalculator'
+import { SalesLmsVendorTable, SalesLmsWorkedTable } from './blog/SalesLmsTables'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -36,5 +38,8 @@ export const components: MDXComponents = {
   CTABanner,
   PracticeQuestion,
   KeyFacts,
+  SalesLmsCalculator,
+  SalesLmsVendorTable,
+  SalesLmsWorkedTable,
   Tweet,
 }
