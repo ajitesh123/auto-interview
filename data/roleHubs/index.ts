@@ -6,6 +6,7 @@ import aiEngineer from './ai-engineer'
 import foundersOffice from './founders-office'
 import chiefOfStaff from './chief-of-staff'
 import growth from './growth'
+import productManager from './product-manager'
 
 export const ROLE_HUB_LIST: RoleHub[] = [
   aipm,
@@ -15,6 +16,7 @@ export const ROLE_HUB_LIST: RoleHub[] = [
   foundersOffice,
   chiefOfStaff,
   growth,
+  productManager,
 ]
 
 export const ROLE_HUBS: Record<string, RoleHub> = Object.fromEntries(

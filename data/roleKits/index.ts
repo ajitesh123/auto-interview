@@ -6,6 +6,7 @@ import { AI_ENGINEER_KITS } from './ai-engineer'
 import { FOUNDERS_OFFICE_KITS } from './founders-office'
 import { CHIEF_OF_STAFF_KITS } from './chief-of-staff'
 import { GROWTH_KITS } from './growth'
+import { PRODUCT_MANAGER_KITS } from './product-manager'
 
 /** Resume (CV) and letter-of-recommendation kits, keyed by role hub slug. */
 export const ROLE_KITS: Record<string, RoleKits> = {
@@ -16,6 +17,7 @@ export const ROLE_KITS: Record<string, RoleKits> = {
   'founders-office': FOUNDERS_OFFICE_KITS,
   'chief-of-staff': CHIEF_OF_STAFF_KITS,
   growth: GROWTH_KITS,
+  'product-manager': PRODUCT_MANAGER_KITS,
 }
 
 export const KIT_PATHS = {

@@ -539,7 +539,7 @@ const foundersOffice: RoleHub = {
     { label: 'AI Product Manager hub', href: '/aipm' },
     { label: 'GTM Engineer hub', href: '/gtm-engineer' },
     { label: 'Growth Manager hub', href: '/growth' },
-    { label: 'Build your resume', href: '/build-resume' },
+    { label: 'Product Manager hub', href: '/product-manager' },
   ],
   faqs: [
     {

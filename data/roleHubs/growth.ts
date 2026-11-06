@@ -931,7 +931,7 @@ const growth: RoleHub = {
     { label: 'GTM Engineer hub', href: '/gtm-engineer' },
     { label: 'Founder’s Office hub', href: '/founders-office' },
     { label: 'AI Product Manager hub', href: '/aipm' },
-    { label: 'Build your resume', href: '/build-resume' },
+    { label: 'Product Manager hub', href: '/product-manager' },
   ],
   faqs: [
     {

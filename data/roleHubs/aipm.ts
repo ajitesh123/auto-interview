@@ -658,7 +658,7 @@ const aipm: RoleHub = {
     { label: 'Product manager resume template', href: '/cv-templates/product-manager' },
     { label: 'Free AI mock interview', href: '/free-mock-interview' },
     { label: 'Free resume builder', href: '/build-resume' },
-    { label: 'Best AI hackathon tools', href: '/blog/best-ai-hackathon-tools-2026' },
+    { label: 'Product Manager hub', href: '/product-manager' },
   ],
   faqs: [
     {

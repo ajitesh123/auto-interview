@@ -381,5 +381,60 @@
         "2019–20"
       ]
     ]
+  },
+  "product-manager": {
+    "education": [
+      [
+        "B.Tech, Computer Science",
+        "Deccan Institute of Technology (fictional)",
+        "8.4 / 10",
+        "Product club founder"
+      ],
+      ["Class XII", "CBSE", "91.2%", ""],
+      ["Class X", "CBSE", "94.0%", ""]
+    ],
+    "labels": [
+      ["Search", "User research", "Root cause", "Prioritisation"],
+      ["Payments SDK", "Activation"]
+    ],
+    "internship": [
+      "LedgerLoop (fictional)",
+      "Product Intern",
+      "May '20 – Jul '20",
+      [
+        "Discovery",
+        "Interviewed 15 merchants and wrote the spec for an invoice reminder; 22% of merchants used it in month one"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Prototype",
+        "Built and tested an AI prototype of a grocery reorder flow with 6 users; published the teardown",
+        "2025"
+      ],
+      [
+        "Course",
+        "SQL for product analytics; product sense practice with 40 mock interviews",
+        "2024"
+      ],
+      ["Case comp.", "Finalist, national product case competition", "2020"]
+    ],
+    "extracurricular": [
+      ["Mentoring", "Mentor 10 engineers a year moving into product roles", "2024"],
+      [
+        "Volunteering",
+        "Built a volunteer sign-up app for a city food bank; 300 volunteers used it",
+        "2022"
+      ],
+      ["Sport", "College cricket team captain; inter-college runners-up", "2019"]
+    ],
+    "por": [
+      [
+        "Product club",
+        "Founder, college product club: 12 teardown sessions, 250 members",
+        "2019–20"
+      ],
+      ["Fest", "Tech head, college fest: shipped the event app used by 4,000 attendees", "2018–19"]
+    ]
   }
 }
