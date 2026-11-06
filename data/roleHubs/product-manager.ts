@@ -462,7 +462,7 @@ const productManager: RoleHub = {
           {
             band: 'Bobyard, Senior PM, San Francisco',
             experience: '5+ yrs',
-            value: '$150K–170K',
+            value: '$160K–180K',
             url: 'https://wellfound.com/jobs/3705792-senior-product-manager',
           },
           {

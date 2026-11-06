@@ -20,6 +20,15 @@ export interface PayPost {
   url: string
 }
 
+/** Self-reported company pay (Levels.fyi), India, ₹ lakh total compensation per year. */
+export interface CompanyPay {
+  company: string
+  median: number
+  entryLevel?: string
+  entryTc?: number
+  url: string
+}
+
 export interface RoleSalary {
   slug: string // hub slug
   roleName: string
@@ -31,6 +40,8 @@ export interface RoleSalary {
   lead: 'india' | 'us'
   india: PayPost[]
   us: PayPost[]
+  /** Optional company table (Levels.fyi), shown after the posts. */
+  companies?: { title: string; intro: string; note: string; rows: CompanyPay[] }
   /** What we saw in the posts, one line each. */
   patterns: string[]
   /** How to negotiate this role's offer, one line each. */

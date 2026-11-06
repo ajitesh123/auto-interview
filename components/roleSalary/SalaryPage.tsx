@@ -256,6 +256,38 @@ function ExperienceSplit({ s, region }: { s: RoleSalary; region: 'india' | 'us' 
   )
 }
 
+function CompanyTable({ s }: { s: RoleSalary }) {
+  const c = s.companies
+  if (!c) return null
+  const rows = [...c.rows].sort((a, b) => b.median - a.median)
+  const lakh = (n: number) => (n >= 100 ? `₹${(n / 100).toFixed(2)} Cr` : `₹${n.toFixed(1)} LPA`)
+  return (
+    <Table
+      label={c.title}
+      min="min-w-[560px]"
+      caption={
+        <>
+          {c.note}{' '}
+          <a href="https://www.levels.fyi/" target="_blank" rel="noopener" className={link}>
+            Levels.fyi
+          </a>
+        </>
+      }
+      head={['Company', 'Median total pay, India', 'Entry PM level', 'Entry level pay']}
+      rows={rows.map((r) => [
+        <a key="c" href={r.url} target="_blank" rel="noopener" className={link}>
+          {r.company}
+        </a>,
+        <span key="m" className="font-semibold text-fg">
+          {lakh(r.median)}
+        </span>,
+        r.entryLevel ?? '—',
+        r.entryTc !== undefined ? lakh(r.entryTc) : '—',
+      ])}
+    />
+  )
+}
+
 function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="max-w-prose space-y-2.5">
@@ -284,7 +316,8 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
   const ls = salaryStats(lead === 'india' ? s.india : s.us)
   const india = s.india.length ? salaryStats(s.india) : null
   const us = s.us.length ? salaryStats(s.us) : null
-  const levels = hub.pay.tables
+  // Self-reported tables only (they carry a median row); the job-post tables are on this page already.
+  const levels = hub.pay.tables.filter((t) => t.rows.some((x) => /median/i.test(x.band)))
 
   const answer =
     lead === 'india'
@@ -418,6 +451,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
         <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
           {[
             ...regions.map((r) => ({ id: r, label: r === 'india' ? 'India' : 'United States' })),
+            ...(s.companies ? [{ id: 'companies', label: 'By company' }] : []),
             { id: 'patterns', label: 'What the posts show' },
             { id: 'negotiate', label: 'Negotiate' },
             { id: 'faq', label: 'FAQ' },
@@ -451,6 +485,17 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             <ExperienceSplit s={s} region={r} />
           </Section>
         ))}
+
+        {s.companies && (
+          <Section
+            id="companies"
+            meta={`Big employers · ${s.companies.rows.length} companies`}
+            title={s.companies.title}
+            intro={s.companies.intro}
+          >
+            <CompanyTable s={s} />
+          </Section>
+        )}
 
         <Section
           id="patterns"
@@ -494,7 +539,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
           intro="What to ask for before you sign, based on how these posts are written."
         >
           <Bullets items={s.negotiate} />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
               ['/salary-calculator', 'Tool', 'Compare two offers in hand'],
               [`/${hub.slug}`, 'Role guide', `Crack the ${hub.shortName} interview`],
