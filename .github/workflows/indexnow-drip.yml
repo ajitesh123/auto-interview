@@ -1,10 +1,16 @@
 name: IndexNow drip
 
-# Once a day, tell Bing/IndexNow about pages that changed in the last ~26 hours.
-# One URL at a time, 20 seconds apart, at most 10 per day.
+# Four times a day, tell Bing/IndexNow (Bing, Yandex, Seznam, Naver; Bing feeds ChatGPT and
+# Copilot search) about pages that changed in the last 7 days and were not sent since they
+# changed. One URL at a time, 20 seconds apart, at most 25 per run. A cached state file
+# remembers what was sent, so pages over the cap wait for the next run.
+# Times (IST) sit after each content run: 08:47, 12:47, 18:47, 23:47.
 on:
   schedule:
-    - cron: '17 3 * * *' # 08:47 IST daily
+    - cron: '17 3 * * *' # 08:47 IST
+    - cron: '17 7 * * *' # 12:47 IST (after the 09:40 interview-prep run)
+    - cron: '17 13 * * *' # 18:47 IST (after the 15:40 Learn AI run)
+    - cron: '17 18 * * *' # 23:47 IST (after the 21:40 blog run)
   push:
     branches: [main]
     paths: ['.github/indexnow-kick'] # edit this file (its text = time window) to run once now
@@ -12,15 +18,19 @@ on:
     inputs:
       since:
         description: 'Git time window, e.g. "48 hours ago"'
-        default: '26 hours ago'
+        default: '7 days ago'
       max:
-        description: 'Max URLs to submit'
-        default: '10'
+        description: 'Max URLs to submit this run'
+        default: '25'
+
+concurrency:
+  group: indexnow-drip
+  cancel-in-progress: false
 
 jobs:
   drip:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,8 +38,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Restore sent-URL state
+        uses: actions/cache/restore@v4
+        with:
+          path: .indexnow-state.json
+          key: indexnow-state-${{ github.run_id }}
+          restore-keys: indexnow-state-
       - name: Submit changed pages
         run: |
-          SINCE="${{ inputs.since || '26 hours ago' }}"
+          SINCE="${{ inputs.since || '7 days ago' }}"
           if [ "${{ github.event_name }}" = "push" ]; then SINCE="$(head -n1 .github/indexnow-kick)"; fi
-          node scripts/indexnow-drip.mjs --since "$SINCE" --max "${{ inputs.max || '10' }}" --gap 20000
+          node scripts/indexnow-drip.mjs --since "$SINCE" --max "${{ inputs.max || '25' }}" --gap 20000 --state .indexnow-state.json
+      - name: Save sent-URL state
+        if: always() && hashFiles('.indexnow-state.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .indexnow-state.json
+          key: indexnow-state-${{ github.run_id }}
