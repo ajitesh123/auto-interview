@@ -1152,7 +1152,7 @@ const productManager: RoleHub = {
   ],
   related: [
     { label: 'AI Product Manager hub', href: '/aipm' },
-    { label: 'Growth Manager hub', href: '/growth' },
+    { label: 'Strategy & Operations hub', href: '/strategy-and-operations' },
     { label: 'Founder’s Office hub', href: '/founders-office' },
     { label: 'In-hand salary calculator', href: '/salary-calculator' },
   ],

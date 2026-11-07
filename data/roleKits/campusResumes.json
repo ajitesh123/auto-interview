@@ -436,5 +436,60 @@
       ],
       ["Fest", "Tech head, college fest: shipped the event app used by 4,000 attendees", "2018–19"]
     ]
+  },
+  "strategy-and-operations": {
+    "education": [
+      [
+        "B.Tech, Mechanical Engineering",
+        "Western Ghats Institute of Technology (fictional)",
+        "8.1 / 10",
+        "Case club lead"
+      ],
+      ["Class XII", "CBSE", "92.4%", ""],
+      ["Class X", "CBSE", "93.6%", ""]
+    ],
+    "labels": [
+      ["Supply model", "Root cause", "Process", "Operating rhythm"],
+      ["Cost model", "Market sizing"]
+    ],
+    "internship": [
+      "Kirana Connect (fictional)",
+      "Strategy Intern",
+      "May '20 – Jul '20",
+      [
+        "Sizing",
+        "Sized demand for a B2B grocery app in 3 cities; the founders used it to pick the launch city"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Take-home",
+        "Practice case: scored 40 Pune neighbourhoods for dark stores from public data; 5-slide deck",
+        "2025"
+      ],
+      [
+        "Course",
+        "SQL for analysts and Excel financial modelling; 30 practice cases out loud",
+        "2024"
+      ],
+      ["Case comp.", "National finalist, operations strategy case competition", "2020"]
+    ],
+    "extracurricular": [
+      [
+        "Mentoring",
+        "Mentor 8 engineers a year preparing for consulting and S&O interviews",
+        "2024"
+      ],
+      [
+        "Volunteering",
+        "Built the volunteer roster model for a city food drive serving 2,000 families",
+        "2022"
+      ],
+      ["Sport", "College basketball team captain; zonal runners-up", "2019"]
+    ],
+    "por": [
+      ["Case club", "Lead, college case club: 20 practice sessions, 180 members", "2019–20"],
+      ["Fest", "Operations head, college fest: ran logistics for 5,000 attendees", "2018–19"]
+    ]
   }
 }
