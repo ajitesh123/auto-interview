@@ -17,6 +17,13 @@ import CTABanner from './CTABanner'
 import PracticeQuestion from './blog/PracticeQuestion'
 import KeyFacts from './blog/KeyFacts'
 import SalesLmsCalculator from './blog/SalesLmsCalculator'
+import AiLmsPicker from './blog/AiLmsPicker'
+import {
+  AiLmsFeatureMatrix,
+  AiLmsPriceTable,
+  AiLmsWorkedTable,
+  AiLmsAcademicTable,
+} from './blog/AiLmsTables'
 import { SalesLmsVendorTable, SalesLmsWorkedTable } from './blog/SalesLmsTables'
 import { Tweet } from 'react-tweet'
 
@@ -39,6 +46,11 @@ export const components: MDXComponents = {
   PracticeQuestion,
   KeyFacts,
   SalesLmsCalculator,
+  AiLmsPicker,
+  AiLmsFeatureMatrix,
+  AiLmsPriceTable,
+  AiLmsWorkedTable,
+  AiLmsAcademicTable,
   SalesLmsVendorTable,
   SalesLmsWorkedTable,
   Tweet,
