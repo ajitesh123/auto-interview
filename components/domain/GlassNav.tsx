@@ -14,6 +14,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   const navLinks = [
     { href: '/cv-templates', label: 'CV Templates' },
     { href: '/interview-questions', label: 'Interview Q&A' },
+    { href: '/learn-ai', label: 'Learn AI' },
     { href: '/free-mock-interview', label: 'Mock Interview' },
     { href: '/cold-call-practice', label: 'Cold Calling' },
     { href: '/ai-calling-roi-calculator', label: 'ROI Calculator' },
@@ -33,7 +34,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
         </Link>
 
         {/* Desktop Nav — Center-left */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-6 xl:flex">
           {navLinks.map((link) => {
             const isActive =
               link.href === '/'
@@ -43,7 +44,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm transition-colors ${
+                className={`whitespace-nowrap text-sm transition-colors ${
                   isActive ? 'font-medium !text-[#171717]' : '!text-[#666666] hover:!text-[#171717]'
                 }`}
               >
@@ -54,7 +55,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
         </div>
 
         {/* Right Action Cluster */}
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <Link
             href="/about"
             className="inline-flex items-center justify-center rounded-[6px] px-3.5 py-1.5 text-sm !text-[#171717] transition-colors hover:bg-[#f0f0f0]"
@@ -73,7 +74,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-[#171717] md:hidden"
+          className="text-[#171717] xl:hidden"
           aria-label="Toggle navigation menu"
         >
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +100,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div
-          className="mx-6 mt-1 rounded-[6px] bg-white px-6 pb-6 md:hidden"
+          className="mx-6 mt-1 rounded-[6px] bg-white px-6 pb-6 xl:hidden"
           style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
         >
           <div className="flex flex-col gap-4 pt-4">
@@ -113,7 +114,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`text-sm transition-colors ${
+                  className={`whitespace-nowrap text-sm transition-colors ${
                     isActive
                       ? 'font-medium !text-[#171717]'
                       : '!text-[#666666] hover:!text-[#171717]'

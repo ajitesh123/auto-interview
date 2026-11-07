@@ -325,6 +325,7 @@ export const FREE_RESOURCE_SECTIONS: ResourceSection[] = [
       official,
     })),
     ours: [
+      { label: 'Learn AI: free step-by-step course', href: '/learn-ai' },
       { label: 'AI Engineer interview guide', href: '/ai-engineer' },
       { label: 'AI Product Manager interview guide', href: '/aipm' },
     ],

@@ -10,6 +10,7 @@ import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interview
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST } from '@/data/roleSalary'
+import { LESSONS } from '@/data/learnAi'
 
 const POSTS_PER_PAGE = 10
 
@@ -209,6 +210,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  // Learn AI: the hub and every lesson
+  const learnAiRoutes = [
+    {
+      url: `${siteUrl}/learn-ai`,
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+    ...LESSONS.map((l) => ({
+      url: `${siteUrl}/learn-ai/${l.slug}`,
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    })),
+  ]
+
   const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
     url: `${siteUrl}/cv-templates/${role}`,
     lastModified: today,
@@ -235,6 +252,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...roleHubRoutes,
     ...roleKitRoutes,
     ...roleSalaryRoutes,
+    ...learnAiRoutes,
     ...interviewBehavioralRoutes,
     ...interviewRoleRoutes,
     ...cvRoleRoutes,

@@ -150,6 +150,12 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                   Tell Me About Yourself Guide
                 </Link>
                 <Link
+                  href="/learn-ai"
+                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                >
+                  Learn AI (free course)
+                </Link>
+                <Link
                   href="/blog"
                   className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
                 >
