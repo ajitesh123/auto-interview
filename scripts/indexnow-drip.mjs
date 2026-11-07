@@ -1,10 +1,10 @@
-// IndexNow "drip" submitter: sends only pages that changed recently, one URL at a time,
-// with a pause between each and a cap per run. Run by .github/workflows/indexnow-drip.yml
-// several times a day. A small state file (kept in the Actions cache) remembers what was
-// already sent, so a page is submitted once per change and anything over the cap waits
-// for the next run instead of being dropped.
+// IndexNow submitter: sends pages that changed since they were last sent, all in one request
+// (up to 10,000 URLs per POST, the protocol maximum), after checking each page is live.
+// Run hourly by .github/workflows/indexnow-drip.yml. A small state file (kept in the Actions
+// cache) remembers what was sent, so a page goes once per change (the IndexNow FAQ says not
+// to resend unchanged URLs) and anything not live yet is retried next hour.
 //
-// usage: node scripts/indexnow-drip.mjs [--since "7 days ago"] [--max 25] [--gap 20000]
+// usage: node scripts/indexnow-drip.mjs [--since "7 days ago"] [--max 10000] [--gap 20000]
 //                                       [--state .indexnow-state.json] [--dry]
 import fs from 'fs'
 import { execSync } from 'child_process'
@@ -19,7 +19,7 @@ const arg = (name, fallback) => {
   return i > -1 && process.argv[i + 1] ? process.argv[i + 1] : fallback
 }
 const SINCE = arg('--since', '7 days ago')
-const MAX = Number(arg('--max', '25'))
+const MAX = Number(arg('--max', '10000'))
 const GAP_MS = Number(arg('--gap', '20000'))
 const STATE = arg('--state', '')
 const DRY = process.argv.includes('--dry')
@@ -91,14 +91,29 @@ function toUrls(files) {
   return urls
 }
 
-async function submit(url) {
-  const body = { host: HOST, key: KEY, keyLocation: `${ORIGIN}/${KEY}.txt`, urlList: [url] }
+// Is the page live? Never tell search engines about a URL that 404s (e.g. deploy not done).
+// Only a 404/410 counts as not live: a network error or firewall answer (403/429) should not
+// stop submissions.
+async function isLive(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD' })
+    if (res.status === 404 || res.status === 410) return false
+    if (res.status !== 200) console.log(`  note: ${res.status} on ${url}, sending anyway`)
+    return true
+  } catch {
+    return true
+  }
+}
+
+// One POST with many URLs (the protocol allows up to 10,000 per request).
+async function submitBatch(urlList) {
+  const body = { host: HOST, key: KEY, keyLocation: `${ORIGIN}/${KEY}.txt`, urlList }
   const res = await fetch(ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
     body: JSON.stringify(body),
   })
-  return res.status
+  return { status: res.status, retryAfter: res.headers.get('retry-after') }
 }
 
 let state = {}
@@ -111,28 +126,45 @@ if (STATE && fs.existsSync(STATE)) {
 }
 
 const all = toUrls(changedFiles())
-// Only pages changed since we last sent them.
+// Only pages changed since we last sent them (never resend an unchanged page).
 const pending = [...all].filter(([u, t]) => !state[u] || state[u] < t).map(([u]) => u)
-const batch = pending.slice(0, MAX)
 console.log(
-  `IndexNow drip: ${all.size} changed URL(s) since "${SINCE}", ${pending.length} not yet sent, submitting ${batch.length} (cap ${MAX}, ${GAP_MS / 1000}s apart)${DRY ? ' [dry run]' : ''}`
+  `IndexNow: ${all.size} changed URL(s) since "${SINCE}", ${pending.length} not yet sent${DRY ? ' [dry run]' : ''}`
 )
-if (pending.length > MAX) {
-  console.log(`Waiting for the next run (over cap):\n  ${pending.slice(MAX).join('\n  ')}`)
-}
 
-let failures = 0
-for (const [i, url] of batch.entries()) {
-  if (DRY) {
-    console.log(`  would submit ${url}`)
-    continue
+// Check each is live (a few at a time), then send the live ones in one request.
+const live = []
+const notLive = []
+for (let i = 0; i < pending.length; i += 8) {
+  const chunk = pending.slice(i, i + 8)
+  const ok = await Promise.all(chunk.map(isLive))
+  chunk.forEach((u, j) => (ok[j] ? live : notLive).push(u))
+}
+if (notLive.length) console.log(`Not live yet, will retry next run:\n  ${notLive.join('\n  ')}`)
+const batch = live.slice(0, MAX)
+if (live.length > MAX) console.log(`Over this run's cap (${MAX}); ${live.length - MAX} wait for the next run`)
+
+if (!batch.length) {
+  console.log('Nothing to send.')
+} else if (DRY) {
+  batch.forEach((u) => console.log(`  would submit ${u}`))
+} else {
+  // Chunks of 10,000 (protocol maximum), a short pause between chunks.
+  for (let i = 0; i < batch.length; i += 10000) {
+    const part = batch.slice(i, i + 10000)
+    const { status, retryAfter } = await submitBatch(part).catch(() => ({ status: 0 }))
+    const ok = status === 200 || status === 202
+    console.log(`${ok ? 'OK ' : 'ERR'} ${status} sent ${part.length} URL(s)`)
+    part.forEach((u) => console.log(`  ${u}`))
+    if (ok) {
+      const now = new Date().toISOString()
+      part.forEach((u) => (state[u] = now))
+    } else {
+      if (status === 429) console.log(`Rate limited (429). Retry-After: ${retryAfter || 'not given'}. Stopping; next run retries.`)
+      process.exitCode = 1
+      break
+    }
+    if (i + 10000 < batch.length) await sleep(GAP_MS)
   }
-  const status = await submit(url).catch(() => 0)
-  const ok = status === 200 || status === 202
-  if (ok) state[url] = new Date().toISOString()
-  else failures++
-  console.log(`  ${ok ? 'OK ' : 'ERR'} ${status} ${url}`)
-  if (i < batch.length - 1) await sleep(GAP_MS)
 }
 if (STATE && !DRY) fs.writeFileSync(STATE, JSON.stringify(state, null, 1))
-if (failures) process.exitCode = 1
