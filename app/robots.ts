@@ -36,7 +36,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/'],
       },
       {
-        userAgent: ['ClaudeBot', 'anthropic-ai', 'Claude-Web'],
+        userAgent: ['ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai', 'Claude-Web'],
         allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },
@@ -46,7 +46,13 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/*?*'],
       },
       {
-        userAgent: ['PerplexityBot'],
+        userAgent: ['PerplexityBot', 'Perplexity-User'],
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
+        disallow: ['/api/', '/*?*'],
+      },
+      // Parallel Web Systems crawler, one of Claude's web search providers since Oct 2026
+      {
+        userAgent: ['ShapBot'],
         allow: ['/', '/llms.txt', '/llms-full.txt'],
         disallow: ['/api/', '/*?*'],
       },

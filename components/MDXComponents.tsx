@@ -18,6 +18,8 @@ import PracticeQuestion from './blog/PracticeQuestion'
 import KeyFacts from './blog/KeyFacts'
 import SalesLmsCalculator from './blog/SalesLmsCalculator'
 import AiLmsPicker from './blog/AiLmsPicker'
+import IndiaLmsCalculator from './blog/IndiaLmsCalculator'
+import { IndiaLmsTable, IndiaLmsWorkedTable } from './blog/IndiaLmsTables'
 import {
   AiLmsFeatureMatrix,
   AiLmsPriceTable,
@@ -47,6 +49,9 @@ export const components: MDXComponents = {
   KeyFacts,
   SalesLmsCalculator,
   AiLmsPicker,
+  IndiaLmsCalculator,
+  IndiaLmsTable,
+  IndiaLmsWorkedTable,
   AiLmsFeatureMatrix,
   AiLmsPriceTable,
   AiLmsWorkedTable,
