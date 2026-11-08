@@ -20,6 +20,7 @@ const fmtDate = (d: string) =>
 
 /* ---------- stats ---------- */
 
+const an = (w: string) => `${/^[AEIOU]/i.test(w) ? 'an' : 'a'} ${w}`
 const mid = (p: PayPost) => (p.min + p.max) / 2
 function median(xs: number[]) {
   if (!xs.length) return 0
@@ -326,15 +327,15 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
 
   const faqs = [
     india && {
-      q: `What is the salary of a ${s.roleName} in India?`,
+      q: `What is the salary of ${an(s.roleName)} in India?`,
       a: `Across ${india.n} Indian job posts that state pay, the median midpoint is ${fmt('india', india.median)} and ranges run from ${fmt('india', india.low)} to ${fmt('india', india.high)}. Checked ${fmtDate(s.checked)}.`,
     },
     india && {
-      q: `What is the in-hand salary of a ${s.roleName} in India?`,
+      q: `What is the in-hand salary of ${an(s.roleName)} in India?`,
       a: `At the median posted CTC of ${fmt('india', india.median)}, about ${inr(inHand(india.median))} a month under the new tax regime, with 50% basic, PF on the ₹25,000 ceiling and gratuity inside the CTC. Use the salary calculator for your own offer.`,
     },
     us && {
-      q: `How much does a ${s.roleName} make in the US?`,
+      q: `How much does ${an(s.roleName)} make in the US?`,
       a: `Across ${us.n} US job posts with pay ranges, the median midpoint is ${fmt('us', us.median)} base, before equity. ${us.equity} of ${us.n} posts mention equity.`,
     },
     {
@@ -535,7 +536,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
         <Section
           id="negotiate"
           meta={`${s.negotiate.length} moves`}
-          title={`How to negotiate a ${s.roleName} offer`}
+          title={`How to negotiate ${an(s.roleName)} offer`}
           intro="What to ask for before you sign, based on how these posts are written."
         >
           <Bullets items={s.negotiate} />
