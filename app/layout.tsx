@@ -289,14 +289,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               author: {
                 '@id': 'https://www.autointerviewai.com/#organization',
               },
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.9',
-                ratingCount: '1280',
-                reviewCount: '1280',
-                bestRating: '5',
-                worstRating: '1',
-              },
               featureList: [
                 'Real-time voice sales roleplay (<350ms turn-taking latency)',
                 'A.D.D. objection handling framework (Acknowledge, Deflect, Differentiate)',

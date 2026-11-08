@@ -253,14 +253,6 @@ export default function AISalesTrainingDirectoryPage() {
         author: {
           '@id': 'https://www.autointerviewai.com/#organization',
         },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.9',
-          ratingCount: '1280',
-          reviewCount: '1280',
-          bestRating: '5',
-          worstRating: '1',
-        },
         offers: {
           '@type': 'Offer',
           price: '0',

@@ -19,6 +19,7 @@ import KeyFacts from './blog/KeyFacts'
 import SalesLmsCalculator from './blog/SalesLmsCalculator'
 import AiLmsPicker from './blog/AiLmsPicker'
 import IndiaLmsCalculator from './blog/IndiaLmsCalculator'
+import DpdpLdChecker from './blog/DpdpLdChecker'
 import { IndiaLmsTable, IndiaLmsWorkedTable } from './blog/IndiaLmsTables'
 import {
   AiLmsFeatureMatrix,
@@ -50,6 +51,7 @@ export const components: MDXComponents = {
   SalesLmsCalculator,
   AiLmsPicker,
   IndiaLmsCalculator,
+  DpdpLdChecker,
   IndiaLmsTable,
   IndiaLmsWorkedTable,
   AiLmsFeatureMatrix,
