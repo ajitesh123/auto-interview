@@ -1,0 +1,28 @@
+# Content audit log
+
+The recurring loop over what we already have (Rahul, Nov 8 2026: "a recurring loop of
+understanding what is already created, and what is the best content that we could have").
+
+Every run audits pages in its slot's area before or after its main task:
+
+- Slot A (09:40): role hubs, role kits, salary and other matrix pages, interview-question pages, tools.
+- Slot B (15:40): Learn AI lessons, and engagement on any page (time on page, next steps).
+- Slot C (21:40): blog posts (528 as of Nov 8 2026), oldest or highest-traffic first once
+  Search Console data arrives.
+
+How to audit one page (about 10 minutes):
+
+1. Open our live page and the current Google #1–3 and the AI answer for its main query.
+2. Check: facts still true and sourced; dates and prices current; better or worse than #1;
+   overlap with our other pages; has something to DO; has a next step; no paused claims,
+   fake ratings or unsourced numbers.
+3. Verdict: KEEP (fine), REFRESH (fix facts or add the missing piece), MERGE (into which URL),
+   REWRITE (needs a brief), or ASK RAHUL (delete or redirect a page with traffic).
+4. Log a row below; do REFRESH fixes in the same run when small, otherwise queue them.
+
+| Date       | Slot | URL                                                                 | Main query                                | Verdict         | What we found                                                                  | Action / commit                                                                  |
+| ---------- | ---- | ------------------------------------------------------------------- | ----------------------------------------- | --------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| 2026-11-08 | C    | /blog/ai-calling-india-dpdp-trai-dlt-compliance-complete-guide-2026 | ai calling compliance india dpdp trai dlt | REFRESH         | Said DPDP "fully in effect as of 2026"; duties start 13 May 2027               | Fixed, commit 037e1ee                                                            |
+| 2026-11-08 | C    | (sitewide schema)                                                   | n/a                                       | REFRESH         | Unsourced AggregateRating 4.9 / 1,280 reviews in layout and /ai-sales-training | Removed, commit 037e1ee                                                          |
+| 2026-11-08 | C    | 3 voice-agent testing posts                                         | how to test a voice ai agent              | MERGE (pending) | Three overlapping posts; vendors own the SERP                                  | Merge into one canonical guide once GSC per-URL data shows which has impressions |
+| 2026-11-08 | B    | 9 role hubs                                                         | (internal links)                          | REFRESH         | Linked zero Learn AI lessons                                                   | Role-specific lesson path added, commit 9728828                                  |
