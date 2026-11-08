@@ -67,6 +67,7 @@ export const PLAN: { slug: string; track: Track['id']; title: string }[] = [
   { slug: 'ai-agents', track: 'build', title: 'What is an AI agent?' },
   { slug: 'agent-skills', track: 'build', title: 'What are Agent Skills?' },
   { slug: 'multi-agent-systems', track: 'build', title: 'Subagents and multi-agent systems' },
+  { slug: 'prompt-injection', track: 'build', title: 'Prompt injection and AI security' },
   { slug: 'ai-evals', track: 'build', title: 'Evals: does your AI work?' },
   { slug: 'voice-ai-agents', track: 'build', title: 'How voice AI agents work' },
   { slug: 'run-llm-locally', track: 'build', title: 'Open models: run an LLM on your laptop' },

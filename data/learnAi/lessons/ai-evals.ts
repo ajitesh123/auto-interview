@@ -226,7 +226,7 @@ export const lesson: Lesson = {
     },
   ],
   related: [
-    { label: 'Previous: What is an AI agent?', href: '/learn-ai/ai-agents' },
+    { label: 'Previous: Prompt injection and AI security', href: '/learn-ai/prompt-injection' },
     { label: 'Why AI makes things up', href: '/learn-ai/ai-hallucinations' },
     { label: 'Next: Your first AI automation in n8n', href: '/learn-ai/n8n-ai-automation' },
     { label: 'AI product manager guide', href: '/aipm' },

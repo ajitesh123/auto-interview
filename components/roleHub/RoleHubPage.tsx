@@ -5,6 +5,7 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import type { RoleHub } from '@/data/roleHubs/types'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { AI_TOOLKIT } from '@/data/aiToolkit'
+import { lessonsForRole, LEARN_AI_COUNT } from '@/data/learnAi/roleLessons'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import {
   JourneyMobileBar,
@@ -227,6 +228,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     .map((t) => ({ t, m: t.rows.find((r) => /median/i.test(r.band)) }))
     .filter((x) => x.m)
   const ai = AI_TOOLKIT
+  const roleLessons = lessonsForRole(hub.slug)
 
   // The journey: few steps, each one complete.
   const defs: { id: string; label: string; w: number; show: boolean }[] = [
@@ -1014,6 +1016,51 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               >
                 {hub.aiAngle && (
                   <Callout kicker="Why it matters for this role">{hub.aiAngle}</Callout>
+                )}
+                {roleLessons.length > 0 && (
+                  <div className="rounded-xl border border-border bg-surface p-5 md:p-6">
+                    <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+                      Learn AI · {roleLessons.length} free lessons · in this order
+                    </div>
+                    <h3 className="mt-2 text-h3 font-semibold text-fg">
+                      The AI you will be asked about as{' '}
+                      {/^[AEIOU]/i.test(hub.shortName) ? 'an' : 'a'} {hub.shortName}
+                    </h3>
+                    <ol className="mt-4 divide-y divide-border">
+                      {roleLessons.map(({ lesson, why }, i) => (
+                        <li key={lesson.slug}>
+                          <Link
+                            href={`/learn-ai/${lesson.slug}`}
+                            className="group flex items-start gap-3 py-3.5"
+                          >
+                            <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-caption font-semibold text-fg-2">
+                              {i + 1}
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="flex flex-wrap items-baseline gap-x-2">
+                                <span className="text-h4 font-semibold text-fg group-hover:underline">
+                                  {lesson.title}
+                                </span>
+                                <span className="text-caption text-fg-3">
+                                  {lesson.minutes} min · {lesson.level}
+                                </span>
+                              </span>
+                              <span className="mt-0.5 block text-small leading-relaxed text-fg-2">
+                                {why}
+                              </span>
+                            </span>
+                            <ArrowRightIcon className="mt-1.5 h-4 w-4 shrink-0 text-fg-3 group-hover:text-signal-strong" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ol>
+                    <Link
+                      href="/learn-ai"
+                      className="mt-2 inline-flex items-center gap-1.5 text-small font-semibold text-signal-strong hover:underline"
+                    >
+                      The full Learn AI path · {LEARN_AI_COUNT} lessons, free <ArrowRightIcon />
+                    </Link>
+                  </div>
                 )}
                 <ol className="grid gap-3 md:grid-cols-2">
                   {ai.map((r) => (

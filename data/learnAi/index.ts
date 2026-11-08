@@ -83,8 +83,7 @@ export const LEARN_AI_BACKLOG: string[] = [
   'Diffusion models in depth: how image and video generators work',
   'AI image prompting: getting good images from Midjourney, Gemini and ChatGPT',
   'AI video and music generation: what works today',
-  'Prompt injection and AI security basics',
-  'Mixture of experts: why big models only use part of themselves',
+  'Mixture of experts: why big models only use part of themselves (news hook Nov 2026: Kimi K3.1 Pro 2.8T total / 104B active open weights)',
   'LLM inference and GPUs: why AI is expensive to run',
   'Speculative decoding and other tricks that make models faster',
   'Knowledge graphs and GraphRAG',
@@ -100,4 +99,7 @@ export const LEARN_AI_BACKLOG: string[] = [
   'Small language models and on-device AI',
   'Scaling laws explained: why bigger models got better',
   'Interpretability: looking inside a neural network',
+  'Open-weight vs closed models: what "open weights" and model licences mean',
+  'AI agent security for teams: permissions, approvals and audit logs',
+  'AI in cybersecurity: how defenders and attackers use models',
 ]
