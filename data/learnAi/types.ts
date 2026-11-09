@@ -5,8 +5,8 @@
 
 export type TrackId = 'foundations' | 'use' | 'build' | 'automate' | 'deeper'
 
-export interface Track {
-  id: TrackId
+export interface Track<T extends string = TrackId> {
+  id: T
   n: number
   title: string // e.g. "Understand AI"
   promise: string // one line: what you can do after this track
@@ -49,9 +49,9 @@ export interface FromTheSource {
   use: string // 1–2 sentences: how a beginner uses this idea today
 }
 
-export interface Lesson {
+export interface Lesson<T extends string = TrackId> {
   slug: string // url segment, e.g. "what-is-an-llm"
-  track: TrackId
+  track: T
   order: number // global order across the whole path, 1..N
   title: string // short label for navigation, e.g. "What is an LLM?"
   metaTitle: string // <= 60 chars, matches how people search, e.g. "What Is an LLM? Large Language Models Explained Simply"

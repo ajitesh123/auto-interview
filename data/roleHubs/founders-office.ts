@@ -528,6 +528,13 @@ const foundersOffice: RoleHub = {
       free: true,
     },
     {
+      title: 'Learn startups from Paul Graham (free course)',
+      url: '/paul-graham',
+      kind: 'Our guide',
+      why: 'You will sit next to a founder all day. This is how YC-style founders think: users, growth, default alive, fundraising, each lesson sourced to Paul Graham’s essays.',
+      free: true,
+    },
+    {
       title: 'Free interview prep library',
       url: '/free-resources',
       kind: 'Our guide',

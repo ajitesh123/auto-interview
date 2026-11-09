@@ -4,11 +4,12 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import { RevealRoot } from '@/components/roleHub/JourneyClient'
 import { CopyButton } from '@/components/roleKits/KitClient'
 import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon } from '@/components/roleHub/icons'
-import type { Lesson, LessonStep } from '@/data/learnAi/types'
-import { LESSONS, PLAN, getNeighbours, getTrack, lessonsByTrack } from '@/data/learnAi'
+import type { LessonStep } from '@/data/learnAi/types'
 import { DoneMark, MarkComplete, Quiz, YouTubeFacade } from './LearnAiClient'
+import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
 
-// One Learn AI lesson (Signal Paper, see the signal-paper-ui skill).
+// One lesson of a course (Learn AI by default; the Paul Graham course passes its own config).
+// Signal Paper, see the signal-paper-ui skill.
 // Flow: short answer → steps → straight from the source → words → watch → try → check → next.
 
 const SITE = 'https://www.autointerviewai.com'
@@ -140,13 +141,19 @@ function Section({ id, children }: { id: string; children: ReactNode }) {
   )
 }
 
-export default function LessonPage({ lesson }: { lesson: Lesson }) {
-  const url = `${SITE}/learn-ai/${lesson.slug}`
-  const track = getTrack(lesson.track)
-  const { prev, next } = getNeighbours(lesson.slug)
-  const trackLessons = lessonsByTrack(lesson.track)
-  const total = LESSONS.length
-  const planned = PLAN.length
+export default function LessonPage({
+  lesson,
+  course = LEARN_AI_COURSE,
+}: {
+  lesson: AnyLesson
+  course?: CourseConfig
+}) {
+  const base = course.basePath
+  const url = `${SITE}${base}/${lesson.slug}`
+  const track = course.getTrack(lesson.track)
+  const { prev, next } = course.getNeighbours(lesson.slug)
+  const trackLessons = course.lessonsByTrack(lesson.track)
+  const total = course.lessons.length
   const pct = Math.round((lesson.order / total) * 100)
 
   const schemas = [
@@ -155,7 +162,7 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
-        { '@type': 'ListItem', position: 2, name: 'Learn AI', item: `${SITE}/learn-ai` },
+        { '@type': 'ListItem', position: 2, name: course.name, item: `${SITE}${base}` },
         { '@type': 'ListItem', position: 3, name: lesson.title, item: url },
       ],
     },
@@ -175,8 +182,8 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
       position: lesson.order,
       isPartOf: {
         '@type': 'Course',
-        name: 'Learn AI: from your first prompt to building agents',
-        url: `${SITE}/learn-ai`,
+        name: course.courseName,
+        url: `${SITE}${base}`,
         provider: { '@type': 'Organization', name: 'Auto Interview AI', url: SITE },
       },
       publisher: { '@type': 'Organization', name: 'Auto Interview AI', url: SITE },
@@ -194,7 +201,7 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
   ]
 
   return (
-    <DomainLayout currentPath="/learn-ai">
+    <DomainLayout currentPath={base}>
       {schemas.map((s, i) => (
         <script
           key={i}
@@ -217,7 +224,7 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
           <aside className="hidden lg:block" aria-label={`Lessons in ${track.title}`}>
             <div className="sticky top-24 space-y-4">
               <Link
-                href="/learn-ai"
+                href={base}
                 className="text-small font-medium text-fg-2 underline-offset-4 hover:text-fg hover:underline"
               >
                 ← All {total} lessons
@@ -232,13 +239,13 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
                   return (
                     <li key={l.slug}>
                       <Link
-                        href={`/learn-ai/${l.slug}`}
+                        href={`${base}/${l.slug}`}
                         aria-current={current ? 'page' : undefined}
                         className={`flex items-center gap-3 rounded-lg px-2 py-1.5 text-small transition-colors duration-fast ${
                           current ? 'bg-muted font-semibold text-fg' : 'text-fg-2 hover:bg-muted'
                         }`}
                       >
-                        <DoneMark slug={l.slug} n={l.order} />
+                        <DoneMark slug={l.slug} n={l.order} storageKey={course.storageKey} />
                         <span className="min-w-0 leading-snug">{l.title}</span>
                       </Link>
                     </li>
@@ -254,11 +261,11 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
               aria-label="Breadcrumb"
               className="flex flex-wrap items-center gap-2 text-caption text-fg-3"
             >
-              <Link href="/learn-ai" className="hover:text-fg">
-                Learn AI
+              <Link href={base} className="hover:text-fg">
+                {course.name}
               </Link>
               <span aria-hidden="true">/</span>
-              <Link href={`/learn-ai#${track.id}`} className="hover:text-fg">
+              <Link href={`${base}#${track.id}`} className="hover:text-fg">
                 {track.title}
               </Link>
               <span aria-hidden="true">/</span>
@@ -294,6 +301,9 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
               <div className={`${kicker} text-fg-3`}>The short answer</div>
               <p className="mt-2 text-body text-fg md:text-body-lg">{lesson.tldr}</p>
             </div>
+            {course.disclaimer && (
+              <p className="mt-3 max-w-[72ch] text-caption text-fg-3">{course.disclaimer}</p>
+            )}
 
             {/* ---------- Steps ---------- */}
             <ol className="mt-12 md:mt-16" aria-label="Lesson steps">
@@ -308,9 +318,9 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
                 <Section id="from-the-source">
                   <SectionHead
                     id="from-the-source-title"
-                    k="From the people who built it"
-                    title="Straight from the source"
-                    sub="The original idea, then the same idea taken apart, then how you use it today."
+                    k={course.sourceSection.kicker}
+                    title={course.sourceSection.title}
+                    sub={course.sourceSection.sub}
                   />
                   <div className="space-y-4">
                     {lesson.fromTheSource.map((s) => (
@@ -417,7 +427,7 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
 
               {/* ---------- Try it ---------- */}
               <Section id="try">
-                <SectionHead id="try-title" k="Hands-on · 10 minutes or less" title="Try it" />
+                <SectionHead id="try-title" k={course.tryKicker} title={course.tryTitle} />
                 <div
                   data-reveal
                   className="max-w-[72ch] rounded-xl border border-border bg-surface p-5 md:p-6"
@@ -468,13 +478,17 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
                   sub={
                     next
                       ? 'Mark this lesson complete to keep your place. Progress is saved on this device, no login.'
-                      : `More lessons are on the way (${planned} planned). Mark this one complete to keep your place.`
+                      : course.endOfPath
                   }
                 />
-                <MarkComplete slug={lesson.slug} nextHref={next && `/learn-ai/${next.slug}`} />
+                <MarkComplete
+                  slug={lesson.slug}
+                  nextHref={next && `${base}/${next.slug}`}
+                  storageKey={course.storageKey}
+                />
                 {next && (
                   <Link
-                    href={`/learn-ai/${next.slug}`}
+                    href={`${base}/${next.slug}`}
                     className="group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface px-5 py-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2 md:px-6"
                   >
                     <span className="min-w-0">
@@ -493,7 +507,7 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
                 )}
                 {prev && (
                   <Link
-                    href={`/learn-ai/${prev.slug}`}
+                    href={`${base}/${prev.slug}`}
                     className="inline-flex min-h-11 items-center text-small font-medium text-fg-2 underline-offset-4 hover:text-fg hover:underline"
                   >
                     ← Previous: {prev.title}
@@ -577,20 +591,17 @@ export default function LessonPage({ lesson }: { lesson: Lesson }) {
             className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
           >
             <div className="max-w-xl">
-              <div className={`${kicker} text-signal-on-ink`}>Free · No signup to start</div>
+              <div className={`${kicker} text-signal-on-ink`}>{course.endCta.kicker}</div>
               <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
-                Going for an AI role? Practise the interview.
+                {course.endCta.title}
               </h2>
-              <p className="mt-3 text-body text-ink-fg-2">
-                Talk to an AI interviewer about what you just learned and get feedback on every
-                answer.
-              </p>
+              <p className="mt-3 text-body text-ink-fg-2">{course.endCta.body}</p>
             </div>
             <Link
-              href="/free-mock-interview"
+              href={course.endCta.href}
               className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
             >
-              Start a free mock interview <ArrowRightIcon />
+              {course.endCta.label} <ArrowRightIcon />
             </Link>
           </div>
         </section>

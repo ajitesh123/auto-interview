@@ -665,6 +665,13 @@ const chiefOfStaff: RoleHub = {
       free: true,
     },
     {
+      title: 'Learn startups from Paul Graham (free course)',
+      url: '/paul-graham',
+      kind: 'Our guide',
+      why: 'The founder you support is likely to run on these ideas: talk to users, grow weekly, stay default alive, founder mode. Each lesson links the original essay.',
+      free: true,
+    },
+    {
       title: 'Free interview prep library',
       url: '/free-resources',
       kind: 'Our guide',

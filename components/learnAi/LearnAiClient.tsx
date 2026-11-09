@@ -5,16 +5,16 @@ import Link from 'next/link'
 
 /* ---------- Progress, saved on this device only (no login) ---------- */
 
-const KEY = 'aiv:learnai'
-const EVT = 'aiv:learnai'
+// Each course has its own key (Learn AI: aiv:learnai, Paul Graham course: aiv:pgcourse).
+const DEFAULT_KEY = 'aiv:learnai'
 interface Progress {
   done: Record<string, number>
   last?: string
 }
 
-function read(): Progress {
+function read(key: string): Progress {
   try {
-    const raw = window.localStorage.getItem(KEY)
+    const raw = window.localStorage.getItem(key)
     const p = raw ? (JSON.parse(raw) as Progress) : null
     return p && typeof p.done === 'object' ? p : { done: {} }
   } catch {
@@ -22,28 +22,28 @@ function read(): Progress {
   }
 }
 
-function write(p: Progress) {
+function write(key: string, p: Progress) {
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(p))
+    window.localStorage.setItem(key, JSON.stringify(p))
   } catch {
     /* storage blocked: progress just isn't remembered */
   }
-  window.dispatchEvent(new Event(EVT))
+  window.dispatchEvent(new Event(key))
 }
 
-function useProgress(): [Progress, (fn: (p: Progress) => Progress) => void] {
+function useProgress(key: string): [Progress, (fn: (p: Progress) => Progress) => void] {
   const [p, setP] = useState<Progress>({ done: {} })
   useEffect(() => {
-    const sync = () => setP(read())
+    const sync = () => setP(read(key))
     sync()
-    window.addEventListener(EVT, sync)
+    window.addEventListener(key, sync)
     window.addEventListener('storage', sync)
     return () => {
-      window.removeEventListener(EVT, sync)
+      window.removeEventListener(key, sync)
       window.removeEventListener('storage', sync)
     }
-  }, [])
-  const update = useCallback((fn: (p: Progress) => Progress) => write(fn(read())), [])
+  }, [key])
+  const update = useCallback((fn: (p: Progress) => Progress) => write(key, fn(read(key))), [key])
   return [p, update]
 }
 
@@ -63,8 +63,16 @@ const Check = ({ className = 'h-4 w-4' }: { className?: string }) => (
 )
 
 /** Remembers the lesson as the last one opened, and offers "Mark lesson complete". */
-export function MarkComplete({ slug, nextHref }: { slug: string; nextHref?: string }) {
-  const [p, update] = useProgress()
+export function MarkComplete({
+  slug,
+  nextHref,
+  storageKey = DEFAULT_KEY,
+}: {
+  slug: string
+  nextHref?: string
+  storageKey?: string
+}) {
+  const [p, update] = useProgress(storageKey)
   useEffect(() => update((x) => ({ ...x, last: slug })), [slug, update])
   const done = Boolean(p.done[slug])
   return (
@@ -103,8 +111,16 @@ export function MarkComplete({ slug, nextHref }: { slug: string; nextHref?: stri
 }
 
 /** A small tick (or the lesson number) on the hub's lesson list. */
-export function DoneMark({ slug, n }: { slug: string; n: number }) {
-  const [p] = useProgress()
+export function DoneMark({
+  slug,
+  n,
+  storageKey = DEFAULT_KEY,
+}: {
+  slug: string
+  n: number
+  storageKey?: string
+}) {
+  const [p] = useProgress(storageKey)
   const done = Boolean(p.done[slug])
   return (
     <span
@@ -121,10 +137,16 @@ export function DoneMark({ slug, n }: { slug: string; n: number }) {
 /** Hub: progress across the whole path and a "continue" link once someone has started. */
 export function HubResume({
   lessons,
+  storageKey = DEFAULT_KEY,
+  basePath = '/learn-ai',
+  doneText = 'You have finished every lesson. New ones are added often.',
 }: {
   lessons: { slug: string; title: string; order: number }[]
+  storageKey?: string
+  basePath?: string
+  doneText?: string
 }) {
-  const [p] = useProgress()
+  const [p] = useProgress(storageKey)
   const doneCount = lessons.filter((l) => p.done[l.slug]).length
   if (!doneCount && !p.last) return null
   const lastIdx = Math.max(
@@ -162,15 +184,13 @@ export function HubResume({
       </div>
       {next ? (
         <Link
-          href={`/learn-ai/${next.slug}`}
+          href={`${basePath}/${next.slug}`}
           className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-signal-strong underline-offset-4 hover:underline"
         >
           Continue with lesson {next.order}: {next.title} →
         </Link>
       ) : (
-        <p className="mt-4 text-small font-semibold text-fg">
-          You have finished every lesson. New ones are added often.
-        </p>
+        <p className="mt-4 text-small font-semibold text-fg">{doneText}</p>
       )}
     </div>
   )

@@ -77,6 +77,13 @@ function toUrls(files) {
     add(`${ORIGIN}/learn-ai/${m[1]}`, t)
     add(`${ORIGIN}/learn-ai`, t)
   })
+  // Paul Graham course: data/pgCourse/lessons/<slug>.ts -> /paul-graham/<slug>, plus the hub;
+  // the 6-month plan lives on the hub
+  each(/^data\/pgCourse\/lessons\/([a-z0-9-]+)\.ts$/, (m, t) => {
+    add(`${ORIGIN}/paul-graham/${m[1]}`, t)
+    add(`${ORIGIN}/paul-graham`, t)
+  })
+  each(/^data\/pgCourse\/plan\.ts$/, (m, t) => add(`${ORIGIN}/paul-graham`, t))
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)
@@ -142,7 +149,8 @@ for (let i = 0; i < pending.length; i += 8) {
 }
 if (notLive.length) console.log(`Not live yet, will retry next run:\n  ${notLive.join('\n  ')}`)
 const batch = live.slice(0, MAX)
-if (live.length > MAX) console.log(`Over this run's cap (${MAX}); ${live.length - MAX} wait for the next run`)
+if (live.length > MAX)
+  console.log(`Over this run's cap (${MAX}); ${live.length - MAX} wait for the next run`)
 
 if (!batch.length) {
   console.log('Nothing to send.')
@@ -160,7 +168,10 @@ if (!batch.length) {
       const now = new Date().toISOString()
       part.forEach((u) => (state[u] = now))
     } else {
-      if (status === 429) console.log(`Rate limited (429). Retry-After: ${retryAfter || 'not given'}. Stopping; next run retries.`)
+      if (status === 429)
+        console.log(
+          `Rate limited (429). Retry-After: ${retryAfter || 'not given'}. Stopping; next run retries.`
+        )
       process.exitCode = 1
       break
     }

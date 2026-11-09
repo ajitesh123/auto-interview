@@ -11,6 +11,7 @@ import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST } from '@/data/roleSalary'
 import { LESSONS } from '@/data/learnAi'
+import { PG_LESSONS } from '@/data/pgCourse'
 
 const POSTS_PER_PAGE = 10
 
@@ -226,6 +227,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
+  // Paul Graham course: the hub and every lesson
+  const pgCourseRoutes = [
+    {
+      url: `${siteUrl}/paul-graham`,
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    ...PG_LESSONS.map((l) => ({
+      url: `${siteUrl}/paul-graham/${l.slug}`,
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
+  ]
+
   const cvRoleRoutes = Object.keys(CV_ROLES).map((role) => ({
     url: `${siteUrl}/cv-templates/${role}`,
     lastModified: today,
@@ -253,6 +270,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...roleKitRoutes,
     ...roleSalaryRoutes,
     ...learnAiRoutes,
+    ...pgCourseRoutes,
     ...interviewBehavioralRoutes,
     ...interviewRoleRoutes,
     ...cvRoleRoutes,
