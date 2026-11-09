@@ -7,6 +7,10 @@ import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon } from '@/components/roleHu
 import type { LessonStep } from '@/data/learnAi/types'
 import { DoneMark, MarkComplete, Quiz, YouTubeFacade } from './LearnAiClient'
 import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
+import MoeCalculator from './MoeCalculator'
+import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
+import { rolesForLesson } from '@/data/learnAi/roleLessons'
+import { ROLE_HUBS } from '@/data/roleHubs'
 
 // One lesson of a course (Learn AI by default; the Paul Graham course passes its own config).
 // Signal Paper, see the signal-paper-ui skill.
@@ -155,6 +159,15 @@ export default function LessonPage({
   const trackLessons = course.lessonsByTrack(lesson.track)
   const total = course.lessons.length
   const pct = Math.round((lesson.order / total) * 100)
+  // Role hubs that send people to this lesson (Learn AI only): gives readers a next step that
+  // matches why they are learning, high on the page (NN/g: most viewing time is in 2 screens).
+  const roles =
+    course.id === LEARN_AI_COURSE.id
+      ? rolesForLesson(lesson.slug).flatMap((r) => {
+          const hub = ROLE_HUBS[r.hub]
+          return hub ? [{ ...r, name: hub.roleName }] : []
+        })
+      : []
 
   const schemas = [
     {
@@ -304,6 +317,26 @@ export default function LessonPage({
             {course.disclaimer && (
               <p className="mt-3 max-w-[72ch] text-caption text-fg-3">{course.disclaimer}</p>
             )}
+            {roles.length > 0 && (
+              <div className="mt-4 flex max-w-[72ch] flex-wrap items-center gap-2">
+                <span className="text-small text-fg-2">Part of the interview prep for</span>
+                {roles.map((r) => (
+                  <Link
+                    key={r.hub}
+                    href={`/${r.hub}#ai-skills`}
+                    className="inline-flex min-h-9 items-center rounded-full bg-signal-tint px-3 py-1 text-small font-medium text-signal-ink ring-1 ring-inset ring-signal/15 transition-colors duration-fast hover:bg-signal/10"
+                  >
+                    {r.name}
+                  </Link>
+                ))}
+                <a
+                  href="#roles"
+                  className="text-small font-medium text-fg-2 underline decoration-border-strong underline-offset-4 hover:text-fg"
+                >
+                  Why it matters
+                </a>
+              </div>
+            )}
 
             {/* ---------- Steps ---------- */}
             <ol className="mt-12 md:mt-16" aria-label="Lesson steps">
@@ -425,6 +458,95 @@ export default function LessonPage({
                 </Section>
               )}
 
+              {/* ---------- Interactive tool (optional, no AI) ---------- */}
+              {lesson.widget === 'moe-calculator' && (
+                <Section id="tool">
+                  <SectionHead
+                    id="tool-title"
+                    k={`${MOE_MODELS.length} MoE models · maker numbers · checked Nov 2026`}
+                    title="Total vs active: will it fit?"
+                    sub="Pick a model or type the two numbers from any model card. Memory comes from the total; speed comes from the active parameters."
+                  />
+                  <MoeCalculator />
+                  <figure>
+                    <div
+                      role="region"
+                      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                      tabIndex={0}
+                      aria-label="Mixture-of-experts models: total and active parameters"
+                      className="overflow-x-auto rounded-xl border border-border bg-surface"
+                    >
+                      <table className="w-full min-w-[640px] text-left text-small tabular-nums">
+                        <thead className="bg-muted text-fg-2">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="sticky left-0 bg-muted px-4 py-3 font-medium"
+                            >
+                              Model
+                            </th>
+                            <th scope="col" className="px-4 py-3 font-medium">
+                              Total
+                            </th>
+                            <th scope="col" className="px-4 py-3 font-medium">
+                              Active
+                            </th>
+                            <th scope="col" className="px-4 py-3 font-medium">
+                              Used per token
+                            </th>
+                            <th scope="col" className="px-4 py-3 font-medium">
+                              Weights at 4-bit
+                            </th>
+                            <th scope="col" className="px-4 py-3 font-medium">
+                              Experts
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {MOE_MODELS.map((m) => (
+                            <tr key={m.name} className="border-t border-border">
+                              <th
+                                scope="row"
+                                className="sticky left-0 bg-surface px-4 py-3 font-medium text-fg"
+                              >
+                                <a
+                                  href={m.source.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="underline decoration-border-strong underline-offset-4 hover:decoration-fg"
+                                >
+                                  {m.name}
+                                </a>
+                                <span className="block text-caption font-normal text-fg-3">
+                                  {m.maker} · {m.released}
+                                </span>
+                              </th>
+                              <td className="px-4 py-3 text-fg">
+                                {m.totalB.toLocaleString('en-US')}B
+                              </td>
+                              <td className="px-4 py-3 text-fg">{m.activeB}B</td>
+                              <td className="px-4 py-3 text-fg">{activePct(m)}%</td>
+                              <td className="px-4 py-3 text-fg">
+                                ~{weightsGB(m.totalB, 0.5).toLocaleString('en-US')} GB
+                              </td>
+                              <td className="px-4 py-3 text-fg-2">{m.experts}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <figcaption className="mt-2 flex flex-wrap justify-between gap-2 text-caption text-fg-3">
+                      <span>
+                        Source: each model name links to its maker&rsquo;s page or paper, opened Nov
+                        2026. &ldquo;Used per token&rdquo; and memory are computed from those
+                        numbers; memory is weights only.
+                      </span>
+                      <span className="md:hidden">Swipe →</span>
+                    </figcaption>
+                  </figure>
+                </Section>
+              )}
+
               {/* ---------- Try it ---------- */}
               <Section id="try">
                 <SectionHead id="try-title" k={course.tryKicker} title={course.tryTitle} />
@@ -504,6 +626,31 @@ export default function LessonPage({
                       <ArrowRightIcon />
                     </span>
                   </Link>
+                )}
+                {roles.length > 0 && (
+                  <div id="roles" className="scroll-mt-24 pt-2">
+                    <div className={`${kicker} text-fg-3`}>
+                      Roles that need this lesson · {roles.length}
+                    </div>
+                    <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {roles.map((r) => (
+                        <li key={r.hub}>
+                          <Link
+                            href={`/${r.hub}#ai-skills`}
+                            className="group flex h-full flex-col rounded-xl border border-border bg-surface p-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                          >
+                            <span className="text-body font-semibold text-fg">
+                              {r.name} interview guide
+                            </span>
+                            <span className="mt-1 text-small text-fg-2">{r.why}</span>
+                            <span className="mt-3 inline-flex items-center gap-1 text-small font-semibold text-signal-strong">
+                              Open the guide <ArrowRightIcon />
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
                 {prev && (
                   <Link

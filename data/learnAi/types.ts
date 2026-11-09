@@ -69,4 +69,6 @@ export interface Lesson<T extends string = TrackId> {
   faqs: { q: string; a: string }[] // 3 real questions people search
   related?: { label: string; href: string }[] // other site pages, e.g. /ai-engineer, /aipm, /free-resources#ai-skills
   fromTheSource?: FromTheSource[] // 1–2 original ideas from the people who built this
+  /** Optional interactive tool rendered before "Try it" (no AI, runs in the browser) */
+  widget?: 'moe-calculator'
 }

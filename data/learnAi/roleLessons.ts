@@ -177,6 +177,72 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
   ],
 }
 
+// Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
+// that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
+export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'mixture-of-experts': [
+    {
+      hub: 'ai-engineer',
+      why: 'Choosing and hosting open models: total parameters set the GPU memory you must budget.',
+    },
+    {
+      hub: 'aipm',
+      why: 'Model launches quote total and active parameters. Know which one drives cost and speed.',
+    },
+  ],
+  'transformers-explained': [
+    {
+      hub: 'ai-engineer',
+      why: 'Attention and context length explain most model limits you will design around.',
+    },
+    {
+      hub: 'aipm',
+      why: 'Lets you explain to a team why long inputs cost more and how models read text.',
+    },
+  ],
+  'run-llm-locally': [
+    {
+      hub: 'ai-engineer',
+      why: 'Running open models yourself is the fastest way to test them before you build on one.',
+    },
+    {
+      hub: 'fde',
+      why: 'Some customers cannot send data to a cloud API. Know what a local or on-prem model needs.',
+    },
+  ],
+  'how-llms-are-trained': [
+    {
+      hub: 'aipm',
+      why: 'Pre-training vs fine-tuning vs RLHF explains what a model update can and cannot fix.',
+    },
+  ],
+  'reasoning-models': [
+    {
+      hub: 'aipm',
+      why: 'Thinking models trade speed and cost for accuracy: a product call you will have to make.',
+    },
+  ],
+  'multi-agent-systems': [
+    {
+      hub: 'ai-engineer',
+      why: 'Subagents and orchestration come up as soon as you design an agent that does more than one job.',
+    },
+  ],
+}
+
+/** Role hubs that point to this lesson: the hub's own top-4 picks first, then reverse-only links. */
+export function rolesForLesson(slug: string): { hub: string; why: string }[] {
+  const out: { hub: string; why: string }[] = []
+  for (const [hub, picks] of Object.entries(ROLE_LESSONS)) {
+    const p = picks.find((x) => x.slug === slug)
+    if (p) out.push({ hub, why: p.why })
+  }
+  for (const e of LESSON_EXTRA_ROLES[slug] ?? []) {
+    if (!out.some((o) => o.hub === e.hub)) out.push(e)
+  }
+  return out
+}
+
 export function lessonsForRole(hubSlug: string): { lesson: Lesson; why: string }[] {
   return (ROLE_LESSONS[hubSlug] ?? [])
     .map((p) => ({ lesson: getLesson(p.slug), why: p.why }))

@@ -271,7 +271,7 @@ export const lesson: Lesson = {
     },
   ],
   related: [
-    { label: 'Previous: Transformers and attention', href: '/learn-ai/transformers-explained' },
+    { label: 'Previous: Mixture of experts (MoE)', href: '/learn-ai/mixture-of-experts' },
     { label: 'Next: Your first prompt', href: '/learn-ai/first-prompt' },
     { label: 'Prompting vs RAG vs fine-tuning', href: '/learn-ai/fine-tuning-vs-rag' },
     { label: 'Why AI makes things up', href: '/learn-ai/ai-hallucinations' },

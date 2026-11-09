@@ -20,23 +20,24 @@ import { lesson as l16 } from './lessons/first-prompt'
 import { lesson as l17 } from './lessons/history-of-ai'
 import { lesson as l18 } from './lessons/how-llms-are-trained'
 import { lesson as l19 } from './lessons/key-ai-papers'
-import { lesson as l20 } from './lessons/multi-agent-systems'
-import { lesson as l21 } from './lessons/multimodal-ai'
-import { lesson as l22 } from './lessons/n8n-ai-automation'
-import { lesson as l23 } from './lessons/openai-codex'
-import { lesson as l24 } from './lessons/prompt-engineering'
-import { lesson as l25 } from './lessons/prompt-injection'
-import { lesson as l26 } from './lessons/reasoning-models'
-import { lesson as l27 } from './lessons/run-llm-locally'
-import { lesson as l28 } from './lessons/tokens-and-context-window'
-import { lesson as l29 } from './lessons/tool-calling'
-import { lesson as l30 } from './lessons/transformers-explained'
-import { lesson as l31 } from './lessons/vibe-coding'
-import { lesson as l32 } from './lessons/voice-ai-agents'
-import { lesson as l33 } from './lessons/what-is-ai'
-import { lesson as l34 } from './lessons/what-is-an-api'
-import { lesson as l35 } from './lessons/what-is-an-llm'
-import { lesson as l36 } from './lessons/what-is-mcp'
+import { lesson as l20 } from './lessons/mixture-of-experts'
+import { lesson as l21 } from './lessons/multi-agent-systems'
+import { lesson as l22 } from './lessons/multimodal-ai'
+import { lesson as l23 } from './lessons/n8n-ai-automation'
+import { lesson as l24 } from './lessons/openai-codex'
+import { lesson as l25 } from './lessons/prompt-engineering'
+import { lesson as l26 } from './lessons/prompt-injection'
+import { lesson as l27 } from './lessons/reasoning-models'
+import { lesson as l28 } from './lessons/run-llm-locally'
+import { lesson as l29 } from './lessons/tokens-and-context-window'
+import { lesson as l30 } from './lessons/tool-calling'
+import { lesson as l31 } from './lessons/transformers-explained'
+import { lesson as l32 } from './lessons/vibe-coding'
+import { lesson as l33 } from './lessons/voice-ai-agents'
+import { lesson as l34 } from './lessons/what-is-ai'
+import { lesson as l35 } from './lessons/what-is-an-api'
+import { lesson as l36 } from './lessons/what-is-an-llm'
+import { lesson as l37 } from './lessons/what-is-mcp'
 
 export const LESSON_LIST: Lesson[] = [
   l0,
@@ -76,4 +77,5 @@ export const LESSON_LIST: Lesson[] = [
   l34,
   l35,
   l36,
+  l37,
 ]

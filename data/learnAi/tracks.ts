@@ -46,6 +46,7 @@ export const PLAN: { slug: string; track: Track['id']; title: string }[] = [
   { slug: 'tokens-and-context-window', track: 'foundations', title: 'Tokens and context windows' },
   { slug: 'transformers-explained', track: 'foundations', title: 'Transformers and attention' },
   { slug: 'key-ai-papers', track: 'foundations', title: 'The papers that built modern AI' },
+  { slug: 'mixture-of-experts', track: 'foundations', title: 'Mixture of experts (MoE)' },
   {
     slug: 'how-llms-are-trained',
     track: 'foundations',

@@ -83,6 +83,7 @@ export const lesson: Lesson = {
         'gpt-oss (OpenAI, August 2025, Apache 2.0): gpt-oss-20b runs within 16 GB of memory; gpt-oss-120b needs a single 80 GB GPU.',
         'Llama (Meta): Llama 3.2 has small 1B and 3B models; Llama 4 Scout and Maverick (April 2025) are much larger.',
         'Qwen (Alibaba), DeepSeek and Mistral: popular families with many sizes, all listed in Ollama’s library.',
+        'Mixture-of-experts models list two sizes. Memory follows the total (Llama 4 Scout: 109B total, about 54.5 GB at 4-bit) even though only 17B run per token.',
       ],
       example: {
         label: 'Try OpenAI’s open model if you have 16 GB or more',
@@ -222,6 +223,10 @@ export const lesson: Lesson = {
     { label: 'Previous: How voice AI agents work', href: '/learn-ai/voice-ai-agents' },
     { label: 'Next: Your first AI automation in n8n', href: '/learn-ai/n8n-ai-automation' },
     { label: 'ChatGPT vs Claude vs Gemini', href: '/learn-ai/choosing-an-ai-model' },
+    {
+      label: 'Mixture of experts: total vs active parameters',
+      href: '/learn-ai/mixture-of-experts',
+    },
     { label: 'Tokens and context windows', href: '/learn-ai/tokens-and-context-window' },
     { label: 'Prompting vs RAG vs fine-tuning', href: '/learn-ai/fine-tuning-vs-rag' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },

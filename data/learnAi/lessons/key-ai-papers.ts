@@ -260,7 +260,7 @@ export const lesson: Lesson = {
   ],
   related: [
     { label: 'Previous: Transformers and attention', href: '/learn-ai/transformers-explained' },
-    { label: 'Next: How ChatGPT and Claude are trained', href: '/learn-ai/how-llms-are-trained' },
+    { label: 'Next: Mixture of experts (MoE)', href: '/learn-ai/mixture-of-experts' },
     { label: 'Reasoning models and thinking', href: '/learn-ai/reasoning-models' },
     { label: 'AI safety and alignment', href: '/learn-ai/ai-safety-and-alignment' },
     {

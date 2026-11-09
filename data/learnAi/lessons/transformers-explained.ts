@@ -240,6 +240,10 @@ export const lesson: Lesson = {
       label: 'Build an LLM with Karpathy’s Zero to Hero',
       href: '/learn-ai/build-an-llm-from-scratch',
     },
+    {
+      label: 'Mixture of experts: how big models use part of themselves',
+      href: '/learn-ai/mixture-of-experts',
+    },
     { label: 'Embeddings and RAG', href: '/learn-ai/embeddings-and-rag' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },
   ],
