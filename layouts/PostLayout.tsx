@@ -1694,7 +1694,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 AI Voice Agents
               </span>
               <p className="mb-3 text-xs font-medium leading-relaxed text-[#171717]">
-                Experience sub-40ms voice agents with automatic barge-in.
+                Try voice agents that handle interruptions (barge-in).
               </p>
               <Link
                 href="https://cal.com/ajitesh/30min"

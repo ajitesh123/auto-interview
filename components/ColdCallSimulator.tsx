@@ -388,7 +388,7 @@ export default function ColdCallSimulator() {
         {/* Telemetry bar */}
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#ebebeb] pt-3 font-mono text-[11px] text-[#666666]">
           <span>FRAMEWORK: {selectedScenario.frameworkTip.split(':')[0]}</span>
-          <span className="text-[#171717]">TURN-TAKING LATENCY: 348ms (REAL-TIME)</span>
+          <span className="text-[#171717]">TURN-TAKING: REAL-TIME</span>
         </div>
       </div>
 

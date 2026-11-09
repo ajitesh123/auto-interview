@@ -290,12 +290,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@id': 'https://www.autointerviewai.com/#organization',
               },
               featureList: [
-                'Real-time voice sales roleplay (<350ms turn-taking latency)',
+                'Real-time voice sales roleplay',
                 'A.D.D. objection handling framework (Acknowledge, Deflect, Differentiate)',
-                'Automated SDR onboarding and live outbound dial gating (21-day ramp)',
+                'Automated SDR onboarding and live outbound dial gating',
                 'MEDDPICC, BANT, and Challenger sales rubric scoring',
                 'USA TCPA / STIR-SHAKEN and India TRAI DLT / DPDP compliance',
-                'Executive Harvard & Stanford ATS CV templates',
+                'One-page CV and resume templates',
                 'Programmatic interview questions library and behavioral answer playbooks',
               ],
               offers: {

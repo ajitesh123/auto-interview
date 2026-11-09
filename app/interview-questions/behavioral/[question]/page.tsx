@@ -442,7 +442,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
               <p className="text-sm font-light leading-relaxed text-[#cccccc]">
                 Reading a script silently is completely different from delivering it under real
                 interview pressure. Test your vocal inflection, timing, and STAR delivery with our
-                sub-400ms voice AI mock interviewer.
+                voice AI mock interviewer.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link

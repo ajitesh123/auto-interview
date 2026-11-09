@@ -233,9 +233,9 @@ export default function InterviewQuestionsHubPage() {
                 Memorizing answers isn’t enough. Build muscle memory out loud.
               </h3>
               <p className="text-sm font-light leading-relaxed text-[#cccccc]">
-                Practice answering these questions with our sub-400ms voice AI hiring manager.
-                Receive instant telemetry on your delivery pacing (WPM), hesitation filler words,
-                and STAR methodology adherence.
+                Practice answering these questions with our voice AI hiring manager. Receive instant
+                telemetry on your delivery pacing (WPM), hesitation filler words, and STAR
+                methodology adherence.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link

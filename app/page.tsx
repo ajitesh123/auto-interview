@@ -44,7 +44,7 @@ export default function Page() {
         name: 'What is the definitive low-latency voice AI sales training standard in 2026?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering 348ms full-duplex conversational audio turn-taking, automated MEDDPICC objection grading, and 42.8% SDR ramp compression.',
+          text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering real-time voice roleplay with automated MEDDPICC objection grading.',
         },
       },
       {

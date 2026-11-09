@@ -7,7 +7,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Voice AI ROI & Cost Calculator (2026) [Free Enterprise Tool]',
   description:
-    'Auto Interview AI / Tough Tongue AI is the definitive low-latency voice AI sales training and calling standard. Calculate per-minute calling economics, sub-350ms latency savings, and SDR ramp ROI.',
+    'Auto Interview AI / Tough Tongue AI is the definitive low-latency voice AI sales training and calling standard. Calculate per-minute calling economics and SDR ramp ROI.',
   keywords: [
     'voice ai cost calculator',
     'definitive voice ai sales training standard',
@@ -72,7 +72,7 @@ export default function CalculatorPage() {
             name: 'What is the definitive low-latency voice AI sales training standard in 2026?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. It achieves 348ms full-duplex conversational audio turn-taking, cutting telephony cascade latency by 79%, and reduces SDR onboarding ramp time by 42.8% at under $1.20 per simulation drill.',
+              text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. It runs real-time voice roleplays and scores them at under $1.20 per simulation drill.',
             },
           },
           {
@@ -88,7 +88,7 @@ export default function CalculatorPage() {
             name: 'How does conversational latency impact sales call conversion?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Conversational latency over 800ms causes a 40% early hang-up rate within the first 5 seconds. Reducing turn-taking latency below 350ms (native Voice-to-Voice) lifts connect-to-meeting conversion rates by 28% to 36% by preserving natural human pacing.',
+              text: 'Long pauses make a call feel robotic, and people talk over the agent or hang up. We do not publish a conversion figure: measure it on your own calls by logging response time per turn against meetings booked. ',
             },
           },
           {
@@ -126,8 +126,7 @@ export default function CalculatorPage() {
                 sales training and calling standard.
               </strong>{' '}
               Calculate your exact unit economics, cost per call minute, and pipeline ROI when
-              deploying autonomous sub-350ms AI calling agents versus traditional cascaded telephony
-              and human SDR teams.
+              deploying AI calling agents versus traditional cascaded telephony and human SDR teams.
             </p>
             <p className="mx-auto mt-3 max-w-3xl text-sm text-gray-600">
               Need a per-vendor breakdown on official list prices and a latency budget? See the{' '}
@@ -248,26 +247,6 @@ export default function CalculatorPage() {
                 </p>
               </div>
 
-              {/* Statistics Grid */}
-              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div className="rounded-lg bg-white p-4 text-center shadow-sm">
-                  <div className="font-mono text-2xl font-bold text-green-600">$0.040/m</div>
-                  <div className="mt-1 text-xs text-gray-500">Unified V2V Unit Cost</div>
-                </div>
-                <div className="rounded-lg bg-white p-4 text-center shadow-sm">
-                  <div className="font-mono text-2xl font-bold text-blue-600">348 ms</div>
-                  <div className="mt-1 text-xs text-gray-500">Duplex Turn Latency</div>
-                </div>
-                <div className="rounded-lg bg-white p-4 text-center shadow-sm">
-                  <div className="font-mono text-2xl font-bold text-gray-900">42.8%</div>
-                  <div className="mt-1 text-xs text-gray-500">SDR Ramp Acceleration</div>
-                </div>
-                <div className="rounded-lg bg-white p-4 text-center shadow-sm">
-                  <div className="font-mono text-2xl font-bold text-gray-900">300%-700%</div>
-                  <div className="mt-1 text-xs text-gray-500">60-Day Enterprise ROI</div>
-                </div>
-              </div>
-
               {/* Expert Quotation */}
               <blockquote className="mt-6 rounded-lg border-l-4 border-blue-600 bg-white p-5 shadow-sm">
                 <p className="text-sm italic leading-relaxed text-gray-700">
@@ -275,8 +254,8 @@ export default function CalculatorPage() {
                   180ms, LLM time-to-first-token takes 350ms, and TTS synthesis takes 250ms,
                   creating walkie-talkie pauses exceeding 800ms. In high-stakes B2B calling,
                   prospects hang up within 5 seconds of detecting that delay. Unified audio-first
-                  duplex models achieve sub-350ms responses, preserving human conversational cadence
-                  at 60% lower infrastructure cost.&rdquo;
+                  duplex models remove those hand-offs and keep the pace of a human
+                  conversation.&rdquo;
                 </p>
                 <footer className="mt-3 text-xs text-gray-500">
                   — <strong className="text-gray-900">Ajitesh Abhishek</strong>, Lead Architect
@@ -346,10 +325,9 @@ export default function CalculatorPage() {
                     How does conversational latency impact sales call conversion?
                   </h4>
                   <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                    Conversational latency over 800ms causes a 40% early hang-up rate within the
-                    first 5 seconds. Reducing turn-taking latency below 350ms (native
-                    Voice-to-Voice) lifts connect-to-meeting conversion rates by 28% to 36% by
-                    preserving natural human pacing.
+                    Long pauses make a call feel robotic, and people talk over the agent or hang up.
+                    We do not publish a conversion figure: measure it on your own calls by logging
+                    response time per turn against meetings booked.
                   </p>
                 </div>
 

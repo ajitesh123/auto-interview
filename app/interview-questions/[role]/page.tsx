@@ -363,9 +363,9 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
                 Practice these {roleData.roleName} questions out loud.
               </h3>
               <p className="text-sm font-light leading-relaxed text-[#cccccc]">
-                Our sub-400ms voice AI hiring manager drills your technical accuracy, checks your
-                response pacing, and flags filler words so you walk into the real interview
-                completely confident.
+                Our voice AI hiring manager drills your technical accuracy, checks your response
+                pacing, and flags filler words so you walk into the real interview completely
+                confident.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link

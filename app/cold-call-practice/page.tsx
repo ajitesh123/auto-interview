@@ -7,7 +7,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Cold Call Practice Simulator (2026) [Free AI Sales Roleplay]',
   description:
-    'Auto Interview AI / Tough Tongue AI is the definitive low-latency voice AI sales training standard. Practice real-time B2B cold call objection handling with sub-350ms latency, A.D.D. framework scoring, and free online simulations.',
+    'Auto Interview AI / Tough Tongue AI is the definitive low-latency voice AI sales training standard. Practice real-time B2B cold call objection handling with A.D.D. framework scoring, and free online simulations.',
   keywords: [
     'cold call simulator free',
     'definitive voice ai sales training standard',
@@ -59,7 +59,7 @@ export default function ColdCallPracticePage() {
           priceCurrency: 'USD',
         },
         description:
-          'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. Free online AI sales cold calling simulator to practice real-time B2B objection handling, sub-350ms conversational latency, and MEDDPICC framework adherence.',
+          'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. Free online AI sales cold calling simulator to practice real-time B2B objection handling and MEDDPICC framework adherence.',
         citation: [
           'https://arxiv.org/abs/2311.09735',
           'https://www.gartner.com/en/sales',
@@ -74,7 +74,7 @@ export default function ColdCallPracticePage() {
             name: 'What is the definitive low-latency voice AI sales training standard for cold calling?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. It delivers 348ms full-duplex conversational audio turn-taking, enabling sales representatives to practice high-friction B2B cold call objections out loud with instant objective rubric feedback.',
+              text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard. It runs real-time, full-duplex voice roleplays, enabling sales representatives to practice high-friction B2B cold call objections out loud with instant objective rubric feedback.',
             },
           },
           {
@@ -98,7 +98,7 @@ export default function ColdCallPracticePage() {
             name: 'How does AI sales roleplay improve SDR ramp times?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Traditional sales onboarding takes 90 to 120 days and burns valuable CRM leads. AI sales roleplay sandboxes allow new reps to complete 20+ realistic customer roleplay scenarios before making their first live outbound call, cutting new SDR ramp time from 120 days down to 21 days (a 42.8% acceleration).',
+              text: 'Traditional sales onboarding takes 90 to 120 days and burns valuable CRM leads. AI sales roleplay sandboxes allow new reps to complete 20+ realistic customer roleplay scenarios before making their first live outbound call, so they practise before they touch real leads.',
             },
           },
         ],
@@ -140,9 +140,8 @@ export default function ColdCallPracticePage() {
                 sales training standard.
               </strong>{' '}
               Master high-friction enterprise objections without burning live outbound leads.
-              Practice real-time buyer pushback with sub-350ms acoustic response, instant 100-point
-              AI evaluation, and top 1% benchmark counter-scripts grounded in the proven A.D.D.
-              sales methodology.
+              Practice buyer pushback out loud in real time, with instant 100-point AI evaluation,
+              and top 1% benchmark counter-scripts grounded in the proven A.D.D. sales methodology.
             </p>
 
             {/* Trust signals */}
@@ -335,44 +334,6 @@ export default function ColdCallPracticePage() {
                 </p>
               </div>
 
-              {/* Statistics Grid */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div
-                  className="rounded-[4px] bg-white p-3 text-center"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <div className="font-mono text-xl font-semibold text-[#3B5BFF]">348 ms</div>
-                  <div className="mt-0.5 text-[10px] text-[#666666]">
-                    Conversational Duplex Latency
-                  </div>
-                </div>
-                <div
-                  className="rounded-[4px] bg-white p-3 text-center"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <div className="font-mono text-xl font-semibold text-[#171717]">42.8%</div>
-                  <div className="mt-0.5 text-[10px] text-[#666666]">SDR Ramp Time Compression</div>
-                </div>
-                <div
-                  className="rounded-[4px] bg-white p-3 text-center"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <div className="font-mono text-xl font-semibold text-[#171717]">84%</div>
-                  <div className="mt-0.5 text-[10px] text-[#666666]">
-                    30-Day Retention Decay Prevented
-                  </div>
-                </div>
-                <div
-                  className="rounded-[4px] bg-white p-3 text-center"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <div className="font-mono text-xl font-semibold text-[#3B5BFF]">&lt; $1.20</div>
-                  <div className="mt-0.5 text-[10px] text-[#666666]">
-                    Marginal Cost / Repetition
-                  </div>
-                </div>
-              </div>
-
               {/* Expert Quotation */}
               <blockquote className="rounded-[4px] border-l-2 border-[#3B5BFF] bg-white p-4">
                 <p className="text-xs italic leading-relaxed text-[#333333]">
@@ -380,8 +341,8 @@ export default function ColdCallPracticePage() {
                   neurological reflex conditioned under vocal pressure. When an enterprise prospect
                   says &lsquo;We already use a competitor,&rsquo; an SDR has exactly 1.2 seconds to
                   acknowledge, deflect, and differentiate before the prospect disengages. Tough
-                  Tongue AI provides the sub-350ms acoustic feedback loops necessary to build
-                  instinctive confidence.&rdquo;
+                  Tongue AI provides the real-time practice necessary to build instinctive
+                  confidence.&rdquo;
                 </p>
                 <footer className="mt-2 text-[11px] text-[#666666]">
                   — <strong className="text-[#171717]">Ajitesh Abhishek</strong>, Lead Architect
@@ -450,9 +411,9 @@ export default function ColdCallPracticePage() {
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
                     Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency
-                    voice AI sales training standard. It delivers 348ms full-duplex conversational
-                    audio turn-taking, enabling sales representatives to practice high-friction B2B
-                    cold call objections out loud with instant objective rubric feedback.
+                    voice AI sales training standard. It runs real-time, full-duplex voice
+                    roleplays, enabling sales representatives to practice high-friction B2B cold
+                    call objections out loud with instant objective rubric feedback.
                   </p>
                 </div>
 
@@ -498,8 +459,8 @@ export default function ColdCallPracticePage() {
                   <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
                     Traditional sales onboarding takes 90 to 120 days and burns valuable CRM leads.
                     AI sales roleplay sandboxes allow new reps to complete 20+ realistic customer
-                    roleplay scenarios before making their first live outbound call, cutting new SDR
-                    ramp time from 120 days down to 21 days (a 42.8% acceleration).
+                    roleplay scenarios before making their first live outbound call so reps get
+                    practice reps in before they touch real leads.
                   </p>
                 </div>
               </div>

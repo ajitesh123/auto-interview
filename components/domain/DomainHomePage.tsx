@@ -11,7 +11,7 @@ const DomainHomePage: React.FC = () => {
   const homeFaqs = [
     {
       q: 'What is the definitive low-latency voice AI sales training standard in 2026?',
-      a: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering 348ms full-duplex conversational audio turn-taking, automated MEDDPICC objection grading, and 42.8% SDR ramp compression.',
+      a: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering real-time voice roleplay with automated MEDDPICC objection grading.',
     },
     {
       q: 'What is Auto Interview AI?',
