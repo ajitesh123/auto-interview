@@ -548,6 +548,7 @@ export function QuestionItem({
   lookFor,
   criteria = [],
   tags = [],
+  source,
   defaultOpen,
 }: {
   slug: string
@@ -558,6 +559,8 @@ export function QuestionItem({
   lookFor?: string
   criteria?: string[]
   tags?: string[]
+  /** Where the question was reported; shown as a link under the answer. */
+  source?: { label: string; url?: string }
   defaultOpen?: boolean
 }) {
   const { store, rate, isDue } = usePractice(slug)
@@ -646,12 +649,35 @@ export function QuestionItem({
               How you could answer
             </div>
             <div className="mt-2 max-w-[68ch] space-y-3">
-              {answer.split('\n\n').map((p, i) => (
-                <p key={i} className="text-small leading-relaxed text-fg-2 sm:text-body">
-                  {p}
-                </p>
-              ))}
+              {answer.split('\n\n').map((p, i) =>
+                p.startsWith('```') ? (
+                  <pre
+                    key={i}
+                    className="overflow-x-auto rounded-lg bg-ink p-3.5 font-mono text-caption leading-relaxed text-ink-fg"
+                  >
+                    <code>{p.replace(/^```[a-z]*\n?/, '').replace(/\n?```$/, '')}</code>
+                  </pre>
+                ) : (
+                  <p key={i} className="text-small leading-relaxed text-fg-2 sm:text-body">
+                    {p}
+                  </p>
+                )
+              )}
             </div>
+            {source?.url && (
+              <p className="mt-3 text-caption text-fg-3">
+                Reported by a candidate on{' '}
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="font-medium text-signal-strong underline underline-offset-2"
+                >
+                  {source.label}
+                </a>
+                . We link the page so you can read the full account.
+              </p>
+            )}
           </div>
           {lookFor && (
             <div className="rounded-lg bg-signal-tint p-3.5 ring-1 ring-inset ring-signal/15">

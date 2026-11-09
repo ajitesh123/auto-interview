@@ -941,6 +941,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                               answer={q.answer}
                               lookFor={q.lookFor}
                               criteria={toCriteria(q.lookFor, q.criteria)}
+                              source={q.source}
                               defaultOpen={gi === 0 && qi === 0}
                             />
                           )

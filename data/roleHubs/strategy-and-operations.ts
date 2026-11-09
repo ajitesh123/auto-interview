@@ -1153,7 +1153,7 @@ const strategyAndOperations: RoleHub = {
   ],
   related: [
     { label: 'Founder’s Office hub', href: '/founders-office' },
-    { label: 'Chief of Staff hub', href: '/chief-of-staff' },
+    { label: 'Data Analyst hub', href: '/data-analyst' },
     { label: 'Product Manager hub', href: '/product-manager' },
     { label: 'In-hand salary calculator', href: '/salary-calculator' },
   ],

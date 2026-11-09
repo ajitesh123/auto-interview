@@ -491,5 +491,60 @@
       ["Case club", "Lead, college case club: 20 practice sessions, 180 members", "2019–20"],
       ["Fest", "Operations head, college fest: ran logistics for 5,000 attendees", "2018–19"]
     ]
+  },
+  "data-analyst": {
+    "education": [
+      [
+        "B.Com (Business Analytics)",
+        "Deccan College of Commerce (fictional)",
+        "8.4 / 10",
+        "Statistics elective topper"
+      ],
+      ["Class XII", "Karnataka State Board", "90.2%", ""],
+      ["Class X", "CBSE", "91.8%", ""]
+    ],
+    "labels": [
+      ["Dashboard", "Root cause", "Experiment", "Access"],
+      ["Reconciliation", "Automation"]
+    ],
+    "internship": [
+      "Coastline Logistics (fictional)",
+      "Analytics Intern",
+      "May '21 – Jul '21",
+      [
+        "Reporting",
+        "Built an Excel pivot pack on 60K shipments that the ops lead used in the weekly review"
+      ]
+    ],
+    "cocurricular": [
+      [
+        "Project",
+        "Food delivery root cause: SQL on 1.2M public orders, repeat rate by wait time; GitHub + Tableau Public",
+        "2025"
+      ],
+      [
+        "Course",
+        "SQL window functions and Power BI (PL-300 syllabus); 60 timed SQL questions",
+        "2024"
+      ],
+      [
+        "Case comp.",
+        "Finalist, inter-college analytics case competition on retail sales data",
+        "2021"
+      ]
+    ],
+    "extracurricular": [
+      ["Teaching", "Run a free weekend SQL clinic for 25 juniors each semester", "2024"],
+      [
+        "Volunteering",
+        "Built the donor tracker for a city blood-donation drive (1,100 donors)",
+        "2021"
+      ],
+      ["Sport", "College chess team; state inter-university quarter-finalist", "2020"]
+    ],
+    "por": [
+      ["Data club", "Secretary, college data club: 14 workshops, 220 members", "2020–21"],
+      ["Fest", "Finance head, college fest: tracked a ₹6L budget in a shared sheet", "2019–20"]
+    ]
   }
 }

@@ -157,6 +157,24 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
       why: 'Feed AI your metrics and process docs to get answers you can use.',
     },
   ],
+  'data-analyst': [
+    {
+      slug: 'ai-hallucinations',
+      why: 'AI-written SQL and summaries can invent numbers. Learn to catch them before a review.',
+    },
+    {
+      slug: 'ai-output-levers',
+      why: 'Context, examples and checks turn a vague AI answer into a query you can trust.',
+    },
+    {
+      slug: 'tokens-and-context-window',
+      why: 'Why a large CSV gets cut off or summarised badly when you paste it into a chatbot.',
+    },
+    {
+      slug: 'ai-agents',
+      why: 'BigQuery and Power BI now ship data agents. Know how they work before you use one.',
+    },
+  ],
 }
 
 export function lessonsForRole(hubSlug: string): { lesson: Lesson; why: string }[] {

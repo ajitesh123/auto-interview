@@ -8,6 +8,7 @@ import { CHIEF_OF_STAFF_KITS } from './chief-of-staff'
 import { GROWTH_KITS } from './growth'
 import { PRODUCT_MANAGER_KITS } from './product-manager'
 import { STRATEGY_AND_OPERATIONS_KITS } from './strategy-and-operations'
+import { DATA_ANALYST_KITS } from './data-analyst'
 
 /** Resume (CV) and letter-of-recommendation kits, keyed by role hub slug. */
 export const ROLE_KITS: Record<string, RoleKits> = {
@@ -20,6 +21,7 @@ export const ROLE_KITS: Record<string, RoleKits> = {
   growth: GROWTH_KITS,
   'product-manager': PRODUCT_MANAGER_KITS,
   'strategy-and-operations': STRATEGY_AND_OPERATIONS_KITS,
+  'data-analyst': DATA_ANALYST_KITS,
 }
 
 export const KIT_PATHS = {

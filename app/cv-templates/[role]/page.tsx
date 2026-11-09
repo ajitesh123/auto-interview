@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
 import { CV_ROLES, CVRoleData } from '@/data/cvRolesData'
+import { ROLE_KITS } from '@/data/roleKits'
+import { ROLE_HUBS } from '@/data/roleHubs'
 
 interface PageProps {
   params: Promise<{
@@ -100,7 +102,7 @@ export default async function RoleCVPage({ params }: PageProps) {
     url: `https://www.autointerviewai.com/cv-templates/${roleData.slug}`,
     author: {
       '@type': 'Organization',
-      name: 'Harvard University FAS & Auto Interview AI',
+      name: 'Auto Interview AI',
     },
   }
 
@@ -145,6 +147,27 @@ export default async function RoleCVPage({ params }: PageProps) {
             </p>
           </div>
 
+          {ROLE_KITS[roleData.slug] && ROLE_HUBS[roleData.slug] && (
+            <div className="flex flex-col gap-3 rounded-xl bg-signal-tint p-4 text-small ring-1 ring-inset ring-signal/15 sm:flex-row sm:items-center sm:justify-between">
+              <span>
+                <span className="block font-semibold text-fg">
+                  Applying in India? Use the one-page table CV.
+                </span>
+                <span className="text-fg-2">
+                  Our {ROLE_HUBS[roleData.slug].roleName} CV guide has a free Word template in the
+                  Indian campus format (marks, positions of responsibility), bullet examples and
+                  keywords from real job posts.
+                </span>
+              </span>
+              <Link
+                href={`/${roleData.slug}/resume`}
+                className="inline-flex h-11 shrink-0 items-center justify-center rounded-full bg-signal px-5 font-semibold text-white hover:bg-signal-strong"
+              >
+                Open the CV guide
+              </Link>
+            </div>
+          )}
+
           {/* Download Action Cards Grid */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Primary Harvard DOCX Card */}
@@ -155,7 +178,7 @@ export default async function RoleCVPage({ params }: PageProps) {
                     DOCX (Microsoft Word)
                   </span>
                   <span className="inline-flex items-center font-mono text-[11px] font-semibold uppercase text-[#297a3a]">
-                    ✓ 99.8% ATS Pass Rate
+                    Free · no sign-up
                   </span>
                 </div>
                 <h2 className="text-2xl font-normal tracking-tight text-[#171717]">

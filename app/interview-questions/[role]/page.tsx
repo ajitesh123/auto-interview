@@ -5,6 +5,7 @@ import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
 import { ROLE_INTERVIEW_QUESTIONS, RoleQuestionData } from '@/data/interviewQuestionsData'
 import { CV_ROLES } from '@/data/cvRolesData'
+import { ROLE_HUBS } from '@/data/roleHubs'
 import InterviewReadinessCalculator from '@/components/InterviewReadinessCalculator'
 
 interface PageProps {
@@ -216,6 +217,30 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
             </p>
           </div>
 
+          {ROLE_HUBS[roleData.slug] && (
+            <Link
+              href={`/${roleData.slug}`}
+              className="flex items-center justify-between gap-4 rounded-xl bg-signal-tint p-4 text-small ring-1 ring-inset ring-signal/15 hover:ring-signal/40"
+            >
+              <span>
+                <span className="block font-semibold text-fg">
+                  Full {ROLE_HUBS[roleData.slug].roleName} hub
+                </span>
+                <span className="text-fg-2">
+                  {ROLE_HUBS[roleData.slug].questionGroups.reduce(
+                    (n, g) => n + g.questions.length,
+                    0
+                  )}{' '}
+                  questions with answers, the interview rounds, real pay data and a free CV
+                  template.
+                </span>
+              </span>
+              <span aria-hidden="true" className="shrink-0 font-semibold text-signal-strong">
+                Open →
+              </span>
+            </Link>
+          )}
+
           {/* Featured Snippet Direct Answer Box */}
           <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
@@ -231,109 +256,10 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
             </div>
             <p className="speakable-direct-answer mt-3 text-sm font-medium leading-relaxed text-[#171717]">
               Interviews for <strong>{roleData.roleName}</strong> evaluate hands-on problem-solving,
-              architectural tradeoffs, and cross-functional communication. Candidates who articulate
-              their thought process out loud, ground metrics in business outcomes, and demonstrate
-              composure during live exercises score in the 90th percentile.
+              trade-offs, and how clearly you explain your thinking. Practise answering out loud,
+              and tie every example to a measurable business result.
             </p>
           </div>
-
-          {/* Hard Benchmarks Matrix (Google Information Gain Patent US 10,795,953) */}
-          <section className="space-y-4">
-            <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
-                Empirical Evaluation Telemetry
-              </span>
-              <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
-                2026 Hiring Bar Benchmarks: {roleData.roleName}
-              </h2>
-              <p className="mt-1 text-xs text-[#666666]">
-                Proprietary benchmark data compiled from 50,000+ AI mock interviews and FAANG/Tier-1
-                hiring rubrics.
-              </p>
-            </div>
-
-            <div className="overflow-x-auto rounded-xl border border-[#ebebeb] bg-white shadow-sm">
-              <table className="min-w-full divide-y divide-[#ebebeb] text-left text-xs">
-                <thead className="bg-[#fafafa]">
-                  <tr>
-                    <th className="px-4 py-3 font-semibold text-[#171717]">Evaluation Metric</th>
-                    <th className="px-4 py-3 font-semibold text-[#3B5BFF]">Top 5% Hire Target</th>
-                    <th className="px-4 py-3 font-semibold text-[#666666]">Average Candidate</th>
-                    <th className="px-4 py-3 font-semibold text-[#171717]">Hiring Impact</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#ebebeb] text-[#4d4d4d]">
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-[#171717]">
-                      Answer Pacing &amp; Duration
-                    </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
-                      75–90 seconds
-                    </td>
-                    <td className="px-4 py-3 font-mono">140–180 seconds</td>
-                    <td className="px-4 py-3">
-                      Prevents interviewer fatigue; demonstrates executive brevity
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-[#171717]">Speech Cadence (WPM)</td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
-                      135–150 WPM
-                    </td>
-                    <td className="px-4 py-3 font-mono">175+ or &lt;110 WPM</td>
-                    <td className="px-4 py-3">
-                      Signals calm authority, composure, and emotional control
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-[#171717]">
-                      Quantifiable Impact Density
-                    </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
-                      ≥ 2 hard metrics / answer
-                    </td>
-                    <td className="px-4 py-3 font-mono">0.6 metrics / answer</td>
-                    <td className="px-4 py-3">
-                      Validates authentic contribution vs generic theory
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-[#171717]">Filler Word Tolerance</td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#3B5BFF]">
-                      &lt; 2 per minute
-                    </td>
-                    <td className="px-4 py-3 font-mono">6–9 per minute</td>
-                    <td className="px-4 py-3">
-                      Replaces verbal fillers with strategic 1.2s silent pauses
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-[#171717]">
-                      Global Compensation (USA / India)
-                    </td>
-                    <td className="px-4 py-3 font-mono font-semibold text-[#171717]">
-                      $140k–$240k+ / ₹18L–₹45L+
-                    </td>
-                    <td className="px-4 py-3 font-mono">$95k–$130k / ₹9L–₹16L</td>
-                    <td className="px-4 py-3">
-                      Top-bracket compensation awarded for verified technical leadership
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="rounded-xl border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-xs leading-relaxed text-[#171717]">
-              <span className="font-mono font-bold uppercase text-[#3B5BFF]">
-                Speakable Benchmark Rule:{' '}
-              </span>
-              <span className="speakable-benchmark-takeaway">
-                For {roleData.roleName} interviews, top 5% candidates keep spoken answers to 75–90
-                seconds at 140 WPM, cite at least 2 hard business metrics, and structure 50% of
-                response time strictly on personal execution actions.
-              </span>
-            </div>
-          </section>
 
           {/* Interactive Calculator: Information Gain Utility */}
           <section className="space-y-4">
