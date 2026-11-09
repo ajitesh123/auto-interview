@@ -84,6 +84,11 @@ function toUrls(files) {
     add(`${ORIGIN}/paul-graham`, t)
   })
   each(/^data\/pgCourse\/plan\.ts$/, (m, t) => add(`${ORIGIN}/paul-graham`, t))
+  // The YC batch program: data/pgCourse/batch/weeks/week-<n>.ts -> /paul-graham/yc-batch/week-<n>
+  each(/^data\/pgCourse\/batch\/weeks\/(week-\d+)\.ts$/, (m, t) => {
+    add(`${ORIGIN}/paul-graham/yc-batch/${m[1]}`, t)
+    add(`${ORIGIN}/paul-graham/yc-batch`, t)
+  })
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)

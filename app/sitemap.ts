@@ -12,6 +12,7 @@ import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST } from '@/data/roleSalary'
 import { LESSONS } from '@/data/learnAi'
 import { PG_LESSONS } from '@/data/pgCourse'
+import { BATCH_BASE, BATCH_WEEKS } from '@/data/pgCourse/batch'
 
 const POSTS_PER_PAGE = 10
 
@@ -240,6 +241,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: today,
       changeFrequency: 'monthly' as const,
       priority: 0.85,
+    })),
+    // The YC batch, week by week (self-run 12-week program)
+    {
+      url: `${siteUrl}${BATCH_BASE}`,
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    ...BATCH_WEEKS.map((w) => ({
+      url: `${siteUrl}${BATCH_BASE}/${w.slug}`,
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
     })),
   ]
 

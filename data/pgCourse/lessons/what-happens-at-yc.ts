@@ -260,6 +260,7 @@ export const lesson: PgLesson = {
     },
   ],
   related: [
+    { label: 'Run the YC batch yourself: 12 weeks', href: '/paul-graham/yc-batch' },
     { label: 'Next: How to get into YC', href: '/paul-graham/how-to-get-into-yc' },
     { label: 'Startup = growth', href: '/paul-graham/startup-equals-growth' },
     { label: 'What the first YC founders did', href: '/paul-graham/yc-founder-stories' },

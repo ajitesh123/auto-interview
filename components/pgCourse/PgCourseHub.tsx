@@ -198,6 +198,31 @@ export default function PgCourseHub({ months }: { months: PlanMonth[] }) {
           </div>
         </div>
 
+        {/* ---------- The 12-week YC challenge (invitation) ---------- */}
+        <div className={`${container} pb-12 md:pb-16`}>
+          <Link
+            href="/paul-graham/yc-batch"
+            className="group flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-e1 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2 md:flex-row md:items-center md:justify-between md:p-7"
+          >
+            <div className="max-w-2xl">
+              <div className={`${kicker} text-signal-strong`}>
+                New · 12 weeks · one challenge a week
+              </div>
+              <div className="mt-2 text-h3 font-semibold text-fg group-hover:text-signal-strong">
+                Take the 12-week YC challenge
+              </div>
+              <p className="mt-1.5 text-body text-fg-2">
+                Run a Y Combinator batch on your own: what happens inside YC each week, the
+                framework partners teach, and one challenge to finish before the next week. Free,
+                saved on your device.
+              </p>
+            </div>
+            <span className="inline-flex h-11 shrink-0 items-center gap-2 self-start rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast group-hover:bg-muted md:self-auto">
+              Start the challenge <ArrowRightIcon />
+            </span>
+          </Link>
+        </div>
+
         {/* ---------- The 6-month plan (centrepiece) ---------- */}
         {months.length > 0 && (
           <section
