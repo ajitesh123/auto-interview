@@ -53,14 +53,14 @@ export default function SegmentBar({
       </div>
       <ul className="mt-4 grid gap-x-6 gap-y-2 text-small sm:grid-cols-2">
         {data.map((p, i) => (
-          <li key={p.label} className="flex items-center justify-between gap-3">
-            <span className="inline-flex min-w-0 items-center gap-2 text-fg-2">
+          <li key={p.label} className="flex items-start justify-between gap-3">
+            <span className="inline-flex min-w-0 items-start gap-2 text-fg-2">
               <span
                 aria-hidden="true"
-                className="h-2.5 w-2.5 shrink-0 rounded-sm"
+                className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-sm"
                 style={{ backgroundColor: colors[i] }}
               />
-              <span className="truncate">{p.label}</span>
+              <span>{p.label}</span>
             </span>
             <span className="shrink-0 font-semibold tabular-nums text-fg">
               {fmtNum(p.value, format)}
