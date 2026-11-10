@@ -159,16 +159,16 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
   ],
   'data-analyst': [
     {
+      slug: 'ai-for-data-analysis',
+      why: 'Interviewers now ask how you use AI on data. Show the 5 checks you run before trusting it.',
+    },
+    {
       slug: 'ai-hallucinations',
       why: 'AI-written SQL and summaries can invent numbers. Learn to catch them before a review.',
     },
     {
       slug: 'ai-output-levers',
       why: 'Context, examples and checks turn a vague AI answer into a query you can trust.',
-    },
-    {
-      slug: 'tokens-and-context-window',
-      why: 'Why a large CSV gets cut off or summarised badly when you paste it into a chatbot.',
     },
     {
       slug: 'ai-agents',
@@ -180,6 +180,160 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
 // Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
 // that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
 export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'ai-for-data-analysis': [
+    {
+      hub: 'strategy-and-operations',
+      why: 'Ops reviews run on numbers. Get AI speed on a spreadsheet without shipping a wrong figure.',
+    },
+    {
+      hub: 'founders-office',
+      why: 'Founders ask for a quick cut of the data. Use AI for it and check it before you send.',
+    },
+    {
+      hub: 'growth',
+      why: 'Funnel and cohort cuts in minutes, plus the points-vs-percent trap every growth deck falls into.',
+    },
+    {
+      hub: 'product-manager',
+      why: 'PMs pull their own metrics now. Know where AI analysis goes wrong before a metrics round.',
+    },
+  ],
+  'tokens-and-context-window': [
+    {
+      hub: 'data-analyst',
+      why: 'Why a large CSV pasted into a chatbot gets cut off or summarised badly. Upload the file instead.',
+    },
+  ],
+  'first-prompt': [
+    {
+      hub: 'founders-office',
+      why: 'Start here if you have not used AI for daily research and drafting yet.',
+    },
+    {
+      hub: 'chief-of-staff',
+      why: 'The basics of asking AI for a summary or a draft you can actually send.',
+    },
+  ],
+  'ai-for-interview-prep': [
+    {
+      hub: 'product-manager',
+      why: 'Run a mock product sense round with AI and get feedback on structure before the real one.',
+    },
+    {
+      hub: 'data-analyst',
+      why: 'Practise explaining a SQL answer out loud; AI can play the interviewer who asks why.',
+    },
+    {
+      hub: 'founders-office',
+      why: 'Founder’s office loops are case-heavy. Use AI to rehearse cases and your “why this startup”.',
+    },
+  ],
+  'what-is-an-api': [
+    {
+      hub: 'gtm-engineer',
+      why: 'Every GTM tool you wire together (CRM, enrichment, email) talks over an API.',
+    },
+    {
+      hub: 'fde',
+      why: 'FDE work is connecting systems. APIs, keys and rate limits come up on day one.',
+    },
+  ],
+  'agent-skills': [
+    {
+      hub: 'ai-engineer',
+      why: 'Skills are how agents load instructions and scripts only when needed. Expect design questions on it.',
+    },
+    {
+      hub: 'fde',
+      why: 'Packaging a customer’s workflow as a reusable skill is a common FDE deliverable.',
+    },
+  ],
+  'voice-ai-agents': [
+    {
+      hub: 'ai-engineer',
+      why: 'Speech-to-text, LLM and text-to-speech in one loop: a common system design prompt.',
+    },
+    {
+      hub: 'fde',
+      why: 'Voice agents are a fast-growing customer build. Know the latency budget and failure modes.',
+    },
+  ],
+  'claude-code': [
+    {
+      hub: 'gtm-engineer',
+      why: 'Build scripts and small GTM tools yourself, without waiting for engineering.',
+    },
+    {
+      hub: 'ai-engineer',
+      why: 'Agentic coding tools are part of the job now. Know how to steer one and review its work.',
+    },
+  ],
+  cursor: [
+    {
+      hub: 'ai-engineer',
+      why: 'Many AI teams code in an AI editor. Show you can use one well, not just accept its output.',
+    },
+  ],
+  'openai-codex': [
+    {
+      hub: 'ai-engineer',
+      why: 'Know how a cloud coding agent works so you can compare it with Claude Code and Cursor.',
+    },
+  ],
+  'ai-coding-tools-compared': [
+    {
+      hub: 'aipm',
+      why: 'AI PMs get asked which coding tools their team should use, and what each costs.',
+    },
+    {
+      hub: 'product-manager',
+      why: 'Pick the right tool to prototype an idea yourself before a review.',
+    },
+  ],
+  'fine-tuning-vs-rag': [
+    {
+      hub: 'aipm',
+      why: '“Should we fine-tune or use RAG?” is one of the most common AI PM interview questions.',
+    },
+    {
+      hub: 'ai-engineer',
+      why: 'Know the cost and data trade-offs before you are asked to choose in a design round.',
+    },
+  ],
+  'ai-safety-and-alignment': [
+    {
+      hub: 'aipm',
+      why: 'Shipping AI features means owning their risks. Know the vocabulary labs use.',
+    },
+  ],
+  'build-an-llm-from-scratch': [
+    {
+      hub: 'ai-engineer',
+      why: 'Building a small GPT yourself is the strongest proof you understand how models work.',
+    },
+  ],
+  'best-free-ai-courses': [
+    {
+      hub: 'ai-engineer',
+      why: 'A short list of free courses worth your time after this path, picked by who teaches them.',
+    },
+    {
+      hub: 'aipm',
+      why: 'Where to go deeper on AI without paying for a bootcamp.',
+    },
+  ],
+  'multimodal-ai': [
+    {
+      hub: 'aipm',
+      why: 'Image, voice and video inputs change what a product can do. Know the basics before a product round.',
+    },
+  ],
+  'key-ai-papers': [
+    {
+      hub: 'ai-engineer',
+      why: 'Interviewers like candidates who know where transformers, RLHF and RAG came from.',
+    },
+  ],
   'mixture-of-experts': [
     {
       hub: 'ai-engineer',

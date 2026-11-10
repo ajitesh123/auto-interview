@@ -265,7 +265,8 @@ export default function LearnAiHub() {
                         {v.title}
                       </div>
                       <div className="mt-1 text-caption text-fg-3">
-                        {v.channel} · {v.minutes} min
+                        {v.channel}
+                        {v.minutes ? ` · ${v.minutes} min` : ''}
                       </div>
                       <Link
                         href={`/learn-ai/${v.lesson.slug}`}

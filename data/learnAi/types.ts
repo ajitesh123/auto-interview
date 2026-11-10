@@ -16,7 +16,7 @@ export interface LessonVideo {
   youtubeId: string // verified with YouTube oEmbed
   title: string // exact title from YouTube
   channel: string
-  minutes: number
+  minutes?: number // leave out when YouTube does not show the duration
   why: string // one line: why watch this, and what to focus on
   start?: number // optional start time in seconds
 }
@@ -70,5 +70,5 @@ export interface Lesson<T extends string = TrackId> {
   related?: { label: string; href: string }[] // other site pages, e.g. /ai-engineer, /aipm, /free-resources#ai-skills
   fromTheSource?: FromTheSource[] // 1–2 original ideas from the people who built this
   /** Optional interactive tool rendered before "Try it" (no AI, runs in the browser) */
-  widget?: 'moe-calculator'
+  widget?: 'moe-calculator' | 'spot-the-mistake'
 }

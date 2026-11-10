@@ -239,6 +239,7 @@ If the rules don’t say, reply "Not stated in the document" instead of guessing
     { label: 'Next: ChatGPT vs Claude vs Gemini', href: '/learn-ai/choosing-an-ai-model' },
     { label: 'How LLMs work', href: '/learn-ai/what-is-an-llm' },
     { label: 'Embeddings and RAG', href: '/learn-ai/embeddings-and-rag' },
+    { label: 'Check AI data analysis: 5 checks', href: '/learn-ai/ai-for-data-analysis' },
     { label: 'AI engineer guide', href: '/ai-engineer' },
     { label: 'Free AI skills resources', href: '/free-resources#ai-skills' },
   ],

@@ -217,6 +217,10 @@ After 6 exchanges, stop and tell me where I sounded unsure, where I gave away to
       url: 'https://help.openai.com/en/articles/7730893-data-controls-faq',
     },
     {
+      label: 'Grow with Google: Interview Warmup (official page)',
+      url: 'https://grow.google/interview-warmup',
+    },
+    {
       label: '9to5Google: Google Interview Warmup',
       url: 'https://9to5google.com/2022/05/17/google-interview-warmup/',
     },
@@ -245,7 +249,7 @@ After 6 exchanges, stop and tell me where I sounded unsure, where I gave away to
   ],
   related: [
     { label: 'Previous: ChatGPT vs Claude vs Gemini', href: '/learn-ai/choosing-an-ai-model' },
-    { label: 'Next: What is an API?', href: '/learn-ai/what-is-an-api' },
+    { label: 'Next: AI for data analysis', href: '/learn-ai/ai-for-data-analysis' },
     { label: 'Free AI mock interview', href: '/free-mock-interview' },
     { label: 'Interview questions by role', href: '/interview-questions' },
     { label: 'Behavioural interview questions', href: '/interview-questions/behavioral' },

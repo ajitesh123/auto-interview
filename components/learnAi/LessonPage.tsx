@@ -8,6 +8,8 @@ import type { LessonStep } from '@/data/learnAi/types'
 import { DoneMark, MarkComplete, Quiz, YouTubeFacade } from './LearnAiClient'
 import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
 import MoeCalculator from './MoeCalculator'
+import SpotTheMistake from './SpotTheMistake'
+import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
@@ -447,7 +449,8 @@ export default function LessonPage({
                             {v.title}
                           </div>
                           <div className="mt-1 text-caption text-fg-3">
-                            {v.channel} · {v.minutes} min
+                            {v.channel}
+                            {v.minutes ? ` · ${v.minutes} min` : ''}
                             {v.start ? ` · starts at ${fmtTime(v.start)}` : ''}
                           </div>
                           <p className="mt-2 text-small leading-relaxed text-fg-2">{v.why}</p>
@@ -544,6 +547,18 @@ export default function LessonPage({
                       <span className="md:hidden">Swipe →</span>
                     </figcaption>
                   </figure>
+                </Section>
+              )}
+
+              {lesson.widget === 'spot-the-mistake' && (
+                <Section id="tool">
+                  <SectionHead
+                    id="tool-title"
+                    k={`Practice · ${SPOT_ROUNDS.length} claims · 1 small dataset · no AI`}
+                    title="Spot the AI’s mistake"
+                    sub="An AI analysed this fictional café data and made four classic errors. Pick the check that catches each one; every number is recomputed in your browser."
+                  />
+                  <SpotTheMistake />
                 </Section>
               )}
 

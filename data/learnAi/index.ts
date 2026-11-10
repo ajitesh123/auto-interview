@@ -91,7 +91,6 @@ export const LEARN_AI_BACKLOG: string[] = [
   'NotebookLM and Gemini deep dive for studying',
   'Computer-use agents: AI that clicks and types for you',
   'AI for Excel and Google Sheets',
-  'AI for data analysis without code',
   'AI for sales and GTM: research, outreach and call prep',
   'AI product management: how to spec and ship an AI feature',
   'Memory in AI assistants: how chatbots remember you',
