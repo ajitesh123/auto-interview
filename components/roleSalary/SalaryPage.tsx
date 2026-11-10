@@ -4,6 +4,7 @@ import type { RoleHub } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST, type RoleSalary, type PayPost } from '@/data/roleSalary'
 import { computeSalary, DEFAULT_INPUTS, inr } from '@/data/indiaTax'
+import OfferCheck from './OfferCheck'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
 const kicker = 'font-mono text-kicker uppercase tracking-[0.08em]'
@@ -261,7 +262,7 @@ function CompanyTable({ s }: { s: RoleSalary }) {
   const c = s.companies
   if (!c) return null
   const rows = [...c.rows].sort((a, b) => b.median - a.median)
-  const lakh = (n: number) => (n >= 100 ? `₹${(n / 100).toFixed(2)} Cr` : `₹${n.toFixed(1)} LPA`)
+  const lakh = (n: number) => (n >= 100 ? `₹${(n / 100).toFixed(2)} Cr` : `₹${n.toFixed(1)} lakh`)
   return (
     <Table
       label={c.title}
@@ -274,7 +275,7 @@ function CompanyTable({ s }: { s: RoleSalary }) {
           </a>
         </>
       }
-      head={['Company', 'Median total pay, India', 'Entry PM level', 'Entry level pay']}
+      head={['Company', 'Median total pay, India', 'Entry level', 'Entry level pay']}
       rows={rows.map((r) => [
         <a key="c" href={r.url} target="_blank" rel="noopener" className={link}>
           {r.company}
@@ -284,6 +285,63 @@ function CompanyTable({ s }: { s: RoleSalary }) {
         </span>,
         r.entryLevel ?? '—',
         r.entryTc !== undefined ? lakh(r.entryTc) : '—',
+      ])}
+    />
+  )
+}
+
+const LOOKUP = [3, 4, 5, 6, 8, 10, 12, 15, 20, 25]
+
+function MonthlyLookup() {
+  return (
+    <Table
+      label="CTC to monthly in-hand pay, India"
+      min="min-w-0"
+      caption="2026-27 new regime, 50% basic, PF on the ₹25,000 ceiling, gratuity inside CTC, no variable pay."
+      head={['CTC a year', 'In hand a month']}
+      rows={LOOKUP.map((l) => [`₹${l} LPA`, inr(inHand(l))])}
+    />
+  )
+}
+
+function CityTable({ s }: { s: RoleSalary }) {
+  const c = s.cities
+  if (!c) return null
+  const l = (n: number) => `₹${n} lakh`
+  return (
+    <Table
+      label={c.title}
+      min="min-w-[640px]"
+      caption={c.note}
+      head={[
+        'City',
+        'Median, all levels',
+        'Middle half',
+        'Entry-level median',
+        'In hand if this were CTC',
+      ]}
+      rows={c.rows.map((r) => [
+        r.city,
+        r.all ? (
+          <a key="m" href={r.all.url} target="_blank" rel="noopener" className={link}>
+            {l(r.all.median)}
+          </a>
+        ) : (
+          '—'
+        ),
+        r.all ? `₹${r.all.p25}–${r.all.p75} lakh (${r.all.n} salaries)` : '—',
+        r.entry ? (
+          <a key="e" href={r.entry.url} target="_blank" rel="noopener" className={link}>
+            {`${l(r.entry.median)} (${r.entry.n})`}
+          </a>
+        ) : (
+          '—'
+        ),
+        r.all
+          ? `${inr(inHand(r.all.median))}/mo`
+          : r.entry
+            ? `${inr(inHand(r.entry.median))}/mo (entry)`
+            : '—',
       ])}
     />
   )
@@ -324,6 +382,8 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
     lead === 'india'
       ? `${s.india.length} Indian ${s.roleName} job posts that state pay have a median midpoint of ${fmt('india', ls.median)}, about ${inr(inHand(ls.median))} a month in hand. Posted ranges run from ${fmt('india', ls.low)} to ${fmt('india', ls.high)}.`
       : `${s.us.length} US ${s.roleName} job posts that state pay have a median midpoint of ${fmt('us', ls.median)} base, with ranges from ${fmt('us', ls.low)} to ${fmt('us', ls.high)}.${india && india.n >= 4 ? ` In India, ${s.india.length} posts have a median midpoint of ${fmt('india', india.median)} (about ${inr(inHand(india.median))} a month in hand).` : ''}`
+
+  const answerFull = s.answerExtra ? `${answer} ${s.answerExtra}` : answer
 
   const faqs = [
     india && {
@@ -421,7 +481,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             Salary · {total} job posts opened · Updated {fmtDate(s.checked)}
           </div>
           <h1 className="mt-4 font-serif text-display font-medium text-fg">{s.h1}</h1>
-          <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{answer}</p>
+          <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{answerFull}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href={`#${regions[0]}`}
@@ -444,14 +504,30 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             Every row is a real job post that states a pay range, opened on {fmtDate(s.checked)} and
             linked. No estimates from salary sites. Closed posts and job-board copies are marked,
             because they still show what employers offered.
+            {s.methodNote ? ` ${s.methodNote}` : ''}
           </p>
         </div>
+
+        {s.india.length >= 4 && (
+          <div className="mt-6 max-w-3xl">
+            <OfferCheck
+              roleName={s.roleName}
+              mids={s.india.map(mid)}
+              cities={s.cities?.rows.map((r) => ({
+                city: r.city,
+                all: r.all ? { median: r.all.median, p25: r.all.p25, p75: r.all.p75 } : undefined,
+                entry: r.entry?.median,
+              }))}
+            />
+          </div>
+        )}
       </div>
 
       <nav aria-label="On this page" className="sticky top-16 z-40 border-y border-border bg-bg/95">
         <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
           {[
             ...regions.map((r) => ({ id: r, label: r === 'india' ? 'India' : 'United States' })),
+            ...(s.cities ? [{ id: 'cities', label: 'By city' }] : []),
             ...(s.companies ? [{ id: 'companies', label: 'By company' }] : []),
             { id: 'patterns', label: 'What the posts show' },
             { id: 'negotiate', label: 'Negotiate' },
@@ -484,8 +560,20 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             <StatTiles s={s} region={r} />
             <PostTable s={s} region={r} />
             <ExperienceSplit s={s} region={r} />
+            {r === 'india' && <MonthlyLookup />}
           </Section>
         ))}
+
+        {s.cities && (
+          <Section
+            id="cities"
+            meta={`Levels.fyi · ${s.cities.rows.length} cities`}
+            title={s.cities.title}
+            intro={s.cities.intro}
+          >
+            <CityTable s={s} />
+          </Section>
+        )}
 
         {s.companies && (
           <Section

@@ -4,8 +4,10 @@ import fde from './fde'
 import gtmEngineer from './gtm-engineer'
 import productManager from './product-manager'
 import aiEngineer from './ai-engineer'
+import dataAnalyst from './data-analyst'
 
 export const ROLE_SALARY_LIST: RoleSalary[] = [
+  dataAnalyst,
   aiEngineer,
   productManager,
   foundersOffice,
@@ -15,4 +17,4 @@ export const ROLE_SALARY_LIST: RoleSalary[] = [
 export const ROLE_SALARIES: Record<string, RoleSalary> = Object.fromEntries(
   ROLE_SALARY_LIST.map((r) => [r.slug, r])
 )
-export type { RoleSalary, PayPost, CompanyPay } from './types'
+export type { RoleSalary, PayPost, CompanyPay, CityPay } from './types'

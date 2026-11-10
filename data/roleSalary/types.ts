@@ -29,6 +29,14 @@ export interface CompanyPay {
   url: string
 }
 
+/** Self-reported pay for one city (Levels.fyi), India, ₹ lakh total compensation per year. */
+export interface CityPay {
+  city: string
+  /** All levels, when the city page loaded. */
+  all?: { median: number; p25: number; p75: number; n: number; url: string }
+  entry?: { median: number; n: number; url: string } // entry-level median, when the page exists
+}
+
 export interface RoleSalary {
   slug: string // hub slug
   roleName: string
@@ -42,6 +50,12 @@ export interface RoleSalary {
   us: PayPost[]
   /** Optional company table (Levels.fyi), shown after the posts. */
   companies?: { title: string; intro: string; note: string; rows: CompanyPay[] }
+  /** Optional city table: self-reported medians by city (Levels.fyi), with entry-level medians. */
+  cities?: { title: string; intro: string; note: string; rows: CityPay[] }
+  /** Optional sentence appended to the hero answer (e.g. fresher pay). */
+  answerExtra?: string
+  /** Optional sentence appended to the method callout. */
+  methodNote?: string
   /** What we saw in the posts, one line each. */
   patterns: string[]
   /** How to negotiate this role's offer, one line each. */
