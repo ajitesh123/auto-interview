@@ -22,6 +22,8 @@ import IndiaLmsCalculator from './blog/IndiaLmsCalculator'
 import DpdpLdChecker from './blog/DpdpLdChecker'
 import { IndiaLmsTable, IndiaLmsWorkedTable } from './blog/IndiaLmsTables'
 import UaeLmsCalculator from './blog/UaeLmsCalculator'
+import AuLmsCalculator from './blog/AuLmsCalculator'
+import { AuLmsTable, AuLmsWorkedTable } from './blog/AuLmsTables'
 import { UaeLmsTable, UaeLmsWorkedTable } from './blog/UaeLmsTables'
 import {
   AiLmsFeatureMatrix,
@@ -57,6 +59,9 @@ export const components: MDXComponents = {
   IndiaLmsTable,
   IndiaLmsWorkedTable,
   UaeLmsCalculator,
+  AuLmsCalculator,
+  AuLmsTable,
+  AuLmsWorkedTable,
   UaeLmsTable,
   UaeLmsWorkedTable,
   AiLmsFeatureMatrix,

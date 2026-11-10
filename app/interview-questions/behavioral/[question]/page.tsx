@@ -243,18 +243,18 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Hard Behavioral Benchmarks Matrix (Google Information Gain Patent US 10,795,953) */}
+          {/* Rules-of-thumb table (coaching guidance, not measured data) */}
           <section className="space-y-4">
             <div>
               <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
-                Empirical Evaluation Telemetry
+                Rules of thumb
               </span>
               <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
-                Behavioral Benchmark Standards: &ldquo;{qData.questionText}&rdquo;
+                What a strong answer looks like: &ldquo;{qData.questionText}&rdquo;
               </h2>
               <p className="mt-1 text-xs text-[#666666]">
-                Statistical benchmarks derived from 50,000+ evaluated interview sessions across USA,
-                India, and global hiring loops.
+                Coaching rules of thumb, not measured data: use them to shape your answer, then
+                practise it out loud.
               </p>
             </div>
 
@@ -263,10 +263,8 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                 <thead className="bg-[#fafafa]">
                   <tr>
                     <th className="px-4 py-3 font-semibold text-[#171717]">Benchmark Category</th>
-                    <th className="px-4 py-3 font-semibold text-[#3B5BFF]">Top 5% Scoring Rep</th>
-                    <th className="px-4 py-3 font-semibold text-[#666666]">
-                      Average Rejected Answer
-                    </th>
+                    <th className="px-4 py-3 font-semibold text-[#3B5BFF]">Strong answer</th>
+                    <th className="px-4 py-3 font-semibold text-[#666666]">Weak answer</th>
                     <th className="px-4 py-3 font-semibold text-[#171717]">Evaluation Impact</th>
                   </tr>
                 </thead>
@@ -290,7 +288,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                     </td>
                     <td className="px-4 py-3 font-mono">130–175 seconds</td>
                     <td className="px-4 py-3">
-                      Listener attention falls 68% after 90 seconds without dialogue turn-taking
+                      A long monologue loses the interviewer before you reach the result
                     </td>
                   </tr>
                   <tr>
@@ -339,9 +337,7 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
             </div>
 
             <div className="rounded-xl border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-xs leading-relaxed text-[#171717]">
-              <span className="font-mono font-bold uppercase text-[#3B5BFF]">
-                Omnibox Speakable Summary:{' '}
-              </span>
+              <span className="font-mono font-bold uppercase text-[#3B5BFF]">In short: </span>
               <span className="speakable-behavioral-benchmark">
                 When answering &ldquo;{qData.questionText}&rdquo;, allocate over 50% of your time
                 strictly to the Action step, state at least 1 concrete business metric in the
