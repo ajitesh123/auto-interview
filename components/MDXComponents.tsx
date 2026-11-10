@@ -5,13 +5,19 @@ import type { MDXComponents } from 'mdx/types'
 import Image from './Image'
 import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
-import CloudRevenue from './charts/CloudRevenue'
-import InvestmentMetrics from './charts/InvestmentMetrics'
-import MarketComparison from './charts/MarketComparison'
-import LLMMarketShare from './charts/LLMMarketShare'
-import CriteriaForGenAI from './charts/CriteriaForGenAI'
-import EnterpriseSpendCategories from './charts/EnterpriseSpendCategories'
-import EnterpriseSpendByDepartment from './charts/EnterpriseSpendByDepartment'
+import {
+  Figure,
+  BarList,
+  RangeList,
+  ColumnChart,
+  LineChart,
+  SegmentBar,
+  CompareTable,
+  StatRow,
+  PullQuote,
+  Flow,
+  Insight,
+} from './viz'
 import QuoteAnimation from './QuoteAnimation'
 import CTABanner from './CTABanner'
 import PracticeQuestion from './blog/PracticeQuestion'
@@ -41,13 +47,18 @@ export const components: MDXComponents = {
   pre: Pre,
   table: TableWrapper,
   BlogNewsletterForm,
-  CloudRevenue,
-  InvestmentMetrics,
-  MarketComparison,
-  LLMMarketShare,
-  CriteriaForGenAI,
-  EnterpriseSpendCategories,
-  EnterpriseSpendByDepartment,
+  // Data visuals kit (components/viz): themed charts, comparison tables and panels
+  Figure,
+  BarList,
+  RangeList,
+  ColumnChart,
+  LineChart,
+  SegmentBar,
+  CompareTable,
+  StatRow,
+  PullQuote,
+  Flow,
+  Insight,
   QuoteAnimation,
   CTABanner,
   PracticeQuestion,

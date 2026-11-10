@@ -1,0 +1,22 @@
+// Data visuals kit (Signal Paper). One import for pages and MDX:
+//   import { Figure, BarList, RangeList, ColumnChart, LineChart, SegmentBar, CompareTable,
+//            StatRow, PullQuote, Flow, Insight } from '@/components/viz'
+// Rules and examples: /design/visuals (noindex) and docs/visuals.md.
+export { default as Figure, LegendKey } from './Figure'
+export type { FigureSource, FigureTable, LegendItem } from './Figure'
+export { default as BarList } from './BarList'
+export type { BarRow } from './BarList'
+export { default as RangeList } from './RangeList'
+export type { RangeRow } from './RangeList'
+export { default as ColumnChart } from './ColumnChart'
+export type { ColumnGroup } from './ColumnChart'
+export { default as LineChart } from './LineChart'
+export type { LineSeries } from './LineChart'
+export { default as SegmentBar } from './SegmentBar'
+export type { Segment } from './SegmentBar'
+export { default as CompareTable } from './CompareTable'
+export type { CompareCell, CompareColumn, CompareRow } from './CompareTable'
+export { StatRow, PullQuote, Flow, Insight } from './Panels'
+export type { Stat, FlowStep } from './Panels'
+export { fmtNum, niceTicks, SERIES, RAMP } from './util'
+export type { NumFormat } from './util'

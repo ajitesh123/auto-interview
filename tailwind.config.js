@@ -72,6 +72,22 @@ module.exports = {
         fg: { DEFAULT: v('fg'), 2: v('fg-2'), 3: v('fg-3') },
         ink: { DEFAULT: v('ink'), 2: v('ink-2'), fg: v('on-ink'), 'fg-2': v('on-ink-2') },
 
+        // Data visuals (components/viz). Charts only, never UI. Validated with the dataviz
+        // skill's validator on the white card surface (Nov 2026): categorical 1-3 pass CVD
+        // (worst pair dE 13.5), normal-vision (24.5) and 3:1 contrast; s1-s5 is the one-hue
+        // ordinal ramp. Default is ONE series in viz-1; 2 and 3 only when series must differ.
+        viz: {
+          1: '#3B5BFF',
+          2: '#E07A1F',
+          3: '#12A594',
+          mute: '#A3A3A3',
+          s1: '#94A8FF',
+          s2: '#6680FF',
+          s3: '#3B5BFF',
+          s4: '#2439B5',
+          s5: '#141D52',
+        },
+
         // Vercel Monochrome Scale
         'paper-white': '#fafafa',
         'pure-white': '#ffffff',

@@ -5,6 +5,7 @@ import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST, type RoleSalary, type PayPost } from '@/data/roleSalary'
 import { computeSalary, DEFAULT_INPUTS, inr } from '@/data/indiaTax'
 import OfferCheck from './OfferCheck'
+import { Figure, BarList, RangeList } from '@/components/viz'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
 const kicker = 'font-mono text-kicker uppercase tracking-[0.08em]'
@@ -208,13 +209,152 @@ function PostTable({ s, region }: { s: RoleSalary; region: 'india' | 'us' }) {
   )
 }
 
+/* ---------- charts (components/viz) ---------- */
+
+const numFmt = (region: 'india' | 'us') =>
+  region === 'india' ? { prefix: '₹', suffix: ' LPA' } : { prefix: '$', suffix: 'K' }
+const rangeLabel = (region: 'india' | 'us', lo: number, hi: number) => {
+  const a = region === 'india' ? round1(lo) : Math.round(lo)
+  const b = region === 'india' ? round1(hi) : Math.round(hi)
+  const body = a === b ? `${a}` : `${a}–${b}`
+  return region === 'india' ? `₹${body} LPA` : `$${body}K`
+}
+
+/** Every posted range on one scale, highest midpoint first, with the median marked. */
+function OffersChart({ s, region }: { s: RoleSalary; region: 'india' | 'us' }) {
+  const posts = [...(region === 'india' ? s.india : s.us)].sort((a, b) => mid(b) - mid(a))
+  if (posts.length < 4) return null
+  const st = salaryStats(posts)
+  const place = region === 'india' ? 'India' : 'the US'
+  return (
+    <Figure
+      label={`Posted pay · ${posts.length} job posts · ${place}`}
+      title={`The middle posted ${s.roleName} offer in ${place} is ${fmt(region, st.median)}`}
+      sub={`Each bar is one job post's stated range${region === 'us' ? ' (base pay)' : ''}, highest first. Hover or tap a row for the pay as written.`}
+      legend={[
+        { label: 'Posted range', kind: 'bar', color: '#94A8FF' },
+        { label: 'Median midpoint of all posts', kind: 'rule', color: '#737373' },
+      ]}
+      source={`${posts.length} job posts, linked in the table below`}
+      updated={`Opened ${fmtDate(s.checked)}`}
+    >
+      <RangeList
+        format={numFmt(region)}
+        rule={{ value: st.median, label: 'Median midpoint' }}
+        rows={posts.map((p) => ({
+          label: p.company,
+          sub: `${p.experience} · ${p.location}`,
+          min: p.min,
+          max: p.max,
+          display: rangeLabel(region, p.min, p.max),
+          note: `${p.title}: ${p.stated}${p.note ? ` (${p.note})` : ''}`,
+          href: p.url,
+        }))}
+      />
+    </Figure>
+  )
+}
+
+/** Self-reported pay by city: middle half as a band, median and entry-level median as dots. */
+function CityChart({ s }: { s: RoleSalary }) {
+  const c = s.cities
+  if (!c) return null
+  const rows = c.rows
+    .filter((r) => r.all || r.entry)
+    .sort(
+      (a, b) => (b.all?.median ?? b.entry?.median ?? 0) - (a.all?.median ?? a.entry?.median ?? 0)
+    )
+  if (rows.length < 3) return null
+  const hasEntry = rows.some((r) => r.entry)
+  const topRow = rows.find((r) => r.all)
+  return (
+    <Figure
+      label={`Self-reported pay · ${rows.length} cities · India`}
+      title={
+        topRow?.all
+          ? `${topRow.city} has the highest median: ₹${topRow.all.median} lakh a year`
+          : `${s.roleName} pay by city`
+      }
+      sub="Total pay per year as people reported it. The band is the middle half of salaries in that city."
+      legend={[
+        { label: 'Middle half (25th to 75th percentile)', kind: 'bar', color: '#94A8FF' },
+        { label: 'Median, all levels', kind: 'dot', color: '#141D52' },
+        ...(hasEntry
+          ? [{ label: 'Entry-level median', kind: 'ring' as const, color: '#3B5BFF' }]
+          : []),
+      ]}
+      source={[
+        {
+          label: 'Levels.fyi city pages, linked in the table below',
+          url: 'https://www.levels.fyi/',
+        },
+      ]}
+      updated={`Checked ${fmtDate(s.checked)}`}
+    >
+      <RangeList
+        format={{ prefix: '₹', suffix: 'L' }}
+        rows={rows.map((r) => ({
+          label: r.city,
+          sub: r.all
+            ? `${r.all.n} salaries`
+            : r.entry
+              ? `${r.entry.n} entry-level salaries`
+              : undefined,
+          min: r.all?.p25 ?? r.entry?.median ?? 0,
+          max: r.all?.p75 ?? r.entry?.median ?? 0,
+          mid: r.all?.median,
+          mark: r.entry?.median,
+          display: r.all ? `₹${r.all.median} lakh` : `₹${r.entry?.median} lakh (entry)`,
+          note: r.all
+            ? `Median ₹${r.all.median} lakh; middle half ₹${r.all.p25}–${r.all.p75} lakh${r.entry ? `; entry-level median ₹${r.entry.median} lakh` : ''}`
+            : undefined,
+        }))}
+      />
+    </Figure>
+  )
+}
+
+/** Self-reported median total pay by employer, ranked. */
+function CompanyChart({ s }: { s: RoleSalary }) {
+  const c = s.companies
+  if (!c || c.rows.length < 4) return null
+  const rows = [...c.rows].sort((a, b) => b.median - a.median)
+  const lakh = (n: number) => (n >= 100 ? `₹${(n / 100).toFixed(2)} Cr` : `₹${round1(n)} lakh`)
+  return (
+    <Figure
+      label={`Self-reported pay · ${rows.length} employers · India`}
+      title={`${rows[0].company} pays the most at the median: ${lakh(rows[0].median)} a year`}
+      sub="Median total pay per year in India, as reported by employees."
+      source={[
+        {
+          label: 'Levels.fyi company pages, linked in the table below',
+          url: 'https://www.levels.fyi/',
+        },
+      ]}
+      updated={`Checked ${fmtDate(s.checked)}`}
+    >
+      <BarList
+        rows={rows.map((r) => ({
+          label: r.company,
+          value: r.median,
+          display: lakh(r.median),
+          href: r.url,
+          note: r.entryLevel
+            ? `Entry level ${r.entryLevel}${r.entryTc !== undefined ? `: ${lakh(r.entryTc)}` : ''}`
+            : undefined,
+        }))}
+      />
+    </Figure>
+  )
+}
+
 function StatTiles({ s, region }: { s: RoleSalary; region: 'india' | 'us' }) {
   const posts = region === 'india' ? s.india : s.us
   const st = salaryStats(posts)
   const tiles: [string, string, string][] = [
     ['Posts with stated pay', String(st.n), `Opened ${fmtDate(s.checked)}`],
     ['Median midpoint', fmt(region, st.median), 'Middle of each posted range'],
-    ['Lowest to highest', `${fmt(region, st.low)}–${fmt(region, st.high)}`, 'Across all posts'],
+    ['Lowest to highest', rangeLabel(region, st.low, st.high), 'Across all posts'],
     ['Mention equity', `${st.equity} of ${st.n}`, 'ESOPs, RSUs or options'],
   ]
   if (region === 'india')
@@ -239,22 +379,48 @@ function ExperienceSplit({ s, region }: { s: RoleSalary; region: 'india' | 'us' 
     return { b, ps }
   }).filter((r) => r.ps.length >= 2)
   if (rows.length < 2) return null
+  const meds = rows.map(({ ps }) => median(ps.map(mid)))
+  const first = meds[0]
+  const last = meds[meds.length - 1]
   return (
-    <Table
-      label="Posted pay by experience asked"
-      caption="Grouped by the minimum years each post asks for. Small samples: read as a direction, not a band."
-      head={
-        region === 'india'
-          ? ['Experience asked', 'Posts', 'Median midpoint', 'In hand / month']
-          : ['Experience asked', 'Posts', 'Median midpoint']
+    <Figure
+      label={`Posted pay by experience asked · ${posts.length} posts`}
+      title={
+        last > first
+          ? `Posts asking ${rows[rows.length - 1].b.label.replace(' asked', '')} pay ${round1(last / first)}× the ${rows[0].b.label.replace(' asked', '')} median`
+          : 'Posted pay by the experience each post asks for'
       }
-      min="min-w-0"
-      rows={rows.map(({ b, ps }) => {
-        const m = median(ps.map(mid))
-        const base = [b.label, String(ps.length), fmt(region, m)]
-        return region === 'india' ? [...base, inr(inHand(m))] : base
-      })}
-    />
+      sub="Grouped by the minimum years each post asks for. Small samples: read as a direction, not a band."
+      legend={[
+        { label: 'Lowest to highest posted', kind: 'bar', color: '#94A8FF' },
+        { label: 'Median midpoint', kind: 'dot', color: '#141D52' },
+      ]}
+      source="The job posts in the table above"
+      updated={`Opened ${fmtDate(s.checked)}`}
+      table={{
+        head:
+          region === 'india'
+            ? ['Experience asked', 'Posts', 'Median midpoint', 'In hand / month']
+            : ['Experience asked', 'Posts', 'Median midpoint'],
+        rows: rows.map(({ b, ps }, i) => {
+          const base = [b.label, String(ps.length), fmt(region, meds[i])]
+          return region === 'india' ? [...base, inr(inHand(meds[i]))] : base
+        }),
+      }}
+    >
+      <RangeList
+        format={numFmt(region)}
+        rows={rows.map(({ b, ps }, i) => ({
+          label: b.label,
+          sub: `${ps.length} posts`,
+          min: Math.min(...ps.map((p) => p.min)),
+          max: Math.max(...ps.map((p) => p.max)),
+          mid: meds[i],
+          display: fmt(region, meds[i]),
+          note: `Posted ranges run ${rangeLabel(region, Math.min(...ps.map((p) => p.min)), Math.max(...ps.map((p) => p.max)))}`,
+        }))}
+      />
+    </Figure>
   )
 }
 
@@ -558,6 +724,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             }
           >
             <StatTiles s={s} region={r} />
+            <OffersChart s={s} region={r} />
             <PostTable s={s} region={r} />
             <ExperienceSplit s={s} region={r} />
             {r === 'india' && <MonthlyLookup />}
@@ -571,6 +738,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             title={s.cities.title}
             intro={s.cities.intro}
           >
+            <CityChart s={s} />
             <CityTable s={s} />
           </Section>
         )}
@@ -582,6 +750,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             title={s.companies.title}
             intro={s.companies.intro}
           >
+            <CompanyChart s={s} />
             <CompanyTable s={s} />
           </Section>
         )}

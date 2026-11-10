@@ -505,3 +505,52 @@
     transition: none !important;
   }
 }
+
+/* ========================================
+   DATA VISUALS (components/viz)
+   Charts are complete without JS. VizReveal arms a figure that is below the fold
+   (data-viz="armed"), then sets data-viz="in" when it scrolls into view, so bars grow,
+   lines draw and labels fade in once. Reduced motion: never armed.
+   ======================================== */
+[data-viz] [data-viz-bar] {
+  transform-origin: left center;
+  transition: transform 720ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+[data-viz] [data-viz-col] {
+  transform-origin: center bottom;
+  transition: transform 720ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+[data-viz] [data-viz-fade] {
+  transition: opacity 420ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms + 240ms);
+}
+[data-viz] [data-viz-line] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1100ms var(--ease-out);
+}
+[data-viz='armed'] [data-viz-bar] {
+  transform: scaleX(0);
+}
+[data-viz='armed'] [data-viz-col] {
+  transform: scaleY(0);
+}
+[data-viz='armed'] [data-viz-fade] {
+  opacity: 0;
+}
+[data-viz='armed'] [data-viz-line] {
+  stroke-dashoffset: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-viz] [data-viz-bar],
+  [data-viz] [data-viz-col],
+  [data-viz] [data-viz-fade],
+  [data-viz] [data-viz-line] {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
