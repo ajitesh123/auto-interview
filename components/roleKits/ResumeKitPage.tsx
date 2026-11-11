@@ -6,6 +6,13 @@ import { ArrowRightIcon, CheckIcon } from '@/components/roleHub/icons'
 import { CopyButton, KeywordChecker } from './KitClient'
 import CampusResumePreview from './CampusResumePreview'
 import { Card, KitShell, Section, SITE, kitSchemas } from './KitLayout'
+import { PromptKit } from '@/components/ai/AiPrompt'
+import {
+  resumePrompt,
+  coverLetterPrompt,
+  linkedinPrompt,
+  mockInterviewPrompt,
+} from '@/data/aiPrompts'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -23,6 +30,7 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
     { id: 'sample', label: 'Word templates and sample' },
     { id: 'cover-letter', label: 'Cover letter and LinkedIn' },
     { id: 'mistakes', label: 'Mistakes' },
+    { id: 'with-ai', label: 'Do it with AI' },
   ]
   return (
     <KitShell
@@ -351,6 +359,21 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
           </Link>
         </Card>
       </Section>
+      <section id="with-ai" className="scroll-mt-24 border-t border-border py-12 md:py-16">
+        <PromptKit
+          title="Write yours with AI, using your own facts"
+          sub="The template shows the shape. These prompts make the AI ask for your job description and your real numbers first, so the result is yours."
+          prompts={[
+            resumePrompt(
+              hub,
+              kit.keywords.flatMap((g) => g.terms)
+            ),
+            coverLetterPrompt(hub),
+            linkedinPrompt(hub),
+            mockInterviewPrompt(hub),
+          ]}
+        />
+      </section>
     </KitShell>
   )
 }

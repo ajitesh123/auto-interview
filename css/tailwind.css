@@ -554,3 +554,24 @@
     stroke-dashoffset: 0 !important;
   }
 }
+
+/* Mock-interview button: a small voice meter (components/ai/MockInterviewButton) */
+@keyframes mi-bar {
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 16px;
+  }
+}
+.mi-bar {
+  height: 6px;
+  animation: mi-bar 1.1s var(--ease-standard) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mi-bar {
+    animation: none;
+    height: 10px;
+  }
+}

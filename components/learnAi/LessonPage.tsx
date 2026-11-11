@@ -13,6 +13,8 @@ import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
+import { AiPrompt } from '@/components/ai/AiPrompt'
+import { tutorPrompt } from '@/data/aiPrompts'
 
 // One lesson of a course (Learn AI by default; the Paul Graham course passes its own config).
 // Signal Paper, see the signal-paper-ui skill.
@@ -590,6 +592,9 @@ export default function LessonPage({
                       {lesson.tryIt.link.label} <ArrowUpRightIcon />
                     </a>
                   )}
+                </div>
+                <div data-reveal className="mt-4 max-w-[72ch]">
+                  <AiPrompt p={tutorPrompt(lesson)} />
                 </div>
               </Section>
 

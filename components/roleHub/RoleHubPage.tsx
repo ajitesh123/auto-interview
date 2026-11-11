@@ -9,6 +9,9 @@ import { lessonsForRole, LEARN_AI_COUNT } from '@/data/learnAi/roleLessons'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_CONCEPTS } from '@/data/roleConcepts'
 import { Figure, BarList } from '@/components/viz'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import { PromptKit } from '@/components/ai/AiPrompt'
+import { hubPrompts } from '@/data/aiPrompts'
 import {
   JourneyMobileBar,
   JourneyRail,
@@ -375,12 +378,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   Start the guide
                   <ArrowRightIcon />
                 </a>
-                <Link
-                  href="/free-mock-interview"
-                  className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
-                >
-                  Free AI mock interview
-                </Link>
+                <MockInterviewButton caption={false} />
               </div>
               <ResumeJourney slug={hub.slug} chapters={chapters} />
             </div>
@@ -1222,6 +1220,20 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           </div>
         </div>
 
+        {/* ---------- Do it with AI: prompts that open in Claude or ChatGPT ---------- */}
+        <section id="ai-prompts" className="scroll-mt-24 border-t border-border py-16 md:py-20">
+          <div className={container}>
+            <PromptKit
+              title={`Prepare for the ${hub.shortName} interview with AI`}
+              sub="Six prompts written for this role. One tap opens Claude or ChatGPT with the prompt typed in: a written mock interview, a concept quiz, your prep plan, your resume, your cover letter and the salary talk."
+              prompts={hubPrompts(
+                hub,
+                ROLE_KITS[hub.slug]?.resume.keywords.flatMap((g) => g.terms)
+              )}
+            />
+          </div>
+        </section>
+
         {/* ---------- Closing CTA (ink band) ---------- */}
         <section className="bg-ink text-ink-fg">
           <div
@@ -1239,12 +1251,13 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 answer.
               </p>
             </div>
-            <Link
-              href="/free-mock-interview"
-              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
-            >
-              Start a free mock interview <ArrowRightIcon />
-            </Link>
+            <span className="shrink-0 self-start md:self-auto">
+              <MockInterviewButton
+                tone="light"
+                label="Start a free mock interview"
+                role={hub.shortName}
+              />
+            </span>
           </div>
         </section>
 

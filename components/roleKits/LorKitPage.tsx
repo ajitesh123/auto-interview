@@ -5,6 +5,8 @@ import { KIT_PATHS } from '@/data/roleKits'
 import { ArrowRightIcon, CheckIcon } from '@/components/roleHub/icons'
 import { CopyButton } from './KitClient'
 import { Card, KitShell, Section, SITE, kitSchemas } from './KitLayout'
+import { PromptKit } from '@/components/ai/AiPrompt'
+import { lorPrompt, resumePrompt } from '@/data/aiPrompts'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -213,6 +215,13 @@ export default function LorKitPage({ hub, kit }: { hub: RoleHub; kit: LorKit }) 
           </Link>
         </Card>
       </Section>
+      <section id="with-ai" className="scroll-mt-24 border-t border-border py-12 md:py-16">
+        <PromptKit
+          title="Prepare the ask with AI"
+          sub="A recommender writes a stronger letter from a clear brief. This prompt builds the email, the brief and a draft in their voice from your real stories."
+          prompts={[lorPrompt(hub), resumePrompt(hub)]}
+        />
+      </section>
     </KitShell>
   )
 }
