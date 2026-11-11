@@ -77,3 +77,16 @@ All kit components are registered in `components/MDXComponents.tsx`:
 3. At 390px: no sideways page scroll, labels readable, nothing clipped.
 4. Colour is not the only signal: a legend for 2+ series, values at the marks or in the table view.
 5. Screenshot it and look at it.
+
+## In Learn AI lessons (data files)
+
+Lesson steps take two fields (data/learnAi/types.ts), rendered by components/learnAi/LessonVisuals.tsx:
+
+- `visual`: `{ kind: 'bars' | 'columns' | 'compare', label, title, ..., source, updated }`, a kit
+  Figure with "View as table" (bars, columns) or a CompareTable.
+- `workflow`: `{ title, input, steps: [{ title, detail, code? }], output }`, a real task shown end
+  to end. Keep each `code` to one pasteable formula or prompt (the Copy button copies all of it).
+
+Equal-value columns put their cap labels on top of each other; for "before vs after" with
+unchanged groups, use `bars` with `emphasis` instead. BarList labels truncate at about 30
+characters at 1280 inside a lesson; keep them short and move detail into `note`.

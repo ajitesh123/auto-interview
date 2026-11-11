@@ -171,8 +171,8 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
       why: 'Context, examples and checks turn a vague AI answer into a query you can trust.',
     },
     {
-      slug: 'ai-agents',
-      why: 'BigQuery and Power BI now ship data agents. Know how they work before you use one.',
+      slug: 'ai-for-excel-and-google-sheets',
+      why: 'Excel and Sheets rounds test SUMIFS and pivots. Use AI for the formula, then reconcile it.',
     },
   ],
 }
@@ -180,6 +180,24 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
 // Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
 // that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
 export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'ai-for-excel-and-google-sheets': [
+    {
+      hub: 'strategy-and-operations',
+      why: 'Ops models live in spreadsheets. Get AI to write the formula, then make the parts add up.',
+    },
+    {
+      hub: 'founders-office',
+      why: 'Board and investor numbers come from a sheet. Two checks stop a wrong total going out.',
+    },
+    {
+      hub: 'chief-of-staff',
+      why: 'You own the numbers in the leadership review. Use AI for speed and reconcile before sending.',
+    },
+    {
+      hub: 'growth',
+      why: 'Tag thousands of survey comments with =AI() and count themes without a data team.',
+    },
+  ],
   'ai-for-data-analysis': [
     {
       hub: 'strategy-and-operations',

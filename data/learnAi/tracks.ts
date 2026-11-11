@@ -62,6 +62,7 @@ export const PLAN: { slug: string; track: Track['id']; title: string }[] = [
   { slug: 'choosing-an-ai-model', track: 'use', title: 'ChatGPT vs Claude vs Gemini' },
   { slug: 'ai-for-interview-prep', track: 'use', title: 'Use AI to prepare for interviews' },
   { slug: 'ai-for-data-analysis', track: 'use', title: 'AI for data analysis' },
+  { slug: 'ai-for-excel-and-google-sheets', track: 'use', title: 'AI for Excel and Google Sheets' },
   { slug: 'what-is-an-api', track: 'build', title: 'What is an API?' },
   { slug: 'tool-calling', track: 'build', title: 'Tool calling (function calling)' },
   { slug: 'embeddings-and-rag', track: 'build', title: 'Embeddings and RAG' },

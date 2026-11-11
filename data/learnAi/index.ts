@@ -90,7 +90,6 @@ export const LEARN_AI_BACKLOG: string[] = [
   'AI in Indian languages: Hindi, Tamil and Indic models',
   'NotebookLM and Gemini deep dive for studying',
   'Computer-use agents: AI that clicks and types for you',
-  'AI for Excel and Google Sheets',
   'AI for sales and GTM: research, outreach and call prep',
   'AI product management: how to spec and ship an AI feature',
   'Memory in AI assistants: how chatbots remember you',
@@ -101,4 +100,6 @@ export const LEARN_AI_BACKLOG: string[] = [
   'AI agent security for teams: permissions, approvals and audit logs',
   'AI in cybersecurity: how defenders and attackers use models',
   'Quantization explained: 4-bit, GGUF and MXFP4, and why model files shrink',
+  'AI for PowerPoint and Word: Copilot, Gemini and the Claude and ChatGPT add-ins',
+  'Python in Excel (=PY) for non-coders: when a formula is not enough',
 ]

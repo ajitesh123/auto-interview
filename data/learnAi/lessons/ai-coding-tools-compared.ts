@@ -32,6 +32,73 @@ export const lesson: Lesson = {
         'Cursor is a full code editor built on VS Code, with Tab autocomplete, an Agent, Plan Mode and cloud agents. Plans as of Nov 2026: Free, Plus $8 (Grok models only), Premium $30 (adds Claude, GPT and other third-party models at API list price), Super $100 and Ultra $200. Instructions go in .cursor/rules or AGENTS.md.',
         'Codex (OpenAI) is a coding agent inside ChatGPT, plus a desktop app, an editor extension and an open-source CLI. It uses OpenAI models and your ChatGPT login. ChatGPT Free lists limited Codex access, and Plus ($20 a month) gives more. Instructions go in AGENTS.md.',
       ],
+      visual: {
+        kind: 'compare',
+        label: 'Makers’ pages · 4 tools',
+        title: 'The tools differ mostly in where you work and which login you need',
+        corner: 'As of Nov 2026',
+        columns: [
+          {
+            name: 'Claude Code',
+            sub: 'Anthropic',
+            href: 'https://code.claude.com/docs/en/overview',
+          },
+          { name: 'Cursor', sub: 'Anysphere', href: 'https://cursor.com/docs' },
+          { name: 'Codex', sub: 'OpenAI', href: 'https://openai.com/codex/' },
+          {
+            name: 'GitHub Copilot',
+            sub: 'GitHub',
+            href: 'https://github.com/features/copilot/plans',
+          },
+        ],
+        rows: [
+          {
+            label: 'Where you work',
+            cells: [
+              'Terminal, VS Code, JetBrains, desktop app, web',
+              'Its own editor (built on VS Code), plus cloud agents',
+              'ChatGPT, desktop app, editor extension, open-source CLI',
+              'Inside VS Code and other editors; a coding agent on paid plans',
+            ],
+          },
+          {
+            label: 'Models',
+            cells: [
+              'Claude models',
+              'Grok on Plus; Claude, GPT and others on Premium and up',
+              'OpenAI models',
+              'Several makers’ models (see GitHub)',
+            ],
+          },
+          {
+            label: 'Cheapest way in',
+            cells: [
+              'Claude Pro, $20 a month billed monthly',
+              'Free plan',
+              'ChatGPT Free (limited Codex)',
+              'Copilot Free (2,000 completions a month)',
+            ],
+          },
+          {
+            label: 'Instruction file',
+            cells: [
+              'CLAUDE.md (reads AGENTS.md too)',
+              '.cursor/rules or AGENTS.md',
+              'AGENTS.md',
+              'See GitHub docs',
+            ],
+          },
+        ],
+        note: 'For Copilot’s models and instruction files, see GitHub’s plans page and docs; we have not re-checked them for this table. Prices change often: open the pricing page on the day you buy.',
+        source: [
+          { label: 'Claude plans and pricing', url: 'https://claude.com/pricing' },
+          { label: 'Claude Code docs', url: 'https://code.claude.com/docs/en/overview' },
+          { label: 'Cursor pricing', url: 'https://cursor.com/pricing' },
+          { label: 'OpenAI: Codex', url: 'https://openai.com/codex/' },
+          { label: 'GitHub Copilot plans', url: 'https://github.com/features/copilot/plans' },
+        ],
+        updated: 'Nov 2026',
+      },
       bullets: [
         'Pick Claude Code if you already pay for Claude, or like working in the terminal with any editor.',
         'Pick Cursor if you want to see and edit code in one AI-first editor.',
@@ -59,6 +126,52 @@ export const lesson: Lesson = {
       ],
       keyIdea:
         'The habits matter more than the tool: small clear tasks, a test to check, and a careful review of every change.',
+    },
+    {
+      heading: 'One task, start to finish, in any of these tools',
+      body: [
+        'The fastest way to choose is to watch a tool do one small, checkable job. This is the same loop in Claude Code, Cursor’s Agent, Codex or Copilot’s agent: ask for a plan, let it build, test with numbers you worked out yourself, and review the change.',
+        'The test is the part beginners skip. Work out the right answer before the AI runs, so you can tell a working app from one that only looks finished.',
+      ],
+      workflow: {
+        title: 'An expense splitter in one file',
+        input:
+          'An empty folder and one sentence: “Three friends paid different amounts for a trip; show who owes whom.”',
+        steps: [
+          {
+            title: 'Ask for a plan before any code',
+            detail:
+              'Plan mode (Claude Code, Cursor) or a “plan first” line in the prompt makes the agent say what it will build. Fix the plan, not the code.',
+            code: `Build an expense splitter in one
+index.html file. I enter names and
+amounts paid; it shows who owes whom.
+First list your plan and how you will
+test it. Wait for my OK.`,
+          },
+          {
+            title: 'Work out the right answer yourself',
+            detail:
+              'A paid 900, B paid 300, C paid 0. Total 1,200, so each share is 400. A is owed 500, B owes 100, C owes 400.',
+          },
+          {
+            title: 'Let it build, then test with your numbers',
+            detail:
+              'Open index.html in a browser and type the three amounts. The app must say C pays A 400 and B pays A 100. Anything else is a bug, however polished the page looks.',
+          },
+          {
+            title: 'Review the change and ask for one fix at a time',
+            detail:
+              'Read the diff the tool shows. If something is wrong, describe the input, what you expected and what you got. Then save a commit or checkpoint.',
+            code: `With A=900, B=300, C=0 the app says
+B pays A 300. Expected: B pays A 100,
+C pays A 400. Fix only the settle-up
+logic and explain the change.`,
+          },
+        ],
+        output:
+          'A one-file app that passes your test (C pays A 400, B pays A 100), a diff you have read, and a saved version you can roll back to.',
+      },
+      keyIdea: 'Decide the right answer before the AI runs. That is your test.',
     },
     {
       heading: 'What we could not verify, and what changes fast',

@@ -27,6 +27,34 @@ export const lesson: Lesson = {
         'No, and the difference matters. Programmer Simon Willison draws the line clearly: if an AI wrote every line, but you reviewed it, tested it and can explain how it works, "that’s not vibe coding, it’s software development".',
         'Think of it as a dial. At one end, you never look at the code and judge only whether the app seems to work. At the other end, you use AI like a fast assistant and check everything. Both are useful; they fit different jobs.',
       ],
+      visual: {
+        kind: 'compare',
+        label: 'Two ends of the dial',
+        title: 'The difference is who reads and tests the code, not which tool writes it',
+        columns: [
+          { name: 'Vibe coding', sub: 'Karpathy, Feb 2025' },
+          { name: 'AI-assisted coding', sub: 'Willison: “software development”' },
+        ],
+        rows: [
+          { label: 'Who reads the code', cells: ['Nobody', 'You, or a reviewer'] },
+          {
+            label: 'How you judge it',
+            cells: ['It seems to work', 'Tests and a read of every change'],
+          },
+          { label: 'Errors', cells: ['Pasted back to the AI', 'Understood, then fixed'] },
+        ],
+        source: [
+          {
+            label: 'Andrej Karpathy on X (Feb 2025)',
+            url: 'https://x.com/karpathy/status/1886192184808149383',
+          },
+          {
+            label: 'Simon Willison (Mar 19, 2025)',
+            url: 'https://simonwillison.net/2025/Mar/19/vibe-coding/',
+          },
+        ],
+        updated: 'Nov 2026',
+      },
       bullets: [
         'Vibe coding: a party invite page, a personal habit tracker, a demo for an idea.',
         'Careful AI-assisted coding: anything with logins, payments, personal data or paying customers.',
@@ -61,6 +89,44 @@ export const lesson: Lesson = {
       example: {
         label: 'A good first prompt',
         text: 'Build a one-page web app for practising job interview questions.\n1. Show one question at a time from a list of 20 common HR questions.\n2. A "Show tips" button reveals 3 short tips for answering.\n3. A "Next" button moves on; a counter shows "Question 4 of 20".\nClean, mobile-friendly design, large text. No login, no database.',
+      },
+      workflow: {
+        title: 'Interview flashcards, from idea to a link on your phone',
+        input:
+          'An idea (“practise 20 HR interview questions on my phone”), a free app-builder account and the first prompt above.',
+        steps: [
+          {
+            title: 'Ask for a plan, not an app',
+            detail:
+              'Paste the prompt, then add one line: “List the screens and buttons you will build, and wait for my OK.” Correct the plan in words; it is cheaper than correcting code.',
+          },
+          {
+            title: 'Write 3 checks before the preview loads',
+            detail:
+              'Turn the prompt into tests you can click: (1) only one question shows at a time, (2) “Show tips” reveals exactly 3 tips, (3) after pressing Next 3 times the counter reads “Question 4 of 20”.',
+          },
+          {
+            title: 'Click through the live preview',
+            detail:
+              'Run the 3 checks on a laptop and again at phone width. Write down every miss in one line each.',
+          },
+          {
+            title: 'Fix one thing per message',
+            detail:
+              'Describe what you did, what you expected and what you saw. One fix per message tells you which change broke what.',
+            code: `After I press Next 3 times the
+counter says "Question 3 of 20".
+Expected "Question 4 of 20".
+Fix only the counter.`,
+          },
+          {
+            title: 'Save a checkpoint, then publish',
+            detail:
+              'Save a checkpoint (or sync to GitHub) once all 3 checks pass, then publish and open the link on your phone.',
+          },
+        ],
+        output:
+          'A live link that passes your 3 checks on a phone, a saved version you can roll back to, and a list of what you would change next. No logins or personal data, so the risks below stay small.',
       },
     },
     {

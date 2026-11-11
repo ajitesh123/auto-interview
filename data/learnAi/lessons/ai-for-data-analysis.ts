@@ -68,7 +68,13 @@ Copilot in Excel
   Does: build, summarise, chart
   Python: separately, type =PY
     in a cell (runs in MS cloud)
-  Needs: a qualifying M365 plan`,
+  Needs: a qualifying M365 plan
+
+Inside the spreadsheet (add-ins)
+  Claude for Excel: Pro and up
+  ChatGPT for Excel and Sheets:
+    all plans since May 5, 2026
+  See the next lesson`,
       },
     },
     {
@@ -219,6 +225,14 @@ plain words.`,
   ],
   sources: [
     {
+      label: 'OpenAI: ChatGPT for Excel and Google Sheets (updated May 5, 2026)',
+      url: 'https://openai.com/blog/chatgpt-for-excel',
+    },
+    {
+      label: 'Claude docs: Use Claude for Excel',
+      url: 'https://claude.com/docs/office-agents/excel',
+    },
+    {
       label: 'OpenAI Help: Data analysis with ChatGPT',
       url: 'https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt',
     },
@@ -275,7 +289,7 @@ plain words.`,
     },
     {
       q: 'Can ChatGPT analyse Excel data, and which AI is best for it?',
-      a: 'Yes: ChatGPT accepts .xls and .xlsx files as well as CSV, PDF and JSON. Which AI is best depends where your data lives. Inside Excel use Copilot (and Python in Excel); inside Google Sheets use Gemini. For a one-off file, ChatGPT accepts CSVs up to about 50 MB and Claude accepts files up to 30 MB on every plan, as of Nov 2026.',
+      a: 'Yes: ChatGPT accepts .xls and .xlsx files as well as CSV, PDF and JSON. Which AI is best depends where your data lives. Inside Excel use Copilot, or the Claude for Excel or ChatGPT for Excel add-in; inside Google Sheets use Gemini or ChatGPT for Google Sheets. For a one-off file, ChatGPT accepts CSVs up to about 50 MB and Claude accepts files up to 30 MB on every plan, as of Nov 2026.',
     },
   ],
   related: [
@@ -283,7 +297,10 @@ plain words.`,
       label: 'Previous: Use AI to prepare for interviews',
       href: '/learn-ai/ai-for-interview-prep',
     },
-    { label: 'Next: What is an API?', href: '/learn-ai/what-is-an-api' },
+    {
+      label: 'Next: AI for Excel and Google Sheets',
+      href: '/learn-ai/ai-for-excel-and-google-sheets',
+    },
     { label: 'Why AI makes things up', href: '/learn-ai/ai-hallucinations' },
     { label: 'Data analyst interview guide', href: '/data-analyst' },
     { label: 'Data analyst salary in India and the US', href: '/data-analyst/salary' },

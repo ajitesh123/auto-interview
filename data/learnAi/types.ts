@@ -31,7 +31,61 @@ export interface LessonStep {
   flow?: string[]
   /** One-line takeaway shown in a highlighted box */
   keyIdea?: string
+  /** A real workflow shown end to end: the input, each step, the output (Rahul, 11 Nov 2026) */
+  workflow?: LessonWorkflow
+  /** A chart or table from the visuals kit (components/viz), with its source and date */
+  visual?: LessonVisual
 }
+
+export interface LessonWorkflow {
+  title: string // e.g. "Worked workflow: October revenue by region"
+  input: string // what you start with
+  steps: { title: string; detail: string; code?: string }[] // 3–6 steps
+  output: string // what you end with, with the real numbers
+}
+
+export interface LessonVisualSource {
+  label: string
+  url: string
+}
+
+/** Visuals kit inside a lesson step. Every value comes from an opened source or our own computed example. */
+export type LessonVisual =
+  | {
+      kind: 'bars'
+      label: string // kicker, e.g. "SpreadsheetBench · 912 tasks"
+      title: string // the finding
+      rows: { label: string; value: number; display?: string; note?: string; highlight?: boolean }[]
+      format?: { prefix?: string; suffix?: string; decimals?: number }
+      emphasis?: boolean
+      sort?: boolean
+      max?: number
+      note?: string
+      source: LessonVisualSource[]
+      updated: string
+    }
+  | {
+      kind: 'columns'
+      label: string
+      title: string
+      series: string[] // 1–3 names, in value order
+      groups: { label: string; values: number[] }[]
+      format?: { prefix?: string; suffix?: string; decimals?: number }
+      note?: string
+      source: LessonVisualSource[]
+      updated: string
+    }
+  | {
+      kind: 'compare'
+      label: string
+      title: string
+      corner?: string
+      columns: { name: string; sub?: string; href?: string }[]
+      rows: { label: string; cells: (string | boolean | null)[] }[]
+      note?: string
+      source: LessonVisualSource[]
+      updated: string
+    }
 
 /**
  * "Straight from the source": the original idea from the person or team who made it

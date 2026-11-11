@@ -1,0 +1,11 @@
+Order ID,Order date,Region,Rep,Units,Unit price (INR)
+K-101,2026-10-02,North,Asha,12,450
+K-102,2026-10-03,South,Ravi,8,1200
+K-103,2026-10-07,North ,Asha,5,1200
+K-104,2026-10-09,West,Meera,20,150
+K-105,2026-10-14,South,Ravi,3,2500
+K-106,2026-10-15,West,Kabir,10,450
+K-107,21.10.2026,North,Dev,6,2500
+K-108,2026-10-24,South,Meera,15,450
+K-109,2026-10-28,West,Kabir,4,1200
+K-110,2026-11-02,North,Asha,9,450

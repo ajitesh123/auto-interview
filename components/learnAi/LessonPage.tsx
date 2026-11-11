@@ -9,6 +9,7 @@ import { DoneMark, MarkComplete, Quiz, YouTubeFacade } from './LearnAiClient'
 import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
 import MoeCalculator from './MoeCalculator'
 import SpotTheMistake from './SpotTheMistake'
+import { LessonVisualBlock, WorkflowBlock } from './LessonVisuals'
 import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
@@ -125,6 +126,12 @@ function Step({ step, n, last }: { step: LessonStep; n: number; last: boolean })
               </div>
             )}
           </figure>
+        )}
+        {step.workflow && <WorkflowBlock w={step.workflow} />}
+        {step.visual && (
+          <div className="mt-2">
+            <LessonVisualBlock v={step.visual} />
+          </div>
         )}
         {step.keyIdea && (
           <div className="mt-5 flex max-w-[68ch] flex-col gap-1.5 rounded-xl bg-signal-tint p-4 ring-1 ring-inset ring-signal/15 sm:flex-row sm:gap-3">

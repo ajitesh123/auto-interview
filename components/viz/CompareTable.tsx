@@ -142,7 +142,10 @@ function RowGroup({
           )}
         </th>
         {Array.from({ length: n }, (_, i) => (
-          <td key={i} className={`px-4 py-3 align-top tabular-nums text-fg-2 ${colClass(i)}`}>
+          <td
+            key={i}
+            className={`relative px-4 py-3 align-top tabular-nums text-fg-2 ${colClass(i)}`}
+          >
             <Cell c={r.cells[i] ?? null} />
           </td>
         ))}
