@@ -80,7 +80,10 @@ What the reader can do after this page: choose the tool type, compute their own 
 
 ## 7. Review
 
-(filled after the critic)
+- Critic (independent subagent, opened Gong, Bland, Aircall, FCC, TRAI and 2 competitors): SHIP AFTER FIXES. "The only independent price table, the only page that works out cost per meeting, and the only page covering rules in six countries." Arithmetic confirmed.
+- Fixed: India row (one-year disconnection is for header/template misuse; undeclared A2P = UCC, re-read PR 119/2026); EU row adds ePrivacy Art. 13(1) prior consent for automatic calling machines (opened); US written consent covers residential lines too, phone number in ID; 16.7% relabelled "top reps" (Gong wording re-read); 11th Circuit case named; Australia cell sourced; Air AI FTC settlement (Mar 2026, ftc.gov opened) noted; calculator: duplicate $0.11 option, custom price + telephony fields, clamp on blur, <0.1 meetings and <5-meetings warning, rep comparison labelled; vendor table stacks on mobile; worked table in details; stage table → list; added copyable disclosure line, consent wording, 50-call scorecard and an answer-rate note.
+- Not done: Aircall $99 standalone minimum (not verified by me); all-in per-minute costs for Vapi/Synthflow (no primary source); STIR/SHAKEN detail (left to the US guide).
+- Verdict after fixes: ship. Playwright: no sideways scroll at 390/1280; calculator presets, typing, price select and tiny-meeting warning exercised; 0 aggregateRating.
 
 ## 8. Measure
 
