@@ -7,12 +7,7 @@ import { CopyButton, KeywordChecker } from './KitClient'
 import CampusResumePreview from './CampusResumePreview'
 import { Card, KitShell, Section, SITE, kitSchemas } from './KitLayout'
 import { PromptKit } from '@/components/ai/AiPrompt'
-import {
-  resumePrompt,
-  coverLetterPrompt,
-  linkedinPrompt,
-  mockInterviewPrompt,
-} from '@/data/aiPrompts'
+import { resumePrompt, coverLetterPrompt, lorPrompt } from '@/data/aiPrompts'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -369,8 +364,7 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
               kit.keywords.flatMap((g) => g.terms)
             ),
             coverLetterPrompt(hub),
-            linkedinPrompt(hub),
-            mockInterviewPrompt(hub),
+            lorPrompt(hub),
           ]}
         />
       </section>

@@ -8,8 +8,6 @@ import OfferCheck from './OfferCheck'
 import KitStrip from '@/components/roleKits/KitStrip'
 import { Figure, BarList, RangeList } from '@/components/viz'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
-import { PromptKit } from '@/components/ai/AiPrompt'
-import { negotiationPrompt, mockInterviewPrompt } from '@/data/aiPrompts'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
 const kicker = 'font-mono text-kicker uppercase tracking-[0.08em]'
@@ -853,14 +851,6 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             ))}
           </div>
         </Section>
-
-        <section id="with-ai" className="scroll-mt-24 border-t border-border py-12 md:py-16">
-          <PromptKit
-            title="Practise the salary talk before the real one"
-            sub="The AI plays the recruiter and pushes back. Bring the posted ranges from this page as your evidence."
-            prompts={[negotiationPrompt(hub), mockInterviewPrompt(hub)]}
-          />
-        </section>
       </div>
 
       <section className="bg-ink py-16 text-ink-fg md:py-20">

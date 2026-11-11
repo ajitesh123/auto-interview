@@ -1,6 +1,8 @@
 import type { AiPromptDef } from '@/components/ai/AiPrompt'
 
-// Ready prompts a candidate can open in Claude or ChatGPT. Written for the role, with the rules a
+// Ready prompts a candidate can open in Claude or ChatGPT, for DOCUMENTS only (resume, cover
+// letter, recommendation) and for lesson tutoring. Interview practice is never a prompt: it goes
+// to Tough Tongue AI via MockInterviewButton. Written for the role, with the rules a
 // good coach would set: ask before assuming, never invent facts, one step at a time.
 // Keep each under ~1,500 characters (they travel in a link).
 
@@ -50,66 +52,6 @@ Start by asking your questions.`,
   }
 }
 
-export function mockInterviewPrompt(r: RoleLike): AiPromptDef {
-  return {
-    id: 'mock',
-    title: `Run a written ${r.shortName} mock interview`,
-    why: 'Six questions, one at a time, with a score and a stronger answer after each.',
-    prompt: `Act as an interviewer hiring a ${r.roleName}. Run a mock interview with me.
-
-Rules:
-- Ask ONE question at a time and wait for my answer. 6 questions: 2 behavioural, 3 specific to the ${r.roleName} role, 1 short case or problem.
-- After each answer: score it 1 to 5 on structure, specifics and numbers; say in 2 lines what a strong answer has that mine lacked; show a stronger version in 4 lines using only facts I gave.
-- Ask a follow-up if my answer was vague, like a real interviewer.
-- At the end: my 3 biggest gaps and a 7-day plan to fix them.
-
-First ask which company and level I am interviewing for, then begin.`,
-  }
-}
-
-export function conceptsPrompt(r: RoleLike): AiPromptDef {
-  return {
-    id: 'concepts',
-    title: `Quiz me on ${r.shortName} concepts`,
-    why: 'Finds what you cannot yet explain, then teaches it with an example.',
-    prompt: `I am preparing for a ${r.roleName} interview. Test whether I can explain the concepts the role needs.
-
-Rules:
-- List the 12 concepts an interviewer most expects a ${r.roleName} to explain. Then quiz me on them one at a time.
-- For each: ask me to explain it in 2 or 3 sentences as I would in an interview. Wait for my answer.
-- Then tell me what was right, what was missing, and give a worked example with small numbers.
-- Keep a running list of the concepts I got wrong. At the end, re-ask those, then give me a one-page revision sheet.
-
-Start with the list, then question 1.`,
-  }
-}
-
-export function planPrompt(r: RoleLike): AiPromptDef {
-  return {
-    id: 'plan',
-    title: 'Build my day-by-day prep plan',
-    why: 'A realistic plan around your interview date and the hours you have.',
-    prompt: `Build me a day-by-day preparation plan for a ${r.roleName} interview.
-
-First ask me: the interview date, the company and rounds if I know them, hours I can study per day, and my 2 weakest areas. Wait for my answers.
-
-Then give a table: day, focus, exact task (specific, not "revise"), time needed, and how I will know it is done. Include: role concepts, practice questions answered out loud, one mock interview every 3 days, my resume stories, questions to ask the interviewer, and a light last day. Keep each day within my hours.`,
-  }
-}
-
-export function negotiationPrompt(r: RoleLike): AiPromptDef {
-  return {
-    id: 'negotiate',
-    title: 'Practise the salary conversation',
-    why: 'The AI plays the recruiter. Use the pay data on this page as your evidence.',
-    prompt: `Play a recruiter making me an offer for a ${r.roleName} role, so I can practise negotiating.
-
-First ask me: the offer (fixed, variable, equity, joining bonus), my current pay, the city, my years of experience, and any other offers. Wait for my answers.
-
-Then role-play the call one line at a time: you speak as the recruiter, I reply. Push back the way a real recruiter does (budget, internal parity, "this is our best"). After 6 exchanges, stop and review: what I did well, where I gave away leverage, the exact sentences I should have said, and what to ask for besides base pay.`,
-  }
-}
-
 export function lorPrompt(r: RoleLike): AiPromptDef {
   return {
     id: 'lor',
@@ -123,29 +65,13 @@ Then write: (1) a polite 100-word email asking for the letter, with the deadline
   }
 }
 
-export function linkedinPrompt(r: RoleLike): AiPromptDef {
-  return {
-    id: 'linkedin',
-    title: 'Fix my LinkedIn headline and About',
-    why: 'So recruiters searching for this role find you and understand you in ten seconds.',
-    prompt: `Rewrite my LinkedIn headline and About section so recruiters searching for a ${r.roleName} find me.
-
-First ask me for my current headline, About text, and my 3 best results with numbers. Wait.
-
-Then give: 3 headline options under 120 characters (role + what I do + proof), and an About section of 5 short lines: what I do, 2 results with numbers, tools I use, what I want next. Plain words. Only facts I gave.`,
-  }
-}
-
-/** The set shown on a role hub. */
+/**
+ * The set shown on a role hub. Rahul, 11 Nov 2026: only documents (resume, cover letter,
+ * recommendation) go to Claude or ChatGPT. Mock interviews and any spoken practice happen on
+ * Tough Tongue AI only (MockInterviewButton), never through a prompt.
+ */
 export function hubPrompts(r: RoleLike, keywords?: string[]): AiPromptDef[] {
-  return [
-    mockInterviewPrompt(r),
-    conceptsPrompt(r),
-    planPrompt(r),
-    resumePrompt(r, keywords),
-    coverLetterPrompt(r),
-    negotiationPrompt(r),
-  ]
+  return [resumePrompt(r, keywords), coverLetterPrompt(r), lorPrompt(r)]
 }
 
 /** A tutor prompt for any lesson (Learn AI and the Paul Graham course). */

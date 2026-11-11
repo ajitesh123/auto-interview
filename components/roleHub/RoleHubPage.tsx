@@ -1224,13 +1224,25 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
         <section id="ai-prompts" className="scroll-mt-24 border-t border-border py-16 md:py-20">
           <div className={container}>
             <PromptKit
-              title={`Prepare for the ${hub.shortName} interview with AI`}
-              sub="Six prompts written for this role. One tap opens Claude or ChatGPT with the prompt typed in: a written mock interview, a concept quiz, your prep plan, your resume, your cover letter and the salary talk."
+              title={`Write your ${hub.shortName} documents with AI`}
+              sub="The guides and templates are on this site. If you want AI to draft from your own facts, one tap opens Claude or ChatGPT with the prompt typed in: your resume, your cover letter and your recommendation letter."
               prompts={hubPrompts(
                 hub,
                 ROLE_KITS[hub.slug]?.resume.keywords.flatMap((g) => g.terms)
               )}
             />
+            <div className="mt-8 flex flex-col gap-4 rounded-xl border border-border bg-surface p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+              <div className="max-w-xl">
+                <div className="text-h4 font-semibold text-fg">
+                  Practise the interview out loud, here
+                </div>
+                <p className="mt-1 text-small text-fg-2">
+                  Mock interviews run on Tough Tongue AI: a voice interviewer asks {hub.shortName}{' '}
+                  questions, follows up, and gives feedback on each answer.
+                </p>
+              </div>
+              <MockInterviewButton caption={false} />
+            </div>
           </div>
         </section>
 
