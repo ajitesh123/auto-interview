@@ -5,6 +5,7 @@ import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST, type RoleSalary, type PayPost } from '@/data/roleSalary'
 import { computeSalary, DEFAULT_INPUTS, inr } from '@/data/indiaTax'
 import OfferCheck from './OfferCheck'
+import KitStrip from '@/components/roleKits/KitStrip'
 import { Figure, BarList, RangeList } from '@/components/viz'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
@@ -663,6 +664,10 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             </Link>
           </div>
         </header>
+
+        <div className="mt-8 max-w-3xl">
+          <KitStrip hub={hub} current="salary" />
+        </div>
 
         <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
           <div className={`${kicker} text-signal-ink`}>How we got these numbers</div>

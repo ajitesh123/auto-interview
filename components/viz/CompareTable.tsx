@@ -52,7 +52,7 @@ export default function CompareTable({
         // Scrollable region must be keyboard-focusable (WCAG 2.1.1)
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        className="overflow-x-auto rounded-2xl border border-border bg-surface"
+        className="relative overflow-x-auto rounded-2xl border border-border bg-surface"
       >
         <table className="w-full min-w-[560px] border-collapse text-left text-small">
           <thead>

@@ -7,6 +7,8 @@ import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { AI_TOOLKIT } from '@/data/aiToolkit'
 import { lessonsForRole, LEARN_AI_COUNT } from '@/data/learnAi/roleLessons'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
+import { ROLE_CONCEPTS } from '@/data/roleConcepts'
+import { Figure, BarList } from '@/components/viz'
 import {
   JourneyMobileBar,
   JourneyRail,
@@ -162,6 +164,16 @@ function SourceLink({ label, url }: { label: string; url: string }) {
 function KitLinks({ hub }: { hub: RoleHub }) {
   if (!ROLE_KITS[hub.slug]) return null
   const items = [
+    ...(ROLE_CONCEPTS[hub.slug]
+      ? [
+          {
+            href: `/${hub.slug}/concepts`,
+            kicker: 'Concepts + quiz',
+            title: `${ROLE_CONCEPTS[hub.slug].concepts.length} ${hub.shortName} concepts to know`,
+            line: 'One-line definitions, worked examples with real output, the trap interviewers probe, and a self-check quiz.',
+          },
+        ]
+      : []),
     {
       href: KIT_PATHS.resume(hub.slug),
       kicker: 'Resume (CV)',
@@ -176,7 +188,7 @@ function KitLinks({ hub }: { hub: RoleHub }) {
     },
   ]
   return (
-    <div className="grid gap-3 md:grid-cols-2">
+    <div className={`grid gap-3 md:grid-cols-2 ${items.length === 3 ? 'lg:grid-cols-3' : ''}`}>
       {items.map((it) => (
         <Link
           key={it.href}
@@ -221,7 +233,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     ...hub.expectationLabels,
   }
   const totalQuestions = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
-  const maxHires = Math.max(...hub.hiring.companies.map((c) => c.count))
+  const hires = [...hub.hiring.companies].sort((a, b) => b.count - a.count)
   const story = hub.story
   const pay = typicalPay(hub)
   const medians = hub.pay.tables
@@ -668,46 +680,30 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 title={hub.hiring.title ?? 'Who is hiring the most in 2025–26'}
                 sub={hub.hiring.intro}
               >
-                <div
-                  data-reveal
-                  className="overflow-hidden rounded-2xl border border-border bg-surface"
+                <Figure
+                  label={`New ${hub.shortName} hires · ${hub.hiring.companies.length} rows · ${hub.hiring.sourceLabel}`}
+                  title={`${/people/i.test(hires[0].name) ? `Employers with ${hires[0].name.toLowerCase()}` : hires[0].name}: the most new ${hub.shortName} hires (${hires[0].count.toLocaleString('en-US')})`}
+                  sub={`People who started in the title recently (next: ${hires
+                    .slice(1, 3)
+                    .map((c) => `${c.name} ${c.count.toLocaleString('en-US')}`)
+                    .join(', ')}).`}
+                  source={[{ label: hub.hiring.sourceLabel }]}
+                  updated={hub.hiring.asOf}
+                  note={`How we counted: ${hub.hiring.method}`}
+                  table={{
+                    head: ['Employer', 'Type', 'New hires'],
+                    rows: hub.hiring.companies.map((c) => [c.name, c.segment, c.count]),
+                  }}
+                  className="!my-0"
                 >
-                  <ul className="divide-y divide-border">
-                    {hub.hiring.companies.map((c, i) => (
-                      <li
-                        key={c.name}
-                        className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 px-5 py-3.5"
-                      >
-                        <div className="min-w-0">
-                          <div className="truncate text-small font-semibold text-fg">{c.name}</div>
-                          <div className="text-caption text-fg-3">{c.segment}</div>
-                        </div>
-                        <div className="text-right">
-                          <span className="font-mono text-small font-semibold tabular-nums text-fg">
-                            {c.count.toLocaleString('en-US')}
-                          </span>
-                          <span className="ml-1 text-caption text-fg-3">new</span>
-                        </div>
-                        <div
-                          className="col-span-2 h-1.5 overflow-hidden rounded-full bg-muted"
-                          aria-hidden="true"
-                        >
-                          <div
-                            data-bar
-                            className="h-full rounded-full bg-signal/80"
-                            style={{
-                              width: `${Math.max(3, (c.count / maxHires) * 100)}%`,
-                              transitionDelay: `${i * 40}ms`,
-                            }}
-                          />
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <p className="max-w-[68ch] text-caption leading-relaxed text-fg-3">
-                  How we counted: {hub.hiring.method} ({hub.hiring.sourceLabel}, {hub.hiring.asOf}.)
-                </p>
+                  <BarList
+                    rows={hub.hiring.companies.map((c) => ({
+                      label: c.name,
+                      value: c.count,
+                      note: c.segment,
+                    }))}
+                  />
+                </Figure>
               </Block>
             </Chapter>
 
@@ -899,6 +895,57 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 sub="Each answer shows how you could respond and what the interviewer is listening for. Say yours out loud first."
               >
                 <PracticeCounter slug={hub.slug} total={totalQuestions} />
+                {(() => {
+                  const mix = hub.questionGroups.map((g) => ({
+                    label: g.title,
+                    reported: g.questions.filter((q) => q.source).length,
+                    written: g.questions.filter((q) => !q.source).length,
+                  }))
+                  const rep = mix.reduce((a, m) => a + m.reported, 0)
+                  const size = (m: (typeof mix)[number]) => m.reported + m.written
+                  const most = Math.max(...mix.map(size))
+                  const tops = mix.filter((m) => size(m) === most)
+                  if (rep === 0) return null
+                  return (
+                    <Figure
+                      label={`Question bank · ${totalQuestions} questions · ${rep} reported by candidates`}
+                      title={
+                        tops.length === 1
+                          ? `${tops[0].label} is the biggest set: ${most} of ${totalQuestions} questions`
+                          : `${tops.map((t) => t.label).join(' and ')} are the biggest sets: ${most} questions each`
+                      }
+                      sub="Reported questions come from candidates’ write-ups (linked on each question); practice questions are ones we wrote to cover gaps."
+                      source={[{ label: 'Sources linked on each question below' }]}
+                      updated={`Updated ${hub.lastUpdated}`}
+                      table={{
+                        head: ['Group', 'Reported', 'Practice'],
+                        rows: mix.map((m) => [m.label, m.reported, m.written]),
+                      }}
+                      className="!my-0"
+                    >
+                      <BarList
+                        rows={mix.map((m) => ({
+                          label: m.label,
+                          value: m.reported + m.written,
+                          display: `${m.reported + m.written} (${m.reported} reported)`,
+                        }))}
+                      />
+                    </Figure>
+                  )
+                })()}
+                {ROLE_CONCEPTS[hub.slug] && (
+                  <p className="text-small text-fg-2">
+                    Shaky on the basics behind these questions?{' '}
+                    <Link
+                      href={`/${hub.slug}/concepts`}
+                      className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
+                    >
+                      Learn the {ROLE_CONCEPTS[hub.slug].concepts.length} concepts they test, with
+                      worked examples and a quiz
+                    </Link>
+                    .
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {hub.questionGroups.map((g) => (
                     <a

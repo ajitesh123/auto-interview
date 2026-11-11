@@ -4,6 +4,7 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import type { RoleHub } from '@/data/roleHubs/types'
 import { KIT_PATHS } from '@/data/roleKits'
 import { ArrowRightIcon } from '@/components/roleHub/icons'
+import KitStrip from './KitStrip'
 
 // Shared Signal Paper layout for role kit pages (resume / CV and letter of recommendation).
 
@@ -133,6 +134,9 @@ export function KitShell({
               </Link>
             </div>
           </header>
+          <div className="mt-8">
+            <KitStrip hub={hub} current={kind} />
+          </div>
           <nav aria-label="On this page" className="mt-10">
             <div className="text-caption font-medium text-fg-3">On this page</div>
             <ol className="mt-2 flex flex-wrap gap-2">

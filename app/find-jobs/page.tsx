@@ -3,7 +3,6 @@ import { genPageMetadata } from '../seo'
 import { FindJobsPage } from '@/features/find-jobs'
 import AppLayout from '@/components/AppLayout'
 import RelatedTools from '@/components/RelatedTools'
-import TLDRSummary from '@/components/TLDRSummary'
 
 // Nov 2026: rebuilt as a link-out search (no scraping). Copy describes only what the tool does.
 export const metadata: Metadata = genPageMetadata({
@@ -55,17 +54,6 @@ export default function FindJobs() {
       />
 
       <AppLayout>
-        <TLDRSummary
-          title="Job search across four boards"
-          summary="Type a job title once and open matching jobs on LinkedIn, Naukri, Indeed and Google Jobs. Then prepare for the interview with a role guide or a free AI mock interview."
-          keyPoints={[
-            'One search, four job boards: LinkedIn, Naukri, Indeed and Google Jobs',
-            'Naukri covers India well, including fresher and campus roles',
-            'Add a company name to see only that employer’s openings',
-            'Free, with no signup',
-          ]}
-        />
-
         <FindJobsPage />
 
         <section className="mx-auto w-full max-w-4xl px-8 pb-12">

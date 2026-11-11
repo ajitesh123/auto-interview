@@ -100,7 +100,10 @@ export default function ColumnChart({
         </div>
         <div className="mt-2 flex justify-around gap-2">
           {groups.map((g) => (
-            <span key={g.label} className="flex-1 text-center text-caption text-fg-2">
+            <span
+              key={g.label}
+              className="min-w-0 flex-1 hyphens-auto text-center text-caption text-fg-2 [overflow-wrap:anywhere]"
+            >
               {g.label}
             </span>
           ))}

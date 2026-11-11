@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import DomainLayout from '@/components/domain/DomainLayout'
-import TLDRSummary from '@/components/TLDRSummary'
 
 export const metadata: Metadata = {
   title: 'Free AI Mock Interview: Practice Online With AI (2026)',
@@ -101,19 +100,6 @@ export default function FreeMockInterviewPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      <TLDRSummary
-        title="Free AI Mock Interview Practice"
-        summary="Practice your interview skills with our advanced AI simulator. Get instant feedback on your answers, communication style, and body language to ace your next real interview."
-        keyPoints={[
-          'Unlimited free practice sessions available 24/7',
-          'Realistic interview scenarios for various job roles',
-          'Instant AI feedback on content and delivery',
-          'Analysis of filler words, pacing, and tone',
-          'Practice behavioral and technical questions',
-          'No credit card or signup required to start',
-        ]}
       />
 
       <div className="mx-auto max-w-5xl px-6 py-20">

@@ -10,6 +10,7 @@ import { BEHAVIORAL_QUESTIONS, ROLE_INTERVIEW_QUESTIONS } from '@/data/interview
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST } from '@/data/roleSalary'
+import { ROLE_CONCEPTS } from '@/data/roleConcepts'
 import { LESSONS } from '@/data/learnAi'
 import { PG_LESSONS } from '@/data/pgCourse'
 import { BATCH_BASE, BATCH_WEEKS } from '@/data/pgCourse/batch'
@@ -212,6 +213,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  // Concepts-to-know pages under each hub
+  const roleConceptRoutes = Object.values(ROLE_CONCEPTS).map((c) => ({
+    url: `${siteUrl}/${c.slug}/concepts`,
+    lastModified: c.lastUpdated,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
   // Learn AI: the hub and every lesson
   const learnAiRoutes = [
     {
@@ -283,6 +292,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...roleHubRoutes,
     ...roleKitRoutes,
     ...roleSalaryRoutes,
+    ...roleConceptRoutes,
     ...learnAiRoutes,
     ...pgCourseRoutes,
     ...interviewBehavioralRoutes,

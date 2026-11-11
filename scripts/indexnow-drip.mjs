@@ -72,6 +72,10 @@ function toUrls(files) {
     add(`${ORIGIN}/${m[1]}/resume`, t)
     add(`${ORIGIN}/${m[1]}/letter-of-recommendation`, t)
   })
+  // Concepts pages: data/roleConcepts/<slug>.ts -> /<slug>/concepts
+  each(/^data\/roleConcepts\/([a-z0-9-]+)\.ts$/, (m, t) => {
+    if (!['index', 'types'].includes(m[1])) add(`${ORIGIN}/${m[1]}/concepts`, t)
+  })
   // Learn AI lessons: data/learnAi/lessons/<slug>.ts -> /learn-ai/<slug>, plus the hub
   each(/^data\/learnAi\/lessons\/([a-z0-9-]+)\.ts$/, (m, t) => {
     add(`${ORIGIN}/learn-ai/${m[1]}`, t)
