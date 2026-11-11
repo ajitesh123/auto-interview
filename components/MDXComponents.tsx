@@ -38,6 +38,8 @@ import {
   AiLmsAcademicTable,
 } from './blog/AiLmsTables'
 import { SalesLmsVendorTable, SalesLmsWorkedTable } from './blog/SalesLmsTables'
+import AiCallingCostCalculator from './blog/AiCallingCostCalculator'
+import { AiCallingVendorTable, AiCallingWorkedTable } from './blog/AiCallingSalesTables'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -81,5 +83,8 @@ export const components: MDXComponents = {
   AiLmsAcademicTable,
   SalesLmsVendorTable,
   SalesLmsWorkedTable,
+  AiCallingCostCalculator,
+  AiCallingVendorTable,
+  AiCallingWorkedTable,
   Tweet,
 }
