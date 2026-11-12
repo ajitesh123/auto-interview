@@ -256,6 +256,20 @@ export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> 
       why: 'FDE work is connecting systems. APIs, keys and rate limits come up on day one.',
     },
   ],
+  'agent-harness': [
+    {
+      hub: 'ai-engineer',
+      why: 'Interviewers ask why an agent failed. Naming the harness part (context, tool, check) is the strong answer.',
+    },
+    {
+      hub: 'fde',
+      why: 'Most customer agent work is harness work: connectors, permissions and checks around a model you cannot change.',
+    },
+    {
+      hub: 'aipm',
+      why: 'Knowing what belongs to the model and what belongs to the harness is how you scope an agent feature.',
+    },
+  ],
   'agent-skills': [
     {
       hub: 'ai-engineer',

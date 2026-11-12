@@ -206,7 +206,7 @@ export const lesson: Lesson = {
   ],
   related: [
     { label: 'Previous: What are Agent Skills?', href: '/learn-ai/agent-skills' },
-    { label: 'Next: Prompt injection and AI security', href: '/learn-ai/prompt-injection' },
+    { label: 'Next: What is an agent harness?', href: '/learn-ai/agent-harness' },
     { label: 'What is an AI agent?', href: '/learn-ai/ai-agents' },
     { label: 'Context engineering', href: '/learn-ai/context-engineering' },
     { label: 'Claude Code for beginners', href: '/learn-ai/claude-code' },

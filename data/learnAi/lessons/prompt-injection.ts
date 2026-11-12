@@ -310,7 +310,7 @@ get through.`,
     },
   ],
   related: [
-    { label: 'Previous: Subagents and multi-agent systems', href: '/learn-ai/multi-agent-systems' },
+    { label: 'Previous: What is an agent harness?', href: '/learn-ai/agent-harness' },
     { label: 'Next: Evals: does your AI work?', href: '/learn-ai/ai-evals' },
     { label: 'What is an AI agent?', href: '/learn-ai/ai-agents' },
     { label: 'What is MCP?', href: '/learn-ai/what-is-mcp' },

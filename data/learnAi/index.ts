@@ -80,6 +80,12 @@ export function sourceVoices() {
  * new gaps it found back here. The path is meant to keep growing.
  */
 export const LEARN_AI_BACKLOG: string[] = [
+  'Connectors in Claude and ChatGPT: connect Gmail, Drive, Slack and Notion, with three worked workflows (Rahul, 12 Nov: harness, connectors, MCP, what makes an agent better)',
+  'Hooks and permissions: rules an agent cannot ignore',
+  'CLAUDE.md and AGENTS.md: how to write the instruction file an agent reads every session',
+  'Build your first MCP server: give an agent one tool of your own',
+  'Long-running agents: plans, progress files and checklists that keep an agent on track for hours',
+  'Agent SDKs compared: Claude Agent SDK, OpenAI Agents SDK and LangGraph, and when you need one',
   'Diffusion models in depth: how image and video generators work',
   'AI image prompting: getting good images from Midjourney, Gemini and ChatGPT',
   'AI video and music generation: what works today',
