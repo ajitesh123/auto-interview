@@ -8,6 +8,7 @@ import CampusResumePreview from './CampusResumePreview'
 import { Card, KitShell, Section, SITE, kitSchemas } from './KitLayout'
 import { PromptKit } from '@/components/ai/AiPrompt'
 import { resumePrompt, coverLetterPrompt, lorPrompt } from '@/data/aiPrompts'
+import { ROLE_COVER_LETTERS, coverLetterPath } from '@/data/roleCoverLetters'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -300,7 +301,8 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-caption font-semibold text-fg-3">
-                  Cover letter (about 150 words)
+                  Short cover note for email (
+                  {kit.coverLetter.body.split(/\s+/).filter(Boolean).length} words)
                 </div>
                 <div className="mt-1 text-small font-semibold text-fg">
                   Subject: {kit.coverLetter.subject}
@@ -311,6 +313,14 @@ export default function ResumeKitPage({ hub, kit }: { hub: RoleHub; kit: ResumeK
             <p className="mt-3 whitespace-pre-line rounded-lg bg-muted p-4 text-small leading-relaxed text-fg">
               {kit.coverLetter.body}
             </p>
+            {ROLE_COVER_LETTERS[hub.slug] && (
+              <Link
+                href={coverLetterPath(hub.slug)}
+                className="mt-3 inline-flex h-10 items-center gap-1.5 text-small font-semibold text-signal-strong hover:underline"
+              >
+                Full cover letter guide: 3 samples, Word template, checker <ArrowRightIcon />
+              </Link>
+            )}
           </Card>
           <Card>
             <div className="flex items-start justify-between gap-3">

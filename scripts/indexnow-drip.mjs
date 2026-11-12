@@ -76,6 +76,10 @@ function toUrls(files) {
   each(/^data\/roleConcepts\/([a-z0-9-]+)\.ts$/, (m, t) => {
     if (!['index', 'types'].includes(m[1])) add(`${ORIGIN}/${m[1]}/concepts`, t)
   })
+  // Cover letter kits: data/roleCoverLetters/<slug>.ts -> /<slug>/cover-letter
+  each(/^data\/roleCoverLetters\/([a-z0-9-]+)\.ts$/, (m, t) => {
+    if (!['index', 'types'].includes(m[1])) add(`${ORIGIN}/${m[1]}/cover-letter`, t)
+  })
   // Learn AI lessons: data/learnAi/lessons/<slug>.ts -> /learn-ai/<slug>, plus the hub
   each(/^data\/learnAi\/lessons\/([a-z0-9-]+)\.ts$/, (m, t) => {
     add(`${ORIGIN}/learn-ai/${m[1]}`, t)

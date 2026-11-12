@@ -43,7 +43,7 @@ export function coverLetterPrompt(r: RoleLike): AiPromptDef {
 
 Rules:
 - First ask me for: the job post, the company name, and my 2 most relevant achievements with numbers. Wait for my answers.
-- 150 to 180 words, 3 short paragraphs: why this company, the proof I can do this job (my 2 achievements), a clear close.
+- 250 to 350 words, 4 short paragraphs: the role and my best result; one analysis or project told as question, data, method, decision, number; 2-3 tools from the job post with one line of proof each; why this team and a clear close.
 - Plain, confident English. No "I am writing to apply", no "passionate", no flattery.
 - Use only facts I give you. If something is missing, ask.
 - Then give me a 2-line version for a recruiter message on LinkedIn.

@@ -5,6 +5,7 @@ import type { RoleHub } from '@/data/roleHubs/types'
 import { KIT_PATHS } from '@/data/roleKits'
 import { ArrowRightIcon } from '@/components/roleHub/icons'
 import KitStrip from './KitStrip'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
 
 // Shared Signal Paper layout for role kit pages (resume / CV and letter of recommendation).
 
@@ -65,7 +66,7 @@ export function KitShell({
   faqs,
 }: {
   hub: RoleHub
-  kind: 'resume' | 'lor'
+  kind: 'resume' | 'lor' | 'cover-letter'
   h1: string
   kicker: string
   directAnswer: string
@@ -79,6 +80,8 @@ export function KitShell({
     kind === 'resume'
       ? { href: KIT_PATHS.lor(hub.slug), label: `Letter of recommendation for ${hub.shortName}` }
       : { href: KIT_PATHS.resume(hub.slug), label: `${hub.shortName} resume (CV) guide` }
+  const crumb =
+    kind === 'resume' ? 'Resume (CV)' : kind === 'lor' ? 'Letter of recommendation' : 'Cover letter'
   return (
     <DomainLayout currentPath={`/${hub.slug}`}>
       {schemas.map((s, i) => (
@@ -102,9 +105,7 @@ export function KitShell({
               {hub.roleName}
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-fg-2">
-              {kind === 'resume' ? 'Resume (CV)' : 'Letter of recommendation'}
-            </span>
+            <span className="text-fg-2">{crumb}</span>
           </nav>
           <header className="mt-8 max-w-3xl">
             <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
@@ -132,6 +133,12 @@ export function KitShell({
               >
                 Full {hub.shortName} interview guide
               </Link>
+            </div>
+            <div className="mt-5">
+              <MockInterviewButton
+                label={`Practise the ${hub.shortName} interview`}
+                role={hub.roleName}
+              />
             </div>
           </header>
           <div className="mt-8">

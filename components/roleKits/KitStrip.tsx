@@ -3,6 +3,7 @@ import type { RoleHub } from '@/data/roleHubs/types'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARIES } from '@/data/roleSalary'
 import { ROLE_CONCEPTS } from '@/data/roleConcepts'
+import { ROLE_COVER_LETTERS, coverLetterPath } from '@/data/roleCoverLetters'
 
 /**
  * "Your <role> kit": every page we have for this role, in the order a candidate uses them.
@@ -17,6 +18,11 @@ export default function KitStrip({ hub, current }: { hub: RoleHub; current: stri
       key: 'resume',
       href: KIT_PATHS.resume(s),
       label: 'Resume (CV) + Word template',
+    },
+    ROLE_COVER_LETTERS[s] && {
+      key: 'cover-letter',
+      href: coverLetterPath(s),
+      label: 'Cover letter + Word template',
     },
     ROLE_KITS[s] && { key: 'lor', href: KIT_PATHS.lor(s), label: 'Letter of recommendation' },
     ROLE_SALARIES[s] && { key: 'salary', href: `/${s}/salary`, label: 'Salary' },
