@@ -246,8 +246,8 @@ export const lesson: Lesson = {
   ],
   related: [
     {
-      label: 'Previous: AI for Excel and Google Sheets',
-      href: '/learn-ai/ai-for-excel-and-google-sheets',
+      label: 'Previous: Connectors: Gmail, Drive and Slack in AI',
+      href: '/learn-ai/ai-connectors',
     },
     { label: 'Tokens and context windows', href: '/learn-ai/tokens-and-context-window' },
     { label: 'Next: Tool calling (function calling)', href: '/learn-ai/tool-calling' },

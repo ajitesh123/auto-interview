@@ -80,7 +80,6 @@ export function sourceVoices() {
  * new gaps it found back here. The path is meant to keep growing.
  */
 export const LEARN_AI_BACKLOG: string[] = [
-  'Connectors in Claude and ChatGPT: connect Gmail, Drive, Slack and Notion, with three worked workflows (Rahul, 12 Nov: harness, connectors, MCP, what makes an agent better)',
   'Hooks and permissions: rules an agent cannot ignore',
   'CLAUDE.md and AGENTS.md: how to write the instruction file an agent reads every session',
   'Build your first MCP server: give an agent one tool of your own',
@@ -108,4 +107,6 @@ export const LEARN_AI_BACKLOG: string[] = [
   'Quantization explained: 4-bit, GGUF and MXFP4, and why model files shrink',
   'AI for PowerPoint and Word: Copilot, Gemini and the Claude and ChatGPT add-ins',
   'Python in Excel (=PY) for non-coders: when a formula is not enough',
+  'AI that works across your apps: ChatGPT Work and Claude Cowork, with approvals (gap found 12 Nov: ChatGPT Work launched 9 Jul 2026)',
+  'MCP Apps: interactive app screens inside Claude and ChatGPT (both support the MCP Apps spec in 2026)',
 ]

@@ -180,6 +180,20 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
 // Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
 // that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
 export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'ai-connectors': [
+    {
+      hub: 'chief-of-staff',
+      why: 'Briefs and weekly updates pulled from email, Slack and docs are core chief of staff work. Connectors do the gathering.',
+    },
+    {
+      hub: 'founders-office',
+      why: 'Founder’s office work spans every tool. Knowing which connector permissions are safe is expected.',
+    },
+    {
+      hub: 'gtm-engineer',
+      why: 'Connecting the CRM, inbox and Slack to an AI is the first GTM automation most teams try.',
+    },
+  ],
   'ai-for-excel-and-google-sheets': [
     {
       hub: 'strategy-and-operations',

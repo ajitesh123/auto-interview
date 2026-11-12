@@ -420,7 +420,7 @@ there is no match.`,
   ],
   related: [
     { label: 'Previous: AI for data analysis', href: '/learn-ai/ai-for-data-analysis' },
-    { label: 'Next: What is an API?', href: '/learn-ai/what-is-an-api' },
+    { label: 'Next: Connectors: Gmail, Drive and Slack in AI', href: '/learn-ai/ai-connectors' },
     { label: 'Why AI makes things up', href: '/learn-ai/ai-hallucinations' },
     { label: 'Data analyst interview guide', href: '/data-analyst' },
     { label: 'Data analyst concepts to know', href: '/data-analyst/concepts' },

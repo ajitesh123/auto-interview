@@ -7,7 +7,7 @@ export const lesson: Lesson = {
   title: 'What is an agent harness?',
   metaTitle: 'What Is an Agent Harness? AI Harness Explained Simply',
   metaDescription:
-    'What is an agent harness? The software around an AI model: tools, context, memory, MCP connectors, skills, hooks and checks. See why the harness changes results.',
+    'What is an agent harness? The software around an AI model: tools, context, memory, MCP connectors, skills, hooks and checks, and why it changes the results.',
   h1: 'What is an agent harness? The layer that makes an AI model useful',
   tldr: 'An agent harness is the software wrapped around an AI model: it gives the model tools, decides what the model sees, keeps notes between sessions, and checks the work. The model does the thinking; the harness does everything else. Claude Code, Cursor and OpenAI Codex are harnesses, and the parts you can change yourself are instruction files, skills, MCP connectors, subagents, hooks and permissions.',
   minutes: 14,
@@ -57,7 +57,7 @@ export const lesson: Lesson = {
             cells: [
               'Standing rules the agent sees every session',
               'Session start, in full, on every request',
-              'The agent gets a convention or command wrong twice',
+              'Same rule broken twice',
             ],
           },
           {
@@ -65,7 +65,7 @@ export const lesson: Lesson = {
             cells: [
               'A saved how-to for one kind of task',
               'Description at start; full text only when used',
-              'You paste the same procedure for the third time',
+              'Third paste of a procedure',
             ],
           },
           {
@@ -73,7 +73,7 @@ export const lesson: Lesson = {
             cells: [
               'Access to an outside app or database',
               'Tool names at start; full details on demand',
-              'You keep copying data from a tab the agent cannot see',
+              'You keep pasting app data',
             ],
           },
           {
@@ -81,7 +81,7 @@ export const lesson: Lesson = {
             cells: [
               'A helper with its own separate context',
               'Only when spawned; returns a summary',
-              'A side task floods the conversation with output',
+              'Side task floods the chat',
             ],
           },
           {
@@ -89,7 +89,7 @@ export const lesson: Lesson = {
             cells: [
               'A script that runs at a set moment, every time',
               'Runs outside the conversation; no context cost',
-              'Something must happen every time without asking',
+              'Must run every time',
             ],
           },
           {
@@ -97,7 +97,7 @@ export const lesson: Lesson = {
             cells: [
               'What the agent may do without asking you',
               'Always in force',
-              'You trust a command (run tests) or must block one',
+              'Trust or block a command',
             ],
           },
         ],
@@ -350,6 +350,7 @@ export const lesson: Lesson = {
     { label: 'Previous: Subagents and multi-agent systems', href: '/learn-ai/multi-agent-systems' },
     { label: 'Next: Prompt injection and AI security', href: '/learn-ai/prompt-injection' },
     { label: 'What is MCP?', href: '/learn-ai/what-is-mcp' },
+    { label: 'Connectors: Gmail, Drive and Slack in AI', href: '/learn-ai/ai-connectors' },
     { label: 'What are Agent Skills?', href: '/learn-ai/agent-skills' },
     { label: 'Context engineering', href: '/learn-ai/context-engineering' },
     { label: 'The levers that make answers better', href: '/learn-ai/ai-output-levers' },
@@ -367,7 +368,7 @@ export const lesson: Lesson = {
         'A planner turns a one-line request into a spec, so the builder is not guessing the scope.',
         'A separate evaluator uses the running app like a user; it is easier to make a judge strict than to make a builder self-critical.',
         'The harness run took 6 hours and $200 against 20 minutes and $9 alone, and only the harness run produced a working game.',
-        'With a newer model, the team removed sprints and context resets because the model no longer needed them.',
+        'With a newer model, the team removed the sprint structure (context resets had already gone) because the model no longer needed it.',
       ],
       use: 'Give your agent a written definition of "done" and a separate check. After each model upgrade, try removing one part of your setup.',
     },

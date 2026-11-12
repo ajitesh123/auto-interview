@@ -29,6 +29,56 @@ export const lesson: Lesson = {
         'Picture your laptop (host). Each USB-C port is a client. Each device you plug in, a hard disk or a monitor, is a server.',
         'Servers can be local or remote. A local server runs on your own computer, for example one that reads files in a folder. A remote server runs on the internet, for example one run by a company like Sentry, and you sign in to use it.',
       ],
+      visual: {
+        kind: 'compare',
+        label: 'Claude docs · checked 12 Nov 2026',
+        title:
+          'Remote servers suit online services; local ones suit your own files and offline work',
+        corner: 'Question',
+        columns: [{ name: 'Remote server (by URL)' }, { name: 'Local server (desktop extension)' }],
+        rows: [
+          {
+            label: 'Where it runs',
+            cells: ['On the internet, run by the tool maker', 'On your own computer'],
+          },
+          {
+            label: 'Best for',
+            cells: [
+              'Internet-hosted services and public APIs',
+              'Local files and tools, sensitive data, offline work',
+            ],
+          },
+          {
+            label: 'How you add it in Claude',
+            cells: [
+              'Customize > Connectors > Add custom connector',
+              'Desktop app: Settings > Extensions, drag in a .mcpb file',
+            ],
+          },
+          {
+            label: 'Who can use it',
+            cells: [
+              'Free (1 custom), Pro, Max, Ultra, Team, Enterprise',
+              'Claude desktop app, signed in',
+            ],
+          },
+          {
+            label: 'What it can reach',
+            cells: [
+              'Whatever your sign-in allows in that service',
+              'Whatever your user account can reach on the computer',
+            ],
+          },
+        ],
+        note: 'Most people meet remote servers first, as the connectors for Gmail, Drive, Slack or Notion.',
+        source: [
+          {
+            label: 'Claude docs: Add a connector that isn’t in the directory',
+            url: 'https://claude.com/docs/connectors/custom/remote-mcp',
+          },
+        ],
+        updated: 'Nov 2026',
+      },
       flow: [
         'You',
         'Host (e.g. Claude Desktop)',
@@ -49,7 +99,7 @@ export const lesson: Lesson = {
       example: {
         label: 'Part of a server’s tool list (simplified from the MCP docs)',
         code: true,
-        text: '{\n  "tools": [\n    {\n      "name": "weather_current",\n      "description": "Get current weather information for any location",\n      "inputSchema": {\n        "type": "object",\n        "properties": { "location": { "type": "string" } },\n        "required": ["location"]\n      }\n    }\n  ]\n}',
+        text: '{\n  "tools": [\n    {\n      "name": "get_weather",\n      "description": "Get current weather information for any location",\n      "inputSchema": {\n        "type": "object",\n        "properties": { "location": { "type": "string" } },\n        "required": ["location"]\n      }\n    }\n  ]\n}',
       },
       keyIdea:
         'MCP does not replace tool calling. The host collects tools from MCP servers and hands them to the model through ordinary tool calling.',
@@ -68,6 +118,67 @@ export const lesson: Lesson = {
         'Server runs it and replies',
         'Model answers you',
       ],
+      workflow: {
+        title: 'Worked workflow: trace one MCP request, message by message',
+        input:
+          'A host (say Claude Desktop) connected to a weather MCP server, and your question: "What is the weather in New York?" The messages below are shortened from the examples in the MCP specification.',
+        steps: [
+          {
+            title: 'The client asks the server what it can do',
+            detail:
+              'When it connects, and again if the server says its list changed, the client sends tools/list.',
+            code: `{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/list"
+}`,
+          },
+          {
+            title: 'The server replies with its tools',
+            detail:
+              'Each tool has a name, a description the model reads, and an input schema. The host passes these to the model as ordinary tools.',
+            code: `{ "name": "get_weather",
+  "description": "Get current
+    weather information
+    for a location",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string" } },
+    "required": ["location"] } }`,
+          },
+          {
+            title: 'The model picks a tool and fills in the input',
+            detail:
+              'Reading your question, the model asks to call get_weather with location "New York". The spec says a human should be able to deny the call, so the host may show an approval prompt here.',
+          },
+          {
+            title: 'The client sends tools/call',
+            code: `{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "get_weather",
+    "arguments": {
+      "location": "New York" } } }`,
+            detail: 'Same JSON-RPC format, a new id, the tool name and the arguments.',
+          },
+          {
+            title: 'The server answers, and the model writes the reply',
+            detail:
+              'The result comes back as content blocks. If the tool failed, the result says isError: true and the model can explain or retry.',
+            code: `"content": [{
+  "type": "text",
+  "text": "...Temperature: 72°F
+    ...Partly cloudy" }],
+"isError": false`,
+          },
+        ],
+        output:
+          'You read "It is 72°F and partly cloudy in New York." Behind it: two requests, two replies, one approval. Every connector you switch on in Claude or ChatGPT works this way.',
+      },
     },
     {
       heading: 'Who supports MCP in 2026?',
@@ -77,7 +188,7 @@ export const lesson: Lesson = {
       ],
       bullets: [
         'Anthropic: Claude apps and Claude Code.',
-        'OpenAI: MCP servers in ChatGPT and Codex, the Responses API and the Agents SDK.',
+        'OpenAI: MCP servers in ChatGPT (as plugins since July 2026) and Codex, the Responses API and the Agents SDK.',
         'Google: Gemini support, and in April 2026, more than 50 Google-managed MCP servers for Google Cloud services such as BigQuery and Workspace.',
         'Microsoft: Microsoft Copilot, Copilot Studio (since March 2025) and Visual Studio Code.',
         'Developer tools such as Cursor.',
@@ -149,11 +260,11 @@ export const lesson: Lesson = {
   tryIt: {
     title: 'Connect Claude to a demo MCP server',
     steps: [
-      'Open Claude in a browser or Claude Desktop and go to Settings, then Connectors.',
-      'Choose Add, then "Add custom connector", and paste the official demo server address: https://example-server.modelcontextprotocol.io/mcp',
-      'In a new chat, open the "Add files, connectors, and more" menu and look under Connectors. You will see what the demo server offers.',
+      'Open Claude in a browser or Claude Desktop and go to Customize, then Connectors.',
+      'Choose "Add custom connector" and paste the official demo server address: https://example-server.modelcontextprotocol.io/mcp',
+      'In a new chat, select + at the lower left, then Connectors, and switch the demo server on. You will see what the demo server offers.',
       'Ask Claude to use one of its tools. Notice the approval prompt before the tool runs.',
-      'If your plan does not allow custom connectors, open the Connectors list anyway: each ready-made connector there, like Google Drive or GitHub, works the same way.',
+      'The Free plan allows one custom connector. If you already use it, open the Connectors list anyway: each ready-made connector there, like Google Drive or GitHub, works the same way.',
     ],
     link: {
       label: 'Official guide: connect to remote MCP servers',
@@ -219,6 +330,14 @@ export const lesson: Lesson = {
     },
   ],
   sources: [
+    {
+      label: 'MCP specification: Tools (tools/list and tools/call examples)',
+      url: 'https://modelcontextprotocol.io/specification/2025-06-18/server/tools',
+    },
+    {
+      label: 'Claude docs: Add a connector that isn’t in the directory (remote vs local)',
+      url: 'https://claude.com/docs/connectors/custom/remote-mcp',
+    },
     {
       label: 'Anthropic: Introducing the Model Context Protocol (Nov 2024)',
       url: 'https://www.anthropic.com/news/model-context-protocol',
@@ -289,6 +408,7 @@ export const lesson: Lesson = {
   ],
   related: [
     { label: 'Tool calling (function calling)', href: '/learn-ai/tool-calling' },
+    { label: 'Connectors: use MCP in Claude and ChatGPT', href: '/learn-ai/ai-connectors' },
     { label: 'What is an API?', href: '/learn-ai/what-is-an-api' },
     { label: 'Next: What is an AI agent?', href: '/learn-ai/ai-agents' },
     { label: 'Claude Code for beginners', href: '/learn-ai/claude-code' },
