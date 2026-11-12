@@ -40,6 +40,8 @@ import {
 import { SalesLmsVendorTable, SalesLmsWorkedTable } from './blog/SalesLmsTables'
 import AiCallingCostCalculator from './blog/AiCallingCostCalculator'
 import { AiCallingVendorTable, AiCallingWorkedTable } from './blog/AiCallingSalesTables'
+import IndiaSalesTrainerFinder from './blog/IndiaSalesTrainerFinder'
+import { IndiaSalesTrainingWorkedTable } from './blog/IndiaSalesTrainingTables'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -86,5 +88,7 @@ export const components: MDXComponents = {
   AiCallingCostCalculator,
   AiCallingVendorTable,
   AiCallingWorkedTable,
+  IndiaSalesTrainerFinder,
+  IndiaSalesTrainingWorkedTable,
   Tweet,
 }
