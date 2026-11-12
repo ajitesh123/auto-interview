@@ -5,6 +5,12 @@ tags: ai, agents, beginners, productivity
 canonical_url: https://www.autointerviewai.com/learn-ai/agent-harness
 ---
 
+I am not a software engineer by training. I studied mechanical engineering, then did an MBA in finance, and I now work in go-to-market. I am learning AI in public because I enjoy it, and the people I learn most from are the ones who explain things simply, the way Andrej Karpathy does.
+
+This week's word was "harness". I kept seeing it in posts from Anthropic and OpenAI and realised I could not explain it to a friend. These are my notes after reading the primary sources. If I have something wrong, please tell me in the comments.
+
+## The short version
+
 A model on its own reads text and writes text. Something else has to hand it tools, pick the files it sees, run its commands and pass the results back. That something is the **agent harness**.
 
 The Claude Code docs say it plainly: Claude Code is the layer around the model that provides the tools and manages the context the model sees, and that surrounding layer is what "agentic harness" refers to ([How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works)).
@@ -59,8 +65,11 @@ A working order:
 - Give the agent a written definition of "done" and a check it cannot grade itself on.
 - After each model upgrade, try removing something.
 
-## A worked example
+## What I am still unsure about
 
-I wrote up a full workflow (a small harness that tailors five resumes a week, with the instruction file, a skill, a connector, a blocking rule and a checklist the agent must fill in) plus a three-question self-check in the free lesson this post is based on: [What is an agent harness?](https://www.autointerviewai.com/learn-ai/agent-harness). It is part of a free, no-login [Learn AI path](https://www.autointerviewai.com/learn-ai) that also covers [MCP](https://www.autointerviewai.com/learn-ai/what-is-mcp) and [Agent Skills](https://www.autointerviewai.com/learn-ai/agent-skills).
+- How much of this carries over to Cursor and Codex. They have instruction files, skills, MCP and approvals, but I have only read the Claude Code docs closely.
+- Whether a separate evaluator is worth the cost for small tasks. The one measured case above is a six-hour build.
 
-Which harness part fixed the most problems for you? I would like to hear cases where removing something helped.
+If you have run the same task with and without a part of your harness, I would like to hear what changed, especially cases where removing something helped.
+
+_I keep longer notes, with a worked example and a short self-check, in a free Learn AI path I am building: [What is an agent harness?](https://www.autointerviewai.com/learn-ai/agent-harness). Disclosure: I drafted this post with AI assistance (Claude), and every claim links to its primary source._
