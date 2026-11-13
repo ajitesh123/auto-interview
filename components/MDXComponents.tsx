@@ -42,6 +42,14 @@ import AiCallingCostCalculator from './blog/AiCallingCostCalculator'
 import { AiCallingVendorTable, AiCallingWorkedTable } from './blog/AiCallingSalesTables'
 import IndiaSalesTrainerFinder from './blog/IndiaSalesTrainerFinder'
 import { IndiaSalesTrainingWorkedTable } from './blog/IndiaSalesTrainingTables'
+import SalesRoleplayFinder from './blog/SalesRoleplayFinder'
+import SalesRoleplayCostCalculator from './blog/SalesRoleplayCostCalculator'
+import {
+  SalesRoleplayStats,
+  SalesRoleplayPricingFigure,
+  SalesRoleplayCostFigure,
+  SalesRoleplayEvidenceFigure,
+} from './blog/SalesRoleplayFigures'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -90,5 +98,11 @@ export const components: MDXComponents = {
   AiCallingWorkedTable,
   IndiaSalesTrainerFinder,
   IndiaSalesTrainingWorkedTable,
+  SalesRoleplayFinder,
+  SalesRoleplayCostCalculator,
+  SalesRoleplayStats,
+  SalesRoleplayPricingFigure,
+  SalesRoleplayCostFigure,
+  SalesRoleplayEvidenceFigure,
   Tweet,
 }
