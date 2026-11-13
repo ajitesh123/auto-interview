@@ -8,6 +8,7 @@ import { AI_TOOLKIT } from '@/data/aiToolkit'
 import { lessonsForRole, LEARN_AI_COUNT } from '@/data/learnAi/roleLessons'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_CONCEPTS } from '@/data/roleConcepts'
+import { ROLE_INTERVIEW_TIPS, interviewTipsPath, tipStats } from '@/data/roleInterviewTips'
 import { Figure, BarList } from '@/components/viz'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
 import { PromptKit } from '@/components/ai/AiPrompt'
@@ -166,7 +167,18 @@ function SourceLink({ label, url }: { label: string; url: string }) {
 
 function KitLinks({ hub }: { hub: RoleHub }) {
   if (!ROLE_KITS[hub.slug]) return null
+  const tips = ROLE_INTERVIEW_TIPS[hub.slug]
   const items = [
+    ...(tips
+      ? [
+          {
+            href: interviewTipsPath(hub.slug),
+            kicker: 'Interview tips',
+            title: `Tips for each of the ${tips.rounds.length} ${hub.shortName} rounds`,
+            line: 'What each round is scored on, do and avoid, a weak vs strong opening, and a checklist to score your practice answer.',
+          },
+        ]
+      : []),
     ...(ROLE_CONCEPTS[hub.slug]
       ? [
           {
@@ -885,6 +897,19 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                     </div>
                   ))}
                 </div>
+                {ROLE_INTERVIEW_TIPS[hub.slug] && (
+                  <p className="mt-4 text-small text-fg-2">
+                    <Link
+                      href={interviewTipsPath(hub.slug)}
+                      className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
+                    >
+                      Tips for each round, from {tipStats(ROLE_INTERVIEW_TIPS[hub.slug]).nLoops}{' '}
+                      mapped interview loops
+                    </Link>
+                    : what each round is scored on, what to do and avoid, and weak vs strong
+                    answers.
+                  </p>
+                )}
               </Block>
 
               <Block

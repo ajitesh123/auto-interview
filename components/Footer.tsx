@@ -95,10 +95,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/blog/product-manager-interview-guide-2025"
+                  href="/product-manager/interview-tips"
                   className="text-sm text-[#666666] transition-colors hover:text-[#171717]"
                 >
-                  PM Interview Guide
+                  PM Interview Tips
                 </Link>
               </li>
               <li>

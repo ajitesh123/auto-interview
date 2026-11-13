@@ -1,7 +1,7 @@
 ---
 title: 'Google PM Interview Questions 2026: 16 Real Ones, Answered'
 date: '2025-10-03'
-lastmod: '2026-11-05'
+lastmod: '2026-11-13'
 summary: '16 real Google product manager interview questions with named sources (incl. Gemini AI rounds), strong-answer outlines, the 2026 loop, Levels.fyi pay in $ and ₹, and the APM 2027 deadline.'
 tags:
   - google-interviews
@@ -14,7 +14,7 @@ tags:
   - google-apm-program
 ---
 
-_Updated 5 Nov 2026: rebuilt around 16 reported questions with sources, Levels.fyi pay checked 5 Nov 2026, the AI rounds Gemini teams now run, and the Bengaluru APM 2027 deadline. Unsourced statistics from the old version were removed._
+_Updated 13 Nov 2026: added a diagram of the loop and fixed the source for question 5. Earlier, 5 Nov 2026: rebuilt around 16 reported questions with sources, Levels.fyi pay checked 5 Nov 2026, the AI rounds Gemini teams now run, and the Bengaluru APM 2027 deadline. Unsourced statistics from the old version were removed._
 
 **Google PM interviews in 2026 are a recruiter screen, a ~45-minute PM or hiring-manager screen, then 3–5 interviews of ~45 minutes each, followed by team match and a hiring committee. The whole process takes about 6–10 weeks** ([Exponent's Google PM guide](https://www.aced.io/guides/google-product-manager-interview)). Most questions are product design ("How would you improve Google Calendar?"), strategy, metrics, technical and behavioural. Teams like Gemini and DeepMind add AI-specific rounds.
 
@@ -42,30 +42,62 @@ Google uses structured interviews: every candidate for a role gets similar quest
 
 Sources: [Exponent (Aced) Google PM guide](https://www.aced.io/guides/google-product-manager-interview), checked 5 Nov 2026; [Glassdoor review, Mar 2025](https://www.glassdoor.com/Interview/Google-Interview-E9079-RVW95514550.htm) (a 30-minute phone screen with a design question, then an estimation question).
 
+<Figure
+  label="Google PM loop · reported 2025–2026"
+  title="A Google PM offer takes five stages, and the hiring committee, not your interviewers, makes the call"
+  source={[
+    {
+      label: 'Exponent (Aced) Google PM guide',
+      url: 'https://www.aced.io/guides/google-product-manager-interview',
+    },
+    {
+      label: 'Aced, Google Senior PM experience',
+      url: 'https://www.aced.io/experiences/google-senior-product-manager-interview-ffd98c',
+    },
+  ]}
+  updated="checked 13 Nov 2026"
+  note="A Senior PM candidate (rejected, ~Feb 2026) reported four loop rounds: behavioural, product design (Maps), analytics/execution (a YouTube comments drop) and strategy (Zoom)."
+>
+  <Flow
+    steps={[
+      { title: 'Recruiter screen', body: '~30 min: background, level' },
+      { title: 'PM / HM screen', body: '~45 min: one design + one metric or estimate' },
+      {
+        title: 'Onsite',
+        body: '3–5 × ~45 min: design, strategy, analytics, technical, leadership',
+      },
+      { title: 'Team match', body: 'Can come before or after the committee' },
+      { title: 'Hiring committee', body: 'Decides hire and level' },
+    ]}
+  />
+</Figure>
+
+For what each of those rounds is scored on, what to do and avoid in each, and weak vs strong openings, see [product manager interview tips, round by round](/product-manager/interview-tips).
+
 **What changed recently:** Exponent reports that AI-focused orgs (Gemini, DeepMind) add a live prototyping round, where you build a rough MVP with an AI tool in 10–15 minutes, plus an AI system design round. One Senior PM candidate was asked to "build a prototype or MVP for the solution you just described" ([Aced report](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)). Generalist PM loops still look classic.
 
 ## 16 real Google PM interview questions (with sources)
 
 Every question below was reported by a candidate. We name the source and date so you can judge how fresh it is. Exponent pages show relative dates, so those dates are approximate.
 
-| Question (as reported)                                                                                      | Type · role                     | Reported (source)                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| 1. How would you improve Google Calendar?                                                                   | Product design · PM             | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                             |
-| 2. Design a fitness product for seniors                                                                     | Product design · PM             | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                             |
-| 3. Design backend for messaging system                                                                      | Technical · PM                  | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                             |
-| 4. Design a product for users once they check in at the airport                                             | Product design · APM, Bengaluru | [Glassdoor, Oct 2025](https://www.glassdoor.co.in/Interview/Google-Interview-E9079-RVW104236235.htm)                          |
-| 5. How to build a fridge for the blind                                                                      | Product design · APM            | [Glassdoor, Apr 2026](https://www.glassdoor.co.in/Interview/Google-Interview-E9079-RVW104236235.htm)                          |
-| 6. Increase the profit per user of a product of your choosing                                               | Strategy · L4 PM, Brazil        | [Exponent, ~Oct 2026](https://www.tryexponent.com/experiences/google-product-manager-interview-d7de8d)                        |
-| 7. Walk me through an end-to-end AI feature you shipped                                                     | Technical / AI · L6 PM, US      | [Aced, ~Apr 2026](https://www.aced.io/experiences/google-staff-product-manager-interview-389671)                              |
-| 8. How does Google Maps compute ETA?                                                                        | Technical · L6 PM, US           | [Aced, ~Apr 2026](https://www.aced.io/experiences/google-staff-product-manager-interview-389671)                              |
-| 9. Design an AI assistant for Gemini for college students                                                   | Product design / AI · Senior PM | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 10. Users are complaining that Gemini is confident but wrong. How would you fix this?                       | Metrics / AI · Senior PM        | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 11. When would you roll back the model versus iterate on it?                                                | Execution / AI · Senior PM      | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 12. What role should NotebookLM play within the broader Gemini suite?                                       | Strategy · Senior PM            | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 13. Design a high-level system for Gemini responding to a user query                                        | Technical / AI · Senior PM      | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 14. Describe a time you disagreed with engineers or researchers                                             | Behavioural · Senior PM         | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                            |
-| 15. You own an internal AI platform other teams build agents on. What's your strategy, and your one metric? | Strategy / metrics · PM         | [Aced, ~May 2026](https://www.aced.io/companies/google)                                                                       |
-| 16. Tell me about a time you used data to make a decision                                                   | Behavioural · PM                | [Glassdoor, undated](https://www.glassdoor.com/Interview/Google-Product-Manager-Interview-Questions-EI_IE9079.0,6_KO7,22.htm) |
+| Question (as reported)                                                                                      | Type · role                     | Reported (source)                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. How would you improve Google Calendar?                                                                   | Product design · PM             | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                                                           |
+| 2. Design a fitness product for seniors                                                                     | Product design · PM             | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                                                           |
+| 3. Design backend for messaging system                                                                      | Technical · PM                  | [Glassdoor, Jan 2026](https://www.glassdoor.sg/Interview/Google-Interview-E9079-RVW102441674.htm)                                                           |
+| 4. Design a product for users once they check in at the airport                                             | Product design · APM, Bengaluru | [Glassdoor, Oct 2025](https://www.glassdoor.co.in/Interview/Google-Interview-E9079-RVW104236235.htm)                                                        |
+| 5. How to build a fridge for the blind                                                                      | Product design · APM            | [Glassdoor APM questions, undated](https://www.glassdoor.co.uk/Interview/Google-Associate-Product-Manager-APM-Interview-Questions-EI_IE9079.0,6_KO7,36.htm) |
+| 6. Increase the profit per user of a product of your choosing                                               | Strategy · L4 PM, Brazil        | [Exponent, ~Oct 2026](https://www.tryexponent.com/experiences/google-product-manager-interview-d7de8d)                                                      |
+| 7. Walk me through an end-to-end AI feature you shipped                                                     | Technical / AI · L6 PM, US      | [Aced, ~Apr 2026](https://www.aced.io/experiences/google-staff-product-manager-interview-389671)                                                            |
+| 8. How does Google Maps compute ETA?                                                                        | Technical · L6 PM, US           | [Aced, ~Apr 2026](https://www.aced.io/experiences/google-staff-product-manager-interview-389671)                                                            |
+| 9. Design an AI assistant for Gemini for college students                                                   | Product design / AI · Senior PM | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 10. Users are complaining that Gemini is confident but wrong. How would you fix this?                       | Metrics / AI · Senior PM        | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 11. When would you roll back the model versus iterate on it?                                                | Execution / AI · Senior PM      | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 12. What role should NotebookLM play within the broader Gemini suite?                                       | Strategy · Senior PM            | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 13. Design a high-level system for Gemini responding to a user query                                        | Technical / AI · Senior PM      | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 14. Describe a time you disagreed with engineers or researchers                                             | Behavioural · Senior PM         | [Aced, ~late 2025](https://www.aced.io/experiences/google-senior-product-manager-interview-c97845)                                                          |
+| 15. You own an internal AI platform other teams build agents on. What's your strategy, and your one metric? | Strategy / metrics · PM         | [Aced, ~May 2026](https://www.aced.io/companies/google)                                                                                                     |
+| 16. Tell me about a time you used data to make a decision                                                   | Behavioural · PM                | [Glassdoor, undated](https://www.glassdoor.com/Interview/Google-Product-Manager-Interview-Questions-EI_IE9079.0,6_KO7,22.htm)                               |
 
 Two patterns stand out. Seven of the 16 questions mention AI or Gemini, so expect at least one AI question even outside AI teams. And design prompts target a specific, constrained user (seniors, blind users, airport travellers), so a strong answer picks a segment fast.
 
@@ -306,7 +338,7 @@ Yes, increasingly. Seven of the 16 reported questions here involve AI, and Gemin
 
 ## Up next
 
+- [Product manager interview tips, round by round](/product-manager/interview-tips): what each round tests, do and avoid, weak vs strong answers.
 - [AI product manager interview hub](/aipm): 30 questions with practice mode, AI PM pay and a prep plan.
 - [Microsoft PM interview guide](/blog/microsoft-product-manager-interview-guide-2025)
-- [Product manager interview guide](/blog/product-manager-interview-guide-2025)
 - [Practise out loud with a free AI mock interview](/free-mock-interview)

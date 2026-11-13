@@ -11,6 +11,7 @@ import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARY_LIST } from '@/data/roleSalary'
 import { ROLE_CONCEPTS } from '@/data/roleConcepts'
+import { ROLE_INTERVIEW_TIPS } from '@/data/roleInterviewTips'
 import { ROLE_COVER_LETTERS } from '@/data/roleCoverLetters'
 import { LESSONS } from '@/data/learnAi'
 import { PG_LESSONS } from '@/data/pgCourse'
@@ -223,6 +224,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  // Interview tips (round by round) under each hub
+  const roleTipsRoutes = Object.values(ROLE_INTERVIEW_TIPS).map((t) => ({
+    url: `${siteUrl}/${t.slug}/interview-tips`,
+    lastModified: t.checked,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
   const roleConceptRoutes = Object.values(ROLE_CONCEPTS).map((c) => ({
     url: `${siteUrl}/${c.slug}/concepts`,
     lastModified: c.lastUpdated,
@@ -302,6 +311,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...roleKitRoutes,
     ...roleSalaryRoutes,
     ...roleConceptRoutes,
+    ...roleTipsRoutes,
     ...roleCoverLetterRoutes,
     ...learnAiRoutes,
     ...pgCourseRoutes,

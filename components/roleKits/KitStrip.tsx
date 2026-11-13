@@ -4,6 +4,7 @@ import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 import { ROLE_SALARIES } from '@/data/roleSalary'
 import { ROLE_CONCEPTS } from '@/data/roleConcepts'
 import { ROLE_COVER_LETTERS, coverLetterPath } from '@/data/roleCoverLetters'
+import { ROLE_INTERVIEW_TIPS, interviewTipsPath } from '@/data/roleInterviewTips'
 
 /**
  * "Your <role> kit": every page we have for this role, in the order a candidate uses them.
@@ -13,6 +14,11 @@ export default function KitStrip({ hub, current }: { hub: RoleHub; current: stri
   const s = hub.slug
   const items = [
     { key: 'hub', href: `/${s}`, label: 'Interview guide' },
+    ROLE_INTERVIEW_TIPS[s] && {
+      key: 'interview-tips',
+      href: interviewTipsPath(s),
+      label: 'Tips for each round',
+    },
     ROLE_CONCEPTS[s] && { key: 'concepts', href: `/${s}/concepts`, label: 'Concepts + quiz' },
     ROLE_KITS[s] && {
       key: 'resume',

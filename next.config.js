@@ -773,12 +773,12 @@ module.exports = () => {
         },
         {
           source: '/blog/product-manager-interview-guide-2025',
-          destination: '/free-mock-interview',
+          destination: '/product-manager/interview-tips',
           permanent: true,
         },
         {
           source: '/blog/product-manager-interview-questions',
-          destination: '/free-mock-interview',
+          destination: '/product-manager',
           permanent: true,
         },
         {
