@@ -160,12 +160,12 @@ module.exports = () => {
         },
         {
           source: '/blog/agentic-ai-training-beyond-voice-chatbots',
-          destination: '/blog/agentic-ai-calling-autonomous-sales-agent-actions-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/agentic-ai-training-beyond-voice-chatbots/',
-          destination: '/blog/agentic-ai-calling-autonomous-sales-agent-actions-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
@@ -256,37 +256,37 @@ module.exports = () => {
         },
         {
           source: '/blog/sales-roleplay-scenarios-objection-handling-b2b-scripts-2026',
-          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          destination: '/blog/12-realistic-sales-role-play-scenarios-sdr-mastery-2026',
           permanent: true,
         },
         {
           source: '/blog/how-to-handle-sales-objections-scripts-ai-practice-2026',
-          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          destination: '/blog/12-realistic-sales-role-play-scenarios-sdr-mastery-2026',
           permanent: true,
         },
         {
           source: '/blog/ai-calling-lead-qualification-scripts-workflows-results-2026',
-          destination: '/blog/roleplay-we-already-use-a-competitor-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/why-sales-reps-hate-training-best-teams-do-it-anyway-2026',
-          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/why-sales-team-thinks-training-waste-of-time-wrong-2026',
-          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/mastering-difficult-conversations-roleplay-frameworks-managers-2026',
-          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/sales-training-plan-new-hires-30-60-90-day-2026',
-          destination: '/blog/how-to-gate-live-outbound-dials-2026',
+          destination: '/blog/best-mock-interview-platforms',
           permanent: true,
         },
         {
@@ -301,27 +301,27 @@ module.exports = () => {
         },
         {
           source: '/blog/why-ai-cold-calling-software-sounds-robotic-engineering-fix-2026',
-          destination: '/blog/voice-latency-ai-sales-roleplay-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/the-state-of-ai-calling-competitors-2026-latency-pricing-report',
-          destination: '/blog/voice-latency-ai-sales-roleplay-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/how-to-automate-appointment-setting-ai-voice-agents-2026',
-          destination: '/blog/how-to-build-ai-cold-calling-agent-retell-vapi-bland-2026',
+          destination: '/blog/ai-calling-software-sales-teams-2026',
           permanent: true,
         },
         {
           source: '/blog/ai-cold-call-training-voice-ai-transforming-sales-onboarding-2026',
-          destination: '/blog/why-do-sales-reps-hate-roleplaying-2026',
+          destination: '/cold-call-practice',
           permanent: true,
         },
         {
           source: '/blog/how-to-measure-sales-training-roi-metrics-vp-sales-2026',
-          destination: '/blog/ai-sales-roleplay-vs-sales-trainer-roi-2026',
+          destination: '/blog/ai-sales-roleplay-vs-traditional-sales-training-cost-roi-2026',
           permanent: true,
         },
         {
@@ -456,7 +456,7 @@ module.exports = () => {
         },
         {
           source: '/blog/ai-powered-coaching-corporate-training',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -476,7 +476,7 @@ module.exports = () => {
         },
         {
           source: '/blog/ai-roleplay-vs-classroom-training-effectiveness-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -542,7 +542,7 @@ module.exports = () => {
         },
         {
           source: '/blog/best-ai-training-in-india-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -557,7 +557,7 @@ module.exports = () => {
         },
         {
           source: '/blog/best-employee-training-companies-india-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -642,7 +642,7 @@ module.exports = () => {
         },
         {
           source: '/blog/ebbinghaus-forgetting-curve-ai-training-solutions-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -752,7 +752,7 @@ module.exports = () => {
         },
         {
           source: '/blog/leadership-training-complete-guide-2025',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -763,7 +763,7 @@ module.exports = () => {
         },
         {
           source: '/blog/passive-vs-active-learning-corporate-training-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -828,7 +828,7 @@ module.exports = () => {
         },
         {
           source: '/blog/top-employee-training-topics-boost-productivity',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -838,7 +838,7 @@ module.exports = () => {
         },
         {
           source: '/blog/types-of-employee-training-methods-comparison-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -883,7 +883,7 @@ module.exports = () => {
         },
         {
           source: '/blog/why-corporate-training-fails-statistics-2026',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {
@@ -903,7 +903,7 @@ module.exports = () => {
         },
         {
           source: '/blog/why-traditional-leadership-coaching-fails-remote-teams',
-          destination: '/blog/best-sales-training-companies-world',
+          destination: '/blog/best-sales-training-companies-world-2026',
           permanent: true,
         },
         {

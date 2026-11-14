@@ -43,6 +43,14 @@ import { AiCallingVendorTable, AiCallingWorkedTable } from './blog/AiCallingSale
 import IndiaSalesTrainerFinder from './blog/IndiaSalesTrainerFinder'
 import { IndiaSalesTrainingWorkedTable } from './blog/IndiaSalesTrainingTables'
 import SalesRoleplayFinder from './blog/SalesRoleplayFinder'
+import RoleplayScenarioBuilder from './blog/RoleplayScenarioBuilder'
+import {
+  RoleplayScenarioStats,
+  GongObjectionSplitFigure,
+  RoleplaySessionFlow,
+  RoleplayRubricTable,
+  RoleplayScenarioLibrary,
+} from './blog/RoleplayScenarioFigures'
 import SalesRoleplayCostCalculator from './blog/SalesRoleplayCostCalculator'
 import {
   SalesRoleplayStats,
@@ -99,6 +107,12 @@ export const components: MDXComponents = {
   IndiaSalesTrainerFinder,
   IndiaSalesTrainingWorkedTable,
   SalesRoleplayFinder,
+  RoleplayScenarioBuilder,
+  RoleplayScenarioStats,
+  GongObjectionSplitFigure,
+  RoleplaySessionFlow,
+  RoleplayRubricTable,
+  RoleplayScenarioLibrary,
   SalesRoleplayCostCalculator,
   SalesRoleplayStats,
   SalesRoleplayPricingFigure,

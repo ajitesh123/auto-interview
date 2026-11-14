@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next'
+import fs from 'fs'
+import path from 'path'
 import { allBlogs } from 'contentlayer/generated'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllDomains } from '@/lib/domainUtils'
@@ -19,13 +21,28 @@ import { BATCH_BASE, BATCH_WEEKS } from '@/data/pgCourse/batch'
 
 const POSTS_PER_PAGE = 10
 
+/** Blog paths that next.config.js redirects elsewhere: they must not be listed (they would 301). */
+function redirectedBlogPaths(): Set<string> {
+  try {
+    const cfg = fs.readFileSync(path.join(process.cwd(), 'next.config.js'), 'utf8')
+    return new Set(
+      Array.from(cfg.matchAll(/source:\s*'(\/blog\/[^']+)'/g)).map((m) =>
+        m[1].replace(/\/$/, '').slice(1)
+      )
+    )
+  } catch {
+    return new Set()
+  }
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = siteMetadata.siteUrl
   const today = new Date().toISOString().split('T')[0]
 
   // ===== Blog posts =====
+  const redirected = redirectedBlogPaths()
   const blogRoutes = allBlogs
-    .filter((post) => !post.draft)
+    .filter((post) => !post.draft && !redirected.has(post.path))
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod || post.date,
