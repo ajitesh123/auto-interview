@@ -2,6 +2,9 @@ import type { RoleHub } from './types'
 
 // Strategy & Operations (S&O) / Business Operations (BizOps) role hub.
 // Sources opened on 2026-11-07:
+// - Apollo.io people search (free): strict titles "Strategy and Operations" and "Business Operations",
+//   started in the last 670 days, person in India / United States, India split by employer headcount.
+//   No industry filter (S&O titles sit in tech, fintech, consumer and services alike).
 // - Job posts with stated pay (URLs on each pay row). US posts were opened on VC portfolio job boards
 //   (General Catalyst, Khosla, Thrive) that mirror the company's Greenhouse post; most are now closed
 //   and are used as recent posted-pay data points. Plaid's post was open on plaid.com.
@@ -28,7 +31,7 @@ import type { RoleHub } from './types'
 const strategyAndOperations: RoleHub = {
   slug: 'strategy-and-operations',
   visuals: {
-    // og image removed: /static/images/roles/strategy-and-operations/og.jpg shows Apollo counts. Regenerate it, then restore.
+    og: '/static/images/roles/strategy-and-operations/og.jpg',
   },
   roleName: 'Strategy & Operations',
   shortName: 'S&O',
@@ -49,7 +52,7 @@ const strategyAndOperations: RoleHub = {
   heroDescription:
     'The in-house consultant who also runs the fix. What S&O and BizOps teams do at startups and marketplaces, 37 questions (36 reported by candidates) with model answers and what the interviewer listens for, the take-home cases, and pay from real job posts.',
   directAnswer:
-    'A Strategy & Operations (S&O) or BizOps hire finds the business problem that matters most, sizes it with data, and then runs the fix with the teams who own it. Loops test cases, metrics root-cause, Excel or SQL, and almost always a take-home you present to a panel.',
+    'A Strategy & Operations (S&O) or BizOps hire finds the business problem that matters most, sizes it with data, and then runs the fix with the teams who own it. In India, 1,450 people started a strict “Strategy & Operations” title since January 2025, and 5,341 a “Business Operations” title. Loops test cases, metrics root-cause, Excel or SQL, and almost always a take-home you present to a panel.',
   lastUpdated: '2026-11-07',
   story: {
     summary:
@@ -108,6 +111,14 @@ const strategyAndOperations: RoleHub = {
         sourceLabel: 'Hacking the Case Interview (updated Sep 2026)',
         sourceUrl: 'https://www.hackingthecaseinterview.com/pages/consulting-to-startup',
       },
+      {
+        when: 'Jan 2025 → now',
+        title: '1,450 new S&O hires in India',
+        detail:
+          '1,450 people in India started a strict Strategy & Operations title since January 2025. 515 of them joined companies of more than 5,000 people, and 473 joined companies of 200 or fewer.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
     ],
     why: [
       'Fast-growing companies have more problems than owners. S&O takes the ones that sit between teams, such as pricing, supply, unit economics or planning.',
@@ -122,7 +133,7 @@ const strategyAndOperations: RoleHub = {
   whatTheRoleIs: [
     'A Strategy & Operations hire is an in-house problem solver. A typical week: own a business metric (orders per city, onboarding time, cost per delivery), pull and model the data, write a recommendation, then run the change with operations, product, finance or sales. Titles vary: Strategy & Operations, BizOps, Business Operations, Strategy & Planning.',
     'The title spans several levels. US posts with stated pay ask for 1–3 years (Ramp’s international BizOps role) up to 15+ years (Stripe’s company-level S&O role). Most hires come from consulting, banking or analytics after 2–4 years; marketplaces also promote strong city or ops managers.',
-    'At a startup you also run operations day to day; at a large company you usually own one region, product line or planning cycle.',
+    'In India it is common at both large companies and startups. Of the 1,446 new S&O hires with a known employer size, 515 joined companies of more than 5,000 people (Google is one) and 473 joined companies of 200 or fewer. At a startup you also run operations day to day; at a large company you usually own one region, product line or planning cycle.',
   ],
   expectationLabels: {
     nav: 'Marketplace vs SaaS',
@@ -453,6 +464,22 @@ const strategyAndOperations: RoleHub = {
     ],
     crossCheck:
       'Posted base pay at tech companies ($176K median midpoint) sits well above Levels.fyi’s general business operations median ($112K), which covers many non-tech employers. In India, S&O pay is negotiated more than posted: ask for the fixed and variable split and compare offers on in-hand pay.',
+  },
+  hiring: {
+    title: 'Where new S&O hires went in India, 2025–26',
+    segments: true,
+    intro:
+      'In India, 1,450 people started a strict “Strategy & Operations” title since January 2025, and 5,341 started a “Business Operations” title. S&O hiring splits between giants and startups: 515 joined companies of more than 5,000 people, 473 joined companies of 200 or fewer. In the US, the same counts are 9,233 and 15,968.',
+    companies: [
+      { name: '200 people or fewer', count: 473, segment: 'Startups' },
+      { name: '201–1,000 people', count: 212, segment: 'Scale-ups' },
+      { name: '1,001–5,000 people', count: 246, segment: 'Large companies' },
+      { name: 'Over 5,000 people', count: 515, segment: 'Enterprises and Big Tech' },
+    ],
+    method:
+      'Counted in Apollo.io: people located in India whose current title strictly matches “Strategy and Operations” (Apollo also returns “Strategy & Operations”), who started it in the last 670 days, split by employer headcount. 1,446 of 1,450 had a known company size. No industry filter was applied. “Business Operations” (5,341 in India) is a separate title count and is not added. US: same filters, 9,233 and 15,968.',
+    sourceLabel: 'Apollo.io people data',
+    asOf: 'Nov 7, 2026',
   },
   questionGroups: [
     {

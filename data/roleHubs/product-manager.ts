@@ -2,6 +2,9 @@ import type { RoleHub } from './types'
 
 // Product Manager role hub (generalist PM: APM, PM, Senior PM). AI PM has its own hub at /aipm.
 // Sources opened on 2026-11-06:
+// - Apollo.io people search (free): titles "Product Manager", "Associate Product Manager",
+//   "Senior Product Manager" (strict match), started in the last 670 days, tech employers only
+//   (NAICS 5415, 5112, 5132, 5182, 5191), India by employer size, plus the US total
 // - Job posts with stated pay: Wellfound, Weekday, YC Work at a Startup (URLs on each pay row)
 // - Levels.fyi product manager India and US; AmbitionBox product manager salary (updated 5 Mar 2025)
 // - Reported questions: Glassdoor reviews and question pages (Google, Meta, Amazon, Microsoft, Flipkart,
@@ -29,7 +32,7 @@ import type { RoleHub } from './types'
 const productManager: RoleHub = {
   slug: 'product-manager',
   visuals: {
-    // og image removed: /static/images/roles/product-manager/og.jpg shows Apollo counts. Regenerate it, then restore.
+    og: '/static/images/roles/product-manager/og.jpg',
   },
   roleName: 'Product Manager',
   shortName: 'PM',
@@ -50,8 +53,8 @@ const productManager: RoleHub = {
   heroDescription:
     'The job that decides what gets built and why. How the role works at startups versus Big Tech, 30 questions (27 reported by candidates) with model answers and what the interviewer listens for, and pay from real job posts.',
   directAnswer:
-    'A Product Manager decides what a team builds next and proves it worked: they find the user problem, pick the metric, write the spec and ship with engineering and design. Loops test product sense, metrics, estimation, strategy and behaviour, and Indian companies often add a take-home deck.',
-  lastUpdated: '2026-11-14',
+    'A Product Manager decides what a team builds next and proves it worked: they find the user problem, pick the metric, write the spec and ship with engineering and design. In Indian tech, 13,442 people started a Product Manager title since January 2025, about half at companies of 1,000+. Loops test product sense, metrics, estimation, strategy and behaviour, and Indian companies often add a take-home deck.',
+  lastUpdated: '2026-11-06',
   story: {
     summary:
       'Product management started as a marketing idea: one person owning one product, from a 1931 Procter & Gamble memo. Software made it a technical job at Microsoft and Google, whose APM programme (2002) became the template for new-graduate PM hiring. In 2025–26, AI tools are pushing PMs to prototype and build, not just write specs.',
@@ -109,6 +112,14 @@ const productManager: RoleHub = {
         sourceUrl:
           'https://www.aol.com/news/linkedin-scrapping-associate-product-manager-063508038.html',
       },
+      {
+        when: 'Jan 2025 → now',
+        title: '13,442 new Product Managers in Indian tech',
+        detail:
+          '13,442 people started a Product Manager title at Indian tech companies since January 2025. About half joined companies of 1,000 or more people.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
     ],
     why: [
       'Software teams need one person to decide what not to build. Engineering time is the most expensive thing in a tech company.',
@@ -122,8 +133,8 @@ const productManager: RoleHub = {
     'Every PM answer runs on the same spine: who is the user, what problem hurts most, what you would build first and why, and which metric proves it worked. Say that structure out loud before you go deep.',
   whatTheRoleIs: [
     'A Product Manager decides what the team builds next and makes sure it works for users and the business. A typical week: talk to users or read their feedback, check the metric you own, write or refine a spec, unblock engineers and designers, and say no to good ideas that are not the most important one.',
-    'The title covers a ladder: Associate Product Manager, Product Manager and Senior Product Manager. APM is the usual entry point from college; most PMs move in from engineering, analytics, consulting or design after 2–4 years.',
-    'At a startup you will also do analytics, support and sales calls; at a large company you usually own one part of one product.',
+    'The title covers a ladder. Searches for strict titles in Indian tech since January 2025 return 13,442 for Product Manager, 2,663 for Senior Product Manager and 1,742 for Associate Product Manager. APM is the usual entry point from college; most PMs move in from engineering, analytics, consulting or design after 2–4 years.',
+    'In India it is a large-company job as much as a startup one. Of the new Product Managers with a known employer size, 6,434 joined companies of more than 1,000 people and 1,860 joined companies of 50 or fewer. At a startup you will also do analytics, support and sales calls; at a large company you usually own one part of one product.',
   ],
   expectationLabels: {
     nav: 'Consumer vs B2B',
@@ -331,7 +342,7 @@ const productManager: RoleHub = {
     title: 'Pay: India and US job posts, plus Levels.fyi',
     headline: 'India ₹19.5 LPA · US $175K (post medians)',
     intro:
-      'Posted pay for Product Managers runs from ₹6–10 LPA for an APM at a small startup to ₹50–80 LPA for a senior PM. The median midpoint across 11 India posts we opened is ₹19.5 LPA; across 11 US posts it is $175K base. People already in the role report more: Levels.fyi’s India median total pay is ₹45.4 LPA (1,512 salaries, 13 Nov 2026), and company medians run from ₹16.8 lakh at Zoho to ₹1.15 crore at Google.',
+      'Posted pay for Product Managers runs from ₹6–10 LPA for an APM at a small startup to ₹50–80 LPA for a senior PM. The median midpoint across 11 India posts we opened is ₹19.5 LPA; across 11 US posts it is $175K base. People already in the role report more: Levels.fyi’s India median total pay is ₹45.4 LPA (1,512 salaries, 13 Nov 2026).',
     tables: [
       {
         region: 'India: job posts with stated pay',
@@ -520,6 +531,22 @@ const productManager: RoleHub = {
     ],
     crossCheck:
       'Startup posts sit well below Levels.fyi: the India post median (₹19.5 LPA) is under half the Levels.fyi India median (₹45.4 LPA), and the US post median ($175K base) is about 25% below the US total-compensation median ($234K). The gap is Big Tech and stock. Compare offers on in-hand pay, not CTC.',
+  },
+  hiring: {
+    title: 'Where new Product Managers went in Indian tech, 2025–26',
+    segments: true,
+    intro:
+      'In India, 13,442 people started a Product Manager title at tech companies since January 2025. Unlike growth or Founder’s Office roles, PM hiring leans to large companies: 6,434 of them joined companies of more than 1,000 people. In the US, 25,016 people started the same title at tech companies.',
+    companies: [
+      { name: '50 people or fewer', count: 1860, segment: 'Seed to Series A' },
+      { name: '51–200 people', count: 2067, segment: 'Series A to C' },
+      { name: '201–1,000 people', count: 2835, segment: 'Scale-ups' },
+      { name: 'Over 1,000 people', count: 6434, segment: 'Large companies' },
+    ],
+    method:
+      'Counted in Apollo.io: people in India whose current title strictly matches “Product Manager”, who started it in the last 670 days, at employers in software, IT services, data and internet industries (NAICS 5415, 5112, 5132, 5182, 5191), split by employer headcount. 13,196 of 13,442 had a known company size. Strict searches for “Associate Product Manager” (1,742) and “Senior Product Manager” (2,663) are shown in the text; Apollo’s strict match for “Product Manager” may include some of them, so they are not added together. US: same filter, 25,016 people.',
+    sourceLabel: 'Apollo.io people data',
+    asOf: 'Nov 6, 2026',
   },
   questionGroups: [
     {
@@ -1136,7 +1163,7 @@ const productManager: RoleHub = {
     },
     {
       q: 'What is the Product Manager salary in India?',
-      a: 'Across 11 India job posts we opened in November 2026, posted pay ran from ₹6–10 LPA for an Associate PM to ₹50–80 LPA for a senior PM, with a median midpoint of ₹19.5 LPA. People in the role report more: Levels.fyi’s India median total pay is ₹45.4 LPA across 1,512 salaries (updated 13 Nov 2026), and the salary page lists 27 Indian employers one by one.',
+      a: 'Across 11 India job posts we opened in November 2026, posted pay ran from ₹6–10 LPA for an Associate PM to ₹50–80 LPA for a senior PM, with a median midpoint of ₹19.5 LPA. People in the role report more: Levels.fyi’s India median total pay is ₹45.4 LPA across 1,512 salaries (updated 13 Nov 2026).',
     },
     {
       q: 'Can a fresher become a Product Manager?',

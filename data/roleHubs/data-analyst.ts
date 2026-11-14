@@ -2,6 +2,8 @@ import type { RoleHub } from './types'
 
 // Data Analyst role hub. Brief: docs/briefs/2026-11-09-data-analyst-hub.md
 // Sources opened on 2026-11-09:
+// - Apollo.io people search (free): strict title "Data Analyst", started in the last 670 days, person in
+//   India / United States, India split by employer headcount (bands sum to 46,617 of 46,860; 243 unknown size).
 // - Job posts with stated pay (URL on each pay row): Wellfound and Cutshort (India), Greenhouse and Lever (US).
 //   Dropped: ShopMy (page calls its range "a good faith estimate"), non-US/India posts, hybrid BA titles.
 // - Levels.fyi: Data Analyst title page (US, updated Nov 4 2026) and India location page (updated Nov 9 2026).
@@ -15,7 +17,7 @@ import type { RoleHub } from './types'
 const dataAnalyst: RoleHub = {
   slug: 'data-analyst',
   visuals: {
-    // og image removed: /static/images/roles/data-analyst/og.jpg shows Apollo counts. Regenerate it, then restore.
+    og: '/static/images/roles/data-analyst/og.jpg',
   },
   roleName: 'Data Analyst',
   shortName: 'Data Analyst',
@@ -37,7 +39,7 @@ const dataAnalyst: RoleHub = {
   heroDescription:
     'The person who turns a business question into a query, a number and a decision. 50 questions, 41 of them reported by candidates at Amazon, Meta, Flipkart, Swiggy, EY, Deloitte, ZS and Uber, each with a model answer and what the interviewer listens for, the rounds by company, and pay from 28 real job posts.',
   directAnswer:
-    'A data analyst answers business questions with data: they pull it with SQL, clean and explore it in Excel or Python, show it in Power BI or Tableau, and say what to do next. Almost every loop tests four things: SQL, Excel or a BI tool, a metric or product case, and how you explain numbers to people who are not analysts.',
+    'A data analyst answers business questions with data: they pull it with SQL, clean and explore it in Excel or Python, show it in Power BI or Tableau, and say what to do next. In India, 46,860 people started a “Data Analyst” title in the last 670 days, and 32,906 in the US. Almost every loop tests four things: SQL, Excel or a BI tool, a metric or product case, and how you explain numbers to people who are not analysts.',
   lastUpdated: '2026-11-09',
   story: {
     summary:
@@ -104,6 +106,14 @@ const dataAnalyst: RoleHub = {
         sourceLabel: 'BLS Occupational Outlook Handbook',
         sourceUrl: 'https://www.bls.gov/ooh/math/data-scientists.htm',
       },
+      {
+        when: 'Jan 2025 → now',
+        title: '46,860 new data analysts in India',
+        detail:
+          '46,860 people in India started a strict Data Analyst title in the last 670 days. 15,548 joined companies of more than 5,000 people and 15,003 joined companies of 200 or fewer.',
+        sourceLabel: 'Our count (Apollo people search)',
+        sourceUrl: '#hiring',
+      },
     ],
     why: [
       'Every team now has data and too few people who can turn it into a decision. The analyst sits between the database and the people who act.',
@@ -118,6 +128,7 @@ const dataAnalyst: RoleHub = {
   whatTheRoleIs: [
     'A data analyst turns business questions into answers. A typical week: write SQL to pull data, clean and join it, build or update a dashboard in Power BI, Tableau or Looker, dig into why a metric moved, and present what you found to a manager or a business team. Titles vary: Data Analyst, Business Analyst, MIS Analyst, Product Analyst, BI Analyst.',
     'In five job posts we opened (Trent, two Amazon teams, a Dice contract and Dexian), SQL, Python or R, and a BI tool appeared in all five; Tableau was named in four. Excel appeared in both Indian posts. Expect SQL to be tested hardest.',
+    'In India, hiring splits almost evenly between very large and small employers: 15,548 of the 46,617 new data analysts with a known employer size joined companies of more than 5,000 people, and 15,003 joined companies of 200 or fewer. Large companies include Big 4 and analytics services firms that hire whole campus batches.',
   ],
   expectationLabels: {
     nav: 'Product vs services',
@@ -570,6 +581,22 @@ const dataAnalyst: RoleHub = {
     ],
     crossCheck:
       'The India post median (₹13.5 LPA midpoint of posted ranges) sits close to Levels.fyi’s India median (₹14.6 lakh of self-reported total compensation); they measure different things but point the same way. The US post median ($131.8K base) is above Levels.fyi’s US median ($110,000) because 9 of our 14 US posts are senior roles. For a cross-check outside tech, the US Bureau of Labor Statistics reports a 2025 median of $88,940 for operations research analysts. Compare Indian offers on in-hand pay with our salary calculator.',
+  },
+  hiring: {
+    title: 'Where new data analysts went in India, 2025–26',
+    segments: true,
+    intro:
+      'In India, 46,860 people started a strict “Data Analyst” title in the last 670 days; in the US, 32,906. India’s hiring is split between very large and very small employers: 15,548 joined companies of more than 5,000 people and 15,003 joined companies of 200 or fewer.',
+    companies: [
+      { name: '200 people or fewer', count: 15003, segment: 'Startups and small firms' },
+      { name: '201–1,000 people', count: 8746, segment: 'Scale-ups' },
+      { name: '1,001–5,000 people', count: 7320, segment: 'Large companies' },
+      { name: 'Over 5,000 people', count: 15548, segment: 'Enterprises, Big 4 and Big Tech' },
+    ],
+    method:
+      'Counted in Apollo.io: people located in India whose current title strictly matches “Data Analyst”, who started it in the last 670 days, split by employer headcount. 46,617 of 46,860 had a known company size. No industry filter was applied. US: same filters, 32,906. “Senior Data Analyst”, “Business Analyst” and other titles are not included.',
+    sourceLabel: 'Apollo.io people data',
+    asOf: 'Nov 9, 2026',
   },
   questionGroups: [
     {

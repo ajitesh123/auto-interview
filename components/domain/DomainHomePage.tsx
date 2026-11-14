@@ -106,8 +106,8 @@ const DomainHomePage: React.FC = () => {
               </h2>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-[#666666]">
-              What each role really involves, real pay in ₹ and $, the interview process, and dozens
-              of interview questions with model answers.
+              What each role really involves, real pay in ₹ and $, who is hiring, and dozens of
+              interview questions with model answers.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -6,12 +6,16 @@ const fde: RoleHub = {
     hero: {
       mp4: '/static/images/roles/fde/hero.mp4',
       image: '/static/images/roles/fde/hero.webp',
-      alt: 'Forward Deployed Engineer role hub: interview questions, pay in rupees, dollars, pounds and euros, and the interview process',
+      alt: 'Forward Deployed Engineer role hub: interview questions, pay in rupees, dollars, pounds and euros, and who is hiring',
     },
     pay: {
       mp4: '/static/images/roles/fde/pay.mp4',
       image: '/static/images/roles/fde/pay.webp',
       alt: 'Median total pay for Forward Deployed Engineers in the US is $220K (Levels.fyi, Nov 2026)',
+    },
+    hiring: {
+      image: '/static/images/roles/fde/hiring.webp',
+      alt: 'New Forward Deployed Engineers by company in 2025–26: Palantir 387, Salesforce 275, Databricks 162, UnifyApps 153, OpenAI 57 (Apollo.io, Nov 3, 2026)',
     },
     og: '/static/images/roles/fde/og.jpg',
   },
@@ -19,7 +23,7 @@ const fde: RoleHub = {
   shortName: 'FDE',
   metaTitle: 'Forward Deployed Engineer Interview Guide 2026: Questions & Pay',
   metaDescription:
-    'FDE interview prep: what forward deployed engineers do, 28 questions with model answers, Palantir and AI-lab interview loops, and pay in India, US and Europe.',
+    'FDE interview prep: what forward deployed engineers do, 28 questions with model answers, Palantir and AI-lab interview loops, pay in India, US and Europe, and who is hiring.',
   keywords: [
     'forward deployed engineer',
     'forward deployed engineer interview questions',
@@ -303,6 +307,25 @@ const fde: RoleHub = {
     ],
     crossCheck:
       "Posted base salary ranges, checked Nov 3, 2026: Palantir Forward Deployed Software Engineer, New York, $135,000–$200,000 (1+ years' experience); Palantir FDSE New Grad, Chicago, $135,000–$145,000; Anthropic Forward Deployed Engineer, Applied AI, $200,000–$300,000 (4+ years in a technical customer-facing role). Base pay excludes equity and bonus.",
+  },
+  hiring: {
+    intro:
+      'Companies with the most people who started a Forward Deployed Engineer title in 2025–26. No public source reports hires per company, so this counts people whose current title is an FDE title and who started it in the last 22 months.',
+    companies: [
+      { name: 'Palantir', count: 387, segment: 'Data and AI platform' },
+      { name: 'Salesforce', count: 275, segment: 'Enterprise SaaS' },
+      { name: 'Databricks', count: 162, segment: 'Data and AI platform' },
+      { name: 'UnifyApps', count: 153, segment: 'AI startup (India)' },
+      { name: 'OpenAI', count: 57, segment: 'AI lab' },
+      { name: 'C3 AI', count: 51, segment: 'Enterprise AI' },
+      { name: 'Scale AI', count: 24, segment: 'AI data and apps' },
+      { name: 'UiPath', count: 23, segment: 'Automation' },
+      { name: 'Rippling', count: 14, segment: 'HR and finance SaaS' },
+    ],
+    method:
+      'Source: Apollo.io people database, searched Nov 3, 2026. Titles counted: Forward Deployed Engineer, Forward Deployed Software Engineer, Senior Forward Deployed Engineer and Forward Deployed AI Engineer, held for 670 days or less. Across all companies, 8,443 people match, including 1,404 based in India, where UnifyApps, gnani.ai, Databricks and Skit.ai appear most often. Counts are a lower bound: variants such as "Forward Deployed Engineer, Applied AI" are not included, which is why some AI labs show few or none.',
+    sourceLabel: 'Apollo.io people search',
+    asOf: 'Nov 3, 2026',
   },
   questionGroups: [
     {

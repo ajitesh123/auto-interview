@@ -89,7 +89,7 @@ export interface StoryMilestone {
   title: string
   detail: string
   sourceLabel?: string
-  sourceUrl?: string // external URL
+  sourceUrl?: string // external URL, or "#hiring" for our own count
 }
 
 /** Chapter 1 of the learner journey: where the role came from and why it is hot now. */
@@ -135,7 +135,7 @@ export interface RoleHub {
     difference: string[] // how it differs from the classic version of the role
   }
   skills: { area: string; items: string[] }[]
-  /** Optional section: how to get the interview (shown after the pay chapter). */
+  /** Optional section: how to get the interview (shown after "Who is hiring"). */
   getHired?: GetHired
   process: RoundInfo[]
   /** title defaults to "Pay by experience: India, US and Europe" */
@@ -147,7 +147,7 @@ export interface RoleHub {
     tables: PayTable[]
     crossCheck?: string
   }
-  hiring?: {
+  hiring: {
     /** Optional section title (default: "Companies hiring the most in 2025–26") */
     title?: string
     /** true when `companies` are segments (e.g. company-size bands), not company names */

@@ -9,12 +9,16 @@ const aipm: RoleHub = {
     hero: {
       mp4: '/static/images/roles/aipm/hero.mp4',
       image: '/static/images/roles/aipm/hero.webp',
-      alt: 'AI Product Manager role hub: 30 interview questions, pay in rupees, dollars and euros, and the interview process',
+      alt: 'AI Product Manager role hub: 30 interview questions, pay in rupees, dollars and euros, and who is hiring',
     },
     pay: {
       mp4: '/static/images/roles/aipm/pay.mp4',
       image: '/static/images/roles/aipm/pay.webp',
       alt: 'Median total pay for product managers in India is ₹45.4 LPA; US $233K, Germany €95K, Netherlands €112K (Levels.fyi, Nov 2026)',
+    },
+    hiring: {
+      image: '/static/images/roles/aipm/hiring.webp',
+      alt: 'New AI PMs by company in 2025–26: Microsoft 57, Google 47, Amazon 40, IBM 28, Meta 22 (Apollo.io, Nov 3, 2026)',
     },
     og: '/static/images/roles/aipm/og.jpg',
   },
@@ -22,7 +26,7 @@ const aipm: RoleHub = {
   shortName: 'AI PM',
   metaTitle: 'AI Product Manager Interview Guide 2026: Questions & Salary',
   metaDescription:
-    'AI PM interview prep: B2B vs B2C expectations, 30 questions with model answers, salary in India, US and Europe, the interview process, a 30-day plan and a free AI mock interview.',
+    'AI PM interview prep: B2B vs B2C expectations, 30 questions with model answers, salary in India, US and Europe, companies hiring, a 30-day plan and a free AI mock interview.',
   keywords: [
     'ai product manager interview questions',
     'ai pm interview',
@@ -307,6 +311,25 @@ const aipm: RoleHub = {
     ],
     crossCheck:
       'AI-specific cross-check (US): Glassdoor reports average total pay of about $201K a year for the "AI Product Manager" title, with a typical range of $168K–$247K, from 35 salaries (Glassdoor, checked Nov 3, 2026). The small sample is why we lead with the broader Levels.fyi data. The experience labels are our guide to reading percentiles, not a separate dataset.',
+  },
+  hiring: {
+    intro:
+      'Companies with the most people who moved into an AI product manager title in 2025–26. No public source reports hires per company, so this counts people whose current title is an AI PM title and who started it in the last 22 months.',
+    companies: [
+      { name: 'Microsoft', count: 57, segment: 'Big Tech' },
+      { name: 'Google', count: 47, segment: 'Big Tech' },
+      { name: 'Amazon', count: 40, segment: 'Big Tech' },
+      { name: 'IBM', count: 28, segment: 'Enterprise tech' },
+      { name: 'Meta', count: 22, segment: 'Big Tech' },
+      { name: 'Walmart', count: 10, segment: 'Retail tech' },
+      { name: 'Salesforce', count: 9, segment: 'Enterprise SaaS' },
+      { name: 'Accenture', count: 7, segment: 'Consulting' },
+      { name: 'Flipkart', count: 3, segment: 'India e-commerce' },
+    ],
+    method:
+      'Source: Apollo.io people database, searched Nov 3, 2026. Titles counted: AI Product Manager, Senior AI Product Manager, Generative AI Product Manager, Product Manager AI, Product Manager Generative AI and Product Manager AI/ML, held for 670 days or less. Across all companies, 3,815 people hold the exact title "AI Product Manager" started in that window. Counts are a lower bound: many AI PMs keep the plain title "Product Manager".',
+    sourceLabel: 'Apollo.io people search',
+    asOf: 'Nov 3, 2026',
   },
   questionGroups: [
     {
