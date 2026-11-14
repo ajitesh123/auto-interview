@@ -2,9 +2,6 @@ import type { RoleHub } from './types'
 
 // Growth role hub (Growth Manager, Growth Marketing Manager, Growth Lead, Head of Growth, Growth PM).
 // Sources opened on 2026-11-05:
-// - Apollo.io people search (free): strict titles Growth Manager / Head of Growth / Growth Marketing
-//   Manager / Growth Product Manager / Growth Lead, started in the last 670 days, tech employers only
-//   (NAICS 5415, 5112, 5132, 5182, 5191), by country, title and employer size
 // - Levels.fyi growth marketing (https://www.levels.fyi/t/marketing/focus/growth) and growth PM
 //   (https://levels.fyi/t/product-manager/focus/growth)
 // - AmbitionBox Growth Manager salary (https://ambitionbox.com/profile/growth-manager-salary)
@@ -20,13 +17,13 @@ import type { RoleHub } from './types'
 const growth: RoleHub = {
   slug: 'growth',
   visuals: {
-    og: '/static/images/roles/growth/og.jpg',
+    // og image removed: /static/images/roles/growth/og.jpg shows Apollo counts. Regenerate it, then restore.
   },
   roleName: 'Growth Manager',
   shortName: 'Growth',
   metaTitle: 'Growth Manager Interview Guide 2026: Questions & Salary',
   metaDescription:
-    'Growth Manager interview prep: 26 questions with model answers (19 reported by candidates), funnel and A/B test maths, pay in India and the US, and who hires.',
+    'Growth Manager interview prep: 26 questions with model answers (19 reported by candidates), funnel and A/B test maths, pay in India and the US, and the interview process.',
   keywords: [
     'growth manager',
     'growth manager interview questions',
@@ -41,7 +38,7 @@ const growth: RoleHub = {
   heroDescription:
     'The job that owns a number: signups, activation, retention or revenue. How growth works at consumer apps versus B2B SaaS, 26 questions (19 reported by candidates) with worked maths, and pay you can check.',
   directAnswer:
-    'A Growth Manager owns one business number and moves it with experiments across the funnel: acquisition, activation, retention, referral and revenue. In Indian tech, 1,523 people started a growth title since January 2025, and 46% of them joined companies of 50 or fewer. Loops usually mix a funnel or metrics case, an experiment-design question and a take-home presented to the team.',
+    'A Growth Manager owns one business number and moves it with experiments across the funnel: acquisition, activation, retention, referral and revenue. Loops usually mix a funnel or metrics case, an experiment-design question and a take-home presented to the team.',
   lastUpdated: '2026-11-05',
   story: {
     summary:
@@ -98,19 +95,11 @@ const growth: RoleHub = {
         sourceUrl:
           'https://www.lennysnewsletter.com/p/the-new-ai-growth-playbook-for-2026-elena-verna',
       },
-      {
-        when: 'Jan 2025 → now',
-        title: '1,523 new growth hires in Indian tech',
-        detail:
-          '1,523 people started a growth title at Indian tech companies since January 2025. “Growth Manager” is the most common title (745).',
-        sourceLabel: 'Our count (Apollo people search)',
-        sourceUrl: '#hiring',
-      },
     ],
     why: [
       'Paid acquisition got expensive, so companies need people who find cheaper loops: referrals, SEO, product virality.',
       'Every product tracks its funnel now, so one person can own a number end to end and prove what moved it.',
-      'Startups hire growth before they hire a full marketing team: 46% of new growth hires in Indian tech joined companies of 50 or fewer.',
+      'Startups often hire growth before they hire a full marketing team.',
     ],
   },
   aiAngle:
@@ -119,8 +108,8 @@ const growth: RoleHub = {
     'Growth is judged on one number and the experiments that moved it. Every answer should name the metric, the baseline, what you changed and the result, with the maths written out.',
   whatTheRoleIs: [
     'You own one number, such as weekly signups, activation rate, D30 retention or monthly revenue, and you move it with a steady flow of experiments. A typical week: read the dashboard, find the biggest drop in the funnel, write 2–3 test ideas, ship one, and read last week’s results.',
-    'The title varies more than the work. Of 1,523 people who started a growth title at Indian tech companies since January 2025, 745 were called Growth Manager, 283 Growth Lead, 281 Head of Growth, 171 Growth Marketing Manager and 43 Growth Product Manager.',
-    'It is mostly a startup job in India. 700 of those 1,523 joined companies of 50 people or fewer, and only 179 joined companies of more than 1,000. At a small company you will run paid ads, SEO, lifecycle email and referrals yourself. At a large one you usually own one stage of the funnel with analysts and engineers beside you.',
+    'The title varies more than the work: Growth Manager, Growth Lead, Head of Growth, Growth Marketing Manager and Growth Product Manager can all describe this job.',
+    'At a small company you will run paid ads, SEO, lifecycle email and referrals yourself. At a large one you usually own one stage of the funnel with analysts and engineers beside you.',
   ],
   expectationLabels: {
     nav: 'Consumer vs B2B',
@@ -418,22 +407,6 @@ const growth: RoleHub = {
     ],
     crossCheck:
       'Growth PMs out-earn growth marketers by about 7% at the US median ($241K vs $225K) but by 21% at the 90th percentile ($425K vs $350K). If you can ship product experiments with engineers, say so.',
-  },
-  hiring: {
-    title: 'Where new growth hires went in Indian tech, 2025–26',
-    segments: true,
-    intro:
-      'In India, 1,523 people started a growth title at tech companies since January 2025: Growth Manager, Growth Lead, Head of Growth, Growth Marketing Manager or Growth Product Manager. Almost half joined companies of 50 or fewer. In the US, 2,569 people started the same titles at tech companies.',
-    companies: [
-      { name: '50 people or fewer', count: 700, segment: 'Seed to Series A' },
-      { name: '51–200 people', count: 318, segment: 'Series A to C' },
-      { name: '201–1,000 people', count: 321, segment: 'Scale-ups' },
-      { name: 'Over 1,000 people', count: 179, segment: 'Large companies' },
-    ],
-    method:
-      'Counted in Apollo.io: people in India whose current title is exactly one of Growth Manager (745), Growth Lead (283), Head of Growth (281), Growth Marketing Manager (171) or Growth Product Manager (43), who started it in the last 670 days, at employers in software, IT services, data and internet industries (NAICS 5415, 5112, 5132, 5182, 5191), split by employer headcount. 1,518 of 1,523 had a known company size. US: same filter, 2,569 people.',
-    sourceLabel: 'Apollo.io people data',
-    asOf: 'Nov 5, 2026',
   },
   questionGroups: [
     {

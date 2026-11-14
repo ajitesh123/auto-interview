@@ -248,7 +248,8 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     ...hub.expectationLabels,
   }
   const totalQuestions = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
-  const hires = [...hub.hiring.companies].sort((a, b) => b.count - a.count)
+  const hiring = hub.hiring
+  const hires = hiring ? [...hiring.companies].sort((a, b) => b.count - a.count) : []
   const story = hub.story
   const pay = typicalPay(hub)
   const medians = hub.pay.tables
@@ -283,8 +284,8 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
     },
     {
       id: 'pay',
-      label: 'Pay and who is hiring',
-      w: words(hub.pay.intro, hub.hiring.intro) + 250,
+      label: hiring ? 'Pay and who is hiring' : 'What the role pays',
+      w: words(hub.pay.intro, hiring?.intro) + 250,
       show: true,
     },
     {
@@ -637,7 +638,12 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               n={ch('pay').n}
               total={chapters.length}
               meta={ch('pay').meta}
-              title={hub.pay.title ?? `What a ${hub.shortName} earns, and who is hiring`}
+              title={
+                hub.pay.title ??
+                (hiring
+                  ? `What a ${hub.shortName} earns, and who is hiring`
+                  : `What a ${hub.shortName} earns`)
+              }
               intro={hub.pay.intro}
               next={nextOf('pay')}
             >
@@ -667,9 +673,12 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                       href={`/${hub.slug}/salary`}
                       className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
                     >
-                      See every posted {hub.shortName} offer, with in-hand pay
+                      {ROLE_SALARIES[hub.slug].reported
+                        ? `See what ${hub.shortName}s report they earn at well-known companies`
+                        : `See every posted ${hub.shortName} offer, with in-hand pay`}
                     </Link>{' '}
-                    ({ROLE_SALARIES[hub.slug].india.length + ROLE_SALARIES[hub.slug].us.length} job
+                    ({ROLE_SALARIES[hub.slug].reported ? 'reported pay, plus ' : ''}
+                    {ROLE_SALARIES[hub.slug].india.length + ROLE_SALARIES[hub.slug].us.length} job
                     posts that state a salary).
                   </p>
                 )}
@@ -685,36 +694,38 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                 </p>
               </div>
 
-              <Block
-                id="hiring"
-                title={hub.hiring.title ?? 'Who is hiring the most in 2025–26'}
-                sub={hub.hiring.intro}
-              >
-                <Figure
-                  label={`New ${hub.shortName} hires · ${hub.hiring.companies.length} rows · ${hub.hiring.sourceLabel}`}
-                  title={`${/people/i.test(hires[0].name) ? `Employers with ${hires[0].name.toLowerCase()}` : hires[0].name}: the most new ${hub.shortName} hires (${hires[0].count.toLocaleString('en-US')})`}
-                  sub={`People who started in the title recently (next: ${hires
-                    .slice(1, 3)
-                    .map((c) => `${c.name} ${c.count.toLocaleString('en-US')}`)
-                    .join(', ')}).`}
-                  source={[{ label: hub.hiring.sourceLabel }]}
-                  updated={hub.hiring.asOf}
-                  note={`How we counted: ${hub.hiring.method}`}
-                  table={{
-                    head: ['Employer', 'Type', 'New hires'],
-                    rows: hub.hiring.companies.map((c) => [c.name, c.segment, c.count]),
-                  }}
-                  className="!my-0"
+              {hiring && hires.length > 0 && (
+                <Block
+                  id="hiring"
+                  title={hiring.title ?? 'Who is hiring the most in 2025–26'}
+                  sub={hiring.intro}
                 >
-                  <BarList
-                    rows={hub.hiring.companies.map((c) => ({
-                      label: c.name,
-                      value: c.count,
-                      note: c.segment,
-                    }))}
-                  />
-                </Figure>
-              </Block>
+                  <Figure
+                    label={`New ${hub.shortName} hires · ${hiring.companies.length} rows · ${hiring.sourceLabel}`}
+                    title={`${/people/i.test(hires[0].name) ? `Employers with ${hires[0].name.toLowerCase()}` : hires[0].name}: the most new ${hub.shortName} hires (${hires[0].count.toLocaleString('en-US')})`}
+                    sub={`People who started in the title recently (next: ${hires
+                      .slice(1, 3)
+                      .map((c) => `${c.name} ${c.count.toLocaleString('en-US')}`)
+                      .join(', ')}).`}
+                    source={[{ label: hiring.sourceLabel }]}
+                    updated={hiring.asOf}
+                    note={`How we counted: ${hiring.method}`}
+                    table={{
+                      head: ['Employer', 'Type', 'New hires'],
+                      rows: hiring.companies.map((c) => [c.name, c.segment, c.count]),
+                    }}
+                    className="!my-0"
+                  >
+                    <BarList
+                      rows={hiring.companies.map((c) => ({
+                        label: c.name,
+                        value: c.count,
+                        note: c.segment,
+                      }))}
+                    />
+                  </Figure>
+                </Block>
+              )}
             </Chapter>
 
             {/* 4. Get the interview */}
@@ -1317,7 +1328,7 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                   </div>
                   <p className="mt-1 text-caption text-fg-2">
                     {h.questionGroups.reduce((n, g) => n + g.questions.length, 0)} questions · pay ·
-                    who is hiring
+                    process
                   </p>
                 </Link>
               ))}

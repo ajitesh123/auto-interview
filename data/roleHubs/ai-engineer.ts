@@ -6,16 +6,12 @@ const aiEngineer: RoleHub = {
     hero: {
       mp4: '/static/images/roles/ai-engineer/hero.mp4',
       image: '/static/images/roles/ai-engineer/hero.webp',
-      alt: 'AI Engineer role hub: interview questions, pay in rupees, dollars and euros, and who is hiring',
+      alt: 'AI Engineer role hub: interview questions, pay in rupees, dollars and euros, and the interview process',
     },
     pay: {
       mp4: '/static/images/roles/ai-engineer/pay.mp4',
       image: '/static/images/roles/ai-engineer/pay.webp',
       alt: 'Median total pay for AI Engineers in India is ₹17.8 LPA; US $156K, Germany €81K (Levels.fyi, Nov 2026)',
-    },
-    hiring: {
-      image: '/static/images/roles/ai-engineer/hiring.webp',
-      alt: 'New AI Engineers by company in 2025–26: TCS 758, IBM 393, Deloitte 333, Accenture 242, Cognizant 162 (Apollo.io, Nov 3, 2026)',
     },
     og: '/static/images/roles/ai-engineer/og.jpg',
   },
@@ -23,7 +19,7 @@ const aiEngineer: RoleHub = {
   shortName: 'AI Engineer',
   metaTitle: 'AI Engineer Interview Guide 2026: Questions, Skills & Salary',
   metaDescription:
-    'AI engineer interview prep: what AI engineers build, 30 questions on LLMs, RAG, agents and evals with model answers, pay in India, US and Europe, and who is hiring.',
+    'AI engineer interview prep: what AI engineers build, 30 questions on LLMs, RAG, agents and evals with model answers, pay in India, US and Europe, and the interview process.',
   keywords: [
     'ai engineer interview questions',
     'ai engineer salary india',
@@ -35,7 +31,7 @@ const aiEngineer: RoleHub = {
   ],
   heroTitle: 'AI Engineer interview prep',
   heroDescription:
-    'What AI engineers really build with LLMs, retrieval, agents and evals, 30 interview questions with model answers, real pay data for India, the US and Europe, and who is hiring.',
+    'What AI engineers really build with LLMs, retrieval, agents and evals, 30 interview questions with model answers, real pay data for India, the US and Europe, and how the interview process works.',
   directAnswer:
     'An AI engineer builds products on top of foundation models such as GPT, Claude and Gemini. The work is mostly software engineering: prompts, retrieval (RAG), tool-calling agents, evaluation pipelines, latency and cost control, and safe deployment. Unlike a machine learning engineer, an AI engineer rarely trains models from scratch. Interviews test coding, LLM application design, evals and debugging.',
   lastUpdated: '2026-11-03',
@@ -70,14 +66,6 @@ const aiEngineer: RoleHub = {
         sourceUrl:
           'https://allwork.space/2025/01/ai-engineer-tops-linkedins-fastest-growing-jobs-for-2025',
       },
-      {
-        when: 'Jan 2025 → now',
-        title: '72,786 people take the title',
-        detail:
-          '72,786 people started an AI Engineer or GenAI Engineer title since January 2025, including 21,239 in India.',
-        sourceLabel: 'Our count (Apollo people search)',
-        sourceUrl: '#hiring',
-      },
     ],
     why: [
       'Work that once needed a research team can now start from an API, so every product team needs engineers who build on models.',
@@ -90,7 +78,7 @@ const aiEngineer: RoleHub = {
   mustKnow:
     'Interviews test whether you can make an LLM reliable: how you measure quality (evals), handle wrong answers, and keep cost and latency in budget.',
   whatTheRoleIs: [
-    'The AI Engineer community describes the role as a new kind of engineer at the intersection of software engineering and AI: work that once needed a research team can now start from an API. Our count shows 72,786 people started an AI Engineer or GenAI Engineer title since January 2025, including 21,239 in India.',
+    'The AI Engineer community describes the role as a new kind of engineer at the intersection of software engineering and AI: work that once needed a research team can now start from an API.',
     "Day to day, you design how a model is used: what context it receives, which tools it can call, how outputs are checked, and how the system behaves when the model is wrong. A typical posting, such as Fluency's AI Engineer role in San Francisco, asks for shipping LLM features end to end, designing evals that catch regressions, and choosing models for quality, latency and cost.",
     'The title covers a wide range. At IT services firms it often means building GenAI solutions for clients; at product companies and startups it means owning AI features in production; at AI labs it overlaps with applied research and forward deployed engineering.',
   ],
@@ -315,24 +303,6 @@ const aiEngineer: RoleHub = {
     ],
     crossCheck:
       'For comparison: Levels.fyi reports a US median of $287,500 for Machine Learning Engineers (Nov 2, 2026), and a recent AI Engineer posting at Fluency in San Francisco listed a base salary of $180,000–$250,000 (posting closed July 2026). Strong AI engineers at product companies often negotiate towards ML-engineer pay.',
-  },
-  hiring: {
-    intro:
-      'Companies with the most people who started an AI Engineer, GenAI Engineer or LLM Engineer title in 2025–26. IT services firms lead because they are staffing GenAI projects for clients at scale.',
-    companies: [
-      { name: 'Tata Consultancy Services', count: 758, segment: 'IT services (India)' },
-      { name: 'IBM', count: 393, segment: 'Enterprise tech' },
-      { name: 'Deloitte', count: 333, segment: 'Consulting' },
-      { name: 'Accenture', count: 242, segment: 'Consulting and IT services' },
-      { name: 'Cognizant', count: 162, segment: 'IT services' },
-      { name: 'Microsoft', count: 143, segment: 'Big Tech' },
-      { name: 'Infosys', count: 140, segment: 'IT services (India)' },
-      { name: 'Amazon', count: 55, segment: 'Big Tech' },
-    ],
-    method:
-      'Source: Apollo.io people database, searched Nov 3, 2026. Titles counted: AI Engineer, Senior AI Engineer, Applied AI Engineer, Generative AI Engineer, GenAI Engineer and LLM Engineer, held for 670 days or less. Across all companies, 72,786 people match, 21,239 of them in India. Big Tech often uses titles such as "Software Engineer, AI", so their counts here are a lower bound.',
-    sourceLabel: 'Apollo.io people search',
-    asOf: 'Nov 3, 2026',
   },
   questionGroups: [
     {
@@ -674,10 +644,6 @@ const aiEngineer: RoleHub = {
     {
       q: 'What is the salary of an AI engineer in India?',
       a: 'Levels.fyi reports a median total compensation of about ₹17.8 lakh a year for AI Engineers in India, with the 25th percentile near ₹10.9 lakh and the 90th near ₹52.6 lakh (Nov 2026). Product companies and AI startups usually pay more than IT services firms.',
-    },
-    {
-      q: 'Which companies hire the most AI engineers?',
-      a: 'In our count of people who started an AI Engineer or GenAI Engineer title in 2025–26, Tata Consultancy Services, IBM, Deloitte, Accenture and Cognizant lead, followed by Microsoft, Infosys and Amazon. Startups collectively hire a large share too.',
     },
     {
       q: 'Do AI engineers need a machine learning degree?',

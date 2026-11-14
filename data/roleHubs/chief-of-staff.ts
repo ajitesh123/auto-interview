@@ -1,8 +1,6 @@
 import type { RoleHub } from './types'
 
 // Chief of Staff role hub. Sources opened on 2026-11-04:
-// - Apollo.io people search (free): current title "Chief of Staff", started in the last 670 days,
-//   by country and employer size; tech employers only (NAICS 5415, 5112, 5132, 5182, 5191)
 // - Levels.fyi Chief of Staff, United States (https://www.levels.fyi/t/chief-of-staff?from=jf-loc)
 // - AmbitionBox "Chief Staff" salary, India (https://ambitionbox.com/profile/chief-staff-salary)
 // - Job posts with stated pay: Wellfound (Spenza, Twenty20Systems), Cutshort (CodeRound AI), Weekday
@@ -17,15 +15,11 @@ const chiefOfStaff: RoleHub = {
     hero: {
       mp4: '/static/images/roles/chief-of-staff/hero.mp4',
       image: '/static/images/roles/chief-of-staff/hero.webp',
-      alt: 'Chief of Staff role hub: 25 interview questions, real pay in India and the US, and who hires',
+      alt: 'Chief of Staff role hub: 25 interview questions, real pay in India and the US, and the interview process',
     },
     pay: {
       image: '/static/images/roles/chief-of-staff/pay.webp',
       alt: 'Median US Chief of Staff pay is $180K total compensation (Levels.fyi, 52 salaries); India startup posts for 2–5 years advertise ₹15–30 LPA',
-    },
-    hiring: {
-      image: '/static/images/roles/chief-of-staff/hiring.webp',
-      alt: 'New Chief of Staff hires in Indian tech by company size: 146 at 50 people or fewer, 98 at 51–200, 94 at 201–1,000 and 119 at over 1,000 (Apollo.io, Nov 4, 2026)',
     },
     og: '/static/images/roles/chief-of-staff/og.jpg',
   },
@@ -33,7 +27,7 @@ const chiefOfStaff: RoleHub = {
   shortName: 'Chief of Staff',
   metaTitle: 'Chief of Staff Interview Guide 2026: Questions, Cases & Salary',
   metaDescription:
-    'How to become a Chief of Staff: what the job is at startups vs large companies, 25 interview questions with model answers, the case and take-home, salary in India and the US, and who is hiring.',
+    'How to become a Chief of Staff: what the job is at startups vs large companies, 25 interview questions with model answers, the case and take-home, salary in India and the US, and the interview process.',
   keywords: [
     'chief of staff',
     'chief of staff interview questions',
@@ -48,11 +42,11 @@ const chiefOfStaff: RoleHub = {
   heroDescription:
     'The job that runs a leader’s operating rhythm and their hardest projects. What it looks like at a startup versus a large company, the case round, 25 questions with model answers, and pay you can check.',
   directAnswer:
-    'A Chief of Staff is a senior generalist who multiplies one leader: they run the leadership rhythm (goals, weekly reviews, board prep) and take the cross-team projects nobody else owns. In Indian tech it is not only a startup job: of 457 people who started the title at tech companies since January 2025, 119 joined companies with more than 1,000 people. Most loops are a leader conversation, a case or take-home, and a presentation.',
+    'A Chief of Staff is a senior generalist who multiplies one leader: they run the leadership rhythm (goals, weekly reviews, board prep) and take the cross-team projects nobody else owns. The role exists at startups and at large companies, where you may serve a business-unit leader rather than the CEO. Most loops are a leader conversation, a case or take-home, and a presentation.',
   lastUpdated: '2026-11-04',
   story: {
     summary:
-      'The Chief of Staff came to business from government and the military. In tech it spread among CEOs in the late 2010s, and Harvard Business Review made “The Case for a Chief of Staff” in 2020. In India it now spans startups and large companies.',
+      'The Chief of Staff came to business from government and the military. In tech it spread among CEOs in the late 2010s, and Harvard Business Review made “The Case for a Chief of Staff” in 2020. Today you find it at startups and at large companies.',
     born: { when: 'Government', what: 'Borrowed from government and the military' },
     rise: { when: '2020', what: 'HBR makes “The Case for a Chief of Staff”' },
     milestones: [
@@ -70,14 +64,6 @@ const chiefOfStaff: RoleHub = {
         sourceLabel: 'Harvard Business Review (May–June 2020)',
         sourceUrl: 'https://hbr.org/2020/05/the-case-for-a-chief-of-staff',
       },
-      {
-        when: 'Jan 2025 → now',
-        title: '457 new Chiefs of Staff in Indian tech',
-        detail:
-          '457 people started the title at Indian tech companies since January 2025. 26% joined companies with more than 1,000 people.',
-        sourceLabel: 'Our count (Apollo people search)',
-        sourceUrl: '#hiring',
-      },
     ],
     why: [
       'A leader’s time is the bottleneck. A Chief of Staff runs the operating rhythm so the leader can focus.',
@@ -91,8 +77,7 @@ const chiefOfStaff: RoleHub = {
     'You are hired on trust and follow-through. Every story you tell should show you ran something across teams, kept people aligned and got it done.',
   whatTheRoleIs: [
     'You make one leader more effective. Half the job is the operating rhythm: setting quarterly goals, running the weekly leadership meeting, tracking decisions, preparing board and investor material. The other half is projects: a reorg, a new market, a pricing change, a process that breaks every month.',
-    'In Indian tech, the title spreads across company sizes. Of 457 new Chiefs of Staff at tech employers since January 2025, 32% joined companies of 50 or fewer and 26% joined companies of 1,000+. Among 30 large Indian and global employers we checked, Razorpay had 5 new ones, Nykaa 4, Wipro 4, Swiggy 3 and Meesho 3.',
-    'At large companies you often serve a business-unit leader, not the CEO. Titles in our data read "Chief of Staff to CFO", "Chief of Staff to COO" and "Chief of Staff, CEO’s Office". Read the job post for whose staff you would be, because that decides your scope.',
+    'At large companies you often serve a business-unit leader, not the CEO. You might be Chief of Staff to the CFO or COO rather than to the CEO. Read the job post for whose staff you would be, because that decides your scope.',
   ],
   expectationLabels: {
     nav: 'Startup vs large company',
@@ -378,22 +363,6 @@ const chiefOfStaff: RoleHub = {
     ],
     crossCheck:
       'Ask whose Chief of Staff you would be. Supporting a CEO or CXO usually pays more than supporting a team lead, even under the same title.',
-  },
-  hiring: {
-    title: 'Where new Chiefs of Staff went in Indian tech, 2025–26',
-    segments: true,
-    intro:
-      'In India, 1,456 people started a Chief of Staff title since January 2025, but the title is also used in government, politics and non-tech firms. Counting tech companies only leaves 457, spread across every company size. In the US, 3,325 started the title at tech companies, and about 40% of those with a known company size joined companies of 1,000+.',
-    companies: [
-      { name: '50 people or fewer', count: 146, segment: 'Seed to Series A' },
-      { name: '51–200 people', count: 98, segment: 'Series A to C' },
-      { name: '201–1,000 people', count: 94, segment: 'Scale-ups' },
-      { name: 'Over 1,000 people', count: 119, segment: 'Large companies' },
-    ],
-    method:
-      'Counted in Apollo.io: people in India whose current title matches Chief of Staff (strict match, no similar titles) and who started it in the last 670 days, at employers in software, IT services, data and internet industries (NAICS 5415, 5112, 5132, 5182, 5191), split by employer headcount. US: same filter, 3,303 of 3,325 had a known company size; 1,316 were at companies of 1,000+',
-    sourceLabel: 'Apollo.io people data',
-    asOf: 'Nov 4, 2026',
   },
   questionGroups: [
     {
@@ -704,7 +673,7 @@ const chiefOfStaff: RoleHub = {
     },
     {
       q: 'What is the difference between Chief of Staff and Founder’s Office?',
-      a: 'Founder’s Office is usually a junior, project-based role at a small startup. A Chief of Staff usually owns a leader’s whole operating rhythm, and the role is spread across company sizes: in our data, 26% of new Chiefs of Staff in Indian tech joined companies of 1,000+, against 5% for Founder’s Office.',
+      a: 'Founder’s Office is usually a junior, project-based role at a small startup. A Chief of Staff usually owns a leader’s whole operating rhythm, and the role exists at large companies as well as startups.',
     },
     {
       q: 'Is Chief of Staff the same as an executive assistant?',

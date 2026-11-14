@@ -6,16 +6,12 @@ const gtmEngineer: RoleHub = {
     hero: {
       mp4: '/static/images/roles/gtm-engineer/hero.mp4',
       image: '/static/images/roles/gtm-engineer/hero.webp',
-      alt: 'GTM Engineer role hub: interview questions, pay in rupees, dollars, pounds and euros, and who is hiring',
+      alt: 'GTM Engineer role hub: interview questions, pay in rupees, dollars, pounds and euros, and the interview process',
     },
     pay: {
       mp4: '/static/images/roles/gtm-engineer/pay.mp4',
       image: '/static/images/roles/gtm-engineer/pay.webp',
       alt: 'Median total pay for GTM Engineers in the US is $140K (Levels.fyi, Oct 2026)',
-    },
-    hiring: {
-      image: '/static/images/roles/gtm-engineer/hiring.webp',
-      alt: '2,106 people started a GTM Engineer title since January 2025; Clay leads with 71 (Apollo.io, Nov 3, 2026)',
     },
     og: '/static/images/roles/gtm-engineer/og.jpg',
   },
@@ -23,7 +19,7 @@ const gtmEngineer: RoleHub = {
   shortName: 'GTM Engineer',
   metaTitle: 'GTM Engineer Interview Guide 2026: Questions, Skills & Pay',
   metaDescription:
-    'GTM engineer interview prep: what the role is, the Clay-to-code stack, 24 questions with model answers, pay in India, US and Europe, who is hiring and a 30-day plan.',
+    'GTM engineer interview prep: what the role is, the Clay-to-code stack, 24 questions with model answers, pay in India, US and Europe, the interview process and a 30-day plan.',
   keywords: [
     'gtm engineer',
     'what is a gtm engineer',
@@ -61,13 +57,6 @@ const gtmEngineer: RoleHub = {
         sourceLabel: 'Sifted (Aug 6, 2025)',
         sourceUrl: 'https://sifted.eu/articles/gtm-engineer-the-next-big-thing',
       },
-      {
-        when: 'Jan 2025 → now',
-        title: '2,106 people take the title',
-        detail: '2,106 people started a GTM Engineer title since January 2025.',
-        sourceLabel: 'Our count (Apollo people search)',
-        sourceUrl: '#hiring',
-      },
     ],
     why: [
       'AI tools can research thousands of accounts and draft outreach, so the bottleneck moved from reps’ hours to whoever builds the system.',
@@ -80,7 +69,7 @@ const gtmEngineer: RoleHub = {
   mustKnow:
     'You are judged on pipeline, not code. Every project you show should end with a number: accounts researched, replies, meetings booked, hours saved.',
   whatTheRoleIs: [
-    'GTM engineering grew out of sales operations and growth engineering. Clay popularised the title, and in 2025–26 it spread fast across B2B startups: our count shows 2,106 people started a GTM Engineer title since January 2025.',
+    'GTM engineering grew out of sales operations and growth engineering. Clay popularised the title, and in 2025 it spread fast across B2B startups: Clay data cited by Sifted counted over 400 GTM engineer jobs posted in roughly four and a half months.',
     'Where a sales rep researches 30 accounts by hand, a GTM engineer builds a workflow that researches 3,000, scores them, writes a first draft of outreach and routes the best ones to the right rep. The job is to turn what top sellers do into a system.',
     'Job postings show two flavours. Some (Peec AI, early-stage startups) want a builder who lives in Clay, HubSpot and n8n with some Python. Others (Vercel, larger tech companies) want a full software engineer who ships production apps and AI agents for the revenue team.',
   ],
@@ -272,22 +261,6 @@ const gtmEngineer: RoleHub = {
     ],
     crossCheck:
       'Posted ranges, checked Nov 3, 2026: Vercel GTM Engineer (4+ years full-stack), San Francisco on-target earnings $180,000–$310,000; Clay GTM Engineer, Partnerships (6–10 years), New York, $140,000–$200,000 plus equity (posting closed).',
-  },
-  hiring: {
-    intro:
-      'GTM engineering is a startup role: 2,106 people started a GTM Engineer title since January 2025, spread across hundreds of companies. Clay, which popularised the title, has far more than anyone else.',
-    companies: [
-      { name: 'Clay', count: 71, segment: 'GTM data platform' },
-      { name: 'Apollo.io', count: 11, segment: 'Sales platform' },
-      { name: 'Lyzr AI', count: 4, segment: 'AI agents (India)' },
-      { name: 'Gravitee', count: 3, segment: 'API platform' },
-      { name: 'Dust', count: 2, segment: 'AI assistants' },
-      { name: 'Vercel', count: 2, segment: 'Developer platform' },
-    ],
-    method:
-      'Source: Apollo.io people database, searched Nov 3, 2026. Titles counted: GTM Engineer, Go-To-Market Engineer, Senior GTM Engineer, GTM Engineering Lead and Founding GTM Engineer, held for 670 days or less. 324 of the 2,106 are based in India, mostly at B2B SaaS and AI startups and GTM agencies. Counts are a lower bound, because many people do this work under RevOps or growth titles.',
-    sourceLabel: 'Apollo.io people search',
-    asOf: 'Nov 3, 2026',
   },
   questionGroups: [
     {

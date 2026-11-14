@@ -1,7 +1,6 @@
 import type { RoleHub } from './types'
 
 // Founder's Office role hub. Sources opened on 2026-11-04:
-// - Apollo.io people search (free), title starts in the last 670 days, by country and company size
 // - Weekday.works Founder's Office job listings with posted pay (https://www.weekday.works/jobs/founders-office-jobs)
 // - Y Combinator job post, Weekday Founder's Office (https://www.ycombinator.com/companies/weekday/jobs/cQZdv5Q-founder-s-office)
 // - Glassdoor India Founder's Office interview questions (https://www.glassdoor.co.in/Interview/founders-office-interview-questions-SRCH_KO0,15.htm)
@@ -14,15 +13,11 @@ const foundersOffice: RoleHub = {
     hero: {
       mp4: '/static/images/roles/founders-office/hero.mp4',
       image: '/static/images/roles/founders-office/hero.webp',
-      alt: "Founder's Office role hub: 25 interview questions, real posted pay in rupees, and who is hiring",
+      alt: "Founder's Office role hub: 25 interview questions, real posted pay in rupees, and the interview process",
     },
     pay: {
       image: '/static/images/roles/founders-office/pay.webp',
       alt: "Most Founder's Office roles asking for 2+ years advertise ₹20–40 LPA; a new-grad YC posting offers ₹12–15 LPA plus ESOPs (job posts, Nov 2026)",
-    },
-    hiring: {
-      image: '/static/images/roles/founders-office/hiring.webp',
-      alt: "3,611 people in India started a Founder's Office title since January 2025; 2,205 of them joined companies with 50 people or fewer (Apollo.io, Nov 4, 2026)",
     },
     og: '/static/images/roles/founders-office/og.jpg',
   },
@@ -30,7 +25,7 @@ const foundersOffice: RoleHub = {
   shortName: "Founder's Office",
   metaTitle: "Founder's Office Interview Guide 2026: Questions, Assignments & Pay",
   metaDescription:
-    "How to get a Founder's Office job: what the role really is, the take-home assignment, 25 interview questions with model answers, real posted pay in India and who is hiring.",
+    "How to get a Founder's Office job: what the role really is, the take-home assignment, 25 interview questions with model answers, real posted pay in India and the interview process.",
   keywords: [
     "founder's office",
     'founders office role',
@@ -45,13 +40,13 @@ const foundersOffice: RoleHub = {
   heroDescription:
     "The generalist role that puts you next to a startup's founder. What you will actually do, how the take-home assignment works, 25 questions with model answers, and pay from real job posts.",
   directAnswer:
-    "A Founder's Office role is a generalist job working directly with a startup's founder on whatever matters most this quarter: a new city launch, a pricing test, an investor update, a broken process no one owns. In India it is mostly a small-startup job: of 3,611 people who started the title since January 2025, 2,205 joined companies with 50 people or fewer. Most hiring loops are a founder call, a take-home assignment and a deep-dive on your answer.",
+    "A Founder's Office role is a generalist job working directly with a startup's founder on whatever matters most this quarter: a new city launch, a pricing test, an investor update, a broken process no one owns. Most hiring loops are a founder call, a take-home assignment and a deep-dive on your answer.",
   lastUpdated: '2026-11-04',
   story: {
     summary:
       'Founder’s Office is an Indian startup title for a generalist who works directly with the founder. It spread with India’s startup boom, which peaked in 2021 with $41.4 billion raised and 42 new unicorns, and it is now seen as a “live MBA” for future founders and investors.',
     born: { when: '2021 boom', what: '$41.4B raised and 42 unicorns in India' },
-    rise: { when: '2025', what: '3,611 new Founder’s Office hires in India' },
+    rise: { when: 'Jul 2025', what: 'Called a “live MBA” for future founders' },
     milestones: [
       {
         when: '2021',
@@ -61,14 +56,6 @@ const foundersOffice: RoleHub = {
         sourceLabel: 'Inc42 (Dec 30, 2021)',
         sourceUrl:
           'https://inc42.com/features/42-unicorns-41-4-bn-funding-blockbuster-2021-for-indian-startups',
-      },
-      {
-        when: 'Jan 2025 → now',
-        title: '3,611 people take the title',
-        detail:
-          '3,611 people in India started a Founder’s Office title since January 2025. 61% joined companies with 50 people or fewer.',
-        sourceLabel: 'Our count (Apollo people search)',
-        sourceUrl: '#hiring',
       },
       {
         when: 'Jul 2025',
@@ -92,13 +79,12 @@ const foundersOffice: RoleHub = {
     'Founders hire for judgement and speed. Your take-home should show how you prioritised, what you chose not to do, and a clear recommendation, not just analysis.',
   whatTheRoleIs: [
     "You are the founder's extra pair of hands and an extra brain. The work changes every few weeks: one month you size a new market, the next you fix why customers drop off, then you build the board deck. One YC startup's posting splits the job as 40% operations, 20% product, 20% sales, 10% coding and 10% data analysis.",
-    "It is overwhelmingly a startup job. Of the 3,611 people in India who started a Founder's Office title since January 2025, 61% joined companies with 50 people or fewer and only 5% joined companies with more than 1,000. Even big names hire very few: Razorpay 3, Cars24 2, PhysicsWallah 1 in the same period.",
     'The trade-off is clear. You get breadth, speed and direct access to decision-makers. You give up structure and a fixed scope, and part of the job is unglamorous: chasing updates, cleaning data, writing notes. Ask in your interview what the last person in the role actually shipped.',
   ],
   expectationLabels: {
     nav: 'Startup vs scale-up',
     title: 'What founders expect: early startup vs scale-up',
-    sub: 'Most openings are at companies under 50 people. Read that column first.',
+    sub: 'Read the column that matches the companies you are applying to.',
     a: 'Early startup',
     b: 'Scale-up',
     aNote: 'Most roles today',
@@ -257,22 +243,6 @@ const foundersOffice: RoleHub = {
     ],
     crossCheck:
       'Equity matters more here than in most roles: early-stage posts often add ESOPs. Ask for the number of options, the strike price and the vesting schedule, not just a percentage.',
-  },
-  hiring: {
-    title: 'Where new Founder’s Office hires went, 2025–26',
-    segments: true,
-    intro:
-      'In India, 3,611 people started a Founder’s Office title since January 2025. Most went to small startups, so a list of big-company names would mislead you. The smart move is to target funded startups with 15–150 people.',
-    companies: [
-      { name: '50 people or fewer', count: 2205, segment: 'Mostly seed to Series A' },
-      { name: '51–200 people', count: 758, segment: 'Series A to C' },
-      { name: '201–1,000 people', count: 477, segment: 'Scale-ups' },
-      { name: 'Over 1,000 people', count: 168, segment: 'Large companies' },
-    ],
-    method:
-      'Counted in Apollo.io: people in India whose current title is Founder’s Office or Founder’s Office Associate and who started it in the last 670 days, split by employer headcount',
-    sourceLabel: 'Apollo.io people data',
-    asOf: 'Nov 4, 2026',
   },
   questionGroups: [
     {
