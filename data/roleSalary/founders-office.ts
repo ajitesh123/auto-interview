@@ -1,4 +1,5 @@
 import type { RoleSalary } from './types'
+import { FOUNDERS_OFFICE_REPORTED } from './reported/founders-office'
 
 const W = 'https://jobs.weekday.works/'
 const LIST = 'https://www.weekday.works/jobs/founder%E2%80%99s-office-chief-of-staff-jobs-in-india'
@@ -6,10 +7,10 @@ const LIST = 'https://www.weekday.works/jobs/founder%E2%80%99s-office-chief-of-s
 const foundersOffice: RoleSalary = {
   slug: 'founders-office',
   roleName: "Founder's Office",
-  metaTitle: "Founder's Office Salary in India (2026): 17 Real Offers",
+  metaTitle: "Founder's Office & Chief of Staff Salary in India (2026)",
   metaDescription:
-    "Founder's Office pay from 17 Indian job posts that state a salary, with what each CTC means in hand per month, ESOP patterns and how to negotiate.",
-  h1: "Founder's Office salary in India: 17 posted offers, in hand",
+    "Founder's Office and Chief of Staff pay reported by employees at Google, Meesho, Swiggy, Revolut and 63 more companies, plus 17 posted offers in hand.",
+  h1: "Founder's Office and Chief of Staff salary in India: what people at known companies are paid",
   checked: '2026-11-06',
   lead: 'india',
   india: [
@@ -233,6 +234,59 @@ const foundersOffice: RoleSalary = {
     },
   ],
   us: [],
+  reported: {
+    checked: '2026-11-14',
+    intro:
+      "Job posts show what a company advertises. These numbers are what people already in the job say they are paid, reported on AmbitionBox under the titles founder's office teams actually use: Chief of Staff, Strategy and Operations Manager, and Founder's Office Associate. Each company shows how many reports sit behind its number.",
+    findings: [
+      "Chief of Staff is the senior founder's office title: a median of ₹39 lakh across 1,432 reports, with the middle half between ₹24 lakh and ₹45 lakh (AmbitionBox, data updated 11 Nov 2026).",
+      "Founder's Office Associate is the entry title: a median of ₹8.4 lakh across only 70 reports, mostly from small startups. The 17 job posts on this page sit between the two, at a ₹19.5 lakh median midpoint.",
+      'Experience moves pay steadily: a Chief of Staff reports ₹22.9 lakh on average at 2–3 years and ₹41.8 lakh at 9–10 years.',
+      'Big tech pays the most for the same title: Google India Chief of Staff averages ₹56.1 lakh (30 reports, 10–15 years) and Google Strategy and Operations Manager ₹82.2 lakh (12 reports, 7–9 years).',
+      'Among startups with many reports, Meesho averages ₹40 lakh for Strategy and Operations Manager (33 reports, 2–7 years) and Swiggy ₹21.1 lakh (11 reports, 3–5 years).',
+      'In the US, Levels.fyi puts the median Chief of Staff at $180K total pay (54 reports); Google and Microsoft report about $375K–$379K.',
+    ],
+    sets: FOUNDERS_OFFICE_REPORTED,
+    us: {
+      title: 'US Chief of Staff pay at big tech is about double the US median',
+      checked: '2026-11-14',
+      overall: {
+        company: 'All US employers',
+        median: 180,
+        n: 54,
+        url: 'https://www.levels.fyi/t/chief-of-staff/locations/united-states',
+      },
+      rows: [
+        {
+          company: 'MongoDB',
+          median: 470,
+          note: 'Reports not shown; base $300K + stock $130K + bonus $40K',
+          url: 'https://www.levels.fyi/companies/mongodb/salaries/chief-of-staff',
+        },
+        {
+          company: 'Google',
+          median: 379,
+          n: 18,
+          note: 'L5 averages $347K, L6 $360K',
+          url: 'https://www.levels.fyi/companies/google/salaries/chief-of-staff',
+        },
+        {
+          company: 'Microsoft',
+          median: 375,
+          n: 11,
+          note: 'Levels 65–66',
+          url: 'https://www.levels.fyi/companies/microsoft/salaries/chief-of-staff',
+        },
+        {
+          company: 'Amazon',
+          median: 98,
+          n: 9,
+          note: 'Old data: last updated Sep 2024',
+          url: 'https://www.levels.fyi/companies/amazon/salaries/chief-of-staff',
+        },
+      ],
+    },
+  },
   patterns: [
     'Pay splits into two markets. Associate roles at small or non-tech companies post ₹3–10 LPA; funded tech and AI startups asking for 2–5 years post ₹15–40 LPA.',
     'Bengaluru has the most posts (8 of 17), then Delhi NCR (4). Three are remote.',

@@ -17,4 +17,12 @@ export const ROLE_SALARY_LIST: RoleSalary[] = [
 export const ROLE_SALARIES: Record<string, RoleSalary> = Object.fromEntries(
   ROLE_SALARY_LIST.map((r) => [r.slug, r])
 )
-export type { RoleSalary, PayPost, CompanyPay, CityPay } from './types'
+export type {
+  RoleSalary,
+  PayPost,
+  CompanyPay,
+  CityPay,
+  ReportedSet,
+  ReportedCompany,
+  ReportedUs,
+} from './types'

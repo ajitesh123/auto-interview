@@ -8,6 +8,7 @@ import OfferCheck from './OfferCheck'
 import KitStrip from '@/components/roleKits/KitStrip'
 import { Figure, BarList, RangeList } from '@/components/viz'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import ReportedPay, { lakh as lakhR } from './ReportedPay'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
 const kicker = 'font-mono text-kicker uppercase tracking-[0.08em]'
@@ -551,9 +552,26 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
       ? `${s.india.length} Indian ${s.roleName} job posts that state pay have a median midpoint of ${fmt('india', ls.median)}, about ${inr(inHand(ls.median))} a month in hand. Posted ranges run from ${fmt('india', ls.low)} to ${fmt('india', ls.high)}.`
       : `${s.us.length} US ${s.roleName} job posts that state pay have a median midpoint of ${fmt('us', ls.median)} base, with ranges from ${fmt('us', ls.low)} to ${fmt('us', ls.high)}.${india && india.n >= 4 ? ` In India, ${s.india.length} posts have a median midpoint of ${fmt('india', india.median)} (about ${inr(inHand(india.median))} a month in hand).` : ''}`
 
-  const answerFull = s.answerExtra ? `${answer} ${s.answerExtra}` : answer
+  const rp = s.reported
+  const reportedLead = rp
+    ? `People already in the job report ${rp.sets
+        .map(
+          (x) =>
+            `a median of ${lakhR(x.median)} as ${x.label} (${x.n.toLocaleString('en-IN')} reports)`
+        )
+        .join(', ')
+        .replace(/, ([^,]*)$/, ' and $1')} on AmbitionBox. `
+    : ''
+  const answerFull = `${reportedLead}${s.answerExtra ? `${answer} ${s.answerExtra}` : answer}`
+  const updated = rp && rp.checked > s.checked ? rp.checked : s.checked
 
   const faqs = [
+    ...(rp
+      ? rp.sets.map((x) => ({
+          q: `What is the salary of ${an(x.label)} in India?`,
+          a: `${x.label} pay reported on AmbitionBox has a median of ${lakhR(x.median)} across ${x.n.toLocaleString('en-IN')} reports; the middle half earns ${lakhR(x.p25)} to ${lakhR(x.p75)} and the top 10% earn ${lakhR(x.p90)} or more. Data updated ${fmtDate(x.updated)}.`,
+        }))
+      : []),
     india && {
       q: `What is the salary of ${an(s.roleName)} in India?`,
       a: `Across ${india.n} Indian job posts that state pay, the median midpoint is ${fmt('india', india.median)} and ranges run from ${fmt('india', india.low)} to ${fmt('india', india.high)}. Checked ${fmtDate(s.checked)}.`,
@@ -585,7 +603,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
       url,
       mainEntityOfPage: url,
       datePublished: s.checked,
-      dateModified: s.checked,
+      dateModified: updated,
       author: {
         '@type': 'Person',
         name: 'Ajitesh Abhishek',
@@ -646,16 +664,20 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
 
         <header className="mt-8 max-w-3xl">
           <div className={`${kicker} text-signal-strong`}>
-            Salary · {total} job posts opened · Updated {fmtDate(s.checked)}
+            Salary ·{' '}
+            {rp
+              ? `Reported pay at ${new Set(rp.sets.flatMap((x) => x.companies.map((c) => c.slug))).size} known companies + ${total} job posts`
+              : `${total} job posts opened`}{' '}
+            · Updated {fmtDate(updated)}
           </div>
           <h1 className="mt-4 font-serif text-display font-medium text-fg">{s.h1}</h1>
           <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{answerFull}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href={`#${regions[0]}`}
+              href={rp ? '#reported' : `#${regions[0]}`}
               className="inline-flex h-11 items-center rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
             >
-              See every posted offer
+              {rp ? 'See pay at companies you know' : 'See every posted offer'}
             </a>
             <Link
               href="/salary-calculator"
@@ -673,9 +695,16 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
         <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
           <div className={`${kicker} text-signal-ink`}>How we got these numbers</div>
           <p className="mt-2 text-body text-fg">
-            Every row is a real job post that states a pay range, opened on {fmtDate(s.checked)} and
-            linked. No estimates from salary sites. Closed posts and job-board copies are marked,
-            because they still show what employers offered.
+            {rp && (
+              <>
+                Two kinds of numbers. First, pay reported by people already in the job: AmbitionBox
+                and Levels.fyi aggregates, read on {fmtDate(rp.checked)}, each with its number of
+                reports and a link. Then real job posts.{' '}
+              </>
+            )}
+            Every post row is a real job post that states a pay range, opened on{' '}
+            {fmtDate(s.checked)} and linked. Closed posts and job-board copies are marked, because
+            they still show what employers offered. We add no estimates of our own.
             {s.methodNote ? ` ${s.methodNote}` : ''}
           </p>
         </div>
@@ -698,7 +727,11 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
       <nav aria-label="On this page" className="sticky top-16 z-40 border-y border-border bg-bg/95">
         <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
           {[
-            ...regions.map((r) => ({ id: r, label: r === 'india' ? 'India' : 'United States' })),
+            ...(rp ? [{ id: 'reported', label: 'Known companies' }] : []),
+            ...regions.map((r) => ({
+              id: r,
+              label: `${r === 'india' ? 'India' : 'United States'}${rp ? ' posts' : ''}`,
+            })),
             ...(s.cities ? [{ id: 'cities', label: 'By city' }] : []),
             ...(s.companies ? [{ id: 'companies', label: 'By company' }] : []),
             { id: 'patterns', label: 'What the posts show' },
@@ -717,6 +750,7 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
       </nav>
 
       <div className={container}>
+        <ReportedPay s={s} Section={Section} />
         {regions.map((r) => (
           <Section
             key={r}
@@ -851,6 +885,14 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
             ))}
           </div>
         </Section>
+        <p className="border-t border-border py-6 text-caption text-fg-3">
+          Sources:{' '}
+          {rp
+            ? 'employee-reported salary data from AmbitionBox and Levels.fyi, and the job posts linked above.'
+            : 'the job posts linked above.'}{' '}
+          Figures belong to their sources; we summarise and link them and are not affiliated with
+          any of them.
+        </p>
       </div>
 
       <section className="bg-ink py-16 text-ink-fg md:py-20">
