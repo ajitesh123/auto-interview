@@ -15,6 +15,7 @@ import {
 import type { PlanMonth } from '@/data/pgCourse/types'
 import { PG_COURSE, PG_DISCLAIMER } from './course'
 import PlanClient from './PlanClient'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 // Paul Graham course hub (/paul-graham). Signal Paper design.
 // Order: hero → the 6-month plan (centrepiece) → course map → essays → videos → FAQ → CTA.
@@ -465,26 +466,35 @@ export default function PgCourseHub({ months }: { months: PlanMonth[] }) {
           </section>
         </div>
 
-        {/* ---------- Closing CTA (ink band) ---------- */}
-        <section className="bg-ink text-ink-fg">
+        <section className="border-y border-border bg-signal-tint/50">
           <div
-            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
+            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-16`}
           >
             <div className="max-w-xl">
-              <div className={`${kicker} text-signal-on-ink`}>{PG_COURSE.endCta.kicker}</div>
-              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
+              <div className={`${kicker} text-signal-strong`}>{PG_COURSE.endCta.kicker}</div>
+              <h2 className="mt-3 font-serif text-h1 font-medium text-fg">
                 {PG_COURSE.endCta.title}
               </h2>
-              <p className="mt-3 text-body text-ink-fg-2">{PG_COURSE.endCta.body}</p>
+              <p className="mt-3 text-body text-fg-2">{PG_COURSE.endCta.body}</p>
             </div>
             <Link
               href={PG_COURSE.endCta.href}
-              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
+              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-signal px-6 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong md:self-auto"
             >
               {PG_COURSE.endCta.label} <ArrowRightIcon />
             </Link>
           </div>
         </section>
+        <MockInterviewCTA
+          title="Pitch it out loud before a partner hears it."
+          body="YC interviews are ten minutes of fast questions. Practise answering like a founder with a voice interviewer, and hear where you ramble."
+          roleName="Founder"
+          questions={[
+            'What are you building, in one sentence?',
+            'How do you know people want this?',
+            'Why are you the right team, and why now?',
+          ]}
+        />
       </div>
     </DomainLayout>
   )

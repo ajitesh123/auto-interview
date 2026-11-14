@@ -27,6 +27,7 @@ import {
 import { tabLabel } from './payLabels'
 import { splitAsked, toCriteria } from './questionUtils'
 import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon, SparkIcon } from './icons'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 // Role hub = a learner journey (Signal Paper design, see the signal-paper-ui skill).
 // Six steps in the order a candidate needs them: understand → decide → get the interview →
@@ -384,14 +385,14 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
               <h1 className="mt-4 font-serif text-display font-medium text-fg">{hub.heroTitle}</h1>
               <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{hub.heroDescription}</p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
+                <MockInterviewButton caption={false} />
                 <a
                   href={`#${chapters[0].id}`}
-                  className="inline-flex h-11 items-center gap-2 rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
+                  className="inline-flex h-11 items-center gap-2 rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
                 >
                   Start the guide
                   <ArrowRightIcon />
                 </a>
-                <MockInterviewButton caption={false} />
               </div>
               <ResumeJourney slug={hub.slug} chapters={chapters} />
             </div>
@@ -1282,32 +1283,13 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
           </div>
         </section>
 
-        {/* ---------- Closing CTA (ink band) ---------- */}
-        <section className="bg-ink text-ink-fg">
-          <div
-            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
-          >
-            <div className="max-w-xl">
-              <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-on-ink">
-                Free · No signup to start
-              </div>
-              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
-                Practise out loud. It’s free.
-              </h2>
-              <p className="mt-3 text-body text-ink-fg-2">
-                A {hub.shortName} mock interview with an AI interviewer, with feedback on every
-                answer.
-              </p>
-            </div>
-            <span className="shrink-0 self-start md:self-auto">
-              <MockInterviewButton
-                tone="light"
-                label="Start a free mock interview"
-                role={hub.shortName}
-              />
-            </span>
-          </div>
-        </section>
+        <MockInterviewCTA
+          roleName={hub.shortName}
+          questions={hub.questionGroups
+            .flatMap((g) => g.questions.map((x) => x.q.replace(/\s*\(.*?\)\s*$/, '').trim()))
+            .filter((q) => q.length > 12 && q.length <= 110)
+            .slice(0, 4)}
+        />
 
         <div className={`${container} space-y-16 py-16 md:py-24`}>
           {/* More role hubs */}

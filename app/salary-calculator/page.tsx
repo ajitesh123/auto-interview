@@ -1,3 +1,4 @@
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
@@ -717,25 +718,7 @@ export default function SalaryCalculatorPage() {
       </div>
 
       {/* ---------- CTA band (ink, once) ---------- */}
-      <section className="bg-ink py-16 text-ink-fg md:py-20">
-        <div className={container}>
-          <div className={`${kicker} text-signal-on-ink`}>Free · no login to start</div>
-          <h2 className="mt-3 max-w-2xl font-serif text-h1 font-medium text-ink-fg">
-            Get the offer first. Practise the interview out loud.
-          </h2>
-          <p className="mt-3 max-w-[56ch] text-body-lg text-ink-fg-2">
-            Run a free voice mock interview for your role and hear where your answers are thin.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/free-mock-interview"
-              className="inline-flex h-11 items-center rounded-full bg-white px-5 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90"
-            >
-              Start a free mock interview
-            </Link>
-          </div>
-        </div>
-      </section>
+      <MockInterviewCTA title="Get the offer first. Practise the interview out loud." />
     </div>
   )
 }

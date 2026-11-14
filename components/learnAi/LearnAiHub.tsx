@@ -12,6 +12,7 @@ import {
   topVideos,
 } from '@/data/learnAi'
 import { DoneMark, HubResume, YouTubeFacade } from './LearnAiClient'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 // Learn AI hub: one path from "what is AI?" to building agents (Signal Paper design).
 // Shows the whole map up front, remembers progress on the device, and plays videos in place.
@@ -386,29 +387,15 @@ export default function LearnAiHub() {
           </section>
         </div>
 
-        {/* ---------- Closing CTA (ink band) ---------- */}
-        <section className="bg-ink text-ink-fg">
-          <div
-            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
-          >
-            <div className="max-w-xl">
-              <div className={`${kicker} text-signal-on-ink`}>Free · No signup to start</div>
-              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
-                Learned it? Now say it out loud.
-              </h2>
-              <p className="mt-3 text-body text-ink-fg-2">
-                AI interviews ask you to explain LLMs, RAG and agents simply. Practise with an AI
-                interviewer and get feedback on every answer.
-              </p>
-            </div>
-            <Link
-              href="/free-mock-interview"
-              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
-            >
-              Start a free mock interview <ArrowRightIcon />
-            </Link>
-          </div>
-        </section>
+        <MockInterviewCTA
+          title="Learned it? Now say it out loud."
+          body="AI interviews ask you to explain LLMs, RAG and agents simply. Practise with a voice interviewer and get feedback on every answer."
+          questions={[
+            'Explain RAG to a manager who has never used it.',
+            'When would you fine-tune a model instead of improving the prompt?',
+            'How would you stop an agent from taking a wrong action?',
+          ]}
+        />
       </div>
     </DomainLayout>
   )

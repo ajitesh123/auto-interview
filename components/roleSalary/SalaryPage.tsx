@@ -9,6 +9,7 @@ import KitStrip from '@/components/roleKits/KitStrip'
 import { Figure, BarList, RangeList } from '@/components/viz'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
 import ReportedPay, { lakh as lakhR } from './ReportedPay'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
 const kicker = 'font-mono text-kicker uppercase tracking-[0.08em]'
@@ -895,25 +896,14 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
         </p>
       </div>
 
-      <section className="bg-ink py-16 text-ink-fg md:py-20">
-        <div className={container}>
-          <div className={`${kicker} text-signal-on-ink`}>Free · no login to start</div>
-          <h2 className="mt-3 max-w-2xl font-serif text-h1 font-medium text-ink-fg">
-            The offer comes after the interview. Practise it out loud.
-          </h2>
-          <p className="mt-3 max-w-[56ch] text-body-lg text-ink-fg-2">
-            Run a free voice mock interview for the {hub.shortName} role and hear where your answers
-            are thin.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <MockInterviewButton
-              tone="light"
-              label="Start a free mock interview"
-              role={hub.shortName}
-            />
-          </div>
-        </div>
-      </section>
+      <MockInterviewCTA
+        roleName={hub.shortName}
+        title="The offer comes after the interview. Practise it out loud."
+        questions={hub.questionGroups
+          .flatMap((g) => g.questions.map((x) => x.q.replace(/\s*\(.*?\)\s*$/, '').trim()))
+          .filter((q) => q.length > 12 && q.length <= 110)
+          .slice(0, 4)}
+      />
     </div>
   )
 }

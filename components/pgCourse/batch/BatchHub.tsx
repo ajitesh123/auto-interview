@@ -12,6 +12,7 @@ import {
   weeksByPhase,
 } from '@/data/pgCourse/batch'
 import { ChallengePanel, ChallengeStatus, GrowthTracker, WeekTicks } from './BatchClient'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 // The 12-week YC challenge (/paul-graham/yc-batch). Signal Paper.
 // Order: hero + "do you want to start the challenge?" panel → the rhythm of a YC week →
@@ -494,31 +495,41 @@ export default function BatchHub() {
         </div>
 
         {/* ---------- Closing band ---------- */}
-        <section className="bg-ink text-ink-fg">
+        <section className="border-y border-border bg-signal-tint/50">
           <div
-            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
+            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-16`}
           >
             <div className="max-w-xl">
-              <div className={`${kicker} text-signal-on-ink`}>
+              <div className={`${kicker} text-signal-strong`}>
                 12 challenges · 12 weekly updates · 1 Demo Day
               </div>
-              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
+              <h2 className="mt-3 font-serif text-h1 font-medium text-fg">
                 Do you want to start the challenge?
               </h2>
-              <p className="mt-3 text-body text-ink-fg-2">
+              <p className="mt-3 text-body text-fg-2">
                 Pick your start date, then do week 1. Everything you write stays on this device.
               </p>
             </div>
             {first && (
               <a
                 href="#start"
-                className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
+                className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-signal px-6 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong md:self-auto"
               >
                 Start the challenge <ArrowRightIcon />
               </a>
             )}
           </div>
         </section>
+        <MockInterviewCTA
+          title="Pitch it out loud before a partner hears it."
+          body="YC interviews are ten minutes of fast questions. Practise answering like a founder with a voice interviewer, and hear where you ramble."
+          roleName="Founder"
+          questions={[
+            'What are you building, in one sentence?',
+            'How do you know people want this?',
+            'Why are you the right team, and why now?',
+          ]}
+        />
       </div>
     </DomainLayout>
   )

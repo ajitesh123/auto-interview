@@ -575,3 +575,48 @@
     height: 10px;
   }
 }
+
+/* Mock interview CTA: interviewer waveform, live dot, question fade */
+@keyframes cta-wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.cta-wave {
+  transform-origin: center;
+  animation: cta-wave 1.2s var(--ease-standard) infinite;
+}
+@keyframes cta-ping {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.cta-ping {
+  animation: cta-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes cta-q {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cta-q {
+  animation: cta-q 420ms var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-wave,
+  .cta-ping,
+  .cta-q {
+    animation: none;
+  }
+}
