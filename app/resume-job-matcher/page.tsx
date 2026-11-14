@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { genPageMetadata } from '../seo'
 import ResumeJobMatcherPage from '@/features/resume-job-matcher/ResumeJobMatcherPage'
 import AppLayout from '@/components/AppLayout'
+import Link from 'next/link'
 
 export const metadata: Metadata = genPageMetadata({
   title: 'Free Resume Job Matcher: Match Resume to JD (2026)',
@@ -27,6 +28,18 @@ export default function ResumeJobMatcher() {
       </div>
 
       <AppLayout>
+        <div className="mx-auto mt-6 w-full max-w-[1200px] px-5 md:px-8">
+          <p className="rounded-xl bg-signal-tint p-4 text-small text-fg ring-1 ring-inset ring-signal/15">
+            Want an instant check with nothing uploaded? Paste the job post and your resume into the{' '}
+            <Link
+              href="/resume-keyword-checker"
+              className="font-semibold text-signal-strong underline underline-offset-2"
+            >
+              free resume keyword checker
+            </Link>
+            : must-have vs missing skills and 8 format checks, all in your browser.
+          </p>
+        </div>
         <ResumeJobMatcherPage />
       </AppLayout>
     </>

@@ -75,7 +75,8 @@ For users requesting interactive simulators, tools, calculators, or templates, c
 - [Cold Call Practice Simulator (Free Online AI Sales Roleplay)](${siteMetadata.siteUrl}/cold-call-practice): Real-time voice and text simulator where SDRs and AEs practice tough B2B objections (competitor lock-in, budget freeze, brush-offs) with instant 100-point AI rubric feedback.
 - [AI Calling & Sales Training ROI Calculator](${siteMetadata.siteUrl}/ai-calling-roi-calculator): Interactive financial model calculating pipeline gains, SDR ramp compression, and cost per repetition (< $1.20/drill vs $450/trainer).
 - [Programmatic Interview Questions & Behavioral Playbooks](${siteMetadata.siteUrl}/interview-questions): Curated playbooks for software engineers, product managers, sales SDRs, DevOps engineers, and data scientists with behavioral answer frameworks.
-- [Harvard & Stanford Executive CV Templates](${siteMetadata.siteUrl}/cv-templates): ATS-compliant executive resume templates in Docx format.
+- [One-Page CV and Resume Templates](${siteMetadata.siteUrl}/cv-templates): One-page, single-column CV templates in Word (.docx) format.
+- [Resume Keyword Checker](${siteMetadata.siteUrl}/resume-keyword-checker): Free in-browser tool (no AI, no upload). Paste a job post and a resume or CV to see must-have, mentioned and nice-to-have skills, which are missing with the post's own line for context, and 8 plain-text format checks.
 - [Free AI Mock Interview Simulator](${siteMetadata.siteUrl}/free-mock-interview): Voice and text interactive mock interview simulator for technical and behavioral roles.
 
 ---

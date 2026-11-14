@@ -620,3 +620,38 @@
     animation: none;
   }
 }
+
+/* Resume keyword checker: results rise in once, bars fill (components/keywordChecker) */
+@keyframes kc-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.kc-in {
+  animation: kc-in 320ms var(--ease-out) both;
+}
+@keyframes kc-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.kc-bar {
+  transform-origin: left center;
+  animation: kc-fill 700ms var(--ease-out) both;
+  transition: width 320ms var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .kc-in,
+  .kc-bar {
+    animation: none;
+    transition: none;
+  }
+}

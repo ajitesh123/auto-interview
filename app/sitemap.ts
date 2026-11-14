@@ -113,6 +113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'voice-ai-calling',
         'salary-calculator',
         'resume-job-matcher',
+        'resume-keyword-checker',
       ].includes(route)
     )
       return 0.95
@@ -139,6 +140,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'cold-call-practice',
         'ai-sales-training',
         'resume-job-matcher',
+        'resume-keyword-checker',
       ].includes(route)
     )
       return 'weekly' as const
@@ -162,6 +164,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'cold-call-practice',
     'ai-sales-training',
     'resume-job-matcher',
+    'resume-keyword-checker',
     'find-jobs',
     'cover-letter',
     'free-resources',
