@@ -1,4 +1,5 @@
 import type { RoleSalary } from './types'
+import { DATA_ANALYST_REPORTED } from './reported/data-analyst'
 
 // Data Analyst salary page. Brief: docs/briefs/2026-11-10-data-analyst-salary.md
 // India and US posts: 13 India + 14 US carried over from the /data-analyst hub (opened 9 Nov 2026; the
@@ -815,6 +816,19 @@ const dataAnalyst: RoleSalary = {
     'Posts open to freshers have a median midpoint of ₹3.1 LPA (about ₹22,000 a month in hand). Bengaluru startup posts pull the overall median up: outside Bengaluru it is ₹7 LPA.',
   methodNote:
     '8 of the 24 India posts are from recruiters who do not name the employer; they are marked in the table.',
+  reported: {
+    checked: '2026-11-14',
+    intro:
+      'Job posts show what a company advertises. These numbers are what people already in the job say they are paid, reported on AmbitionBox. Each company shows how many reports sit behind its number, and banks, IT services firms and product companies are kept side by side so you can see the gap.',
+    findings: [
+      'Data Analyst pay reported on AmbitionBox has a median of ₹6.9 lakh across 150,187 reports, and the top 10% earn ₹11.4 lakh or more (data updated 14 Nov 2026).',
+      'Experience adds about ₹1 lakh a year: ₹5.1 lakh on average at 1–2 years, ₹6.8 lakh at 3–4 years and ₹8.9 lakh at 5–6 years.',
+      'Global banks and product companies pay about three times what IT services firms do: Citicorp averages ₹18.8 lakh, Google and Optum ₹16.3 lakh, American Express ₹16 lakh and JPMorgan ₹15 lakh.',
+      'IT services firms have the most reports and the lowest averages: TCS ₹5.2 lakh across 8,081 reports, Wipro ₹5.1 lakh, Capgemini ₹5 lakh. Amazon (₹10.2 lakh, 1,221 reports) and Flipkart (₹9.1 lakh, 1,190) sit in between.',
+      'By city, Gurugram (₹7.5 lakh) and Bengaluru (₹7.3 lakh) lead; the spread between the top and bottom metros is about ₹1 lakh.',
+    ],
+    sets: DATA_ANALYST_REPORTED,
+  },
   patterns: [
     'Fresher pay is low. The 5 posts open to freshers (Translink, Goodly, Stattr, Skipto, Newton School) have a median midpoint of ₹3.1 LPA, about ₹22,000 a month in hand.',
     'Self-reported entry pay is higher: ₹11.5 lakh for entry level in Bengaluru on Levels.fyi. People who report there mostly joined large employers, so read it as the top of the fresher market.',

@@ -1,4 +1,5 @@
 import type { RoleSalary } from './types'
+import { AI_ENGINEER_REPORTED } from './reported/ai-engineer'
 
 // Every post below was opened on 8 Nov 2026. Re-opened by hand the same morning: Anthropic, Figma,
 // Kuku FM, SciSpace, and the Levels.fyi title pages (AI Engineer US, AI Engineer Bengaluru,
@@ -590,6 +591,19 @@ const aiEngineer: RoleSalary = {
         url: `${LF}swiggy/salaries/software-engineer/locations/india`,
       },
     ],
+  },
+  reported: {
+    checked: '2026-11-14',
+    intro:
+      'Job posts show what a company advertises. These numbers are what people already in the job say they are paid, reported on AmbitionBox. Each company shows how many reports sit behind its number, and banks, IT services firms and product companies are kept side by side so you can see the gap.',
+    findings: [
+      'AI Engineer pay reported on AmbitionBox has a median of ₹15.8 lakh across 5,472 reports, and the top 10% earn ₹24.6 lakh or more (data updated 14 Nov 2026).',
+      'The title is new and growing fast: AmbitionBox has 490 AI Engineer salaries dated 2024 and 3,587 dated 2026.',
+      'Experience matters more here than in older roles: ₹10.3 lakh on average at 1–2 years, ₹15.8 lakh at 4–5 years and ₹21.5 lakh at 5–6 years.',
+      'The top payers are product and AI companies: Turing averages ₹60 lakh (22 reports), Microsoft ₹51.8 lakh (17), Google ₹41.1 lakh (117) and IBM ₹27 lakh (305).',
+      'IT services pay far less for the same title: TCS ₹7.3 lakh (292 reports), Cognizant ₹8.6 lakh, Accenture ₹10.7 lakh.',
+    ],
+    sets: AI_ENGINEER_REPORTED,
   },
   patterns: [
     'India: 19 posts with stated pay have a median midpoint of ₹27.5 LPA. Ranges run from ₹2L to ₹60L, and 7 of the 19 start at ₹30L or more.',

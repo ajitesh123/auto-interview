@@ -1,4 +1,5 @@
 import type { RoleSalary } from './types'
+import { PRODUCT_MANAGER_REPORTED } from './reported/product-manager'
 
 // Every post below was opened on 6 Nov 2026 (pay, equity and status re-checked the same evening).
 // Levels.fyi company pages (India, Product Manager) opened 6 Nov 2026; Flipkart page re-opened by hand.
@@ -579,6 +580,19 @@ const productManager: RoleSalary = {
         url: `${LF}paytm/salaries/product-manager/locations/india`,
       },
     ],
+  },
+  reported: {
+    checked: '2026-11-14',
+    intro:
+      'Job posts show what a company advertises. These numbers are what people already in the job say they are paid, reported on AmbitionBox. Each company shows how many reports sit behind its number, and banks, IT services firms and product companies are kept side by side so you can see the gap.',
+    findings: [
+      'Product Manager has a median of ₹23.4 lakh across 73,862 reports; the middle half earns ₹14.4–27.5 lakh and the top 10% ₹36.4 lakh or more (AmbitionBox, data updated 14 Nov 2026). Associate Product Manager has a median of ₹15.4 lakh across 15,896 reports.',
+      'Experience moves pay steadily: ₹16.8 lakh on average at 2–3 years, ₹22.2 lakh at 5–6 years and ₹28.5 lakh at 13–14 years.',
+      'Big tech and global product companies pay the most: Google averages ₹43.6 lakh (534 reports), Microsoft ₹36 lakh (434), Amazon ₹34.1 lakh (503) and Flipkart ₹33.4 lakh (262).',
+      'At banks, "Product Manager" usually means a banking product role: ICICI Bank has the most reports of any company (3,637) at a ₹18.4 lakh average, and HDFC Bank averages ₹14.7 lakh. Compare a tech PM offer with tech companies, not with these.',
+      'For APMs, ShareChat and Media.net average ₹28.7 lakh, MakeMyTrip ₹25.3 lakh (106 reports), Google ₹20.2 lakh (169 reports, 1–3 years) and Meesho ₹19.4 lakh (172 reports).',
+    ],
+    sets: PRODUCT_MANAGER_REPORTED,
   },
   patterns: [
     'Pay climbs steeply with the years a post asks for: the median midpoint is ₹14 LPA where posts ask 0–1 years, ₹18.5 LPA at 2–3 years and ₹42.5 LPA at 4 years or more (table above).',

@@ -76,7 +76,7 @@ function CompanyBars({ set }: { set: ReportedSet }) {
     >
       <BarList
         rows={rows.map((c) => ({
-          label: `${c.name} (${c.n})`,
+          label: `${c.name} (${c.n.toLocaleString('en-IN')})`,
           value: c.avg,
           display: lakhShort(c.avg),
           href: companyUrl(c, set),
@@ -235,7 +235,7 @@ export default function ReportedPay({
     <Section
       id="reported"
       meta={`Reported by employees · ${companies.size} well-known companies · read ${fmtDay(r.checked)}`}
-      title={`What ${s.roleName} and related roles are paid at companies you know`}
+      title={`What ${s.roleName}${r.sets.length > 1 ? ' and related roles are' : 's are'} paid at companies you know`}
       intro={r.intro}
     >
       <ul className="max-w-prose space-y-2 text-body text-fg-2">
