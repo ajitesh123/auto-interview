@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 import { genPageMetadata } from '../seo'
 import { FindJobsPage } from '@/features/find-jobs'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 import RelatedTools from '@/components/RelatedTools'
 
 // Nov 2026: rebuilt as a link-out search (no scraping). Copy describes only what the tool does.
@@ -53,23 +54,24 @@ export default function FindJobs() {
         }}
       />
 
-      <AppLayout>
+      <DomainLayout currentPath="/find-jobs">
         <FindJobsPage />
 
-        <section className="mx-auto w-full max-w-4xl px-8 pb-12">
-          <h2 className="mb-4 text-2xl font-bold text-white">Questions</h2>
+        <section className="mx-auto w-full max-w-4xl px-5 pb-12 md:px-8">
+          <h2 className="mb-4 text-h3 font-semibold text-fg">Questions</h2>
           <div className="space-y-4">
             {FAQS.map((f) => (
               <div key={f.q}>
-                <h3 className="font-semibold text-white">{f.q}</h3>
-                <p className="text-gray-400">{f.a}</p>
+                <h3 className="text-body font-semibold text-fg">{f.q}</h3>
+                <p className="mt-1 text-body text-fg-2">{f.a}</p>
               </div>
             ))}
           </div>
         </section>
 
+        <MockInterviewCTA title="Found the job? Practise the interview out loud." />
         <RelatedTools currentPage="/find-jobs" />
-      </AppLayout>
+      </DomainLayout>
     </>
   )
 }

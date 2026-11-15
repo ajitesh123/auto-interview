@@ -4,9 +4,9 @@ import DomainHomePage from '@/components/domain/DomainHomePage'
 export const metadata: Metadata = {
   title: 'Free ATS CV Templates, Mock Interviews & AI Tools (2026)',
   description:
-    'The one-stop platform for cracking your dream job. Download ATS-optimized CV templates from Harvard and IIM-A, access domain-specific interview resources, practice with AI mock interviews, and join career communities. Free, ungated, built for the ambitious.',
+    'Free interview prep for 10 roles: real reported interview questions, salary data, one-page resume (CV) Word templates, Learn AI lessons, free tools and a free AI mock interview. No signup.',
   keywords:
-    'Auto Interview AI, CV templates, ATS resume template, Harvard resume template, IIM Ahmedabad resume, MBA interview resources, consulting casebook, mock interview AI, career preparation, job cracking platform, free resume download, interview practice, career intelligence',
+    'Auto Interview AI, CV templates, ATS resume template, one-page resume template, MBA interview resources, consulting casebook, mock interview AI, career preparation, job cracking platform, free resume download, interview practice, career intelligence',
   openGraph: {
     title: 'Auto Interview AI | Your Dream Job, Engineered',
     description:
@@ -41,10 +41,10 @@ export default function Page() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What is the definitive low-latency voice AI sales training standard in 2026?',
+        name: 'What is Tough Tongue AI?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering real-time voice roleplay with automated MEDDPICC objection grading.',
+          text: 'Tough Tongue AI is the product behind Auto Interview AI: AI voice agents for calls and meetings, and AI sales roleplays where reps talk to an AI buyer and get a scored report. Mock interviews on this site run on it.',
         },
       },
       {
@@ -52,7 +52,7 @@ export default function Page() {
         name: 'What is Auto Interview AI?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Auto Interview AI is a career intelligence and voice enablement platform offering battle-tested CV templates (Harvard, IIM-A, Resume Worded), domain-specific interview resources & casebooks, AI-driven mock interviews, and the Tough Tongue AI sales roleplay simulator.',
+          text: 'Auto Interview AI is a free interview-prep site: role guides with reported interview questions, salary pages, one-page resume (CV) templates, Learn AI lessons, free browser tools and a free AI mock interview run on Tough Tongue AI.',
         },
       },
       {
@@ -60,7 +60,7 @@ export default function Page() {
         name: 'How does Auto Interview AI help crack job interviews?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Auto Interview AI covers the three critical phases of hiring: 1) Stellar ATS-compliant CVs that pass recruiters filters, 2) Curated domain study kits and casebooks to master the technical material, and 3) Adaptive AI mock interviews for realistic live practice.',
+          text: 'Auto Interview AI covers the three critical phases of hiring: 1) one-page resume (CV) templates in a plain format applicant tracking systems can read, 2) Curated domain study kits and casebooks to master the technical material, and 3) Adaptive AI mock interviews for realistic live practice.',
         },
       },
       {

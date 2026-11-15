@@ -16,6 +16,8 @@ import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
 import { AiPrompt } from '@/components/ai/AiPrompt'
 import { tutorPrompt } from '@/data/aiPrompts'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
 // One lesson of a course (Learn AI by default; the Paul Graham course passes its own config).
 // Signal Paper, see the signal-paper-ui skill.
@@ -172,6 +174,23 @@ export default function LessonPage({
   const pct = Math.round((lesson.order / total) * 100)
   // Role hubs that send people to this lesson (Learn AI only): gives readers a next step that
   // matches why they are learning, high on the page (NN/g: most viewing time is in 2 screens).
+  // The closing panel cycles this lesson's own question-shaped step headings.
+  // Only headings that read as a standalone interviewer question (no labels, years, pronouns
+  // without an antecedent, prices or the reader's own voice); otherwise the course questions.
+  const ownQs = lesson.steps
+    .map((st) => st.heading.trim())
+    .filter(
+      (h) =>
+        h.endsWith('?') &&
+        !h.includes(':') &&
+        !/^\d/.test(h) &&
+        !/\b(it|I|my|PG|cost|costs|plan|plans|price)\b/.test(h) &&
+        h.length <= 70
+    )
+  const interviewQs = (ownQs.length >= 2 ? ownQs : [...ownQs, ...course.interviewQuestions]).slice(
+    0,
+    4
+  )
   const roles =
     course.id === LEARN_AI_COURSE.id
       ? rolesForLesson(lesson.slug).flatMap((r) => {
@@ -348,6 +367,10 @@ export default function LessonPage({
                 </a>
               </div>
             )}
+
+            <div className="mt-6">
+              <MockInterviewButton label={course.endCta.label} />
+            </div>
 
             {/* ---------- Steps ---------- */}
             <ol className="mt-12 md:mt-16" aria-label="Lesson steps">
@@ -759,26 +782,13 @@ export default function LessonPage({
           </article>
         </div>
 
-        {/* ---------- Closing CTA (ink band) ---------- */}
-        <section className="bg-ink text-ink-fg">
-          <div
-            className={`${container} flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-20`}
-          >
-            <div className="max-w-xl">
-              <div className={`${kicker} text-signal-on-ink`}>{course.endCta.kicker}</div>
-              <h2 className="mt-3 font-serif text-h1 font-medium text-ink-fg">
-                {course.endCta.title}
-              </h2>
-              <p className="mt-3 text-body text-ink-fg-2">{course.endCta.body}</p>
-            </div>
-            <Link
-              href={course.endCta.href}
-              className="inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90 md:self-auto"
-            >
-              {course.endCta.label} <ArrowRightIcon />
-            </Link>
-          </div>
-        </section>
+        {/* ---------- Closing CTA: the live mock-interview panel (light, no ink band) ---------- */}
+        <MockInterviewCTA
+          title={course.endCta.title}
+          body={course.endCta.body}
+          label={course.endCta.label}
+          questions={interviewQs}
+        />
       </div>
     </DomainLayout>
   )

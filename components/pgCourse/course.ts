@@ -36,9 +36,14 @@ export const PG_COURSE: CourseConfig = {
     'You finished the course. Go back to the 6-month plan on the course page and tick off what you have done.',
   endCta: {
     kicker: 'Free · No signup to start',
-    title: 'Pitching investors or a founder? Practise out loud.',
+    title: 'Pitching investors or applying to YC? Practise out loud.',
     body: 'Answer hard questions out loud with an AI interviewer and get feedback on every answer.',
     href: '/free-mock-interview',
     label: 'Start a free mock interview',
   },
+  interviewQuestions: [
+    'What are you building, and who needs it badly?',
+    'How do you know users want this?',
+    'Why are you the right team to build it?',
+  ],
 }

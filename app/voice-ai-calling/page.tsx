@@ -909,26 +909,28 @@ export default function VoiceAiCallingPage() {
         </Section>
       </div>
 
-      {/* ---------- CTA band (ink, once) ---------- */}
-      <section className="bg-ink py-16 text-ink-fg md:py-20">
+      {/* ---------- Closing CTA (light card, no ink band) ---------- */}
+      <section className="py-14 md:py-20">
         <div className={container}>
-          <div className={`${kicker} text-signal-on-ink`}>
-            Tough Tongue AI · our product · 25 free minutes
-          </div>
-          <h2 className="mt-3 max-w-2xl font-serif text-h1 font-medium text-ink-fg">
-            Hear a voice agent before you build one.
-          </h2>
-          <p className="mt-3 max-w-[56ch] text-body-lg text-ink-fg-2">
-            Set up a calling agent without code and test the turn gap on your own phone. The free
-            plan includes 25 one-time minutes.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="https://www.toughtongueai.com/pricing"
-              className="inline-flex h-11 items-center rounded-full bg-white px-5 text-small font-semibold text-ink transition-colors duration-fast hover:bg-white/90"
-            >
-              See Tough Tongue AI plans
-            </a>
+          <div className="rounded-2xl border border-border bg-surface p-6 shadow-e1 md:p-10">
+            <div className={`${kicker} text-signal-strong`}>
+              Tough Tongue AI · our product · 25 free minutes
+            </div>
+            <h2 className="mt-3 max-w-2xl font-serif text-h1 font-medium text-fg">
+              Hear a voice agent before you build one.
+            </h2>
+            <p className="mt-3 max-w-[56ch] text-body-lg text-fg-2">
+              Set up a calling agent without code and test the turn gap on your own phone. The free
+              plan includes 25 one-time minutes.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="https://www.toughtongueai.com/pricing"
+                className="inline-flex h-11 items-center rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
+              >
+                See Tough Tongue AI plans
+              </a>
+            </div>
           </div>
         </div>
       </section>

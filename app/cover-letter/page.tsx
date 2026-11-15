@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { genPageMetadata } from '../seo'
-import AppLayout from '@/components/AppLayout'
+import DomainLayout from '@/components/domain/DomainLayout'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 import RelatedTools from '@/components/RelatedTools'
 import { ROLE_HUB_LIST } from '@/data/roleHubs'
 import { ROLE_KITS } from '@/data/roleKits'
@@ -22,15 +23,15 @@ const kits = ROLE_HUB_LIST.filter((h) => ROLE_KITS[h.slug])
 
 export default function CoverLetter() {
   return (
-    <AppLayout>
+    <DomainLayout currentPath="/cover-letter">
       <section className="mx-auto w-full max-w-[1100px] px-5 pt-10 md:px-8">
         <div className="rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15 md:p-6">
           <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-ink">
             Sample cover letters by role · {kits.length} roles · free
           </div>
-          <h2 className="mt-2 text-h3 font-semibold text-fg">
+          <h1 className="mt-2 font-serif text-h1 font-medium text-fg">
             Cover letter (covering letter) samples for {kits.length} roles
-          </h2>
+          </h1>
           <p className="mt-2 max-w-[68ch] text-small leading-relaxed text-fg-2">
             Each role kit has a short sample cover letter written for that job, next to a one-page
             resume (CV) Word template and the keywords recruiters look for. Copy the structure, then
@@ -55,7 +56,8 @@ export default function CoverLetter() {
           </ul>
         </div>
       </section>
+      <MockInterviewCTA title="Letter sent? Practise the interview out loud." />
       <RelatedTools currentPage="/cover-letter" />
-    </AppLayout>
+    </DomainLayout>
   )
 }

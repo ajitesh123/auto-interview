@@ -23,12 +23,12 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
   ]
 
   return (
-    <nav className="nav-bar sticky top-0 z-50 border-b border-[#ebebeb]/80 bg-[#fafafa]/90 backdrop-blur-md">
+    <nav className="nav-bar sticky top-0 z-50 border-b border-border/80 bg-bg/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
         {/* Logo + Wordmark — Perfectly centered horizontally and vertically */}
         <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-90">
           <CubeLogo size={24} />
-          <span className="text-[15px] font-medium tracking-[-0.01em] text-[#171717]">
+          <span className="text-[15px] font-medium tracking-[-0.01em] text-fg">
             Auto Interview AI
           </span>
         </Link>
@@ -45,7 +45,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
                 key={link.href}
                 href={link.href}
                 className={`whitespace-nowrap text-sm transition-colors ${
-                  isActive ? 'font-medium !text-[#171717]' : '!text-[#666666] hover:!text-[#171717]'
+                  isActive ? 'font-medium !text-fg' : '!text-fg-2 hover:!text-fg'
                 }`}
               >
                 {link.label}
@@ -58,23 +58,22 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
         <div className="hidden items-center gap-3 xl:flex">
           <Link
             href="/about"
-            className="inline-flex items-center justify-center rounded-[6px] px-3.5 py-1.5 text-sm !text-[#171717] transition-colors hover:bg-[#f0f0f0]"
-            style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+            className="inline-flex items-center justify-center rounded-[6px] px-3.5 py-1.5 text-sm !text-fg ring-1 ring-inset ring-border transition-colors hover:bg-muted"
           >
             About
           </Link>
           <Link
-            href="/build-resume"
-            className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-4 py-1.5 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
+            href="/free-mock-interview"
+            className="inline-flex items-center justify-center rounded-[6px] bg-signal px-4 py-1.5 text-sm font-medium !text-white transition-colors hover:bg-signal-strong"
           >
-            Get Started
+            Free mock interview
           </Link>
         </div>
 
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-[#171717] xl:hidden"
+          className="text-fg xl:hidden"
           aria-label="Toggle navigation menu"
         >
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,10 +98,7 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div
-          className="mx-6 mt-1 rounded-[6px] bg-white px-6 pb-6 xl:hidden"
-          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-        >
+        <div className="mx-6 mt-1 rounded-[6px] bg-surface px-6 pb-6 ring-1 ring-border xl:hidden">
           <div className="flex flex-col gap-4 pt-4">
             {navLinks.map((link) => {
               const isActive =
@@ -115,30 +111,27 @@ const GlassNav: React.FC<GlassNavProps> = ({ currentPath = '/' }) => {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`whitespace-nowrap text-sm transition-colors ${
-                    isActive
-                      ? 'font-medium !text-[#171717]'
-                      : '!text-[#666666] hover:!text-[#171717]'
+                    isActive ? 'font-medium !text-fg' : '!text-fg-2 hover:!text-fg'
                   }`}
                 >
                   {link.label}
                 </Link>
               )
             })}
-            <div className="mt-2 flex gap-3 border-t border-[#ebebeb] pt-4">
+            <div className="mt-2 flex gap-3 border-t border-border pt-4">
               <Link
                 href="/about"
                 onClick={() => setMobileOpen(false)}
-                className="flex-1 rounded-[6px] py-2 text-center text-sm !text-[#171717]"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                className="flex-1 rounded-[6px] py-2 text-center text-sm !text-fg ring-1 ring-inset ring-border"
               >
                 About
               </Link>
               <Link
-                href="/build-resume"
+                href="/free-mock-interview"
                 onClick={() => setMobileOpen(false)}
-                className="flex-1 rounded-[6px] bg-[#171717] py-2 text-center text-sm font-medium !text-white"
+                className="flex-1 rounded-[6px] bg-signal py-2 text-center text-sm font-medium !text-white"
               >
-                Get Started
+                Free mock interview
               </Link>
             </div>
           </div>

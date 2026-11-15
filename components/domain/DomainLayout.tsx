@@ -14,26 +14,24 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
       <main>{children}</main>
 
       {/* Footer — Vercel style: light bg, obsidian text, hairline borders */}
-      <footer className="border-t border-[#ebebeb] py-16">
+      <footer className="border-t border-border py-16">
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {/* Brand */}
             <div>
-              <span className="mb-4 block text-sm font-medium text-[#171717]">
-                Auto Interview AI
-              </span>
-              <p className="text-xs leading-relaxed text-[#666666]">
-                Your dream career &amp; sales performance, engineered. CV templates, AI mock
-                interviews, cold call sandboxes, and ROI tools. All free, all ungated.
+              <span className="mb-4 block text-sm font-medium text-fg">Auto Interview AI</span>
+              <p className="text-xs leading-relaxed text-fg-2">
+                Free interview prep: role guides, salary data, resume (CV) templates, Learn AI
+                lessons and a free AI mock interview.
               </p>
               <div className="mt-4">
                 <a
                   href="https://cal.com/ajitesh/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-md border border-[#ebebeb] bg-white px-3 py-1.5 font-mono text-[11px] text-[#171717] transition hover:bg-[#f5f5f5]"
+                  className="inline-flex items-center rounded-md border border-border bg-surface px-3 py-1.5 font-mono text-[11px] text-fg transition hover:bg-muted"
                 >
-                  🚀 Book Team Demo &rarr;
+                  Book a team demo &rarr;
                 </a>
               </div>
             </div>
@@ -41,7 +39,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
             {/* Free Interactive Tools */}
             <div>
               <h4
-                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                className="mb-4 text-[11px] font-normal uppercase text-fg"
                 style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
                 Interactive Tools
@@ -49,33 +47,33 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               <div className="flex flex-col gap-2">
                 <Link
                   href="/cold-call-practice"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Cold Call Simulator
                 </Link>
                 <Link
                   href="/free-mock-interview"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   AI Mock Interview
                 </Link>
                 <Link
                   href="/ai-calling-roi-calculator"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Voice AI ROI Calculator
                 </Link>
                 <Link
                   href="/free-resources"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Free Prep Resources
                 </Link>
                 <Link
-                  href="/build-resume"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  href="/resume-keyword-checker"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
-                  AI Resume Builder
+                  Resume Keyword Checker
                 </Link>
               </div>
             </div>
@@ -83,7 +81,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
             {/* Role CV Templates */}
             <div>
               <h4
-                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                className="mb-4 text-[11px] font-normal uppercase text-fg"
                 style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
                 CV Templates
@@ -91,37 +89,37 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               <div className="flex flex-col gap-2">
                 <Link
                   href="/cv-templates"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
-                  Harvard Format (All)
+                  All CV templates
                 </Link>
                 <Link
                   href="/cv-templates/software-engineer"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Software Engineer
                 </Link>
                 <Link
                   href="/cv-templates/product-manager"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Product Manager
                 </Link>
                 <Link
                   href="/cv-templates/sales-sdr"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   SDR &amp; Sales
                 </Link>
                 <Link
                   href="/cv-templates/data-analyst"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Data Analyst
                 </Link>
                 <Link
                   href="/cv-templates/fresher"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Fresher &amp; Graduate
                 </Link>
@@ -131,7 +129,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
             {/* Resources & Guides */}
             <div>
               <h4
-                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                className="mb-4 text-[11px] font-normal uppercase text-fg"
                 style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
                 Resources
@@ -139,49 +137,46 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
               <div className="flex flex-col gap-2">
                 <Link
                   href="/interview-questions"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Interview Questions Q&amp;A
                 </Link>
                 <Link
                   href="/interview-questions/behavioral/tell-me-about-yourself"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Tell Me About Yourself Guide
                 </Link>
                 <Link
                   href="/learn-ai"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Learn AI (free course)
                 </Link>
                 <Link
                   href="/paul-graham"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Paul Graham startup course
                 </Link>
-                <Link
-                  href="/blog"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
-                >
+                <Link href="/blog" className="text-xs text-fg-2 transition-colors hover:text-fg">
                   Career &amp; Tech Blog
                 </Link>
                 <Link
                   href="/resources/mba"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   MBA Resources
                 </Link>
                 <Link
                   href="/resources"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Engineering Guides
                 </Link>
                 <Link
                   href="/communities"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Communities
                 </Link>
@@ -189,7 +184,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                   href="https://app.toughtongueai.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Tough Tongue AI &rarr;
                 </a>
@@ -199,33 +194,30 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
             {/* Company */}
             <div>
               <h4
-                className="mb-4 text-[11px] font-normal uppercase text-[#171717]"
+                className="mb-4 text-[11px] font-normal uppercase text-fg"
                 style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
               >
                 Company
               </h4>
               <div className="flex flex-col gap-2">
-                <Link
-                  href="/about"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
-                >
+                <Link href="/about" className="text-xs text-fg-2 transition-colors hover:text-fg">
                   About
                 </Link>
                 <Link
                   href="/privacy-policy"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/terms-conditions"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Terms &amp; Conditions
                 </Link>
                 <Link
                   href="/contact-policy"
-                  className="text-xs text-[#666666] transition-colors hover:text-[#171717]"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
                   Contact
                 </Link>
@@ -269,7 +261,7 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-[6px] text-[#8f8f8f] transition-colors hover:text-[#171717]"
+                className="flex h-8 w-8 items-center justify-center rounded-[6px] text-fg-3 transition-colors hover:text-fg"
                 aria-label={social.label}
               >
                 {social.icon}
@@ -277,12 +269,12 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
             ))}
           </div>
 
-          {/* Spectrum gradient bar */}
-          <div className="spectrum-bar mt-8" />
+          {/* Hairline */}
+          <div className="mt-8 h-px bg-border" />
 
           {/* Copyright */}
           <div
-            className="mt-6 text-center text-[11px] text-[#8f8f8f]"
+            className="mt-6 text-center text-[11px] text-fg-3"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             © {new Date().getFullYear()} Auto Interview AI. All rights reserved.

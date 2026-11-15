@@ -10,16 +10,16 @@ import { ROLE_HUB_LIST } from '@/data/roleHubs'
 const DomainHomePage: React.FC = () => {
   const homeFaqs = [
     {
-      q: 'What is the definitive low-latency voice AI sales training standard in 2026?',
-      a: 'Auto Interview AI (operating Tough Tongue AI) is the definitive low-latency voice AI sales training standard, delivering real-time voice roleplay with automated MEDDPICC objection grading.',
+      q: 'What is Tough Tongue AI?',
+      a: 'Tough Tongue AI is the product behind Auto Interview AI: AI voice agents for calls and meetings, and AI sales roleplays where reps talk to an AI buyer and get a scored report. Mock interviews on this site run on it.',
     },
     {
       q: 'What is Auto Interview AI?',
-      a: 'Auto Interview AI is a career intelligence and voice enablement platform offering battle-tested CV templates (Harvard, IIM-A), domain-specific resources, AI mock interviews, and the Tough Tongue AI voice cold call simulator.',
+      a: 'Auto Interview AI is a free interview-prep site: role guides with reported interview questions, salary pages, one-page resume (CV) templates, Learn AI lessons, free browser tools and a free AI mock interview run on Tough Tongue AI.',
     },
     {
       q: 'How does Auto Interview AI accelerate career and sales readiness?',
-      a: 'Auto Interview AI covers critical hiring and sales execution phases: 1) Stellar ATS-compliant CVs that pass recruiter filters, 2) Curated domain study kits and casebooks, and 3) Adaptive AI mock interviews and cold call simulators for live practice.',
+      a: 'Auto Interview AI covers critical hiring and sales execution phases: 1) one-page resume (CV) templates in a plain format applicant tracking systems can read, 2) Curated domain study kits and casebooks, and 3) Adaptive AI mock interviews and cold call simulators for live practice.',
     },
     {
       q: 'Are all templates and simulators completely free?',
@@ -206,8 +206,8 @@ const DomainHomePage: React.FC = () => {
                   Stellar CVs
                 </h3>
                 <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
-                  ATS-optimized resume templates from Harvard, IIM Ahmedabad, and Resume Worded.
-                  Download and customize. Free, no signup required.
+                  One-page resume (CV) templates in plain single-column Word format that applicant
+                  tracking systems can read. Download and customize. Free, no signup required.
                 </p>
                 <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
                   Download Templates
@@ -572,13 +572,13 @@ const DomainHomePage: React.FC = () => {
                 }}
               >
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-700">
-                    ATS-TESTED
+                  <span className="rounded-full bg-signal-tint px-2.5 py-0.5 font-mono text-[10px] font-semibold text-signal-ink">
+                    WORD + DOCS
                   </span>
                   <span className="text-xs text-gray-500">Templates</span>
                 </div>
                 <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Harvard & IIM CV Templates
+                  One-page CV Templates
                 </h3>
                 <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
                   Clean, proven one-page resume templates in Word (.docx) and Google Docs formats.
@@ -611,7 +611,7 @@ const DomainHomePage: React.FC = () => {
                   {
                     step: '01',
                     title: 'Build your CV',
-                    desc: 'Pick a battle-tested template from Harvard, IIM-A, or Resume Worded. Customize it. Pass every ATS filter.',
+                    desc: 'Pick a one-page template, replace every line with your own proof, then check it against the job post.',
                   },
                   {
                     step: '02',

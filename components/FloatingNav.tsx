@@ -38,17 +38,14 @@ export default function FloatingNav() {
   return (
     <nav
       aria-label="Floating Controls"
-      className="animate-fade-rise fixed bottom-6 right-6 z-50 transition-all duration-300"
+      className="animate-fade-rise fixed bottom-6 right-6 z-50 print:hidden"
     >
-      {/* Modern Cursor/Claude Style Glassmorphic Capsule */}
-      <div className="group/dock relative flex items-center gap-1 rounded-full border border-white/15 bg-neutral-950/85 px-2.5 py-1.5 text-white shadow-[0_16px_36px_rgba(0,0,0,0.6),0_0_12px_rgba(255,255,255,0.08)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:shadow-[0_20px_45px_rgba(0,0,0,0.8),0_0_20px_rgba(255,255,255,0.15)]">
-        {/* Subtle Ambient Prism Glow Effect */}
-        <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-md transition-opacity duration-300 group-hover/dock:opacity-100" />
-
+      {/* Signal Paper capsule: light surface, hairline, small lift */}
+      <div className="flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1.5 text-fg-2 shadow-e2">
         {/* Back Button */}
         <button
           onClick={handleBack}
-          className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-neutral-300 transition-all hover:bg-white/15 hover:text-white active:scale-95"
+          className="flex h-9 w-9 items-center justify-center rounded-full text-fg-2 transition-colors duration-fast hover:bg-muted hover:text-signal-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
           aria-label="Back to previous page"
           title="Back"
         >
@@ -63,12 +60,12 @@ export default function FloatingNav() {
         </button>
 
         {/* Divider */}
-        <div className="relative z-10 h-3.5 w-px bg-white/20" />
+        <div className="h-3.5 w-px bg-border" />
 
         {/* Home Button */}
         <Link
           href="/"
-          className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-neutral-300 transition-all hover:bg-white/15 hover:text-white active:scale-95"
+          className="flex h-9 w-9 items-center justify-center rounded-full text-fg-2 transition-colors duration-fast hover:bg-muted hover:text-signal-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
           aria-label="Go to home page"
           title="Home"
         >
@@ -85,10 +82,10 @@ export default function FloatingNav() {
         {/* Dynamic Scroll to Top */}
         {showScrollTop && (
           <>
-            <div className="relative z-10 h-3.5 w-px bg-white/20 transition-opacity" />
+            <div className="h-3.5 w-px bg-border" />
             <button
               onClick={handleScrollTop}
-              className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-neutral-300 transition-all hover:bg-white/15 hover:text-white active:scale-95"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-fg-2 transition-colors duration-fast hover:bg-muted hover:text-signal-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
               aria-label="Scroll to top"
               title="Scroll to Top"
             >
@@ -107,10 +104,10 @@ export default function FloatingNav() {
         {/* Scroll to Comment (if comments exist) */}
         {hasComments && (
           <>
-            <div className="relative z-10 h-3.5 w-px bg-white/20" />
+            <div className="h-3.5 w-px bg-border" />
             <button
               onClick={handleScrollToComment}
-              className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-neutral-300 transition-all hover:bg-white/15 hover:text-white active:scale-95"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-fg-2 transition-colors duration-fast hover:bg-muted hover:text-signal-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
               aria-label="Jump to comments"
               title="Comments"
             >

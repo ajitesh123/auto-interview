@@ -13,9 +13,9 @@ interface RelatedToolsProps {
 
 const allTools: Tool[] = [
   {
-    title: 'Resume Builder',
-    description: 'Build professional ATS-friendly resumes with AI-powered templates',
-    href: '/build-resume',
+    title: 'Resume Keyword Checker',
+    description: 'Paste a job post and your resume (CV) to see which skills are missing',
+    href: '/resume-keyword-checker',
     icon: (
       <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -43,8 +43,8 @@ const allTools: Tool[] = [
     ),
   },
   {
-    title: 'Cover Letter Generator',
-    description: 'Create personalized cover letters tailored to job descriptions',
+    title: 'Cover Letter Samples',
+    description: 'Sample cover letters for 10 roles, each with a Word template',
     href: '/cover-letter',
     icon: (
       <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,48 +78,42 @@ export default function RelatedTools({ currentPage }: RelatedToolsProps) {
   const relatedTools = allTools.filter((tool) => tool.href !== currentPage)
 
   return (
-    <section className="mx-auto max-w-7xl border-t border-gray-700 px-4 pt-12 sm:px-6 lg:px-8">
-      <h2 className="mb-8 text-center text-2xl font-bold text-white sm:text-3xl">
-        Related Job Preparation Tools
-      </h2>
-      <p className="mx-auto mb-8 max-w-2xl text-center text-gray-400">
-        Complete your job search journey with our suite of free AI-powered career tools
-      </p>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {relatedTools.map((tool) => (
-          <Link
-            key={tool.href}
-            href={tool.href}
-            className="group block rounded-lg border border-gray-700 bg-gray-900 p-6 transition-all hover:border-primary hover:bg-gray-800 hover:shadow-lg hover:shadow-primary/20"
-            aria-label={`Go to ${tool.title}`}
-          >
-            <div className="group-hover:text-primary-300 mb-4 text-primary transition-colors">
-              {tool.icon}
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-primary">
-              {tool.title}
-            </h3>
-            <p className="text-sm text-gray-400 transition-colors group-hover:text-gray-300">
-              {tool.description}
-            </p>
-            <div className="group-hover:text-primary-300 mt-4 flex items-center text-sm font-medium text-primary transition-colors">
-              Try it free
-              <svg
-                className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </div>
-          </Link>
-        ))}
+    <section className="bg-bg py-14">
+      <div className="mx-auto max-w-7xl border-t border-border px-4 pt-12 sm:px-6 lg:px-8">
+        <h2 className="mb-3 text-center text-h2 font-semibold text-fg">More free job-prep tools</h2>
+        <p className="mx-auto mb-8 max-w-2xl text-center text-body text-fg-2">
+          Free, no signup, nothing uploaded.
+        </p>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {relatedTools.map((tool) => (
+            <Link
+              key={tool.href}
+              href={tool.href}
+              className="group block rounded-xl border border-border bg-surface p-6 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+              aria-label={`Go to ${tool.title}`}
+            >
+              <div className="mb-4 text-signal">{tool.icon}</div>
+              <h3 className="mb-2 text-h4 font-semibold text-fg">{tool.title}</h3>
+              <p className="text-small text-fg-2">{tool.description}</p>
+              <div className="mt-4 flex items-center text-small font-medium text-signal-strong">
+                Try it free
+                <svg
+                  className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   )

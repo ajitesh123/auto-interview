@@ -57,7 +57,7 @@ const PREP_LINKS = [
 ]
 
 const inputClass =
-  'w-full rounded-lg border border-matte-gray bg-matte-light px-4 py-2 text-white focus:border-accent-500 focus:outline-none'
+  'h-11 w-full rounded-lg border border-border-input bg-surface px-4 text-body text-fg placeholder:text-fg-3 focus:border-signal focus:outline-none focus-visible:ring-2 focus-visible:ring-signal'
 
 const FindJobsPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -73,21 +73,19 @@ const FindJobsPage = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-8 py-12">
+    <div className="flex h-full w-full flex-col px-5 py-12 md:px-8">
       <div className="mx-auto mb-8 max-w-4xl text-center">
-        <h1 className="from-accent-400 mb-6 bg-gradient-to-r via-accent-500 to-accent-600 bg-clip-text text-5xl font-bold text-transparent">
-          Find Jobs
-        </h1>
-        <p className="text-xl leading-relaxed text-white">
+        <h1 className="mb-4 font-serif text-display font-medium text-fg">Find Jobs</h1>
+        <p className="mx-auto max-w-[60ch] text-body-lg leading-relaxed text-fg-2">
           Search once, then open matching jobs on LinkedIn, Naukri, Indeed and Google Jobs.
         </p>
       </div>
 
       <form onSubmit={handleSearch} className="mx-auto mb-8 w-full max-w-4xl">
-        <div className="border-matte-gray bg-matte-dark rounded-lg border p-6">
+        <div className="rounded-2xl border border-border bg-surface p-6 shadow-e1">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
             <div className="flex-1">
-              <label htmlFor="job-title" className="mb-2 block text-sm font-medium text-white">
+              <label htmlFor="job-title" className="mb-2 block text-small font-medium text-fg">
                 Job title
               </label>
               <input
@@ -100,7 +98,7 @@ const FindJobsPage = () => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="job-location" className="mb-2 block text-sm font-medium text-white">
+              <label htmlFor="job-location" className="mb-2 block text-small font-medium text-fg">
                 Location
               </label>
               <input
@@ -113,7 +111,7 @@ const FindJobsPage = () => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="job-company" className="mb-2 block text-sm font-medium text-white">
+              <label htmlFor="job-company" className="mb-2 block text-small font-medium text-fg">
                 Company (optional)
               </label>
               <input
@@ -128,7 +126,7 @@ const FindJobsPage = () => {
             <div className="flex-shrink-0">
               <button
                 type="submit"
-                className="hover:from-accent-400 w-full rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 px-8 py-2 font-semibold text-white transition-colors hover:to-accent-500 lg:w-auto"
+                className="h-11 w-full rounded-full bg-signal px-8 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong lg:w-auto"
               >
                 Search jobs
               </button>
@@ -139,7 +137,7 @@ const FindJobsPage = () => {
 
       {boards.length > 0 ? (
         <div className="mx-auto w-full max-w-4xl">
-          <h2 className="mb-4 text-2xl font-bold text-white">Open your results</h2>
+          <h2 className="mb-4 text-h3 font-semibold text-fg">Open your results</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {boards.map((b) => (
               <a
@@ -147,29 +145,29 @@ const FindJobsPage = () => {
                 href={b.url}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                className="border-matte-gray bg-matte-dark block rounded-lg border p-5 transition-colors hover:border-accent-500"
+                className="block rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
               >
-                <span className="mb-1 block text-lg font-semibold text-white">{b.name} ↗</span>
-                <span className="text-sm text-gray-400">{b.note}</span>
+                <span className="mb-1 block text-h4 font-semibold text-fg">{b.name} ↗</span>
+                <span className="text-small text-fg-2">{b.note}</span>
               </a>
             ))}
           </div>
         </div>
       ) : (
-        <div className="py-8 text-center">
-          <h3 className="mb-2 text-xl font-semibold text-white">Start your job search</h3>
-          <p className="text-gray-400">
+        <div className="py-6 text-center">
+          <h2 className="mb-2 text-h4 font-semibold text-fg">Start your job search</h2>
+          <p className="text-body text-fg-2">
             Enter a job title above. Location and company are optional.
           </p>
         </div>
       )}
 
       <div className="mx-auto mt-12 w-full max-w-4xl">
-        <h2 className="mb-4 text-xl font-semibold text-white">Before you apply</h2>
+        <h2 className="mb-4 text-h4 font-semibold text-fg">Before you apply</h2>
         <ul className="grid gap-2 sm:grid-cols-2">
           {PREP_LINKS.map((p) => (
             <li key={p.href}>
-              <Link href={p.href} className="text-accent-400 underline underline-offset-4">
+              <Link href={p.href} className="text-signal-strong underline underline-offset-4">
                 {p.label}
               </Link>
             </li>

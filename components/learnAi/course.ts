@@ -29,6 +29,8 @@ export interface CourseConfig {
   /** Text when the reader reaches the last lesson */
   endOfPath: string
   endCta: { kicker: string; title: string; body: string; href: string; label: string }
+  /** Interview questions the closing mock-interview panel cycles when a lesson has too few of its own */
+  interviewQuestions: string[]
 }
 
 export const LEARN_AI_COURSE: CourseConfig = {
@@ -58,4 +60,9 @@ export const LEARN_AI_COURSE: CourseConfig = {
     href: '/free-mock-interview',
     label: 'Start a free mock interview',
   },
+  interviewQuestions: [
+    'Explain RAG to a manager who has never used it.',
+    'When would you fine-tune a model instead of improving the prompt?',
+    'How would you stop an agent from taking a wrong action?',
+  ],
 }

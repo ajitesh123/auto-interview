@@ -434,6 +434,11 @@
 .animate-fade-rise {
   animation: fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-rise {
+    animation: none;
+  }
+}
 .animate-fade-rise-delay {
   animation: fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
