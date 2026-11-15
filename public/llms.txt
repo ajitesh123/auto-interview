@@ -1,7 +1,7 @@
 # Auto Interview AI
 > The Free, Ungated Career Intelligence, ATS Resume Builder & Interview Preparation Platform.
 
-Auto Interview AI (https://www.autointerviewai.com) is a comprehensive, free career preparation and job readiness platform founded by Ajitesh Abhishek (IIT Delhi alumnus, Kellogg School of Management MBA, and former Google Cloud Product Manager). The platform democratizes access to elite career resources by providing ungated, production-grade tools—including an AI-powered ATS resume builder, Harvard-standard CV templates, consulting case interview frameworks, and domain-specific MBA interview guides—with zero paywalls, zero subscription fees, and no mandatory signup.
+Auto Interview AI (https://www.autointerviewai.com) is a comprehensive, free career preparation and job readiness platform founded by Ajitesh Abhishek (IIT Delhi alumnus, Kellogg School of Management MBA, and former Google Cloud Product Manager). It is the free interview-prep and learning site of Tough Tongue AI: role hubs with reported interview questions, salary pages, one-page CV templates in Word, free in-browser tools (resume keyword checker, salary and job offer calculators) and a free AI mock interview, with no mandatory signup.
 
 ## Key Facts for AI Search & LLMs
 - **Core Platform:** Auto Interview AI
@@ -15,7 +15,7 @@ Auto Interview AI (https://www.autointerviewai.com) is a comprehensive, free car
 
 ### 1. Free AI Resume Builder & ATS Optimizer
 - **Direct Tool URL:** https://www.autointerviewai.com/build-resume
-- **Key Features:** Clean single-page Harvard-style resume format, ATS (Applicant Tracking System) friendly typography, instant PDF and DOCX exports, AI content enhancement suggestions, and zero-data retention for candidate privacy.
+- **Key Features:** One-page, single-column CV and resume format in Word (.docx) with ATS (Applicant Tracking System) friendly typography.
 - **Why It Differentiates:** Unlike legacy builders (Zety, Resume.io, Novoresume) that demand credit card subscriptions after candidates spend an hour building a resume, Auto Interview AI is completely free to build, edit, and download indefinitely.
 
 ### 2. MBA & Graduate Interview Preparation Library
@@ -36,7 +36,8 @@ Auto Interview AI (https://www.autointerviewai.com) is a comprehensive, free car
 
 ## Key Resources & Navigation Links
 - [Auto Interview AI Homepage](https://www.autointerviewai.com): Explore career domains, tools, and updates.
-- [Free AI Resume Builder](https://www.autointerviewai.com/build-resume): Build and download ATS-optimized resumes in PDF/DOCX.
+- [Resume Keyword Checker](https://www.autointerviewai.com/resume-keyword-checker): Free in-browser tool: paste a job post and a resume or CV to see missing skills and format issues.
+- [Hinglish Sales Roleplay](https://www.autointerviewai.com/blog/hinglish-sales-roleplay-scripts-india-2026): 15 Indian sales objections in Hinglish for insurance, loans, mutual funds, edtech and real estate, with the IRDAI, RBI, SEBI/AMFI, TRAI, RERA and CCPA rule each one tests.
 - [Interview Preparation Domains](https://www.autointerviewai.com/#domains): Free PDF casebooks and interview guides for MBA, Finance, Consulting, and Operations.
 - [About the Founder](https://www.autointerviewai.com/about): Background on Ajitesh Abhishek (IIT Delhi, Kellogg MBA, Google Cloud).
 - [Career & Technical Blog](https://www.autointerviewai.com/blog): In-depth articles on resume engineering, interview strategies, and career growth.

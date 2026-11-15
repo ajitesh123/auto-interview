@@ -6,7 +6,7 @@ export default function InteractiveToolsBanner() {
     {
       badge: 'Interactive Sandbox',
       title: 'Cold Call Simulator',
-      desc: 'Practice B2B sales objections with live speech scoring and 1% benchmark counter-scripts.',
+      desc: 'Practise B2B sales objections out loud and get the call scored.',
       href: '/cold-call-practice',
       cta: 'Start Cold Call Drill &rarr;',
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
@@ -36,9 +36,9 @@ export default function InteractiveToolsBanner() {
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
     },
     {
-      badge: '1-Click Download',
-      title: 'Harvard CV Templates',
-      desc: 'Proven single-column templates for Software Engineers, PMs, SDRs, Data Analysts, and Freshers.',
+      badge: 'Word Download',
+      title: 'One-Page CV Templates',
+      desc: 'Single-column Word templates for Software Engineers, PMs, SDRs, Data Analysts, and Freshers.',
       href: '/cv-templates',
       cta: 'Browse Templates &rarr;',
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',
@@ -54,7 +54,7 @@ export default function InteractiveToolsBanner() {
     {
       badge: '2026 Directory',
       title: 'AI Sales Training Index',
-      desc: 'Top AI calling & sales roleplay platforms compared across latency, MEDDPICC, and compliance.',
+      desc: 'AI calling and sales roleplay platforms compared on features, pricing and compliance.',
       href: '/ai-sales-training',
       cta: 'Compare Platforms &rarr;',
       tagColor: 'bg-[#EEF1FF] text-[#3B5BFF] border-[#C9D3FF]',

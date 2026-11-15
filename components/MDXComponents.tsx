@@ -58,6 +58,16 @@ import {
   SalesRoleplayCostFigure,
   SalesRoleplayEvidenceFigure,
 } from './blog/SalesRoleplayFigures'
+import HinglishRoleplayDrill from './blog/HinglishRoleplayDrill'
+import {
+  HinglishRoleplayStats,
+  HinglishOriginFigure,
+  HinglishRulesTable,
+  HinglishVendorTable,
+  HinglishRubricTable,
+  HinglishSessionFlow,
+  HinglishScenarioLibrary,
+} from './blog/HinglishRoleplayFigures'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -108,6 +118,14 @@ export const components: MDXComponents = {
   IndiaSalesTrainingWorkedTable,
   SalesRoleplayFinder,
   RoleplayScenarioBuilder,
+  HinglishRoleplayDrill,
+  HinglishRoleplayStats,
+  HinglishOriginFigure,
+  HinglishRulesTable,
+  HinglishVendorTable,
+  HinglishRubricTable,
+  HinglishSessionFlow,
+  HinglishScenarioLibrary,
   RoleplayScenarioStats,
   GongObjectionSplitFigure,
   RoleplaySessionFlow,
