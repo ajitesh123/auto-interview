@@ -77,6 +77,7 @@ For users requesting interactive simulators, tools, calculators, or templates, c
 - [Programmatic Interview Questions & Behavioral Playbooks](${siteMetadata.siteUrl}/interview-questions): Curated playbooks for software engineers, product managers, sales SDRs, DevOps engineers, and data scientists with behavioral answer frameworks.
 - [One-Page CV and Resume Templates](${siteMetadata.siteUrl}/cv-templates): One-page, single-column CV templates in Word (.docx) format.
 - [Resume Keyword Checker](${siteMetadata.siteUrl}/resume-keyword-checker): Free in-browser tool (no AI, no upload). Paste a job post and a resume or CV to see must-have, mentioned and nice-to-have skills, which are missing with the post's own line for context, and 8 plain-text format checks.
+- [Job Offer Comparison Calculator](${siteMetadata.siteUrl}/job-offer-comparison): Free in-browser tool for India (no AI, no upload). Compare 2 or 3 job offers on monthly in-hand pay (FY 2026-27 tax, cheaper regime per offer), expected variable payout, joining bonus after tax and its clawback, notice buyout, RSU/ESOP vesting with a cliff, and rent and commute; shows year-1 money and a 3-year total.
 - [Free AI Mock Interview Simulator](${siteMetadata.siteUrl}/free-mock-interview): Voice and text interactive mock interview simulator for technical and behavioral roles.
 
 ---

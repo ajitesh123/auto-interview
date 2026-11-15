@@ -75,6 +75,12 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                 >
                   Resume Keyword Checker
                 </Link>
+                <Link
+                  href="/job-offer-comparison"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
+                >
+                  Job Offer Comparison
+                </Link>
               </div>
             </div>
 

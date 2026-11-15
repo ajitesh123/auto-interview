@@ -131,6 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'salary-calculator',
         'resume-job-matcher',
         'resume-keyword-checker',
+        'job-offer-comparison',
       ].includes(route)
     )
       return 0.95
@@ -158,6 +159,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'ai-sales-training',
         'resume-job-matcher',
         'resume-keyword-checker',
+        'job-offer-comparison',
       ].includes(route)
     )
       return 'weekly' as const
@@ -182,6 +184,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'ai-sales-training',
     'resume-job-matcher',
     'resume-keyword-checker',
+    'job-offer-comparison',
     'find-jobs',
     'cover-letter',
     'free-resources',

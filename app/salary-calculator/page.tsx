@@ -390,6 +390,13 @@ export default function SalaryCalculatorPage() {
           intro="Change the CTC and the PF line to match your offer letter. Both tax regimes run at once and the cheaper one is shown."
         >
           <SalaryCalculator />
+          <p className="max-w-prose text-small text-fg-2">
+            Comparing offers with a joining bonus, variable pay, ESOPs or a notice buyout? Use the{' '}
+            <Link href="/job-offer-comparison" className={link}>
+              job offer comparison calculator
+            </Link>{' '}
+            for year-1 and 3-year money side by side.
+          </p>
         </Section>
 
         <Section

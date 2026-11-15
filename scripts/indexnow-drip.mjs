@@ -101,6 +101,8 @@ function toUrls(files) {
     add(`${ORIGIN}/paul-graham/yc-batch/${m[1]}`, t)
     add(`${ORIGIN}/paul-graham/yc-batch`, t)
   })
+  // Job offer comparer: data/offerCompare/* -> /job-offer-comparison
+  each(/^data\/offerCompare\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/job-offer-comparison`, t))
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)
