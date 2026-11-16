@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     'Download free, ATS-optimized resume templates from Harvard University, IIM Ahmedabad, and Resume Worded. 100% free, ungated DOCX & Google Docs formats proven to pass applicant tracking systems.',
   keywords:
-    'free ATS resume template, Harvard resume template, IIM Ahmedabad resume format, Resume Worded template, best resume format 2025, ATS friendly resume, free resume download, MBA CV template, tech resume template, consulting resume format, investment banking resume',
+    'free ATS resume template, one-page resume template, IIM Ahmedabad resume format, Resume Worded template, best resume format 2025, ATS friendly resume, free resume download, MBA CV template, tech resume template, consulting resume format, investment banking resume',
   alternates: {
     canonical: 'https://www.autointerviewai.com/cv-templates',
   },

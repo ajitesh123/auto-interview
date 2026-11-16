@@ -20,10 +20,10 @@ export default function MockInterviewButton({
   const ink = tone === 'ink'
   const sig = tone === 'signal'
   return (
-    <span className="inline-flex flex-col gap-1.5">
+    <span className="inline-flex shrink-0 flex-col gap-1.5">
       <Link
         href="/free-mock-interview"
-        className={`group inline-flex h-12 items-center gap-3 rounded-full pl-2 pr-5 text-small font-semibold shadow-e1 transition-[box-shadow,background-color] duration-fast hover:shadow-e2 ${
+        className={`group inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full pl-2 pr-5 text-small font-semibold shadow-e1 transition-[box-shadow,background-color] duration-fast hover:shadow-e2 ${
           sig
             ? 'bg-signal text-white hover:bg-signal-strong'
             : ink

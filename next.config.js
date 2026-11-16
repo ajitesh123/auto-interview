@@ -104,9 +104,9 @@ module.exports = () => {
           permanent: true,
         },
         { source: '/find-jobs/results', destination: '/find-jobs', permanent: true },
-        // Nov 2026: ATS checker retired for now (to be rebuilt); send visitors to the resume builder
-        { source: '/ats-score', destination: '/build-resume', permanent: false },
-        { source: '/ats-score/:path*', destination: '/build-resume', permanent: false },
+        // Nov 2026: the old AI ATS checker is retired; send visitors to the free Resume Keyword Checker
+        { source: '/ats-score', destination: '/resume-keyword-checker', permanent: false },
+        { source: '/ats-score/:path*', destination: '/resume-keyword-checker', permanent: false },
         // Legacy Brand & 404 URL Redirects reported in Search Console
         {
           source: '/tough-tongue-ai',

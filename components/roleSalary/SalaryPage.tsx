@@ -8,6 +8,7 @@ import OfferCheck from './OfferCheck'
 import KitStrip from '@/components/roleKits/KitStrip'
 import { Figure, BarList, RangeList } from '@/components/viz'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import DomainLayout from '@/components/domain/DomainLayout'
 import ReportedPay, { lakh as lakhR } from './ReportedPay'
 import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
 
@@ -638,272 +639,287 @@ export default function SalaryPage({ hub, s }: { hub: RoleHub; s: RoleSalary }) 
   ]
 
   return (
-    <div className="bg-bg text-fg">
-      {schema.map((x, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(x) }}
-        />
-      ))}
+    <DomainLayout currentPath={`/${hub.slug}`}>
+      <div className="bg-bg text-fg">
+        {schema.map((x, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(x) }}
+          />
+        ))}
 
-      <div className={`${container} pb-10 pt-8 md:pb-14 md:pt-12`}>
-        <nav
-          aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-2 text-caption text-fg-3"
-        >
-          <Link href="/" className="hover:text-fg">
-            Home
-          </Link>
-          <span aria-hidden="true">/</span>
-          <Link href={`/${hub.slug}`} className="hover:text-fg">
-            {hub.roleName}
-          </Link>
-          <span aria-hidden="true">/</span>
-          <span className="text-fg-2">Salary</span>
-        </nav>
-
-        <header className="mt-8 max-w-3xl">
-          <div className={`${kicker} text-signal-strong`}>
-            Salary ·{' '}
-            {rp
-              ? `Reported pay at ${new Set(rp.sets.flatMap((x) => x.companies.map((c) => c.slug))).size} known companies + ${total} job posts`
-              : `${total} job posts opened`}{' '}
-            · Updated {fmtDate(updated)}
-          </div>
-          <h1 className="mt-4 font-serif text-display font-medium text-fg">{s.h1}</h1>
-          <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{answerFull}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={rp ? '#reported' : `#${regions[0]}`}
-              className="inline-flex h-11 items-center rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
-            >
-              {rp ? 'See pay at companies you know' : 'See every posted offer'}
-            </a>
-            <Link
-              href="/salary-calculator"
-              className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
-            >
-              CTC to in-hand calculator
+        <div className={`${container} pb-10 pt-8 md:pb-14 md:pt-12`}>
+          <nav
+            aria-label="Breadcrumb"
+            className="flex flex-wrap items-center gap-2 text-caption text-fg-3"
+          >
+            <Link href="/" className="hover:text-fg">
+              Home
             </Link>
-          </div>
-        </header>
+            <span aria-hidden="true">/</span>
+            <Link href={`/${hub.slug}`} className="hover:text-fg">
+              {hub.roleName}
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-fg-2">Salary</span>
+          </nav>
 
-        <div className="mt-8 max-w-3xl">
-          <KitStrip hub={hub} current="salary" />
+          <header className="mt-8 max-w-3xl">
+            <div className={`${kicker} text-signal-strong`}>
+              Salary ·{' '}
+              {rp
+                ? `Reported pay at ${new Set(rp.sets.flatMap((x) => x.companies.map((c) => c.slug))).size} known companies + ${total} job posts`
+                : `${total} job posts opened`}{' '}
+              · Updated {fmtDate(updated)}
+            </div>
+            <h1 className="mt-4 font-serif text-display font-medium text-fg">{s.h1}</h1>
+            <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">{answerFull}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href={rp ? '#reported' : `#${regions[0]}`}
+                className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
+              >
+                {rp ? 'See pay at companies you know' : 'See every posted offer'}
+              </a>
+              <Link
+                href="/salary-calculator"
+                className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
+              >
+                CTC to in-hand calculator
+              </Link>
+            </div>
+          </header>
+
+          <div className="mt-8 max-w-3xl">
+            <KitStrip hub={hub} current="salary" />
+          </div>
+
+          <div className="mt-6 flex max-w-3xl flex-col gap-3 rounded-xl border border-border bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-small text-fg-2">
+              <span className="font-semibold text-fg">Interview coming up?</span> The pay
+              conversation starts after you clear the rounds. Practise them out loud first.
+            </p>
+            <MockInterviewButton role={hub.shortName} caption={false} />
+          </div>
+
+          <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
+            <div className={`${kicker} text-signal-ink`}>How we got these numbers</div>
+            <p className="mt-2 text-body text-fg">
+              {rp && (
+                <>
+                  Two kinds of numbers. First, pay reported by people already in the job:
+                  AmbitionBox and Levels.fyi aggregates, read on {fmtDate(rp.checked)}, each with
+                  its number of reports and a link. Then real job posts.{' '}
+                </>
+              )}
+              Every post row is a real job post that states a pay range, opened on{' '}
+              {fmtDate(s.checked)} and linked. Closed posts and job-board copies are marked, because
+              they still show what employers offered. We add no estimates of our own.
+              {s.methodNote ? ` ${s.methodNote}` : ''}
+            </p>
+          </div>
+
+          {s.india.length >= 4 && (
+            <div className="mt-6 max-w-3xl">
+              <OfferCheck
+                roleName={s.roleName}
+                mids={s.india.map(mid)}
+                cities={s.cities?.rows.map((r) => ({
+                  city: r.city,
+                  all: r.all ? { median: r.all.median, p25: r.all.p25, p75: r.all.p75 } : undefined,
+                  entry: r.entry?.median,
+                }))}
+              />
+            </div>
+          )}
         </div>
 
-        <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
-          <div className={`${kicker} text-signal-ink`}>How we got these numbers</div>
-          <p className="mt-2 text-body text-fg">
-            {rp && (
-              <>
-                Two kinds of numbers. First, pay reported by people already in the job: AmbitionBox
-                and Levels.fyi aggregates, read on {fmtDate(rp.checked)}, each with its number of
-                reports and a link. Then real job posts.{' '}
-              </>
+        <nav
+          aria-label="On this page"
+          className="sticky top-16 z-40 border-y border-border bg-bg/95"
+        >
+          <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
+            {[
+              ...(rp ? [{ id: 'reported', label: 'Known companies' }] : []),
+              ...regions.map((r) => ({
+                id: r,
+                label: `${r === 'india' ? 'India' : 'United States'}${rp ? ' posts' : ''}`,
+              })),
+              ...(s.cities ? [{ id: 'cities', label: 'By city' }] : []),
+              ...(s.companies ? [{ id: 'companies', label: 'By company' }] : []),
+              { id: 'patterns', label: 'What the posts show' },
+              { id: 'negotiate', label: 'Negotiate' },
+              { id: 'faq', label: 'FAQ' },
+            ].map((x) => (
+              <a
+                key={x.id}
+                href={`#${x.id}`}
+                className="inline-flex h-9 shrink-0 items-center rounded-full px-3 text-small text-fg-2 hover:bg-muted hover:text-fg"
+              >
+                {x.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <div className={container}>
+          <ReportedPay s={s} Section={Section} />
+          {regions.map((r) => (
+            <Section
+              key={r}
+              id={r}
+              meta={`${r === 'india' ? 'India' : 'United States'} · ${(r === 'india' ? s.india : s.us).length} posts`}
+              title={`${s.roleName} pay in ${r === 'india' ? 'India' : 'the US'}, post by post`}
+              intro={
+                r === 'india'
+                  ? 'Each CTC is converted to monthly in-hand pay on 2026-27 tax rules, so you can compare offers the way your bank account will.'
+                  : 'US pay-transparency laws make employers publish base ranges. Equity and bonus come on top.'
+              }
+            >
+              <StatTiles s={s} region={r} />
+              <OffersChart s={s} region={r} />
+              <PostTable s={s} region={r} />
+              <ExperienceSplit s={s} region={r} />
+              {r === 'india' && <MonthlyLookup />}
+            </Section>
+          ))}
+
+          {s.cities && (
+            <Section
+              id="cities"
+              meta={`Levels.fyi · ${s.cities.rows.length} cities`}
+              title={s.cities.title}
+              intro={s.cities.intro}
+            >
+              <CityChart s={s} />
+              <CityTable s={s} />
+            </Section>
+          )}
+
+          {s.companies && (
+            <Section
+              id="companies"
+              meta={`Big employers · ${s.companies.rows.length} companies`}
+              title={s.companies.title}
+              intro={s.companies.intro}
+            >
+              <CompanyChart s={s} />
+              <CompanyTable s={s} />
+            </Section>
+          )}
+
+          <Section
+            id="patterns"
+            meta={`${total} posts read`}
+            title="What the posts show"
+            intro="Patterns we saw across the posts above. Each one comes from the rows, not from a survey."
+          >
+            <Bullets items={s.patterns} />
+            {levels.length > 0 && (
+              <div className="rounded-xl border border-border bg-surface p-5 md:p-6">
+                <h3 className="text-h4 font-semibold text-fg">
+                  Cross-check with self-reported pay
+                </h3>
+                <p className="mt-1 max-w-prose text-small text-fg-2">
+                  Job posts show what employers offer; self-reported data shows what people say they
+                  earn. The {hub.shortName} guide has both:
+                </p>
+                <ul className="mt-3 space-y-1.5 text-small text-fg-2">
+                  {levels.slice(0, 3).map((t) => {
+                    const m = t.rows.find((x) => /median/i.test(x.band))
+                    return (
+                      <li key={t.region}>
+                        <span className="font-medium text-fg">{t.region}:</span>{' '}
+                        {m ? `median ${m.value}` : `${t.rows.length} rows`} ·{' '}
+                        <a href={t.sourceUrl} target="_blank" rel="noopener" className={link}>
+                          {t.sourceLabel}
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <Link href={`/${hub.slug}#pay`} className={`mt-3 inline-block text-small ${link}`}>
+                  See the full pay section in the {hub.shortName} guide
+                </Link>
+              </div>
             )}
-            Every post row is a real job post that states a pay range, opened on{' '}
-            {fmtDate(s.checked)} and linked. Closed posts and job-board copies are marked, because
-            they still show what employers offered. We add no estimates of our own.
-            {s.methodNote ? ` ${s.methodNote}` : ''}
+          </Section>
+
+          <Section
+            id="negotiate"
+            meta={`${s.negotiate.length} moves`}
+            title={`How to negotiate ${an(s.roleName)} offer`}
+            intro="What to ask for before you sign, based on how these posts are written."
+          >
+            <Bullets items={s.negotiate} />
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                ['/salary-calculator', 'Tool', 'Compare two offers in hand'],
+                [`/${hub.slug}`, 'Role guide', `Crack the ${hub.shortName} interview`],
+                kit
+                  ? [KIT_PATHS.resume(hub.slug), 'Resume (CV)', `${hub.shortName} resume template`]
+                  : null,
+                ...siblings.map((x) => [`/${x.slug}/salary`, 'Salary', `${x.roleName} salary`]),
+              ]
+                .filter(Boolean)
+                .map((x) => {
+                  const [href, k, t] = x as string[]
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="rounded-xl border border-border bg-surface px-5 py-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                    >
+                      <span className={`block ${kicker} text-fg-3`}>Up next · {k}</span>
+                      <span className="mt-1 block text-h4 font-semibold text-fg">{t}</span>
+                    </Link>
+                  )
+                })}
+            </div>
+          </Section>
+
+          <Section id="faq" meta={`FAQ · ${faqs.length} questions`} title="Quick answers">
+            <div className="max-w-3xl space-y-3">
+              {faqs.map((f, i) => (
+                <details
+                  key={f.q}
+                  open={i === 0}
+                  className="group rounded-xl border border-border bg-surface open:shadow-e1"
+                >
+                  <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg">
+                    <h3 className="text-body font-medium">{f.q}</h3>
+                    <span
+                      aria-hidden="true"
+                      className="text-fg-3 transition-transform duration-base group-open:rotate-180"
+                    >
+                      ▾
+                    </span>
+                  </summary>
+                  <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </Section>
+          <p className="border-t border-border py-6 text-caption text-fg-3">
+            Sources:{' '}
+            {rp
+              ? 'employee-reported salary data from AmbitionBox and Levels.fyi, and the job posts linked above.'
+              : 'the job posts linked above.'}{' '}
+            Figures belong to their sources; we summarise and link them and are not affiliated with
+            any of them.
           </p>
         </div>
 
-        {s.india.length >= 4 && (
-          <div className="mt-6 max-w-3xl">
-            <OfferCheck
-              roleName={s.roleName}
-              mids={s.india.map(mid)}
-              cities={s.cities?.rows.map((r) => ({
-                city: r.city,
-                all: r.all ? { median: r.all.median, p25: r.all.p25, p75: r.all.p75 } : undefined,
-                entry: r.entry?.median,
-              }))}
-            />
-          </div>
-        )}
+        <MockInterviewCTA
+          roleName={hub.shortName}
+          title="The offer comes after the interview. Practise it out loud."
+          questions={hub.questionGroups
+            .flatMap((g) => g.questions.map((x) => x.q.replace(/\s*\(.*?\)\s*$/, '').trim()))
+            .filter((q) => q.length > 12 && q.length <= 110)
+            .slice(0, 4)}
+        />
       </div>
-
-      <nav aria-label="On this page" className="sticky top-16 z-40 border-y border-border bg-bg/95">
-        <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
-          {[
-            ...(rp ? [{ id: 'reported', label: 'Known companies' }] : []),
-            ...regions.map((r) => ({
-              id: r,
-              label: `${r === 'india' ? 'India' : 'United States'}${rp ? ' posts' : ''}`,
-            })),
-            ...(s.cities ? [{ id: 'cities', label: 'By city' }] : []),
-            ...(s.companies ? [{ id: 'companies', label: 'By company' }] : []),
-            { id: 'patterns', label: 'What the posts show' },
-            { id: 'negotiate', label: 'Negotiate' },
-            { id: 'faq', label: 'FAQ' },
-          ].map((x) => (
-            <a
-              key={x.id}
-              href={`#${x.id}`}
-              className="inline-flex h-9 shrink-0 items-center rounded-full px-3 text-small text-fg-2 hover:bg-muted hover:text-fg"
-            >
-              {x.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      <div className={container}>
-        <ReportedPay s={s} Section={Section} />
-        {regions.map((r) => (
-          <Section
-            key={r}
-            id={r}
-            meta={`${r === 'india' ? 'India' : 'United States'} · ${(r === 'india' ? s.india : s.us).length} posts`}
-            title={`${s.roleName} pay in ${r === 'india' ? 'India' : 'the US'}, post by post`}
-            intro={
-              r === 'india'
-                ? 'Each CTC is converted to monthly in-hand pay on 2026-27 tax rules, so you can compare offers the way your bank account will.'
-                : 'US pay-transparency laws make employers publish base ranges. Equity and bonus come on top.'
-            }
-          >
-            <StatTiles s={s} region={r} />
-            <OffersChart s={s} region={r} />
-            <PostTable s={s} region={r} />
-            <ExperienceSplit s={s} region={r} />
-            {r === 'india' && <MonthlyLookup />}
-          </Section>
-        ))}
-
-        {s.cities && (
-          <Section
-            id="cities"
-            meta={`Levels.fyi · ${s.cities.rows.length} cities`}
-            title={s.cities.title}
-            intro={s.cities.intro}
-          >
-            <CityChart s={s} />
-            <CityTable s={s} />
-          </Section>
-        )}
-
-        {s.companies && (
-          <Section
-            id="companies"
-            meta={`Big employers · ${s.companies.rows.length} companies`}
-            title={s.companies.title}
-            intro={s.companies.intro}
-          >
-            <CompanyChart s={s} />
-            <CompanyTable s={s} />
-          </Section>
-        )}
-
-        <Section
-          id="patterns"
-          meta={`${total} posts read`}
-          title="What the posts show"
-          intro="Patterns we saw across the posts above. Each one comes from the rows, not from a survey."
-        >
-          <Bullets items={s.patterns} />
-          {levels.length > 0 && (
-            <div className="rounded-xl border border-border bg-surface p-5 md:p-6">
-              <h3 className="text-h4 font-semibold text-fg">Cross-check with self-reported pay</h3>
-              <p className="mt-1 max-w-prose text-small text-fg-2">
-                Job posts show what employers offer; self-reported data shows what people say they
-                earn. The {hub.shortName} guide has both:
-              </p>
-              <ul className="mt-3 space-y-1.5 text-small text-fg-2">
-                {levels.slice(0, 3).map((t) => {
-                  const m = t.rows.find((x) => /median/i.test(x.band))
-                  return (
-                    <li key={t.region}>
-                      <span className="font-medium text-fg">{t.region}:</span>{' '}
-                      {m ? `median ${m.value}` : `${t.rows.length} rows`} ·{' '}
-                      <a href={t.sourceUrl} target="_blank" rel="noopener" className={link}>
-                        {t.sourceLabel}
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
-              <Link href={`/${hub.slug}#pay`} className={`mt-3 inline-block text-small ${link}`}>
-                See the full pay section in the {hub.shortName} guide
-              </Link>
-            </div>
-          )}
-        </Section>
-
-        <Section
-          id="negotiate"
-          meta={`${s.negotiate.length} moves`}
-          title={`How to negotiate ${an(s.roleName)} offer`}
-          intro="What to ask for before you sign, based on how these posts are written."
-        >
-          <Bullets items={s.negotiate} />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              ['/salary-calculator', 'Tool', 'Compare two offers in hand'],
-              [`/${hub.slug}`, 'Role guide', `Crack the ${hub.shortName} interview`],
-              kit
-                ? [KIT_PATHS.resume(hub.slug), 'Resume (CV)', `${hub.shortName} resume template`]
-                : null,
-              ...siblings.map((x) => [`/${x.slug}/salary`, 'Salary', `${x.roleName} salary`]),
-            ]
-              .filter(Boolean)
-              .map((x) => {
-                const [href, k, t] = x as string[]
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="rounded-xl border border-border bg-surface px-5 py-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
-                  >
-                    <span className={`block ${kicker} text-fg-3`}>Up next · {k}</span>
-                    <span className="mt-1 block text-h4 font-semibold text-fg">{t}</span>
-                  </Link>
-                )
-              })}
-          </div>
-        </Section>
-
-        <Section id="faq" meta={`FAQ · ${faqs.length} questions`} title="Quick answers">
-          <div className="max-w-3xl space-y-3">
-            {faqs.map((f, i) => (
-              <details
-                key={f.q}
-                open={i === 0}
-                className="group rounded-xl border border-border bg-surface open:shadow-e1"
-              >
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg">
-                  <h3 className="text-body font-medium">{f.q}</h3>
-                  <span
-                    aria-hidden="true"
-                    className="text-fg-3 transition-transform duration-base group-open:rotate-180"
-                  >
-                    ▾
-                  </span>
-                </summary>
-                <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </Section>
-        <p className="border-t border-border py-6 text-caption text-fg-3">
-          Sources:{' '}
-          {rp
-            ? 'employee-reported salary data from AmbitionBox and Levels.fyi, and the job posts linked above.'
-            : 'the job posts linked above.'}{' '}
-          Figures belong to their sources; we summarise and link them and are not affiliated with
-          any of them.
-        </p>
-      </div>
-
-      <MockInterviewCTA
-        roleName={hub.shortName}
-        title="The offer comes after the interview. Practise it out loud."
-        questions={hub.questionGroups
-          .flatMap((g) => g.questions.map((x) => x.q.replace(/\s*\(.*?\)\s*$/, '').trim()))
-          .filter((q) => q.length > 12 && q.length <= 110)
-          .slice(0, 4)}
-      />
-    </div>
+    </DomainLayout>
   )
 }

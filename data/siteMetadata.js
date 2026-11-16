@@ -4,9 +4,9 @@ const siteMetadata = {
   author: 'Auto Interview AI',
   headerTitle: 'Auto Interview AI',
   description:
-    'Your dream job, engineered. The one-stop platform for cracking your next role — stellar CV templates, expert resources, AI mock interviews, and career communities. Free, ungated, built for the ambitious.',
+    'Free interview prep: role guides with interview questions and model answers, pay data, one-page CV templates, browser tools, Learn AI lessons and a free AI mock interview.',
   keywords:
-    'Auto Interview AI, Autointerviewai, job preparation, resume templates, ATS resume, CV templates, Harvard resume template, MBA interview resources, consulting casebook, mock interview AI, career preparation, free resume download, interview practice, job cracking platform, career intelligence, case interview framework',
+    'Auto Interview AI, Autointerviewai, job preparation, resume templates, ATS resume, CV templates, one-page resume template, MBA interview resources, consulting casebook, mock interview AI, career preparation, free resume download, interview practice, job cracking platform, career intelligence, case interview framework',
   language: 'en-us',
   theme: 'light', // system, dark or light
   siteUrl: 'https://www.autointerviewai.com',

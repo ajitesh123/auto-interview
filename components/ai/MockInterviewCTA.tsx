@@ -59,32 +59,30 @@ export default function MockInterviewCTA({
         <div className="grid overflow-hidden rounded-2xl border border-border bg-surface shadow-e1 md:grid-cols-[1.05fr_1fr]">
           <div className="p-6 md:p-10">
             <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
-              Free · no signup to start · by Tough Tongue AI
+              Free to start · runs in your browser · by Tough Tongue AI
             </div>
             <h2 id="mi-cta-title" className="mt-3 font-serif text-h1 font-medium text-fg">
               {title}
             </h2>
             <p className="mt-3 max-w-[48ch] text-body-lg text-fg-2">{text}</p>
             <ul className="mt-5 grid gap-2 text-small text-fg-2 sm:grid-cols-3">
-              {[
-                'Real follow-up questions',
-                'Feedback on every answer',
-                'Takes about 10 minutes',
-              ].map((x) => (
-                <li key={x} className="flex items-center gap-2">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 16 16"
-                    className="h-4 w-4 shrink-0 text-signal-strong"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="m3.5 8.5 3 3 6-7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  {x}
-                </li>
-              ))}
+              {['Follow-up questions', 'Out loud, like the real room', 'No install needed'].map(
+                (x) => (
+                  <li key={x} className="flex items-center gap-2">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 16 16"
+                      className="h-4 w-4 shrink-0 text-signal-strong"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="m3.5 8.5 3 3 6-7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {x}
+                  </li>
+                )
+              )}
             </ul>
             <div className="mt-8">
               <MockInterviewButton label={label} role={role} />

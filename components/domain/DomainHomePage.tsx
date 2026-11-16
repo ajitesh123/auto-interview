@@ -1,765 +1,463 @@
-'use client'
-
-import React from 'react'
 import Link from 'next/link'
 import DomainLayout from './DomainLayout'
-import CubeLogo from '@/components/CubeLogo'
-import HeroGlassCube from '@/components/HeroGlassCube'
-import { ROLE_HUB_LIST } from '@/data/roleHubs'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
+import { ROLE_HUB_LIST, ROLE_HUBS } from '@/data/roleHubs'
+import { LESSONS, TRACKS, TOTAL_MINUTES } from '@/data/learnAi'
+import { PG_LESSONS } from '@/data/pgCourse'
+import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
+import { ROLE_SALARIES } from '@/data/roleSalary'
+import { ROLE_CONCEPTS } from '@/data/roleConcepts'
+import { ROLE_COVER_LETTERS, coverLetterPath } from '@/data/roleCoverLetters'
+import { ROLE_INTERVIEW_TIPS, interviewTipsPath } from '@/data/roleInterviewTips'
+import { HOME_FAQS } from './homeFaqs'
 
-const DomainHomePage: React.FC = () => {
-  const homeFaqs = [
-    {
-      q: 'What is Tough Tongue AI?',
-      a: 'Tough Tongue AI is the product behind Auto Interview AI: AI voice agents for calls and meetings, and AI sales roleplays where reps talk to an AI buyer and get a scored report. Mock interviews on this site run on it.',
-    },
-    {
-      q: 'What is Auto Interview AI?',
-      a: 'Auto Interview AI is a free interview-prep site: role guides with reported interview questions, salary pages, one-page resume (CV) templates, Learn AI lessons, free browser tools and a free AI mock interview run on Tough Tongue AI.',
-    },
-    {
-      q: 'How does Auto Interview AI accelerate career and sales readiness?',
-      a: 'Auto Interview AI covers critical hiring and sales execution phases: 1) one-page resume (CV) templates in a plain format applicant tracking systems can read, 2) Curated domain study kits and casebooks, and 3) Adaptive AI mock interviews and cold call simulators for live practice.',
-    },
-    {
-      q: 'Are all templates and simulators completely free?',
-      a: 'Yes. Auto Interview AI is 100% free with zero paywalls, zero gatekeeping, and no mandatory subscriptions.',
-    },
-  ]
+/* Every number on this page is counted from the site's own data files at build time. */
+const HUBS = ROLE_HUB_LIST.map((hub) => {
+  const qs = hub.questionGroups.flatMap((g) => g.questions)
+  const s = hub.slug
+  const kit = [
+    ROLE_SALARIES[s] && { href: `/${s}/salary`, label: 'Salary' },
+    ROLE_KITS[s] && { href: KIT_PATHS.resume(s), label: 'Resume (CV)' },
+    ROLE_COVER_LETTERS[s] && { href: coverLetterPath(s), label: 'Cover letter' },
+    ROLE_INTERVIEW_TIPS[s] && { href: interviewTipsPath(s), label: 'Round tips' },
+    ROLE_CONCEPTS[s] && { href: `/${s}/concepts`, label: 'Concepts quiz' },
+  ].filter(Boolean) as { href: string; label: string }[]
+  return {
+    slug: s,
+    name: hub.roleName,
+    short: hub.shortName,
+    kit,
+    questions: qs.length,
+  }
+})
+const TOTAL_QUESTIONS = HUBS.reduce((n, h) => n + h.questions, 0)
+const LEARN_HOURS = Math.round(TOTAL_MINUTES / 60)
 
+/* The questions cycling in the closing mock-interview panel: the shortest real question
+   from four hubs, so the panel shows what the interviewer actually asks. */
+const CTA_QUESTIONS = ['ai-engineer', 'aipm', 'strategy-and-operations', 'fde']
+  .map((slug) => {
+    const qs = ROLE_HUBS[slug]?.questionGroups.flatMap((g) => g.questions) ?? []
+    return [...qs].filter((q) => q.q.length < 75).sort((a, b) => a.q.length - b.q.length)[0]?.q
+  })
+  .filter((q): q is string => Boolean(q))
+
+const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
+const kicker = 'font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong'
+const card =
+  'group relative rounded-xl border border-border bg-surface transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2'
+
+const STEPS = [
+  {
+    n: '1',
+    title: 'Learn the role',
+    body: `Read what the job really involves and ${TOTAL_QUESTIONS} interview questions with model answers.`,
+    href: '#roles',
+    cta: 'Pick a role',
+  },
+  {
+    n: '2',
+    title: 'Fix your resume',
+    body: 'Paste a real job post and your resume. See which skills the post asks for that you never mention.',
+    href: '/resume-keyword-checker',
+    cta: 'Check my resume',
+  },
+  {
+    n: '3',
+    title: 'Know your number',
+    body: 'Turn a CTC into what lands in your bank each month, so you know your number before you negotiate.',
+    href: '/salary-calculator',
+    cta: 'CTC to in-hand',
+  },
+  {
+    n: '4',
+    title: 'Practise out loud',
+    body: 'A voice interviewer runs a PM case, a consulting case or an AI engineer round and follows up on what you say.',
+    href: '/free-mock-interview',
+    cta: 'Start a mock interview',
+  },
+]
+
+const TOOLS = [
+  {
+    href: '/resume-keyword-checker',
+    title: 'Resume keyword checker',
+    body: 'Job post vs your resume (CV): missing skills, title check and 8 format checks.',
+  },
+  {
+    href: '/salary-calculator',
+    title: 'CTC to in-hand calculator',
+    body: 'Monthly take-home on FY 2026-27 tax, old vs new regime, PF and variable pay.',
+  },
+  {
+    href: '/job-offer-comparison',
+    title: 'Job offer comparison',
+    body: 'Two or three offers side by side on real money: bonus clawback, ESOPs, rent.',
+  },
+  {
+    href: '/cv-templates',
+    title: 'One-page CV templates',
+    body: 'Word templates in the plain one-page format recruiters and ATS read.',
+  },
+  {
+    href: '/cover-letter',
+    title: 'Cover letter templates',
+    body: 'Role-specific letters you can copy, with a checker for the parts recruiters skim.',
+  },
+  {
+    href: '/interview-questions',
+    title: 'Interview question bank',
+    body: 'Common and behavioural questions with model answers and what interviewers listen for.',
+  },
+]
+
+const SALES = [
+  {
+    href: '/cold-call-practice',
+    title: 'Cold call practice',
+    body: 'Roleplay a cold call with an AI buyer who objects, and get a scored report.',
+  },
+  {
+    href: '/ai-sales-training',
+    title: 'AI sales training',
+    body: 'How teams use AI roleplay to train reps on discovery and objection handling.',
+  },
+  {
+    href: '/voice-ai-calling',
+    title: 'Voice AI calling',
+    body: 'What AI calling agents do, what they cost, and the rules by country.',
+  },
+]
+
+function Arrow() {
   return (
-    <DomainLayout currentPath="/">
-      {/* ===== HERO — Vercel asymmetric composition ===== */}
-      <section className="py-24 sm:py-32 lg:py-40">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="grid items-center gap-16 lg:grid-cols-[1fr_auto]">
-            {/* Left — Headline stack */}
-            <div>
-              {/* Eyebrow */}
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                FOR JOB SEEKERS
-              </p>
-
-              {/* Hero Headline — 56px, weight ~450, tight tracking */}
-              <h1 className="animate-fade-rise max-w-3xl text-[40px] font-normal leading-[1] tracking-[-2px] text-[#171717] sm:text-[48px] sm:tracking-[-2.88px] lg:text-[56px] lg:tracking-[-3.36px]">
-                Your dream job. <br className="hidden sm:block" />
-                Engineered.
-              </h1>
-
-              {/* Supporting text — 16px, charcoal without emdash */}
-              <p className="animate-fade-rise-delay mt-6 max-w-xl text-base leading-relaxed text-[#4d4d4d]">
-                Stellar CVs. Expert resources. Realistic practice. Everything you need to crack your
-                next role in one place.
-              </p>
-
-              {/* CTA Row */}
-              <div className="animate-fade-rise-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="#pillars"
-                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium !text-white transition-all hover:bg-[#333333] hover:shadow-sm"
-                >
-                  Explore the Platform
-                </Link>
-                <Link
-                  href="/cv-templates"
-                  className="inline-flex items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-all hover:bg-[#f5f5f5]"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  Download CV Templates
-                </Link>
-              </div>
-
-              {/* Trust signals — monospace */}
-              <div
-                className="animate-fade-rise-delay-3 mt-8 flex flex-wrap items-center gap-4 text-[11px] text-[#666666]"
-                style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
-              >
-                <span className="flex items-center gap-1.5 uppercase">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#297a3a]" />
-                  14,000+ resumes analyzed
-                </span>
-                <span className="text-[#ebebeb]">·</span>
-                <span className="uppercase">100% free</span>
-                <span className="text-[#ebebeb]">·</span>
-                <span className="uppercase">Zero gatekeeping</span>
-              </div>
-            </div>
-
-            {/* Right — Apple-Style Glass 4x4x4 3D Isometric Cube with Entrance Animation */}
-            <div className="hidden lg:flex lg:items-center lg:justify-center">
-              <HeroGlassCube />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== ROLE HUBS — new-age roles, one page each ===== */}
-      <section id="role-hubs" className="border-t border-[#ebebeb] py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                ROLE HUBS · UPDATED NOVEMBER 2026
-              </p>
-              <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-                Everything you need to crack the role, on one page.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-relaxed text-[#666666]">
-              What each role really involves, real pay in ₹ and $, who is hiring, and dozens of
-              interview questions with model answers.
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {ROLE_HUB_LIST.map((hub) => {
-              const q = hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)
-              const first = hub.pay.tables[0]
-              const median = first?.rows.find((r) => r.band === 'Median')
-              return (
-                <Link
-                  key={hub.slug}
-                  href={`/${hub.slug}`}
-                  className="group overflow-hidden rounded-xl border border-[#ebebeb] bg-white transition hover:border-[#171717] hover:shadow-md"
-                >
-                  {hub.visuals?.hero?.image && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={hub.visuals.hero.image}
-                      alt={hub.visuals.hero.alt}
-                      width={1600}
-                      height={900}
-                      loading="lazy"
-                      className="block aspect-video w-full object-cover"
-                    />
-                  )}
-                  <div className="space-y-2 p-5">
-                    <div className="text-base font-medium text-[#171717] group-hover:underline">
-                      {hub.roleName}
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 text-[11px]">
-                      <span className="rounded-full bg-[#f5f5f5] px-2 py-0.5 text-[#171717]">
-                        {q} questions
-                      </span>
-                      {median ? (
-                        <span className="rounded-full bg-[#EEF1FF] px-2 py-0.5 text-[#1E33B3]">
-                          {first.region} median {median.value}
-                        </span>
-                      ) : (
-                        hub.pay.headline && (
-                          <span className="rounded-full bg-[#EEF1FF] px-2 py-0.5 text-[#1E33B3]">
-                            {hub.pay.headline}
-                          </span>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FOUR PILLARS — Feature Card Grid ===== */}
-      <section id="pillars" className="py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          {/* Section header */}
-          <div className="mb-12">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              EVERYTHING YOU NEED
-            </p>
-            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-              Four pillars to crack your dream job.
-            </h2>
-          </div>
-
-          {/* 2×2 Grid */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            {/* Pillar 1 — Stellar CVs */}
-            <Link href="/cv-templates" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
-                style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
-                }}
-              >
-                <div
-                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
-                  Stellar CVs
-                </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
-                  One-page resume (CV) templates in plain single-column Word format that applicant
-                  tracking systems can read. Download and customize. Free, no signup required.
-                </p>
-                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
-                  Download Templates
-                  <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* Pillar 2 — Expert Resources */}
-            <Link href="/resources" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
-                style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
-                }}
-              >
-                <div
-                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
-                  Expert Resources
-                </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
-                  Domain-specific prep kits. Casebooks, frameworks, and playbooks for MBA,
-                  Engineering, and more, curated by practitioners.
-                </p>
-                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
-                  Explore Resources
-                  <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* Pillar 3 — Mock Interviews */}
-            <Link href="/free-mock-interview" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
-                style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
-                }}
-              >
-                <div
-                  className="mb-5 flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
-                  Mock Interviews
-                </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
-                  AI-powered practice that adapts to your domain, seniority level, and target role.
-                  Real-time feedback in seconds, not days.
-                </p>
-                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
-                  Start Practicing
-                  <svg
-                    className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* Pillar 4 — Communities */}
-            <Link href="/communities" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-7 transition-all duration-200"
-                style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px #fafafa'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa'
-                }}
-              >
-                <div className="mb-5 flex items-center justify-between">
-                  <div
-                    className="flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#fafafa] text-[#171717]"
-                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                  >
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                  </div>
-                  <span
-                    className="coming-soon-pulse rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase text-[#666666]"
-                    style={{
-                      boxShadow: '0 0 0 1px #ebebeb',
-                    }}
-                  >
-                    Coming Soon
-                  </span>
-                </div>
-                <h3 className="mb-2 text-[22px] font-normal tracking-[-0.5px] text-[#171717]">
-                  Communities
-                </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-[#4d4d4d]">
-                  Role-specific communities for CS, AI discussion, and referrals. Connect with
-                  peers, share opportunities, and grow together.
-                </p>
-                <span className="flex items-center text-sm font-medium text-[#171717] transition-colors group-hover:text-black">
-                  Join Early Access →
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FREE INTERACTIVE TOOLS & SIMULATORS (HIGH-CTR GROWTH ENGINE) ===== */}
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="mb-12">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              INTERACTIVE SUITE
-            </p>
-            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-              Free AI Tools, Simulators & Calculators
-            </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#4d4d4d]">
-              Test your skills with our free interactive sandboxes. Built for candidates, sales
-              reps, and engineering leaders. 100% ungated.
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Tool 1: Cold Call Simulator */}
-            <Link href="/cold-call-practice" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-blue-700">
-                    2026 EDITION
-                  </span>
-                  <span className="text-xs text-gray-500">Sales Practice</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Cold Call Practice Simulator
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Practice live B2B objection handling with instant AI scoring across competitor
-                  lock-in, budget freezes, and gatekeepers.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Launch Simulator →
-                </span>
-              </div>
-            </Link>
-
-            {/* Tool 2: Voice AI ROI Calculator */}
-            <Link href="/ai-calling-roi-calculator" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-700">
-                    ENTERPRISE TCO
-                  </span>
-                  <span className="text-xs text-gray-500">Calculator</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Voice AI ROI & Cost Calculator
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Estimate per-minute calling costs, pipeline savings, and SDR conversion lifts
-                  across Tough Tongue, Bland AI, and Twilio.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Calculate Savings →
-                </span>
-              </div>
-            </Link>
-
-            {/* Tool 3: Free prep resources library */}
-            <Link href="/free-resources" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#1E33B3]">
-                    NEW
-                  </span>
-                  <span className="text-xs text-gray-500">Library</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Free Prep Resources
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  McKinsey and Bain practice cases, 26 MBA casebooks, coding lists, statistics PDFs
-                  and campus placement guides. Every link checked by hand.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-[#3B5BFF] transition-colors group-hover:text-[#1E33B3]">
-                  Browse Free →
-                </span>
-              </div>
-            </Link>
-
-            {/* Tool 4: Free AI Mock Interview */}
-            <Link href="/free-mock-interview" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-blue-700">
-                    AI VOICE
-                  </span>
-                  <span className="text-xs text-gray-500">Interview Prep</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Free AI Mock Interview
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Practice voice interviews tailored for Product Management, Engineering, MBA, and
-                  Sales. Real-time evaluation in seconds.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Start Mock Interview →
-                </span>
-              </div>
-            </Link>
-
-            {/* Tool 5: Resume Job Matcher */}
-            <Link href="/resume-job-matcher" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[#1E33B3]">
-                    MATCHING ENGINE
-                  </span>
-                  <span className="text-xs text-gray-500">Job Matcher</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  Resume to Job Matcher
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Paste any job description and your resume to identify exact keyword gaps, required
-                  skills, and qualification percentage.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Match Resume →
-                </span>
-              </div>
-            </Link>
-
-            {/* Tool 6: CV Templates */}
-            <Link href="/cv-templates" className="group block">
-              <div
-                className="flex h-full flex-col rounded-[6px] bg-white p-6 transition-all duration-200"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.18)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-signal-tint px-2.5 py-0.5 font-mono text-[10px] font-semibold text-signal-ink">
-                    WORD + DOCS
-                  </span>
-                  <span className="text-xs text-gray-500">Templates</span>
-                </div>
-                <h3 className="mb-2 text-[18px] font-semibold text-[#171717]">
-                  One-page CV Templates
-                </h3>
-                <p className="mb-6 flex-1 text-xs leading-relaxed text-[#4d4d4d]">
-                  Clean, proven one-page resume templates in Word (.docx) and Google Docs formats.
-                  100% free download with zero signup.
-                </p>
-                <span className="flex items-center text-xs font-semibold text-blue-600 transition-colors group-hover:text-blue-800">
-                  Download Free →
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== HOW IT WORKS — 3-step method ===== */}
-      <section className="py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="grid gap-16 lg:grid-cols-[1fr_1fr]">
-            {/* Left — Steps */}
-            <div>
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                THE METHOD
-              </p>
-              <h2 className="mb-12 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-                Three steps to your next offer.
-              </h2>
-
-              <div className="space-y-8">
-                {[
-                  {
-                    step: '01',
-                    title: 'Build your CV',
-                    desc: 'Pick a one-page template, replace every line with your own proof, then check it against the job post.',
-                  },
-                  {
-                    step: '02',
-                    title: 'Master the material',
-                    desc: 'Read domain-specific playbooks and case frameworks for MBA, Engineering and Commerce. All free, all ungated.',
-                  },
-                  {
-                    step: '03',
-                    title: 'Practice until perfect',
-                    desc: 'Run AI mock interviews tailored to your target role. Get feedback in seconds. Walk in ready.',
-                  },
-                ].map((item) => (
-                  <div key={item.step} className="flex gap-4">
-                    <div
-                      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-[11px] text-[#666666]"
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        boxShadow: '0 0 0 1px #ebebeb',
-                      }}
-                    >
-                      {item.step}
-                    </div>
-                    <div>
-                      <h3 className="mb-1 text-sm font-medium text-[#171717]">{item.title}</h3>
-                      <p className="text-sm leading-relaxed text-[#4d4d4d]">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — CLI Output Panel */}
-            <div className="flex items-center">
-              <div className="cli-panel w-full">
-                <div className="space-y-2">
-                  <div className="cli-command">download --template harvard-2025.docx</div>
-                  <div className="cli-success">Template downloaded successfully</div>
-                  <div className="cli-command">
-                    resources --domain mba --specialization consulting
-                  </div>
-                  <div className="cli-success">4 casebooks ready (IIM-A, IIM-B, IIM-C, FMS)</div>
-                  <div className="cli-command">
-                    mock-interview --role &quot;Product Manager&quot; --level senior
-                  </div>
-                  <div className="cli-success">Interview session ready. 12 questions queued.</div>
-                  <div className="mt-4 border-t border-[#ebebeb] pt-4 font-mono text-[12px] text-[#297a3a]">
-                    ✓ You&apos;re prepared. Go get that offer.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SOCIAL PROOF / STATS ===== */}
-      <section className="py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { value: '14,363', label: 'Resumes analyzed' },
-              { value: '3.4×', label: 'Higher callback rate' },
-              { value: '58%', label: 'Fail on missing keywords' },
-              { value: '2 min', label: 'Average build time' },
-            ].map((stat) => (
-              <div
-                key={stat.value}
-                className="rounded-[6px] bg-white p-6 text-center"
-                style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
-                }}
-              >
-                <div className="mb-2 text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-                  {stat.value}
-                </div>
-                <p className="text-sm text-[#666666]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== HOMEPAGE FAQ SECTION ===== */}
-      <section className="border-t border-[#ebebeb] py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="mb-12 max-w-3xl">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              FAQ
-            </p>
-            <h2 className="text-[30px] font-normal leading-[1.1] tracking-[-1.5px] text-[#171717]">
-              Frequently Asked Questions
-            </h2>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {homeFaqs.map((faq) => (
-              <div
-                key={faq.q}
-                className="rounded-[6px] bg-white p-6"
-                style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-              >
-                <h3 className="mb-2 text-base font-medium text-[#171717]">{faq.q}</h3>
-                <p className="text-sm leading-relaxed text-[#4d4d4d]">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CTA BANNER — Inverted black card with 100% bright white text ===== */}
-      <section className="py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="rounded-[6px] bg-[#171717] px-8 py-20 text-center sm:px-16">
-            <h2
-              className="mb-4 text-[32px] font-normal leading-[1.15] tracking-[-1.5px] !text-white sm:text-[38px]"
-              style={{ color: '#ffffff' }}
-            >
-              The job market is tough.
-              <br />
-              We make it easier.
-            </h2>
-            <p
-              className="mx-auto mb-10 max-w-lg text-sm leading-relaxed !text-[#a8a8a8]"
-              style={{ color: '#a8a8a8' }}
-            >
-              Free CV templates, domain-specific resources, AI mock interviews, and career
-              communities. Everything you need with zero gatekeeping.
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link
-                href="/build-resume"
-                className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] bg-white px-6 py-3 text-sm font-medium !text-[#171717] transition-all hover:bg-[#f0f0f0]"
-                style={{ color: '#171717', backgroundColor: '#ffffff' }}
-              >
-                Get Started Free
-              </Link>
-              <Link
-                href="/resources"
-                className="inline-flex min-w-[170px] items-center justify-center rounded-[6px] border border-white/30 bg-transparent px-6 py-3 text-sm font-medium !text-white transition-all hover:bg-white/10"
-                style={{ color: '#ffffff' }}
-              >
-                Browse Resources
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </DomainLayout>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 16 16"
+      className="h-4 w-4 shrink-0 transition-transform duration-base group-hover:translate-x-0.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+    >
+      <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }
 
-export default DomainHomePage
+export default function DomainHomePage() {
+  return (
+    <DomainLayout currentPath="/">
+      {/* ===== HERO: answer + the one CTA on the left, "pick your role" on the right ===== */}
+      <section className="border-b border-border">
+        <div className={`${container} grid gap-10 py-12 md:py-20 lg:grid-cols-12 lg:gap-12`}>
+          <div className="lg:col-span-7 lg:pt-6">
+            <p className={`animate-fade-rise ${kicker}`}>
+              Free · No sign-up to read · Updated November 2026
+            </p>
+            <h1 className="animate-fade-rise mt-4 max-w-[16ch] font-serif text-display font-medium text-fg">
+              Walk into your interview ready.
+            </h1>
+            <p className="animate-fade-rise-delay mt-5 max-w-[56ch] text-body-lg text-fg-2">
+              Pick your role. Read the questions interviewers ask, check your resume against a real
+              job post, know what the role pays, then practise out loud with a voice interviewer.
+            </p>
+            <div className="animate-fade-rise-delay-2 mt-8 flex flex-wrap items-start gap-3">
+              <MockInterviewButton />
+              <a
+                href="#roles"
+                className="inline-flex h-12 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
+              >
+                Find your role
+              </a>
+            </div>
+            <div className="animate-fade-rise-delay-2 mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-border pt-6">
+              {[
+                { v: String(HUBS.length), l: 'role guides' },
+                { v: String(TOTAL_QUESTIONS), l: 'questions with model answers' },
+                { v: String(LESSONS.length), l: 'Learn AI lessons' },
+              ].map((s) => (
+                <p key={s.l} className="flex flex-col">
+                  <span className="text-h2 font-semibold tabular-nums text-fg">{s.v}</span>
+                  <span className="mt-1 text-caption text-fg-3">{s.l}</span>
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* Pick your role: the first action, Interview Warmup style */}
+          <div className="animate-fade-rise-delay lg:col-span-5">
+            <div className="rounded-2xl border border-border bg-surface p-2 shadow-e2">
+              <div className="flex items-center justify-between px-4 pb-2 pt-3">
+                <h2 className="text-small font-semibold text-fg">Pick your role</h2>
+                <span className="text-caption text-fg-3">{HUBS.length} guides</span>
+              </div>
+              <ul className="divide-y divide-border">
+                {HUBS.map((h) => (
+                  <li key={h.slug}>
+                    <Link
+                      href={`/${h.slug}`}
+                      className="group flex min-h-[44px] items-center justify-between gap-3 rounded-lg px-4 py-2.5 text-small transition-colors duration-fast hover:bg-signal-tint"
+                    >
+                      <span className="font-medium text-fg group-hover:text-signal-strong">
+                        {h.name}
+                      </span>
+                      <span className="flex items-center gap-2 text-caption text-fg-3">
+                        <span className="whitespace-nowrap tabular-nums">
+                          {h.questions} questions
+                        </span>
+                        <span className="text-signal-strong">
+                          <Arrow />
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== THE PATH: four things to do, each a real page ===== */}
+      <section aria-labelledby="path-title" className="py-16 md:py-24">
+        <div className={container}>
+          <div className="max-w-2xl">
+            <p className={kicker}>Your prep path · 4 steps</p>
+            <h2 id="path-title" className="mt-3 text-h2 font-semibold text-fg">
+              From job post to offer, in the order that works
+            </h2>
+          </div>
+          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s, i) => (
+              <li key={s.n} className="relative">
+                <Link href={s.href} className={`${card} flex h-full flex-col p-5 md:p-6`}>
+                  <span className="flex items-center gap-3">
+                    <span
+                      className={`flex h-8 w-8 items-center justify-center rounded-full font-mono text-caption font-semibold ${
+                        i === STEPS.length - 1
+                          ? 'bg-signal text-white'
+                          : 'bg-signal-tint text-signal-ink'
+                      }`}
+                    >
+                      {s.n}
+                    </span>
+                    <span className="text-h4 font-semibold text-fg">{s.title}</span>
+                  </span>
+                  <span className="mt-3 flex-1 text-small text-fg-2">{s.body}</span>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-small font-semibold text-signal-strong">
+                    {s.cta} <Arrow />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ===== ROLE GUIDES ===== */}
+      <section
+        id="roles"
+        aria-labelledby="roles-title"
+        className="scroll-mt-24 border-t border-border bg-surface py-16 md:py-24"
+      >
+        <div className={container}>
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className={kicker}>
+                Role guides · {HUBS.length} roles · {TOTAL_QUESTIONS} questions
+              </p>
+              <h2 id="roles-title" className="mt-3 text-h2 font-semibold text-fg">
+                Everything for one role, on one page
+              </h2>
+            </div>
+            <p className="max-w-md text-small text-fg-2">
+              What the job involves, interview questions with model answers, pay with sources, and
+              the rest of the kit: salary, resume (CV) and cover letter pages where we have them.
+            </p>
+          </div>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5">
+            {HUBS.map((h) => (
+              <li key={h.slug} className={`${card} flex flex-col p-5 md:p-6`}>
+                <div className="flex items-start justify-between gap-3">
+                  <Link
+                    href={`/${h.slug}`}
+                    className="text-h4 font-semibold text-fg after:absolute after:inset-0 after:rounded-xl group-hover:text-signal-strong"
+                  >
+                    {h.name}
+                  </Link>
+                  <span className="mt-1 text-signal-strong">
+                    <Arrow />
+                  </span>
+                </div>
+                <p className="mt-1.5 text-small text-fg-2">
+                  <span className="tabular-nums">{h.questions} interview questions</span> with model
+                  answers
+                </p>
+                {h.kit.length > 0 && (
+                  <div className="relative z-10 mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
+                    {h.kit.map((k) => (
+                      <Link
+                        key={k.href}
+                        href={k.href}
+                        aria-label={`${h.short} ${k.label.toLowerCase()}`}
+                        className="inline-flex min-h-[32px] items-center rounded-full bg-muted px-3 text-caption font-medium text-fg-2 transition-colors duration-fast hover:bg-signal-tint hover:text-signal-ink"
+                      >
+                        {k.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ===== FREE TOOLS ===== */}
+      <section aria-labelledby="tools-title" className="border-t border-border py-16 md:py-24">
+        <div className={container}>
+          <div className="max-w-2xl">
+            <p className={kicker}>Free tools · no sign-up · calculators run in your browser</p>
+            <h2 id="tools-title" className="mt-3 text-h2 font-semibold text-fg">
+              Tools for the parts people get stuck on
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {TOOLS.map((t) => (
+              <Link key={t.href} href={t.href} className={`${card} flex flex-col p-5 md:p-6`}>
+                <span className="flex items-center justify-between gap-3 text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                  {t.title}
+                  <span className="text-signal-strong">
+                    <Arrow />
+                  </span>
+                </span>
+                <span className="mt-2 text-small text-fg-2">{t.body}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== LEARN ===== */}
+      <section
+        aria-labelledby="learn-title"
+        className="border-t border-border bg-surface py-16 md:py-24"
+      >
+        <div className={container}>
+          <div className="max-w-2xl">
+            <p className={kicker}>Free courses · no sign-up · progress saved on your device</p>
+            <h2 id="learn-title" className="mt-3 text-h2 font-semibold text-fg">
+              Learn what the interview will test
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 md:gap-6">
+            <Link href="/learn-ai" className={`${card} flex flex-col p-6 md:p-8`}>
+              <span className="font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+                {LESSONS.length} lessons · {TRACKS.length} tracks · about {LEARN_HOURS} hours
+              </span>
+              <span className="mt-3 text-h2 font-semibold text-fg group-hover:text-signal-strong">
+                Learn AI
+              </span>
+              <span className="mt-3 text-body text-fg-2">
+                From what an LLM is to prompts, RAG, agents, evals and voice agents. Each lesson has
+                a worked example and something to try.
+              </span>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-small font-semibold text-signal-strong">
+                Start lesson 1 <Arrow />
+              </span>
+            </Link>
+            <Link href="/paul-graham" className={`${card} flex flex-col p-6 md:p-8`}>
+              <span className="font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+                {PG_LESSONS.length} lessons · from the original essays
+              </span>
+              <span className="mt-3 text-h2 font-semibold text-fg group-hover:text-signal-strong">
+                Paul Graham and YC
+              </span>
+              <span className="mt-3 text-body text-fg-2">
+                The essays founders and startup hires are expected to know, each read for what to do
+                with it, plus a YC application challenge.
+              </span>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-small font-semibold text-signal-strong">
+                Read the course <Arrow />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FOR SALES TEAMS (Tough Tongue AI's other audience) ===== */}
+      <section aria-labelledby="sales-title" className="border-t border-border py-16 md:py-20">
+        <div className={container}>
+          <div className="grid gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <p className={kicker}>For sales teams</p>
+              <h2 id="sales-title" className="mt-3 text-h3 font-semibold text-fg">
+                The same voice roleplay, for sales calls
+              </h2>
+              <p className="mt-3 text-small text-fg-2">
+                Reps practise cold calls and objections with an AI buyer before they reach a real
+                one.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3 lg:col-span-8">
+              {SALES.map((s) => (
+                <Link key={s.href} href={s.href} className={`${card} flex flex-col p-5`}>
+                  <span className="flex items-center justify-between gap-2 text-small font-semibold text-fg group-hover:text-signal-strong">
+                    {s.title}
+                    <span className="text-signal-strong">
+                      <Arrow />
+                    </span>
+                  </span>
+                  <span className="mt-2 text-caption text-fg-2">{s.body}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ (native details, answers in the HTML) ===== */}
+      <section aria-labelledby="faq-title" className="border-t border-border py-16 md:py-24">
+        <div className={`${container} grid gap-8 lg:grid-cols-12`}>
+          <div className="lg:col-span-4">
+            <p className={kicker}>FAQ · {HOME_FAQS.length} questions</p>
+            <h2 id="faq-title" className="mt-3 text-h2 font-semibold text-fg">
+              Questions people ask first
+            </h2>
+          </div>
+          <div className="space-y-3 lg:col-span-8">
+            {HOME_FAQS.map((f, i) => (
+              <details
+                key={f.q}
+                open={i < 2}
+                className="group rounded-xl border border-border bg-surface open:shadow-e1"
+              >
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                    className="h-4 w-4 shrink-0 text-fg-3 transition-transform duration-base group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                  >
+                    <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </summary>
+                <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <MockInterviewCTA
+        title="Practise out loud. It’s free."
+        body="Pick a product manager case, a consulting case or an AI engineer technical round. A voice interviewer listens and follows up on what you actually said."
+        questions={CTA_QUESTIONS}
+      />
+    </DomainLayout>
+  )
+}
