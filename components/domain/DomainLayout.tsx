@@ -81,6 +81,12 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                 >
                   Job Offer Comparison
                 </Link>
+                <Link
+                  href="/star-method"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
+                >
+                  STAR Answer Builder
+                </Link>
               </div>
             </div>
 

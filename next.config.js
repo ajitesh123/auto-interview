@@ -532,7 +532,7 @@ module.exports = () => {
         },
         {
           source: '/blog/behavioral-interview-star-method-guide',
-          destination: '/free-mock-interview',
+          destination: '/star-method',
           permanent: true,
         },
         {

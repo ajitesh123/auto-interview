@@ -91,6 +91,11 @@ const TOOLS = [
     body: 'Monthly take-home on FY 2026-27 tax, old vs new regime, PF and variable pay.',
   },
   {
+    href: '/star-method',
+    title: 'STAR answer builder',
+    body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',
+  },
+  {
     href: '/job-offer-comparison',
     title: 'Job offer comparison',
     body: 'Two or three offers side by side on real money: bonus clawback, ESOPs, rent.',
@@ -104,11 +109,6 @@ const TOOLS = [
     href: '/cover-letter',
     title: 'Cover letter templates',
     body: 'Role-specific letters you can copy, with a checker for the parts recruiters skim.',
-  },
-  {
-    href: '/interview-questions',
-    title: 'Interview question bank',
-    body: 'Common and behavioural questions with model answers and what interviewers listen for.',
   },
 ]
 
