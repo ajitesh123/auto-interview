@@ -56,7 +56,7 @@ export default function MockInterviewCTA({
   return (
     <section aria-labelledby="mi-cta-title" className="py-14 md:py-20">
       <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8">
-        <div className="grid overflow-hidden rounded-2xl border border-border bg-surface shadow-e1 md:grid-cols-[1.05fr_1fr]">
+        <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-border bg-surface shadow-e1 md:grid-cols-[1.05fr_1fr]">
           <div className="p-6 md:p-10">
             <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
               Free to start · runs in your browser · by Tough Tongue AI

@@ -8,7 +8,7 @@ import { ROLE_KITS, KIT_PATHS } from '@/data/roleKits'
 export const metadata: Metadata = {
   title: 'Free ATS Resume Templates (2026): Harvard & Consulting',
   description:
-    'Download free, ATS-optimized resume templates from Harvard University, IIM Ahmedabad, and Resume Worded. 100% free, ungated DOCX & Google Docs formats proven to pass applicant tracking systems.',
+    "Free one-column resume (CV) templates in DOCX and Google Docs, from Harvard's career office, IIM Ahmedabad and Resume Worded formats. Text layouts ATS can read.",
   keywords:
     'free ATS resume template, one-page resume template, IIM Ahmedabad resume format, Resume Worded template, best resume format 2025, ATS friendly resume, free resume download, MBA CV template, tech resume template, consulting resume format, investment banking resume',
   alternates: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free ATS Resume Templates — Harvard, IIM Ahmedabad & Resume Worded',
     description:
-      'Download free, ATS-optimized resume templates from Harvard, IIM Ahmedabad, and Resume Worded. Proven formats that pass every applicant tracking system.',
+      'Free one-column resume (CV) templates in DOCX and Google Docs, with text layouts that ATS parsers can read. Not affiliated with any university.',
     url: 'https://www.autointerviewai.com/cv-templates',
     siteName: 'Auto Interview AI',
     images: [

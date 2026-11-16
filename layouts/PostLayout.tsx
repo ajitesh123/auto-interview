@@ -359,45 +359,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         }
       : null
 
-  // Article Schema for ATS Resume Checker
-  const articleSchema =
-    slug === 'best-ats-resume-checker-2025'
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: title,
-          description:
-            'Discover the 3 best ATS resume checkers in 2025. Compare Resume Worded, Enhancv, and AutoInterviewAI with detailed reviews, pricing, and features to boost your interview rate by 300%.',
-          author: {
-            '@type': 'Organization',
-            name: 'AutoInterviewAI',
-            url: 'https://autointerviewai.com',
-          },
-          publisher: {
-            '@type': 'Organization',
-            name: 'AutoInterviewAI',
-            url: 'https://autointerviewai.com',
-            logo: {
-              '@type': 'ImageObject',
-              url: 'https://autointerviewai.com/static/images/logo.svg',
-            },
-          },
-          datePublished: date,
-          dateModified: date,
-          mainEntityOfPage: {
-            '@type': 'WebPage',
-            '@id': `${siteMetadata.siteUrl}/${path}`,
-          },
-          articleSection: 'Career Tools',
-          keywords:
-            'ATS resume checker, resume optimization, job search, Resume Worded, Enhancv, AutoInterviewAI, applicant tracking system, resume scanner, career tools, interview preparation',
-          wordCount: 4500,
-          timeRequired: 'PT15M',
-          inLanguage: 'en-US',
-          isAccessibleForFree: true,
-        }
-      : null
-
   // FAQ Schema for Job Search Guide
   const jobSearchFaqSchema =
     slug === 'how-to-find-jobs-complete-guide'
@@ -1203,16 +1164,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqSchema),
-          }}
-        />
-      )}
-
-      {/* Article Schema for ATS Resume Checker */}
-      {articleSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleSchema),
           }}
         />
       )}

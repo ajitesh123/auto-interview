@@ -68,6 +68,18 @@ import {
   HinglishSessionFlow,
   HinglishScenarioLibrary,
 } from './blog/HinglishRoleplayFigures'
+import AtsCheckerFinder from './blog/AtsCheckerFinder'
+import {
+  AtsCheckerStats,
+  AtsApplicationFlow,
+  AtsRulesTable,
+  AtsScoreSpreadFigure,
+  AtsCostFigure,
+  AtsCheckerTable,
+  AtsClaimsTable,
+} from './blog/AtsCheckerFigures'
+import MockInterviewButton from './ai/MockInterviewButton'
+import MockInterviewCTA from './ai/MockInterviewCTA'
 import { Tweet } from 'react-tweet'
 
 export const components: MDXComponents = {
@@ -93,6 +105,16 @@ export const components: MDXComponents = {
   CTABanner,
   PracticeQuestion,
   KeyFacts,
+  AtsCheckerFinder,
+  AtsCheckerStats,
+  AtsApplicationFlow,
+  AtsRulesTable,
+  AtsScoreSpreadFigure,
+  AtsCostFigure,
+  AtsCheckerTable,
+  AtsClaimsTable,
+  MockInterviewButton,
+  MockInterviewCTA,
   SalesLmsCalculator,
   AiLmsPicker,
   IndiaLmsCalculator,
