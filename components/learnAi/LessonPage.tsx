@@ -9,9 +9,11 @@ import { DoneMark, MarkComplete, Quiz, YouTubeFacade } from './LearnAiClient'
 import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
 import MoeCalculator from './MoeCalculator'
 import SpotTheMistake from './SpotTheMistake'
+import AiFeatureCost from './AiFeatureCost'
 import { LessonVisualBlock, WorkflowBlock } from './LessonVisuals'
 import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
+import { PRICED_MODELS, PRICE_CHECKED } from '@/data/learnAi/aiFeatureCost'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
 import { AiPrompt } from '@/components/ai/AiPrompt'
@@ -591,6 +593,18 @@ export default function LessonPage({
                     sub="An AI analysed this fictional café data and made four classic errors. Pick the check that catches each one; every number is recomputed in your browser."
                   />
                   <SpotTheMistake />
+                </Section>
+              )}
+
+              {lesson.widget === 'ai-feature-cost' && (
+                <Section id="tool">
+                  <SectionHead
+                    id="tool-title"
+                    k={`Cost calculator · ${PRICED_MODELS.length} models · list prices ${PRICE_CHECKED} · no AI`}
+                    title="What will your AI feature cost a month?"
+                    sub="Type your traffic and token counts, or start from an example. Every model is priced in your browser from the makers’ list prices."
+                  />
+                  <AiFeatureCost />
                 </Section>
               )}
 

@@ -74,6 +74,11 @@ export const PLAN: { slug: string; track: Track['id']; title: string }[] = [
   { slug: 'agent-harness', track: 'build', title: 'What is an agent harness?' },
   { slug: 'prompt-injection', track: 'build', title: 'Prompt injection and AI security' },
   { slug: 'ai-evals', track: 'build', title: 'Evals: does your AI work?' },
+  {
+    slug: 'ai-product-management',
+    track: 'build',
+    title: 'AI product management: spec and ship',
+  },
   { slug: 'voice-ai-agents', track: 'build', title: 'How voice AI agents work' },
   { slug: 'run-llm-locally', track: 'build', title: 'Open models: run an LLM on your laptop' },
   { slug: 'n8n-ai-automation', track: 'automate', title: 'Your first AI automation in n8n' },

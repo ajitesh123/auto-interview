@@ -124,5 +124,5 @@ export interface Lesson<T extends string = TrackId> {
   related?: { label: string; href: string }[] // other site pages, e.g. /ai-engineer, /aipm, /free-resources#ai-skills
   fromTheSource?: FromTheSource[] // 1–2 original ideas from the people who built this
   /** Optional interactive tool rendered before "Try it" (no AI, runs in the browser) */
-  widget?: 'moe-calculator' | 'spot-the-mistake'
+  widget?: 'moe-calculator' | 'spot-the-mistake' | 'ai-feature-cost'
 }

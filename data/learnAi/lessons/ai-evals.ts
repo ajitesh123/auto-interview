@@ -228,7 +228,10 @@ export const lesson: Lesson = {
   related: [
     { label: 'Previous: Prompt injection and AI security', href: '/learn-ai/prompt-injection' },
     { label: 'Why AI makes things up', href: '/learn-ai/ai-hallucinations' },
-    { label: 'Next: Your first AI automation in n8n', href: '/learn-ai/n8n-ai-automation' },
+    {
+      label: 'Next: AI product management: spec and ship',
+      href: '/learn-ai/ai-product-management',
+    },
     { label: 'AI product manager guide', href: '/aipm' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },
     { label: 'Free AI skills resources', href: '/free-resources#ai-skills' },

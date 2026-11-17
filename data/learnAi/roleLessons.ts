@@ -9,6 +9,10 @@ type Pick = { slug: string; why: string }
 export const ROLE_LESSONS: Record<string, Pick[]> = {
   aipm: [
     {
+      slug: 'ai-product-management',
+      why: 'Spec, cost and ship an AI feature: the case most AI PM loops ask you to walk through.',
+    },
+    {
       slug: 'what-is-an-llm',
       why: 'The base every AI PM interview assumes: what a model can and cannot do.',
     },
@@ -19,10 +23,6 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
     {
       slug: 'embeddings-and-rag',
       why: 'Many AI features are RAG. Know the trade-offs before the product sense round.',
-    },
-    {
-      slug: 'prompt-injection',
-      why: 'Agent features need a safety story. Interviewers ask what could go wrong.',
     },
   ],
   'ai-engineer': [
@@ -134,8 +134,8 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
       why: 'Know when to pick ChatGPT, Claude or Gemini, and why it matters for cost.',
     },
     {
-      slug: 'ai-evals',
-      why: 'How you would measure an AI feature is a common product sense follow-up.',
+      slug: 'ai-product-management',
+      why: 'How you would spec, measure and cost an AI feature is a common product sense follow-up.',
     },
     { slug: 'vibe-coding', why: 'A working prototype beats a slide in a PM case round.' },
   ],
@@ -180,6 +180,12 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
 // Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
 // that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
 export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'ai-product-management': [
+    {
+      hub: 'founders-office',
+      why: 'Founder’s office teams often scope the first AI feature. The cost and eval steps keep it honest.',
+    },
+  ],
   'ai-connectors': [
     {
       hub: 'chief-of-staff',
