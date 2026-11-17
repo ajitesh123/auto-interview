@@ -78,6 +78,16 @@ import {
   AtsCheckerTable,
   AtsClaimsTable,
 } from './blog/AtsCheckerFigures'
+import FreeNoteTakerFit from './blog/FreeNoteTakerFit'
+import {
+  FreeNoteTakerStats,
+  FreeNoteTakerCapFigure,
+  FreeNoteTakerExample,
+  FreeNoteTakerTable,
+  NotFreeTable,
+  ConsentTable,
+  CasesList,
+} from './blog/FreeNoteTakerFigures'
 import MockInterviewButton from './ai/MockInterviewButton'
 import MockInterviewCTA from './ai/MockInterviewCTA'
 import { Tweet } from 'react-tweet'
@@ -115,6 +125,14 @@ export const components: MDXComponents = {
   AtsClaimsTable,
   MockInterviewButton,
   MockInterviewCTA,
+  FreeNoteTakerFit,
+  FreeNoteTakerStats,
+  FreeNoteTakerCapFigure,
+  FreeNoteTakerExample,
+  FreeNoteTakerTable,
+  NotFreeTable,
+  ConsentTable,
+  CasesList,
   SalesLmsCalculator,
   AiLmsPicker,
   IndiaLmsCalculator,
