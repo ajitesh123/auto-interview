@@ -137,7 +137,7 @@ export default async function RoleCVPage({ params }: PageProps) {
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
               <span>{roleData.category}</span>
               <span className="text-[#999999]">•</span>
-              <span className="font-bold text-[#297a3a]">100% Free & Ungated</span>
+              <span className="font-semibold text-fg-2">Free · No sign-up</span>
             </div>
             <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[52px]">
               {roleData.heroTitle}
@@ -194,13 +194,13 @@ export default async function RoleCVPage({ params }: PageProps) {
                   >
                     bullet-point resume template
                   </a>{' '}
-                  published by Harvard&apos;s Mignone Center for Career Success. Zero unreadable
-                  tables, zero header/footer trap zones. Fully editable in Word, LibreOffice, and
+                  published by Harvard&apos;s Mignone Center for Career Success. No tables or text
+                  boxes, nothing in the header or footer. Fully editable in Word, LibreOffice, and
                   Pages. Not affiliated with or endorsed by Harvard University.
                 </p>
                 <div className="rounded-md bg-[#fafafa] p-3 text-xs text-[#666666]">
-                  <strong>Ideal for:</strong> {roleData.roleName} applications to Fortune 500,
-                  FAANG, and enterprise Applicant Tracking Systems (Workday, Taleo, Greenhouse).
+                  <strong>Good for:</strong> {roleData.roleName} applications through online
+                  applicant tracking systems (Workday, Greenhouse, Lever): one column, real text.
                 </div>
               </div>
 
@@ -237,20 +237,20 @@ export default async function RoleCVPage({ params }: PageProps) {
                     Google Docs
                   </span>
                   <span className="inline-flex items-center font-mono text-[11px] font-semibold uppercase text-[#297a3a]">
-                    ✓ 1-Click Copy
+                    Makes your own copy
                   </span>
                 </div>
                 <h2 className="text-2xl font-normal tracking-tight text-[#171717]">
-                  Cloud ATS-Optimized Master
+                  Same Harvard template in Google Docs
                 </h2>
                 <p className="text-sm leading-relaxed text-[#4d4d4d]">
-                  Clean, cloud-accessible template ready to duplicate directly into your personal
-                  Google Drive with <em>File &rarr; Make a copy</em>. Pre-formatted with exact
-                  0.5-inch margins and standard hierarchy.
+                  The Google Docs version that Harvard&apos;s Mignone Center links from the same
+                  page. The link asks you to make a copy in your own Google Drive, so you edit your
+                  file, not a shared one.
                 </p>
                 <div className="rounded-md bg-[#fafafa] p-3 text-xs text-[#666666]">
-                  <strong>Format:</strong> Web Google Doc with standard web-safe Arial/Calibri font
-                  styling and bullet point indentations.
+                  <strong>Tip:</strong> when you finish, use File &rarr; Download &rarr; Microsoft
+                  Word (.docx) or PDF to apply.
                 </div>
               </div>
 
@@ -319,7 +319,7 @@ export default async function RoleCVPage({ params }: PageProps) {
                 EXPERIENCE BULLET BANK
               </p>
               <h2 className="mt-1 text-2xl font-normal tracking-tight text-[#171717]">
-                Proven {roleData.roleName} Bullets (Google X-Y-Z Formula)
+                {roleData.roleName} Bullet Examples (Google X-Y-Z Formula)
               </h2>
               <p className="mt-1 text-sm text-[#4d4d4d]">
                 Top recruiters look for the formula:{' '}

@@ -3,17 +3,17 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import { BuildResumePage } from '@/features/build-resume'
 
 export const metadata: Metadata = {
-  title: 'Free AI Resume Builder — ATS-Optimized Templates | Auto Interview AI',
+  title: 'Free Resume Builder: One-Column Word Templates | Auto Interview AI',
   description:
-    'Free AI-powered resume builder with ATS-friendly templates. Build professional resumes or upload existing documents. Download in PDF or DOCX format. No signup required.',
+    'Free resume (CV) builder: fill in your details step by step in a one-column Harvard, LBS or Stanford style template and download a Word file. No sign-up.',
   keywords:
-    'resume builder, AI resume, professional resume, resume templates, ATS resume, free resume builder, resume creator, online resume builder',
+    'resume builder, cv builder, professional resume, resume templates, ATS resume, free resume builder, resume creator, online resume builder',
   alternates: {
     canonical: 'https://www.autointerviewai.com/build-resume',
   },
   openGraph: {
-    title: 'Free AI Resume Builder — Auto Interview AI',
-    description: 'Free AI-powered resume builder with ATS-friendly templates.',
+    title: 'Free Resume Builder — Auto Interview AI',
+    description: 'Free resume builder with one-column Word templates.',
     url: 'https://www.autointerviewai.com/build-resume',
     siteName: 'Auto Interview AI',
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
         width: 1200,
         height: 630,
-        alt: 'Free AI Resume Builder',
+        alt: 'Free Resume Builder',
       },
     ],
     locale: 'en_US',
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free AI Resume Builder — Auto Interview AI',
-    description: 'Free AI-powered resume builder with ATS-friendly templates.',
+    title: 'Free Resume Builder — Auto Interview AI',
+    description: 'Free resume builder with one-column Word templates.',
     images: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
     creator: '@ajiteshleo',
   },
@@ -49,18 +49,18 @@ export default function BuildResume() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'Is the AI resume builder really free?',
+                name: 'Is the resume builder free?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, Auto Interview AI resume builder is 100% free with no hidden costs, premium tiers, or limitations. All features including AI-powered content suggestions, ATS-friendly templates, and downloads in PDF or DOCX format are completely free with no signup required.',
+                  text: 'Yes. You fill in your details, pick one of three one-column templates and download a Word (.docx) file, with no sign-up and no payment.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'How long does it take to build a resume with AI?',
+                name: 'Does the builder write my resume with AI?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Most users complete their professional resume in 10-15 minutes using our AI-powered builder. If you upload an existing resume, the process is even faster as our AI analyzes and improves your content automatically.',
+                  text: 'No. You write every line yourself in seven short sections (contact, education, experience, positions of responsibility, projects, certifications, skills). To check a finished resume against a job post, use the free resume keyword checker.',
                 },
               },
             ],
@@ -74,11 +74,11 @@ export default function BuildResume() {
             RESUME BUILDER
           </p>
           <h1 className="mb-3 text-3xl font-normal tracking-tight text-[#171717] sm:text-4xl">
-            AI-powered resume builder.
+            Free resume (CV) builder.
           </h1>
           <p className="text-sm text-[#4d4d4d]">
-            Choose a proven template, fill in your experience with AI suggestions, and export an
-            ATS-compliant resume.
+            Pick a one-column template, fill in seven short sections and download a Word file. You
+            write every line; nothing is generated for you.
           </p>
         </header>
 

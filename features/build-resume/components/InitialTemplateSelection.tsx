@@ -33,8 +33,7 @@ const InitialTemplateSelection = ({ onSelect }: InitialTemplateSelectionProps) =
           Choose your resume template.
         </h1>
         <p className="text-sm text-[#4d4d4d]">
-          Select a battle-tested ATS-friendly layout. You can preview and adjust your styling at any
-          time.
+          Pick a one-column layout. You can preview and adjust your styling at any time.
         </p>
       </div>
 
@@ -123,7 +122,7 @@ const InitialTemplateSelection = ({ onSelect }: InitialTemplateSelectionProps) =
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                Proven 99.4% parser accuracy
+                One column, standard headings
               </div>
             </div>
           </div>

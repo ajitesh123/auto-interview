@@ -187,10 +187,10 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                   Engineering Guides
                 </Link>
                 <Link
-                  href="/communities"
+                  href="/paul-graham/yc-batch"
                   className="text-xs text-fg-2 transition-colors hover:text-fg"
                 >
-                  Communities
+                  12-week YC challenge
                 </Link>
                 <a
                   href="https://app.toughtongueai.com"

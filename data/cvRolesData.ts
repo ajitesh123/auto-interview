@@ -35,14 +35,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Engineering',
     metaTitle: 'Software Engineer Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-optimized Software Engineer resume template (Harvard single-column DOCX & Google Docs). Includes high-impact engineering bullets and ATS keywords.',
-    heroTitle: 'Software Engineer Resume Template (ATS-Optimized)',
+      'Download free ATS-friendly Software Engineer resume template (Harvard single-column DOCX & Google Docs). Includes high-impact engineering bullets and ATS keywords.',
+    heroTitle: 'Software Engineer Resume Template (ATS-Friendly)',
     heroDescription:
-      'Engineered for FAANG, scale-up, and enterprise technical screens. Single-column, zero-table Harvard format proven to parse at 99%+ accuracy in Greenhouse, Lever, and Workday.',
+      'For software engineering roles at product companies, start-ups and large tech firms. Single-column Harvard-style format with no tables or text boxes, so Greenhouse, Lever and Workday parsers read it as plain text.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Distributed Systems',
       'Microservices',
@@ -145,13 +145,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Product Manager Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS-friendly Product Manager resume template (Harvard DOCX & Google Docs). Includes high-converting PM metric bullets, product frameworks, and ATS keywords.',
-    heroTitle: 'Product Manager Resume Template (ATS-Optimized)',
+    heroTitle: 'Product Manager Resume Template (ATS-Friendly)',
     heroDescription:
       'Designed for APM, Senior PM, and Group PM hiring bars at top tech companies. Single-column format that highlights product strategy, revenue growth, and cross-functional leadership.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Product Strategy',
       'Roadmap Prioritization',
@@ -257,13 +257,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Sales & GTM',
     metaTitle: 'Sales & SDR Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-optimized SDR & Account Executive resume template (Harvard DOCX & Google Docs). Features quota attainment metrics, cold calling playbooks, and sales keywords.',
-    heroTitle: 'SDR & Sales Executive Resume Template (ATS-Optimized)',
+      'Download free ATS-friendly SDR & Account Executive resume template (Harvard DOCX & Google Docs). Features quota attainment metrics, cold calling playbooks, and sales keywords.',
+    heroTitle: 'SDR & Sales Executive Resume Template (ATS-Friendly)',
     heroDescription:
-      'Built specifically for SDRs, BDRs, and Account Executives targeting high-growth SaaS and enterprise tech. Proven single-column layout that highlights quota attainment and pipeline generated.',
+      'Built specifically for SDRs, BDRs, and Account Executives targeting high-growth SaaS and enterprise tech. Single-column layout that highlights quota attainment and pipeline generated.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
-    gdocsUrl: 'https://docs.google.com/document/d/1AVi3XeRchX1VkuRta5Jiy1zhMJz0S3qa/edit',
+    gdocsUrl:
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Quota Attainment',
       'Outbound Prospecting',
@@ -372,13 +373,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Data Analyst Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS-friendly Data Analyst resume template (Harvard DOCX & Google Docs). Includes high-impact SQL/Python bullets, BI dashboard metrics, and ATS keywords.',
-    heroTitle: 'Data Analyst Resume Template (ATS-Optimized)',
+    heroTitle: 'Data Analyst Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for Data Analysts, BI Engineers, and Business Analytics professionals. Clean single-column Harvard layout highlighting SQL optimization, data visualization, and statistical modeling.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'SQL Query Optimization',
       'Python (Pandas, NumPy)',
@@ -474,12 +475,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Fresher Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS resume template for freshers and college graduates (Harvard single-column DOCX). Tips for zero-experience candidates, academic projects, and ATS formatting.',
-    heroTitle: 'Fresher & Entry-Level Resume Template (ATS-Optimized)',
+    heroTitle: 'Fresher & Entry-Level Resume Template (ATS-Friendly)',
     heroDescription:
-      'Designed for college graduates, career switchers, and entry-level applicants. High-authority single-column Harvard format structured to emphasize capstone projects, academic rigor, and internships.',
+      'Designed for college graduates, career switchers, and entry-level applicants. Single-column Harvard-style format structured to emphasize capstone projects, academic rigor, and internships.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
-    gdocsUrl: 'https://docs.google.com/document/d/1AVi3XeRchX1VkuRta5Jiy1zhMJz0S3qa/edit',
+    gdocsUrl:
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Capstone Project',
       'Academic Achievements',
@@ -560,14 +562,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Engineering & Cloud',
     metaTitle: 'DevOps Engineer Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-optimized DevOps Engineer resume template (Harvard DOCX & Google Docs). Includes Terraform, Kubernetes, CI/CD bullets, and ATS keywords.',
-    heroTitle: 'DevOps Engineer Resume Template (ATS-Optimized)',
+      'Download free ATS-friendly DevOps Engineer resume template (Harvard DOCX & Google Docs). Includes Terraform, Kubernetes, CI/CD bullets, and ATS keywords.',
+    heroTitle: 'DevOps Engineer Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for Site Reliability Engineers (SRE), Cloud Architects, and DevOps Engineers. Single-column format highlighting uptime, IaC automation, and CI/CD throughput.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Terraform (IaC)',
       'Kubernetes (EKS/GKE)',
@@ -647,14 +649,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Engineering & UI',
     metaTitle: 'Frontend Developer Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-optimized Frontend Developer resume template (Harvard DOCX & Google Docs). Features React, Next.js, Core Web Vitals, and performance bullets.',
-    heroTitle: 'Frontend Developer Resume Template (ATS-Optimized)',
+      'Download free ATS-friendly Frontend Developer resume template (Harvard DOCX & Google Docs). Features React, Next.js, Core Web Vitals, and performance bullets.',
+    heroTitle: 'Frontend Developer Resume Template (ATS-Friendly)',
     heroDescription:
       'Built for React, Next.js, and TypeScript UI engineers. Single-column format structured to showcase Core Web Vitals optimization, state architecture, and accessible UX.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'React.js',
       'Next.js App Router',
@@ -735,13 +737,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Full Stack Developer Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS Full Stack Developer resume template (Harvard DOCX & Google Docs). Features React, Node.js, PostgreSQL, and scalable architecture bullets.',
-    heroTitle: 'Full Stack Developer Resume Template (ATS-Optimized)',
+    heroTitle: 'Full Stack Developer Resume Template (ATS-Friendly)',
     heroDescription:
       'Tailored for Full Stack Engineers across React, Node.js, Python, and cloud databases. Demonstrates end-to-end technical ownership from responsive UI to database indexes.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Full Stack Development',
       'React.js / Next.js',
@@ -817,14 +819,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'AI & Analytics',
     metaTitle: 'Data Scientist Resume Template (2026 Free ATS Word Format)',
     metaDescription:
-      'Download free ATS-optimized Data Scientist resume template (Harvard DOCX & Google Docs). Features ML models, Python, NLP, and business impact bullets.',
-    heroTitle: 'Data Scientist Resume Template (ATS-Optimized)',
+      'Download free ATS-friendly Data Scientist resume template (Harvard DOCX & Google Docs). Features ML models, Python, NLP, and business impact bullets.',
+    heroTitle: 'Data Scientist Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for Data Scientists, Applied Scientists, and ML Practitioners. Highlights predictive modeling, statistical rigor, feature engineering, and bottom-line revenue lift.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Machine Learning Models',
       'Python (Scikit-Learn, PyTorch)',
@@ -911,13 +913,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Machine Learning Engineer Resume Template (2026 Free ATS)',
     metaDescription:
       'Download free ATS ML Engineer resume template (Harvard DOCX & Google Docs). Highlights LLM fine-tuning, PyTorch, MLOps, Triton inference, and latency metrics.',
-    heroTitle: 'Machine Learning Engineer Resume Template (ATS-Optimized)',
+    heroTitle: 'Machine Learning Engineer Resume Template (ATS-Friendly)',
     heroDescription:
       'Built for MLEs, LLM Engineers, and AI Systems Architects. Single-column Harvard format proving production model serving, quantization, and GPU inference throughput.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Machine Learning Systems',
       'LLM Fine-Tuning (LoRA, QLoRA)',
@@ -989,13 +991,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Cybersecurity Analyst Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS Cybersecurity Analyst resume template (Harvard DOCX & Google Docs). Highlights SIEM, SOC incident response, NIST frameworks, and threat analysis.',
-    heroTitle: 'Cybersecurity Analyst Resume Template (ATS-Optimized)',
+    heroTitle: 'Cybersecurity Analyst Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for SOC Analysts, Information Security Engineers, and Incident Responders. Demonstrates vulnerability management, SIEM triage, and zero-trust enterprise compliance.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Incident Response & Triage',
       'SIEM (Splunk, Microsoft Sentinel)',
@@ -1066,13 +1068,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'UI/UX Designer Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS UI/UX Designer resume template (Harvard DOCX & Google Docs). Highlights Figma design systems, usability testing, and conversion lift bullets.',
-    heroTitle: 'UI/UX Designer Resume Template (ATS-Optimized)',
+    heroTitle: 'UI/UX Designer Resume Template (ATS-Friendly)',
     heroDescription:
       'Crafted for Product Designers, UI/UX Specialists, and UX Researchers. Single-column format engineered to showcase design systems, user testing, and measurable conversion gains.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'User Experience (UX) Design',
       'Figma & FigJam',
@@ -1148,12 +1150,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Account Executive Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS Account Executive resume template (Harvard DOCX & Google Docs). Highlights annual quota attainment %, enterprise closing, and MEDDPICC deal execution.',
-    heroTitle: 'Account Executive Resume Template (ATS-Optimized)',
+    heroTitle: 'Account Executive Resume Template (ATS-Friendly)',
     heroDescription:
       'Designed for Mid-Market, Commercial, and Enterprise Account Executives. Proves revenue closing velocity, sales cycle compression, and multi-year contract values.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
-    gdocsUrl: 'https://docs.google.com/document/d/1AVi3XeRchX1VkuRta5Jiy1zhMJz0S3qa/edit',
+    gdocsUrl:
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Quota Attainment (%)',
       'Closed-Won Revenue ($ ARR)',
@@ -1221,13 +1224,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Customer Success Manager Resume Template (2026 Free ATS)',
     metaDescription:
       'Download free ATS Customer Success Manager resume template (Harvard DOCX & Google Docs). Highlights Net Retention Rate (NRR), churn reduction, and account expansion.',
-    heroTitle: 'Customer Success Manager Resume Template (ATS-Optimized)',
+    heroTitle: 'Customer Success Manager Resume Template (ATS-Friendly)',
     heroDescription:
       'Tailored for Enterprise CSMs, Account Managers, and Retention Leaders. Demonstrates Net Retention Rate (NRR) expansion, customer health scoring, and renewals.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Net Retention Rate (NRR)',
       'Gross Retention Rate (GRR)',
@@ -1299,12 +1302,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Financial Analyst Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS Financial Analyst resume template (Harvard DOCX & Google Docs). Highlights financial modeling, DCF valuation, variance analysis, and Excel macros.',
-    heroTitle: 'Financial Analyst Resume Template (ATS-Optimized)',
+    heroTitle: 'Financial Analyst Resume Template (ATS-Friendly)',
     heroDescription:
-      'Engineered for Corporate FP&A, Investment Banking, and Private Equity analysts. Proven Harvard single-column layout showcasing valuation models, budgeting, and variance analysis.',
+      'Engineered for Corporate FP&A, Investment Banking, and Private Equity analysts. Single-column Harvard-style layout showcasing valuation models, budgeting, and variance analysis.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
-    gdocsUrl: 'https://docs.google.com/document/d/1AVi3XeRchX1VkuRta5Jiy1zhMJz0S3qa/edit',
+    gdocsUrl:
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Financial Modeling & Forecasting',
       'Discounted Cash Flow (DCF)',
@@ -1371,13 +1375,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Business Analyst Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS Business Analyst resume template (Harvard DOCX & Google Docs). Highlights requirements gathering, SQL, process mapping, and stakeholder management.',
-    heroTitle: 'Business Analyst Resume Template (ATS-Optimized)',
+    heroTitle: 'Business Analyst Resume Template (ATS-Friendly)',
     heroDescription:
       'Built for Business Systems Analysts, Operations Analysts, and Strategy Consultants. Demonstrates BRD authoring, workflow optimization, and data-backed operational savings.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Business Requirements Document (BRD)',
       'Process Mapping (BPMN)',
@@ -1444,13 +1448,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Scrum Master Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS Scrum Master resume template (Harvard DOCX & Google Docs). Highlights sprint velocity, release cadences, team retrospectives, and agile metrics.',
-    heroTitle: 'Scrum Master Resume Template (ATS-Optimized)',
+    heroTitle: 'Scrum Master Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for Certified Scrum Masters (CSM), Agile Coaches, and Delivery Leads. Demonstrates sprint velocity improvement, blocker removal, and scaled agile delivery.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Certified Scrum Master (CSM / PSM)',
       'Sprint Planning & Retrospectives',
@@ -1520,13 +1524,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Marketing Manager Resume Template (2026 Free ATS Word)',
     metaDescription:
       'Download free ATS Marketing Manager resume template (Harvard DOCX & Google Docs). Features CAC reduction, demand gen, pipeline ROI, and performance marketing bullets.',
-    heroTitle: 'Marketing Manager Resume Template (ATS-Optimized)',
+    heroTitle: 'Marketing Manager Resume Template (ATS-Friendly)',
     heroDescription:
       'Built for Performance Marketers, Growth Leads, and Brand Managers. Proves customer acquisition cost (CAC) reduction, pipeline pipeline generation, and campaign ROI.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Customer Acquisition Cost (CAC)',
       'Demand Generation & Pipeline',
@@ -1598,13 +1602,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'HR Specialist Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS HR Specialist resume template (Harvard DOCX & Google Docs). Highlights employee retention, onboarding, talent acquisition, and HRIS systems.',
-    heroTitle: 'HR Specialist Resume Template (ATS-Optimized)',
+    heroTitle: 'HR Specialist Resume Template (ATS-Friendly)',
     heroDescription:
       'Tailored for People Operations, HR Business Partners, and Talent Acquisition specialists. Demonstrates retention improvements, HRIS system automation, and compliance.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
-      'https://docs.google.com/document/d/1tbnWMFkKT0c4Mh_IKhrobi_yK8qtjL6vkCgvXWCIKI0/edit?tab=t.0',
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'Talent Acquisition & Full-Cycle Recruiting',
       'Employee Onboarding & Retention',
@@ -1668,12 +1672,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     metaTitle: 'Internship Resume Template (2026 Free ATS Word Format)',
     metaDescription:
       'Download free ATS resume template for summer internships and co-ops (Harvard DOCX). Zero work experience formatting tips, projects, and coursework.',
-    heroTitle: 'College Internship Resume Template (ATS-Optimized)',
+    heroTitle: 'College Internship Resume Template (ATS-Friendly)',
     heroDescription:
       'Designed for college students applying for competitive summer internships, co-ops, and research fellowships. Highlights relevant coursework, leadership, and class projects.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
-    gdocsUrl: 'https://docs.google.com/document/d/1AVi3XeRchX1VkuRta5Jiy1zhMJz0S3qa/edit',
+    gdocsUrl:
+      'https://docs.google.com/document/d/1nlD4BGOyKF2vnC1Zhcbd8_jvkRRmIw-OAa-tT0MSCj0/copy',
     atsKeywords: [
       'University Coursework',
       "Academic Honors & Dean's List",

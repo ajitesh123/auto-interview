@@ -131,19 +131,18 @@ const TemplateSelectionPage = ({
             STEP 3 OF 3 • EXPORT
           </p>
           <h1 className="mb-3 text-3xl font-normal tracking-tight text-[#171717] sm:text-4xl">
-            Your ATS-optimized resume is ready.
+            Your resume is ready.
           </h1>
           <p className="text-sm text-[#4d4d4d]">
-            Select your preferred layout format and download a clean, ATS-compliant DOCX file or
-            inspect the live preview.
+            Pick a layout, check the live preview and download a Word (.docx) file.
           </p>
         </div>
 
         {/* Success Message */}
-        <div className="mb-8 rounded-[6px] border border-emerald-200 bg-emerald-50 p-4 text-sm">
+        <div className="mb-8 rounded-xl bg-signal-tint p-4 text-sm ring-1 ring-inset ring-signal/15">
           <div className="flex items-center">
             <svg
-              className="mr-3 h-5 w-5 flex-shrink-0 text-emerald-600"
+              className="mr-3 h-5 w-5 flex-shrink-0 text-signal-strong"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -156,9 +155,9 @@ const TemplateSelectionPage = ({
               />
             </svg>
             <div>
-              <h3 className="font-medium text-emerald-900">Resume Data Formatted Successfully</h3>
-              <p className="mt-0.5 text-xs text-emerald-800">
-                All sections have been validated against standard applicant tracking system schemas.
+              <h3 className="font-medium text-fg">Your sections are filled in</h3>
+              <p className="mt-0.5 text-xs text-fg-2">
+                Before you send it, paste it and the job post into the free resume keyword checker.
               </p>
             </div>
           </div>

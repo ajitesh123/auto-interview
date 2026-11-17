@@ -19,10 +19,6 @@ const BuildResumePage = () => {
     null
   )
 
-  const handleUploadResume = () => {
-    setShowUploadPage(true)
-  }
-
   const handleUploadComplete = (parsedData: Partial<ResumeData>) => {
     setPendingParsedResumeData(parsedData)
     setShowUploadPage(false)
@@ -82,8 +78,8 @@ const BuildResumePage = () => {
                 Create resume from scratch
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-[#666666]">
-                Build a battle-tested resume step-by-step. Select an ATS-optimized template
-                (Harvard, LBS, or Stanford) and fill in your details with AI bullet assistance.
+                Fill in your details step by step in a one-column template (Harvard, LBS or Stanford
+                style) and download it as a Word file. No AI, no sign-up.
               </p>
             </div>
 
@@ -112,25 +108,24 @@ const BuildResumePage = () => {
                 </svg>
               </div>
               <span className="ml-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
-                AUTO-EXTRACT
+                ALREADY HAVE ONE
               </span>
               <h2 className="mt-2 text-xl font-normal tracking-tight text-[#171717]">
-                Upload old resume
+                Check the resume you have
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-[#666666]">
-                Already have a resume? Upload your PDF or DOCX file. Our AI will automatically parse
-                your experience, education, and skills into ATS-friendly sections.
+                Paste your resume and a job post into the free keyword checker to see which skills
+                are missing and 8 format checks. It runs in your browser.
               </p>
             </div>
 
             <div className="mt-8 border-t border-[#ebebeb] pt-6">
-              <button
-                onClick={handleUploadResume}
-                type="button"
-                className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2.5 text-center text-sm font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
+              <a
+                href="/resume-keyword-checker"
+                className="block w-full rounded-[6px] border border-[#ebebeb] bg-white px-4 py-2.5 text-center text-sm font-medium text-[#171717] transition-colors hover:bg-[#f5f5f5]"
               >
-                Upload Resume File &rarr;
-              </button>
+                Open the keyword checker &rarr;
+              </a>
             </div>
           </div>
         </div>
@@ -151,7 +146,7 @@ const BuildResumePage = () => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            100% Free • No paywall or limits
+            Free • No sign-up
           </div>
           <div className="flex items-center text-xs text-[#666666]">
             <svg
@@ -167,7 +162,7 @@ const BuildResumePage = () => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Passes 99.7% of ATS scanners
+            One column, plain text a parser can read
           </div>
           <div className="flex items-center text-xs text-[#666666]">
             <svg
@@ -183,7 +178,7 @@ const BuildResumePage = () => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Download clean DOCX &amp; PDF
+            Download as Word (.docx)
           </div>
         </div>
       </div>
