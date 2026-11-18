@@ -52,6 +52,12 @@ import {
   RoleplayScenarioLibrary,
 } from './blog/RoleplayScenarioFigures'
 import SalesRoleplayCostCalculator from './blog/SalesRoleplayCostCalculator'
+import SalesTrainingCostCalc from './blog/SalesTrainingCostCalc'
+import {
+  SalesTrainingStats,
+  SalesTrainingCostFigure,
+  SalesTrainingPlatformTable,
+} from './blog/SalesTrainingPlatformFigures'
 import {
   SalesRoleplayStats,
   SalesRoleplayPricingFigure,
@@ -172,6 +178,10 @@ export const components: MDXComponents = {
   RoleplayRubricTable,
   RoleplayScenarioLibrary,
   SalesRoleplayCostCalculator,
+  SalesTrainingCostCalc,
+  SalesTrainingStats,
+  SalesTrainingCostFigure,
+  SalesTrainingPlatformTable,
   SalesRoleplayStats,
   SalesRoleplayPricingFigure,
   SalesRoleplayCostFigure,
