@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
 import ColdCallSimulator from '@/components/ColdCallSimulator'
-import Calculator from '@/components/Calculator'
+import CostPerMeeting from '@/components/voiceAi/CostPerMeeting'
 
 export const metadata: Metadata = {
   title: 'Best AI Calling & Sales Training Platforms (2026 Directory) [USA & India]',
@@ -354,7 +354,7 @@ export default function AISalesTrainingDirectoryPage() {
                 href="/ai-calling-roi-calculator"
                 className="font-medium text-[#171717] hover:underline"
               >
-                → Calculate SDR ramp ROI
+                → Cost per booked meeting calculator
               </Link>
             </div>
           </div>
@@ -399,14 +399,14 @@ export default function AISalesTrainingDirectoryPage() {
                         ★ Auto Interview AI / Tough Tongue
                       </Link>
                     </td>
-                    <td className="px-4 py-3.5">Audio-First Duplex</td>
+                    <td className="px-4 py-3.5">Voice agents + roleplay</td>
                     <td className="px-4 py-3.5 font-mono text-[#3B5BFF]">Not published</td>
                     <td className="px-4 py-3.5">Yes (Voice + Web)</td>
-                    <td className="px-4 py-3.5">A.D.D. &amp; MEDDPICC</td>
+                    <td className="px-4 py-3.5">Your own rubric</td>
                     <td className="px-4 py-3.5">TCPA / STIR-SHAKEN</td>
                     <td className="px-4 py-3.5">TRAI DLT &amp; DPDP</td>
-                    <td className="px-4 py-3.5 text-[#3B5BFF]">100% Free Online</td>
-                    <td className="px-4 py-3.5">$60/mo or Usage</td>
+                    <td className="px-4 py-3.5 text-signal-strong">Free plan (25 min, one-time)</td>
+                    <td className="px-4 py-3.5">From $20/mo (checked 18 Nov 2026)</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3.5 font-medium text-[#171717]">Hyperbound</td>
@@ -512,29 +512,34 @@ export default function AISalesTrainingDirectoryPage() {
               </h2>
               <p className="mt-2 text-sm text-[#666666]">
                 Listen to a realistic enterprise buyer pushback and speak or type your
-                counter-pitch. Instant 100-point AI evaluation grounded in the proven A.D.D.
-                methodology.
+                counter-pitch, then read the feedback on what landed and what to tighten.
               </p>
             </div>
             <ColdCallSimulator />
           </div>
 
-          {/* Interactive Voice AI ROI Calculator (Google Information Gain Patent US 10,795,953) */}
+          {/* Cost per booked meeting: reader's own numbers, list prices from data/voiceAiPricing.ts */}
           <div className="space-y-4">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#3B5BFF]">
-                PROPRIETARY ROI &amp; ECONOMICS CALCULATOR
+              <p className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+                Calculator · your numbers · vendor list prices
               </p>
-              <h2 className="text-[26px] font-normal tracking-tight text-[#171717] sm:text-[32px]">
-                Voice AI Calling &amp; SDR Ramp Economics Calculator
+              <h2 className="mt-2 text-h2 font-semibold text-fg">
+                Cost per booked meeting: AI calling vs human callers
               </h2>
-              <p className="mt-2 text-sm text-[#666666]">
-                Model your outbound call volume, per-minute calling rates, and SDR ramp cost savings
-                across US ($) and India (₹) currencies in real time.
+              <p className="mt-2 text-sm text-fg-2">
+                Put in your dials, connect rate and caller cost. Full breakdown on the{' '}
+                <Link
+                  href="/ai-calling-roi-calculator"
+                  className="font-medium text-signal-strong underline"
+                >
+                  AI calling cost calculator
+                </Link>
+                .
               </p>
             </div>
-            <div className="rounded-[6px] border border-[#ebebeb] bg-white p-6 shadow-sm">
-              <Calculator />
+            <div>
+              <CostPerMeeting />
             </div>
           </div>
 
@@ -722,9 +727,8 @@ export default function AISalesTrainingDirectoryPage() {
                   <Link href="/cold-call-practice" className="text-[#3B5BFF] hover:underline">
                     Cold Call Practice Simulator
                   </Link>{' '}
-                  100% free online. SDRs and account executives can practice real-time pushbacks
-                  (competitor lock-in, budget freeze, brush-offs) with instant 100-point AI
-                  evaluation and top 1% benchmark scripts.
+                  free online. SDRs and account executives can practise pushbacks (competitor
+                  lock-in, budget freeze, brush-offs) and read feedback on each answer.
                 </p>
               </div>
 

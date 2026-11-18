@@ -35,10 +35,10 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Engineering',
     metaTitle: 'Software Engineer Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-friendly Software Engineer resume template (Harvard single-column DOCX & Google Docs). Includes high-impact engineering bullets and ATS keywords.',
+      'Download free ATS-friendly Software Engineer resume template (Harvard single-column DOCX & Google Docs). Includes sample engineering bullets and ATS keywords.',
     heroTitle: 'Software Engineer Resume Template (ATS-Friendly)',
     heroDescription:
-      'For software engineering roles at product companies, start-ups and large tech firms. Single-column Harvard-style format with no tables or text boxes, so Greenhouse, Lever and Workday parsers read it as plain text.',
+      'For software engineering roles at product companies, start-ups and large tech firms. Single-column Harvard-style format with no tables or text boxes, so applicant tracking systems can read it as plain text.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
@@ -115,17 +115,17 @@ export const CV_ROLES: Record<string, CVRoleData> = {
       },
       {
         do: 'Put technical skills at the top or bottom in clear, comma-separated plain text categories.',
-        dont: 'Avoid graphical skill rating bars (e.g. "Python: 4/5 stars")—ATS parsers cannot read them.',
+        dont: 'Avoid graphical skill rating bars (e.g. "Python: 4/5 stars")—ATS parsers may misread them, and a rating tells a recruiter little.',
       },
       {
         do: 'Quantify latency, concurrency, cost savings, or test coverage in every single bullet.',
-        dont: 'Do not use multi-column tables or text boxes; ATS engines jumble column order during parsing.',
+        dont: 'Do not use multi-column tables or text boxes; some ATS parsers misread column order.',
       },
     ],
     faqs: [
       {
         q: 'Why is a single-column layout strictly required for software engineer resumes?',
-        a: 'Enterprise ATS systems like Workday, Taleo, and Greenhouse parse resumes linearly from left to right. Multi-column templates cause text from column A and column B to be merged on the same line, corrupting your technical skills and project descriptions in the recruiter dashboard.',
+        a: 'Some parsers read a page left to right, line by line, so text from two columns can end up mixed together in the recruiter’s view. One column avoids that risk; if you use columns, check the plain-text version a portal shows after upload.',
       },
       {
         q: 'Should I include a GitHub profile and live project links?',
@@ -133,7 +133,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
       },
       {
         q: 'How many pages should a Software Engineer resume be?',
-        a: 'Strictly 1 page for engineers with under 8 years of experience. Candidates with 8-15+ years of extensive architectural leadership or patents may expand to 2 pages, provided every bullet provides measurable technical impact.',
+        a: 'One page is the common advice for engineers early in their career. Candidates with many years of extensive architectural leadership or patents may expand to 2 pages, provided every bullet provides measurable technical impact.',
       },
     ],
   },
@@ -144,10 +144,10 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Product',
     metaTitle: 'Product Manager Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-friendly Product Manager resume template (Harvard DOCX & Google Docs). Includes high-converting PM metric bullets, product frameworks, and ATS keywords.',
+      'Download free ATS-friendly Product Manager resume template (Harvard DOCX & Google Docs). Includes sample PM metric bullets, product frameworks, and ATS keywords.',
     heroTitle: 'Product Manager Resume Template (ATS-Friendly)',
     heroDescription:
-      'Designed for APM, Senior PM, and Group PM hiring bars at top tech companies. Single-column format that highlights product strategy, revenue growth, and cross-functional leadership.',
+      'For APM, PM and senior PM applications. Single-column format that highlights product strategy, revenue growth, and cross-functional leadership.',
     docxUrl:
       'https://cdn-careerservices.fas.harvard.edu/wp-content/uploads/sites/161/2025/09/2025-template_bullet.docx',
     gdocsUrl:
@@ -242,7 +242,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'What do hiring managers look for first on a Product Manager resume?',
-        a: 'Product hiring managers scan for two things in the first 6 seconds: measurable business impact (revenue, conversion, retention metrics) and evidence of customer empathy/discovery methodology (PRDs, A/B testing, user research).',
+        a: 'Most PM job posts ask for two things you can show on paper: measurable business impact (revenue, conversion, retention metrics) and evidence of customer empathy/discovery methodology (PRDs, A/B testing, user research).',
       },
       {
         q: 'Should an APM or aspiring PM include technical skills on their CV?',
@@ -347,7 +347,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     dosAndDonts: [
       {
         do: 'Put your % quota attainment number in the very first bullet under each sales position.',
-        dont: 'Never leave quota ambiguous; stating "met expectations" raises red flags for VP of Sales.',
+        dont: 'Never leave quota ambiguous; stating "met expectations" tells a sales manager nothing they can compare.',
       },
       {
         do: 'Include dollar numbers: total pipeline generated, closed-won revenue, and average contract size (ACV).',
@@ -357,7 +357,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'What is the most critical metric on an SDR or AE resume?',
-        a: 'Quota attainment percentage. A sales manager immediately looks for bold percentages like "124% of annual quota" and the dollar volume of pipeline created or closed.',
+        a: 'Quota attainment percentage. Sales managers usually ask for numbers like "124% of annual quota" and the dollar volume of pipeline created or closed.',
       },
       {
         q: 'Which sales tools should be listed on a modern sales resume?',
@@ -372,7 +372,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     category: 'Data & Analytics',
     metaTitle: 'Data Analyst Resume Template (2026 Free ATS Word)',
     metaDescription:
-      'Download free ATS-friendly Data Analyst resume template (Harvard DOCX & Google Docs). Includes high-impact SQL/Python bullets, BI dashboard metrics, and ATS keywords.',
+      'Download free ATS-friendly Data Analyst resume template (Harvard DOCX & Google Docs). Includes sample SQL/Python bullets, BI dashboard metrics, and ATS keywords.',
     heroTitle: 'Data Analyst Resume Template (ATS-Friendly)',
     heroDescription:
       'Engineered for Data Analysts, BI Engineers, and Business Analytics professionals. Clean single-column Harvard layout highlighting SQL optimization, data visualization, and statistical modeling.',
@@ -459,7 +459,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'Should I showcase portfolio projects or GitHub repos on a Data Analyst CV?',
-        a: 'Yes. Direct links to GitHub repositories showing well-commented SQL scripts, Jupyter notebooks, or public Tableau Public profile links provide tangible proof of competency that interviewers love.',
+        a: 'Yes. Direct links to GitHub repositories showing well-commented SQL scripts, Jupyter notebooks, or public Tableau Public profile links give interviewers something concrete to ask about.',
       },
       {
         q: 'What is the most tested skill in Data Analyst technical interviews?',
@@ -541,14 +541,14 @@ export const CV_ROLES: Record<string, CVRoleData> = {
         dont: 'Do not leave the resume blank if you lack formal experience; treat university capstone projects like real jobs.',
       },
       {
-        do: 'Always keep your resume to strictly 1 single page.',
-        dont: 'Never include a photograph, marital status, or full street address—these trigger discrimination compliance filters.',
+        do: 'Keep your resume to one page; a fresher rarely needs more.',
+        dont: 'Never include a photograph, marital status, or full street address—recruiters do not need them, and leaving them out keeps the focus on your work.',
       },
     ],
     faqs: [
       {
         q: 'How can a fresher with no work experience pass an ATS resume filter?',
-        a: 'ATS systems look for relevant skill keywords and clear structure, not just years of experience. By detailing substantial course projects, internships, leadership roles, and technical tools using clear bullet points with metrics, your score will match or beat experienced candidates.',
+        a: 'ATS systems look for relevant skill keywords and clear structure, not just years of experience. By detailing substantial course projects, internships, leadership roles, and technical tools using clear bullet points with numbers, you give a recruiter’s search the same words an experienced candidate’s resume would have.',
       },
       {
         q: 'Should I include my GPA or college percentage on my resume?',
@@ -715,11 +715,11 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     dosAndDonts: [
       {
         do: 'Include live URLs to your production web portfolio or GitHub repositories in plain text.',
-        dont: 'Do not use multi-column graphical portfolio resumes that crash ATS text parsers.',
+        dont: 'Do not use multi-column graphical portfolio resumes that ATS text parsers may misread.',
       },
       {
         do: 'Quantify client-side metrics: bundle size reduction, Lighthouse scores, and conversion lifts.',
-        dont: 'Never omit TypeScript; 90%+ of mid-to-senior frontend screens filter for TypeScript proficiency.',
+        dont: 'Don’t leave out TypeScript if you use it; many frontend job posts list it.',
       },
     ],
     faqs: [
@@ -808,7 +808,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'Why is the Harvard format ideal for Full Stack Developers?',
-        a: 'The single-column Harvard format is universally recognized by technical recruiters because it clearly delineates front-end vs back-end achievements without jumbling technical keywords.',
+        a: 'A single-column layout keeps front-end and back-end work in separate, readable bullets, and a parser reads it top to bottom without mixing your skills into other lines.',
       },
     ],
   },
@@ -1132,13 +1132,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     dosAndDonts: [
       {
         do: 'Include your portfolio URL (e.g. yourname.design) directly below your name in plain text.',
-        dont: 'Never submit an image-heavy PDF or non-text graphical resume that ATS scanners cannot parse.',
+        dont: 'Never submit an image-heavy PDF or non-text graphical resume that ATS scanners may misread.',
       },
     ],
     faqs: [
       {
         q: 'Why do UI/UX designers need an ATS-friendly text resume if they have a portfolio?',
-        a: 'Recruiting systems parse your written resume first before routing your portfolio link to the hiring manager. If your resume fails the ATS parse, no human will ever see your Figma prototypes.',
+        a: 'Many companies collect applications through an applicant tracking system, and recruiters search the text of your resume before they open a portfolio link. A text resume that names your tools and outcomes makes it more likely the portfolio gets opened.',
       },
     ],
   },
@@ -1206,7 +1206,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     dosAndDonts: [
       {
         do: 'Put your quota % attainment and exact ARR dollar figures in bold in the very first bullet.',
-        dont: 'Do not hide behind team metrics—enterprise VPs of Sales want to see YOUR individual contributor numbers.',
+        dont: 'Do not hide behind team metrics—show your own numbers, not only the team’s.',
       },
     ],
     faqs: [
@@ -1290,7 +1290,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'How should a CSM prove revenue retention impact on a resume?',
-        a: 'By leading with commercial retention metrics: NRR above 110%, low gross churn, and concrete upsell ARR generated through strategic relationship building.',
+        a: 'By leading with commercial retention metrics: net revenue retention, gross churn, and concrete upsell ARR generated through strategic relationship building.',
       },
     ],
   },
@@ -1357,13 +1357,13 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     dosAndDonts: [
       {
         do: 'Use a clean single-column layout, such as the free bullet-point template published by Harvard’s Mignone Center for Career Success.',
-        dont: 'Never use colorful charts or graphics; finance recruiters demand clean, monochrome typography.',
+        dont: 'Never use colorful charts or graphics; keep a finance resume plain black text.',
       },
     ],
     faqs: [
       {
         q: 'Why do investment banks insist on single-column resume formats?',
-        a: 'Top investment banks and corporate finance departments require single-column, cleanly aligned chronological resumes that allow immediate audit of educational pedigree, modeling experience, and dollar scale.',
+        a: 'A single-column, reverse-chronological layout lets a reader find your education, modelling work and deal size quickly.',
       },
     ],
   },
@@ -1736,7 +1736,7 @@ export const CV_ROLES: Record<string, CVRoleData> = {
     faqs: [
       {
         q: 'How long should a student or internship resume be?',
-        a: 'Strictly 1 page. Recruiters review internship resumes in under 10 seconds; concise single-column layouts with clear project bullets perform best.',
+        a: 'One page. Recruiters skim internship resumes quickly, so put your strongest project bullets first and keep each to one or two lines.',
       },
     ],
   },
