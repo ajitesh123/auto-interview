@@ -603,7 +603,7 @@ export default function ResumeKeywordCheckerPage() {
             {[
               ['/build-resume', 'Build', 'Free resume builder'],
               ['/cv-templates', 'Templates', 'One-page CV templates'],
-              ['/salary-calculator', 'Offer', 'CTC to in-hand calculator'],
+              ['/referral-message', 'Apply', 'Referral message builder'],
             ].map(([href, k, t]) => (
               <Link
                 key={href}

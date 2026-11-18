@@ -87,6 +87,12 @@ const DomainLayout: React.FC<DomainLayoutProps> = ({ children, currentPath }) =>
                 >
                   STAR Answer Builder
                 </Link>
+                <Link
+                  href="/referral-message"
+                  className="text-xs text-fg-2 transition-colors hover:text-fg"
+                >
+                  Referral Message Builder
+                </Link>
               </div>
             </div>
 

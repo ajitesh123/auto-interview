@@ -96,6 +96,11 @@ const TOOLS = [
     body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',
   },
   {
+    href: '/referral-message',
+    title: 'Referral message builder',
+    body: 'A LinkedIn note, message, email and follow-up for a job referral, with 8 checks.',
+  },
+  {
     href: '/job-offer-comparison',
     title: 'Job offer comparison',
     body: 'Two or three offers side by side on real money: bonus clawback, ESOPs, rent.',
