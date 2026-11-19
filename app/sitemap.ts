@@ -134,6 +134,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'job-offer-comparison',
         'star-method',
         'referral-message',
+        'salary-negotiation',
       ].includes(route)
     )
       return 0.95
@@ -164,6 +165,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'job-offer-comparison',
         'star-method',
         'referral-message',
+        'salary-negotiation',
       ].includes(route)
     )
       return 'weekly' as const
@@ -191,6 +193,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'job-offer-comparison',
     'star-method',
     'referral-message',
+    'salary-negotiation',
     'find-jobs',
     'cover-letter',
     'free-resources',

@@ -107,6 +107,8 @@ function toUrls(files) {
   each(/^data\/starMethod\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/star-method`, t))
   // Referral message builder: data/referralMessage/* -> /referral-message
   each(/^data\/referralMessage\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/referral-message`, t))
+  // Salary negotiation builder: data/negotiation/* -> /salary-negotiation
+  each(/^data\/negotiation\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/salary-negotiation`, t))
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)

@@ -638,7 +638,7 @@ export default function JobOfferComparisonPage() {
             {[
               ['/salary-calculator', 'Tax detail', 'CTC to in-hand calculator'],
               ['/product-manager/salary', 'Benchmark', 'What PMs are paid in India'],
-              ['/resume-keyword-checker', 'Next job', 'Resume keyword checker'],
+              ['/salary-negotiation', 'Ask for more', 'Salary negotiation scripts'],
             ].map(([href, k, t]) => (
               <Link
                 key={href}

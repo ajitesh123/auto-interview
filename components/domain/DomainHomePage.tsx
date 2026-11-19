@@ -106,6 +106,11 @@ const TOOLS = [
     body: 'Two or three offers side by side on real money: bonus clawback, ESOPs, rent.',
   },
   {
+    href: '/salary-negotiation',
+    title: 'Salary negotiation scripts',
+    body: 'Counter email, call script and replies to "max budget", built from your offer.',
+  },
+  {
     href: '/cv-templates',
     title: 'One-page CV templates',
     body: 'Word templates in the plain one-page format recruiters and ATS read.',

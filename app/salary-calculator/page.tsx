@@ -709,7 +709,7 @@ export default function SalaryCalculatorPage() {
             {[
               ['/free-mock-interview', 'Practice', 'Free AI mock interview'],
               ['/founders-office/salary', 'Pay data', "Founder's Office salary in India"],
-              ['/free-resources', 'Library', 'Free interview resources'],
+              ['/salary-negotiation', 'Then negotiate', 'Salary negotiation scripts'],
             ].map(([href, k, t]) => (
               <Link
                 key={href}
