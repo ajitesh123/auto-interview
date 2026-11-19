@@ -49,11 +49,17 @@ function buildBoards(keywords: string, location: string): Board[] {
 
 const PREP_LINKS = [
   { href: '/aipm', label: 'AI Product Manager interview guide' },
+  { href: '/product-manager', label: 'Product Manager interview guide' },
+  { href: '/ai-engineer', label: 'AI Engineer interview guide' },
   { href: '/fde', label: 'Forward Deployed Engineer interview guide' },
   { href: '/gtm-engineer', label: 'GTM Engineer interview guide' },
-  { href: '/ai-engineer', label: 'AI Engineer interview guide' },
-  { href: '/build-resume', label: 'Build a one-page resume (free)' },
-  { href: '/free-mock-interview', label: 'Free AI mock interview' },
+  { href: '/data-analyst', label: 'Data Analyst interview guide' },
+  { href: '/growth', label: 'Growth Manager interview guide' },
+  { href: '/founders-office', label: "Founder's Office interview guide" },
+  { href: '/chief-of-staff', label: 'Chief of Staff interview guide' },
+  { href: '/strategy-and-operations', label: 'Strategy & Operations interview guide' },
+  { href: '/resume-keyword-checker', label: 'Check your resume against the job post' },
+  { href: '/referral-message', label: 'Ask for a referral (message builder)' },
 ]
 
 const inputClass =

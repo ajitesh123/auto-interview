@@ -930,7 +930,14 @@ module.exports = () => {
               enforce: true,
             },
             vendor: {
-              test: /[\\/]node_modules[\\/]/,
+              // JS only: CSS from node_modules (next/font, katex) must stay in CSS chunks,
+              // or the CSS file lands in rootMainFiles and is emitted as <script src=".css">
+              // ('Invalid or unexpected token' on every page).
+              test: (module) =>
+                !String(module.type || '').startsWith('css') &&
+                /[\\/]node_modules[\\/]/.test(
+                  (module.nameForCondition && module.nameForCondition()) || ''
+                ),
               name: 'vendors',
               chunks: 'all',
             },

@@ -10,7 +10,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import GlassNav from '@/components/domain/GlassNav'
-import Footer from '@/components/Footer'
+import SiteFooter from '@/components/domain/SiteFooter'
 import SocialShareButtons from '@/components/SocialShareButtons'
 import TableOfContents from '@/components/TableOfContents'
 import FloatingNav from '@/components/FloatingNav'
@@ -1412,29 +1412,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
               {/* Article Footer */}
               <footer className="pt-8">
-                {/* Enhanced Author Info for E-E-A-T (Experience, Expertise, Authority, Trust) - Google SEO */}
-                <aside className="mb-8 rounded-[8px] border border-[#ebebeb] bg-[#fafafa] p-6 sm:p-8">
-                  <h3 className="mb-4 text-lg font-normal tracking-tight text-[#171717]">
-                    About the Author
+                {/* Author (E-E-A-T): who wrote it and how to reach them */}
+                <aside className="mb-8 rounded-xl border border-border bg-surface p-5 md:p-6">
+                  <h3 className="mb-4 font-mono text-kicker uppercase tracking-[0.08em] text-fg-2">
+                    About the author
                   </h3>
                   <div className="flex flex-wrap gap-6">
                     {authorDetails.map((author) => (
-                      <div
-                        key={author.name}
-                        className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0"
-                      >
+                      <div key={author.name} className="flex flex-col gap-3 sm:flex-row sm:gap-4">
                         {author.avatar && (
                           <Image
                             src={author.avatar}
                             width={64}
                             height={64}
-                            alt={`${author.name} - Career Expert`}
+                            alt={author.name}
                             className="h-16 w-16 rounded-full"
                           />
                         )}
                         <div className="flex-1">
                           <div
-                            className="mb-1 font-medium text-[#171717]"
+                            className="mb-1 font-medium text-fg"
                             itemProp="author"
                             itemScope
                             itemType="https://schema.org/Person"
@@ -1442,19 +1439,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             <span itemProp="name">{author.name}</span>
                           </div>
                           {author.occupation && (
-                            <div className="mb-2 text-xs text-[#888888]">{author.occupation}</div>
+                            <div className="mb-2 text-caption text-fg-3">{author.occupation}</div>
                           )}
-                          <p className="mb-3 text-sm leading-relaxed text-[#666666]">
-                            {author.name} is an AI & Career Tools Developer specializing in resume
-                            optimization, ATS systems, and interview preparation. Creator of Auto
-                            Interview AI, helping thousands of job seekers land their dream jobs
-                            through AI-powered career tools and expert guidance.
+                          <p className="mb-3 max-w-prose text-small text-fg-2">
+                            {author.name} builds Auto Interview AI, the free interview prep site of
+                            Tough Tongue AI, and writes about interviews, careers, AI tools and
+                            voice AI.
                           </p>
-                          <div className="mt-3 flex flex-wrap gap-4 text-xs">
+                          <div className="mt-3 flex flex-wrap gap-4 text-small">
                             {author.twitter && (
                               <Link
                                 href={author.twitter}
-                                className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
+                                className="text-signal-strong underline underline-offset-4"
                                 rel="author"
                               >
                                 Follow on X
@@ -1463,7 +1459,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             {author.linkedin && (
                               <Link
                                 href={author.linkedin}
-                                className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
+                                className="text-signal-strong underline underline-offset-4"
                                 rel="author"
                               >
                                 LinkedIn
@@ -1471,9 +1467,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                             )}
                             <Link
                               href="/about"
-                              className="text-[#171717] underline decoration-[#ebebeb] transition-colors hover:text-black hover:decoration-black"
+                              className="text-signal-strong underline underline-offset-4"
                             >
-                              More Articles
+                              About us
                             </Link>
                           </div>
                         </div>
@@ -1482,34 +1478,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   </div>
                 </aside>
 
-                {/* Trust Signals for E-E-A-T */}
-                <div className="mb-8 rounded-[8px] border border-[#ebebeb] bg-white p-6 sm:p-8">
-                  <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                    Why Trust Auto Interview AI?
-                  </h4>
-                  <div className="grid gap-6 sm:grid-cols-3">
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-[#171717]">
-                        ✓ Expert-Verified Content
-                      </div>
-                      <div className="text-xs text-[#666666]">
-                        Written by career professionals with real-world experience
-                      </div>
-                    </div>
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-[#171717]">✓ Data-Driven Insights</div>
-                      <div className="text-xs text-[#666666]">
-                        Based on industry research and proven strategies
-                      </div>
-                    </div>
-                    <div className="text-sm">
-                      <div className="mb-1 font-medium text-[#171717]">✓ Regularly Updated</div>
-                      <div className="text-xs text-[#666666]">
-                        Content reviewed and updated for the 2026 job market
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* Corrections note (replaces unverifiable 'expert-verified' trust badges) */}
+                <p className="mb-8 rounded-xl bg-muted px-5 py-4 text-small text-fg-2">
+                  <span className="font-medium text-fg">Found something out of date?</span> Prices,
+                  rules and tools change. Tell us through the{' '}
+                  <Link
+                    href="/contact-policy"
+                    className="text-signal-strong underline underline-offset-4"
+                  >
+                    contact page
+                  </Link>{' '}
+                  and we will check the source and update the post and its date.
+                </p>
 
                 {/* Navigation */}
                 {(next || prev) && (
@@ -1660,7 +1640,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         </div>
       </div>
 
-      <Footer />
+      <SiteFooter />
 
       {/* Floating Navigation Buttons */}
       <FloatingNav />

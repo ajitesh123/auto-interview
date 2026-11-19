@@ -11,7 +11,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 import GlassNav from '@/components/domain/GlassNav'
-import Footer from '@/components/Footer'
+import SiteFooter from '@/components/domain/SiteFooter'
 import FloatingNav from '@/components/FloatingNav'
 import CTABanner from '@/components/CTABanner'
 
@@ -304,7 +304,7 @@ export default function ListLayoutWithTags({
         </div>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </div>
   )
 }

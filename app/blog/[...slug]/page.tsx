@@ -31,7 +31,9 @@ export async function generateMetadata({
   const post = allBlogs.find((p) => p.slug === slug)
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
+    const authorResults =
+      allAuthors.find((p) => p.slug === author || p.name === author) ??
+      allAuthors.find((p) => p.slug === 'default')
     return coreContent(authorResults as Authors)
   })
   if (!post) {
@@ -111,7 +113,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   const post = allBlogs.find((p) => p.slug === slug) as Blog
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
+    const authorResults =
+      allAuthors.find((p) => p.slug === author || p.name === author) ??
+      allAuthors.find((p) => p.slug === 'default')
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
