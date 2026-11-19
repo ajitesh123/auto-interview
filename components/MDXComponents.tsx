@@ -65,6 +65,14 @@ import {
   SalesRoleplayEvidenceFigure,
 } from './blog/SalesRoleplayFigures'
 import HinglishRoleplayDrill from './blog/HinglishRoleplayDrill'
+import ObjectionAnswerChecker from './blog/ObjectionAnswerChecker'
+import {
+  ObjectionStats,
+  ObjectionAnswerFlow,
+  ObjectionLibrary,
+  StopRulesTable,
+  ObjectionFrameworkTable,
+} from './blog/ObjectionHandlingFigures'
 import {
   HinglishRoleplayStats,
   HinglishOriginFigure,
@@ -165,6 +173,12 @@ export const components: MDXComponents = {
   SalesRoleplayFinder,
   RoleplayScenarioBuilder,
   HinglishRoleplayDrill,
+  ObjectionAnswerChecker,
+  ObjectionStats,
+  ObjectionAnswerFlow,
+  ObjectionLibrary,
+  StopRulesTable,
+  ObjectionFrameworkTable,
   HinglishRoleplayStats,
   HinglishOriginFigure,
   HinglishRulesTable,

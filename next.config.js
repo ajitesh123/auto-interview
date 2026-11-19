@@ -246,7 +246,7 @@ module.exports = () => {
         },
         {
           source: '/blog/ultimate-guide-to-objection-handling-scripts-tactics-2026',
-          destination: '/blog/top-5-ai-tools-real-time-objection-handling-2026',
+          destination: '/blog/ai-roleplay-objection-handling-scripts-scenarios-results-2026',
           permanent: true,
         },
         {
@@ -261,7 +261,7 @@ module.exports = () => {
         },
         {
           source: '/blog/how-to-handle-sales-objections-scripts-ai-practice-2026',
-          destination: '/blog/12-realistic-sales-role-play-scenarios-sdr-mastery-2026',
+          destination: '/blog/ai-roleplay-objection-handling-scripts-scenarios-results-2026',
           permanent: true,
         },
         {
