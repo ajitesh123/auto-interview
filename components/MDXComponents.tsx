@@ -102,6 +102,15 @@ import {
   ConsentTable,
   CasesList,
 } from './blog/FreeNoteTakerFigures'
+import RealEstateCallCheck from './blog/RealEstateCallCheck'
+import {
+  RealEstateCallingStats,
+  RealEstateCallLadder,
+  RealEstateCostFigure,
+  RealEstateRulesTable,
+  RealEstateVendorTable,
+  RealEstateScripts,
+} from './blog/RealEstateCallingFigures'
 import MockInterviewButton from './ai/MockInterviewButton'
 import MockInterviewCTA from './ai/MockInterviewCTA'
 import { Tweet } from 'react-tweet'
@@ -129,6 +138,13 @@ export const components: MDXComponents = {
   CTABanner,
   PracticeQuestion,
   KeyFacts,
+  RealEstateCallCheck,
+  RealEstateCallingStats,
+  RealEstateCallLadder,
+  RealEstateCostFigure,
+  RealEstateRulesTable,
+  RealEstateVendorTable,
+  RealEstateScripts,
   AtsCheckerFinder,
   AtsCheckerStats,
   AtsApplicationFlow,
