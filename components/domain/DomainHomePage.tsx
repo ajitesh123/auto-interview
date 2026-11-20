@@ -91,6 +91,11 @@ const TOOLS = [
     body: 'Monthly take-home on FY 2026-27 tax, old vs new regime, PF and variable pay.',
   },
   {
+    href: '/interview-prep-plan',
+    title: 'Interview prep plan',
+    body: 'A day-by-day plan from your interview date and free time, with mocks and a calendar file.',
+  },
+  {
     href: '/star-method',
     title: 'STAR answer builder',
     body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',

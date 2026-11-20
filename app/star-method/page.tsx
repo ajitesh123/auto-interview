@@ -670,7 +670,7 @@ export default function StarMethodPage() {
               {[
                 ['/interview-questions', 'Questions', 'Interview questions by role'],
                 ['/resume-keyword-checker', 'Resume', 'Resume keyword checker'],
-                ['/job-offer-comparison', 'Offer', 'Job offer comparison'],
+                ['/interview-prep-plan', 'Plan', 'Interview prep plan by date'],
               ].map(([href, k, t]) => (
                 <Link
                   key={href}

@@ -710,7 +710,11 @@ export default function ReferralMessagePage() {
                   'Before you send',
                   'Check your resume against the job post',
                 ],
-                ['/star-method', 'After the referral', 'Build your STAR interview stories'],
+                [
+                  '/interview-prep-plan',
+                  'After the referral',
+                  'Plan your interview prep, day by day',
+                ],
                 ['/job-offer-comparison', 'At the end', 'Compare your job offers'],
               ].map(([href, k, t]) => (
                 <Link

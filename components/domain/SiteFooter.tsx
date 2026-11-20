@@ -10,6 +10,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: '/free-mock-interview', label: 'AI mock interview' },
       { href: '/resume-keyword-checker', label: 'Resume keyword checker' },
+      { href: '/interview-prep-plan', label: 'Interview prep plan' },
       { href: '/star-method', label: 'STAR answer builder' },
       { href: '/referral-message', label: 'Referral message builder' },
       { href: '/salary-negotiation', label: 'Salary negotiation scripts' },

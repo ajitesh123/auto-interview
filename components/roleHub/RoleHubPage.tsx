@@ -1082,6 +1082,16 @@ export default function RoleHubPage({ hub }: { hub: RoleHub }) {
                     />
                   ))}
                 </div>
+                <p className="mt-4 text-small text-fg-2">
+                  Interview already booked?{' '}
+                  <Link
+                    href={`/interview-prep-plan?role=${hub.slug}`}
+                    className="font-medium text-signal-strong underline decoration-signal/30 underline-offset-2 hover:decoration-signal"
+                  >
+                    Build a day-by-day plan from your interview date
+                  </Link>
+                  , with the rounds you face and the time you have.
+                </p>
               </Block>
 
               <Block
