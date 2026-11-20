@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import DomainLayout from '@/components/domain/DomainLayout'
 import type { ReactNode } from 'react'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
 import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
@@ -232,449 +233,448 @@ export default function JobOfferComparisonPage() {
   const names = EX.results.map((r) => r.name)
 
   return (
-    <div className="bg-bg text-fg">
-      {schema.map((s, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
-        />
-      ))}
+    <DomainLayout currentPath="/job-offer-comparison">
+      <div className="bg-bg text-fg">
+        {schema.map((s, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+          />
+        ))}
 
-      {/* ---------- Hero ---------- */}
-      <div className={`${container} pb-10 pt-8 md:pb-14 md:pt-12`}>
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-fg-3">
-          <Link href="/" className="hover:text-fg">
-            Home
-          </Link>
-          <span aria-hidden="true">/</span>
-          <span className="text-fg-2">Job offer comparison</span>
+        {/* ---------- Hero ---------- */}
+        <div className={`${container} pb-10 pt-8 md:pb-14 md:pt-12`}>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-fg-3">
+            <Link href="/" className="hover:text-fg">
+              Home
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-fg-2">Job offer comparison</span>
+          </nav>
+
+          <header className="mt-8 grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <div className={`${kicker} text-signal-strong`}>
+                Free tool · FY 2026-27 tax · 2 or 3 offers · No upload · Updated 15 Nov 2026
+              </div>
+              <h1 className="mt-4 font-serif text-display font-medium text-fg">
+                Job offer comparison calculator
+              </h1>
+              <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">
+                Two offer letters, two different CTCs, and neither tells you what lands in your
+                account. Put in up to three offers and see monthly in-hand pay, the variable you
+                will realistically get, the joining bonus after tax and what leaving early costs,
+                notice buyout, ESOPs or RSUs, and rent. Year 1 and 3 years, in rupees.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#calculator"
+                  className="inline-flex h-12 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
+                >
+                  Compare my offers
+                </a>
+                <MockInterviewButton caption={false} label="Still interviewing? Practise free" />
+              </div>
+            </div>
+
+            <aside
+              aria-label="Worked example result"
+              className="rounded-2xl border border-border bg-surface p-5 shadow-e1 md:p-6 lg:col-span-5"
+            >
+              <div className={`${kicker} text-fg-3`}>Worked example · Bengaluru (fictional)</div>
+              <p className="mt-3 text-h4 font-semibold text-fg">
+                The biggest CTC leaves just {inr(MNC_VS_START_Y1)} more in year 1 after rent and
+                commute, then falls behind.
+              </p>
+              <dl className="mt-4 divide-y divide-border">
+                {EX.results.map((r, i) => (
+                  <div key={r.name} className="flex items-baseline justify-between gap-3 py-2.5">
+                    <dt className="flex items-center gap-2 text-small text-fg-2">
+                      <span
+                        aria-hidden="true"
+                        className={`h-2 w-2 rounded-full ${['bg-viz-1', 'bg-viz-2', 'bg-viz-3'][i]}`}
+                      />
+                      {r.name} · {lakhs(headlineCtc(SAMPLE_OFFERS[i]))} CTC
+                    </dt>
+                    <dd className="text-small font-semibold tabular-nums text-fg">
+                      {inr(r.monthlyInHand)}/mo
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <a href="#example" className={`mt-3 inline-block text-small ${link}`}>
+                See the example year by year
+              </a>
+            </aside>
+          </header>
+
+          <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
+            <div className={`${kicker} text-signal-ink`}>TL;DR</div>
+            <ul className="mt-3 space-y-2 text-body text-fg">
+              <li>
+                <strong className="font-semibold">Compare in-hand, not CTC.</strong> CTC includes
+                employer PF, gratuity you get only after 5 years, a variable that average performers
+                receive at 60–80% (EY 2026) and one-time bonuses.
+              </li>
+              <li>
+                <strong className="font-semibold">
+                  A joining bonus is a loan until the clawback ends.
+                </strong>{' '}
+                Leave early and you usually repay the full amount; a tribunal has held that the
+                repayment does not reduce your taxable salary.
+              </li>
+              <li>
+                <strong className="font-semibold">Count equity separately.</strong> RSUs are taxed
+                when they vest; startup ESOPs pay nothing until a sale, so count a fraction.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* ---------- In-page nav ---------- */}
+        <nav aria-label="On this page" className="sticky top-16 z-40 border-y border-border bg-bg">
+          <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
+            {SECTIONS.map((s) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                className="inline-flex h-9 shrink-0 items-center rounded-full px-3 text-small text-fg-2 hover:bg-muted hover:text-fg"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
         </nav>
 
-        <header className="mt-8 grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7">
-            <div className={`${kicker} text-signal-strong`}>
-              Free tool · FY 2026-27 tax · 2 or 3 offers · No upload · Updated 15 Nov 2026
-            </div>
-            <h1 className="mt-4 font-serif text-display font-medium text-fg">
-              Job offer comparison calculator
-            </h1>
-            <p className="mt-5 max-w-[56ch] text-body-lg text-fg-2">
-              Two offer letters, two different CTCs, and neither tells you what lands in your
-              account. Put in up to three offers and see monthly in-hand pay, the variable you will
-              realistically get, the joining bonus after tax and what leaving early costs, notice
-              buyout, ESOPs or RSUs, and rent. Year 1 and 3 years, in rupees.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#calculator"
-                className="inline-flex h-12 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
-              >
-                Compare my offers
-              </a>
-              <MockInterviewButton
-                caption={false}
-                label="Practise the HR round: free mock interview"
+        <div className={container}>
+          <Section
+            id="calculator"
+            meta="Step 1 · about 2 minutes"
+            title="Compare your offers"
+            intro="The example is loaded so you can see a full result; overwrite it with your numbers. Equity, notice buyout and raises sit in each offer's “Equity, notice buyout, raises” panel."
+          >
+            <OfferComparer />
+          </Section>
+
+          <Section
+            id="example"
+            meta="Worked example · 3 fictional offers, Bengaluru"
+            title={`The ${lakhs(headlineCtc(SAMPLE_OFFERS[1]))} offer leaves less than the ${lakhs(headlineCtc(SAMPLE_OFFERS[2]))} one from year 2`}
+            intro="A current job at ₹12 LPA, an MNC offer with variable pay and a joining bonus, and a startup offer with ESOPs and a notice buyout the startup pays back. Same rent; the MNC office is a longer commute."
+          >
+            <Figure
+              label="₹ lakh a year · money left after rent and commute, plus equity counted"
+              title={`The startup leads over 3 years by ${inr(START_VS_MNC_3Y)}; ${inr(START_VS_MNC_3Y_NO_ESOP)} of that is cash alone`}
+              source="Auto Interview AI job offer comparison calculator, run on the fictional example; FY 2026-27 tax, 9% yearly raise, 70% variable payout"
+              updated="Nov 2026"
+              legend={names.map((n, i) => ({ label: n, color: SERIES[i] }))}
+              table={{
+                head: ['Year', ...names],
+                rows: [1, 2, 3].map((y) => [
+                  `Year ${y}`,
+                  ...EX.results.map((r) => inr(r.years[y - 1].cash + r.years[y - 1].equityCounted)),
+                ]),
+              }}
+            >
+              <ColumnChart
+                showValues={false}
+                format={{ prefix: '₹', suffix: 'L' }}
+                groups={[1, 2, 3].map((y) => ({
+                  label: `Year ${y}`,
+                  values: EX.results.map(
+                    (r) =>
+                      Math.round(
+                        ((r.years[y - 1].cash + r.years[y - 1].equityCounted) / 100000) * 10
+                      ) / 10
+                  ),
+                }))}
               />
-            </div>
-          </div>
+            </Figure>
 
-          <aside
-            aria-label="Worked example result"
-            className="rounded-2xl border border-border bg-surface p-5 shadow-e1 md:p-6 lg:col-span-5"
-          >
-            <div className={`${kicker} text-fg-3`}>Worked example · Bengaluru (fictional)</div>
-            <p className="mt-3 text-h4 font-semibold text-fg">
-              The biggest CTC leaves just {inr(MNC_VS_START_Y1)} more in year 1 after rent and
-              commute, then falls behind.
-            </p>
-            <dl className="mt-4 divide-y divide-border">
-              {EX.results.map((r, i) => (
-                <div key={r.name} className="flex items-baseline justify-between gap-3 py-2.5">
-                  <dt className="flex items-center gap-2 text-small text-fg-2">
-                    <span
-                      aria-hidden="true"
-                      className={`h-2 w-2 rounded-full ${['bg-viz-1', 'bg-viz-2', 'bg-viz-3'][i]}`}
-                    />
-                    {r.name} · {lakhs(headlineCtc(SAMPLE_OFFERS[i]))} CTC
-                  </dt>
-                  <dd className="text-small font-semibold tabular-nums text-fg">
-                    {inr(r.monthlyInHand)}/mo
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <a href="#example" className={`mt-3 inline-block text-small ${link}`}>
-              See the example year by year
-            </a>
-          </aside>
-        </header>
-
-        <div className="mt-10 max-w-3xl rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
-          <div className={`${kicker} text-signal-ink`}>TL;DR</div>
-          <ul className="mt-3 space-y-2 text-body text-fg">
-            <li>
-              <strong className="font-semibold">Compare in-hand, not CTC.</strong> CTC includes
-              employer PF, gratuity you get only after 5 years, a variable that average performers
-              receive at 60–80% (EY 2026) and one-time bonuses.
-            </li>
-            <li>
-              <strong className="font-semibold">
-                A joining bonus is a loan until the clawback ends.
-              </strong>{' '}
-              Leave early and you usually repay the full amount; a tribunal has held that the
-              repayment does not reduce your taxable salary.
-            </li>
-            <li>
-              <strong className="font-semibold">Count equity separately.</strong> RSUs are taxed
-              when they vest; startup ESOPs pay nothing until a sale, so count a fraction.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* ---------- In-page nav ---------- */}
-      <nav aria-label="On this page" className="sticky top-16 z-40 border-y border-border bg-bg">
-        <div className={`${container} flex gap-1 overflow-x-auto py-2`}>
-          {SECTIONS.map((s) => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              className="inline-flex h-9 shrink-0 items-center rounded-full px-3 text-small text-fg-2 hover:bg-muted hover:text-fg"
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      <div className={container}>
-        <Section
-          id="calculator"
-          meta="Step 1 · about 2 minutes"
-          title="Compare your offers"
-          intro="The example is loaded so you can see a full result; overwrite it with your numbers. Equity, notice buyout and raises sit in each offer's “Equity, notice buyout, raises” panel."
-        >
-          <OfferComparer />
-        </Section>
-
-        <Section
-          id="example"
-          meta="Worked example · 3 fictional offers, Bengaluru"
-          title={`The ${lakhs(headlineCtc(SAMPLE_OFFERS[1]))} offer leaves less than the ${lakhs(headlineCtc(SAMPLE_OFFERS[2]))} one from year 2`}
-          intro="A current job at ₹12 LPA, an MNC offer with variable pay and a joining bonus, and a startup offer with ESOPs and a notice buyout the startup pays back. Same rent; the MNC office is a longer commute."
-        >
-          <Figure
-            label="₹ lakh a year · money left after rent and commute, plus equity counted"
-            title={`The startup leads over 3 years by ${inr(START_VS_MNC_3Y)}; ${inr(START_VS_MNC_3Y_NO_ESOP)} of that is cash alone`}
-            source="Auto Interview AI job offer comparison calculator, run on the fictional example; FY 2026-27 tax, 9% yearly raise, 70% variable payout"
-            updated="Nov 2026"
-            legend={names.map((n, i) => ({ label: n, color: SERIES[i] }))}
-            table={{
-              head: ['Year', ...names],
-              rows: [1, 2, 3].map((y) => [
-                `Year ${y}`,
-                ...EX.results.map((r) => inr(r.years[y - 1].cash + r.years[y - 1].equityCounted)),
-              ]),
-            }}
-          >
-            <ColumnChart
-              showValues={false}
-              format={{ prefix: '₹', suffix: 'L' }}
-              groups={[1, 2, 3].map((y) => ({
-                label: `Year ${y}`,
-                values: EX.results.map(
-                  (r) =>
-                    Math.round(
-                      ((r.years[y - 1].cash + r.years[y - 1].equityCounted) / 100000) * 10
-                    ) / 10
-                ),
-              }))}
-            />
-          </Figure>
-
-          <figure>
-            <div
-              role="region"
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-              tabIndex={0}
-              aria-label="Worked example inputs and year-1 result"
-              className="overflow-x-auto rounded-xl border border-border bg-surface"
-            >
-              <table className="w-full min-w-[620px] text-left text-small tabular-nums">
-                <thead className="bg-muted text-fg-2">
-                  <tr>
-                    <th scope="col" className="sticky left-0 bg-muted px-4 py-3 font-medium">
-                      Example
-                    </th>
-                    {names.map((n) => (
-                      <th key={n} scope="col" className="px-4 py-3 text-right font-medium">
-                        {n}
+            <figure>
+              <div
+                role="region"
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                tabIndex={0}
+                aria-label="Worked example inputs and year-1 result"
+                className="overflow-x-auto rounded-xl border border-border bg-surface"
+              >
+                <table className="w-full min-w-[620px] text-left text-small tabular-nums">
+                  <thead className="bg-muted text-fg-2">
+                    <tr>
+                      <th scope="col" className="sticky left-0 bg-muted px-4 py-3 font-medium">
+                        Example
                       </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {(
-                    [
-                      ['Fixed CTC', (i: number) => lakhs(SAMPLE_OFFERS[i].fixed)],
-                      ['Target variable', (i: number) => lakhs(SAMPLE_OFFERS[i].variable)],
-                      ['Joining bonus', (i: number) => lakhs(SAMPLE_OFFERS[i].joiningBonus)],
-                      [
-                        'Equity (grant, counted at)',
-                        (i: number) =>
-                          SAMPLE_OFFERS[i].equityType === 'none'
-                            ? '—'
-                            : `${lakhs(SAMPLE_OFFERS[i].equityGrant)} ESOP, ${SAMPLE_OFFERS[i].equityCountPct}%`,
-                      ],
-                      [
-                        'Rent + commute a month',
-                        (i: number) => inr(SAMPLE_OFFERS[i].rent + SAMPLE_OFFERS[i].commute),
-                      ],
-                      ['In-hand per month', (i: number) => inr(EX.results[i].monthlyInHand)],
-                      [
-                        'Left after rent + commute, yr 1',
-                        (i: number) => inr(EX.results[i].year1AfterLiving),
-                      ],
-                    ] as [string, (i: number) => string][]
-                  ).map(([k, f]) => (
-                    <tr key={k}>
-                      <th
-                        scope="row"
-                        className="sticky left-0 bg-surface px-4 py-2.5 text-left font-normal text-fg-2"
-                      >
-                        {k}
-                      </th>
-                      {names.map((n, i) => (
-                        <td key={n} className="px-4 py-2.5 text-right text-fg">
-                          {f(i)}
-                        </td>
+                      {names.map((n) => (
+                        <th key={n} scope="col" className="px-4 py-3 text-right font-medium">
+                          {n}
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <figcaption className="mt-2 flex justify-between gap-4 text-caption text-fg-3">
-              <span>Fictional offers. Numbers computed by the calculator above.</span>
-              <span className="shrink-0 md:hidden">Swipe →</span>
-            </figcaption>
-          </figure>
-
-          <Insight title="What the example shows">
-            The MNC offer is a {MNC_CTC_HIKE.toFixed(0)}% CTC jump over the current job but a{' '}
-            {MNC_HIKE.toFixed(0)}% rise in year-1 money left: its variable is counted at{' '}
-            {DEFAULT_PAYOUT_PCT}%, its {lakhs(SAMPLE_OFFERS[1].joiningBonus)} joining bonus leaves{' '}
-            {inr(MNC.joiningBonusInHand)} after tax, and the longer commute costs{' '}
-            {inr(EXTRA_COMMUTE_YR)} a year. The startup&apos;s higher fixed pay repeats and
-            compounds with every raise; its buyout refund still costs {inr(BUYOUT_NET)} in tax.{' '}
-            {MNC_TO_MATCH !== null &&
-              `To match the startup over 3 years, the MNC would need a fixed CTC of ${lakhs(MNC_TO_MATCH)}: that is the number to negotiate with. `}
-            {START_VS_MNC_3Y_NO_ESOP > 0
-              ? 'Even with its ESOPs counted at zero, it leads over 3 years.'
-              : 'Count its ESOPs at zero, though, and the MNC offer leads over 3 years.'}
-          </Insight>
-        </Section>
-
-        <Section
-          id="rules"
-          meta={`Rules · ${RULES.length} items · checked ${new Date('2026-11-15').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`}
-          title="The rules that change what an offer is worth"
-          intro="Each line below is something an offer letter mentions in one line and a calculator usually ignores."
-        >
-          <StatRow
-            stats={[
-              {
-                label: 'Variable paid to average performers',
-                value: '60–80%',
-                sub: 'of target. EY Future of Pay, Feb 2026',
-                href: SOURCES.eyPay.url,
-              },
-              {
-                label: 'Projected salary rise in India, 2027',
-                value: '9.1%',
-                sub: 'Actual 2026: 9.0%. Aon, Oct 2026',
-                href: SOURCES.aonHike.url,
-              },
-              {
-                label: 'Longest startup ESOP tax deferral',
-                value: '60 mo',
-                sub: 'after the tax year, or earlier on sale or exit. s.289(3)',
-                href: SOURCES.esopDeferral.url,
-              },
-              {
-                label: 'Service before gratuity is paid',
-                value: '5 yrs',
-                sub: '1 year for fixed-term staff. Labour codes, Nov 2025',
-                href: SOURCES.gratuityFaq.url,
-              },
-            ]}
-          />
-          <figure>
-            <div
-              role="region"
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-              tabIndex={0}
-              aria-label="Rules that change what an offer is worth"
-              className="overflow-x-auto rounded-xl border border-border bg-surface"
-            >
-              <table className="w-full min-w-[760px] text-left text-small">
-                <thead className="bg-muted text-fg-2">
-                  <tr>
-                    <th scope="col" className="sticky left-0 bg-muted px-4 py-3 font-medium">
-                      Item
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-medium">
-                      The rule
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-medium">
-                      What it does to your money
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-medium">
-                      Source
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {RULES.map((r) => (
-                    <tr key={r.item}>
-                      <th
-                        scope="row"
-                        className="sticky left-0 bg-surface px-4 py-3 align-top font-medium text-fg"
-                      >
-                        {r.item}
-                      </th>
-                      <td className="px-4 py-3 align-top text-fg-2">{r.rule}</td>
-                      <td className="px-4 py-3 align-top text-fg">{r.money}</td>
-                      <td className="px-4 py-3 align-top text-caption">
-                        {r.src.map((s, i) => (
-                          <span key={s.url}>
-                            {i > 0 && '; '}
-                            <a href={s.url} target="_blank" rel="noopener" className={link}>
-                              {s.label}
-                            </a>
-                          </span>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {(
+                      [
+                        ['Fixed CTC', (i: number) => lakhs(SAMPLE_OFFERS[i].fixed)],
+                        ['Target variable', (i: number) => lakhs(SAMPLE_OFFERS[i].variable)],
+                        ['Joining bonus', (i: number) => lakhs(SAMPLE_OFFERS[i].joiningBonus)],
+                        [
+                          'Equity (grant, counted at)',
+                          (i: number) =>
+                            SAMPLE_OFFERS[i].equityType === 'none'
+                              ? '—'
+                              : `${lakhs(SAMPLE_OFFERS[i].equityGrant)} ESOP, ${SAMPLE_OFFERS[i].equityCountPct}%`,
+                        ],
+                        [
+                          'Rent + commute a month',
+                          (i: number) => inr(SAMPLE_OFFERS[i].rent + SAMPLE_OFFERS[i].commute),
+                        ],
+                        ['In-hand per month', (i: number) => inr(EX.results[i].monthlyInHand)],
+                        [
+                          'Left after rent + commute, yr 1',
+                          (i: number) => inr(EX.results[i].year1AfterLiving),
+                        ],
+                      ] as [string, (i: number) => string][]
+                    ).map(([k, f]) => (
+                      <tr key={k}>
+                        <th
+                          scope="row"
+                          className="sticky left-0 bg-surface px-4 py-2.5 text-left font-normal text-fg-2"
+                        >
+                          {k}
+                        </th>
+                        {names.map((n, i) => (
+                          <td key={n} className="px-4 py-2.5 text-right text-fg">
+                            {f(i)}
+                          </td>
                         ))}
-                      </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <figcaption className="mt-2 flex justify-between gap-4 text-caption text-fg-3">
+                <span>Fictional offers. Numbers computed by the calculator above.</span>
+                <span className="shrink-0 md:hidden">Swipe →</span>
+              </figcaption>
+            </figure>
+
+            <Insight title="What the example shows">
+              The MNC offer is a {MNC_CTC_HIKE.toFixed(0)}% CTC jump over the current job but a{' '}
+              {MNC_HIKE.toFixed(0)}% rise in year-1 money left: its variable is counted at{' '}
+              {DEFAULT_PAYOUT_PCT}%, its {lakhs(SAMPLE_OFFERS[1].joiningBonus)} joining bonus leaves{' '}
+              {inr(MNC.joiningBonusInHand)} after tax, and the longer commute costs{' '}
+              {inr(EXTRA_COMMUTE_YR)} a year. The startup&apos;s higher fixed pay repeats and
+              compounds with every raise; its buyout refund still costs {inr(BUYOUT_NET)} in tax.{' '}
+              {MNC_TO_MATCH !== null &&
+                `To match the startup over 3 years, the MNC would need a fixed CTC of ${lakhs(MNC_TO_MATCH)}: that is the number to negotiate with. `}
+              {START_VS_MNC_3Y_NO_ESOP > 0
+                ? 'Even with its ESOPs counted at zero, it leads over 3 years.'
+                : 'Count its ESOPs at zero, though, and the MNC offer leads over 3 years.'}
+            </Insight>
+          </Section>
+
+          <Section
+            id="rules"
+            meta={`Rules · ${RULES.length} items · checked ${new Date('2026-11-15').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`}
+            title="The rules that change what an offer is worth"
+            intro="Each line below is something an offer letter mentions in one line and a calculator usually ignores."
+          >
+            <StatRow
+              stats={[
+                {
+                  label: 'Variable paid to average performers',
+                  value: '60–80%',
+                  sub: 'of target. EY Future of Pay, Feb 2026',
+                  href: SOURCES.eyPay.url,
+                },
+                {
+                  label: 'Projected salary rise in India, 2027',
+                  value: '9.1%',
+                  sub: 'Actual 2026: 9.0%. Aon, Oct 2026',
+                  href: SOURCES.aonHike.url,
+                },
+                {
+                  label: 'Longest startup ESOP tax deferral',
+                  value: '60 mo',
+                  sub: 'after the tax year, or earlier on sale or exit. s.289(3)',
+                  href: SOURCES.esopDeferral.url,
+                },
+                {
+                  label: 'Service before gratuity is paid',
+                  value: '5 yrs',
+                  sub: '1 year for fixed-term staff. Labour codes, Nov 2025',
+                  href: SOURCES.gratuityFaq.url,
+                },
+              ]}
+            />
+            <figure>
+              <div
+                role="region"
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                tabIndex={0}
+                aria-label="Rules that change what an offer is worth"
+                className="overflow-x-auto rounded-xl border border-border bg-surface"
+              >
+                <table className="w-full min-w-[760px] text-left text-small">
+                  <thead className="bg-muted text-fg-2">
+                    <tr>
+                      <th scope="col" className="sticky left-0 bg-muted px-4 py-3 font-medium">
+                        Item
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-medium">
+                        The rule
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-medium">
+                        What it does to your money
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-medium">
+                        Source
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {RULES.map((r) => (
+                      <tr key={r.item}>
+                        <th
+                          scope="row"
+                          className="sticky left-0 bg-surface px-4 py-3 align-top font-medium text-fg"
+                        >
+                          {r.item}
+                        </th>
+                        <td className="px-4 py-3 align-top text-fg-2">{r.rule}</td>
+                        <td className="px-4 py-3 align-top text-fg">{r.money}</td>
+                        <td className="px-4 py-3 align-top text-caption">
+                          {r.src.map((s, i) => (
+                            <span key={s.url}>
+                              {i > 0 && '; '}
+                              <a href={s.url} target="_blank" rel="noopener" className={link}>
+                                {s.label}
+                              </a>
+                            </span>
+                          ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <figcaption className="mt-2 flex justify-between gap-4 text-caption text-fg-3">
+                <span>
+                  General information, not tax advice. Tax on PF, slabs and HRA follows our{' '}
+                  <Link href="/salary-calculator" className={link}>
+                    CTC to in-hand calculator
+                  </Link>
+                  .
+                </span>
+                <span className="shrink-0 md:hidden">Swipe →</span>
+              </figcaption>
+            </figure>
+          </Section>
+
+          <Section
+            id="before"
+            meta="Checklist · 5 steps"
+            title="Before you sign: get these answers in writing"
+            intro="Most offer regret comes from a line nobody asked about. Ask HR these before you accept; a good recruiter answers all of them in a day."
+          >
+            <Flow
+              label="From two offer letters to a decision"
+              steps={[
+                {
+                  title: 'Get the full breakup',
+                  body: 'Fixed, variable (and last 2 years’ payout %), joining bonus, gratuity, employer PF, insurance. A CTC number alone is not an offer.',
+                },
+                {
+                  title: 'Read the lock-ins',
+                  body: 'Joining bonus clawback months and whether repayment is gross or net; notice period; non-compete or training bonds.',
+                },
+                {
+                  title: 'Price the equity',
+                  body: 'Grant size in shares, exercise price, latest price per share, vesting and cliff, exercise window after leaving, past buybacks.',
+                },
+                {
+                  title: 'Run the numbers',
+                  body: 'Put every offer in the calculator with your real rent and commute. Look at year 1 and at 3 years.',
+                },
+                {
+                  title: 'Negotiate the gap',
+                  body: 'Ask to move a joining bonus into fixed pay, or for the new employer to cover the buyout. Practise the call out loud first.',
+                },
+              ]}
+            />
+            <P>
+              The question HR asks most at this stage is your expected CTC. Answer with a range
+              based on money left, not on a percentage over your current CTC, and say what would
+              make you sign today. If you have a competing offer, name the in-hand difference, not
+              the headline.
+            </P>
+          </Section>
+
+          <Section id="faq" meta={`FAQ · ${FAQ.length} questions`} title="Quick answers">
+            <div className="max-w-3xl space-y-3">
+              {FAQ.map((f, i) => (
+                <details
+                  key={f.q}
+                  open={i === 0}
+                  className="group rounded-xl border border-border bg-surface open:shadow-e1"
+                >
+                  <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg">
+                    <h3 className="text-body font-medium">{f.q}</h3>
+                    <span
+                      aria-hidden="true"
+                      className="text-fg-3 transition-transform duration-base group-open:rotate-180"
+                    >
+                      ▾
+                    </span>
+                  </summary>
+                  <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
+                </details>
+              ))}
             </div>
-            <figcaption className="mt-2 flex justify-between gap-4 text-caption text-fg-3">
-              <span>
-                General information, not tax advice. Tax on PF, slabs and HRA follows our{' '}
-                <Link href="/salary-calculator" className={link}>
-                  CTC to in-hand calculator
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                ['/salary-calculator', 'Tax detail', 'CTC to in-hand calculator'],
+                ['/product-manager/salary', 'Benchmark', 'What PMs are paid in India'],
+                ['/salary-negotiation', 'Ask for more', 'Salary negotiation scripts'],
+              ].map(([href, k, t]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="rounded-xl border border-border bg-surface px-5 py-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                >
+                  <span className={`block ${kicker} text-fg-3`}>Up next · {k}</span>
+                  <span className="mt-1 block text-h4 font-semibold text-fg">{t}</span>
                 </Link>
-                .
-              </span>
-              <span className="shrink-0 md:hidden">Swipe →</span>
-            </figcaption>
-          </figure>
-        </Section>
+              ))}
+            </div>
+            <p className="max-w-prose text-caption text-fg-3">
+              Sources:{' '}
+              {Object.values(SOURCES).map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 && '; '}
+                  <a href={s.url} target="_blank" rel="noopener" className={link}>
+                    {s.label}
+                  </a>
+                </span>
+              ))}
+              . Rules checked 15 Nov 2026. General information, not tax or legal advice.
+            </p>
+          </Section>
+        </div>
 
-        <Section
-          id="before"
-          meta="Checklist · 5 steps"
-          title="Before you sign: get these answers in writing"
-          intro="Most offer regret comes from a line nobody asked about. Ask HR these before you accept; a good recruiter answers all of them in a day."
-        >
-          <Flow
-            label="From two offer letters to a decision"
-            steps={[
-              {
-                title: 'Get the full breakup',
-                body: 'Fixed, variable (and last 2 years’ payout %), joining bonus, gratuity, employer PF, insurance. A CTC number alone is not an offer.',
-              },
-              {
-                title: 'Read the lock-ins',
-                body: 'Joining bonus clawback months and whether repayment is gross or net; notice period; non-compete or training bonds.',
-              },
-              {
-                title: 'Price the equity',
-                body: 'Grant size in shares, exercise price, latest price per share, vesting and cliff, exercise window after leaving, past buybacks.',
-              },
-              {
-                title: 'Run the numbers',
-                body: 'Put every offer in the calculator with your real rent and commute. Look at year 1 and at 3 years.',
-              },
-              {
-                title: 'Negotiate the gap',
-                body: 'Ask to move a joining bonus into fixed pay, or for the new employer to cover the buyout. Practise the call out loud first.',
-              },
-            ]}
-          />
-          <P>
-            The question HR asks most at this stage is your expected CTC. Answer with a range based
-            on money left, not on a percentage over your current CTC, and say what would make you
-            sign today. If you have a competing offer, name the in-hand difference, not the
-            headline.
-          </P>
-        </Section>
-
-        <Section id="faq" meta={`FAQ · ${FAQ.length} questions`} title="Quick answers">
-          <div className="max-w-3xl space-y-3">
-            {FAQ.map((f, i) => (
-              <details
-                key={f.q}
-                open={i === 0}
-                className="group rounded-xl border border-border bg-surface open:shadow-e1"
-              >
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg">
-                  <h3 className="text-body font-medium">{f.q}</h3>
-                  <span
-                    aria-hidden="true"
-                    className="text-fg-3 transition-transform duration-base group-open:rotate-180"
-                  >
-                    ▾
-                  </span>
-                </summary>
-                <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
-              </details>
-            ))}
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              ['/salary-calculator', 'Tax detail', 'CTC to in-hand calculator'],
-              ['/product-manager/salary', 'Benchmark', 'What PMs are paid in India'],
-              ['/salary-negotiation', 'Ask for more', 'Salary negotiation scripts'],
-            ].map(([href, k, t]) => (
-              <Link
-                key={href}
-                href={href}
-                className="rounded-xl border border-border bg-surface px-5 py-4 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
-              >
-                <span className={`block ${kicker} text-fg-3`}>Up next · {k}</span>
-                <span className="mt-1 block text-h4 font-semibold text-fg">{t}</span>
-              </Link>
-            ))}
-          </div>
-          <p className="max-w-prose text-caption text-fg-3">
-            Sources:{' '}
-            {Object.values(SOURCES).map((s, i) => (
-              <span key={s.url}>
-                {i > 0 && '; '}
-                <a href={s.url} target="_blank" rel="noopener" className={link}>
-                  {s.label}
-                </a>
-              </span>
-            ))}
-            . Rules checked 15 Nov 2026. General information, not tax or legal advice.
-          </p>
-        </Section>
+        <MockInterviewCTA
+          title="The offer is in. Now say your number out loud."
+          body="The offer comes after the interview. Practise a round out loud with a voice interviewer: it follows up on what you said and tells you what was strong and what was thin."
+          questions={[
+            'What is your expected CTC, and how did you arrive at it?',
+            'We can offer 14 LPA fixed. Can you join at that?',
+            'Your notice period is 90 days. Can you buy it out?',
+            'You have another offer. Why should we match it?',
+          ]}
+        />
       </div>
-
-      <MockInterviewCTA
-        title="The offer is in. Now say your number out loud."
-        body="A voice interviewer plays the HR round: expected CTC, notice period, a lowball counter. You practise the answer, it tells you what was strong and what gave money away."
-        questions={[
-          'What is your expected CTC, and how did you arrive at it?',
-          'We can offer 14 LPA fixed. Can you join at that?',
-          'Your notice period is 90 days. Can you buy it out?',
-          'You have another offer. Why should we match it?',
-        ]}
-      />
-    </div>
+    </DomainLayout>
   )
 }

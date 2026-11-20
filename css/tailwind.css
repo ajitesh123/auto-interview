@@ -35,6 +35,9 @@
     --danger: 220 38 38;
     --danger-soft: 254 242 242;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    /* Used by the mock-interview voice meter, CTA waveform and practice loop. It was missing,
+       which made those animation shorthands invalid: the meters never moved (fixed Nov 20). */
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   }
 
   /* Body — Paper-white canvas */
@@ -623,6 +626,75 @@
   .cta-ping,
   .cta-q {
     animation: none;
+  }
+}
+
+/* Practice loop (components/ai/MockLoopSteps): one 9 s cycle, the three bars fill in turn */
+.loop-fill {
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: 9s var(--ease-standard) infinite both;
+}
+.loop-fill-1 {
+  animation-name: loop-1;
+}
+.loop-fill-2 {
+  animation-name: loop-2;
+}
+.loop-fill-3 {
+  animation-name: loop-3;
+}
+@keyframes loop-1 {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  28%,
+  92% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@keyframes loop-2 {
+  0%,
+  33% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  61%,
+  92% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@keyframes loop-3 {
+  0%,
+  66% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  88%,
+  92% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loop-fill {
+    animation: none;
+    transform: none;
   }
 }
 

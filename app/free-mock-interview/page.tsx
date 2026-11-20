@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import DomainLayout from '@/components/domain/DomainLayout'
+import MockLoopSteps from '@/components/ai/MockLoopSteps'
 import MockInterviewPicker, { type MockOption } from '@/components/ai/MockInterviewPicker'
 
 export const metadata: Metadata = {
@@ -154,6 +155,8 @@ export default function FreeMockInterviewPage() {
         <div className="mt-8">
           <MockInterviewPicker options={OPTIONS} />
         </div>
+
+        <MockLoopSteps className="mt-6 max-w-4xl" />
 
         <section aria-labelledby="before-title" className="mt-14 grid gap-8 md:grid-cols-12">
           <div className="md:col-span-4">

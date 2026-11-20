@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import MockInterviewButton from './MockInterviewButton'
+import MockLoopSteps from './MockLoopSteps'
 
 const DEFAULT_QUESTIONS = [
   'Tell me about yourself in 60 seconds.',
@@ -65,26 +66,8 @@ export default function MockInterviewCTA({
               {title}
             </h2>
             <p className="mt-3 max-w-[48ch] text-body-lg text-fg-2">{text}</p>
-            <ul className="mt-5 grid gap-2 text-small text-fg-2 sm:grid-cols-3">
-              {['Follow-up questions', 'Out loud, like the real room', 'No install needed'].map(
-                (x) => (
-                  <li key={x} className="flex items-center gap-2">
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 16 16"
-                      className="h-4 w-4 shrink-0 text-signal-strong"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="m3.5 8.5 3 3 6-7" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {x}
-                  </li>
-                )
-              )}
-            </ul>
-            <div className="mt-8">
+            <MockLoopSteps className="mt-6 md:grid-cols-1" />
+            <div className="mt-7">
               <MockInterviewButton label={label} role={role} />
             </div>
           </div>

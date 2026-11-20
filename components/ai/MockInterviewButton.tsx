@@ -20,10 +20,10 @@ export default function MockInterviewButton({
   const ink = tone === 'ink'
   const sig = tone === 'signal'
   return (
-    <span className="inline-flex shrink-0 flex-col gap-1.5">
+    <span className="inline-flex max-w-full flex-col gap-1.5 lg:shrink-0">
       <Link
         href="/free-mock-interview"
-        className={`group inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full pl-2 pr-5 text-small font-semibold shadow-e1 transition-[box-shadow,background-color] duration-fast hover:shadow-e2 ${
+        className={`group inline-flex min-h-12 max-w-full items-center gap-3 rounded-full py-2 pl-2 pr-5 text-small font-semibold leading-snug shadow-e1 transition-[box-shadow,background-color] duration-fast hover:shadow-e2 lg:h-12 lg:whitespace-nowrap lg:py-0 ${
           sig
             ? 'bg-signal text-white hover:bg-signal-strong'
             : ink
@@ -33,7 +33,7 @@ export default function MockInterviewButton({
       >
         <span
           aria-hidden="true"
-          className={`flex h-8 w-8 items-center justify-center gap-[3px] rounded-full ${sig ? 'bg-white/20' : ink ? 'bg-white/10' : 'bg-ink'}`}
+          className={`flex h-8 w-8 shrink-0 items-center justify-center gap-[3px] rounded-full ${sig ? 'bg-white/20' : ink ? 'bg-white/10' : 'bg-ink'}`}
         >
           {[0, 1, 2, 3].map((i) => (
             <span
@@ -43,11 +43,11 @@ export default function MockInterviewButton({
             />
           ))}
         </span>
-        {label}
+        <span className="min-w-0">{label}</span>
         <svg
           aria-hidden="true"
           viewBox="0 0 16 16"
-          className="h-4 w-4 transition-transform duration-base group-hover:translate-x-0.5"
+          className="h-4 w-4 shrink-0 transition-transform duration-base group-hover:translate-x-0.5"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.75"
