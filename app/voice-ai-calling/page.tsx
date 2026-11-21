@@ -697,10 +697,9 @@ export default function VoiceAiCallingPage() {
             </div>
             <PostLinks
               slugs={[
-                'how-much-does-an-ai-voice-agent-cost-per-minute-2026',
-                'real-cost-ai-voice-agents-pricing-breakdown-2026',
-                'transparent-ai-calling-pricing-enterprise-quotes-2026',
                 'ai-calling-pricing-breakdown-what-it-really-costs-2026',
+                'voice-ai-billing-per-second-vs-minute-hidden-fees-2026',
+                'transparent-ai-calling-pricing-enterprise-quotes-2026',
               ]}
             />
           </Section>

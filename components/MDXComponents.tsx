@@ -103,6 +103,14 @@ import {
   CasesList,
 } from './blog/FreeNoteTakerFigures'
 import RealEstateCallCheck from './blog/RealEstateCallCheck'
+import AiCallPriceCalculator from './blog/AiCallPriceCalculator'
+import {
+  AiCallPriceStats,
+  AiCallPriceRanges,
+  AiCallMinuteBreakdown,
+  AiCallWorkedMonth,
+  AiCallPriceTable,
+} from './blog/AiCallPriceFigures'
 import {
   RealEstateCallingStats,
   RealEstateCallLadder,
@@ -139,6 +147,12 @@ export const components: MDXComponents = {
   PracticeQuestion,
   KeyFacts,
   RealEstateCallCheck,
+  AiCallPriceCalculator,
+  AiCallPriceStats,
+  AiCallPriceRanges,
+  AiCallMinuteBreakdown,
+  AiCallWorkedMonth,
+  AiCallPriceTable,
   RealEstateCallingStats,
   RealEstateCallLadder,
   RealEstateCostFigure,
