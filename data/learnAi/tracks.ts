@@ -87,6 +87,7 @@ export const PLAN: { slug: string; track: Track['id']; title: string }[] = [
   { slug: 'cursor', track: 'automate', title: 'Cursor for beginners' },
   { slug: 'openai-codex', track: 'automate', title: 'OpenAI Codex for beginners' },
   { slug: 'ai-coding-tools-compared', track: 'automate', title: 'Claude Code vs Cursor vs Codex' },
+  { slug: 'claude-md-agents-md', track: 'automate', title: 'CLAUDE.md and AGENTS.md' },
   { slug: 'fine-tuning-vs-rag', track: 'deeper', title: 'Prompting vs RAG vs fine-tuning' },
   { slug: 'ai-safety-and-alignment', track: 'deeper', title: 'AI safety and alignment' },
   {

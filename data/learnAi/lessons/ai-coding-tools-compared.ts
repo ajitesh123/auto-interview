@@ -317,7 +317,7 @@ logic and explain the change.`,
   ],
   related: [
     { label: 'Previous: OpenAI Codex for beginners', href: '/learn-ai/openai-codex' },
-    { label: 'Next: Prompting vs RAG vs fine-tuning', href: '/learn-ai/fine-tuning-vs-rag' },
+    { label: 'Next: CLAUDE.md and AGENTS.md', href: '/learn-ai/claude-md-agents-md' },
     { label: 'Claude Code for beginners', href: '/learn-ai/claude-code' },
     { label: 'Cursor for beginners', href: '/learn-ai/cursor' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },

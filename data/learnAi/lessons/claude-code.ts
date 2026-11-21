@@ -252,6 +252,7 @@ export const lesson: Lesson = {
     { label: 'Previous: Your first AI automation in n8n', href: '/learn-ai/n8n-ai-automation' },
     { label: 'Next: Cursor for beginners', href: '/learn-ai/cursor' },
     { label: 'Claude Code vs Cursor vs Codex', href: '/learn-ai/ai-coding-tools-compared' },
+    { label: 'How to write CLAUDE.md and AGENTS.md', href: '/learn-ai/claude-md-agents-md' },
     { label: 'What is an AI agent?', href: '/learn-ai/ai-agents' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },
     { label: 'Forward deployed engineer guide', href: '/fde' },

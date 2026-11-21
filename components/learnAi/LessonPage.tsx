@@ -10,10 +10,12 @@ import { LEARN_AI_COURSE, type AnyLesson, type CourseConfig } from './course'
 import MoeCalculator from './MoeCalculator'
 import SpotTheMistake from './SpotTheMistake'
 import AiFeatureCost from './AiFeatureCost'
+import InstructionFileChecker from './InstructionFileChecker'
 import { LessonVisualBlock, WorkflowBlock } from './LessonVisuals'
 import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
 import { PRICED_MODELS, PRICE_CHECKED } from '@/data/learnAi/aiFeatureCost'
+import { CHECKED as IF_CHECKED } from '@/data/learnAi/instructionFile'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
 import { AiPrompt } from '@/components/ai/AiPrompt'
@@ -605,6 +607,18 @@ export default function LessonPage({
                     sub="Type your traffic and token counts, or start from an example. Every model is priced in your browser from the makers’ list prices."
                   />
                   <AiFeatureCost />
+                </Section>
+              )}
+
+              {lesson.widget === 'instruction-file-checker' && (
+                <Section id="tool">
+                  <SectionHead
+                    id="tool-title"
+                    k={`Checker · 14 checks from Anthropic, OpenAI, Cursor, GitHub and ETH Zurich · ${IF_CHECKED} · no AI`}
+                    title="Check your CLAUDE.md or AGENTS.md"
+                    sub="Paste your file, or load the messy draft and the cleaned-up version from the worked example. Each finding links to the page its rule comes from."
+                  />
+                  <InstructionFileChecker />
                 </Section>
               )}
 

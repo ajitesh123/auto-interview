@@ -350,6 +350,7 @@ export const lesson: Lesson = {
     { label: 'Previous: Subagents and multi-agent systems', href: '/learn-ai/multi-agent-systems' },
     { label: 'Next: Prompt injection and AI security', href: '/learn-ai/prompt-injection' },
     { label: 'What is MCP?', href: '/learn-ai/what-is-mcp' },
+    { label: 'How to write CLAUDE.md and AGENTS.md', href: '/learn-ai/claude-md-agents-md' },
     { label: 'Connectors: Gmail, Drive and Slack in AI', href: '/learn-ai/ai-connectors' },
     { label: 'What are Agent Skills?', href: '/learn-ai/agent-skills' },
     { label: 'Context engineering', href: '/learn-ai/context-engineering' },
