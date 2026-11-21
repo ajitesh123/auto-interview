@@ -364,49 +364,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* BreadcrumbList Schema for Site Navigation */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'BreadcrumbList',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.autointerviewai.com/',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'CV Templates',
-                  item: 'https://www.autointerviewai.com/cv-templates',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 3,
-                  name: 'Resources',
-                  item: 'https://www.autointerviewai.com/resources',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 4,
-                  name: 'Mock Interview',
-                  item: 'https://www.autointerviewai.com/free-mock-interview',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 5,
-                  name: 'Blog',
-                  item: 'https://www.autointerviewai.com/blog',
-                },
-              ],
-            }),
-          }}
-        />
-
         {/* Clear body scroll locks on page load */}
         <script
           dangerouslySetInnerHTML={{
@@ -432,10 +389,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Search provider wrapper for search functionality - simplified in development */}
             {process.env.NODE_ENV === 'production' ? (
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <main className="mb-auto">{children}</main>
+                <div className="mb-auto">{children}</div>
               </SearchProvider>
             ) : (
-              <main className="mb-auto">{children}</main>
+              <div className="mb-auto">{children}</div>
             )}
           </SectionContainer>
           {process.env.NODE_ENV === 'production' && <VercelAnalytics />}

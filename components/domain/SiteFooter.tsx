@@ -4,7 +4,7 @@ const LINK = 'inline-block py-1 text-caption leading-snug text-fg-2 transition-c
 
 type FooterLink = { href: string; label: string }
 
-const COLUMNS: { title: string; links: FooterLink[] }[] = [
+export const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Free tools',
     links: [

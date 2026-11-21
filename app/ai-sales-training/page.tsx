@@ -1,815 +1,799 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import DomainLayout from '@/components/domain/DomainLayout'
-import ColdCallSimulator from '@/components/ColdCallSimulator'
 import CostPerMeeting from '@/components/voiceAi/CostPerMeeting'
+import { Figure, SegmentBar, RangeList, StatRow, RAMP } from '@/components/viz'
+import {
+  VENDORS as PRACTICE,
+  KINDS as PRACTICE_KINDS,
+  CHECKED as PRACTICE_CHECKED,
+  type RoleplayVendor,
+} from '@/data/salesRoleplayData'
+import {
+  PLATFORMS,
+  KIND_LABEL,
+  CHECKED as TRAINING_CHECKED,
+  type Platform,
+} from '@/data/salesTrainingPlatforms'
+import {
+  VENDORS as CALLING,
+  AGENTS_WITH_PRICE,
+  CHECKED as CALLING_CHECKED,
+  type Vendor,
+} from '@/data/aiCallingSalesData'
+
+/*
+ * Nov 21 2026 (Part 1): rebuilt from three sourced data files. The old page had a latency column we
+ * could not source, a "500 ms biological threshold", invented practices and 122 raw hex colours.
+ * Every name, price and count below comes from data/salesRoleplayData.ts,
+ * data/salesTrainingPlatforms.ts and data/aiCallingSalesData.ts. Brief:
+ * docs/briefs/2026-11-21-ai-sales-training-directory.md
+ */
+
+const PAGE_URL = 'https://www.autointerviewai.com/ai-sales-training'
+const TT =
+  'https://www.toughtongueai.com/?utm_source=autointerviewai&utm_medium=directory&utm_campaign=ai-sales-training'
 
 export const metadata: Metadata = {
-  title: 'Best AI Calling & Sales Training Platforms (2026 Directory) [USA & India]',
+  title: 'AI Sales Training & AI Calling Tools Directory (2026)',
   description:
-    'Compare AI calling and sales roleplay platforms for US and India teams: what each one is for, compliance notes, and where free spoken practice fits. Tough Tongue AI is our product.',
-  keywords: [
-    'best ai sales training platforms',
-    'ai calling tools usa',
-    'ai sales training india',
-    'ai calling software india',
-    'cold call simulator free',
-    'sales onboarding training ai',
-    'tough tongue ai sales',
-    'hyperbound alternatives',
-    'awarathon vs tough tongue',
-    'mindtickle ai sales training',
-    'sdr ramp time software',
-    'b2b sales roleplay simulator 2026',
-  ],
-  alternates: {
-    canonical: 'https://www.autointerviewai.com/ai-sales-training',
-  },
+    'Every AI sales roleplay tool, sales training platform and AI calling product we checked, with prices as written on each vendor’s own page, free starts and what each is for.',
+  alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: 'Best AI Calling & Sales Training Platforms (2026 Directory) [USA & India]',
+    title: 'AI Sales Training & AI Calling Tools Directory (2026)',
     description:
-      'What each AI calling and sales roleplay platform is for, how it is priced, and the US and India calling rules to check. Tough Tongue AI is our product and is marked.',
-    url: 'https://www.autointerviewai.com/ai-sales-training',
+      'AI practice tools, training platforms and AI calling products, with prices from each vendor’s own page. Tough Tongue AI is our product and is marked.',
+    url: PAGE_URL,
     siteName: 'Auto Interview AI',
-    images: [
-      {
-        url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
-        width: 1200,
-        height: 630,
-        alt: 'Best AI Calling & Sales Training Platforms Directory',
-      },
-    ],
-    locale: 'en_US',
     type: 'website',
   },
 }
 
+/* ---------- Data ---------- */
+
+const TRAINING = PLATFORMS.filter((p) => p.kind !== 'practice')
+const practiceSorted = [...PRACTICE].sort((a, b) => Number(!!b.ours) - Number(!!a.ours))
+const agents = CALLING.filter((v) => v.kind === 'agent')
+const dialers = CALLING.filter((v) => v.kind === 'dialer')
+
+type Status = 'published' | 'free-then-quote' | 'quote'
+/** A real self-serve free start: not a money-back guarantee, not a demo. */
+const hasFreeStart = (p: Platform) =>
+  p.free !== '' && !/money-back|no self-serve free plan/i.test(p.free)
+const trainingStatus = (p: Platform): Status =>
+  p.published ? 'published' : hasFreeStart(p) ? 'free-then-quote' : 'quote'
+const callingStatus = (v: Vendor): Status => (/quote only/i.test(v.stated) ? 'quote' : 'published')
+
+/* Counts: a vendor that appears in two tables (e.g. Mindtickle) is counted once, with its practice-tool facts. */
+const inPractice = (name: string) => PRACTICE.some((v) => v.name === name)
+const ALL: { name: string; status: Status }[] = [
+  ...PRACTICE.map((v) => ({ name: v.name, status: v.priceStatus as Status })),
+  ...TRAINING.filter((p) => !inPractice(p.name)).map((p) => ({
+    name: p.name,
+    status: trainingStatus(p),
+  })),
+  ...CALLING.map((v) => ({ name: v.name, status: callingStatus(v) })),
+].filter((a, i, arr) => arr.findIndex((b) => b.name === a.name) === i)
+const TOTAL = ALL.length
+const count = (s: Status) => ALL.filter((a) => a.status === s).length
+const PUBLISHED = count('published')
+const FREE_THEN_QUOTE = count('free-then-quote')
+const QUOTE = count('quote')
+const FREE_START =
+  PRACTICE.filter((v) => v.freeStart !== '').length +
+  TRAINING.filter((p) => !inPractice(p.name) && hasFreeStart(p)).length
+const OVERLAP = PRACTICE.length + TRAINING.length + CALLING.length - TOTAL
+const pct = (n: number) => Math.round((n / TOTAL) * 100)
+
+/** Dollars per minute without rounding away a half cent (Bolna lists 4.5¢). */
+const money = (n: number) => `$${Math.round(n * 1000) % 10 ? n.toFixed(3) : n.toFixed(2)}`
+
+const agentRanges = AGENTS_WITH_PRICE.flatMap((v) =>
+  v.perMin
+    ? [
+        {
+          label: v.name,
+          sub: v.perMin.note,
+          min: v.perMin.low,
+          max: v.perMin.high,
+          display:
+            v.perMin.low === v.perMin.high
+              ? money(v.perMin.low)
+              : `${money(v.perMin.low)}–${money(v.perMin.high)}`,
+          href: v.url,
+        },
+      ]
+    : []
+).sort((a, b) => a.min - b.min)
+if (!agentRanges.length) throw new Error('ai-sales-training: no AI agent per-minute rates in data')
+const cheapest = agentRanges[0]
+const dearest = [...agentRanges].sort((a, b) => b.max - a.max)[0]
+
+/* ---------- FAQ (visible and in FAQPage schema) ---------- */
+
+const NUM = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+const word = (n: number) => NUM[n] ?? String(n)
+const list = (xs: string[]) =>
+  xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`
+const pPublished = PRACTICE.filter((v) => v.priceStatus === 'published')
+const pFreeQuote = PRACTICE.filter((v) => v.priceStatus === 'free-then-quote')
+const ttPractice = PRACTICE.find((v) => v.ours)
+const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1)
+
+const FAQS = [
+  {
+    q: 'What is the difference between AI sales training and AI calling?',
+    a: 'AI sales training tools let your reps practise calls with an AI buyer and get scored before they talk to real customers. AI calling tools put an AI voice on real calls with prospects or customers. They are different purchases with different rules: practice calls involve only your own team, while AI calls to the public fall under calling and consent laws.',
+  },
+  {
+    q: 'Which AI sales roleplay tools publish their prices?',
+    a: `Of the ${PRACTICE.length} AI practice tools we checked on ${PRACTICE_CHECKED}, ${word(
+      pPublished.length
+    ).toLowerCase()} show a paid price you can read without a sales call: ${list(
+      pPublished.map((v) => v.name)
+    )}. ${word(pFreeQuote.length)} more (${list(
+      pFreeQuote.map((v) => v.name)
+    )}) offer a free start and quote the paid plans; the rest are quote only.`,
+  },
+  {
+    q: 'How much do AI calling agents cost per minute?',
+    a: `On the vendors' own pricing pages (checked ${CALLING_CHECKED}), listed AI agent rates run from ${money(
+      cheapest.min
+    )} a minute (${cheapest.label}${cheapest.sub ? `, ${cheapest.sub}` : ''}) to ${money(
+      dearest.max
+    )} (${dearest.label}). Most rates leave out telephony, so compare what each price covers before you compare the numbers.`,
+  },
+  {
+    q: 'Is there a free AI sales roleplay tool?',
+    a: `Yes. ${PRACTICE.filter((v) => v.freeStart !== '')
+      .map((v) => `${v.name} (${lowerFirst(v.freeStart)})`)
+      .join('; ')}. Terms are as written on each vendor's page on ${PRACTICE_CHECKED}.`,
+  },
+  {
+    q: 'Is Tough Tongue AI on this list your product?',
+    a: `Yes. Tough Tongue AI is our product and is marked wherever it appears. ${
+      ttPractice
+        ? `It starts with ${ttPractice.freeStart}; practice runs by ${lowerFirst(ttPractice.modes)}. `
+        : ''
+    }It also sells AI voice agents, which are not listed here. Every other vendor is described from its own website.`,
+  },
+]
+
+/* ---------- Small pieces ---------- */
+
+const th = 'px-4 py-3 text-left font-medium'
+const td = 'px-4 py-3 align-top'
+
+function Section({
+  id,
+  kicker,
+  title,
+  lead,
+  children,
+}: {
+  id: string
+  kicker: string
+  title: string
+  lead?: ReactNode
+  children: ReactNode
+}) {
+  return (
+    <section id={id} className="scroll-mt-28 py-12 md:py-16">
+      <div className="max-w-2xl">
+        <p className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+          {kicker}
+        </p>
+        <h2 className="mt-3 text-h2 font-semibold text-fg">{title}</h2>
+        {lead && <div className="mt-3 text-body text-fg-2">{lead}</div>}
+      </div>
+      {children}
+    </section>
+  )
+}
+
+function Ours() {
+  return (
+    <span className="ml-2 inline-flex h-5 items-center rounded-full bg-signal-tint px-2 text-caption font-medium text-signal-strong">
+      our product
+    </span>
+  )
+}
+
+function VendorName({ name, url, ours }: { name: string; url: string; ours?: boolean }) {
+  return (
+    <>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        className="font-semibold text-fg underline decoration-border-strong underline-offset-4 transition-colors duration-fast hover:text-signal-strong hover:decoration-signal"
+      >
+        {name}
+      </a>
+      {ours && <Ours />}
+    </>
+  )
+}
+
+/** Table above sm, stacked cards below: wide vendor rows never squeeze on a phone. */
+function Directory<T>({
+  label,
+  rows,
+  cols,
+  name,
+  ours,
+  caption,
+}: {
+  label: string
+  rows: T[]
+  cols: { head: string; cell: (r: T) => ReactNode }[]
+  name: (r: T) => ReactNode
+  ours?: (r: T) => boolean
+  caption: ReactNode
+}) {
+  return (
+    <figure className="mt-8">
+      <ul className="space-y-3 sm:hidden">
+        {rows.map((r, i) => (
+          <li
+            key={i}
+            className={`rounded-xl border bg-surface p-4 ${
+              ours?.(r) ? 'border-signal/40' : 'border-border'
+            }`}
+          >
+            <div className="text-body">{name(r)}</div>
+            <dl className="mt-2 space-y-1.5 text-small">
+              {cols.map((c) => (
+                <div key={c.head}>
+                  <dt className="text-caption text-fg-3">{c.head}</dt>
+                  <dd className="text-fg-2">{c.cell(r)}</dd>
+                </div>
+              ))}
+            </dl>
+          </li>
+        ))}
+      </ul>
+      <div
+        role="region"
+        aria-label={label}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        className="hidden overflow-x-auto rounded-xl border border-border bg-surface sm:block"
+      >
+        <table className="w-full min-w-[720px] text-small">
+          <thead className="bg-muted text-fg-2">
+            <tr>
+              <th scope="col" className={th}>
+                Tool
+              </th>
+              {cols.map((c) => (
+                <th key={c.head} scope="col" className={th}>
+                  {c.head}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {rows.map((r, i) => (
+              <tr key={i} className={ours?.(r) ? 'bg-signal-tint/40' : ''}>
+                <th scope="row" className={`${td} w-48 text-left font-normal`}>
+                  {name(r)}
+                </th>
+                {cols.map((c) => (
+                  <td key={c.head} className={`${td} text-fg-2`}>
+                    {c.cell(r)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <figcaption className="mt-3 text-caption text-fg-3">{caption}</figcaption>
+    </figure>
+  )
+}
+
+const TRI: Record<string, string> = { yes: 'Yes', no: 'No', 'not stated': 'Not stated' }
+const kindShort = (k: RoleplayVendor['kind']) => PRACTICE_KINDS.find((x) => x.id === k)?.short ?? k
+
+const GUIDES = [
+  {
+    href: '/blog/best-sales-roleplay-software-platforms-2026',
+    title: 'AI sales roleplay software, compared',
+    note: 'Finder by team size, scenario sources and a yearly cost calculator',
+  },
+  {
+    href: '/blog/best-sales-training-platforms-2026',
+    title: 'Sales training platforms, compared',
+    note: 'Course libraries, methodology programmes and LMS, with year-one costs',
+  },
+  {
+    href: '/blog/ai-calling-software-sales-teams-2026',
+    title: 'AI calling software for sales teams',
+    note: 'Per-minute prices and cost per booked meeting on public funnel rates',
+  },
+  {
+    href: '/voice-ai-calling',
+    title: 'Voice AI calling: how it works, costs and the law',
+    note: 'How AI calls work, cost per minute and US, India and EU rules',
+  },
+  {
+    href: '/blog/12-realistic-sales-role-play-scenarios-sdr-mastery-2026',
+    title: '12 sales roleplay scenarios with scorecards',
+    note: 'Ready-to-run scripts for SDR and AE practice',
+  },
+  {
+    href: '/blog/ai-roleplay-objection-handling-scripts-scenarios-results-2026',
+    title: 'Objection handling scripts and drills',
+    note: 'Practise the objections that stall deals, with an answer checker',
+  },
+  {
+    href: '/blog/hinglish-sales-roleplay-scripts-india-2026',
+    title: 'Hinglish sales roleplay scripts (India)',
+    note: 'Code-switched scripts and the rules for regulated sectors',
+  },
+  {
+    href: '/blog/best-sales-training-companies-india',
+    title: 'Sales training companies in India',
+    note: 'Who trains Indian sales teams, how and at what price',
+  },
+]
+
+/* ---------- Page ---------- */
+
 export default function AISalesTrainingDirectoryPage() {
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebPage',
-        name: 'Best AI Calling & Sales Training Platforms (2026 Directory) [USA & India]',
-        url: 'https://www.autointerviewai.com/ai-sales-training',
-        description:
-          'A directory of AI calling and sales roleplay platforms for US and India teams, with what each is best for and compliance notes. Tough Tongue AI (our product) is listed and marked.',
-        citation: [
-          'https://arxiv.org/abs/2311.09735',
-          'https://www.fcc.gov/call-authentication',
-          'https://trai.gov.in',
-          'https://www.gartner.com/en/sales',
-        ],
-      },
-      {
-        '@type': 'ItemList',
-        name: 'Top AI Calling & Sales Training Platforms (2026)',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Auto Interview AI / Tough Tongue AI',
-            description:
-              'Spoken AI sales roleplay for cold-call objection practice and SDR onboarding, with a free practice tier. Our product.',
-            url: 'https://www.autointerviewai.com/cold-call-practice',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Hyperbound',
-            description:
-              'Best for high-volume outbound SDR cold calling drills and buyer persona simulation in the US market.',
-            url: 'https://www.hyperbound.ai',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: 'Gong',
-            description:
-              'Best for post-call conversation intelligence, pipeline deal inspection, and revenue intelligence analytics.',
-            url: 'https://www.gong.io',
-          },
-          {
-            '@type': 'ListItem',
-            position: 4,
-            name: 'Mindtickle',
-            description:
-              'Enterprise sales readiness and revenue enablement LMS suite widely adopted across India and North America.',
-            url: 'https://www.mindtickle.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 5,
-            name: 'SquadStack',
-            description:
-              'Prominent Indian tech platform combining automated telephony workflows with managed telecalling execution.',
-            url: 'https://www.squadstack.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 6,
-            name: 'Awarathon',
-            description:
-              'Video AI avatar simulation platform popular among Indian enterprises for pharmaceutical and financial sales pitch audits.',
-            url: 'https://www.awarathon.com',
-          },
-        ],
-      },
-      {
-        '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: 'Which AI voice sales training platform should I use in 2026?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'It depends on the job. Tough Tongue AI (our product) is built for spoken roleplay with a free practice tier; Hyperbound focuses on US outbound SDR drills; Gong analyses real calls after they happen; Mindtickle is an enablement platform. We do not publish latency or ramp-time benchmarks for our own product.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'What are the best AI calling and sales training tools in 2026?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'It depends on the job. Commonly compared options are Tough Tongue AI (our product; spoken objection practice with a free tier), Hyperbound (best for US outbound SDR drilling), Gong (best for post-call conversation analytics), Mindtickle (best for enterprise enablement LMS), and SquadStack and Awarathon (prominent in India for managed calling and video pitch auditing).',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'How does AI sales roleplay improve SDR ramp times in the US and India?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Traditional sales onboarding takes 90 to 120 days because reps shadow calls passively and burn live CRM leads. AI voice roleplay provides 20+ realistic customer objection drills per week with automated MEDDPICC rubric scoring, so new hires rehearse objections before they reach live prospects.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'Why is conversational voice latency critical for AI sales calling and training?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'People notice long pauses in a phone conversation, so a roleplay partner that answers slowly feels artificial and breaks the rhythm of objection practice. When you compare platforms, test response speed yourself on a real call rather than relying on vendor benchmarks.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'What compliance regulations apply to AI calling in the USA and India?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'In the United States, AI outbound calling must comply with the Telephone Consumer Protection Act (TCPA), federal Do Not Call (DNC) registries, and FCC STIR/SHAKEN caller ID authentication. In India, platforms must comply with the Telecom Regulatory Authority of India (TRAI) Distributed Ledger Technology (DLT) scrubbing mandates and the Digital Personal Data Protection (DPDP) Act 2023.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'How much does AI sales training cost compared to a human sales trainer?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Workshop pricing varies by provider and is usually quoted per day or per program. AI roleplay is priced as a subscription: Tough Tongue AI (our product) has a free plan with 25 minutes and a Business plan at $299 a month for 15 seats and 2,990 minutes, per its pricing page.',
-            },
-          },
-        ],
-      },
-      {
-        '@type': 'Article',
-        '@id': 'https://www.autointerviewai.com/ai-sales-training#article',
-        headline: 'Best AI Calling & Sales Training Platforms (2026 Directory) [USA & India]',
-        description:
-          'A directory of AI calling software, B2B sales roleplay tools and SDR onboarding platforms for US and India teams: what each is for and the rules to check. Tough Tongue AI is our product.',
-        image: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
-        datePublished: '2026-02-01T08:00:00+00:00',
-        dateModified: '2026-10-18T08:00:00+00:00',
-        author: {
-          '@type': 'Person',
-          '@id': 'https://www.autointerviewai.com/#founder',
-          name: 'Ajitesh Abhishek',
-          jobTitle: 'Founder & Former Google Product Manager',
-          url: 'https://www.linkedin.com/in/ajiteshnandan/',
-          sameAs: [
-            'https://www.linkedin.com/in/ajiteshnandan/',
-            'https://x.com/ajiteshleo',
-            'https://github.com/ajitesh123',
-          ],
-          alumniOf: [
-            {
-              '@type': 'CollegeOrUniversity',
-              name: 'Indian Institute of Technology Delhi (IIT Delhi)',
-            },
-            {
-              '@type': 'CollegeOrUniversity',
-              name: 'Kellogg School of Management, Northwestern University',
-            },
-          ],
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.autointerviewai.com/',
         },
-        publisher: {
-          '@type': 'Organization',
-          '@id': 'https://www.autointerviewai.com/#organization',
-          name: 'Auto Interview AI',
-          url: 'https://www.autointerviewai.com/',
-          logo: {
-            '@type': 'ImageObject',
-            '@id': 'https://www.autointerviewai.com/#logo',
-            url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
-          },
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': 'https://www.autointerviewai.com/ai-sales-training',
-        },
-        speakable: {
-          '@type': 'SpeakableSpecification',
-          cssSelector: ['.speakable-ai-overview', '.speakable-latency-takeaway'],
-        },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: 'https://www.autointerviewai.com/',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'AI Sales Training Directory',
-            item: 'https://www.autointerviewai.com/ai-sales-training',
-          },
-        ],
-      },
-      {
-        '@type': 'SoftwareApplication',
-        '@id': 'https://www.autointerviewai.com/#software',
-        name: 'Auto Interview AI & Tough Tongue AI',
-        alternateName: ['Tough Tongue AI', 'AI Sales Roleplay Platform'],
-        operatingSystem: 'Web, iOS, Android',
-        applicationCategory: 'BusinessApplication',
-        applicationSubCategory: 'SalesTrainingSoftware, CommunicationSoftware',
-        url: 'https://www.autointerviewai.com/cold-call-practice',
-        image: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
-        description:
-          'Real-time Voice AI calling simulator, cold call objection handling sandbox, automated SDR onboarding certification, and ATS career tools.',
-        author: {
-          '@id': 'https://www.autointerviewai.com/#organization',
-        },
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-          description:
-            'Free interactive practice tier with transparent SaaS pricing for enterprise teams.',
-          seller: {
-            '@id': 'https://www.autointerviewai.com/#organization',
-          },
-        },
-      },
-    ],
-  }
+        { '@type': 'ListItem', position: 2, name: 'AI sales training directory', item: PAGE_URL },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ]
+
+  const jobs = [
+    {
+      href: '#practice',
+      n: PRACTICE.length,
+      title: 'Reps practise calls with an AI buyer',
+      body: 'Roleplay, scoring and coaching before real calls. Only your team is on the line.',
+    },
+    {
+      href: '#training',
+      n: TRAINING.length,
+      title: 'Teach a method and track who learned it',
+      body: 'Course libraries, methodology programmes, enablement suites and LMS.',
+    },
+    {
+      href: '#calling',
+      n: CALLING.length,
+      title: 'Let AI make or support real calls',
+      body: 'AI voice agents and dialers. Calling and consent laws apply.',
+    },
+  ]
 
   return (
     <DomainLayout currentPath="/ai-sales-training">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <div className="min-h-screen bg-[#fafafa] py-24 sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-[1280px] space-y-20 px-6">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex items-center space-x-2 text-xs font-medium text-[#666666]">
-            <Link href="/" className="transition-colors hover:text-[#171717]">
+      {schema.map((s, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+        />
+      ))}
+
+      <div className="mx-auto w-full max-w-page px-5 md:px-8">
+        {/* ---------- Hero ---------- */}
+        <header className="pb-6 pt-8 md:pt-12">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-fg-3">
+            <Link href="/" className="hover:text-fg">
               Home
             </Link>
-            <span>/</span>
-            <span className="font-semibold text-[#171717]">AI Sales Training Directory</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-fg-2">AI sales training directory</span>
           </nav>
+          <p className="mt-8 font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+            Directory · {TOTAL} tools · prices from each vendor’s own page · checked{' '}
+            {CALLING_CHECKED.split(' ')[0]}–{TRAINING_CHECKED}
+          </p>
+          <h1 className="mt-3 max-w-4xl font-serif text-display font-medium text-fg">
+            AI sales training and AI calling tools, in one directory
+          </h1>
+          <p className="mt-4 max-w-[56ch] text-body-lg text-fg-2">
+            Three different jobs get sold under the same words. Pick yours below, then compare the
+            tools that do it on price as written, free start and fit. Tough Tongue AI is our product
+            and is marked.
+          </p>
 
-          {/* Hero Section — Clean Homepage Typography */}
-          <div>
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              2026 DIRECTORY · USA &amp; INDIA
-            </p>
+          {/* Pick the job: a hairline list, each row jumps to its table */}
+          <ol className="mt-8 grid overflow-hidden rounded-2xl border border-border bg-surface md:grid-cols-3">
+            {jobs.map((j, i) => (
+              <li
+                key={j.href}
+                className={`border-border ${i > 0 ? 'border-t md:border-l md:border-t-0' : ''}`}
+              >
+                <a
+                  href={j.href}
+                  className="group flex h-full flex-col gap-2 p-5 transition-colors duration-fast hover:bg-signal-tint/50 md:p-6"
+                >
+                  <span className="font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+                    Job {i + 1} · {j.n} tools
+                  </span>
+                  <span className="text-h4 font-semibold text-fg">{j.title}</span>
+                  <span className="text-small text-fg-2">{j.body}</span>
+                  <span className="mt-auto pt-2 text-small font-semibold text-signal-strong">
+                    See the list{' '}
+                    <span
+                      aria-hidden="true"
+                      className="inline-block transition-transform duration-fast group-hover:translate-y-0.5"
+                    >
+                      ↓
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
 
-            <h1 className="max-w-4xl text-[38px] font-normal leading-[1.05] tracking-[-2px] text-[#171717] sm:text-[48px] sm:tracking-[-2.88px] lg:text-[56px] lg:tracking-[-3.36px]">
-              Best AI calling &amp; sales training platforms. <br className="hidden sm:block" />
-              USA, India &amp; Global directory.
-            </h1>
+          <StatRow
+            stats={[
+              {
+                label: 'Tools listed',
+                value: String(TOTAL),
+                sub: OVERLAP
+                  ? `Across the three jobs; ${OVERLAP} suites sit in two lists and count once`
+                  : 'Across the three jobs',
+              },
+              {
+                label: 'Show a paid price',
+                value: `${PUBLISHED} of ${TOTAL}`,
+                sub: 'Readable without a sales call',
+              },
+              {
+                label: 'Free start',
+                value: String(FREE_START),
+                sub: 'Practice and training tools with a free plan, courses or minutes',
+              },
+              {
+                label: 'AI agent rates',
+                value: `${money(cheapest.min)}–${money(dearest.max)}`,
+                sub: `Per minute, as listed, checked ${CALLING_CHECKED}`,
+              },
+            ]}
+          />
+        </header>
 
-            <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#4d4d4d]">
-              For RevOps leaders, VPs of Sales and SDR managers: what each AI calling tool, sales
-              roleplay tool and onboarding platform is for, how it is priced, and the calling rules
-              to check in the US and India. Tough Tongue AI is our product and is marked. For every
-              vendor price checked on its own page, see our{' '}
-              <Link href="/blog/best-sales-training-platforms-2026" className="underline">
+        <Figure
+          label={`Pricing · ${TOTAL} tools`}
+          title={`${pct(QUOTE + FREE_THEN_QUOTE)}% of these tools don’t publish a paid price on their own page`}
+          sub="What each vendor’s own pricing or product page showed when we opened it."
+          source={[
+            {
+              label: `AI practice tools, checked ${PRACTICE_CHECKED}`,
+              url: '/blog/best-sales-roleplay-software-platforms-2026',
+            },
+            {
+              label: `Training platforms, checked ${TRAINING_CHECKED}`,
+              url: '/blog/best-sales-training-platforms-2026',
+            },
+            {
+              label: `AI calling tools, checked ${CALLING_CHECKED}`,
+              url: '/blog/ai-calling-software-sales-teams-2026',
+            },
+          ]}
+          updated="Nov 2026"
+          table={{
+            head: ['Price shown', 'Tools'],
+            rows: [
+              ['Paid price published', PUBLISHED],
+              ['Free start, paid plans by quote', FREE_THEN_QUOTE],
+              ['Quote only or not published', QUOTE],
+            ],
+          }}
+        >
+          <SegmentBar
+            parts={[
+              { label: 'Paid price published', value: PUBLISHED },
+              { label: 'Free start, then quote', value: FREE_THEN_QUOTE },
+              { label: 'Quote only', value: QUOTE },
+            ]}
+          />
+        </Figure>
+
+        {/* ---------- 1. Practice ---------- */}
+        <Section
+          id="practice"
+          kicker={`Job 1 · ${PRACTICE.length} AI practice tools · checked ${PRACTICE_CHECKED}`}
+          title="Practise sales calls with an AI buyer"
+          lead={
+            <>
+              Reps talk to an AI prospect, get scored and try again. Ask two questions first: can it
+              build a scenario from your own calls, and does it score real calls with the same
+              scorecard? The{' '}
+              <Link
+                href="/blog/best-sales-roleplay-software-platforms-2026"
+                className="text-signal-strong underline underline-offset-4"
+              >
+                roleplay software guide
+              </Link>{' '}
+              has a finder and a yearly cost calculator.
+            </>
+          }
+        >
+          <Directory
+            label="AI sales practice tools"
+            rows={practiceSorted}
+            name={(v) => <VendorName name={v.name} url={v.url} ours={v.ours} />}
+            ours={(v) => !!v.ours}
+            cols={[
+              { head: 'Type', cell: (v) => kindShort(v.kind) },
+              { head: 'Price, as written', cell: (v) => v.price },
+              { head: 'Free start', cell: (v) => v.freeStart || 'None found' },
+              { head: 'From your calls', cell: (v) => TRI[v.fromCalls] },
+              { head: 'Best for', cell: (v) => v.bestFor },
+            ]}
+            caption={
+              <>
+                Facts from each vendor’s pricing or product page (linked), opened {PRACTICE_CHECKED}
+                . “From your calls” = the vendor says a scenario can be built from your recordings
+                or transcripts.
+              </>
+            }
+          />
+
+          {/* How Tough Tongue AI does this (our product) */}
+          {ttPractice && (
+            <div className="mt-8 grid gap-6 rounded-2xl border border-border bg-surface p-5 md:grid-cols-[1fr_auto] md:items-center md:p-7">
+              <div>
+                <p className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+                  How Tough Tongue AI does this · our product
+                </p>
+                <p className="mt-2 text-h4 font-semibold text-fg">
+                  Spoken practice with an AI buyer, scored on your own rubric
+                </p>
+                <p className="mt-2 max-w-prose text-small text-fg-2">
+                  {ttPractice.modes}. Start with {ttPractice.freeStart}; team plans are priced by
+                  seats and minutes ({ttPractice.price}).
+                </p>
+              </div>
+              <a
+                href={TT}
+                className="inline-flex h-11 items-center justify-center rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
+              >
+                Try a free practice call
+              </a>
+            </div>
+          )}
+        </Section>
+
+        {/* ---------- 2. Training ---------- */}
+        <Section
+          id="training"
+          kicker={`Job 2 · ${TRAINING.length} training platforms · checked ${TRAINING_CHECKED}`}
+          title="Teach a sales method and track who learned it"
+          lead={
+            <>
+              Courses teach the method; an enablement suite or LMS assigns it and tracks completion.
+              Most programmes and suites quote by team size. Year-one costs for a 20-person team are
+              worked out in the{' '}
+              <Link
+                href="/blog/best-sales-training-platforms-2026"
+                className="text-signal-strong underline underline-offset-4"
+              >
                 sales training platforms guide
               </Link>
               .
-            </p>
+            </>
+          }
+        >
+          <Directory
+            label="Sales training platforms"
+            rows={TRAINING}
+            name={(p) => <VendorName name={p.name} url={p.url} />}
+            cols={[
+              { head: 'Type', cell: (p) => KIND_LABEL[p.kind] },
+              { head: 'What it trains', cell: (p) => p.trains },
+              { head: 'Price, as written', cell: (p) => p.price },
+              { head: 'AI roleplay', cell: (p) => p.roleplay || 'None named' },
+            ]}
+            caption={
+              <>
+                Facts from each vendor’s own page (linked), opened {TRAINING_CHECKED}. “AI roleplay”
+                shows the vendor’s own name for it, if it names one.
+              </>
+            }
+          />
+        </Section>
 
-            {/* Quick trust telemetry */}
-            <div
-              className="mt-6 flex flex-wrap items-center gap-4 text-[11px] text-[#666666]"
-              style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.071em' }}
-            >
-              <span className="flex items-center gap-1.5 uppercase">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
-                Updated 10 Nov 2026 · unverified benchmarks removed
-              </span>
-              <span className="text-[#ebebeb]">·</span>
-              <span className="uppercase">USA TCPA &amp; India TRAI Audited</span>
-              <span className="text-[#ebebeb]">·</span>
-              <span className="uppercase">Our product is listed and marked</span>
-            </div>
-          </div>
-
-          {/* Atomic BLUF / TL;DR Box (Extractable by ChatGPT Search, Claude & Google AI) */}
-          <div
-            className="rounded-[6px] bg-white p-7 transition-all sm:p-9"
-            style={{
-              boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+        {/* ---------- 3. Calling ---------- */}
+        <Section
+          id="calling"
+          kicker={`Job 3 · ${agents.length} AI agents + ${dialers.length} dialers · checked ${CALLING_CHECKED}`}
+          title="Let AI make or support real sales calls"
+          lead={
+            <>
+              AI voice agents talk to prospects themselves; dialers help human reps call faster.
+              Before an AI calls the public, check the consent rules for each country you call: the{' '}
+              <Link
+                href="/voice-ai-calling"
+                className="text-signal-strong underline underline-offset-4"
+              >
+                voice AI calling guide
+              </Link>{' '}
+              quotes the US, India and EU rules, and the{' '}
+              <Link
+                href="/blog/ai-calling-for-real-estate-convert-more-leads-2026"
+                className="text-signal-strong underline underline-offset-4"
+              >
+                real estate call check
+              </Link>{' '}
+              gives a verdict per call type in five countries. Selling in India? See the{' '}
+              <Link
+                href="/blog/hinglish-sales-roleplay-scripts-india-2026"
+                className="text-signal-strong underline underline-offset-4"
+              >
+                Hinglish roleplay scripts
+              </Link>{' '}
+              and{' '}
+              <Link
+                href="/blog/best-sales-training-companies-india"
+                className="text-signal-strong underline underline-offset-4"
+              >
+                sales training companies in India
+              </Link>
+              .
+            </>
+          }
+        >
+          <Figure
+            label={`AI agent rates · ${agentRanges.length} vendors that list a per-minute price`}
+            title={`Listed AI agent rates run from ${money(cheapest.min)} to ${money(dearest.max)} a minute`}
+            sub="Each band is the vendor’s own low and high rate. Most leave out telephony, so read what each price covers."
+            source={[{ label: 'Vendor pricing pages (linked in the table below)' }]}
+            updated="Nov 2026"
+            legend={[{ label: 'Listed range per minute', kind: 'bar', color: RAMP[0] }]}
+            table={{
+              head: ['Vendor', 'Low ($/min)', 'High ($/min)', 'Note'],
+              rows: agentRanges.map((r) => [r.label, r.min, r.max, r.sub ?? '']),
             }}
           >
-            <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                EXECUTIVE SUMMARY &amp; QUICK ANSWER (AI OVERVIEWS)
-              </p>
-            </div>
-            <p className="speakable-ai-overview text-base leading-relaxed text-[#171717]">
-              <strong>
-                The right AI sales training platform depends on the job: practice, drills or call
-                analytics.
-              </strong>{' '}
-              Three to start with are <strong>Tough Tongue AI</strong> (our product; spoken
-              objection roleplay with free online practice), <strong>Hyperbound</strong> (Best for
-              US outbound SDR cold calling lists), and <strong>Gong</strong> (Best for post-call
-              conversation analytics). Enterprises in India and cross-border SaaS exporters also
-              deploy <strong>SquadStack</strong> for managed telecalling execution and{' '}
-              <strong>Awarathon</strong> for video avatar pitch certification.
+            <RangeList rows={agentRanges} format={{ prefix: '$', decimals: 2 }} />
+          </Figure>
+
+          <Directory
+            label="AI calling tools"
+            rows={CALLING}
+            name={(v) => <VendorName name={v.name} url={v.url} />}
+            cols={[
+              { head: 'Type', cell: (v) => (v.kind === 'agent' ? 'AI voice agent' : 'Dialer') },
+              { head: 'Price, as written', cell: (v) => v.stated },
+              { head: 'What the price covers', cell: (v) => v.covers },
+              {
+                head: 'Per minute',
+                cell: (v) =>
+                  v.perMin
+                    ? v.perMin.low === v.perMin.high
+                      ? money(v.perMin.low)
+                      : `${money(v.perMin.low)}–${money(v.perMin.high)}`
+                    : v.kind === 'dialer'
+                      ? 'Not per minute'
+                      : 'Not listed',
+              },
+            ]}
+            caption={
+              <>
+                Prices exactly as each vendor states them on its pricing page (linked), opened{' '}
+                {CALLING_CHECKED}. No conversion and no volume discounts unless the row says so.
+              </>
+            }
+          />
+
+          <div className="mt-10 max-w-3xl">
+            <h3 className="text-h3 font-semibold text-fg">
+              What a booked meeting costs: AI vs a rep
+            </h3>
+            <p className="mt-2 text-body text-fg-2">
+              Change the dials, connect and meeting rates to yours. Defaults come from the sources
+              named in the calculator.
             </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#ebebeb] pt-3 text-xs">
-              <Link
-                href="/cold-call-practice"
-                className="font-medium text-[#3B5BFF] hover:underline"
-              >
-                → Try the Free Online Cold Call Simulator
-              </Link>
-              <span className="text-[#ebebeb]">·</span>
-              <Link
-                href="/ai-calling-roi-calculator"
-                className="font-medium text-[#171717] hover:underline"
-              >
-                → Cost per booked meeting calculator
-              </Link>
-            </div>
-          </div>
-
-          {/* Master 2026 Comparison Table */}
-          <div className="space-y-4">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                COMPREHENSIVE BENCHMARK MATRIX
-              </p>
-              <h2 className="text-[26px] font-normal tracking-tight text-[#171717] sm:text-[32px]">
-                What are the best AI calling and sales training platforms in 2026?
-              </h2>
-              <p className="mt-2 text-sm text-[#666666]">
-                Evaluated on conversational audio latency, solo simulation capability, scoring
-                methodologies, and regulatory compliance.
-              </p>
-            </div>
-
-            <div
-              className="overflow-x-auto rounded-[6px] bg-white"
-              style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-            >
-              <table className="min-w-full divide-y divide-[#ebebeb] text-left text-xs">
-                <thead className="bg-[#fafafa]">
-                  <tr>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Platform</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Architecture</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Published latency</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Solo Sandbox</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Methodology</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">USA Compliance</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">India Compliance</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Free Access</th>
-                    <th className="px-4 py-3.5 font-medium text-[#171717]">Pricing</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#ebebeb] text-[#4d4d4d]">
-                  <tr className="bg-[#EEF1FF]/30 font-medium">
-                    <td className="px-4 py-3.5 font-semibold text-[#171717]">
-                      <Link href="/cold-call-practice" className="text-[#3B5BFF] hover:underline">
-                        ★ Auto Interview AI / Tough Tongue
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3.5">Voice agents + roleplay</td>
-                    <td className="px-4 py-3.5 font-mono text-[#3B5BFF]">Not published</td>
-                    <td className="px-4 py-3.5">Yes (Voice + Web)</td>
-                    <td className="px-4 py-3.5">Your own rubric</td>
-                    <td className="px-4 py-3.5">TCPA / STIR-SHAKEN</td>
-                    <td className="px-4 py-3.5">TRAI DLT &amp; DPDP</td>
-                    <td className="px-4 py-3.5 text-signal-strong">Free plan (25 min, one-time)</td>
-                    <td className="px-4 py-3.5">From $20/mo (checked 18 Nov 2026)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Hyperbound</td>
-                    <td className="px-4 py-3.5">Text-to-Speech LLM</td>
-                    <td className="px-4 py-3.5 font-mono">Not published</td>
-                    <td className="px-4 py-3.5">Yes (Voice)</td>
-                    <td className="px-4 py-3.5">Custom Buyer Persona</td>
-                    <td className="px-4 py-3.5">US Telephony</td>
-                    <td className="px-4 py-3.5">Limited</td>
-                    <td className="px-4 py-3.5 text-[#666666]">Gated Demo</td>
-                    <td className="px-4 py-3.5">Enterprise ($$$)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Gong</td>
-                    <td className="px-4 py-3.5">Post-Call Analytics</td>
-                    <td className="px-4 py-3.5 font-mono text-[#666666]">N/A (Analysis)</td>
-                    <td className="px-4 py-3.5">No (Post-call mirror)</td>
-                    <td className="px-4 py-3.5">Tracker Keyword Flags</td>
-                    <td className="px-4 py-3.5">Global Enterprise</td>
-                    <td className="px-4 py-3.5">Global Enterprise</td>
-                    <td className="px-4 py-3.5 text-[#666666]">No</td>
-                    <td className="px-4 py-3.5">$1,400+/seat/yr</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Mindtickle</td>
-                    <td className="px-4 py-3.5">Sales Readiness LMS</td>
-                    <td className="px-4 py-3.5 font-mono text-[#666666]">Asynchronous</td>
-                    <td className="px-4 py-3.5">No (Recorded video)</td>
-                    <td className="px-4 py-3.5">Manager Rubric Audit</td>
-                    <td className="px-4 py-3.5">Enterprise</td>
-                    <td className="px-4 py-3.5">India Native</td>
-                    <td className="px-4 py-3.5 text-[#666666]">Gated Demo</td>
-                    <td className="px-4 py-3.5">Enterprise LMS</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">SquadStack (India)</td>
-                    <td className="px-4 py-3.5">Managed Telecalling</td>
-                    <td className="px-4 py-3.5 font-mono text-[#666666]">Human + AI</td>
-                    <td className="px-4 py-3.5">No (Outsourced rep)</td>
-                    <td className="px-4 py-3.5">Internal QA Auditing</td>
-                    <td className="px-4 py-3.5">Limited</td>
-                    <td className="px-4 py-3.5">TRAI DLT Native</td>
-                    <td className="px-4 py-3.5 text-[#666666]">No</td>
-                    <td className="px-4 py-3.5">Per-lead / min</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Awarathon (India)</td>
-                    <td className="px-4 py-3.5">Video AI Avatar</td>
-                    <td className="px-4 py-3.5 font-mono">Not published</td>
-                    <td className="px-4 py-3.5">Yes (Video pitch)</td>
-                    <td className="px-4 py-3.5">Competency Scorecard</td>
-                    <td className="px-4 py-3.5">Limited</td>
-                    <td className="px-4 py-3.5">India Native</td>
-                    <td className="px-4 py-3.5 text-[#666666]">Gated Demo</td>
-                    <td className="px-4 py-3.5">Annual Contract</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Second Nature</td>
-                    <td className="px-4 py-3.5">Cascaded Voice</td>
-                    <td className="px-4 py-3.5 font-mono">Not published</td>
-                    <td className="px-4 py-3.5">Yes (Guided exam)</td>
-                    <td className="px-4 py-3.5">LMS Question Checklist</td>
-                    <td className="px-4 py-3.5">Yes</td>
-                    <td className="px-4 py-3.5">Limited</td>
-                    <td className="px-4 py-3.5 text-[#666666]">No</td>
-                    <td className="px-4 py-3.5">Custom Contract</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Yoodli</td>
-                    <td className="px-4 py-3.5">Speech Evaluation</td>
-                    <td className="px-4 py-3.5 font-mono">Not published</td>
-                    <td className="px-4 py-3.5">Yes (Pacing / Fillers)</td>
-                    <td className="px-4 py-3.5">Communication Pacing</td>
-                    <td className="px-4 py-3.5">Yes</td>
-                    <td className="px-4 py-3.5">Yes</td>
-                    <td className="px-4 py-3.5 text-[#3B5BFF]">Freemium</td>
-                    <td className="px-4 py-3.5">$15–$30/seat</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3.5 font-medium text-[#171717]">Bland AI</td>
-                    <td className="px-4 py-3.5">Developer Voice API</td>
-                    <td className="px-4 py-3.5 font-mono">Not published</td>
-                    <td className="px-4 py-3.5">No (API Endpoint)</td>
-                    <td className="px-4 py-3.5">Prompt Engineering</td>
-                    <td className="px-4 py-3.5">BYO Carrier</td>
-                    <td className="px-4 py-3.5">BYO SIP Trunk</td>
-                    <td className="px-4 py-3.5 text-[#666666]">API Credits</td>
-                    <td className="px-4 py-3.5">$0.09 - $0.14/min</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Live Interactive Embed: Try it Free */}
-          <div className="space-y-4">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                LIVE SIMULATION SANDBOX
-              </p>
-              <h2 className="text-[26px] font-normal tracking-tight text-[#171717] sm:text-[32px]">
-                How do you practice B2B cold calling objection handling with AI?
-              </h2>
-              <p className="mt-2 text-sm text-[#666666]">
-                Listen to a realistic enterprise buyer pushback and speak or type your
-                counter-pitch, then read the feedback on what landed and what to tighten.
-              </p>
-            </div>
-            <ColdCallSimulator />
-          </div>
-
-          {/* Cost per booked meeting: reader's own numbers, list prices from data/voiceAiPricing.ts */}
-          <div className="space-y-4">
-            <div>
-              <p className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
-                Calculator · your numbers · vendor list prices
-              </p>
-              <h2 className="mt-2 text-h2 font-semibold text-fg">
-                Cost per booked meeting: AI calling vs human callers
-              </h2>
-              <p className="mt-2 text-sm text-fg-2">
-                Put in your dials, connect rate and caller cost. Full breakdown on the{' '}
-                <Link
-                  href="/ai-calling-roi-calculator"
-                  className="font-medium text-signal-strong underline"
-                >
-                  AI calling cost calculator
-                </Link>
-                .
-              </p>
-            </div>
-            <div>
+            <div className="mt-6">
               <CostPerMeeting />
             </div>
           </div>
+        </Section>
 
-          {/* Deep-Dive: USA vs India Enterprise Analysis */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            {/* USA Enterprise Section */}
-            <div
-              className="rounded-[6px] bg-white p-7 transition-all sm:p-8"
-              style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+        {/* ---------- Guides ---------- */}
+        <Section
+          id="guides"
+          kicker={`Go deeper · ${GUIDES.length} guides`}
+          title="The full comparison for each job"
+        >
+          <ul className="mt-8 grid gap-3 md:grid-cols-2">
+            {GUIDES.map((g) => (
+              <li key={g.href}>
+                <Link
+                  href={g.href}
+                  className="group block h-full rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                >
+                  <span className="text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                    {g.title} →
+                  </span>
+                  <span className="mt-1 block text-small text-fg-2">{g.note}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        {/* ---------- FAQ ---------- */}
+        <Section id="faq" kicker="Questions buyers ask" title="Frequently asked questions">
+          <div className="mt-8 max-w-3xl space-y-3">
+            {FAQS.map((f, i) => (
+              <details
+                key={f.q}
+                open={i < 2}
+                className="group rounded-xl border border-border bg-surface open:shadow-e1"
+              >
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-fg">
+                  {f.q}
+                  <span
+                    aria-hidden="true"
+                    className="text-fg-3 transition-transform duration-base group-open:rotate-180"
+                  >
+                    ▾
+                  </span>
+                </summary>
+                <p className="max-w-prose px-5 pb-5 text-body text-fg-2">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </Section>
+
+        {/* ---------- Close: one route to our product, light, on tokens ---------- */}
+        <section className="mb-16 rounded-2xl border border-border bg-surface p-6 md:p-10">
+          <p className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong">
+            Tough Tongue AI · our product · {ttPractice?.freeStart ?? 'free start'}
+          </p>
+          <h2 className="mt-3 max-w-2xl font-serif text-h1 font-medium text-fg">
+            Hear what your reps sound like before a buyer does.
+          </h2>
+          <p className="mt-3 max-w-[56ch] text-body text-fg-2">
+            Pick a scenario, take the call out loud with an AI buyer and read the scorecard. You can
+            score it on your own rubric. Practise on the web, by phone or in Google Meet and Zoom.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={TT}
+              className="inline-flex h-11 items-center rounded-full bg-signal px-5 text-small font-semibold text-white shadow-e1 transition-colors duration-fast hover:bg-signal-strong"
             >
-              <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
-                <h3 className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                  UNITED STATES ENTERPRISE LANDSCAPE
-                </h3>
-              </div>
-              <h4 className="text-xl font-normal tracking-tight text-[#171717]">
-                How does AI calling and sales training work for US enterprise sales teams?
-              </h4>
-              <p className="mt-3 text-sm leading-relaxed text-[#4d4d4d]">
-                In the US market, sales teams face steep CAC and strict regulatory hurdles. Buyers
-                routinely raise defensive barriers like{' '}
-                <em>&ldquo;We already use a competitor&rdquo;</em> or{' '}
-                <em>&ldquo;Quarterly budget freeze&rdquo;</em> within the first 10 seconds of an
-                outbound call.
-              </p>
-              <ul className="mt-4 space-y-2 text-xs leading-relaxed text-[#666666]">
-                <li>
-                  <strong className="text-[#171717]">TCPA &amp; STIR/SHAKEN Compliance:</strong>{' '}
-                  High-velocity calling engines must prevent spam-flagging by authenticating caller
-                  IDs and scrubbing against the federal DNC registry.
-                </li>
-                <li>
-                  <strong className="text-[#171717]">Live Dial Gating:</strong> Top US revenue teams
-                  require new SDR hires to pass 20+ automated simulations on Tough Tongue AI with an
-                  85%+ score before receiving live CRM sequence dials.
-                </li>
-                <li>
-                  <strong className="text-[#171717]">MEDDPICC Rigor:</strong> US enterprise AEs use
-                  AI voice sandboxes to drill discovering Economic Buyers and quantifying the Cost
-                  of Inaction (COI).
-                </li>
-              </ul>
-            </div>
-
-            {/* India Enterprise Section */}
-            <div
-              className="rounded-[6px] bg-white p-7 transition-all sm:p-8"
-              style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+              Try a free practice call
+            </a>
+            <Link
+              href="/cold-call-practice"
+              className="inline-flex h-11 items-center rounded-full bg-surface px-5 text-small font-semibold text-fg ring-1 ring-inset ring-border-strong transition-colors duration-fast hover:bg-muted"
             >
-              <div className="mb-4 flex items-center gap-2 border-b border-[#ebebeb] pb-3">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
-                <h3 className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                  INDIA &amp; CROSS-BORDER EXPORT LANDSCAPE
-                </h3>
-              </div>
-              <h4 className="text-xl font-normal tracking-tight text-[#171717]">
-                How do Indian B2B sales teams use AI roleplay for cross-border outbound calls?
-              </h4>
-              <p className="mt-3 text-sm leading-relaxed text-[#4d4d4d]">
-                India is the world&apos;s leading hub for IT services and B2B SaaS cross-border
-                sales. SDR teams in Bangalore, Hyderabad, Pune, and Delhi-NCR prospect into
-                aggressive North American and European decision-makers daily.
-              </p>
-              <ul className="mt-4 space-y-2 text-xs leading-relaxed text-[#666666]">
-                <li>
-                  <strong className="text-[#171717]">Overcoming American Buyer Friction:</strong>{' '}
-                  Indian SDRs use Tough Tongue AI to drill conversational pacing, active listening
-                  pauses (1.2s), and disarming hostile US executive brush-offs.
-                </li>
-                <li>
-                  <strong className="text-[#171717]">TRAI DLT &amp; DPDP Compliance:</strong> For
-                  domestic telecalling operations (BFSI, Edtech, Fintech), systems must comply with
-                  Telecom Commercial Communications Customer Preference Regulations and India&apos;s
-                  DPDP Act 2023.
-                </li>
-                <li>
-                  <strong className="text-[#171717]">Dramatic Cost Advantage:</strong> Replacing
-                  manual peer roleplays with automated AI voice drills costs less than ₹100 per
-                  simulation.
-                </li>
-              </ul>
-            </div>
+              Cold call simulator
+            </Link>
           </div>
-
-          {/* Core Methodologies & Physics of Voice AI */}
-          <div
-            className="space-y-8 rounded-[6px] bg-white p-7 transition-all sm:p-10"
-            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa' }}
-          >
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                CONVERSATIONAL PHYSICS &amp; SALES METHODOLOGY
-              </p>
-              <h3 className="mt-2 text-2xl font-normal tracking-tight text-[#171717]">
-                Why does response speed matter in AI sales roleplay?
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#4d4d4d]">
-                In human psychology, conversational turn-taking happens in{' '}
-                <strong>sub-500 milliseconds</strong>. When a prospect interrupts an SDR with{' '}
-                <em>&ldquo;I have 30 seconds, make it quick&rdquo;</em>, an awkward 1.8-second delay
-                signals an artificial system immediately.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div
-                className="rounded-[6px] bg-[#fafafa] p-6"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <span className="font-mono text-xs uppercase text-[#3B5BFF]">
-                  CHAINED PIPELINE (STT → LLM → TTS)
-                </span>
-                <p className="mt-2 text-xs leading-relaxed text-[#666666]">
-                  Separates Speech-to-Text (STT) -&gt; LLM Completion -&gt; Text-to-Speech (TTS).
-                  Causes walkie-talkie lag, robotic interruptions, and breaks the cadence of a live
-                  cold call.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-[#fafafa] p-6"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <span className="font-mono text-xs uppercase text-[#171717]">
-                  HUMAN CONVERSATIONAL BAR (500ms)
-                </span>
-                <p className="mt-2 text-xs leading-relaxed text-[#666666]">
-                  The biological threshold of human turn-taking. If an AI takes longer than 500ms,
-                  the prospect perceives hesitation, uncertainty, or an offshore robotic dialer.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-white p-6"
-                style={{ boxShadow: '0 0 0 1px #3B5BFF' }}
-              >
-                <span className="font-mono text-xs font-semibold uppercase text-[#3B5BFF]">
-                  AUDIO-FIRST ROLEPLAY
-                </span>
-                <p className="speakable-latency-takeaway mt-2 text-xs leading-relaxed text-[#171717]">
-                  A voice buyer you can interrupt, who pushes back with objections you set. Try a
-                  free practice call and judge the response speed yourself.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                FREQUENTLY ASKED QUESTIONS
-              </p>
-              <h2 className="text-[26px] font-normal tracking-tight text-[#171717] sm:text-[32px]">
-                Questions revenue leaders ask about AI calling and training.
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              <div
-                className="rounded-[6px] bg-white p-6 transition-all"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <h3 className="text-sm font-semibold text-[#171717]">
-                  Which AI voice sales training platform should I use in 2026?
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
-                  It depends on the job. <strong>Tough Tongue AI</strong> (our product) is built for
-                  spoken roleplay with a free practice tier; Hyperbound focuses on US outbound SDR
-                  drills; Gong analyses real calls afterwards; Mindtickle is an enablement platform.
-                  We do not publish latency or ramp-time benchmarks for our own product.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-white p-6 transition-all"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <h3 className="text-sm font-semibold text-[#171717]">
-                  Can I practice B2B cold calling online for free?
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
-                  Yes. Auto Interview AI offers the{' '}
-                  <Link href="/cold-call-practice" className="text-[#3B5BFF] hover:underline">
-                    Cold Call Practice Simulator
-                  </Link>{' '}
-                  free online. SDRs and account executives can practise pushbacks (competitor
-                  lock-in, budget freeze, brush-offs) and read feedback on each answer.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-white p-6 transition-all"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <h3 className="text-sm font-semibold text-[#171717]">
-                  How does AI sales roleplay cut SDR ramp time by 43%?
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
-                  Traditional onboarding takes 90 to 120 days because reps shadow calls passively
-                  and freeze during live calls. AI voice simulators provide 20+ realistic
-                  simulations per week before live outbound dials, eliminating lead burn and
-                  accelerating quota readiness down to 21 to 30 days.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-white p-6 transition-all"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <h3 className="text-sm font-semibold text-[#171717]">
-                  What is the difference between Conversation Intelligence and AI Sales Roleplay?
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
-                  Conversation intelligence tools (like Gong or Chorus) act as a post-mortem mirror,
-                  analyzing completed calls to show where deals were lost. AI sales roleplay tools
-                  (like Tough Tongue AI) act as a pre-call flight simulator, providing interactive
-                  practice repetitions so reps never make those mistakes on live prospects.
-                </p>
-              </div>
-
-              <div
-                className="rounded-[6px] bg-white p-6 transition-all"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-              >
-                <h3 className="text-sm font-semibold text-[#171717]">
-                  What compliance rules apply to AI calling in India and the USA?
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#4d4d4d]">
-                  In the United States, outbound AI dialing must strictly adhere to the Telephone
-                  Consumer Protection Act (TCPA), DNC registries, and FCC STIR/SHAKEN standards. In
-                  India, platforms must follow TRAI Distributed Ledger Technology (DLT) message and
-                  voice scrubbing protocols and the Digital Personal Data Protection (DPDP) Act
-                  2023.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Internal Tool Links Footer Grid */}
-          <div className="rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-8">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              EXPLORE ALL AUTO INTERVIEW AI TOOLS &amp; PLAYBOOKS
-            </p>
-            <div className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-2 lg:grid-cols-3">
-              <Link href="/cold-call-practice" className="text-[#666666] hover:text-[#171717]">
-                → Cold Call Practice Simulator (Free)
-              </Link>
-              <Link
-                href="/ai-calling-roi-calculator"
-                className="text-[#666666] hover:text-[#171717]"
-              >
-                → Voice AI &amp; SDR Calling ROI Calculator
-              </Link>
-              <Link href="/interview-questions" className="text-[#666666] hover:text-[#171717]">
-                → 20+ Role Interview Questions &amp; Answers
-              </Link>
-              <Link href="/cv-templates" className="text-[#666666] hover:text-[#171717]">
-                → Executive ATS CV Templates (Harvard &amp; Stanford)
-              </Link>
-              <Link href="/free-mock-interview" className="text-[#666666] hover:text-[#171717]">
-                → Free AI Mock Interview Simulator
-              </Link>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
     </DomainLayout>
   )

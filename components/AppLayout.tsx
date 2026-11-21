@@ -299,7 +299,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         )}
 
         {/* Main Content */}
-        <div className="w-full flex-1 overflow-auto">{children}</div>
+        <main className="w-full flex-1 overflow-auto">{children}</main>
       </div>
       {/* Floating Nav - only show on non-home pages */}
       {pathname !== '/' && <FloatingNav />}
