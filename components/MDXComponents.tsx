@@ -119,6 +119,16 @@ import {
   RealEstateVendorTable,
   RealEstateScripts,
 } from './blog/RealEstateCallingFigures'
+import AiCoachingPlanner from './blog/AiCoachingPlanner'
+import {
+  AiCoachingStats,
+  AiCoachingVendorTable,
+  AiCoachingTimeChart,
+  AiCoachingAvomaCost,
+  AiCoachingJobs,
+  AiCoachingLoop,
+  AiCoachingRules,
+} from './blog/AiCoachingFigures'
 import MockInterviewButton from './ai/MockInterviewButton'
 import MockInterviewCTA from './ai/MockInterviewCTA'
 import { Tweet } from 'react-tweet'
@@ -147,6 +157,14 @@ export const components: MDXComponents = {
   PracticeQuestion,
   KeyFacts,
   RealEstateCallCheck,
+  AiCoachingPlanner,
+  AiCoachingStats,
+  AiCoachingVendorTable,
+  AiCoachingTimeChart,
+  AiCoachingAvomaCost,
+  AiCoachingJobs,
+  AiCoachingLoop,
+  AiCoachingRules,
   AiCallPriceCalculator,
   AiCallPriceStats,
   AiCallPriceRanges,
