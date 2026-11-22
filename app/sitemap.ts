@@ -136,6 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'referral-message',
         'salary-negotiation',
         'interview-prep-plan',
+        'tell-me-about-yourself',
       ].includes(route)
     )
       return 0.95
@@ -168,6 +169,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'referral-message',
         'salary-negotiation',
         'interview-prep-plan',
+        'tell-me-about-yourself',
       ].includes(route)
     )
       return 'weekly' as const
@@ -197,6 +199,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'referral-message',
     'salary-negotiation',
     'interview-prep-plan',
+    'tell-me-about-yourself',
     'find-jobs',
     'cover-letter',
     'free-resources',

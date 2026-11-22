@@ -272,6 +272,8 @@ function foundation(i: Inputs): T[] {
       minutes: 25,
       phase: 'foundation',
       must: true,
+      href: '/tell-me-about-yourself',
+      hrefLabel: 'Tell me about yourself builder',
     },
   ]
   if (has('screen') || has('final')) {

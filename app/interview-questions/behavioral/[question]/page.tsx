@@ -203,8 +203,6 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
               <span>Behavioral Interview Guide</span>
-              <span className="text-[#999999]">•</span>
-              <span className="font-semibold text-[#3B5BFF]">{qData.searchVolumeTier}</span>
             </div>
             <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[52px]">
               How to Answer &ldquo;{qData.questionText}&rdquo;
@@ -348,7 +346,26 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
 
           {/* Interactive STAR Auditor: Information Gain Simulator */}
           <section className="space-y-4">
-            <STARAnswerScorer questionText={qData.questionText} framework={qData.framework} />
+            {qData.slug === 'tell-me-about-yourself' ? (
+              <div className="rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
+                <div className="font-mono text-kicker uppercase tracking-[0.08em] text-signal-ink">
+                  Free tool · no AI, no upload
+                </div>
+                <p className="mt-2 text-body text-fg">
+                  Write your own answer in three parts and see how long it runs out loud, with 8
+                  checks (life story, resume recital, a number, ending on this job) and a 30-second
+                  version.
+                </p>
+                <Link
+                  href="/tell-me-about-yourself"
+                  className="mt-4 inline-flex h-11 items-center rounded-full bg-signal px-5 text-small font-semibold text-white hover:bg-signal-strong"
+                >
+                  Open the answer builder
+                </Link>
+              </div>
+            ) : (
+              <STARAnswerScorer questionText={qData.questionText} framework={qData.framework} />
+            )}
           </section>
 
           {/* Psychology Breakdown: Why They Ask This */}
@@ -506,9 +523,6 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                   href={`/interview-questions/behavioral/${item.slug}`}
                   className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#3B5BFF]"
                 >
-                  <div className="font-mono text-[10px] uppercase text-[#3B5BFF]">
-                    {item.searchVolumeTier}
-                  </div>
                   <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#3B5BFF]">
                     &ldquo;{item.questionText}&rdquo;
                   </div>

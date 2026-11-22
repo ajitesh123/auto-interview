@@ -668,7 +668,7 @@ export default function StarMethodPage() {
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
               {[
-                ['/interview-questions', 'Questions', 'Interview questions by role'],
+                ['/tell-me-about-yourself', 'Opening question', 'Tell me about yourself builder'],
                 ['/resume-keyword-checker', 'Resume', 'Resume keyword checker'],
                 ['/interview-prep-plan', 'Plan', 'Interview prep plan by date'],
               ].map(([href, k, t]) => (

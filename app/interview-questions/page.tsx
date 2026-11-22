@@ -197,9 +197,6 @@ export default function InterviewQuestionsHubPage() {
                       <span className="font-mono font-medium text-[#999999]">
                         Question 0{idx + 1}
                       </span>
-                      <span className="rounded-full bg-[#f5f5f5] px-2.5 py-0.5 font-mono text-[10px] font-medium text-[#666666]">
-                        {q.searchVolumeTier}
-                      </span>
                     </div>
                     <h3 className="text-xl font-medium tracking-tight text-[#171717] group-hover:text-[#3B5BFF]">
                       &ldquo;{q.questionText}&rdquo;

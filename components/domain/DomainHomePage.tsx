@@ -96,6 +96,11 @@ const TOOLS = [
     body: 'A day-by-day plan from your interview date and free time, with mocks and a calendar file.',
   },
   {
+    href: '/tell-me-about-yourself',
+    title: '"Tell me about yourself" builder',
+    body: 'Your opening answer in three parts, timed out loud, with 8 checks and a 30-second version.',
+  },
+  {
     href: '/star-method',
     title: 'STAR answer builder',
     body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',
