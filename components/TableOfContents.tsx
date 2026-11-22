@@ -64,14 +64,14 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
 
   return (
     <nav
-      className={`shadow-xs sticky top-24 rounded-[8px] border border-[#ebebeb] bg-white p-5 ${className}`}
+      className={`shadow-xs sticky top-24 rounded-[8px] border border-border bg-white p-5 ${className}`}
       aria-label="Table of Contents"
     >
-      <div className="mb-3 flex items-center justify-between border-b border-[#f0f0f0] pb-2.5">
-        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-[#171717]">
+      <div className="mb-3 flex items-center justify-between border-b border-border pb-2.5">
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-fg">
           On This Page
         </span>
-        <span className="font-mono text-[10px] text-[#999999]">{toc.length} sections</span>
+        <span className="font-mono text-[10px] text-fg-2">{toc.length} sections</span>
       </div>
       <ul className="max-h-[calc(100vh-220px)] space-y-1 overflow-y-auto pr-1 text-xs leading-relaxed">
         {toc.map((item) => {
@@ -86,8 +86,8 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
                 href={`#${item.id}`}
                 className={`block py-1 transition-all ${
                   isActive
-                    ? '-ml-2.5 border-l-2 border-[#171717] pl-2 font-medium text-[#171717]'
-                    : 'text-[#666666] hover:text-[#171717]'
+                    ? '-ml-2.5 border-l-2 border-fg pl-2 font-medium text-fg'
+                    : 'text-fg-2 hover:text-fg'
                 }`}
                 onClick={(e) => {
                   e.preventDefault()

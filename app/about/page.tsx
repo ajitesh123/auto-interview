@@ -75,8 +75,8 @@ export default function AboutPage() {
               <div>
                 <h3 className="mb-1 text-base font-medium text-[#171717]">1. Stellar CVs</h3>
                 <p className="text-sm leading-relaxed text-[#4d4d4d]">
-                  Tested ATS-optimized resume formats from institutions like Harvard and IIM
-                  Ahmedabad, ensuring candidates pass initial automated screenings.
+                  Free one-page Word CV (resume) templates in a plain, single-column format that
+                  applicant tracking systems can read.
                 </p>
               </div>
               <div>

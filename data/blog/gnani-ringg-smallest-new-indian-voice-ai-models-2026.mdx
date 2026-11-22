@@ -279,44 +279,9 @@ To truly understand how these three providers stack up, we must evaluate them ac
 | **Target Audience**       | Banks, Insurance, BPOs      | Startups, Mid-Market        | Developers, Researchers       |
 | **Developer SDK**         | Custom Enterprise APIs      | Python (Pipecat compatible) | REST, WebSocket, Python       |
 
-## Integrating with Tough Tongue AI (TTGE)
+## Using These Models Without Building the Stack Yourself
 
-The true holy grail of Indian voice AI is achieving sub-200ms total conversational latency. While connecting disparate STT and TTS models usually prevents this, integrating these models into a Tough Tongue AI (TTGE) architecture changes the game.
-
-Explain the exact architecture: TTGE is a native voice-to-voice reasoning engine. It does not transcribe speech to text, generate text responses, and synthesize that text back to audio (the standard STT → LLM → TTS cascade). Instead, it operates directly on acoustic features. By pairing TTGE's voice-to-voice engine with Smallest.ai's Lightning V3 (as a high-fidelity fallback or specialized regional output node) and utilizing Vobiz 7972-series SIP trunks (which offer specialized edge routing in India), you can build an incredibly fast system.
-
-The architecture looks like this: A caller dials in via a Vobiz SIP trunk. The audio is streamed simultaneously to the TTGE Voice-to-Voice Engine and, optionally, to Ringg's Parrot STT for logging. TTGE reasons natively on the audio and can stream its output generation directly, or hand off the generation to Smallest.ai if a specific hyper-local voice clone is required. This effectively bypasses the text bottleneck, resulting in a sub-200ms total latency Indian voice agent.
-
-Here is how you might wire this together conceptually using a combined configuration:
-
-```python
-from ttge import ToughTongueClient
-from smallest import SmallestTTSNode
-from vobiz import VobizTrunk
-
-# Initialize the TTGE Voice-to-Voice client
-ttge_engine = ToughTongueClient(api_key="ttge_secret", region="ap-south-1")
-
-# Initialize Smallest.ai as the specialized output node for Hindi
-smallest_node = SmallestTTSNode(api_key="sm_secret", voice_id="hi-IN-custom")
-
-# Configure the Vobiz SIP Trunk
-sip_trunk = VobizTrunk(trunk_id="7972-series-mumbai")
-
-# Wire them together
-async def start_hyper_fast_agent():
-    # TTGE handles the direct acoustic reasoning
-    session = await ttge_engine.create_session(
-        input_trunk=sip_trunk,
-        output_synthesizer=smallest_node, # Hand off synthesis \to Smallest
-        fallback_stt="ringg-parrot-v1"    # Use Ringg for async transcript logging
-    )
-
-    print("Agent live. Expected latency: less than  200ms.")
-    await session.listen()
-```
-
-This stack beats any global provider for Indian language AI calling because it eliminates the fundamental architectural flaws of the cascade model. Global providers force Indian accents through models optimized for American English, incurring massive latency and error rates. The TTGE + Smallest.ai + Vobiz stack operates entirely within Indian data centers, reasons directly on the native acoustic properties of Indian speakers, and synthesizes culturally accurate audio in under 200ms. It is currently the most formidable combination in the voice AI space.
+Gnani, Ringg and Smallest.ai are building blocks. Wiring them together yourself gives you control over each layer, but you also own the latency tuning, failover and telephony work. If you would rather use a ready-made platform, [Tough Tongue AI](https://app.toughtongueai.com/) runs AI voice agents for calls and meetings and AI sales roleplay practice. It streams speech in and out so the agent can be interrupted mid-sentence. Whichever route you take, measure end-to-end latency and transcription accuracy on real Indian mobile calls.
 
 ## Setting Up a Complete Indian Voice Agent Stack
 
@@ -328,7 +293,7 @@ The optimal stack for Indian AI calling in 2026:
 - **STT layer**: Gnani Prisma v2.5 for BFSI/regulated environments; Ringg Parrot V1 for mid-market
 - **Voice orchestration**: Ringg's complete platform or a custom LiveKit + Pipecat pipeline
 - **TTS layer**: Smallest.ai Lightning V3 for all Indian-language output
-- **Voice engine**: TTGE for native voice-to-voice processing
+- **Voice engine**: a native voice-to-voice model, or a streaming cascade of the layers above
 
 The key insight here is that each layer is independently replaceable. Start with Ringg's complete platform (which bundles telephony, STT, LLM, and TTS) to validate your use case quickly. Once you have a working product, you can unbundle the layers and optimize each one independently.
 

@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import 'css/prism.css'
 import 'katex/dist/katex.css'
 
@@ -7,18 +9,14 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
 import type { Authors, Blog } from 'contentlayer/generated'
-import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
-import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 
 const defaultLayout = 'PostLayout'
 const layouts = {
-  PostSimple,
   PostLayout,
-  PostBanner,
 }
 
 export async function generateMetadata({
@@ -119,6 +117,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
+  // Show a hero image only when the file exists: many older posts point to images that were
+  // never added, which rendered as a large broken box at the top of the post.
+  const heroExists = (src?: string) =>
+    !!src && (/^https?:\/\//.test(src) || fs.existsSync(path.join(process.cwd(), 'public', src)))
+  const imgs = mainContent.images as unknown
+  mainContent.images = (Array.isArray(imgs) ? imgs : imgs ? [imgs] : []).filter((src: string) =>
+    heroExists(src)
+  )
   let jsonLd = post.jsonLd
 
   const enhancedAuthors = authorDetails.map((author) => {
@@ -157,52 +163,47 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     return citations
   }
 
-  if (jsonLd && jsonLd['@graph']) {
-    // It's a Graph schema, update the Article node
-    const articleNode = jsonLd['@graph'].find((node: any) => node['@type'] === 'Article')
-    if (articleNode) {
-      articleNode['author'] = enhancedAuthors
-      const citations = extractCitations(post.body.raw)
-      if (citations.length > 0) {
-        articleNode['citation'] = citations
-      }
-
-      // Add RelatedArticle semantic graph if prev/next exist
-      const relatedLinks: string[] = []
-      if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
-      if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
-      if (relatedLinks.length > 0) {
-        articleNode['hasPart'] = relatedLinks.map((url) => ({
-          '@type': 'WebPage',
-          '@id': url,
-        }))
-      }
+  // Normalise whatever the post's frontmatter carries (one node, an array, or an @graph) into
+  // one @graph that always has exactly one article node and the breadcrumb.
+  type Node = Record<string, unknown>
+  const raw = jsonLd as Node | Node[] | undefined
+  const nodes: Node[] = Array.isArray(raw)
+    ? raw
+    : raw && Array.isArray(raw['@graph'])
+      ? (raw['@graph'] as Node[])
+      : raw
+        ? [raw]
+        : []
+  const isArticle = (n: Node) => /Article|BlogPosting/.test(String(n['@type'] ?? ''))
+  let articleNode = nodes.find(isArticle)
+  if (!articleNode) {
+    articleNode = {
+      '@type': 'BlogPosting',
+      headline: post.title,
+      datePublished: post.date,
+      dateModified: post.lastmod || post.date,
+      description: post.summary,
+      image: post.images?.[0] ?? siteMetadata.socialBanner,
+      url: `${siteMetadata.siteUrl}/${post.path}`,
     }
-    jsonLd['@graph'].push(breadcrumbSchema)
-  } else {
-    // Single schema object
-    jsonLd['author'] = enhancedAuthors
-    const citations = extractCitations(post.body.raw)
-    if (citations.length > 0) {
-      jsonLd['citation'] = citations
-    }
-
-    // Add RelatedArticle semantic graph
-    const relatedLinks: string[] = []
-    if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
-    if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
-    if (relatedLinks.length > 0) {
-      jsonLd['hasPart'] = relatedLinks.map((url) => ({
-        '@type': 'WebPage',
-        '@id': url,
-      }))
-    }
-
-    // Convert to graph-like structure for Breadcrumbs
-    jsonLd = [jsonLd, { '@context': 'https://schema.org', ...breadcrumbSchema }]
+    nodes.unshift(articleNode)
   }
+  articleNode['author'] = enhancedAuthors
+  const citations = extractCitations(post.body.raw)
+  if (citations.length > 0) articleNode['citation'] = citations
+  const relatedLinks: string[] = []
+  if (prev) relatedLinks.push(`${siteMetadata.siteUrl}/${prev.path}`)
+  if (next) relatedLinks.push(`${siteMetadata.siteUrl}/${next.path}`)
+  if (relatedLinks.length > 0) {
+    articleNode['hasPart'] = relatedLinks.map((url) => ({ '@type': 'WebPage', '@id': url }))
+  }
+  const graph = nodes
+    .filter((n) => n['@type'] !== 'BreadcrumbList')
+    .map(({ ['@context']: _ctx, ...n }) => n)
+  graph.push(breadcrumbSchema)
+  jsonLd = { '@context': 'https://schema.org', '@graph': graph }
 
-  const Layout = layouts[post.layout || defaultLayout]
+  const Layout = layouts[(post.layout as keyof typeof layouts) || defaultLayout] || PostLayout
 
   return (
     <>
