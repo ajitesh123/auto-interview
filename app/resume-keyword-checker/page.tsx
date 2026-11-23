@@ -609,7 +609,7 @@ export default function ResumeKeywordCheckerPage() {
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 ['/build-resume', 'Build', 'Free resume builder'],
-                ['/cv-templates', 'Templates', 'One-page CV templates'],
+                ['/linkedin-headline-checker', 'Profile', 'LinkedIn headline checker'],
                 ['/referral-message', 'Apply', 'Referral message builder'],
               ].map(([href, k, t]) => (
                 <Link

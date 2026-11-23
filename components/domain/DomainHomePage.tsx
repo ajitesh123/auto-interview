@@ -96,6 +96,11 @@ const TOOLS = [
     body: 'A day-by-day plan from your interview date and free time, with mocks and a calendar file.',
   },
   {
+    href: '/linkedin-headline-checker',
+    title: 'LinkedIn headline checker',
+    body: 'Paste your headline: 10 checks for the 220-character limit, your role up front, skills and buzzwords.',
+  },
+  {
     href: '/tell-me-about-yourself',
     title: '"Tell me about yourself" builder',
     body: 'Your opening answer in three parts, timed out loud, with 8 checks and a 30-second version.',

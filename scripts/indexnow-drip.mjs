@@ -113,6 +113,10 @@ function toUrls(files) {
   each(/^data\/prepPlan\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/interview-prep-plan`, t))
   // Tell me about yourself builder: data/tmay/* -> /tell-me-about-yourself
   each(/^data\/tmay\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/tell-me-about-yourself`, t))
+  // LinkedIn headline checker: data/linkedinHeadline/* -> /linkedin-headline-checker
+  each(/^data\/linkedinHeadline\/[a-zA-Z0-9-]+\.ts$/, (m, t) =>
+    add(`${ORIGIN}/linkedin-headline-checker`, t)
+  )
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)

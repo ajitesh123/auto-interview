@@ -715,7 +715,11 @@ export default function ReferralMessagePage() {
                   'After the referral',
                   'Plan your interview prep, day by day',
                 ],
-                ['/job-offer-comparison', 'At the end', 'Compare your job offers'],
+                [
+                  '/linkedin-headline-checker',
+                  'They will look you up',
+                  'Check your LinkedIn headline',
+                ],
               ].map(([href, k, t]) => (
                 <Link
                   key={href}
