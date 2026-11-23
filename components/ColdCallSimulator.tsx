@@ -419,7 +419,7 @@ export default function ColdCallSimulator() {
                 : 'text-[#666666] hover:text-[#171717]'
             }`}
           >
-            Top 1% Benchmark Script
+            Sample answer
           </button>
         </div>
 
@@ -570,7 +570,7 @@ export default function ColdCallSimulator() {
                     <p className="mt-1 text-sm font-medium text-[#171717]">
                       {scoreDetails.detectedKeywords.length >= 2
                         ? `✓ ${scoreDetails.detectedKeywords.length} keywords used`
-                        : '⚠ Add benchmark phrases'}
+                        : '⚠ Add the key phrases'}
                     </p>
                   </div>
                 </div>

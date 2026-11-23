@@ -89,19 +89,19 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
         'Red flags: Begins too far in the past, shares irrelevant personal hobbies, and criticizes past management, signaling a difficult team dynamic.',
     },
     proTips: [
-      'Strictly cap your answer between 75 and 90 seconds (approximately 180 to 220 spoken words).',
+      'Keep it to about one to two minutes out loud; time yourself before the interview.',
       'End with a proactive handoff: "That’s a high-level overview, but I’d be glad to dive deeper into any of those projects."',
       'Never recite your resume line by line; focus exclusively on the highlight reel.',
     ],
     commonMistakes: [
-      'Rambling past the 2-minute mark (interviewer attention drops 60% after 90 seconds).',
+      'Rambling past the 2-minute mark: the interviewer stops listening before you reach the point.',
       'Starting with childhood or high school education.',
       'Failing to mention why you want THIS specific company.',
     ],
     faqs: [
       {
         q: 'How long should the "Tell me about yourself" answer be?',
-        a: 'The sweet spot is 75 to 90 seconds. Anything under 45 seconds feels underprepared, while answers over 2 minutes cause interviewers to lose focus.',
+        a: 'A common rule of thumb is about one to two minutes. Long enough for three or four points that matter for this job, short enough that the interviewer can ask follow-ups.',
       },
       {
         q: 'How should a fresher or college graduate answer "Tell me about yourself"?',
@@ -145,14 +145,14 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
       script:
         '"My biggest weakness is that I care too much about my work and I’m a perfectionist. I often stay at the office until midnight because I can’t stop until everything is flawless."',
       critique:
-        'Humblebrag clich\u00e9. Signals lack of genuine self-awareness and poor boundary management, and recruiters hear it 10 times a week.',
+        'Humblebrag clich\u00e9. Signals lack of genuine self-awareness and poor boundary management,, and interviewers hear it often.',
     },
     proTips: [
       'Never choose a weakness that is a core requirement of the job description (e.g., an accountant saying "I am bad with spreadsheets").',
-      'Spend 20% of your time acknowledging the weakness and 80% explaining your active remediation system.',
+      'Spend a sentence or two naming the weakness and most of the answer on what you now do about it.',
     ],
     commonMistakes: [
-      'Saying "I don\'t have any major weaknesses" (immediate disqualification for arrogance).',
+      'Saying "I don\'t have any major weaknesses" (reads as a lack of self-awareness).',
       'Confessing a fatal character flaw (e.g. "I have trouble getting along with difficult colleagues").',
     ],
     faqs: [
@@ -169,9 +169,9 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
     searchVolumeTier: '220,000+ Searches/Mo',
     metaTitle: 'How to Answer "Why Should We Hire You?" (2026 Winning Scripts)',
     metaDescription:
-      'Stand out from hundreds of applicants with the 3-Pillar Value Proposition. Tested answers for "Why should we hire you?" across tech, sales, and management.',
+      'How to answer "Why should we hire you?" with a 3-part pitch: what you are good at, proof you have done it, and what you would deliver first. Examples for tech, sales and management.',
     psychologyInsight:
-      'The interviewer is asking: "Why you over the other 4 candidates with identical resumes on paper?" You win by aligning your unique intersection of technical competence, cultural adaptability, and immediate business ROI.',
+      'The interviewer is asking: "Why you over the other candidates with similar resumes?" You win by aligning your unique intersection of technical competence, cultural adaptability, and immediate business ROI.',
     framework: 'The 3-Pillar Pitch: Core Competence + Proven Track Record + Immediate Day-30 ROI',
     goodSampleAnswer: {
       roleContext: 'Product / Sales / Tech Candidate Example',
@@ -224,7 +224,7 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
     metaDescription:
       'Prove your company research and cultural alignment. Word-for-word scripts for "Why do you want to work here?" that impress hiring managers.',
     psychologyInsight:
-      'Recruiters want to filter out "spray-and-pray" applicants who submitted 200 generic applications. They want candidates who understand their business model, respect their product roadmap, and will stay long enough to deliver positive return on investment.',
+      'Recruiters want to filter out "spray-and-pray" applicants who send the same generic application everywhere. They want candidates who understand their business model, respect their product roadmap, and will stay long enough to deliver positive return on investment.',
     framework: 'Product/Mission Admiration + Strategic Challenge Alignment + Career Synergy',
     goodSampleAnswer: {
       roleContext: 'General Professional Example',
@@ -277,7 +277,7 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
     metaDescription:
       'Realistic, ambitious example answers for "Where do you see yourself in 5 years?". How to demonstrate retention and career progression.',
     psychologyInsight:
-      'Interviewers don’t expect you to predict the future. They are testing two things: Are your career expectations realistic? And does this role naturally lead to where you want to go, or will you quit out of boredom in 9 months?',
+      'Interviewers don’t expect you to predict the future. They are testing two things: Are your career expectations realistic? And does this role naturally lead to where you want to go, or will you get bored and leave soon after joining?',
     framework:
       'Skill Mastery (Years 1-2) -> Strategic Ownership (Years 3-4) -> Leadership/Mentorship (Year 5)',
     goodSampleAnswer: {
@@ -328,7 +328,7 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
     searchVolumeTier: '110,000+ Searches/Mo',
     metaTitle: 'How to Answer "Conflict with a Coworker" (STAR Method Examples)',
     metaDescription:
-      'Master the conflict resolution behavioral interview question. Tested STAR framework examples focusing on empathy, data-driven compromise, and results.',
+      'Master the conflict resolution behavioral interview question. STAR examples focusing on empathy, data-driven compromise, and results.',
     psychologyInsight:
       'Conflict is inevitable in any high-performing team. Hiring managers want to see emotional maturity: Do you take disagreements personally? Do you run to HR or gossip? Or can you depersonalize the issue, lean on data, and find a professional compromise that serves the customer?',
     framework:
@@ -417,7 +417,7 @@ export const BEHAVIORAL_QUESTIONS: Record<string, BehavioralQuestionData> = {
     },
     proTips: [
       'Choose a failure that happened at least 1-2 years ago so you have proven runway of subsequent success.',
-      'Spend 70% of your time on the fix and the permanent post-mortem process improvements.',
+      'Spend most of your answer on the fix and the process you changed afterwards.',
     ],
     commonMistakes: [
       'Choosing a fake failure ("My failure was that I worked too hard and got exhausted").',
@@ -803,12 +803,12 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
     slug: 'software-engineer',
     roleName: 'Software Engineer',
     category: 'Engineering',
-    metaTitle: 'Software Engineer Interview Questions (2026 Tested & Answers)',
+    metaTitle: 'Software Engineer Interview Questions and Answers (2026)',
     metaDescription:
-      'Top 15 Software Engineer interview questions and model answers. System design, distributed caching, concurrency, and behavioral engineering questions.',
+      'Software Engineer interview questions with model answers. System design, distributed caching, concurrency, and behavioral engineering questions.',
     heroTitle: 'Software Engineer Interview Questions & Model Answers',
     heroDescription:
-      'Master the technical and behavioral screening bar for FAANG, scale-up, and enterprise engineering teams. Includes architectural deep dives and 1-click voice mock simulator practice.',
+      'Master the technical and behavioral screening bar for FAANG, scale-up, and enterprise engineering teams. Includes model answers and a free voice mock interview on Tough Tongue AI.',
     topQuestions: [
       {
         id: 'swe-1',
@@ -866,7 +866,7 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
     category: 'Product',
     metaTitle: 'Product Manager Interview Questions (2026 Frameworks & Answers)',
     metaDescription:
-      'Top Product Manager interview questions across product sense, execution, metrics, and estimation. Frameworks from Google and Meta PM interviewers.',
+      'Top Product Manager interview questions across product sense, execution, metrics, and estimation. With model answers and how to structure each one.',
     heroTitle: 'Product Manager Interview Questions & Frameworks',
     heroDescription:
       'Prepare for APM, Senior PM, and Director product interviews. Master product design, metrics troubleshooting, prioritization, and technical trade-offs.',
@@ -1011,10 +1011,10 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
     category: 'Students & Graduates',
     metaTitle: 'Top HR Interview Questions for Freshers (2026 Answers)',
     metaDescription:
-      'Top 20 HR interview questions and answers for freshers and college graduates. Master campus placement questions, project walkthroughs, and confidence.',
+      'HR interview questions and answers for freshers and college graduates. Master campus placement questions, project walkthroughs, and confidence.',
     heroTitle: 'Top HR Interview Questions & Answers for Freshers',
     heroDescription:
-      'Designed for college students and entry-level graduates. Ace technical, HR, and behavioral campus placement interviews with proven high-scoring answers.',
+      'Designed for college students and entry-level graduates. Ace technical, HR, and behavioral campus placement interviews with model answers you can adapt.',
     topQuestions: [
       {
         id: 'fresher-1',
@@ -1237,7 +1237,7 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
         keyTakeaway:
           'Provide new proprietary value or leverage the "permission to close file" email; never say "just checking in".',
         modelAnswer:
-          "\"I never send a 'just checking in' or 'bumping this' message because it offers zero value. Instead, I send an email titled: 'Permission to close your file, John?'. The body says: 'John, usually when I don't hear back after our contract review, it means priorities have shifted or you’ve decided to put this on hold—which is completely fine. Should I close out this project so I stop cluttering your inbox, or is this still a Q4 priority?' This creates reverse psychological leverage: 80% of serious buyers immediately reply to clarify where the contract actually stands in legal.\"",
+          "\"I never send a 'just checking in' or 'bumping this' message because it offers zero value. Instead, I send an email titled: 'Permission to close your file, John?'. The body says: 'John, usually when I don't hear back after our contract review, it means priorities have shifted or you’ve decided to put this on hold—which is completely fine. Should I close out this project so I stop cluttering your inbox, or is this still a Q4 priority?' In my experience, serious buyers usually reply to clarify where the contract actually stands in legal.\"",
         frameworkTip:
           'Explain why standard follow-ups fail -> Script high-converting re-engagement -> Psychology of letting them say no.',
       },
@@ -1274,7 +1274,7 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
         keyTakeaway:
           'Acknowledge issue -> Identify root cause (personnel turnover vs feature friction) -> 30-day recovery plan -> Executive alignment.',
         modelAnswer:
-          "When telemetry flags a 40% drop in active users, I do not send an automated email; I immediately reach out to our primary point of contact and executive sponsor. In 70% of enterprise drops, the root cause is internal stakeholder turnover where the original buyer left. I schedule an emergency 15-minute diagnostic call: 'We noticed your team's weekly workflow volume has shifted. We want to ensure you are getting maximum ROI before your executive review.' I present a 30-day tailored re-onboarding plan, run two high-impact team enablement workshops, and set up a weekly milestone check until telemetry recovers to baseline.",
+          "When telemetry flags a 40% drop in active users, I do not send an automated email; I immediately reach out to our primary point of contact and executive sponsor. Often the root cause is internal stakeholder turnover where the original buyer left. I schedule an emergency 15-minute diagnostic call: 'We noticed your team's weekly workflow volume has shifted. We want to ensure you are getting maximum ROI before your executive review.' I present a 30-day tailored re-onboarding plan, run two high-impact team enablement workshops, and set up a weekly milestone check until telemetry recovers to baseline.",
         frameworkTip:
           'Data detection -> Root cause isolation -> 30-day recovery blueprint -> Executive accountability.',
       },
@@ -1383,7 +1383,7 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
         category: 'Technical',
         difficulty: 'Mid',
         keyTakeaway:
-          'LoRA freezes pre-trained weights and injects trainable rank decomposition matrices, reducing VRAM by 80%.',
+          'LoRA freezes pre-trained weights and injects trainable rank decomposition matrices, so far fewer parameters are trained and memory use drops sharply.',
         modelAnswer:
           'Full fine-tuning updates all model parameters across all layers, requiring massive GPU memory (typically 4x model weights in VRAM for optimizer states like AdamW) and causing catastrophic forgetting. LoRA (Low-Rank Adaptation) freezes the base model weights and injects low-rank trainable decomposition matrices (A and B of rank r) into the attention layers (typically Wq, Wv). This reduces trainable parameters by 99% and VRAM consumption by 80%, allowing domain adaptation on commodity GPUs while enabling multi-tenant adapter swapping at runtime.',
         frameworkTip:
@@ -1631,7 +1631,7 @@ export const ROLE_INTERVIEW_QUESTIONS: Record<string, RoleQuestionData> = {
         keyTakeaway:
           'Protect sprint scope, coach PO in private on context-switching cost, and introduce expedited hotfix lanes.',
         modelAnswer:
-          "As a servant leader, my job is to protect the team's focus while supporting product agility. In the moment, I remind the engineers to direct the request back to sprint planning. I then schedule a private 1-on-1 with the Product Owner. I share our telemetry on context-switching costs: mid-sprint interruptions reduce sprint velocity by 30% and double defect rates. I help them set up a formalized 'Urgent Hotfix Buffer' (e.g. 10% sprint capacity reserved for genuine P0 production bugs) and agree that any non-critical request must be prioritized in the next sprint backlog.",
+          "As a servant leader, my job is to protect the team's focus while supporting product agility. In the moment, I remind the engineers to direct the request back to sprint planning. I then schedule a private 1-on-1 with the Product Owner. I share our own sprint data on what the last few mid-sprint interruptions cost us in delivered work and bugs. I help them set up a formalized 'Urgent Hotfix Buffer' (e.g. 10% sprint capacity reserved for genuine P0 production bugs) and agree that any non-critical request must be prioritized in the next sprint backlog.",
         frameworkTip:
           'Protect team focus -> Private PO coaching with velocity data -> Create structured hotfix capacity buffer.',
       },

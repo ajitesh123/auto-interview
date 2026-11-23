@@ -6,7 +6,17 @@ import DomainLayout from '@/components/domain/DomainLayout'
 import { ROLE_INTERVIEW_QUESTIONS, RoleQuestionData } from '@/data/interviewQuestionsData'
 import { CV_ROLES } from '@/data/cvRolesData'
 import { ROLE_HUBS } from '@/data/roleHubs'
-import InterviewReadinessCalculator from '@/components/InterviewReadinessCalculator'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
+import {
+  Crumbs,
+  Faq,
+  SectionHead,
+  btnSecondary,
+  container,
+  kicker,
+  link,
+} from '@/components/interviewQuestions/ui'
 
 interface PageProps {
   params: Promise<{
@@ -79,8 +89,10 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
   }
 
   const allRoles = Object.values(ROLE_INTERVIEW_QUESTIONS)
-  const otherRoles = allRoles.filter((item) => item.slug !== roleData.slug).slice(0, 4)
+  const idx = allRoles.findIndex((item) => item.slug === roleData.slug)
+  const otherRoles = [1, 2, 3, 4].map((k) => allRoles[(idx + k) % allRoles.length])
   const hasMatchingCv = Boolean(CV_ROLES[roleData.slug])
+  const hub = ROLE_HUBS[roleData.slug]
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -127,7 +139,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
     description: roleData.metaDescription,
     image: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
     datePublished: '2026-01-15T08:00:00+00:00',
-    dateModified: '2026-10-18T08:00:00+00:00',
+    dateModified: '2026-11-23T08:00:00+05:30',
     author: {
       '@type': 'Person',
       '@id': 'https://www.autointerviewai.com/#founder',
@@ -167,7 +179,7 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
     },
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['.speakable-direct-answer', '.speakable-benchmark-takeaway'],
+      cssSelector: ['.speakable-direct-answer'],
     },
   }
 
@@ -186,53 +198,51 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div className="min-h-screen bg-[#fafafa] px-4 pb-32 pt-28 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl space-y-16">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex items-center space-x-2 text-xs font-medium text-[#666666]">
-            <Link href="/" className="transition-colors hover:text-[#171717]">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/interview-questions" className="transition-colors hover:text-[#171717]">
-              Interview Questions
-            </Link>
-            <span>/</span>
-            <span className="font-semibold text-[#171717]">{roleData.roleName}</span>
-          </nav>
-
-          {/* Hero Header */}
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717] shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#3B5BFF]" />
-              <span>{roleData.category} Playbook</span>
-              <span className="text-[#999999]">•</span>
-              <span className="font-semibold text-[#3B5BFF]">2026 Edition</span>
+      <div className="bg-bg text-fg">
+        <div className={`${container} pb-10 pt-8 md:pt-12`}>
+          <Crumbs
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'Interview questions', href: '/interview-questions' },
+              { label: roleData.roleName },
+            ]}
+          />
+          <header className="mt-8 max-w-3xl">
+            <div className={`${kicker} text-signal-strong`}>
+              {roleData.category} · {roleData.topQuestions.length} questions with model answers ·
+              Updated 23 Nov 2026
             </div>
-            <h1 className="text-4xl font-normal leading-[1.08] tracking-tight text-[#171717] sm:text-5xl md:text-[52px]">
+            <h1 className="mt-4 font-serif text-h1 font-medium text-fg md:text-display">
               {roleData.heroTitle}
             </h1>
-            <p className="text-lg font-light leading-relaxed text-[#666666]">
-              {roleData.heroDescription}
-            </p>
-          </div>
+            <p className="mt-5 max-w-[60ch] text-body-lg text-fg-2">{roleData.heroDescription}</p>
+            <div className="mt-6 rounded-xl bg-signal-tint p-5 ring-1 ring-inset ring-signal/15">
+              <div className={`${kicker} text-signal-ink`}>The short answer</div>
+              <p className="speakable-direct-answer mt-2 text-body leading-relaxed text-fg">
+                {roleData.roleName} interviews test how you solve real problems, the trade-offs you
+                weigh and how clearly you explain your thinking. Prepare the{' '}
+                {roleData.topQuestions.length} questions below, tie each example to a result you can
+                measure, and practise saying the answers out loud.
+              </p>
+            </div>
+            <div className="mt-6 flex flex-wrap items-start gap-3">
+              <MockInterviewButton role={roleData.roleName} />
+              <a href="#questions" className={btnSecondary}>
+                See the questions
+              </a>
+            </div>
+          </header>
 
-          {ROLE_HUBS[roleData.slug] && (
+          {hub && (
             <Link
               href={`/${roleData.slug}`}
-              className="flex items-center justify-between gap-4 rounded-xl bg-signal-tint p-4 text-small ring-1 ring-inset ring-signal/15 hover:ring-signal/40"
+              className="mt-8 flex max-w-3xl items-center justify-between gap-4 rounded-xl border border-border bg-surface p-5 text-small transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
             >
               <span>
-                <span className="block font-semibold text-fg">
-                  Full {ROLE_HUBS[roleData.slug].roleName} hub
-                </span>
+                <span className="block font-semibold text-fg">Full {hub.roleName} hub</span>
                 <span className="text-fg-2">
-                  {ROLE_HUBS[roleData.slug].questionGroups.reduce(
-                    (n, g) => n + g.questions.length,
-                    0
-                  )}{' '}
-                  questions with answers, the interview rounds, real pay data and a free CV
-                  template.
+                  {hub.questionGroups.reduce((n, g) => n + g.questions.length, 0)} questions with
+                  answers, the interview rounds, real pay data and a free CV template.
                 </span>
               </span>
               <span aria-hidden="true" className="shrink-0 font-semibold text-signal-strong">
@@ -240,206 +250,174 @@ export default async function RoleInterviewQuestionsPage({ params }: PageProps) 
               </span>
             </Link>
           )}
+        </div>
 
-          {/* Featured Snippet Direct Answer Box */}
-          <div className="rounded-xl border-y border-l-4 border-r border-[#ebebeb] border-l-[#3B5BFF] bg-white p-6 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#3B5BFF]">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Executive Summary: What Interviewers Evaluate</span>
-            </div>
-            <p className="speakable-direct-answer mt-3 text-sm font-medium leading-relaxed text-[#171717]">
-              Interviews for <strong>{roleData.roleName}</strong> evaluate hands-on problem-solving,
-              trade-offs, and how clearly you explain your thinking. Practise answering out loud,
-              and tie every example to a measurable business result.
-            </p>
-          </div>
-
-          {/* Interactive Calculator: Information Gain Utility */}
-          <section className="space-y-4">
-            <InterviewReadinessCalculator
-              roleName={roleData.roleName}
-              category={roleData.category}
+        {/* Questions */}
+        <section
+          id="questions"
+          aria-labelledby="q-title"
+          className="scroll-mt-24 border-t border-border py-14 md:py-20"
+        >
+          <div className={container}>
+            <SectionHead
+              id="q-title"
+              k={`${roleData.topQuestions.length} questions · model answers`}
+              title={`Top ${roleData.roleName} interview questions and answers`}
+              sub="Read the takeaway first, then the model answer. Rewrite it with your own project and numbers before you practise."
             />
-          </section>
-
-          {/* Top Questions & Model Answers */}
-          <section className="space-y-8">
-            <div className="border-b border-[#ebebeb] pb-4">
-              <span className="font-mono text-xs uppercase tracking-wider text-[#3B5BFF]">
-                Proven Answers & Frameworks
-              </span>
-              <h2 className="text-2xl font-normal tracking-tight text-[#171717] sm:text-3xl">
-                Top {roleData.roleName} Questions & Answers
-              </h2>
-            </div>
-
-            <div className="space-y-8">
+            <ol className="mt-8 max-w-3xl space-y-4">
               {roleData.topQuestions.map((q, idx) => (
-                <div
-                  key={q.id}
-                  className="space-y-4 rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f0f0f0] pb-3">
-                    <span className="font-mono text-xs font-semibold text-[#3B5BFF]">
-                      Question {idx + 1}
+                <li key={q.id} className="rounded-xl border border-border bg-surface p-5 md:p-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-caption tabular-nums text-fg-3">
+                      Q{idx + 1}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <span className="rounded bg-[#f5f5f5] px-2 py-0.5 font-mono text-[10px] text-[#666666]">
-                        {q.category}
-                      </span>
-                      <span className="rounded bg-[#EEF1FF] px-2 py-0.5 font-mono text-[10px] font-medium text-[#3B5BFF]">
-                        {q.difficulty} Level
-                      </span>
-                    </div>
+                    <span className="inline-flex h-6 items-center rounded-full bg-muted px-2.5 text-caption font-medium text-fg-2">
+                      {q.category}
+                    </span>
+                    <span className="inline-flex h-6 items-center rounded-full bg-muted px-2.5 text-caption font-medium text-fg-2">
+                      {q.difficulty}
+                    </span>
                   </div>
-
-                  <h3 className="text-lg font-medium text-[#171717]">{q.question}</h3>
-
-                  {/* Key Takeaway Callout */}
-                  <div className="rounded-lg border border-[#ebebeb] bg-[#fafafa] px-4 py-2.5 text-xs text-[#555555]">
-                    <span className="font-bold text-[#171717]">Key Takeaway: </span>
+                  <h3 className="mt-3 text-h3 font-semibold text-fg">{q.question}</h3>
+                  <p className="mt-3 text-small text-fg-2">
+                    <span className="font-semibold text-fg">Takeaway: </span>
                     {q.keyTakeaway}
+                  </p>
+                  <div className="mt-4 rounded-lg bg-muted p-4">
+                    <div className={`${kicker} text-fg-3`}>Model answer</div>
+                    <p className="mt-2 text-body leading-relaxed text-fg">{q.modelAnswer}</p>
                   </div>
-
-                  {/* Model Answer Script */}
-                  <div className="space-y-2">
-                    <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#3B5BFF]">
-                      Model Answer:
-                    </div>
-                    <div className="speakable-role-answer rounded-lg border border-[#C9D3FF] bg-[#EEF1FF] p-4 text-sm leading-relaxed text-[#171717]">
-                      {q.modelAnswer}
-                    </div>
-                  </div>
-
-                  {/* Framework Tip */}
-                  <div className="pt-1 text-xs text-[#666666]">
-                    <span className="font-mono font-medium text-[#171717]">Framework: </span>
-                    {q.frameworkTip}
-                  </div>
-                </div>
+                  <p className="mt-3 text-small text-fg-2">
+                    <span className="font-semibold text-fg">Structure: </span>
+                    {q.frameworkTip.replace(/\s*->\s*/g, ' → ')}
+                  </p>
+                </li>
               ))}
-            </div>
-          </section>
+            </ol>
+          </div>
+        </section>
 
-          {/* Cross-Link to ATS Resume Template */}
-          {hasMatchingCv && (
-            <div className="flex flex-col justify-between gap-6 rounded-2xl border border-[#ebebeb] bg-white p-8 shadow-sm sm:flex-row sm:items-center">
-              <div className="max-w-xl space-y-2">
-                <span className="inline-block rounded-full bg-[#EEF1FF] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#3B5BFF]">
-                  ATS Resume Template
-                </span>
-                <h3 className="text-xl font-medium text-[#171717]">
-                  Need an ATS-optimized resume for {roleData.roleName}?
-                </h3>
-                <p className="text-xs leading-relaxed text-[#666666]">
-                  Download our free Harvard-style single-column Word DOCX template with verified
-                  X-Y-Z bullet points and high-frequency keywords tailored specifically for{' '}
-                  {roleData.roleName}.
-                </p>
-              </div>
+        {/* Checklist + next steps */}
+        <section aria-labelledby="prep-title" className="border-t border-border py-14 md:py-20">
+          <div className={`${container} grid gap-8 md:grid-cols-2`}>
+            <div>
+              <SectionHead
+                id="prep-title"
+                k={`Checklist · ${roleData.interviewTips.length} items`}
+                title={`How to prepare for a ${roleData.roleName} interview`}
+              />
+              <ul className="mt-6 space-y-3">
+                {roleData.interviewTips.map((tip) => (
+                  <li key={tip} className="flex items-start gap-3 text-body text-fg-2">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="mt-1 h-4 w-4 shrink-0 text-signal"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path d="m5 12 5 5 9-10" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <div className={`${kicker} text-signal-strong`}>Next steps · free</div>
               <Link
-                href={`/cv-templates/${roleData.slug}`}
-                className="inline-flex shrink-0 items-center justify-center rounded-lg bg-[#171717] px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                href="/interview-prep-plan"
+                className="group block rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
               >
-                Download Free {roleData.roleName} CV →
+                <span className="block text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                  Make a day-by-day prep plan
+                </span>
+                <span className="mt-1 block text-small text-fg-2">
+                  Enter your interview date; get what to do each day until then.
+                </span>
               </Link>
-            </div>
-          )}
-
-          {/* Interactive Voice Simulator CTA */}
-          <div className="relative overflow-hidden rounded-2xl border border-[#171717] bg-[#171717] p-8 text-white sm:p-10">
-            <div className="relative z-10 max-w-2xl space-y-4">
-              <span className="inline-block rounded-full bg-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-[#fafafa]">
-                Free Audio AI Simulator
-              </span>
-              <h3 className="text-2xl font-normal tracking-tight sm:text-3xl">
-                Practice these {roleData.roleName} questions out loud.
-              </h3>
-              <p className="text-sm font-light leading-relaxed text-[#cccccc]">
-                Our voice AI hiring manager drills your technical accuracy, checks your response
-                pacing, and flags filler words so you walk into the real interview completely
-                confident.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
+              <Link
+                href="/star-method"
+                className="group block rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+              >
+                <span className="block text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                  Write your stories in STAR
+                </span>
+                <span className="mt-1 block text-small text-fg-2">
+                  See how long each answer runs out loud, with 8 checks.
+                </span>
+              </Link>
+              {hasMatchingCv && (
                 <Link
-                  href="/free-mock-interview"
-                  className="rounded-lg bg-white px-5 py-2.5 text-xs font-semibold text-[#171717] transition-opacity hover:opacity-95"
+                  href={`/cv-templates/${roleData.slug}`}
+                  className="group block rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
                 >
-                  Start Free Mock Interview Session →
+                  <span className="block text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                    {roleData.roleName} CV / resume template
+                  </span>
+                  <span className="mt-1 block text-small text-fg-2">
+                    Example bullets and keywords for this role, plus a free Word template.
+                  </span>
                 </Link>
-                <Link
-                  href="/interview-questions"
-                  className="rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-medium text-white transition-colors hover:bg-white/10"
-                >
-                  View All Interview Questions
-                </Link>
-              </div>
+              )}
             </div>
           </div>
+        </section>
 
-          {/* Interview Tips Checklist */}
-          <section className="space-y-4 rounded-xl border border-[#ebebeb] bg-white p-6 shadow-sm">
-            <h3 className="text-base font-medium text-[#171717]">
-              Preparation Checklist for {roleData.roleName} Candidates
-            </h3>
-            <ul className="space-y-2.5 text-xs leading-relaxed text-[#555555]">
-              {roleData.interviewTips.map((tip, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="font-bold text-[#3B5BFF]">✓</span>
-                  <span>{tip}</span>
+        {/* Other roles */}
+        <section aria-labelledby="other-title" className="border-t border-border py-14 md:py-20">
+          <div className={container}>
+            <h2 id="other-title" className="text-h2 font-semibold text-fg">
+              Other roles
+            </h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {otherRoles.map((item) => (
+                <li key={item.slug}>
+                  <Link
+                    href={`/interview-questions/${item.slug}`}
+                    className="group block h-full rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
+                  >
+                    <span className="block font-mono text-caption text-fg-3">{item.category}</span>
+                    <span className="mt-1 block font-semibold text-fg group-hover:text-signal-strong">
+                      {item.roleName} questions
+                    </span>
+                    <span className="mt-1 block text-small text-fg-2">
+                      {item.topQuestions.length} model answers
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </section>
+            <p className="mt-6 text-small text-fg-2">
+              Or see{' '}
+              <Link href="/interview-questions#behavioral" className={link}>
+                the behavioral questions every interview asks
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
 
-          {/* Explore Other Career Tracks */}
-          <section className="space-y-4">
-            <h2 className="text-xl font-normal tracking-tight text-[#171717]">
-              Explore Other Role Question Playbooks
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {otherRoles.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/interview-questions/${item.slug}`}
-                  className="group rounded-xl border border-[#ebebeb] bg-white p-5 shadow-sm transition-all hover:border-[#3B5BFF]"
-                >
-                  <div className="font-mono text-[10px] uppercase text-[#3B5BFF]">
-                    {item.category}
-                  </div>
-                  <div className="mt-1 text-sm font-medium text-[#171717] group-hover:text-[#3B5BFF]">
-                    {item.roleName} Questions & Answers
-                  </div>
-                  <div className="mt-1 line-clamp-1 text-xs text-[#666666]">
-                    {item.topQuestions.length} Model Answers Included
-                  </div>
-                </Link>
-              ))}
+        {/* FAQ */}
+        <section aria-labelledby="faq-title" className="border-t border-border py-14 md:py-20">
+          <div className={container}>
+            <div className="max-w-3xl">
+              <h2 id="faq-title" className="text-h2 font-semibold text-fg">
+                {roleData.roleName} interview FAQs
+              </h2>
+              <div className="mt-6">
+                <Faq faqs={roleData.faqs} />
+              </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* FAQ Accordion Section */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-normal tracking-tight text-[#171717]">
-              Frequently Asked Questions
-            </h2>
-            <div className="divide-y divide-[#ebebeb] rounded-xl border border-[#ebebeb] bg-white">
-              {roleData.faqs.map((faq, idx) => (
-                <div key={idx} className="p-6">
-                  <h3 className="text-base font-medium text-[#171717]">{faq.q}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#666666]">{faq.a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
+        <MockInterviewCTA
+          roleName={roleData.roleName}
+          questions={roleData.topQuestions.slice(0, 4).map((q) => q.question)}
+        />
       </div>
     </DomainLayout>
   )
