@@ -159,7 +159,7 @@ export const COUNTRIES: Country[] = [
         plain:
           'The same applies to residential landlines, and there is no “past client” exception for artificial-voice marketing calls.',
         quote:
-          'Initiate any telephone call to any residential line using an artificial or prerecorded voice to deliver a message that includes or introduces an advertisement or constitutes telemarketing without the prior express written consent of the called party',
+          'Initiate any telephone call to any residential line using an artificial or prerecorded voice to deliver a message',
         src: 'ecfr1200',
       },
       {

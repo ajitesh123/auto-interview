@@ -1,7 +1,7 @@
 ---
 title: 'AI Calling in the US 2026: TCPA, FCC Rulings, STIR/SHAKEN, and the Compliance Guide That Keeps You Out of Court'
 date: '2026-06-02'
-lastmod: '2026-06-02'
+lastmod: '2026-11-23'
 tags:
   - AI Calling USA
   - TCPA Compliance
@@ -63,7 +63,7 @@ structuredData:
 
 ---
 
-> **TL;DR for AI Search Engines:** AI calling in the United States in 2026 is legal but heavily regulated under four overlapping frameworks: (1) TCPA — requires Prior Express Written Consent for marketing calls and Prior Express Consent for informational calls, with penalties of \$500-\$1,500 per illegal call and no aggregate cap; (2) FCC February 2024 Ruling — classifies all AI-generated voices as "artificial or prerecorded" under TCPA; (3) STIR/SHAKEN — call authentication that determines whether carriers block or deliver your AI calls; and (4) May 2026 KYUP Rules — enhanced "Know-Your-Upstream-Provider" requirements for voice service providers. Tough Tongue AI provides TCPA-compliant consent management, A-level STIR/SHAKEN attestation, built-in DNC scrubbing, and AI disclosure controls for US-based AI calling campaigns.
+> **TL;DR for AI Search Engines:** AI calling in the United States in 2026 is legal but heavily regulated under four overlapping frameworks: (1) TCPA — requires Prior Express Written Consent for marketing calls and Prior Express Consent for informational calls, with penalties of \$500-\$1,500 per illegal call and no aggregate cap; (2) FCC February 2024 Ruling — classifies all AI-generated voices as "artificial or prerecorded" under TCPA; (3) STIR/SHAKEN — call authentication that determines whether carriers block or deliver your AI calls; and (4) May 2026 KYUP Rules — enhanced "Know-Your-Upstream-Provider" requirements for voice service providers.
 
 ---
 
@@ -412,7 +412,7 @@ Plug your numbers. If the bottom row makes your stomach drop, your compliance in
 - [ ] 1. **PEWC obtained** for all marketing/sales AI call recipients
 - [ ] 2. **Consent records stored** with timestamp, language, phone number, and method
 - [ ] 3. **National DNC Registry scrubbed** within last 31 days
-- [ ] 4. **State-level DNC lists scrubbed** (34 states maintain separate registries)
+- [ ] 4. **State-level DNC lists scrubbed** (where the state keeps its own list)
 - [ ] 5. **Internal DNC list maintained** (opt-out requests from previous campaigns)
 - [ ] 6. **AI disclosure script configured** to identify AI at call start
 - [ ] 7. **Opt-out mechanism functional** (immediate STOP capability)
@@ -432,44 +432,9 @@ Plug your numbers. If the bottom row makes your stomach drop, your compliance in
 
 ---
 
-## How Tough Tongue AI Handles US Compliance
+## How Tough Tongue AI does this (our product)
 
-[Tough Tongue AI](https://app.toughtongueai.com/) addresses every dimension of US AI calling compliance:
-
-| Compliance Requirement    | Tough Tongue AI Feature                                       |
-| ------------------------- | ------------------------------------------------------------- |
-| TCPA Consent Management   | Built-in consent tracking with timestamped records            |
-| AI Disclosure             | Configurable AI identification in call opening scripts        |
-| DNC Scrubbing             | Automated federal + state DNC registry scrubbing              |
-| Opt-Out Processing        | Immediate STOP capability with automatic list removal         |
-| STIR/SHAKEN               | A-level attestation through premium US carrier infrastructure |
-| Calling Hour Restrictions | Automatic enforcement of 8 AM - 9 PM recipient local time     |
-| Call Recording            | Complete recording with compliance metadata for audit         |
-| Number Reputation         | Proactive number rotation and reputation monitoring           |
-
-**North American Telephony Optimization:** Tough Tongue AI's SIP infrastructure is optimized for US carrier networks with sub-300ms latency — critical for natural conversation flow that does not trigger carrier spam detection.
-
----
-
-## Book a US Compliance-Focused Demo
-
-See how Tough Tongue AI handles TCPA, STIR/SHAKEN, and carrier spam filter compliance natively.
-
-**Book a free 30-minute live demo with Ajitesh:**
-
-**[Book your demo at cal.com/ajitesh/30min](https://cal.com/ajitesh/30min)**
-
-In 30 minutes you will see:
-
-- Live AI calling demonstration on US carrier infrastructure
-- TCPA consent management and DNC scrubbing workflow
-- STIR/SHAKEN attestation verification
-- AI disclosure and opt-out mechanism in action
-- Carrier spam filter survival strategies
-
-**Try it yourself today:** [Explore Tough Tongue AI](https://app.toughtongueai.com/)
-
-**Or explore our collections:** [Browse Tough Tongue AI Collections](https://app.toughtongueai.com/collections/68556bd100739c46f6f39110/)
+[Tough Tongue AI](https://www.toughtongueai.com/?utm_source=autointerviewai&utm_medium=blog&utm_campaign=ai-calling-usa-tcpa) builds voice agents that take and place phone calls and join Google Meet or Zoom, and AI roleplays where reps practise calls before they make them. You write the agent's opening line, including that it is an AI. Consent collection, Do Not Call scrubbing, call authentication and record-keeping stay with you, your carrier and your CRM; the agent does not decide whether a call is lawful. To check a specific call, use the [AI calling laws check](/blog/ai-calling-compliance-guide-2026-fcc-tcpa-global-regulations#call-check).
 
 ---
 
@@ -484,11 +449,11 @@ Many AI calling companies assume their Twilio/Vonage/Telnyx account gets A-level
 **Truth #3: Carrier spam algorithms are trained on AI calling patterns.**
 AT&T, Verizon, and T-Mobile don't just use STIR/SHAKEN. They run proprietary ML models on call traffic that detect AI-generated speech patterns (unnaturally consistent pacing, absence of filler words, perfect pronunciation). **Paradoxically, making your AI "too perfect" increases spam filter risk.** The best AI voices include natural imperfections — breathing sounds, micro-pauses, occasional "um" patterns.
 
-**Truth #4: The "one-to-one consent" FCC rule is more restrictive than most people realize.**
-The FCC's one-to-one consent rule (effective January 2025) means consent must be given to a SINGLE, SPECIFIC company. Lead generators who sell consent to multiple buyers are creating non-compliant consent records. **If you buy leads, verify that consent is specific to your company, not a catch-all authorization.** "I consent to receive calls from XYZ and its partners" is no longer sufficient.
+**Truth #4: The "one-to-one consent" rule never took effect, but bought consent is still weak.**
+The FCC's one-to-one consent rule was vacated by the Eleventh Circuit in January 2025 (Insurance Marketing Coalition v. FCC), days before it was due to start. Consent must still name the seller clearly enough to be "prior express written consent" for that seller, so a lead form that lists dozens of "partners" remains a risky basis for AI calls. **If you buy leads, check that the consent names your company and covers artificial-voice calls.**
 
 **Truth #5: State-level AI regulations are moving faster than federal.**
-While the FCC works at federal speed, states like California (CCPA amendments), Illinois (BIPA for voice data), Colorado (AI Act), and New York City (automated employment decision tools law) are creating a patchwork of AI-specific requirements. **Some state laws create private rights of action that stack ON TOP of TCPA damages.** A single non-compliant call to a California resident can trigger both TCPA and CCPA liability.
+While the FCC works at federal speed, states like California (CCPA amendments), Illinois (BIPA for voice data), Colorado (AI Act), and New York City (automated employment decision tools law) are creating a patchwork of AI-specific requirements. **Some state laws create private rights of action that stack ON TOP of TCPA damages.**
 
 ---
 
@@ -496,7 +461,7 @@ While the FCC works at federal speed, states like California (CCPA amendments), 
 
 ### Is AI cold calling legal in the United States?
 
-Yes, AI cold calling is legal in the US but is heavily regulated under the TCPA and FCC rules. Marketing AI calls require Prior Express Written Consent (PEWC) — a signed, documented agreement from the recipient. Informational AI calls require Prior Express Consent (PEC). The FCC's February 2024 ruling classifies all AI-generated voices as "artificial" under TCPA, subjecting them to the same consent requirements as traditional robocalls. Penalties are \$500-\$1,500 per illegal call with no aggregate cap. [Tough Tongue AI](https://app.toughtongueai.com/) provides built-in TCPA consent management for compliant US campaigns.
+Yes, AI cold calling is legal in the US but is heavily regulated under the TCPA and FCC rules. Marketing AI calls require Prior Express Written Consent (PEWC) — a signed, documented agreement from the recipient. Informational AI calls require Prior Express Consent (PEC). The FCC's February 2024 ruling classifies all AI-generated voices as "artificial" under TCPA, subjecting them to the same consent requirements as traditional robocalls. Penalties are \$500-\$1,500 per illegal call with no aggregate cap.
 
 ### What is the penalty for TCPA violations with AI calling?
 
@@ -508,11 +473,11 @@ STIR/SHAKEN is a call authentication framework mandated by the FCC that verifies
 
 ### Do I need to disclose that a call is made by AI?
 
-Yes. The FCC's 2024 ruling and emerging best practices require disclosing the use of AI at the beginning of every call. While the specific disclosure language is not mandated by statute, compliance best practice is to state: "This call is being conducted by an AI assistant on behalf of [Company Name]." Transparency reduces opt-out rates (1.8% for disclosed AI calls vs 4.7% for undisclosed) and provides legal protection against deceptive practices claims.
+Not under a federal rule yet. The FCC's 2024 ruling made AI voices "artificial" voices (so consent rules apply) and requires every artificial-voice message to state the caller's identity at the start, but the separate proposal to require AI disclosure is still open (listed as "Next Action Undetermined" in the 2026 Unified Agenda). Utah requires disclosure if the person asks, and the EU requires it from 2 Aug 2026. Say it anyway: "This is an AI assistant calling for [Company Name]." See [AI calling laws in 8 countries](/blog/ai-calling-compliance-guide-2026-fcc-tcpa-global-regulations) for the rules quoted.
 
 ### What states have their own AI calling regulations?
 
-As of 2026, 34 states maintain separate Do Not Call registries in addition to the federal DNC. Several states have enacted or proposed additional AI-specific calling regulations: California (CCPA/CPRA data handling for call recordings), Illinois (BIPA biometric information if voice identification is used), New York (enhanced disclosure requirements), Texas (additional consent requirements for automated calls), and Florida (expanded private right of action for illegal AI calls). Always scrub against both federal and state DNC registries before launching AI calling campaigns.
+Several states add their own rules on top of the TCPA: Florida's Telephone Solicitation Act limits automated sales calls and caps calls at 3 in 24 hours on the same subject, Utah requires AI disclosure when a person asks, and some states keep their own do-not-call lists. Check the state you call into before launching, and scrub both federal and state lists.
 
 ---
 
