@@ -2,274 +2,244 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import DomainLayout from '@/components/domain/DomainLayout'
-import { getSpecializationBySlug, getAllSpecializationSlugs } from '@/data/mbaResources'
+import MockInterviewButton from '@/components/ai/MockInterviewButton'
+import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
+import {
+  getSpecializationBySlug,
+  getAllSpecializationSlugs,
+  mbaSpecializations,
+  outsideFor,
+} from '@/data/mbaResources'
+import { CHECKED_ON } from '@/data/freeResources'
 
 interface Props {
   params: Promise<{ specialization: string }>
 }
 
 export function generateStaticParams() {
-  return getAllSpecializationSlugs().map((slug) => ({
-    specialization: slug,
-  }))
+  return getAllSpecializationSlugs().map((slug) => ({ specialization: slug }))
+}
+
+const CHECKED_LABEL = new Date(CHECKED_ON + 'T00:00:00Z').toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+
+function describe(slug: string) {
+  const spec = getSpecializationBySlug(slug)
+  if (!spec) return ''
+  return `What an MBA ${spec.name.toLowerCase()} interview tests and what to read for it: ${spec.ours.length} free guides and tools plus ${outsideFor(spec).length} outside resources we checked.`
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { specialization: slug } = await params
   const spec = getSpecializationBySlug(slug)
-
-  if (!spec) {
-    return { title: 'Specialization Not Found | Auto Interview AI' }
-  }
-
+  if (!spec) return { title: 'Not found | Auto Interview AI' }
+  const title =
+    spec.slug === 'consulting'
+      ? 'MBA Consulting Casebooks and Practice Cases (Free)'
+      : `MBA ${spec.name} Interview Prep: What It Tests`
   return {
-    title: `${spec.name} Interview Resources & Casebooks — MBA | Auto Interview AI`,
-    description: `Free download of ${spec.name.toLowerCase()} interview casebooks, strategy frameworks, and practice materials from IIM Ahmedabad, Bangalore, Calcutta, and FMS.`,
-    keywords: `${spec.name} casebook, MBA ${spec.name.toLowerCase()} interview, IIM casebook, consulting case interview, market sizing frameworks, profitability framework`,
-    alternates: {
-      canonical: `https://www.autointerviewai.com/resources/mba/${spec.slug}`,
-    },
+    title,
+    description: describe(slug),
+    alternates: { canonical: `https://www.autointerviewai.com/resources/mba/${spec.slug}` },
     openGraph: {
-      title: `${spec.name} Interview Resources & Casebooks — MBA`,
-      description: `Free download of ${spec.name.toLowerCase()} interview casebooks and frameworks from top Indian B-Schools.`,
+      title,
+      description: describe(slug),
       url: `https://www.autointerviewai.com/resources/mba/${spec.slug}`,
       siteName: 'Auto Interview AI',
-      images: [
-        {
-          url: 'https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png',
-          width: 1200,
-          height: 630,
-          alt: `${spec.name} MBA Interview Resources`,
-        },
-      ],
       locale: 'en_US',
       type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${spec.name} Interview Resources & Casebooks — MBA`,
-      description: `Free download of ${spec.name.toLowerCase()} interview casebooks and frameworks.`,
-      images: ['https://www.autointerviewai.com/static/images/Auto-interview-thumbnail.png'],
-      creator: '@ajiteshleo',
     },
   }
 }
 
+const container = 'mx-auto w-full max-w-[1200px] px-5 md:px-8'
+const kicker = 'font-mono text-kicker uppercase tracking-[0.08em] text-signal-strong'
+
 export default async function SpecializationPage({ params }: Props) {
   const { specialization: slug } = await params
   const spec = getSpecializationBySlug(slug)
+  if (!spec) notFound()
+  const outside = outsideFor(spec)
+  const others = mbaSpecializations.filter((s) => s.slug !== spec.slug)
 
-  if (!spec) {
-    notFound()
-  }
-
-  const structuredData = {
+  const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: `${spec.name} MBA Interview Resources`,
-    description: spec.description,
+    '@type': 'CollectionPage',
+    name: `MBA ${spec.name} interview prep`,
+    description: describe(slug),
     url: `https://www.autointerviewai.com/resources/mba/${spec.slug}`,
-    numberOfItems: spec.resources.length,
-    itemListElement: spec.resources.map((res, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'DigitalDocument',
-        name: res.title,
-        description: res.description,
-        isAccessibleForFree: true,
-        fileFormat: 'application/pdf',
-        author: {
-          '@type': 'EducationalOrganization',
-          name: res.source,
-        },
-      },
-    })),
-  }
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'What is included in the MBA Consulting casebooks?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'The consulting casebooks contain actual interview cases, structured solution frameworks (Profitability, Market Entry, Pricing, M&A, Growth Strategy), guesstimates, and business transcripts from placement cycles at IIM Ahmedabad, IIM Bangalore, IIM Calcutta, and FMS Delhi.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'How should I practice with these casebooks?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Practice in pairs (interviewer and interviewee). Have one person read the case prompt and background data while the candidate structures hypotheses, asks clarifying questions, and runs market sizing calculations before reviewing the model answers.',
-        },
-      },
-    ],
   }
 
   return (
     <DomainLayout currentPath="/resources">
-      {spec.resources.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      )}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-5xl px-6 py-20">
-        {/* Breadcrumb */}
-        <nav className="mb-8 font-mono text-[11px] uppercase tracking-[0.071em] text-[#666666]">
-          <Link href="/" className="hover:!text-[#171717]">
-            Home
-          </Link>{' '}
-          /{' '}
-          <Link href="/resources" className="hover:!text-[#171717]">
-            Resources
-          </Link>{' '}
-          /{' '}
-          <Link href="/resources/mba" className="hover:!text-[#171717]">
-            MBA
-          </Link>{' '}
-          / <span className="text-[#171717]">{spec.name}</span>
-        </nav>
-
-        <header className="mb-16 max-w-3xl">
-          <div className="mb-3 inline-flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-              MBA Track
-            </span>
-          </div>
-          <h1 className="mb-4 text-4xl font-normal tracking-tight text-[#171717] sm:text-5xl md:text-6xl">
-            {spec.name} Resources
-          </h1>
-          <p className="text-lg leading-relaxed text-[#4d4d4d]">{spec.description}</p>
-        </header>
-
-        {spec.comingSoon ? (
-          <div
-            className="rounded-[6px] bg-white p-12 text-center"
-            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-          >
-            <span
-              className="mb-6 inline-block rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#666666]"
-              style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-            >
-              COMING SOON
-            </span>
-            <h2 className="mb-3 text-2xl font-normal tracking-tight text-[#171717]">
-              We&apos;re curating {spec.name} resources.
-            </h2>
-            <p className="mx-auto mb-8 max-w-md text-sm text-[#4d4d4d]">
-              We are currently packaging top playbooks and guides for this track. Explore our
-              consulting casebooks in the meantime.
+      <section className="border-b border-border">
+        <div className={`${container} grid gap-10 py-12 md:py-16 lg:grid-cols-12 lg:gap-12`}>
+          <div className="lg:col-span-7">
+            <nav aria-label="Breadcrumb" className="text-caption text-fg-3">
+              <Link href="/resources" className="hover:text-fg">
+                Resources
+              </Link>{' '}
+              /{' '}
+              <Link href="/resources/mba" className="hover:text-fg">
+                MBA
+              </Link>{' '}
+              / <span className="text-fg-2">{spec.name}</span>
+            </nav>
+            <p className={`animate-fade-rise mt-6 ${kicker}`}>
+              MBA {spec.name} · {spec.ours.length + outside.length} resources · Links checked{' '}
+              {CHECKED_LABEL}
             </p>
-            <Link
-              href="/resources/mba/consulting"
-              className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-3 text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
-            >
-              View Consulting Casebooks →
-            </Link>
+            <h1 className="animate-fade-rise mt-4 max-w-[20ch] font-serif text-display font-medium text-fg">
+              {spec.slug === 'consulting'
+                ? 'MBA consulting casebooks and practice cases.'
+                : `MBA ${spec.name} interview prep.`}
+            </h1>
+            <p className="animate-fade-rise-delay mt-5 max-w-[56ch] text-body-lg text-fg-2">
+              <span className="font-semibold text-fg">What it tests: </span>
+              {spec.tests}
+            </p>
+            <div className="animate-fade-rise-delay-2 mt-8">
+              <MockInterviewButton />
+            </div>
           </div>
-        ) : (
-          <div className="space-y-12">
-            <div className="grid gap-6 md:grid-cols-2">
-              {spec.resources.map((resource) => (
-                <div
-                  key={resource.slug}
-                  className="flex flex-col rounded-[6px] bg-white p-7"
-                  style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
+          <div className="animate-fade-rise-delay lg:col-span-5">
+            <div className="rounded-2xl border border-border bg-surface p-5 shadow-e2 md:p-6">
+              <h2 className="text-small font-semibold text-fg">What the interviewer checks</h2>
+              <ol className="mt-4 space-y-4">
+                {spec.checks.map((c, i) => (
+                  <li key={c} className="flex gap-3 text-small text-fg-2">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-signal-tint font-mono text-caption font-semibold text-signal-ink">
+                      {i + 1}
+                    </span>
+                    <span className="pt-1">{c}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ours-title" className="py-14 md:py-16">
+        <div className={container}>
+          <p className={kicker}>Read first · free on this site</p>
+          <h2 id="ours-title" className="mt-3 text-h2 font-semibold text-fg">
+            Start with these
+          </h2>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {spec.ours.map((o) => (
+              <li key={o.href}>
+                <Link
+                  href={o.href}
+                  className="group flex h-full flex-col rounded-xl border border-border bg-surface p-5 transition-[border-color,box-shadow] duration-fast hover:border-border-strong hover:shadow-e2"
                 >
-                  <div className="mb-4 flex items-start justify-between">
-                    <span
-                      className="rounded-full bg-[#fafafa] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.071em] text-[#171717]"
-                      style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  <span className="text-h4 font-semibold text-fg group-hover:text-signal-strong">
+                    {o.title} →
+                  </span>
+                  <span className="mt-2 text-small text-fg-2">{o.body}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {outside.length > 0 && (
+        <section
+          aria-labelledby="outside-title"
+          className="border-t border-border bg-surface py-14 md:py-16"
+        >
+          <div className={container}>
+            <p className={kicker}>Outside reading · opened and checked {CHECKED_LABEL}</p>
+            <h2 id="outside-title" className="mt-3 text-h2 font-semibold text-fg">
+              {spec.slug === 'consulting'
+                ? 'Casebooks and the firms’ own cases'
+                : (spec.outsideLabel ?? 'Worth your time')}
+            </h2>
+            <p className="mt-3 max-w-[60ch] text-small text-fg-2">
+              These open on the publisher&rsquo;s site. We do not re-host PDFs.
+            </p>
+            <ul className="mt-8 divide-y divide-border rounded-xl border border-border bg-bg">
+              {outside.map((r) => (
+                <li
+                  key={r.url}
+                  className="flex flex-col gap-1 p-5 md:flex-row md:items-start md:gap-6"
+                >
+                  <div className="md:w-1/2">
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-body font-semibold text-signal-strong underline-offset-2 hover:underline"
                     >
-                      {resource.source}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase text-[#666666]">
-                      {resource.format}
-                    </span>
+                      {r.title} ↗
+                    </a>
+                    <p className="mt-1 text-caption text-fg-3">
+                      {r.publisher} · {r.format}
+                      {r.official ? ' · from the firm itself' : ''}
+                    </p>
                   </div>
-
-                  <h3 className="mb-2 text-[20px] font-normal tracking-[-0.5px] text-[#171717]">
-                    {resource.title}
-                  </h3>
-                  <p className="mb-6 flex-grow text-sm leading-relaxed text-[#4d4d4d]">
-                    {resource.description}
-                  </p>
-
-                  <div className="mb-6 flex flex-wrap gap-1.5">
-                    {resource.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded bg-[#fafafa] px-2 py-0.5 font-mono text-[10px] text-[#666666]"
-                        style={{ boxShadow: '0 0 0 1px #ebebeb' }}
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={resource.downloadUrl}
-                    className="block rounded-[6px] bg-[#171717] px-5 py-2.5 text-center text-sm font-medium !text-white transition-colors hover:bg-[#383838]"
-                  >
-                    Download {resource.format}
-                  </a>
-                </div>
+                  <p className="text-small text-fg-2 md:w-1/2">{r.why}</p>
+                </li>
               ))}
-            </div>
-
-            {/* Consulting Practice FAQ */}
-            <div className="mt-16 border-t border-[#ebebeb] pt-12">
-              <div className="mb-8">
-                <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
-                  CASE INTERVIEW FAQ
+            </ul>
+            {spec.slug === 'consulting' && (
+              <div className="mt-8 rounded-xl bg-signal-tint p-5 text-small ring-1 ring-inset ring-signal/15">
+                <p className="font-semibold text-fg">How to practise with a casebook</p>
+                <p className="mt-1 max-w-[68ch] text-fg-2">
+                  Work in pairs. One person reads the prompt and holds the data; the other asks
+                  clarifying questions, draws the structure, does the maths out loud and ends with a
+                  recommendation. Swap after each case, and time the opening structure to two
+                  minutes.
                 </p>
-                <h3 className="text-2xl font-normal tracking-tight text-[#171717]">
-                  How to use MBA casebooks effectively
-                </h3>
               </div>
-              <div className="space-y-4">
-                <div
-                  className="rounded-[6px] bg-white p-6"
-                  style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                >
-                  <h4 className="mb-2 text-base font-medium text-[#171717]">
-                    What is included in the MBA Consulting casebooks?
-                  </h4>
-                  <p className="text-sm leading-relaxed text-[#4d4d4d]">
-                    The consulting casebooks contain actual interview cases, structured solution
-                    frameworks (Profitability, Market Entry, Pricing, M&amp;A, Growth Strategy),
-                    guesstimates, and business transcripts from placement cycles at IIM Ahmedabad,
-                    IIM Bangalore, IIM Calcutta, and FMS Delhi.
-                  </p>
-                </div>
-                <div
-                  className="rounded-[6px] bg-white p-6"
-                  style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.08)' }}
-                >
-                  <h4 className="mb-2 text-base font-medium text-[#171717]">
-                    How should I practice with these casebooks?
-                  </h4>
-                  <p className="text-sm leading-relaxed text-[#4d4d4d]">
-                    Practice in pairs (interviewer and interviewee). Have one person read the case
-                    prompt and background data while the candidate structures hypotheses, asks
-                    clarifying questions, and runs market sizing calculations before reviewing the
-                    model answers.
-                  </p>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
-        )}
-      </div>
+        </section>
+      )}
+
+      <section aria-labelledby="other-title" className="border-t border-border py-12">
+        <div className={container}>
+          <h2 id="other-title" className="text-small font-semibold text-fg">
+            Other MBA tracks
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {others.map((o) => (
+              <li key={o.slug}>
+                <Link
+                  href={`/resources/mba/${o.slug}`}
+                  className="inline-flex min-h-[36px] items-center rounded-full bg-muted px-3 text-caption font-medium text-fg-2 transition-colors duration-fast hover:bg-signal-tint hover:text-signal-ink"
+                >
+                  {o.name}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/resources"
+                className="inline-flex min-h-[36px] items-center rounded-full bg-muted px-3 text-caption font-medium text-fg-2 transition-colors duration-fast hover:bg-signal-tint hover:text-signal-ink"
+              >
+                All interview resources
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <MockInterviewCTA
+        title={
+          spec.slug === 'consulting' ? 'Say the case out loud.' : 'Practise the interview out loud.'
+        }
+        body="A voice interviewer asks the question, follows up on what you say, and tells you what was strong and what was thin."
+      />
     </DomainLayout>
   )
 }

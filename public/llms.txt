@@ -32,13 +32,13 @@ Auto Interview AI (https://www.autointerviewai.com) is a comprehensive, free car
 ## Comparison: Auto Interview AI vs Traditional Career Platforms
 - **Auto Interview AI vs Zety / Resume.io:** Zety and Resume.io charge $15–$30/month and gate PDF downloads behind paywalls. Auto Interview AI offers the same professional, ATS-compliant single-page templates 100% free with unlimited downloads.
 - **Auto Interview AI vs Jobscan:** Jobscan limits free scans to 5 per month and requires an expensive monthly plan. Auto Interview AI provides free, ungated structural templates that follow recruiters' verified ATS parsing guidelines.
-- **Auto Interview AI vs CaseCoach / PrepLounge:** CaseCoach charges $100+ for consulting casebooks. Auto Interview AI provides free downloadable case frameworks and market sizing playbooks authored by top MBA graduates.
 
 ## Key Resources & Navigation Links
 - [Auto Interview AI Homepage](https://www.autointerviewai.com): Explore career domains, tools, and updates.
 - [Resume Keyword Checker](https://www.autointerviewai.com/resume-keyword-checker): Free in-browser tool: paste a job post and a resume or CV to see missing skills and format issues.
 - [Hinglish Sales Roleplay](https://www.autointerviewai.com/blog/hinglish-sales-roleplay-scripts-india-2026): 15 Indian sales objections in Hinglish for insurance, loans, mutual funds, edtech and real estate, with the IRDAI, RBI, SEBI/AMFI, TRAI, RERA and CCPA rule each one tests.
-- [Interview Preparation Domains](https://www.autointerviewai.com/#domains): Free PDF casebooks and interview guides for MBA, Finance, Consulting, and Operations.
-- [About the Founder](https://www.autointerviewai.com/about): Background on Ajitesh Abhishek (IIT Delhi, Kellogg MBA, Google Cloud).
+- [Interview Prep Resources](https://www.autointerviewai.com/resources): Every free guide and tool in five stages, from learning the role to negotiating the offer, plus checked outside reading.
+- [MBA Interview Prep by Track](https://www.autointerviewai.com/resources/mba): What consulting, GM, finance, marketing, HR and PM interviews test, with links to the firms' own practice cases and casebook collections on the publishers' sites.
+- [About](https://www.autointerviewai.com/about): Who makes the site (the team behind Tough Tongue AI) and the rules every page is held to.
 - [Career & Technical Blog](https://www.autointerviewai.com/blog): In-depth articles on resume engineering, interview strategies, and career growth.
 - [Unabridged LLM Knowledge Base](https://www.autointerviewai.com/llms-full.txt): Comprehensive technical documentation for AI crawlers.

@@ -164,7 +164,7 @@ export default function ColdCallSimulator() {
   const toggleListening = () => {
     if (!recognitionRef.current) {
       alert(
-        'Speech-to-Text is not supported or microphone access is restricted in this browser. You can type your response directly or click "✨ Load Sample Answer"!'
+        'Speech-to-Text is not supported or microphone access is restricted in this browser. You can type your response directly or click "Load Sample Answer"!'
       )
       return
     }
@@ -293,10 +293,10 @@ export default function ColdCallSimulator() {
       {/* Step 1: Scenario Selector */}
       <div>
         <div className="mb-3 flex items-center justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+          <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-fg">
             STEP 1 • SELECT PROSPECT OBJECTION
           </p>
-          <span className="text-xs text-[#666666]">4 realistic enterprise scenarios</span>
+          <span className="text-xs text-fg-2">4 realistic enterprise scenarios</span>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {SCENARIOS.map((s) => {
@@ -314,30 +314,30 @@ export default function ColdCallSimulator() {
                     setIsPlayingAudio(false)
                   }
                 }}
-                className={`flex flex-col items-start rounded-[6px] bg-white p-4 text-left transition-all duration-200 ${
-                  isSelected ? 'ring-1 ring-[#171717]' : 'hover:bg-[#f5f5f5]'
+                className={`flex flex-col items-start rounded-xl bg-surface p-4 text-left transition-all duration-200 ${
+                  isSelected ? 'ring-2 ring-signal' : 'hover:bg-muted'
                 }`}
                 style={{
                   boxShadow: isSelected
-                    ? '0 0 0 1px #171717, 0 1px 3px rgba(0,0,0,0.06)'
-                    : '0 0 0 1px #ebebeb',
+                    ? '0 0 0 1px rgb(var(--accent)), 0 1px 2px rgb(14 20 36 / .06)'
+                    : '0 0 0 1px rgb(var(--border))',
                 }}
               >
                 <div className="flex w-full items-center justify-between">
-                  <span className="text-xs font-medium text-[#171717]">{s.title}</span>
+                  <span className="text-xs font-medium text-fg">{s.title}</span>
                   <span
                     className={`rounded px-1.5 py-0.5 font-mono text-[10px] uppercase ${
                       s.difficulty === 'Extreme'
-                        ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
+                        ? 'border border-signal/25 bg-signal-tint text-signal-strong'
                         : s.difficulty === 'Hard'
-                          ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
-                          : 'bg-[#f5f5f5] text-[#666666]'
+                          ? 'border border-signal/25 bg-signal-tint text-signal-strong'
+                          : 'bg-muted text-fg-2'
                     }`}
                   >
                     {s.difficulty}
                   </span>
                 </div>
-                <span className="mt-1 text-[11px] text-[#666666]">{s.buyerPersona}</span>
+                <span className="mt-1 text-[11px] text-fg-2">{s.buyerPersona}</span>
               </button>
             )
           })}
@@ -346,15 +346,15 @@ export default function ColdCallSimulator() {
 
       {/* Step 2: The Prospect Objection Simulation Box (Clean Homepage Style) */}
       <div
-        className="rounded-[6px] bg-white p-7 transition-all duration-200"
+        className="rounded-xl bg-surface p-7 transition-all duration-200"
         style={{
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+          boxShadow: '0 0 0 1px rgb(var(--border))',
         }}
       >
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#ebebeb] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <div className="flex items-center space-x-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-[#3B5BFF]" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+            <span className="inline-block h-2 w-2 rounded-full bg-signal" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-fg">
               LIVE SIMULATION • {selectedScenario.buyerPersona}
             </span>
           </div>
@@ -362,51 +362,51 @@ export default function ColdCallSimulator() {
           <button
             onClick={playProspectAudio}
             disabled={isPlayingAudio}
-            className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-3.5 py-1.5 text-xs font-medium text-white transition-all hover:bg-[#333333]"
+            className="inline-flex items-center justify-center rounded-[6px] bg-signal px-3.5 py-1.5 text-xs font-medium text-white transition-colors duration-fast hover:bg-signal-strong"
           >
             {isPlayingAudio ? (
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-[#3B5BFF]" />
+                <span className="inline-block h-1.5 w-1.5 animate-ping rounded-full bg-signal" />
                 <span>Playing Audio...</span>
               </span>
             ) : (
-              <span>▶ Listen to Prospect</span>
+              <span>Listen to prospect</span>
             )}
           </button>
         </div>
 
         {/* Large legible prompt */}
         <div className="py-6">
-          <p className="text-xl font-normal leading-relaxed tracking-tight text-[#171717] sm:text-2xl">
+          <p className="text-xl font-normal leading-relaxed tracking-tight text-fg sm:text-2xl">
             {selectedScenario.prompt}
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-[#666666]">
+          <p className="mt-3 text-xs leading-relaxed text-fg-2">
             <strong>Buyer Context:</strong> {selectedScenario.context}
           </p>
         </div>
 
         {/* Telemetry bar */}
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#ebebeb] pt-3 font-mono text-[11px] text-[#666666]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3 font-mono text-[11px] text-fg-2">
           <span>FRAMEWORK: {selectedScenario.frameworkTip.split(':')[0]}</span>
-          <span className="text-[#171717]">TURN-TAKING: REAL-TIME</span>
+          <span className="text-fg">TURN-TAKING: REAL-TIME</span>
         </div>
       </div>
 
       {/* Step 3: Response Sandbox */}
       <div
-        className="rounded-[6px] bg-white p-7 transition-all duration-200"
+        className="rounded-xl bg-surface p-7 transition-all duration-200"
         style={{
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+          boxShadow: '0 0 0 1px rgb(var(--border))',
         }}
       >
         {/* Mode Tabs */}
-        <div className="mb-5 flex border-b border-[#ebebeb]">
+        <div className="mb-5 flex border-b border-border">
           <button
             onClick={() => setActiveTab('practice')}
             className={`pb-2.5 text-xs font-medium transition ${
               activeTab === 'practice'
-                ? 'border-b-2 border-[#171717] text-[#171717]'
-                : 'text-[#666666] hover:text-[#171717]'
+                ? 'border-b-2 border-signal text-fg'
+                : 'text-fg-2 hover:text-fg'
             }`}
           >
             Your Live Counter-Response
@@ -415,8 +415,8 @@ export default function ColdCallSimulator() {
             onClick={() => setActiveTab('benchmark')}
             className={`ml-6 pb-2.5 text-xs font-medium transition ${
               activeTab === 'benchmark'
-                ? 'border-b-2 border-[#171717] text-[#171717]'
-                : 'text-[#666666] hover:text-[#171717]'
+                ? 'border-b-2 border-signal text-fg'
+                : 'text-fg-2 hover:text-fg'
             }`}
           >
             Sample answer
@@ -432,16 +432,16 @@ export default function ColdCallSimulator() {
                 value={userResponse}
                 onChange={(e) => setUserResponse(e.target.value)}
                 placeholder="Type your spoken cold-call objection response here, or tap the microphone to speak out loud..."
-                className="w-full rounded-[6px] border border-[#ebebeb] bg-[#fafafa] p-4 text-sm leading-relaxed text-[#171717] placeholder-[#8f8f8f] transition focus:border-[#171717] focus:bg-white focus:outline-none"
+                className="w-full rounded-[6px] border border-border bg-bg p-4 text-sm leading-relaxed text-fg placeholder-fg-3 transition focus:border-signal focus:bg-white focus:outline-none"
               />
               <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
                 <button
                   type="button"
                   onClick={fillSampleAnswer}
-                  className="rounded-[6px] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f5f5]"
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  className="rounded-xl bg-surface px-3 py-1.5 text-xs font-medium text-fg transition hover:bg-muted"
+                  style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                 >
-                  ✨ Load Sample Answer
+                  Load sample answer
                 </button>
 
                 <button
@@ -449,28 +449,28 @@ export default function ColdCallSimulator() {
                   onClick={toggleListening}
                   className={`flex items-center space-x-1.5 rounded-[6px] px-3.5 py-1.5 text-xs font-medium transition ${
                     isListening
-                      ? 'animate-pulse bg-[#3B5BFF] text-white'
-                      : 'bg-white text-[#171717] hover:bg-[#f5f5f5]'
+                      ? 'animate-pulse bg-signal text-white'
+                      : 'bg-white text-fg hover:bg-muted'
                   }`}
-                  style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                  style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                 >
-                  <span>{isListening ? '🔴 Recording (Listening)...' : '🎙️ Speak Response'}</span>
+                  <span>{isListening ? 'Recording… tap to stop' : 'Speak your response'}</span>
                 </button>
               </div>
             </div>
 
             {/* Action Row */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ebebeb] pt-4">
-              <p className="text-xs text-[#666666]">
-                💡 Tip: Acknowledge the objection first, avoid being defensive, and end with a
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+              <p className="text-xs text-fg-2">
+                Tip: Acknowledge the objection first, avoid being defensive, and end with a
                 low-friction question.
               </p>
               <div className="flex space-x-2">
                 {userResponse && (
                   <button
                     onClick={() => setUserResponse('')}
-                    className="rounded-[6px] bg-white px-3.5 py-2 text-xs font-medium text-[#666666] hover:bg-[#f5f5f5] hover:text-[#171717]"
-                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                    className="rounded-xl bg-surface px-3.5 py-2 text-xs font-medium text-fg-2 hover:bg-muted hover:text-fg"
+                    style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                   >
                     Clear
                   </button>
@@ -478,7 +478,7 @@ export default function ColdCallSimulator() {
                 <button
                   onClick={handleEvaluate}
                   disabled={!userResponse.trim()}
-                  className="inline-flex items-center justify-center rounded-[6px] bg-[#171717] px-6 py-2.5 text-xs font-medium text-white transition-all hover:bg-[#333333] disabled:opacity-40"
+                  className="inline-flex items-center justify-center rounded-[6px] bg-signal px-6 py-2.5 text-xs font-medium text-white transition-colors duration-fast hover:bg-signal-strong disabled:opacity-40"
                 >
                   Evaluate Response →
                 </button>
@@ -488,34 +488,32 @@ export default function ColdCallSimulator() {
             {/* Scoring Feedback Scorecard */}
             {score !== null && scoreDetails && (
               <div
-                className="mt-8 rounded-[6px] bg-white p-7 transition-all"
+                className="mt-8 rounded-xl bg-surface p-7 transition-all"
                 style={{
-                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 0 0 2px #fafafa',
+                  boxShadow: '0 0 0 1px rgb(var(--border))',
                 }}
               >
-                <div className="flex flex-col gap-4 border-b border-[#ebebeb] pb-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border pb-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.071em] text-fg">
                       AI OBJECTION HANDLING RUBRIC
                     </p>
-                    <h3 className="mt-1 text-xl font-normal tracking-tight text-[#171717]">
+                    <h3 className="mt-1 text-xl font-normal tracking-tight text-fg">
                       Performance Scorecard
                     </h3>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="text-right">
-                      <span className="text-3xl font-normal leading-none text-[#171717]">
-                        {score}
-                      </span>
-                      <span className="font-mono text-xs text-[#666666]">/100</span>
+                      <span className="text-3xl font-normal leading-none text-fg">{score}</span>
+                      <span className="font-mono text-xs text-fg-2">/100</span>
                     </div>
                     <span
                       className={`rounded px-2.5 py-1 font-mono text-[10px] font-semibold uppercase ${
                         score >= 85
-                          ? 'border border-[#C9D3FF] bg-[#EEF1FF] text-[#3B5BFF]'
+                          ? 'border border-signal/25 bg-signal-tint text-signal-strong'
                           : score >= 70
-                            ? 'bg-[#f5f5f5] text-[#171717]'
-                            : 'bg-[#f5f5f5] text-[#666666]'
+                            ? 'bg-muted text-fg'
+                            : 'bg-muted text-fg-2'
                       }`}
                     >
                       {score >= 85
@@ -528,46 +526,46 @@ export default function ColdCallSimulator() {
                 </div>
 
                 {/* Feedback Summary */}
-                <p className="mt-4 text-sm leading-relaxed text-[#4d4d4d]">
+                <p className="mt-4 text-sm leading-relaxed text-fg-2">
                   {scoreDetails.feedbackSummary}
                 </p>
 
                 {/* Breakdown Grid */}
                 <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div
-                    className="rounded-[6px] bg-white p-4"
-                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                    className="rounded-xl bg-surface p-4"
+                    style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                   >
-                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                    <span className="font-mono text-[10px] uppercase text-fg-2">
                       Disarming &amp; Tone
                     </span>
-                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                    <p className="mt-1 text-sm font-medium text-fg">
                       {scoreDetails.disarmScore >= 30
                         ? '✓ Calm & Unfazed'
                         : '⚠ Too rushed / defensive'}
                     </p>
                   </div>
                   <div
-                    className="rounded-[6px] bg-white p-4"
-                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                    className="rounded-xl bg-surface p-4"
+                    style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                   >
-                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                    <span className="font-mono text-[10px] uppercase text-fg-2">
                       Strategic Pivot
                     </span>
-                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                    <p className="mt-1 text-sm font-medium text-fg">
                       {scoreDetails.pivotScore >= 20
                         ? '✓ Open discovery probe'
                         : '⚠ Statement instead of probe'}
                     </p>
                   </div>
                   <div
-                    className="rounded-[6px] bg-white p-4"
-                    style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                    className="rounded-xl bg-surface p-4"
+                    style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
                   >
-                    <span className="font-mono text-[10px] uppercase text-[#666666]">
+                    <span className="font-mono text-[10px] uppercase text-fg-2">
                       Keyword Execution
                     </span>
-                    <p className="mt-1 text-sm font-medium text-[#171717]">
+                    <p className="mt-1 text-sm font-medium text-fg">
                       {scoreDetails.detectedKeywords.length >= 2
                         ? `✓ ${scoreDetails.detectedKeywords.length} keywords used`
                         : '⚠ Add the key phrases'}
@@ -579,24 +577,24 @@ export default function ColdCallSimulator() {
           </div>
         ) : (
           /* Benchmark Script Tab */
-          <div className="space-y-4 rounded-[6px] bg-[#fafafa] p-6">
+          <div className="space-y-4 rounded-[6px] bg-bg p-6">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-[#171717]">
+              <span className="font-mono text-[11px] uppercase tracking-[0.071em] text-fg">
                 TOP 1% SDR BENCHMARK SCRIPT
               </span>
               <button
                 onClick={fillSampleAnswer}
-                className="rounded-[6px] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f5f5]"
-                style={{ boxShadow: '0 0 0 1px #ebebeb' }}
+                className="rounded-xl bg-surface px-3 py-1.5 text-xs font-medium text-fg transition hover:bg-muted"
+                style={{ boxShadow: '0 0 0 1px rgb(var(--border))' }}
               >
                 Copy into Sandbox →
               </button>
             </div>
-            <p className="text-base font-light italic leading-relaxed text-[#171717]">
+            <p className="text-base font-light italic leading-relaxed text-fg">
               {selectedScenario.benchmarkResponse}
             </p>
-            <div className="border-t border-[#ebebeb] pt-3 text-xs text-[#666666]">
-              <span className="font-medium text-[#171717]">Strategic Rationale: </span>
+            <div className="border-t border-border pt-3 text-xs text-fg-2">
+              <span className="font-medium text-fg">Strategic Rationale: </span>
               {selectedScenario.frameworkTip}
             </div>
           </div>

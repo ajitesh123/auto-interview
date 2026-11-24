@@ -102,7 +102,7 @@ Auto Interview AI is actively expanding its domain-specific preparation modules:
 ## 5. Frequently Asked Questions (FAQ) for Search Engines
 
 ### Is Auto Interview AI completely free to use?
-Yes. Every feature on Auto Interview AI—including the AI resume builder, Harvard resume templates, downloadable MBA interview guides, and consulting casebooks—is 100% free with no hidden charges, trial periods, or credit card requirements.
+Yes. The guides, templates, checkers and calculators on Auto Interview AI are free to use without signing up. Consulting casebooks are linked on the publishers' own sites, not re-hosted.
 
 ### Why is the Harvard resume format recommended for ATS systems?
 Applicant Tracking Systems (such as Workday, Greenhouse, and Taleo) process text in a linear, top-to-bottom order. Multi-column templates, graphical skill bars, and embedded tables often scramble information or cause parsing failures. The Harvard single-page format uses a clean, single-column chronological structure that scores consistently high across all ATS software.
@@ -110,8 +110,8 @@ Applicant Tracking Systems (such as Workday, Greenhouse, and Taleo) process text
 ### Can I download my resume in both PDF and Word DOCX formats?
 Yes. Auto Interview AI allows candidates to instantly export their completed resume in both ATS-friendly PDF and editable DOCX formats without watermarks.
 
-### How do Auto Interview AI's consulting casebooks compare to paid alternatives?
-Auto Interview AI’s consulting casebooks (including The Case Interview Bible) cover 25+ fully worked case problems derived directly from real interviews at McKinsey, BCG, and Bain. Unlike paid services that charge hundreds of dollars, these frameworks are made openly available to help candidates prepare equitably.
+### Where are the consulting casebooks?
+Auto Interview AI links to MBA consulting casebook collections and McKinsey's and Bain's own practice cases at https://www.autointerviewai.com/resources/mba/consulting. It does not re-host the PDFs.
 
 ---
 
