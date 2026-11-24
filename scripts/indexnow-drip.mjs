@@ -117,6 +117,8 @@ function toUrls(files) {
   each(/^data\/linkedinHeadline\/[a-zA-Z0-9-]+\.ts$/, (m, t) =>
     add(`${ORIGIN}/linkedin-headline-checker`, t)
   )
+  // ATS resume file checker: data/atsFileCheck/* -> /ats-resume-checker
+  each(/^data\/atsFileCheck\/[a-zA-Z0-9-]+\.(ts|json)$/, (m, t) => add(`${ORIGIN}/ats-resume-checker`, t))
   // Static app routes: app/<route>/page.tsx (skip dynamic [param] routes)
   each(/^app\/([a-z0-9/-]+)\/page\.tsx$/, (m, t) => {
     if (!m[1].includes('[')) add(`${ORIGIN}/${m[1]}`, t)

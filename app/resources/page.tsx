@@ -110,6 +110,11 @@ const STAGES: Stage[] = [
         body: 'Word templates in the plain one-page format recruiters and ATS read.',
       },
       {
+        href: '/ats-resume-checker',
+        title: 'ATS resume checker',
+        body: 'Drop a PDF or Word resume to see what a parser reads, with checks for columns, tables and headers.',
+      },
+      {
         href: '/linkedin-headline-checker',
         title: 'LinkedIn headline checker',
         body: 'Ten checks for the 220-character limit, your role up front, skills and buzzwords.',

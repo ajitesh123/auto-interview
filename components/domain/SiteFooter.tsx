@@ -10,6 +10,7 @@ export const COLUMNS: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: '/free-mock-interview', label: 'AI mock interview' },
       { href: '/resume-keyword-checker', label: 'Resume keyword checker' },
+      { href: '/ats-resume-checker', label: 'ATS resume checker' },
       { href: '/interview-prep-plan', label: 'Interview prep plan' },
       { href: '/tell-me-about-yourself', label: 'Tell me about yourself builder' },
       { href: '/linkedin-headline-checker', label: 'LinkedIn headline checker' },

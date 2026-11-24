@@ -1,0 +1,282 @@
+[
+  {
+    "id": "single-column",
+    "file": "single-column.pdf",
+    "name": "One column, PDF",
+    "summary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 0,
+      "total": 9
+    },
+    "jumps": {
+      "jumps": 0,
+      "lines": 0
+    },
+    "checks": [
+      {
+        "id": "type",
+        "label": "File type",
+        "status": "pass"
+      },
+      {
+        "id": "size",
+        "label": "File size",
+        "status": "pass"
+      },
+      {
+        "id": "text",
+        "label": "Selectable text",
+        "status": "pass"
+      },
+      {
+        "id": "glyphs",
+        "label": "Characters a parser can read",
+        "status": "pass"
+      },
+      {
+        "id": "contact",
+        "label": "Email and phone in the main text",
+        "status": "pass"
+      },
+      {
+        "id": "header",
+        "label": "Nothing important in the header or footer",
+        "status": "na"
+      },
+      {
+        "id": "columns",
+        "label": "One column",
+        "status": "pass"
+      },
+      {
+        "id": "tables",
+        "label": "No tables",
+        "status": "na"
+      },
+      {
+        "id": "boxes",
+        "label": "No text boxes",
+        "status": "na"
+      },
+      {
+        "id": "images",
+        "label": "No photos or graphics",
+        "status": "pass"
+      },
+      {
+        "id": "headings",
+        "label": "Standard section headings",
+        "status": "pass"
+      },
+      {
+        "id": "pages",
+        "label": "Length",
+        "status": "pass"
+      }
+    ],
+    "preview": [
+      "Ananya Rao",
+      "ananya.rao@example.com | +91 98765 43210 | Bengaluru, India | linkedin.com/in/ananya-rao",
+      "Summary",
+      "Data analyst with 2 years in retail and fintech. SQL, Python and Power BI; turns messy sales data into weekly decisions.",
+      "Experience",
+      "Data Analyst, Kirana Mart (fictional) Jul 2024 - Present",
+      "- Built a Power BI sales dashboard used by 40 store managers every Monday.",
+      "- Cut the weekly reporting run from 6 hours to 45 minutes with SQL views.",
+      "- Found a 12% stock-out pattern in 3 regions; reorder rules changed within a month.",
+      "Analyst Intern, PaySetu (fictional) Jan 2024 - Jun 2024",
+      "- Cleaned 1.2 million UPI transaction rows in Python (pandas) for a fraud review.",
+      "- Wrote 15 SQL checks that now run nightly on the payments warehouse.",
+      "Education",
+      "B.Sc. Statistics, Christ University (fictional details), 2023"
+    ],
+    "sides": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    "headerFooter": ""
+  },
+  {
+    "id": "two-column",
+    "file": "two-column.pdf",
+    "name": "Two columns with a sidebar, PDF",
+    "summary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 1,
+      "total": 9
+    },
+    "jumps": {
+      "jumps": 26,
+      "lines": 32
+    },
+    "checks": [
+      {
+        "id": "type",
+        "label": "File type",
+        "status": "pass"
+      },
+      {
+        "id": "size",
+        "label": "File size",
+        "status": "pass"
+      },
+      {
+        "id": "text",
+        "label": "Selectable text",
+        "status": "pass"
+      },
+      {
+        "id": "glyphs",
+        "label": "Characters a parser can read",
+        "status": "pass"
+      },
+      {
+        "id": "contact",
+        "label": "Email and phone in the main text",
+        "status": "pass"
+      },
+      {
+        "id": "header",
+        "label": "Nothing important in the header or footer",
+        "status": "na"
+      },
+      {
+        "id": "columns",
+        "label": "One column",
+        "status": "fail"
+      },
+      {
+        "id": "tables",
+        "label": "No tables",
+        "status": "na"
+      },
+      {
+        "id": "boxes",
+        "label": "No text boxes",
+        "status": "na"
+      },
+      {
+        "id": "images",
+        "label": "No photos or graphics",
+        "status": "pass"
+      },
+      {
+        "id": "headings",
+        "label": "Standard section headings",
+        "status": "pass"
+      },
+      {
+        "id": "pages",
+        "label": "Length",
+        "status": "pass"
+      }
+    ],
+    "preview": [
+      "Ananya Rao   Profile",
+      "Data analyst with 2 years in retail and fintech. SQL, Python",
+      "Data Analyst",
+      "and Power BI; turns messy sales data into weekly decisions.",
+      "Contact",
+      "Experience",
+      "ananya.rao@example.com",
+      "Data Analyst, Kirana Mart (fictional)",
+      "+91 98765 43210",
+      "Jul 2024 - Present",
+      "Bengaluru, India",
+      "- Built a Power BI sales dashboard used by 40 store managers",
+      "linkedin.com/in/ananya-rao",
+      "every Monday."
+    ],
+    "sides": ["B", "R", "L", "R", "L", "R", "L", "R", "L", "R", "L", "R", "L", "R"],
+    "headerFooter": ""
+  },
+  {
+    "id": "table-and-header",
+    "file": "table-and-header.docx",
+    "name": "Table layout, contact in the header, Word",
+    "summary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 3,
+      "total": 11
+    },
+    "jumps": {
+      "jumps": 0,
+      "lines": 0
+    },
+    "checks": [
+      {
+        "id": "type",
+        "label": "File type",
+        "status": "pass"
+      },
+      {
+        "id": "size",
+        "label": "File size",
+        "status": "pass"
+      },
+      {
+        "id": "glyphs",
+        "label": "Characters a parser can read",
+        "status": "pass"
+      },
+      {
+        "id": "contact",
+        "label": "Email and phone in the main text",
+        "status": "fail"
+      },
+      {
+        "id": "header",
+        "label": "Nothing important in the header or footer",
+        "status": "fail"
+      },
+      {
+        "id": "columns",
+        "label": "One column",
+        "status": "pass"
+      },
+      {
+        "id": "tables",
+        "label": "No tables",
+        "status": "fail"
+      },
+      {
+        "id": "boxes",
+        "label": "No text boxes",
+        "status": "pass"
+      },
+      {
+        "id": "images",
+        "label": "No photos or graphics",
+        "status": "pass"
+      },
+      {
+        "id": "headings",
+        "label": "Standard section headings",
+        "status": "pass"
+      },
+      {
+        "id": "pages",
+        "label": "Length",
+        "status": "pass"
+      }
+    ],
+    "preview": [
+      "Skills",
+      "SQL (PostgreSQL, BigQuery)",
+      "Python (pandas)",
+      "Power BI",
+      "Excel",
+      "A/B testing",
+      "Statistics",
+      "Education",
+      "B.Sc. Statistics, Christ University (fictional details), 2023",
+      "CGPA 8.4 / 10",
+      "Data Analyst",
+      "Data analyst with 2 years in retail and fintech. SQL, Python and Power BI; turns messy sales data into weekly decisions.",
+      "Experience",
+      "Data Analyst, Kirana Mart (fictional), Jul 2024 - Present"
+    ],
+    "sides": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    "headerFooter": "Ananya Rao  |  ananya.rao@example.com  |  +91 98765 43210  |  Bengaluru, India"
+  }
+]

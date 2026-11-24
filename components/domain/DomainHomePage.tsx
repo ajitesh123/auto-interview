@@ -96,6 +96,11 @@ const TOOLS = [
     body: 'A day-by-day plan from your interview date and free time, with mocks and a calendar file.',
   },
   {
+    href: '/ats-resume-checker',
+    title: 'ATS resume checker',
+    body: 'Drop a PDF or Word resume: see the text a parser reads, plus checks for columns, tables and headers.',
+  },
+  {
     href: '/linkedin-headline-checker',
     title: 'LinkedIn headline checker',
     body: 'Paste your headline: 10 checks for the 220-character limit, your role up front, skills and buzzwords.',

@@ -732,3 +732,74 @@
     transition: none;
   }
 }
+
+/* ATS resume file checker (components/atsFileCheck): a read line sweeps the page twice, the
+   column split draws in, parsed lines rise in one by one. All off under reduced motion. */
+@keyframes ats-scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.7;
+  }
+  92% {
+    opacity: 0.7;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+.ats-scan {
+  opacity: 0;
+  animation: ats-scan 1.8s var(--ease-out) 2 both;
+}
+@keyframes ats-split {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.ats-split {
+  transform-origin: top;
+  animation: ats-split 900ms var(--ease-out) 600ms both;
+}
+.ats-line {
+  animation: kc-in 260ms var(--ease-out) both;
+}
+@keyframes ats-doc {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.6);
+  }
+}
+.ats-drop:hover .ats-doc-line {
+  transform-origin: left;
+  animation: ats-doc 1.2s var(--ease-out) infinite;
+}
+.ats-drop:hover .ats-doc-line:nth-child(2) {
+  animation-delay: 120ms;
+}
+.ats-drop:hover .ats-doc-line:nth-child(3) {
+  animation-delay: 240ms;
+}
+.ats-drop:hover .ats-doc-line:nth-child(4) {
+  animation-delay: 360ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ats-scan,
+  .ats-split,
+  .ats-line,
+  .ats-drop:hover .ats-doc-line {
+    animation: none;
+  }
+  .ats-scan {
+    display: none;
+  }
+}

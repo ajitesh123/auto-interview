@@ -608,7 +608,7 @@ export default function ResumeKeywordCheckerPage() {
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
               {[
-                ['/build-resume', 'Build', 'Free resume builder'],
+                ['/ats-resume-checker', 'File check', 'ATS resume checker (PDF/Word)'],
                 ['/linkedin-headline-checker', 'Profile', 'LinkedIn headline checker'],
                 ['/referral-message', 'Apply', 'Referral message builder'],
               ].map(([href, k, t]) => (

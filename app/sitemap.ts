@@ -138,6 +138,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'interview-prep-plan',
         'tell-me-about-yourself',
         'linkedin-headline-checker',
+        'ats-resume-checker',
       ].includes(route)
     )
       return 0.95
@@ -172,6 +173,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'interview-prep-plan',
         'tell-me-about-yourself',
         'linkedin-headline-checker',
+        'ats-resume-checker',
       ].includes(route)
     )
       return 'weekly' as const
@@ -203,6 +205,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'interview-prep-plan',
     'tell-me-about-yourself',
     'linkedin-headline-checker',
+    'ats-resume-checker',
     'find-jobs',
     'cover-letter',
     'free-resources',
