@@ -104,6 +104,15 @@ import {
 } from './blog/FreeNoteTakerFigures'
 import RealEstateCallCheck from './blog/RealEstateCallCheck'
 import AiCallingLawsCheck from './blog/AiCallingLawsCheck'
+import ColdCallingPicker from './blog/ColdCallingPicker'
+import {
+  ColdCallingStats,
+  ColdCallingKinds,
+  ColdCallingToolTable,
+  ColdCallingSeatFigure,
+  ColdCallingMinuteFigure,
+  ColdCallingRules,
+} from './blog/ColdCallingFigures'
 import {
   AiCallingLawsStats,
   AiCallingVerdictGrid,
@@ -166,6 +175,13 @@ export const components: MDXComponents = {
   KeyFacts,
   RealEstateCallCheck,
   AiCallingLawsCheck,
+  ColdCallingPicker,
+  ColdCallingStats,
+  ColdCallingKinds,
+  ColdCallingToolTable,
+  ColdCallingSeatFigure,
+  ColdCallingMinuteFigure,
+  ColdCallingRules,
   AiCallingLawsStats,
   AiCallingVerdictGrid,
   AiCallingLawsTable,
