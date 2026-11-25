@@ -27,7 +27,7 @@ const REDIRECT_MAP = {
   'the-state-of-ai-calling-competitors-2026-latency-pricing-report': '/blog/voice-latency-ai-sales-roleplay-2026',
   'how-to-automate-appointment-setting-ai-voice-agents-2026': '/blog/how-to-build-ai-cold-calling-agent-retell-vapi-bland-2026',
   'ai-cold-call-training-voice-ai-transforming-sales-onboarding-2026': '/blog/why-do-sales-reps-hate-roleplaying-2026',
-  'how-to-measure-sales-training-roi-metrics-vp-sales-2026': '/blog/ai-sales-roleplay-vs-sales-trainer-roi-2026'
+  'how-to-measure-sales-training-roi-metrics-vp-sales-2026': '/blog/ai-sales-roleplay-vs-traditional-sales-training-cost-roi-2026'
 }
 
 console.log(`Setting draft: true on ${Object.keys(REDIRECT_MAP).length} cannibalizing/zero-impression files...`)
