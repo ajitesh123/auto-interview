@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import MockInterviewButton from './MockInterviewButton'
 import MockLoopSteps from './MockLoopSteps'
 
@@ -35,6 +37,7 @@ export default function MockInterviewCTA({
   questions?: string[]
   label?: string
 }) {
+  const pathname = usePathname()
   const qs = (questions?.length ? questions : DEFAULT_QUESTIONS).slice(0, 4)
   const [i, setI] = useState(0)
   const [secs, setSecs] = useState(0)
@@ -67,8 +70,16 @@ export default function MockInterviewCTA({
             </h2>
             <p className="mt-3 max-w-[48ch] text-body-lg text-fg-2">{text}</p>
             <MockLoopSteps className="mt-6 md:grid-cols-1" />
-            <div className="mt-7">
+            <div className="mt-7 flex flex-col items-start gap-3">
               <MockInterviewButton label={label} role={role} />
+              {pathname !== '/interview-prep-plan' && (
+                <Link
+                  href="/interview-prep-plan"
+                  className="text-small font-medium text-fg-2 underline decoration-border-strong underline-offset-4 transition-colors duration-fast hover:text-fg hover:decoration-fg"
+                >
+                  Or build a day-by-day prep plan →
+                </Link>
+              )}
             </div>
           </div>
 
