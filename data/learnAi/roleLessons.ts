@@ -180,6 +180,16 @@ export const ROLE_LESSONS: Record<string, Pick[]> = {
 // Reverse-only links: lessons a role hub does not list in its top 4, but that still matter for
 // that role. Shown on the lesson page with the hub's own picks ("Roles that need this lesson").
 export const LESSON_EXTRA_ROLES: Record<string, { hub: string; why: string }[]> = {
+  'claude-code-hooks-permissions': [
+    {
+      hub: 'ai-engineer',
+      why: 'Teams that let coding agents into their repos ask how you keep them safe. Deny rules, hooks and the sandbox are the answer.',
+    },
+    {
+      hub: 'fde',
+      why: 'Forward deployed engineers set up agents inside customer codebases, where one wrong push or leaked secret costs the account.',
+    },
+  ],
   'ai-product-management': [
     {
       hub: 'founders-office',

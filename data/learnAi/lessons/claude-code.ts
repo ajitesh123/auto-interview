@@ -253,6 +253,7 @@ export const lesson: Lesson = {
     { label: 'Next: Cursor for beginners', href: '/learn-ai/cursor' },
     { label: 'Claude Code vs Cursor vs Codex', href: '/learn-ai/ai-coding-tools-compared' },
     { label: 'How to write CLAUDE.md and AGENTS.md', href: '/learn-ai/claude-md-agents-md' },
+    { label: 'Claude Code hooks and permissions', href: '/learn-ai/claude-code-hooks-permissions' },
     { label: 'What is an AI agent?', href: '/learn-ai/ai-agents' },
     { label: 'AI engineer career guide', href: '/ai-engineer' },
     { label: 'Forward deployed engineer guide', href: '/fde' },

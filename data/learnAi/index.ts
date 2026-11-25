@@ -80,8 +80,6 @@ export function sourceVoices() {
  * new gaps it found back here. The path is meant to keep growing.
  */
 export const LEARN_AI_BACKLOG: string[] = [
-  'Hooks and permissions: rules an agent cannot ignore',
-  'CLAUDE.md and AGENTS.md: how to write the instruction file an agent reads every session',
   'Build your first MCP server: give an agent one tool of your own',
   'Long-running agents: plans, progress files and checklists that keep an agent on track for hours',
   'Agent SDKs compared: Claude Agent SDK, OpenAI Agents SDK and LangGraph, and when you need one',
@@ -107,5 +105,6 @@ export const LEARN_AI_BACKLOG: string[] = [
   'AI for PowerPoint and Word: Copilot, Gemini and the Claude and ChatGPT add-ins',
   'Python in Excel (=PY) for non-coders: when a formula is not enough',
   'AI that works across your apps: ChatGPT Work and Claude Cowork, with approvals (gap found 12 Nov: ChatGPT Work launched 9 Jul 2026)',
+  'Sandboxing coding agents: OS-level limits on files and network, and when rules are not enough (gap found 25 Nov: permission deny rules do not cover scripts)',
   'MCP Apps: interactive app screens inside Claude and ChatGPT (both support the MCP Apps spec in 2026)',
 ]

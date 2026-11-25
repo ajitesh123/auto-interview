@@ -11,11 +11,13 @@ import MoeCalculator from './MoeCalculator'
 import SpotTheMistake from './SpotTheMistake'
 import AiFeatureCost from './AiFeatureCost'
 import InstructionFileChecker from './InstructionFileChecker'
+import PermissionRuleTester from './PermissionRuleTester'
 import { LessonVisualBlock, WorkflowBlock } from './LessonVisuals'
 import { ROUNDS as SPOT_ROUNDS } from '@/data/learnAi/dataAnalysisPractice'
 import { MOE_MODELS, activePct, weightsGB } from '@/data/learnAi/moeModels'
 import { PRICED_MODELS, PRICE_CHECKED } from '@/data/learnAi/aiFeatureCost'
 import { CHECKED as IF_CHECKED } from '@/data/learnAi/instructionFile'
+import { CHECKED as PR_CHECKED, TEST_CALLS as PR_CALLS } from '@/data/learnAi/permissionRules'
 import { rolesForLesson } from '@/data/learnAi/roleLessons'
 import { ROLE_HUBS } from '@/data/roleHubs'
 import { AiPrompt } from '@/components/ai/AiPrompt'
@@ -619,6 +621,18 @@ export default function LessonPage({
                     sub="Paste your file, or load the messy draft and the cleaned-up version from the worked example. Each finding links to the page its rule comes from."
                   />
                   <InstructionFileChecker />
+                </Section>
+              )}
+
+              {lesson.widget === 'permission-rule-tester' && (
+                <Section id="tool">
+                  <SectionHead
+                    id="tool-title"
+                    k={`Tester · deny → ask → allow → mode · ${PR_CALLS.length} example calls · ${PR_CHECKED} · no AI`}
+                    title="Test your settings.json"
+                    sub="Paste your Claude Code settings, or load the risky and fixed files from the worked example. See which checks fail, then try any tool call and watch the order Claude Code decides in."
+                  />
+                  <PermissionRuleTester />
                 </Section>
               )}
 

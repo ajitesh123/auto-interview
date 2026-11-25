@@ -339,7 +339,7 @@ export const lesson: Lesson = {
       label: 'Previous: Claude Code vs Cursor vs Codex',
       href: '/learn-ai/ai-coding-tools-compared',
     },
-    { label: 'Next: Prompting vs RAG vs fine-tuning', href: '/learn-ai/fine-tuning-vs-rag' },
+    { label: 'Next: Hooks and permissions', href: '/learn-ai/claude-code-hooks-permissions' },
     { label: 'Claude Code for beginners', href: '/learn-ai/claude-code' },
     { label: 'What is an agent harness?', href: '/learn-ai/agent-harness' },
     { label: 'What are Agent Skills?', href: '/learn-ai/agent-skills' },
