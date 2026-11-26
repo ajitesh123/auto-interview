@@ -298,6 +298,14 @@ export default async function BehavioralQuestionPage({ params }: PageProps) {
                 </Link>
               </p>
             )}
+            {qData.slug === 'why-should-we-hire-you' && (
+              <p className="mt-4 text-small text-fg-2">
+                Want to build yours with a timer and 9 checks?{' '}
+                <Link href="/why-should-we-hire-you" className={link}>
+                  Open the answer builder →
+                </Link>
+              </p>
+            )}
             <div className="mt-6 flex flex-wrap items-start gap-3">
               <MockInterviewButton label="Practise this question free" />
               <Link href={tool.href} className={btnSecondary}>

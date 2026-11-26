@@ -13,6 +13,7 @@ export const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { href: '/ats-resume-checker', label: 'ATS resume checker' },
       { href: '/interview-prep-plan', label: 'Interview prep plan' },
       { href: '/tell-me-about-yourself', label: 'Tell me about yourself builder' },
+      { href: '/why-should-we-hire-you', label: 'Why should we hire you builder' },
       { href: '/linkedin-headline-checker', label: 'LinkedIn headline checker' },
       { href: '/star-method', label: 'STAR answer builder' },
       { href: '/referral-message', label: 'Referral message builder' },

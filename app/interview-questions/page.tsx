@@ -127,6 +127,11 @@ export default function InterviewQuestionsHubPage() {
       d: 'Three parts, a talk-time timer and 8 plain checks.',
     },
     {
+      href: '/why-should-we-hire-you',
+      t: '"Why should we hire you" builder',
+      d: 'Their need, your proof, what you would do first; 9 checks.',
+    },
+    {
       href: '/star-method',
       t: 'STAR answer builder',
       d: 'Time split per part, "I" vs "we", a number in the result.',

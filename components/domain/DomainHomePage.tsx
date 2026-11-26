@@ -111,6 +111,11 @@ const TOOLS = [
     body: 'Your opening answer in three parts, timed out loud, with 8 checks and a 30-second version.',
   },
   {
+    href: '/why-should-we-hire-you',
+    title: '"Why should we hire you" builder',
+    body: 'Match the job post, prove it with a number, end on what you would do first. Timed, 9 checks.',
+  },
+  {
     href: '/star-method',
     title: 'STAR answer builder',
     body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',

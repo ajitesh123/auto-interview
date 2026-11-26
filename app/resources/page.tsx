@@ -149,6 +149,12 @@ const STAGES: Stage[] = [
         tag: 'First question',
       },
       {
+        href: '/why-should-we-hire-you',
+        title: '"Why should we hire you" builder',
+        body: 'Their need, your proof with a number, what you would do first. Timed, with 9 checks.',
+        tag: 'Closing question',
+      },
+      {
         href: '/star-method',
         title: 'STAR answer builder',
         body: 'Write a "tell me about a time" story and see how long it runs out loud.',

@@ -199,9 +199,9 @@ function mentions(text: string, phrase: string): boolean {
 
 /** The first sentence of a part, trimmed. */
 const ABBR =
-  /(?:\b[A-Z]|\b(?:e\.g|i\.e|Rs|Mr|Mrs|Ms|Dr|vs|etc|Sc|Tech|Com|Ltd|Inc|St|No|approx))\.$/i
+  /(?:\b[A-Z]|\b(?:e\.g|i\.e|Rs|Mr|Mrs|Ms|Dr|vs|etc|Sc|Tech|Com|Ltd|Inc|St|No|approx|Pvt|Co|Corp|Jr|Sr|Prof|Govt|Dept))\.$/i
 export function firstSentence(t: string): string {
-  const parts = t.trim().split(/(?<=[.!?])\s+(?=[A-Z"“'‘(])/)
+  const parts = t.trim().split(/(?<=[.!?])\s+(?=[A-Z0-9"“'‘(])/)
   let out = parts[0] || ''
   for (let i = 1; i < parts.length && ABBR.test(out); i++) out += ' ' + parts[i]
   return out.trim()

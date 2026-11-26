@@ -91,6 +91,12 @@ export function toolFor(slug: string): { href: string; title: string; body: stri
       title: 'Build your answer with a timer',
       body: 'Write it in three parts (now, before, why this job), see how long it runs out loud, and get 8 plain checks: life story, resume recital, a number, ending on this job.',
     }
+  if (slug === 'why-should-we-hire-you')
+    return {
+      href: '/why-should-we-hire-you',
+      title: 'Build your answer with a timer',
+      body: 'Write it in three parts (their need, your proof, what you would do first), see which job-post needs it covers and how long it runs, with 9 plain checks.',
+    }
   if (slug === 'what-are-your-salary-expectations')
     return {
       href: '/salary-negotiation',

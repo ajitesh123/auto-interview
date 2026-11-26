@@ -137,6 +137,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'salary-negotiation',
         'interview-prep-plan',
         'tell-me-about-yourself',
+        'why-should-we-hire-you',
         'linkedin-headline-checker',
         'ats-resume-checker',
       ].includes(route)
@@ -172,6 +173,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'salary-negotiation',
         'interview-prep-plan',
         'tell-me-about-yourself',
+        'why-should-we-hire-you',
         'linkedin-headline-checker',
         'ats-resume-checker',
       ].includes(route)
@@ -204,6 +206,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'salary-negotiation',
     'interview-prep-plan',
     'tell-me-about-yourself',
+    'why-should-we-hire-you',
     'linkedin-headline-checker',
     'ats-resume-checker',
     'find-jobs',

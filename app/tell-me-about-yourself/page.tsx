@@ -741,7 +741,7 @@ export default function TellMeAboutYourselfPage() {
               {[
                 ['/star-method', 'Next question', 'STAR answer builder'],
                 ['/interview-prep-plan', 'Plan', 'Interview prep plan by date'],
-                ['/interview-questions', 'Questions', 'Interview questions by role'],
+                ['/why-should-we-hire-you', 'Closing question', 'Why should we hire you builder'],
               ].map(([href, k, t]) => (
                 <Link
                   key={href}
