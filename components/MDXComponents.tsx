@@ -106,6 +106,16 @@ import RealEstateCallCheck from './blog/RealEstateCallCheck'
 import AiCallingLawsCheck from './blog/AiCallingLawsCheck'
 import ColdCallingPicker from './blog/ColdCallingPicker'
 import SalesTrainingRoiCalculator from './blog/SalesTrainingRoiCalculator'
+import AiSdrVsHumanCalculator from './blog/AiSdrVsHumanCalculator'
+import {
+  AiSdrStats,
+  AiSdrBreakEven,
+  AiSdrByCountry,
+  AiSdrWorked,
+  AiSdrPlansTable,
+  AiSdrGongFunnel,
+  AiSdrPilot,
+} from './blog/AiSdrVsHumanFigures'
 import {
   SalesTrainingRoiStats,
   SalesTrainingRoiLevels,
@@ -186,6 +196,14 @@ export const components: MDXComponents = {
   AiCallingLawsCheck,
   ColdCallingPicker,
   SalesTrainingRoiCalculator,
+  AiSdrVsHumanCalculator,
+  AiSdrStats,
+  AiSdrBreakEven,
+  AiSdrByCountry,
+  AiSdrWorked,
+  AiSdrPlansTable,
+  AiSdrGongFunnel,
+  AiSdrPilot,
   SalesTrainingRoiStats,
   SalesTrainingRoiLevels,
   SalesTrainingRoiThreeWays,
