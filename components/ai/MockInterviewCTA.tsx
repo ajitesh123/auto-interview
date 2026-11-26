@@ -86,7 +86,7 @@ export default function MockInterviewCTA({
           {/* The live panel: decorative, so hidden from screen readers */}
           <div
             aria-hidden="true"
-            className="relative flex flex-col justify-between gap-6 border-t border-border bg-signal-tint/60 p-6 md:border-l md:border-t-0 md:p-10"
+            className="relative flex flex-col justify-center gap-5 border-t border-border bg-signal-tint/60 p-6 md:border-l md:border-t-0 md:p-10"
           >
             <div className="flex items-center justify-between text-caption text-fg-2">
               <span className="inline-flex items-center gap-2 font-medium">
@@ -139,6 +139,39 @@ export default function MockInterviewCTA({
                   />
                 ))}
               </span>
+            </div>
+
+            {/* What comes back after the answer (shown at md+ where the panel has room) */}
+            <div className="hidden rounded-xl border border-border bg-surface p-5 shadow-e1 md:block">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-kicker uppercase tracking-[0.08em] text-fg-3">
+                  What you get back
+                </span>
+                <span className="text-caption text-fg-3">example</span>
+              </div>
+              <ul key={i} className="mt-3 space-y-2.5 text-small">
+                <li className="cta-q flex gap-2.5" style={{ animationDelay: '900ms' }}>
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-signal" />
+                  <span className="text-fg-2">
+                    <span className="font-semibold text-fg">Strong:</span> you answered the question
+                    in your first sentence.
+                  </span>
+                </li>
+                <li className="cta-q flex gap-2.5" style={{ animationDelay: '1500ms' }}>
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-fg-3" />
+                  <span className="text-fg-2">
+                    <span className="font-semibold text-fg">Thin:</span> no example from your own
+                    work. Add one, with what changed.
+                  </span>
+                </li>
+                <li className="cta-q flex gap-2.5" style={{ animationDelay: '2100ms' }}>
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-fg-3" />
+                  <span className="text-fg-2">
+                    <span className="font-semibold text-fg">Follow-up:</span> “Can you walk me
+                    through a time you did that?”
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

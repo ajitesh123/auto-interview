@@ -201,16 +201,25 @@ export default function DomainHomePage() {
                 Find your role
               </a>
             </div>
-            <div className="animate-fade-rise-delay-2 mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-border pt-6">
+            <div className="animate-fade-rise-delay-2 mt-10 grid max-w-2xl grid-cols-2 gap-x-4 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
               {[
-                { v: String(HUBS.length), l: 'role guides' },
-                { v: String(TOTAL_QUESTIONS), l: 'questions with model answers' },
-                { v: String(LESSONS.length), l: 'Learn AI lessons' },
+                { v: String(HUBS.length), l: 'role guides', href: '#roles' },
+                { v: String(TOTAL_QUESTIONS), l: 'questions with model answers', href: '#roles' },
+                { v: String(TOOLS.length), l: 'free tools and templates', href: '#tools-title' },
+                { v: String(LESSONS.length), l: 'Learn AI lessons', href: '/learn-ai' },
               ].map((s) => (
-                <p key={s.l} className="flex flex-col">
-                  <span className="text-h2 font-semibold tabular-nums text-fg">{s.v}</span>
-                  <span className="mt-1 text-caption text-fg-3">{s.l}</span>
-                </p>
+                <Link
+                  key={s.l}
+                  href={s.href}
+                  className="group flex flex-col rounded-lg transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-4"
+                >
+                  <span className="text-h2 font-semibold tabular-nums text-fg transition-colors duration-fast group-hover:text-signal-strong">
+                    {s.v}
+                  </span>
+                  <span className="mt-1 text-caption text-fg-3 underline decoration-transparent underline-offset-4 transition-colors duration-fast group-hover:decoration-border-strong">
+                    {s.l}&nbsp;<span aria-hidden="true">→</span>
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -349,7 +358,7 @@ export default function DomainHomePage() {
         <div className={container}>
           <div className="max-w-2xl">
             <p className={kicker}>Free tools · no sign-up · calculators run in your browser</p>
-            <h2 id="tools-title" className="mt-3 text-h2 font-semibold text-fg">
+            <h2 id="tools-title" className="mt-3 scroll-mt-24 text-h2 font-semibold text-fg">
               Tools for the parts people get stuck on
             </h2>
           </div>
