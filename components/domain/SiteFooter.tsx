@@ -18,6 +18,7 @@ export const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { href: '/star-method', label: 'STAR answer builder' },
       { href: '/referral-message', label: 'Referral message builder' },
       { href: '/salary-negotiation', label: 'Salary negotiation scripts' },
+      { href: '/notice-period-calculator', label: 'Notice period calculator' },
       { href: '/find-jobs', label: 'Find jobs' },
       { href: '/cold-call-practice', label: 'Cold call simulator' },
       { href: '/ai-calling-roi-calculator', label: 'Voice AI ROI calculator' },

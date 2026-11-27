@@ -636,7 +636,11 @@ export default function JobOfferComparisonPage() {
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 ['/salary-calculator', 'Tax detail', 'CTC to in-hand calculator'],
-                ['/product-manager/salary', 'Benchmark', 'What PMs are paid in India'],
+                [
+                  '/notice-period-calculator',
+                  'After you accept',
+                  'Notice period + last working day',
+                ],
                 ['/salary-negotiation', 'Ask for more', 'Salary negotiation scripts'],
               ].map(([href, k, t]) => (
                 <Link

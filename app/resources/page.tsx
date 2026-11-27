@@ -155,6 +155,12 @@ const STAGES: Stage[] = [
         tag: 'Closing question',
       },
       {
+        href: '/notice-period-calculator',
+        title: 'Notice period calculator',
+        body: 'Last working day, leave set-off, buyout cost for your joining date and when final wages are due.',
+        tag: 'Switching jobs',
+      },
+      {
         href: '/star-method',
         title: 'STAR answer builder',
         body: 'Write a "tell me about a time" story and see how long it runs out loud.',

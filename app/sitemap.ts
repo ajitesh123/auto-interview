@@ -207,6 +207,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'interview-prep-plan',
     'tell-me-about-yourself',
     'why-should-we-hire-you',
+    'notice-period-calculator',
     'linkedin-headline-checker',
     'ats-resume-checker',
     'find-jobs',

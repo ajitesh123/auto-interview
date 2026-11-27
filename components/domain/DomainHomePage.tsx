@@ -116,6 +116,11 @@ const TOOLS = [
     body: 'Match the job post, prove it with a number, end on what you would do first. Timed, 9 checks.',
   },
   {
+    href: '/notice-period-calculator',
+    title: 'Notice period calculator',
+    body: 'Your last working day, leave set-off, buyout cost for the joining date and when final wages are due.',
+  },
+  {
     href: '/star-method',
     title: 'STAR answer builder',
     body: 'Write a "tell me about a time" story and see its length out loud and 8 checks.',
