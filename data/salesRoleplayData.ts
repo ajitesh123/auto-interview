@@ -6,7 +6,8 @@
  * looked on the pages linked and did not find it. Tough Tongue AI runs this site (ours: true).
  */
 
-export const CHECKED = '13 Nov 2026'
+export const CHECKED = '13–27 Nov 2026' // first 15 tools on 13 Nov; see UPDATED
+export const UPDATED = '27 Nov 2026' // 6 tools added; Exec, Yoodli, Trellus, Hyperbound, Outdoo and Tough Tongue AI prices re-checked
 
 export type Kind = 'practice' | 'suite' | 'dialer'
 export type Tri = 'yes' | 'no' | 'not stated'
@@ -333,6 +334,140 @@ export const VENDORS: RoleplayVendor[] = [
     bestFor: 'Contact centres and frontline service teams more than B2B field sales',
   },
   {
+    id: 'kendo',
+    name: 'Kendo AI',
+    url: 'https://kendo.ai/pricing',
+    kind: 'practice',
+    price:
+      'Free trial; Pro $55/seat/month (180 roleplay minutes, 25 hours of call scoring); Max $100/seat/month (480 minutes, 100 hours); Enterprise custom',
+    priceStatus: 'published',
+    freeStart: 'Free trial of AI roleplay and AI call review (length not stated)',
+    minimum:
+      'Not stated for Pro and Max; usage is "pooled across your team"; Enterprise for teams of 10+',
+    modes: 'Live voice call with an AI prospect while the transcript streams in',
+    voice: 'yes',
+    fromCalls: 'not stated',
+    customRubric: 'yes',
+    realCalls: 'yes',
+    languages: 'Not stated',
+    security: 'SOC 2 Type II "in progress" (not yet certified)',
+    bestFor:
+      'Small and mid-size teams that want a published per-seat price and the same scorecard on practice and real calls',
+    note: 'Added 27 Nov 2026. Its roleplay page says "Kendo reviews every call with the right scorecard"; its roleplay page says it is "currently undergoing SOC type II certification". Whether $55 and $100 are monthly or annual billing is not stated.',
+    also: [
+      { label: 'AI roleplay', url: 'https://kendo.ai/product/ai-roleplay' },
+      { label: 'Kendo blog', url: 'https://kendo.ai/blogs/best-ai-sales-roleplaying-tools' },
+    ],
+  },
+  {
+    id: 'fullyramped',
+    name: 'FullyRamped',
+    url: 'https://fullyramped.com/pricing',
+    kind: 'practice',
+    price: 'Not published; demo. Pilot on request (14–30 days, per its FAQ)',
+    priceStatus: 'quote',
+    freeStart: '',
+    minimum: 'Business plan "10 seats minimum"',
+    modes: 'AI "twins" of your real calls (voice implied)',
+    voice: 'implied',
+    fromCalls: 'yes',
+    customRubric: 'yes',
+    realCalls: 'yes',
+    languages: 'Multi-lingual roleplays listed on Enterprise only',
+    security: 'SOC 2 certified; ISO 27001 and GDPR badges; SAML and SCIM on Enterprise',
+    bestFor:
+      'Teams of 10+ that want roleplays built from their own call recordings, and real calls graded too',
+    note: 'Added 27 Nov 2026. "Upload actual call recordings to create AI twins of your toughest conversations." The trial needs a sales conversation, so it is not a self-serve free start.',
+    also: [{ label: 'Homepage', url: 'https://fullyramped.com/' }],
+  },
+  {
+    id: 'nooks',
+    name: 'Nooks',
+    url: 'https://www.nooks.ai/pricing',
+    kind: 'dialer',
+    price: 'Custom quote; the pricing page does not say which package includes roleplay',
+    priceStatus: 'quote',
+    freeStart: '',
+    minimum: 'Not stated',
+    modes: 'AI roleplay bots inside its calling platform',
+    voice: 'implied',
+    fromCalls: 'yes',
+    customRubric: 'not stated',
+    realCalls: 'not stated',
+    languages: '"Global languages" (none named)',
+    security: 'Not stated on the pages we could open',
+    bestFor: 'Outbound SDR teams already buying a parallel dialer',
+    note: 'Added 27 Nov 2026. "Reps can roleplay openers, objections, and closing with AI bots built from your real calls." It scores calls, but does not say it uses the roleplay scorecard.',
+    also: [{ label: 'AI coaching', url: 'https://www.nooks.ai/ai-coaching' }],
+  },
+  {
+    id: 'luster',
+    name: 'Luster',
+    url: 'https://www.luster.ai/',
+    kind: 'suite',
+    price: 'Not published; no pricing page',
+    priceStatus: 'quote',
+    freeStart: '',
+    minimum: 'Not stated',
+    modes: 'AI personas (how they talk is not stated)',
+    voice: 'not stated',
+    fromCalls: 'not stated',
+    customRubric: 'not stated',
+    realCalls: 'not stated',
+    languages: 'Not stated',
+    security: 'SOC 2 audited',
+    bestFor: 'Enablement leaders who want skill-gap diagnosis across hiring, coaching and practice',
+    note: 'Added 27 Nov 2026. Roleplay is one part; its EchoIQ "analyzes real customer calls", but no page says it uses the roleplay scorecard.',
+    also: [
+      {
+        label: 'Practice and roleplay',
+        url: 'https://www.luster.ai/proactive-practive-and-roleplay',
+      },
+    ],
+  },
+  {
+    id: 'smartwinnr',
+    name: 'SmartWinnr',
+    url: 'https://smartwinnr.com/product/ai-roleplay',
+    kind: 'suite',
+    price: 'Not published; demo',
+    priceStatus: 'quote',
+    freeStart: '',
+    minimum: 'Not stated',
+    modes: 'Two-way AI avatar that "listens, asks follow-ups, raises objections"',
+    voice: 'implied',
+    fromCalls: 'no',
+    customRubric: 'yes',
+    realCalls: 'not stated',
+    languages: '"Multiple languages" (20+ on its blog)',
+    security: 'SOC 2 Type II, ISO 27001, GDPR, CSA STAR',
+    bestFor:
+      'Regulated field sales (pharma, insurance, banking) inside a gamified enablement suite',
+    note: 'Added 27 Nov 2026. Scenarios come from uploaded talk tracks and PDFs, not call recordings; "define weighted rubrics".',
+    also: [{ label: 'Security', url: 'https://smartwinnr.com/trust/security' }],
+  },
+  {
+    id: 'letter',
+    name: 'Letter AI',
+    url: 'https://www.letter.ai/platform/ai-powered-training-and-coaching',
+    kind: 'suite',
+    price: 'Not published; demo',
+    priceStatus: 'quote',
+    freeStart: '',
+    minimum: 'Not stated',
+    modes: '"Hyper-realistic AI customers", multi-modal',
+    voice: 'implied',
+    fromCalls: 'not stated',
+    customRubric: 'not stated',
+    realCalls: 'not stated',
+    languages: 'Not stated for roleplay (12 for translated content)',
+    security: 'SOC 2 Type II, ISO/IEC 27001:2022, GDPR',
+    bestFor:
+      'Enterprise enablement teams that want roleplay tied to their own content and methodology',
+    note: 'Added 27 Nov 2026. Scorecards "assess both product knowledge and soft skills"; no pricing page.',
+    also: [{ label: 'Security', url: 'https://www.letter.ai/data-and-security' }],
+  },
+  {
     id: 'toughtongue',
     name: 'Tough Tongue AI',
     url: 'https://www.toughtongueai.com/pricing',
@@ -425,6 +560,14 @@ export function teamCosts(reps: number, minutesPerRep: number): CostLine[] {
     name: 'Trellus Power + Parallel',
     annual: round2(reps * 149.99 * 12),
     basis: `${reps} seats × $149.99 × 12 (includes a power and parallel dialer)`,
+  })
+  lines.push({
+    id: 'kendo-pro',
+    name: 'Kendo AI Pro',
+    annual: round2(reps * 55 * 12),
+    basis: `${reps} seats × $55 × 12 (180 roleplay minutes per seat a month, pooled; billing period not stated)${
+      minutesPerRep > 180 ? '; over 180 minutes a rep needs Max at $100' : ''
+    }`,
   })
   const total = reps * minutesPerRep
   if (reps === 1 && total <= 900) {

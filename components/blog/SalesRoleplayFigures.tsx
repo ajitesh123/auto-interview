@@ -12,6 +12,7 @@ import {
   COOK_2011,
   SALESFORCE,
   CHECKED,
+  UPDATED,
   usd,
 } from '@/data/salesRoleplayData'
 
@@ -42,7 +43,7 @@ export function SalesRoleplayStats() {
   )
 }
 
-/** How the 15 tools price: one whole split into parts. */
+/** How the tools price: one whole split into parts. */
 export function SalesRoleplayPricingFigure() {
   const parts = [
     { label: 'Quote only', value: QUOTE_ONLY.length },
@@ -94,7 +95,7 @@ export function SalesRoleplayCostFigure() {
         label: v.name,
         url: v.url,
       }))}
-      updated={CHECKED}
+      updated={UPDATED}
       table={{
         head: ['Option', 'Year one (USD)', 'How it is worked out'],
         rows: WORKED_LINES.map((l) => [

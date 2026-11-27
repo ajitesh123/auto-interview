@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { teamCosts, usd, CHECKED } from '@/data/salesRoleplayData'
+import { teamCosts, usd, UPDATED } from '@/data/salesRoleplayData'
 
 const field =
   'mt-1.5 h-11 w-full rounded-lg border border-border-input bg-surface px-3 text-small text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-signal tabular-nums'
@@ -100,7 +100,7 @@ export default function SalesRoleplayCostCalculator() {
         ))}
       </ul>
       <p className="mt-3 text-caption text-fg-3">
-        List prices in US dollars before tax, read on each pricing page on {CHECKED}. Not included:
+        List prices in US dollars before tax, read on each pricing page on {UPDATED}. Not included:
         sales tax or GST, setup, your reps&apos; time, or discounts. Trellus includes a dialer; Exec
         includes an LMS; Tough Tongue AI plans share a pool of minutes across seats.
       </p>

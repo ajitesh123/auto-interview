@@ -141,10 +141,10 @@ export default function SalesRoleplayFinder() {
         ))}
       </ul>
       <p className="mt-3 text-caption text-fg-3">
-        Every fact was read on the vendor&apos;s own pages on {CHECKED} (Tough Tongue AI&apos;s
-        pricing on 12 Nov 2026); each name links to the page we opened. &quot;Not stated&quot; means
-        we did not find it there, not that the feature is missing. Not a ranking. Tough Tongue AI
-        runs this site.
+        Every fact was read on the vendor&apos;s own pages between {CHECKED} (six tools added and
+        six pricing pages re-checked on 27 Nov); each name links to the page we opened. &quot;Not
+        stated&quot; means we did not find it there, not that the feature is missing. Not a ranking.
+        Tough Tongue AI runs this site.
       </p>
     </section>
   )
