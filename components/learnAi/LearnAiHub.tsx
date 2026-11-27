@@ -163,7 +163,10 @@ export default function LearnAiHub() {
                 {
                   k: 'Lessons',
                   v: String(LESSONS.length),
-                  s: `${PLAN.length} planned, more added often`,
+                  s:
+                    PLAN.length > LESSONS.length
+                      ? `${PLAN.length - LESSONS.length} more planned`
+                      : 'Every planned lesson is live',
                 },
                 { k: 'Tracks', v: String(TRACKS.length), s: 'Beginner to advanced' },
                 { k: 'Time', v: `~${hours} h`, s: 'Reading and doing, videos extra' },

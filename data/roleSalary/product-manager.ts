@@ -17,7 +17,7 @@ const productManager: RoleSalary = {
   metaTitle: 'Product Manager Salary in India (2026): 25 Real Offers',
   metaDescription:
     'PM and APM pay from 25 Indian job posts that state a salary, each CTC turned into monthly in-hand, plus Levels.fyi pay at Google, Flipkart, Swiggy and 13 more.',
-  h1: 'Product Manager salary in India: 25 posted offers, in hand',
+  h1: 'Product Manager salary in India: pay at 62 companies, 25 offers',
   checked: '2026-11-06',
   lead: 'india',
   india: [

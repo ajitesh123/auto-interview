@@ -24,6 +24,7 @@ import { AiPrompt } from '@/components/ai/AiPrompt'
 import { tutorPrompt } from '@/data/aiPrompts'
 import MockInterviewButton from '@/components/ai/MockInterviewButton'
 import MockInterviewCTA from '@/components/ai/MockInterviewCTA'
+import LessonRailToc, { type RailItem } from './LessonRailToc'
 
 // One lesson of a course (Learn AI by default; the Paul Graham course passes its own config).
 // Signal Paper, see the signal-paper-ui skill.
@@ -81,7 +82,10 @@ function Flow({ items }: { items: string[] }) {
 
 function Step({ step, n, last }: { step: LessonStep; n: number; last: boolean }) {
   return (
-    <li className="relative grid grid-cols-[32px_minmax(0,1fr)] gap-4 md:gap-6">
+    <li
+      id={`step-${n}`}
+      className="relative grid scroll-mt-24 grid-cols-[32px_minmax(0,1fr)] gap-4 md:gap-6"
+    >
       <div className="relative flex justify-center">
         <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-ink font-mono text-caption tabular-nums text-ink-fg">
           {n}
@@ -178,6 +182,12 @@ export default function LessonPage({
   const trackLessons = course.lessonsByTrack(lesson.track)
   const total = course.lessons.length
   const pct = Math.round((lesson.order / total) * 100)
+  // Desktop rail map of this lesson: its steps, then the two things to do.
+  const railItems: RailItem[] = [
+    ...lesson.steps.map((st, i) => ({ id: `step-${i + 1}`, label: st.heading, n: i + 1 })),
+    { id: 'try', label: course.tryTitle },
+    { id: 'check', label: 'Check yourself' },
+  ]
   // Role hubs that send people to this lesson (Learn AI only): gives readers a next step that
   // matches why they are learning, high on the page (NN/g: most viewing time is in 2 screens).
   // The closing panel cycles this lesson's own question-shaped step headings.
@@ -270,37 +280,62 @@ export default function LessonPage({
           className={`${container} pb-16 pt-8 md:pt-12 lg:grid lg:grid-cols-[232px_minmax(0,1fr)] lg:gap-14`}
         >
           {/* ---------- Track rail (desktop) ---------- */}
-          <aside className="hidden lg:block" aria-label={`Lessons in ${track.title}`}>
-            <div className="sticky top-24 space-y-4">
+          <aside className="hidden lg:block" aria-label="Lesson navigation">
+            <div className="sticky top-24 -ml-1 max-h-[calc(100dvh-7rem)] space-y-6 overflow-y-auto overscroll-contain pb-4 pl-1 pr-1">
               <Link
                 href={base}
                 className="text-small font-medium text-fg-2 underline-offset-4 hover:text-fg hover:underline"
               >
                 ← All {total} lessons
               </Link>
-              <div>
-                <div className={`${kicker} text-fg-3`}>Track {track.n}</div>
-                <div className="mt-1 text-body font-semibold text-fg">{track.title}</div>
+              <LessonRailToc items={railItems} />
+              <div className="rounded-xl border border-border bg-surface p-4">
+                <div className={`${kicker} text-fg-3`}>Say it out loud</div>
+                <p className="mt-1.5 text-small leading-snug text-fg-2">
+                  Explain this lesson to a voice interviewer and hear where it gets fuzzy.
+                </p>
+                <Link
+                  href="/free-mock-interview"
+                  className="group mt-3 inline-flex min-h-9 items-center gap-2 text-small font-semibold text-signal-strong underline-offset-4 hover:underline"
+                >
+                  <span aria-hidden="true" className="flex h-4 items-center gap-[2px]">
+                    {[0, 1, 2, 3].map((i) => (
+                      <span
+                        key={i}
+                        className="mi-bar mi-bar-brief w-[2px] rounded-full bg-signal"
+                        style={{ animationDelay: `${i * 140}ms` }}
+                      />
+                    ))}
+                  </span>
+                  Free mock interview
+                  <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-base group-hover:translate-x-0.5" />
+                </Link>
               </div>
-              <ol className="space-y-1">
-                {trackLessons.map((l) => {
-                  const current = l.slug === lesson.slug
-                  return (
-                    <li key={l.slug}>
-                      <Link
-                        href={`${base}/${l.slug}`}
-                        aria-current={current ? 'page' : undefined}
-                        className={`flex items-center gap-3 rounded-lg px-2 py-1.5 text-small transition-colors duration-fast ${
-                          current ? 'bg-muted font-semibold text-fg' : 'text-fg-2 hover:bg-muted'
-                        }`}
-                      >
-                        <DoneMark slug={l.slug} n={l.order} storageKey={course.storageKey} />
-                        <span className="min-w-0 leading-snug">{l.title}</span>
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ol>
+              <nav aria-label={`Lessons in ${track.title}`} className="space-y-4">
+                <div>
+                  <div className={`${kicker} text-fg-3`}>Track {track.n}</div>
+                  <div className="mt-1 text-body font-semibold text-fg">{track.title}</div>
+                </div>
+                <ol className="space-y-1">
+                  {trackLessons.map((l) => {
+                    const current = l.slug === lesson.slug
+                    return (
+                      <li key={l.slug}>
+                        <Link
+                          href={`${base}/${l.slug}`}
+                          aria-current={current ? 'page' : undefined}
+                          className={`flex items-center gap-3 rounded-lg px-2 py-1.5 text-small transition-colors duration-fast ${
+                            current ? 'bg-muted font-semibold text-fg' : 'text-fg-2 hover:bg-muted'
+                          }`}
+                        >
+                          <DoneMark slug={l.slug} n={l.order} storageKey={course.storageKey} />
+                          <span className="min-w-0 leading-snug">{l.title}</span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ol>
+              </nav>
             </div>
           </aside>
 

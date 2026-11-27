@@ -38,7 +38,7 @@ const dataAnalyst: RoleSalary = {
   metaTitle: 'Data Analyst Salary in India and the US (2026): 49 Posts',
   metaDescription:
     'Data analyst salary from 49 real job posts: 24 Indian offers in ₹ LPA with monthly in-hand, fresher pay, city medians, 18 big employers and 25 US base ranges.',
-  h1: 'Data Analyst salary: 49 posted offers in India and the US',
+  h1: 'Data Analyst salary: pay at 39 companies in India, 49 posted offers',
   checked: '2026-11-10',
   lead: 'india',
   india: [

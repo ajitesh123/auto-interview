@@ -33,7 +33,7 @@ const aiEngineer: RoleSalary = {
   metaTitle: 'AI Engineer Salary in India and the US (2026): 36 Posts',
   metaDescription:
     'AI engineer pay from 36 real job posts: 19 Indian posts in ₹ LPA with monthly in-hand, 17 US base ranges, plus Levels.fyi medians for Bengaluru and the US.',
-  h1: 'AI Engineer salary: 36 posted offers in India and the US',
+  h1: 'AI Engineer salary: pay at 37 companies in India, 36 posted offers',
   checked: '2026-11-08',
   lead: 'india',
   india: [
