@@ -107,6 +107,15 @@ import AiCallingLawsCheck from './blog/AiCallingLawsCheck'
 import ColdCallingPicker from './blog/ColdCallingPicker'
 import SalesTrainingRoiCalculator from './blog/SalesTrainingRoiCalculator'
 import AiSdrVsHumanCalculator from './blog/AiSdrVsHumanCalculator'
+import SdrRampCalculator from './blog/SdrRampCalculator'
+import {
+  SdrRampStats,
+  SdrRampByRole,
+  SdrRampTraceTable,
+  SdrRampWorked,
+  SdrRampByCountry,
+  SdrRampPlanFlow,
+} from './blog/SdrRampFigures'
 import {
   AiSdrStats,
   AiSdrBreakEven,
@@ -197,6 +206,13 @@ export const components: MDXComponents = {
   ColdCallingPicker,
   SalesTrainingRoiCalculator,
   AiSdrVsHumanCalculator,
+  SdrRampCalculator,
+  SdrRampStats,
+  SdrRampByRole,
+  SdrRampTraceTable,
+  SdrRampWorked,
+  SdrRampByCountry,
+  SdrRampPlanFlow,
   AiSdrStats,
   AiSdrBreakEven,
   AiSdrByCountry,
