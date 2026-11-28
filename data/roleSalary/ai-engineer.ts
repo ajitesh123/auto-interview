@@ -30,9 +30,9 @@ const LF = 'https://www.levels.fyi/companies/'
 const aiEngineer: RoleSalary = {
   slug: 'ai-engineer',
   roleName: 'AI Engineer',
-  metaTitle: 'AI Engineer Salary in India and the US (2026): 36 Posts',
+  metaTitle: 'AI Engineer Salary in India & US (2026): ₹15.8 Lakh Median',
   metaDescription:
-    'AI engineer pay from 36 real job posts: 19 Indian posts in ₹ LPA with monthly in-hand, 17 US base ranges, plus Levels.fyi medians for Bengaluru and the US.',
+    'AI engineer pay: a ₹15.8 lakh median from 5,472 AmbitionBox reports, pay at 37 companies in India, and 36 job posts (19 India, 17 US) with in-hand pay.',
   h1: 'AI Engineer salary: pay at 37 companies in India, 36 posted offers',
   checked: '2026-11-08',
   lead: 'india',

@@ -35,9 +35,9 @@ const LT = 'https://www.levels.fyi/t/data-analyst/'
 const dataAnalyst: RoleSalary = {
   slug: 'data-analyst',
   roleName: 'Data Analyst',
-  metaTitle: 'Data Analyst Salary in India and the US (2026): 49 Posts',
+  metaTitle: 'Data Analyst Salary in India & US (2026): ₹6.9 Lakh Median',
   metaDescription:
-    'Data analyst salary from 49 real job posts: 24 Indian offers in ₹ LPA with monthly in-hand, fresher pay, city medians, 18 big employers and 25 US base ranges.',
+    'Data analyst pay: a ₹6.9 lakh median from 1,50,187 AmbitionBox reports, pay at 39 companies, fresher pay, and 49 job posts (24 India, 25 US) with in-hand pay.',
   h1: 'Data Analyst salary: pay at 39 companies in India, 49 posted offers',
   checked: '2026-11-10',
   lead: 'india',

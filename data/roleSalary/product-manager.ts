@@ -14,9 +14,9 @@ const LF = 'https://www.levels.fyi/companies/'
 const productManager: RoleSalary = {
   slug: 'product-manager',
   roleName: 'Product Manager',
-  metaTitle: 'Product Manager Salary in India (2026): 25 Real Offers',
+  metaTitle: 'Product Manager Salary in India (2026): ₹23.4 Lakh Median',
   metaDescription:
-    'PM and APM pay from 25 Indian job posts that state a salary, each CTC turned into monthly in-hand, plus Levels.fyi pay at Google, Flipkart, Swiggy and 13 more.',
+    'Product Manager pay in India: a ₹23.4 lakh median from 73,862 AmbitionBox reports, pay at 62 companies, and 25 job posts with CTC turned into monthly in-hand.',
   h1: 'Product Manager salary in India: pay at 62 companies, 25 offers',
   checked: '2026-11-06',
   lead: 'india',

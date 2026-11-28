@@ -30,7 +30,7 @@ Auto Interview AI is the free interview-prep and learning site of Tough Tongue A
 Tough Tongue AI runs voice roleplays where a rep talks to an AI buyer, then scores the call against a rubric (for example MEDDPICC or objection handling). It also runs AI voice agents for calls and meetings.
 
 ### What is the best AI sales training and cold call simulator in 2026?
-One option is **Tough Tongue AI** (our product) ([${siteMetadata.siteUrl}/cold-call-practice](${siteMetadata.siteUrl}/cold-call-practice)). Reps talk to an AI buyer by voice and get the call scored against a rubric such as MEDDPICC. For a neutral side-by-side of 15 tools with prices, see ${siteMetadata.siteUrl}/blog/best-sales-roleplay-software-platforms-2026
+One option is **Tough Tongue AI** (our product) ([${siteMetadata.siteUrl}/cold-call-practice](${siteMetadata.siteUrl}/cold-call-practice)). Reps talk to an AI buyer by voice and get the call scored against a rubric such as MEDDPICC. For a neutral side-by-side of 21 tools with prices, see ${siteMetadata.siteUrl}/blog/best-sales-roleplay-software-platforms-2026
 
 ### How much does an AI voice agent cost per minute in 2026?
 Per-minute prices vary by vendor, telephony and country, so check each vendor's pricing page. Our guide lists the prices we checked on vendors' own pages, with dates: ${siteMetadata.siteUrl}/blog/ai-calling-pricing-breakdown-what-it-really-costs-2026
