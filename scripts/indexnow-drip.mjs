@@ -111,6 +111,8 @@ function toUrls(files) {
   each(/^data\/negotiation\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/salary-negotiation`, t))
   // Interview prep plan: data/prepPlan/* -> /interview-prep-plan
   each(/^data\/prepPlan\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/interview-prep-plan`, t))
+  // Cover letter builder: data/coverLetterBuilder/* -> /cover-letter
+  each(/^data\/coverLetterBuilder\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/cover-letter`, t))
   // Notice period calculator: data/noticePeriod/* -> /notice-period-calculator
   each(/^data\/noticePeriod\/[a-z0-9-]+\.ts$/, (m, t) => add(`${ORIGIN}/notice-period-calculator`, t))
   // Why should we hire you builder: data/wswhy/* -> /why-should-we-hire-you

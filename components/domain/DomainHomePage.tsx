@@ -147,8 +147,8 @@ const TOOLS = [
   },
   {
     href: '/cover-letter',
-    title: 'Cover letter templates',
-    body: 'Role-specific letters you can copy, with a checker for the parts recruiters skim.',
+    title: 'Cover letter builder',
+    body: 'Write it part by part, in the right format for email, PDF or a Naukri box, with 10 checks.',
   },
 ]
 

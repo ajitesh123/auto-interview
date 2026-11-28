@@ -61,7 +61,7 @@ export const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { href: '/cv-templates/sales-sdr', label: 'SDR & Sales' },
       { href: '/cv-templates/data-analyst', label: 'Data Analyst' },
       { href: '/cv-templates/fresher', label: 'Fresher & Graduate' },
-      { href: '/cover-letter', label: 'Cover letter samples' },
+      { href: '/cover-letter', label: 'Cover letter builder' },
     ],
   },
   {

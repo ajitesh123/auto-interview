@@ -126,8 +126,8 @@ const STAGES: Stage[] = [
       },
       {
         href: '/cover-letter',
-        title: 'Cover letter samples',
-        body: 'Role-specific letters you can copy, each paragraph labelled by its job.',
+        title: 'Cover letter builder',
+        body: 'Write it part by part in the right format for email, PDF or a Naukri box; 10 checks, Word download, 6 samples.',
       },
       {
         href: '/find-jobs',

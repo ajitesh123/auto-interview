@@ -43,8 +43,8 @@ const allTools: Tool[] = [
     ),
   },
   {
-    title: 'Cover Letter Samples',
-    description: 'Sample cover letters for 10 roles, each with a Word template',
+    title: 'Cover Letter Builder',
+    description: 'Build a cover letter part by part, with 10 checks and a Word download',
     href: '/cover-letter',
     icon: (
       <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
